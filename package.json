@@ -1,0 +1,35 @@
+{
+  "name": "supaluv",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.24.0",
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm dev:web",
+    "dev:web": "pnpm --filter @supaluv/web dev",
+    "build": "pnpm -r --if-present build",
+    "build:web": "pnpm --filter @supaluv/web build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "oxlint apps packages tests tools docs/governance -c ./.oxlintrc.json --react-plugin",
+    "lint:audit": "oxlint apps packages tests tools docs/governance -c ./.oxlintrc.json --react-plugin --jsx-a11y-plugin --vitest-plugin --import-plugin",
+    "format": "oxfmt apps packages tests vitest.config.ts playwright.config.ts --write --ignore-path ./.oxfmtignore",
+    "format:check": "oxfmt apps packages tests vitest.config.ts playwright.config.ts --check --ignore-path ./.oxfmtignore",
+    "test": "vitest run --config vitest.config.ts",
+    "test:e2e": "playwright test --config=playwright.config.ts tests/e2e",
+    "doc-gov": "node tools/doc-gov/dist/cli.js",
+    "governance:check": "pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit",
+    "cloud:check": "pnpm governance:check && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.59.1",
+    "@types/node": "25.6.0",
+    "oxfmt": "^0.44.0",
+    "oxlint": "^1.62.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.5"
+  }
+}

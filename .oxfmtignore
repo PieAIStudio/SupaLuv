@@ -1,0 +1,11 @@
+**/node_modules/**
+**/dist/**
+**/build/**
+**/.vite/**
+coverage/
+playwright-report/
+test-results/
+docs/reference/source-material/**
+pnpm-lock.yaml
+*.min.js
+*.d.ts

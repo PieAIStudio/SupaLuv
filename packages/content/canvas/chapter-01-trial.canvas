@@ -1,0 +1,302 @@
+{
+  "nodes": [
+    {
+      "id": "act1_trial_property_photo",
+      "type": "text",
+      "x": 160,
+      "y": 120,
+      "width": 300,
+      "height": 160,
+      "text": "Property Photo\npurpose: Open the trial pipeline with the breakup logistics photo and message.\nspeaker: 旁白\nmood: stung"
+    },
+    {
+      "id": "act1_trial_office_shame_test",
+      "type": "text",
+      "x": 520,
+      "y": 120,
+      "width": 300,
+      "height": 160,
+      "text": "Office Shame Test\npurpose: Show Su Ming at work testing the shame-response prompt.\nspeaker: 苏明\nmood: shame"
+    },
+    {
+      "id": "act1_trial_coworker_pressure",
+      "type": "text",
+      "x": 880,
+      "y": 120,
+      "width": 300,
+      "height": 160,
+      "text": "Coworker Pressure\npurpose: Introduce outside judgment and workplace noise around the test prompt.\nspeaker: 周骁\nmood: exposed"
+    },
+    {
+      "id": "act1_trial_self_authored_reply",
+      "type": "text",
+      "x": 1240,
+      "y": 120,
+      "width": 300,
+      "height": 160,
+      "text": "Self Authored Reply\npurpose: Mark the moment Su Ming types the one line that lands emotionally.\nspeaker: 苏明\nmood: careful"
+    },
+    {
+      "id": "act1_trial_meeting_sell_safety",
+      "type": "text",
+      "x": 160,
+      "y": 370,
+      "width": 300,
+      "height": 160,
+      "text": "Meeting Sell Safety\npurpose: Compress the meeting into a beat about monetizing being 'received.'\nspeaker: 旁白\nmood: numb"
+    },
+    {
+      "id": "act1_trial_lunch_heat_memory",
+      "type": "text",
+      "x": 520,
+      "y": 370,
+      "width": 300,
+      "height": 160,
+      "text": "Lunch Heat Memory\npurpose: Shift from work pressure into bodily discomfort and old associative shame.\nspeaker: 旁白\nmood: dizzy"
+    },
+    {
+      "id": "act1_trial_forum_hint",
+      "type": "text",
+      "x": 880,
+      "y": 370,
+      "width": 300,
+      "height": 160,
+      "text": "Forum Hint\npurpose: Introduce the companion-device forum as the first visible path into the pipeline.\nspeaker: 周骁\nmood: tempted"
+    },
+    {
+      "id": "act1_trial_property_pickup",
+      "type": "text",
+      "x": 1240,
+      "y": 370,
+      "width": 300,
+      "height": 160,
+      "text": "Property Pickup\npurpose: Show the property desk as an administrative end of the relationship.\nspeaker: 旁白\nmood: sterile"
+    },
+    {
+      "id": "act1_trial_street_aftertaste",
+      "type": "text",
+      "x": 160,
+      "y": 620,
+      "width": 300,
+      "height": 160,
+      "text": "Street Aftertaste\npurpose: Carry the property scene into street nausea, debt reminder, and emotional residue.\nspeaker: 旁白\nmood: sour"
+    },
+    {
+      "id": "act1_trial_rental_return",
+      "type": "text",
+      "x": 520,
+      "y": 620,
+      "width": 300,
+      "height": 160,
+      "text": "Rental Return\npurpose: Move the story back into the old building and shared apartment hallway.\nspeaker: 旁白\nmood: compressed"
+    },
+    {
+      "id": "act1_trial_room_cleanup",
+      "type": "text",
+      "x": 880,
+      "y": 620,
+      "width": 300,
+      "height": 160,
+      "text": "Room Cleanup\npurpose: Reduce the room scene to isolation, messages cleared, and search intent.\nspeaker: 苏明\nmood: lonely"
+    },
+    {
+      "id": "act1_trial_anonymous_forum",
+      "type": "text",
+      "x": 1240,
+      "y": 620,
+      "width": 300,
+      "height": 160,
+      "text": "Anonymous Forum\npurpose: Turn private shame into a cleaner anonymous forum path about buying a machine.\nspeaker: 旁白\nmood: drawn-in"
+    },
+    {
+      "id": "act1_trial_product_page",
+      "type": "text",
+      "x": 160,
+      "y": 870,
+      "width": 300,
+      "height": 160,
+      "text": "Product Page\npurpose: Present the polished sales page and modular pitch without turning it into final copy.\nspeaker: 旁白\nmood: fixated"
+    },
+    {
+      "id": "act1_trial_demo_reply",
+      "type": "text",
+      "x": 520,
+      "y": 870,
+      "width": 300,
+      "height": 160,
+      "text": "Demo Reply\npurpose: Echo the exact line from work through the product demo preview.\nspeaker: 系统演示\nmood: uncanny"
+    },
+    {
+      "id": "act1_trial_order_form",
+      "type": "text",
+      "x": 880,
+      "y": 870,
+      "width": 300,
+      "height": 160,
+      "text": "Order Form\npurpose: Reduce checkout to installment choice, stale emergency contact, and hesitation.\nspeaker: 旁白\nmood: cornered"
+    },
+    {
+      "id": "act1_trial_payment",
+      "type": "text",
+      "x": 1240,
+      "y": 870,
+      "width": 300,
+      "height": 160,
+      "text": "Payment\npurpose: End the trial pipeline on the irreversible payment beat.\nspeaker: 旁白\nmood: committed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "chapter-01-trial-edge-1",
+      "fromNode": "act1_trial_forum_hint",
+      "toNode": "act1_trial_property_pickup",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "查看物业照片"
+    },
+    {
+      "id": "chapter-01-trial-edge-2",
+      "fromNode": "act1_trial_forum_hint",
+      "toNode": "act1_trial_anonymous_forum",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "顺着论坛继续看"
+    },
+    {
+      "id": "chapter-01-trial-edge-3",
+      "fromNode": "act1_trial_anonymous_forum",
+      "toNode": "act1_trial_product_page",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "点进购买链接"
+    },
+    {
+      "id": "chapter-01-trial-edge-4",
+      "fromNode": "act1_trial_anonymous_forum",
+      "toNode": "act1_trial_forum_hint",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "回到论坛提示页"
+    },
+    {
+      "id": "chapter-01-trial-edge-5",
+      "fromNode": "act1_trial_product_page",
+      "toNode": "act1_trial_demo_reply",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "打开演示对话"
+    },
+    {
+      "id": "chapter-01-trial-edge-6",
+      "fromNode": "act1_trial_product_page",
+      "toNode": "act1_trial_anonymous_forum",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "回到论坛参数帖"
+    },
+    {
+      "id": "chapter-01-trial-edge-7",
+      "fromNode": "act1_trial_order_form",
+      "toNode": "act1_trial_payment",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "保留旧联系人并支付"
+    },
+    {
+      "id": "chapter-01-trial-edge-8",
+      "fromNode": "act1_trial_order_form",
+      "toNode": "act1_trial_product_page",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "返回产品页再想想"
+    },
+    {
+      "id": "chapter-01-trial-edge-9",
+      "fromNode": "act1_trial_property_photo",
+      "toNode": "act1_trial_office_shame_test",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-10",
+      "fromNode": "act1_trial_office_shame_test",
+      "toNode": "act1_trial_coworker_pressure",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-11",
+      "fromNode": "act1_trial_coworker_pressure",
+      "toNode": "act1_trial_self_authored_reply",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-12",
+      "fromNode": "act1_trial_self_authored_reply",
+      "toNode": "act1_trial_meeting_sell_safety",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-13",
+      "fromNode": "act1_trial_meeting_sell_safety",
+      "toNode": "act1_trial_lunch_heat_memory",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-14",
+      "fromNode": "act1_trial_lunch_heat_memory",
+      "toNode": "act1_trial_forum_hint",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-15",
+      "fromNode": "act1_trial_property_pickup",
+      "toNode": "act1_trial_street_aftertaste",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-16",
+      "fromNode": "act1_trial_street_aftertaste",
+      "toNode": "act1_trial_rental_return",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-17",
+      "fromNode": "act1_trial_rental_return",
+      "toNode": "act1_trial_room_cleanup",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-18",
+      "fromNode": "act1_trial_room_cleanup",
+      "toNode": "act1_trial_anonymous_forum",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    },
+    {
+      "id": "chapter-01-trial-edge-19",
+      "fromNode": "act1_trial_demo_reply",
+      "toNode": "act1_trial_order_form",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "continue"
+    }
+  ]
+}

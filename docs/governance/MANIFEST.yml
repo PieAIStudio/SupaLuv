@@ -1,0 +1,104 @@
+# docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
+# Regenerate: pnpm doc-gov scan
+generated_at: 2026-05-14T08:45:33.658Z
+generator_version: doc-gov@0.2.0
+docs_count: 14
+docs:
+  - id: ADR-0001
+    path: docs/decisions/ADR-0001-propose-web-first-ink-pixivn-evaluation-supaluv.md
+    type: decision
+    status: proposed
+    canonical: false
+    last_reviewed: 2026-05-13
+    pinned: true
+  - id: GOV-AGENTS-ROUTING-DOC-ONLY-V0-9
+    path: docs/governance/agents-routing/doc-only-v0.9.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-05-09
+    pinned: true
+  - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V0-9
+    path: docs/governance/agents-routing/engineering-runtime-v0.9.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-05-09
+    pinned: true
+  - id: REF-DOC-GOVERNANCE-BOUNDARY
+    path: docs/governance/boundary.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: YYYY-MM-DD
+    pinned: true
+  - id: POLICY-DOC-AGENT-RULES
+    path: docs/governance/doc-agent-rules.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-05-08
+    pinned: true
+  - id: POLICY-DOC-TYPES
+    path: docs/governance/doc-types.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-05-08
+    pinned: true
+  - id: GOV-SSOT-V0-9
+    path: docs/governance/ssot-v0.9.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-05-09
+    pinned: true
+  - id: PLAN-0001
+    path: docs/plans/active/PLAN-0001-react-inkjs-pixivn-spike.md
+    type: plan
+    status: active
+    canonical: true
+    last_reviewed: 2026-05-14
+    pinned: true
+  - id: PLAN-0002
+    path: docs/plans/active/PLAN-0002-chapter-01-trial-pipeline.md
+    type: plan
+    status: active
+    canonical: true
+    last_reviewed: 2026-05-14
+    pinned: false
+  - id: POLICY-PROJECT-BEST-PRACTICE
+    path: docs/policy/best-practice-for-this-project.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-05-13
+    pinned: true
+  - id: REF-DOCUMENTATION-MAP
+    path: docs/reference/documentation-map.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-05-14
+    pinned: false
+  - id: REF-CURRENT-WORK
+    path: docs/reference/execution/current-work.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-05-14
+    pinned: true
+  - id: REF-SUPALUV-INTERACTIVE-CINEMA-DISCUSSION-BRIEF
+    path: docs/reference/strategy/supaluv-interactive-cinema-discussion-brief.md
+    type: reference
+    status: draft
+    canonical: false
+    last_reviewed: 2026-05-13
+    pinned: false
+  - id: SPEC-0001
+    path: docs/specs/active/SPEC-0001-chapter-01-trial-pipeline.md
+    type: spec
+    status: active
+    canonical: true
+    last_reviewed: 2026-05-14
+    pinned: false

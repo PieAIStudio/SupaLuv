@@ -1,0 +1,28 @@
+# Dependencies and package manager state
+node_modules/
+.pnpm-store/
+
+# Build outputs and caches
+dist/
+build/
+.vite/
+coverage/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Test and browser artifacts
+test-results/
+playwright-report/
+.playwright-mcp/
+
+# Logs and local OS/editor noise
+*.log
+.DS_Store
+.codex/
+.worktrees/
+
+# Deployment metadata
+.vercel/
