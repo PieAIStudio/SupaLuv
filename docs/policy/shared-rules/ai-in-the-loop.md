@@ -1,1 +1,1 @@
-/Users/yuanfei/Library/CloudStorage/OneDrive-Personal/MyProjectRules/ai-in-the-loop.md
+/Users/yuanfei/PieAI/ProjectGovernanceSystem/agent-assets/rules/pie-rules/ai-in-the-loop.md
