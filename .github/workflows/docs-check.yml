@@ -1,0 +1,59 @@
+name: docs-check
+
+on:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "GEMINI.md"
+      - "README.md"
+      - "docs/**"
+      - "lefthook.yml"
+      - ".github/workflows/docs-check.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
+  push:
+    branches:
+      - main
+    paths:
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "GEMINI.md"
+      - "README.md"
+      - "docs/**"
+      - "lefthook.yml"
+      - ".github/workflows/docs-check.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
+
+jobs:
+  doc-gov:
+    name: doc-gov
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate router and entry files
+        run: pnpm doc-gov router-check
+
+      - name: Validate governed docs
+        run: pnpm doc-gov check
+
+      - name: Validate manifest freshness
+        run: pnpm doc-gov scan --check
+
+      - name: Validate links
+        run: pnpm doc-gov links
+
+      - name: Audit docs
+        run: pnpm doc-gov audit

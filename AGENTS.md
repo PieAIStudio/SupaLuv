@@ -17,7 +17,8 @@
 
 Before main work, read:
 
-1. All Markdown files directly under `docs/policy/`.
+1. All Markdown files under `docs/policy/**/*.md`, including files in
+   subdirectories and symlinked shared-rule files.
 2. `docs/governance/boundary.md`.
 3. `docs/governance/ssot-v0.9.md`.
 4. `docs/governance/doc-agent-rules.md`.
@@ -32,7 +33,7 @@ Before main work, read:
 - Governed Markdown lives under `docs/**` by default.
 - Product artifacts outside `docs/**` are not governed docs unless SupaLuv explicitly opts them in.
 - Before creating governed docs: `pnpm doc-gov find <topic>`.
-- Before claiming doc work complete: `pnpm governance:check` and `git diff --check`.
+- Before claiming doc work complete: `pnpm docs:check` and `git diff --check`.
 - Do not create legacy root governance, routing, draft-dump, temp, AI-name, or non-root README documentation surfaces.
 
 ## Routing
@@ -82,7 +83,7 @@ Runtime source/config wins for executable behavior after code exists; docs expla
 Use the smallest sufficient set, but know the current ladder:
 
 ```bash
-pnpm governance:check
+pnpm docs:check
 git diff --check
 ```
 
@@ -93,4 +94,7 @@ browser proof, AI safety samples, and platform build checks.
 
 ## Upstream Rule
 
-Do not locally invent doc-gov core changes such as new document statuses, frontmatter schema, lifecycle rules, shared agents-routing rules, or shared AI rules. If such a change seems necessary, propose it upstream in `/Users/yuanfei/PieAI/project-governance-system` first.
+Do not locally invent doc-gov core changes such as new document statuses,
+frontmatter schema, lifecycle rules, shared agents-routing rules, or shared AI
+rules. If such a change seems necessary, propose it in the Project Governance
+System upstream repository first.
