@@ -5,7 +5,6 @@ on:
     paths:
       - "AGENTS.md"
       - "CLAUDE.md"
-      - "GEMINI.md"
       - "README.md"
       - "docs/**"
       - "lefthook.yml"
@@ -18,7 +17,6 @@ on:
     paths:
       - "AGENTS.md"
       - "CLAUDE.md"
-      - "GEMINI.md"
       - "README.md"
       - "docs/**"
       - "lefthook.yml"

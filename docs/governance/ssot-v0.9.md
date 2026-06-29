@@ -71,7 +71,7 @@ Extra governed roots are allowed only when a project explicitly opts in.
 
 Before changing docs, look for project-local guidance in this order:
 
-1. `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, or equivalent AI router.
+1. `AGENTS.md`, `CLAUDE.md`, or equivalent AI router.
 2. `docs/governance/boundary.md`.
 3. `docs/governance/ssot-v0.9.md`.
 4. `docs/governance/agents-routing/` and the project's selected agents-routing file.
