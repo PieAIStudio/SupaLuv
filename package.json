@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@11.9.0",
   "engines": {
-    "node": ">=22.12.0",
-    "pnpm": ">=10.0.0"
+    "node": ">=24 <25",
+    "pnpm": ">=11.9.0 <12"
   },
   "scripts": {
     "dev": "pnpm dev:web",
@@ -31,7 +31,7 @@
     "@pieai/doc-gov": "0.3.5",
     "@pieai/pro-gov": "0.3.5",
     "@playwright/test": "1.59.1",
-    "@types/node": "25.6.0",
+    "@types/node": "24.13.2",
     "lefthook": "2.1.9",
     "oxfmt": "^0.44.0",
     "oxlint": "^1.62.0",
