@@ -1,0 +1,1 @@
+/Users/yuanfei/PieAI/ProjectGovernanceSystem/agent-assets/rules/pie-rules/clean-image-generation-rules.md

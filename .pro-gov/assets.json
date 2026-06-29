@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "host": "codex",
+  "placement": "registry",
+  "bundleIds": [
+    "base-governance",
+    "frontend-app",
+    "project-lens"
+  ],
+  "assetIds": [
+    "npx-skills/browser-automation",
+    "npx-skills/frontend-design",
+    "npx-skills/ui-ux-pro-max",
+    "npx-skills/vitest-midscene-e2e",
+    "npx-skills/web-artifacts-builder",
+    "pie-commands/generate-handover",
+    "pie-rules/ai-in-the-loop",
+    "pie-rules/clean-image-generation-rules",
+    "pie-rules/rule-evolution-methodology",
+    "pie-skills/doc-cross-validator",
+    "pie-skills/project-architecture-lens",
+    "pie-skills/screenwalk",
+    "pie-skills/truth-surface-audit"
+  ]
+}

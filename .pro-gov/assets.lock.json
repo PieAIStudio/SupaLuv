@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "host": "codex",
+  "placement": "registry",
+  "bundleIds": [
+    "base-governance",
+    "frontend-app",
+    "project-lens"
+  ],
+  "assets": [
+    {
+      "id": "npx-skills/browser-automation",
+      "sourcePath": "skills/npx-skills/.agents/skills/browser-automation",
+      "contentHash": "sha256:4699d42b7dbf4e90c59e3b23091e965b243567532caa83e9689d291106e663e1",
+      "targetPath": ".agents/skills/browser-automation"
+    },
+    {
+      "id": "npx-skills/frontend-design",
+      "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
+      "contentHash": "sha256:665c585455decbcb02116bc928adf5148b9cd0f67b7eb4908c8c0d647c00f68a",
+      "targetPath": ".agents/skills/frontend-design"
+    },
+    {
+      "id": "npx-skills/ui-ux-pro-max",
+      "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
+      "contentHash": "sha256:85c9f4be22f7af5d0c9be911087b6ec341dc1e24fe8d5b98cb44eb89f1271649",
+      "targetPath": ".agents/skills/ui-ux-pro-max"
+    },
+    {
+      "id": "npx-skills/vitest-midscene-e2e",
+      "sourcePath": "skills/npx-skills/.agents/skills/vitest-midscene-e2e",
+      "contentHash": "sha256:e8277769eae8a9b030c6bed953c272ebe99917e253a852100d7ffd4e67534a24",
+      "targetPath": ".agents/skills/vitest-midscene-e2e"
+    },
+    {
+      "id": "npx-skills/web-artifacts-builder",
+      "sourcePath": "skills/npx-skills/.agents/skills/web-artifacts-builder",
+      "contentHash": "sha256:0f102ba19f13b4deb19f2248a5014952d2af1521129a5a0e4f3d805f74632b75",
+      "targetPath": ".agents/skills/web-artifacts-builder"
+    },
+    {
+      "id": "pie-commands/generate-handover",
+      "sourcePath": "commands/pie-commands/generate-handover.md",
+      "contentHash": "sha256:e25bfe96f9a7f9090f30bce9a817704ecfa037748695eea194b4142a640073fa",
+      "targetPath": ".pro-gov/agent-assets/commands/generate-handover.md"
+    },
+    {
+      "id": "pie-rules/ai-in-the-loop",
+      "sourcePath": "rules/pie-rules/ai-in-the-loop.md",
+      "contentHash": "sha256:045f9dcd0b1425155a89c863d24ba1509dee4e1e572f23f27fb7fe6f201874ec",
+      "targetPath": ".pro-gov/agent-assets/rules/ai-in-the-loop.md"
+    },
+    {
+      "id": "pie-rules/clean-image-generation-rules",
+      "sourcePath": "rules/pie-rules/clean-image-generation-rules.md",
+      "contentHash": "sha256:d77fc3823e7406036550b0b13a921e4c5a579011a5023ecaacfd2fb6fa456b86",
+      "targetPath": ".pro-gov/agent-assets/rules/clean-image-generation-rules.md"
+    },
+    {
+      "id": "pie-rules/rule-evolution-methodology",
+      "sourcePath": "rules/pie-rules/rule-evolution-methodology.md",
+      "contentHash": "sha256:694758a2f3ce15ffc9f38c5a0e6fe6696bfb8128b952afec6c0963cc803f5b9c",
+      "targetPath": ".pro-gov/agent-assets/rules/rule-evolution-methodology.md"
+    },
+    {
+      "id": "pie-skills/doc-cross-validator",
+      "sourcePath": "skills/pie-skills/doc-cross-validator",
+      "contentHash": "sha256:8aadfc76f9c660ca42ac1dc2c2b25119f8f8328fcf759adb35f9106969411ab4",
+      "targetPath": ".agents/skills/doc-cross-validator"
+    },
+    {
+      "id": "pie-skills/project-architecture-lens",
+      "sourcePath": "skills/pie-skills/project-architecture-lens",
+      "contentHash": "sha256:429bc91ac2ecc1a6eb60c9c78e7bafad028adb4bdee5c7933b0243b4e887acaf",
+      "targetPath": ".agents/manual-skills/project-architecture-lens"
+    },
+    {
+      "id": "pie-skills/screenwalk",
+      "sourcePath": "skills/pie-skills/screenwalk",
+      "contentHash": "sha256:371fc77529d741a8cfd91ce0d2651132042580782d82c81b72ee6058ec9317dc",
+      "targetPath": ".agents/skills/screenwalk"
+    },
+    {
+      "id": "pie-skills/truth-surface-audit",
+      "sourcePath": "skills/pie-skills/truth-surface-audit",
+      "contentHash": "sha256:a2804712f3d8b4354a848ef3b8f440ec495f3b510d15d5080c05708f45382c7c",
+      "targetPath": ".agents/manual-skills/truth-surface-audit"
+    }
+  ]
+}
