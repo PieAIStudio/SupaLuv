@@ -1,1 +1,1 @@
-/Users/yuanfei/PieAI/ProjectGovernanceSystem/agent-assets/rules/pie-rules/rule-evolution-methodology.md
+../../../../ProjectGovernanceSystem/agent-assets/rules/pie-rules/rule-evolution-methodology.md

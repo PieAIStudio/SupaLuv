@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@pieai/doc-gov':
-        specifier: 0.3.5
-        version: 0.3.5
+        specifier: 0.3.7
+        version: 0.3.7
       '@pieai/pro-gov':
-        specifier: 0.3.5
-        version: 0.3.5
+        specifier: 0.3.7
+        version: 0.3.7
       '@playwright/test':
         specifier: 1.59.1
         version: 1.59.1
@@ -498,14 +498,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@pieai/doc-gov@0.3.5':
-    resolution: {integrity: sha512-ArOxSj99p/ND5lTqgtyC90Oz0i08AB+M4WHmpTY78cxS/nios3vzU7ugPVbBKdrMLfL+krW3EigyMqqycYSmug==}
-    engines: {node: '>=22.12.0'}
+  '@pieai/doc-gov@0.3.7':
+    resolution: {integrity: sha512-+JBjoHJUHS0FDhDMVYP+21Y9AOr0/sHVYLbPoQcZqgYtI1XEg9DohRFTGxBR2WzoFKIIyZazi1UesKTcw9Jqgw==}
+    engines: {node: '>=24 <25'}
     hasBin: true
 
-  '@pieai/pro-gov@0.3.5':
-    resolution: {integrity: sha512-JrQ9C5zSZNHA70p6ewCEIrENeSwBW4WCqWQ8bmvpjdtmMeAzNBWwep1b5sqKi6ktgErrcgLua3QT4QGUDLM9ZA==}
-    engines: {node: '>=22.12.0'}
+  '@pieai/pro-gov@0.3.7':
+    resolution: {integrity: sha512-/YSZwUB20MDWNpnurxX8JTnC2wqMbihBQ14Ocfl6rysgxv/uIcqYIY/iprpCcuI+2BAeaJMHZs4Tmzcb+vsAlg==}
+    engines: {node: '>=24 <25'}
     hasBin: true
 
   '@playwright/test@1.59.1':
@@ -1303,11 +1303,11 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.64.0':
     optional: true
 
-  '@pieai/doc-gov@0.3.5': {}
+  '@pieai/doc-gov@0.3.7': {}
 
-  '@pieai/pro-gov@0.3.5':
+  '@pieai/pro-gov@0.3.7':
     dependencies:
-      '@pieai/doc-gov': 0.3.5
+      '@pieai/doc-gov': 0.3.7
 
   '@playwright/test@1.59.1':
     dependencies:

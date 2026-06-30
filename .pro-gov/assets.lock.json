@@ -77,7 +77,7 @@
     {
       "id": "pie-skills/screenwalk",
       "sourcePath": "skills/pie-skills/screenwalk",
-      "contentHash": "sha256:371fc77529d741a8cfd91ce0d2651132042580782d82c81b72ee6058ec9317dc",
+      "contentHash": "sha256:4d2ccbffdba26191cfc1b64d4f070c351f34a729e9ffb28c7dca00759a4837f7",
       "targetPath": ".agents/skills/screenwalk"
     },
     {
