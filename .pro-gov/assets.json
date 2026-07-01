@@ -4,8 +4,7 @@
   "placement": "registry",
   "bundleIds": [
     "base-governance",
-    "frontend-app",
-    "project-lens"
+    "frontend-app"
   ],
   "assetIds": [
     "npx-skills/browser-automation",
@@ -18,8 +17,6 @@
     "pie-rules/clean-image-generation-rules",
     "pie-rules/rule-evolution-methodology",
     "pie-skills/doc-cross-validator",
-    "pie-skills/project-architecture-lens",
-    "pie-skills/screenwalk",
-    "pie-skills/truth-surface-audit"
+    "pie-skills/screenwalk"
   ]
 }

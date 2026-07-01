@@ -4,8 +4,7 @@
   "placement": "registry",
   "bundleIds": [
     "base-governance",
-    "frontend-app",
-    "project-lens"
+    "frontend-app"
   ],
   "assets": [
     {
@@ -69,22 +68,10 @@
       "targetPath": ".agents/skills/doc-cross-validator"
     },
     {
-      "id": "pie-skills/project-architecture-lens",
-      "sourcePath": "skills/pie-skills/project-architecture-lens",
-      "contentHash": "sha256:429bc91ac2ecc1a6eb60c9c78e7bafad028adb4bdee5c7933b0243b4e887acaf",
-      "targetPath": ".agents/manual-skills/project-architecture-lens"
-    },
-    {
       "id": "pie-skills/screenwalk",
       "sourcePath": "skills/pie-skills/screenwalk",
       "contentHash": "sha256:4d2ccbffdba26191cfc1b64d4f070c351f34a729e9ffb28c7dca00759a4837f7",
       "targetPath": ".agents/skills/screenwalk"
-    },
-    {
-      "id": "pie-skills/truth-surface-audit",
-      "sourcePath": "skills/pie-skills/truth-surface-audit",
-      "contentHash": "sha256:a2804712f3d8b4354a848ef3b8f440ec495f3b510d15d5080c05708f45382c7c",
-      "targetPath": ".agents/manual-skills/truth-surface-audit"
     }
   ]
 }
