@@ -28,8 +28,8 @@
     "cloud:check": "pnpm governance:check && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
-    "@pieai/doc-gov": "0.3.11",
-    "@pieai/pro-gov": "0.3.11",
+    "@pieai/doc-gov": "0.3.12",
+    "@pieai/pro-gov": "0.3.12",
     "@playwright/test": "1.59.1",
     "@types/node": "24.13.2",
     "lefthook": "2.1.9",
