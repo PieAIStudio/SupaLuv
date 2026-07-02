@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$(git rev-parse --show-toplevel)\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host antigravity --event Stop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then pnpm --silent --filter @pieai/pro-gov dev host-hook --host antigravity --event Stop; else npx --no-install @pieai/pro-gov host-hook --host antigravity --event Stop; fi",
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && if [ -x ./node_modules/.bin/pro-gov ]; then PGS_HOST_HOOK_DEBUG=1 ./node_modules/.bin/pro-gov host-hook --host antigravity --event Stop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then PGS_HOST_HOOK_DEBUG=1 pnpm --silent --filter @pieai/pro-gov dev host-hook --host antigravity --event Stop; else PGS_HOST_HOOK_DEBUG=1 npx --no-install @pieai/pro-gov host-hook --host antigravity --event Stop; fi",
             "timeout": 30
           }
         ]
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$(git rev-parse --show-toplevel)\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host antigravity --event SubagentStop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then pnpm --silent --filter @pieai/pro-gov dev host-hook --host antigravity --event SubagentStop; else npx --no-install @pieai/pro-gov host-hook --host antigravity --event SubagentStop; fi",
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && if [ -x ./node_modules/.bin/pro-gov ]; then PGS_HOST_HOOK_DEBUG=1 ./node_modules/.bin/pro-gov host-hook --host antigravity --event SubagentStop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then PGS_HOST_HOOK_DEBUG=1 pnpm --silent --filter @pieai/pro-gov dev host-hook --host antigravity --event SubagentStop; else PGS_HOST_HOOK_DEBUG=1 npx --no-install @pieai/pro-gov host-hook --host antigravity --event SubagentStop; fi",
             "timeout": 30
           }
         ]
