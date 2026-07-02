@@ -1,0 +1,26 @@
+{
+  "pgs-compound-gate": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host antigravity --event Stop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then pnpm --silent --filter @pieai/pro-gov dev host-hook --host antigravity --event Stop; else npx --no-install @pieai/pro-gov host-hook --host antigravity --event Stop; fi",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host antigravity --event SubagentStop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then pnpm --silent --filter @pieai/pro-gov dev host-hook --host antigravity --event SubagentStop; else npx --no-install @pieai/pro-gov host-hook --host antigravity --event SubagentStop; fi",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

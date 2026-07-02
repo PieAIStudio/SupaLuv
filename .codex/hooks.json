@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host codex --event Stop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then pnpm --silent --filter @pieai/pro-gov dev host-hook --host codex --event Stop; else npx --no-install @pieai/pro-gov host-hook --host codex --event Stop; fi",
+            "timeout": 30,
+            "statusMessage": "Checking PGS Compound Gate"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host codex --event SubagentStop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then pnpm --silent --filter @pieai/pro-gov dev host-hook --host codex --event SubagentStop; else npx --no-install @pieai/pro-gov host-hook --host codex --event SubagentStop; fi",
+            "timeout": 30,
+            "statusMessage": "Checking PGS subagent Compound Gate"
+          }
+        ]
+      }
+    ]
+  }
+}
