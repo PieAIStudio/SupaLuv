@@ -50,6 +50,17 @@ Markdown.
 
 Extra governed roots are allowed only when a project explicitly opts in.
 
+Compound Engineering external artifacts are explicitly outside the default Doc
+Gov schema:
+
+- `docs/solutions/**`
+- `docs/brainstorms/**`
+- `docs/pulse-reports/**`
+- CE-native root artifacts under `docs/plans/*`
+
+PGS plans remain under `docs/plans/active/**` and
+`docs/plans/completed/**`.
+
 ## Core Behavior
 
 - **Discover before editing**: first identify the project's actual documentation
@@ -71,7 +82,7 @@ Extra governed roots are allowed only when a project explicitly opts in.
 
 Before changing docs, look for project-local guidance in this order:
 
-1. `AGENTS.md`, `CLAUDE.md`, or equivalent AI router.
+1. `AGENTS.md`, `CLAUDE.md`, or equivalent AI router/config adapter.
 2. `docs/governance/boundary.md`.
 3. `docs/governance/ssot-v0.9.md`.
 4. `docs/governance/agents-routing/` and the project's selected agents-routing file.
@@ -100,12 +111,13 @@ works for governed docs:
 
 | Need | Usually belongs in |
 | --- | --- |
-| AI entry and startup routing | `AGENTS.md` plus host-specific forwarders |
+| AI entry and startup routing | `AGENTS.md` plus thin host-specific adapters such as `CLAUDE.md` |
 | Agents-routing rules | `docs/governance/agents-routing/` |
 | Doc-system rules, templates, and manifest | `docs/governance/` |
 | Project AI/development policy | `docs/policy/` |
 | Product or feature requirement | `docs/specs/` |
 | Step-by-step implementation work | `docs/plans/` |
+| Compound Engineering learning records | `docs/solutions/**`, governed by CE schema |
 | Durable workspace/system truth | `docs/canon/` |
 | How-to guides, architecture maps, tool notes | `docs/reference/` |
 | Retired governed history | `docs/archive/` |

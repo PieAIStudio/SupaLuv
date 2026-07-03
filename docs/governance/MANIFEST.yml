@@ -1,7 +1,7 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-01T11:26:36.960Z
-generator_version: doc-gov@0.3.8
+generated_at: 2026-07-03T03:14:48.042Z
+generator_version: doc-gov@0.3.16
 docs_count: 14
 docs:
   - id: ADR-0001
@@ -30,14 +30,14 @@ docs:
     type: reference
     status: stable
     canonical: true
-    last_reviewed: YYYY-MM-DD
+    last_reviewed: 2026-05-08
     pinned: true
   - id: POLICY-DOC-AGENT-RULES
     path: docs/governance/doc-agent-rules.md
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-05-08
+    last_reviewed: 2026-06-12
     pinned: true
   - id: POLICY-DOC-TYPES
     path: docs/governance/doc-types.md

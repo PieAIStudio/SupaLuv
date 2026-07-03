@@ -6,7 +6,7 @@ status: stable
 canonical: true
 owner: project
 created: 2026-05-08
-last_reviewed: 2026-05-08
+last_reviewed: 2026-06-12
 domain: doc-governance
 tags:
   - doc-gov
@@ -67,4 +67,5 @@ proposed -> accepted -> rejected | superseded
 
 ## Upstream Rule
 
-Do not locally invent doc-gov core changes. Propose core changes upstream in `project-governance-system`.
+Do not locally invent doc-gov core changes. Propose core changes upstream in
+the Project Governance System upstream repository.

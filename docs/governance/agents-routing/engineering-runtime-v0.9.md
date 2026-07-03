@@ -74,5 +74,5 @@ This route runs before external workflow systems such as Superpowers or GStack.
 Those systems may provide skills, reviews, browser workflows, or shipping gates,
 but they execute **inside** the lane selected by this route.
 
-Host-specific files such as `CLAUDE.md` may adapt the route for a specific AI
+Host-specific adapters such as `CLAUDE.md` may adapt the route for a specific AI
 client, but they must not replace the project `AGENTS.md` route.

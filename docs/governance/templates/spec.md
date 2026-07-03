@@ -21,4 +21,3 @@ related: []
 ## Requirements
 
 ## Acceptance
-
