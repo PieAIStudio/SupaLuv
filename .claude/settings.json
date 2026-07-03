@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host claude-code --event Stop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then pnpm --silent --filter @pieai/pro-gov dev host-hook --host claude-code --event Stop; else npx --no-install @pieai/pro-gov host-hook --host claude-code --event Stop; fi",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host claude-code --event Stop; elif [ -f packages/pro-gov/src/cli.ts ] && { command -v corepack >/dev/null 2>&1 || command -v pnpm >/dev/null 2>&1; }; then pgs_pnpm() { if command -v corepack >/dev/null 2>&1; then corepack pnpm \"$@\"; else pnpm \"$@\"; fi; }; pgs_pnpm --silent --filter @pieai/pro-gov dev host-hook --host claude-code --event Stop; else npx --no-install @pieai/pro-gov host-hook --host claude-code --event Stop; fi",
             "timeout": 30
           }
         ]
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host claude-code --event SubagentStop; elif [ -f packages/pro-gov/src/cli.ts ] && command -v pnpm >/dev/null 2>&1; then pnpm --silent --filter @pieai/pro-gov dev host-hook --host claude-code --event SubagentStop; else npx --no-install @pieai/pro-gov host-hook --host claude-code --event SubagentStop; fi",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\" && if [ -x ./node_modules/.bin/pro-gov ]; then ./node_modules/.bin/pro-gov host-hook --host claude-code --event SubagentStop; elif [ -f packages/pro-gov/src/cli.ts ] && { command -v corepack >/dev/null 2>&1 || command -v pnpm >/dev/null 2>&1; }; then pgs_pnpm() { if command -v corepack >/dev/null 2>&1; then corepack pnpm \"$@\"; else pnpm \"$@\"; fi; }; pgs_pnpm --silent --filter @pieai/pro-gov dev host-hook --host claude-code --event SubagentStop; else npx --no-install @pieai/pro-gov host-hook --host claude-code --event SubagentStop; fi",
             "timeout": 30
           }
         ]
