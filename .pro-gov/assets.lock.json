@@ -227,7 +227,7 @@
     {
       "id": "npx-skills/wayfinder",
       "sourcePath": "skills/npx-skills/.agents/skills/wayfinder",
-      "contentHash": "sha256:622677698c5e28fcb50614575a8d45da813fc8fc76943e40c88bd7826eccd067",
+      "contentHash": "sha256:6717b242f05957fdab5a55ddbb0ab2be5d1715866c3b52768e79dcfd1bc6e8c9",
       "targetPath": ".agents/skills/wayfinder"
     },
     {
@@ -267,10 +267,10 @@
       "targetPath": ".agents/skills/writing-shape"
     },
     {
-      "id": "pie-commands/generate-handover",
-      "sourcePath": "commands/pie-commands/generate-handover.md",
-      "contentHash": "sha256:e25bfe96f9a7f9090f30bce9a817704ecfa037748695eea194b4142a640073fa",
-      "targetPath": ".pro-gov/agent-assets/commands/generate-handover.md"
+      "id": "pie-commands/generate-handoff",
+      "sourcePath": "commands/pie-commands/generate-handoff.md",
+      "contentHash": "sha256:438266546b6e4880a83b681684b47e2515f82a9c6f49dacf0a22809db0c8815d",
+      "targetPath": ".pro-gov/agent-assets/commands/generate-handoff.md"
     },
     {
       "id": "pie-rules/ai-in-the-loop",
