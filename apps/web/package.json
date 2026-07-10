@@ -10,14 +10,18 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@pieai/swimmer-ui-kit": "1.0.0",
+    "@pieai/swimmer-ui-kit": "file:../../vendor/pieai-swimmer-ui-kit-1.0.1-c5c8a8a.tgz",
+    "@supabase/supabase-js": "2.108.1",
     "@supaluv/content": "workspace:*",
     "@supaluv/shared": "workspace:*",
+    "howler": "2.2.4",
     "inkjs": "2.4.0",
+    "posthog-js": "^1.399.0",
     "react": "19.2.5",
     "react-dom": "19.2.5"
   },
   "devDependencies": {
+    "@types/howler": "2.2.12",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",

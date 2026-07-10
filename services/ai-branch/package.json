@@ -1,0 +1,22 @@
+{
+  "name": "@supaluv/ai-branch",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@mastra/core": "^1.50.1",
+    "@pieai/swimmer-ai-kit": "file:../../vendor/pieai-swimmer-ai-kit-0.2.0-f44601f.tgz",
+    "@supabase/supabase-js": "2.108.1",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.2",
+    "tsx": "4.20.5",
+    "typescript": "6.0.3"
+  }
+}

@@ -11,6 +11,8 @@
   "scripts": {
     "dev": "pnpm dev:web",
     "dev:web": "pnpm --filter @supaluv/web dev",
+    "dev:ai": "pnpm --filter @supaluv/ai-branch dev",
+    "dev:full": "pnpm --parallel --filter @supaluv/web --filter @supaluv/ai-branch dev",
     "build": "pnpm -r --if-present build",
     "build:web": "pnpm --filter @supaluv/web build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -18,6 +20,7 @@
     "lint:audit": "oxlint apps packages tests tools docs/governance -c ./.oxlintrc.json --react-plugin --jsx-a11y-plugin --vitest-plugin --import-plugin",
     "format": "oxfmt apps packages tests vitest.config.ts playwright.config.ts --write --ignore-path ./.oxfmtignore",
     "format:check": "oxfmt apps packages tests vitest.config.ts playwright.config.ts --check --ignore-path ./.oxfmtignore",
+    "assets:check": "awk -F, 'NR > 1 { print $3 \"  \" $2 }' packages/content/assets/RUNTIME-ASSET-LEDGER.csv | shasum -a 256 -c -",
     "test": "vitest run --config vitest.config.ts",
     "test:e2e": "playwright test --config=playwright.config.ts tests/e2e",
     "prepare": "lefthook install",
@@ -25,7 +28,7 @@
     "pro-gov": "pro-gov",
     "docs:check": "pnpm pro-gov doctor && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor",
     "governance:check": "pnpm docs:check",
-    "cloud:check": "pnpm governance:check && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+    "cloud:check": "pnpm governance:check && pnpm format:check && pnpm lint && pnpm assets:check && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
     "@pieai/doc-gov": "0.4.0",
