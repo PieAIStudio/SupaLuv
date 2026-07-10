@@ -6,7 +6,7 @@ status: stable
 canonical: true
 owner: project
 created: 2026-05-13
-last_reviewed: 2026-05-13
+last_reviewed: 2026-07-10
 domain: project-policy
 tags:
   - project-policy
@@ -18,6 +18,7 @@ related:
   - POLICY-DOC-TYPES
   - REF-SUPALUV-INTERACTIVE-CINEMA-DISCUSSION-BRIEF
   - ADR-0001
+  - ADR-0004
 supersedes: []
 superseded_by: null
 ---
@@ -72,9 +73,12 @@ These choices are current candidates, not final architecture.
   return node, and a safety policy.
 - User free text must be treated as user-generated input and moderated before
   it affects generated content.
-- Adult material must stay in adult black comedy and AI intimacy ethics. Do not
-  write pornographic detail, non-consensual material, or sexual gratification as
-  the product purpose.
+- Adult material is **sex comedy / black humor comedy / AI intimacy ethics**
+  (ADR-0004; matches public site energy). Spicy jokes, awkward desire, and
+  sex-adjacent young-audience beats are **in-scope and expected** when not dirty.
+  Do **not** reframe as romance, rom-com, or sweet “believe in love” pairing.
+  Do not ship explicit nude cutscenes, non-consensual material, or free-form
+  porn generation as the product purpose.
 
 ## Asset Rules
 

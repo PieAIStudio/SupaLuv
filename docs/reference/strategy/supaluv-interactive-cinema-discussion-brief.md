@@ -55,7 +55,7 @@ AI-assisted interactive cinema / visual-novel-like game without accidentally
 becoming:
 
 - a Supa card-game mode;
-- a generic porn or AI sex companion product;
+- a free-form porn generator or AI sex companion product;
 - an overbuilt custom engine project;
 - a platform-porting project before the story experience is proven;
 - a many-pipeline AI production trap where art, TTS, BGM, video, translation,
@@ -89,7 +89,7 @@ It is still a hypothesis. The next revision pass should actively challenge it.
 SupaLuv is currently being framed as:
 
 - an independent game based on 超级爱人;
-- a non-explicit adult black comedy about shame, loneliness, objectification,
+- an adult sex comedy / black comedy about shame, loneliness, objectification,
   intimacy, and AI personhood;
 - an interactive cinema / visual-novel-like experience;
 - a product that may later publish on Web, desktop, Steam, Android, iOS, or be
@@ -108,7 +108,7 @@ Important wording boundary:
 
 - Do not promise that the game is "PG-13" unless the actual script and platform
   rating process support that claim.
-- Use "non-explicit adult black comedy" as the safer working description.
+- Use "adult black humor / sex comedy (not romance; no free-form porn generator; no explicit nude gen goal)" as the working description (ADR-0004 + public site energy).
 - Store pages and content surveys must disclose adult themes and AI use
   honestly, even when the shipped scenes avoid explicit depiction.
 

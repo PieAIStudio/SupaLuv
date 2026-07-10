@@ -6,18 +6,20 @@ status: active
 canonical: true
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-05-14
+last_reviewed: 2026-07-10
 domain: meta
 tags:
   - navigation
   - supaluv
 pinned: false
 related:
+  - REF-CURRENT-WORK
   - REF-SUPALUV-INTERACTIVE-CINEMA-DISCUSSION-BRIEF
   - ADR-0001
   - PLAN-0001
-  - SPEC-0001
   - PLAN-0002
+  - PLAN-0003
+  - SPEC-0001
 ---
 
 # SupaLuv Documentation Map
@@ -29,12 +31,8 @@ This is a human and AI map of the governed document shelves. It is not the AI st
 Use `AGENTS.md` for startup reading. It should point agents to:
 
 - `docs/policy/*.md`
-- `docs/governance/boundary.md`
-- `docs/governance/ssot-v0.9.md`
-- `docs/governance/doc-agent-rules.md`
-- `docs/governance/doc-types.md`
-- `docs/governance/agents-routing/<selected-profile>-v0.9.md`
-- `docs/reference/execution/current-work.md` when present
+- `docs/governance/*` core files listed in `AGENTS.md`
+- `docs/reference/execution/current-work.md` (**execution truth index**)
 
 ## Areas
 
@@ -49,13 +47,11 @@ Use `AGENTS.md` for startup reading. It should point agents to:
 | `docs/canon/` | Durable project truth |
 | `docs/reference/` | Guides and references |
 | `docs/archive/` | Retired history |
-| `docs/governance/` | Governance core rules, SSOT, agents routing, doc types, templates, and manifest |
-| `docs/reference/source-material/` | Read-only source-material entrypoints and provenance pointers |
+| `docs/governance/` | Governance core rules |
+| `docs/reference/source-material/` | Read-only IP provenance pointers |
 
-Markdown outside `docs/**` is not governed by default. Product prompts, assets,
-project-package canon, generated media notes, and source-package files stay in
-their product/workbench structure unless this project explicitly opts them into
-doc-gov.
+Markdown outside `docs/**` is not governed by default (runtime READMEs under
+packages are product boundary notes, not parallel strategy truth).
 
 ## Current SupaLuv Truth
 
@@ -63,57 +59,35 @@ doc-gov.
 | --- | --- |
 | AI startup and routing | `AGENTS.md` |
 | Current execution index | `docs/reference/execution/current-work.md` |
-| Current strategy discussion brief | `docs/reference/strategy/supaluv-interactive-cinema-discussion-brief.md` |
-| Proposed engine/content-format decision | `docs/decisions/ADR-0001-propose-web-first-ink-pixivn-evaluation-supaluv.md` |
-| Active implementation plan | `docs/plans/active/PLAN-0002-chapter-01-trial-pipeline.md` |
-| Active implementation spec | `docs/specs/active/SPEC-0001-chapter-01-trial-pipeline.md` |
-| Project-local policy | `docs/policy/best-practice-for-this-project.md` |
-| Original 超级爱人 outline provenance | `docs/reference/source-material/super-lover-outline.md` symlink |
+| Web runtime boundary + module map | `apps/web/README.md` |
+| Content package boundary + pipeline | `packages/content/README.md` |
+| Ch1 polish loops plan | `docs/plans/active/PLAN-0003-ch01-polish-loops.md` |
+| Trial pipeline plan/spec (provenance) | `PLAN-0002`, `SPEC-0001` |
+| Strategy discussion brief | `docs/reference/strategy/supaluv-interactive-cinema-discussion-brief.md` |
+| Proposed engine decision | `docs/decisions/ADR-0001-...` (status: proposed) |
+| Character locks | `packages/content/characters/**` |
+| Play UI seams | `apps/web/src/views/play/*` |
+| Constrained AI branch contract | `docs/reference/architecture/ai-constrained-branch.md` |
+| Co-play invite session (discussion) | `docs/reference/architecture/co-play-invite-session.md` |
+| Player protagonist customization (discussion) | `docs/reference/architecture/player-protagonist-customization.md` |
+| Chapter-end global choice stats (discussion) | `docs/reference/architecture/chapter-end-global-choice-stats.md` |
+| Feature status + A/B/C/D/E/F roadmap | `docs/reference/execution/feature-status-and-roadmap.md` |
+| Save / settings contracts | `apps/web/src/persistence/*` |
+| Source outline (read-only) | `docs/reference/source-material/super-lover-outline.md` |
 
-There is no final architecture spec yet. Create one under `docs/specs/active/`
-only after the owner approves the strategy direction.
+## Next-session anti-patterns
 
-## Source Material
+- Do not invent a second VN engine for chapter 2.
+- Do not dump new play chrome back into `VisualNovelPrototype.tsx`.
+- Do not treat discussion briefs or proposed ADRs as locked architecture.
+- Do not edit the Obsidian source outline under `source-material/`.
 
-| Entry | Role | Canonical source | Editing rule |
-| --- | --- | --- | --- |
-| `docs/reference/source-material/super-lover-outline.md` | Read-only symlink entry for the original 超级爱人 outline | Obsidian vault file under `PieVaultLocal/我的IPs/.../A超级爱人/超级爱人-骨架情节点.md` | Do not edit through the symlink; create project adaptation notes separately if needed |
+## Content production order (next chapters)
 
-The folder name `A超级爱人` is historical path provenance. The IP name used by
-SupaLuv is 超级爱人.
+1. Novel draft under `packages/content/narrative/chapter-XX/`
+2. Script densification (beats / continues / branches)
+3. Ink + scene manifest 1:1
+4. Portrait / scene / audio / video assets
+5. Catalog entry + tests
 
-## Runtime Package Map
-
-| Path | Package | Current role |
-| --- | --- | --- |
-| `apps/web/` | `@supaluv/web` | Minimal React / Vite shell for the default VN player plus story selector and creator-map drawer |
-| `packages/content/` | `@supaluv/content` | Seed manifest plus noncanonical prototype and Chapter 01 trial scene metadata, Ink fixtures, and generated Canvas overview artifacts |
-| `packages/shared/` | `@supaluv/shared` | Shared runtime/content types and small utilities |
-| `tools/doc-gov/` | `@pieai/doc-gov` | Existing documentation governance CLI |
-
-This runtime map records the current bootstrap only. It does not accept Pixi'VN,
-Supabase, payments, accounts, public runtime AI, Phaser, Colyseus, or Supa
-card-game systems into the P0 baseline.
-
-## Active Prototype Planning
-
-| Plan | Role |
-| --- | --- |
-| `docs/plans/active/PLAN-0001-react-inkjs-pixivn-spike.md` | Compare a React + InkJS baseline with a narrow Pixi'VN spike, using non-canonical trial content only to prove the visible prototype and story-overview workflow |
-| `docs/plans/active/PLAN-0002-chapter-01-trial-pipeline.md` | Build the minimal read-only Chapter 01 trial pipeline from short scene cards to Ink, player selection, and generated Obsidian Canvas overview |
-
-## Current Trial Pipeline Artifacts
-
-| Path | Role |
-| --- | --- |
-| `packages/content/manifests/chapter-01-trial-scenes.ts` | Noncanonical Chapter 01 trial scene cards derived from read-only source material |
-| `packages/content/ink/chapter-01-trial.ink` | Placeholder-grade Ink fixture for the Chapter 01 trial |
-| `packages/content/canvas/chapter-01-trial.canvas` | Generated Obsidian Canvas creator overview; not runtime truth and not canonical source |
-| `tools/storygraph/ink-to-canvas.ts` | Local generator used to build the Chapter 01 trial Canvas overview |
-
-The experimental `chapter-01.md` in the Obsidian `proxy-love` manuscript path is
-not a SupaLuv canonical source. It may inform a tiny derived fixture only when
-the fixture is clearly marked non-canonical. Current local examples under
-`packages/content/` remain pipeline dummies, not final chapter content. The
-generated Canvas overview is for creators only and must not become runtime
-source-of-truth.
+Do not invent a second narrative engine for each chapter.

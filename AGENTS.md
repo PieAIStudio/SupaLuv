@@ -71,9 +71,17 @@ Runtime source/config wins for executable behavior after code exists; docs expla
 
 - Do not treat SupaLuv as a Supa card-game mode.
 - Do not introduce card systems, Boss Race, or multiplayer authority unless a later accepted decision explicitly changes scope.
-- Do not make the product an AI sex companion, porn game, or user-prompted erotic generator.
+- Product pitch is **adult black-humor / sex comedy + robots + AI endings**
+  (see **ADR-0004** + public site). Jokes, awkward desire, transactional
+  intimacy, and spicy-but-not-dirty dialogue are in-scope and required for
+  energy. This is **not** a romance / rom-com / “believe in love” product —
+  never reframe novel or Ink as sweet love story.
+- Do **not** make an AI sex companion, free-form erotic generator, or porn studio.
+  No user-prompted porn; no explicit nude cutscenes as a product goal. Moderated,
+  constrained AI side branches only.
 - Live AI branches must be short, constrained, moderated, and forced back to authored story.
-- Public runtime AI branches are post-P0 unless the owner explicitly approves a safety-reviewed scope.
+- Public demo may expose constrained AI branches with owner approval; still moderate
+  input/output and keep rejoin-to-Ink.
 - Keep the authored story and metadata portable enough to migrate to Unity, Godot, Ren'Py, or another engine later.
 - Do not let platform ambitions block the first 20-30 minute playable prototype.
 - Do not treat draft discussion briefs as final implementation specs.
