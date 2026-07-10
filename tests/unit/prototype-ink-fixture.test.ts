@@ -43,7 +43,9 @@ function getInkOutgoingTargetsByKnot(source: string): Map<string, string[]> {
 
   for (const [knotId, body] of getInkKnotBodies(source)) {
     const rawTargets = Array.from(
-      body.matchAll(/(?:^\+\s+\[[^\]]+\]\s*->\s+([A-Za-z0-9_]+)$)|(?:^->\s+([A-Za-z0-9_]+)$)/gm),
+      body.matchAll(
+        /(?:^\s*\+\s+\[[^\]]+\]\s*->\s+([A-Za-z0-9_]+)\s*$)|(?:^\s*->\s+([A-Za-z0-9_]+)\s*$)/gm,
+      ),
       (match) => match[1] ?? match[2],
     );
 
@@ -65,7 +67,7 @@ describe("prototype Ink fixture", () => {
   it("marks every derived scene as noncanonical", async () => {
     const content = await import("@supaluv/content");
 
-    expect(content.prototypeScenes).toHaveLength(6);
+    expect(content.prototypeScenes).toHaveLength(8);
     expect(content.prototypeScenes.every((scene) => scene.noncanonical)).toBe(true);
     expect(
       content.prototypeScenes.every(

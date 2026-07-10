@@ -1,9 +1,11 @@
 export const PROTOTYPE_SCENE_SOURCE = "experimental-chapter-01-pipeline-dummy" as const;
 export const CHAPTER_01_TRIAL_SCENE_SOURCE = "chapter-01-trial-pipeline-dummy" as const;
+export const CHAPTER_01_NARRATIVE_DRAFT_SOURCE = "chapter-01-narrative-draft" as const;
 
 export type PrototypeSceneSource =
   | typeof PROTOTYPE_SCENE_SOURCE
-  | typeof CHAPTER_01_TRIAL_SCENE_SOURCE;
+  | typeof CHAPTER_01_TRIAL_SCENE_SOURCE
+  | typeof CHAPTER_01_NARRATIVE_DRAFT_SOURCE;
 
 export type PrototypeSceneEdgeKind = "choice" | "return";
 
@@ -19,12 +21,63 @@ export interface PrototypeSceneCard {
   readonly purpose: string;
   readonly visualPlaceholder: string;
   readonly backgroundKey?: string;
+  /** Public art id under /assets/scenes/{artKey}.jpg when present. */
+  readonly artKey?: string;
+  /** Portrait id under /assets/portraits/{portraitKey}.png when present. */
+  readonly portraitKey?: string;
+  /**
+   * Optional second portrait (e.g. listener on the other side).
+   * Runtime places left/right by character side registry.
+   */
+  readonly companionPortraitKey?: string;
+  /** Companion display name when dual portraits are active. */
+  readonly companionSpeaker?: string;
+  /**
+   * Legacy single bed id under /assets/audio/bgm/{bgmKey}.mp3.
+   * Runtime classifies into music vs ambient (soft-piano → music; others → ambient).
+   */
+  readonly bgmKey?: string;
+  /** Explicit melodic bed (optional; overrides bgmKey classification for music). */
+  readonly musicKey?: string;
+  /** Explicit environment bed (optional; overrides bgmKey classification for ambient). */
+  readonly ambientKey?: string;
+  /** One-shot SFX id under /assets/audio/sfx/{sfxKey}.mp3 on scene enter. */
+  readonly sfxKey?: string;
+  /** Optional full-bleed video under /assets/video/{videoKey}.mp4 (event CG / cutscene). */
+  readonly videoKey?: string;
+  /** Player-facing cutscene label, e.g. 开场 CG / 事件 CG. */
+  readonly cutsceneTitle?: string;
   readonly speaker?: string;
   readonly mood?: string;
+  /**
+   * Optional live AI choice slot on this authored beat.
+   * AI may add ONE extra choice and short side content, then MUST rejoin
+   * `rejoinSceneId` (authored Ink knot). Never open-ended free story.
+   */
+  readonly aiBranch?: AiBranchSceneConfig;
   readonly noncanonical: true;
   readonly source: PrototypeSceneSource;
   readonly choices?: readonly PrototypeSceneChoice[];
   readonly autoNext?: string;
+}
+
+/** Content-side contract for a constrained AI side branch. */
+export interface AiBranchSceneConfig {
+  readonly enabled: true;
+  /** Placeholder while the option is generating. */
+  readonly waitLabel?: string;
+  /** Authored Ink scene id / knot the AI path must return to. */
+  readonly rejoinSceneId: string;
+  /** Max AI-only dialogue beats before forced rejoin (1–4). */
+  readonly maxAiBeats?: number;
+  /** Short authoring brief for the model / mock. */
+  readonly context: string;
+  /** Allowed scene art stems (no free image invent in public demo). */
+  readonly artPool?: readonly string[];
+  /** Allowed portrait stems. */
+  readonly portraitPool?: readonly string[];
+  /** Allowed speakers for AI beats. */
+  readonly speakerPool?: readonly string[];
 }
 
 export interface StoryMapNode {

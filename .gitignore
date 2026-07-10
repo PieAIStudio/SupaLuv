@@ -26,3 +26,9 @@ playwright-report/
 
 # Deployment metadata
 .vercel/
+.tmp-venv/
+Temp/
+
+# Reproducible products live outside scratch/evidence workbenches
+tmp/
+artifacts/quality-loop/tmp/

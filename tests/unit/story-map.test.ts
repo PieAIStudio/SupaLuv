@@ -7,7 +7,7 @@ describe("story map", () => {
 
     const map = shared.buildStoryMapFromScenes(content.prototypeScenes);
 
-    expect(map.nodes).toHaveLength(6);
+    expect(map.nodes).toHaveLength(8);
     expect(map.edges.some((edge) => edge.kind === "choice")).toBe(true);
     expect(map.edges.some((edge) => edge.kind === "return")).toBe(true);
 
