@@ -39,8 +39,8 @@ importers:
   apps/web:
     dependencies:
       '@pieai/swimmer-ui-kit':
-        specifier: file:../../vendor/pieai-swimmer-ui-kit-1.0.1-c5c8a8a.tgz
-        version: file:vendor/pieai-swimmer-ui-kit-1.0.1-c5c8a8a.tgz(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: 1.0.1
+        version: 1.0.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@supabase/supabase-js':
         specifier: 2.108.1
         version: 2.108.1
@@ -804,9 +804,8 @@ packages:
     version: 0.2.0
     engines: {node: '>=24 <25'}
 
-  '@pieai/swimmer-ui-kit@file:vendor/pieai-swimmer-ui-kit-1.0.1-c5c8a8a.tgz':
-    resolution: {integrity: sha512-BTjayGOoDrD/dMCwKbry6RjnN4TWrqd8XLaekOPe47JMAu5L3Dr6XnfxbS377sw2uI1GZLZg5jaX0jpOJ9fUCA==, tarball: file:vendor/pieai-swimmer-ui-kit-1.0.1-c5c8a8a.tgz}
-    version: 1.0.1
+  '@pieai/swimmer-ui-kit@1.0.1':
+    resolution: {integrity: sha512-GrMgH16mW5fnMSsYremafzh9UCHmijQ7uXRhComxa28PeI0ZngqMzK63gwC9+sLhryxVMI53izDJOYBPjYYNnQ==}
     engines: {node: '>=24 <25'}
     peerDependencies:
       react: '>=19.0.0'
@@ -2240,9 +2239,6 @@ packages:
     peerDependencies:
       zod: ^3.25.28 || ^4
 
-  zod@3.24.2:
-    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
-
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
@@ -2702,7 +2698,7 @@ snapshots:
 
   '@pieai/swimmer-ai-kit@file:vendor/pieai-swimmer-ai-kit-0.2.0-f44601f.tgz': {}
 
-  '@pieai/swimmer-ui-kit@file:vendor/pieai-swimmer-ui-kit-1.0.1-c5c8a8a.tgz(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@pieai/swimmer-ui-kit@1.0.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
@@ -4240,7 +4236,7 @@ snapshots:
 
   zod-from-json-schema@0.0.5:
     dependencies:
-      zod: 3.24.2
+      zod: 3.25.76
 
   zod-from-json-schema@0.5.3:
     dependencies:
@@ -4249,8 +4245,6 @@ snapshots:
   zod-to-json-schema@3.25.2(zod@3.25.76):
     dependencies:
       zod: 3.25.76
-
-  zod@3.24.2: {}
 
   zod@3.25.76: {}
 

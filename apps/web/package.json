@@ -10,7 +10,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@pieai/swimmer-ui-kit": "file:../../vendor/pieai-swimmer-ui-kit-1.0.1-c5c8a8a.tgz",
+    "@pieai/swimmer-ui-kit": "1.0.1",
     "@supabase/supabase-js": "2.108.1",
     "@supaluv/content": "workspace:*",
     "@supaluv/shared": "workspace:*",
