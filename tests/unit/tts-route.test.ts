@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { resolveTtsRoute } from "../../../SwimmerAIKit/src/tts/route";
+import { resolveTtsRoute } from "@pieai/swimmer-ai-kit/tts";
 
 describe("dual TTS route (SwimmerAIKit)", () => {
   it("sends chinese locales to chinese lane", () => {

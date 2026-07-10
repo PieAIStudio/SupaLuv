@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { classifyTextByLocalRules } from "../../../SwimmerAIKit/src/content-safety/local-text-rules";
+import { classifyTextByLocalRules } from "@pieai/swimmer-ai-kit/content-safety";
 
 describe("AIKit content safety for SupaLuv tone", () => {
   it("allows sex-comedy banter", () => {
