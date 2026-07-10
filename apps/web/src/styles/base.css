@@ -1,0 +1,120 @@
+/* Base reset, app-shell, typography — split from styles.css for AI navigability */
+:root {
+  color: #f9f1e9;
+  background: #07080c;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #07080c;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #030407;
+}
+
+/* Outer browser fill + black bars; inner stage is locked 16:9. */
+.game-viewport {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: max(0.5rem, env(safe-area-inset-top)) max(0.5rem, env(safe-area-inset-right))
+    max(0.5rem, env(safe-area-inset-bottom)) max(0.5rem, env(safe-area-inset-left));
+  background: radial-gradient(ellipse at center, rgba(30, 36, 52, 0.35), transparent 55%), #030407;
+}
+
+.story-map-panel {
+  position: absolute;
+  inset: 1rem 1rem 1rem auto;
+  z-index: 5;
+  width: min(32rem, calc(100vw - 2rem));
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.5rem;
+  background: rgba(9, 12, 20, 0.88);
+  box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(18px);
+  padding: 1.1rem;
+}
+
+.panel-header {
+  margin-bottom: 1rem;
+}
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  color: #a6422d;
+  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+  letter-spacing: -0.04em;
+}
+
+h3 {
+  margin-bottom: 0.65rem;
+  font-size: 1.15rem;
+}
+
+.warning-banner,
+.panel-copy,
+.scene-card-visual,
+.choice-target,
+.ending-note,
+.edge-list,
+.mermaid-preview,
+.dialogue-subtitle,
+.standee-caption,
+.scene-chip,
+.mood-chip {
+  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+}
+
+.story-map-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+}

@@ -1,4 +1,4 @@
-import { prototypeAct1InkSource } from "@supaluv/content";
+import { ch01InkSource, prototypeAct1InkSource } from "@supaluv/content";
 import { Compiler, Story } from "inkjs/full";
 
 export interface InkStoryChoice {
@@ -6,17 +6,32 @@ export interface InkStoryChoice {
   readonly text: string;
 }
 
+export interface ComedyMeters {
+  readonly dignity: number;
+  readonly impulse: number;
+}
+
 export interface InkStorySnapshot {
   readonly sceneId: string | null;
   readonly text: string;
   readonly choices: readonly InkStoryChoice[];
   readonly isEnded: boolean;
+  readonly meters: ComedyMeters;
 }
 
 function getSceneIdFromTags(tags: readonly string[]): string | null {
   const sceneTag = tags.find((tag) => tag.startsWith("scene:"));
 
   return sceneTag ? sceneTag.slice("scene:".length) : null;
+}
+
+function readMeters(story: Story): ComedyMeters {
+  const variables = story.variablesState;
+
+  return {
+    dignity: Number(variables.dignity ?? 50),
+    impulse: Number(variables.impulse ?? 50),
+  };
 }
 
 function readSnapshot(story: Story): InkStorySnapshot {
@@ -46,6 +61,7 @@ function readSnapshot(story: Story): InkStorySnapshot {
       text: choice.text,
     })),
     isEnded: !story.canContinue && story.currentChoices.length === 0,
+    meters: readMeters(story),
   };
 }
 
@@ -54,13 +70,21 @@ export class InkStoryRunner {
 
   private snapshot: InkStorySnapshot;
 
-  constructor(source: string) {
+  constructor(source: string, savedStateJson?: string) {
     this.story = new Compiler(source).Compile();
+    if (savedStateJson) {
+      this.story.state.LoadJson(savedStateJson);
+    }
     this.snapshot = readSnapshot(this.story);
   }
 
   getSnapshot(): InkStorySnapshot {
     return this.snapshot;
+  }
+
+  /** Ink runtime state for save/load (choices, variables, path). */
+  exportStateJson(): string {
+    return this.story.state.ToJson();
   }
 
   choose(index: number): InkStorySnapshot {
@@ -75,12 +99,26 @@ export class InkStoryRunner {
 
     return this.snapshot;
   }
+
+  /**
+   * Force-jump into an authored Ink path (knot / gather).
+   * Used after a constrained AI side branch rejoins the spine.
+   */
+  jumpTo(path: string): InkStorySnapshot {
+    this.story.ChoosePathString(path);
+    this.snapshot = readSnapshot(this.story);
+    return this.snapshot;
+  }
 }
 
-export function createInkStoryRunner(source: string): InkStoryRunner {
-  return new InkStoryRunner(source);
+export function createInkStoryRunner(source: string, savedStateJson?: string): InkStoryRunner {
+  return new InkStoryRunner(source, savedStateJson);
 }
 
 export function createPrototypeInkStoryRunner(): InkStoryRunner {
   return createInkStoryRunner(prototypeAct1InkSource);
+}
+
+export function createCh01InkStoryRunner(): InkStoryRunner {
+  return createInkStoryRunner(ch01InkSource);
 }

@@ -1,0 +1,206 @@
+/* Boot splash, title account, gallery audio, language chips — split from styles.css for AI navigability */
+/* —— Boot splash (click-to-unlock audio) —— */
+.boot-splash {
+  position: relative;
+  display: grid;
+  place-items: end center;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+
+.boot-splash-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.boot-splash-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 10, 16, 0.25) 0%,
+      rgba(8, 10, 16, 0.15) 40%,
+      rgba(8, 10, 16, 0.88) 100%
+    ),
+    radial-gradient(ellipse at 50% 80%, rgba(240, 164, 106, 0.12), transparent 55%);
+}
+
+.boot-splash-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.45rem;
+  justify-items: center;
+  width: min(36rem, calc(100% - 2rem));
+  padding: 0 1rem 12vh;
+  text-align: center;
+}
+
+.boot-splash-eyebrow {
+  margin: 0;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: rgba(255, 230, 200, 0.72);
+}
+
+.boot-splash-title {
+  margin: 0;
+  font-family: "Avenir Next", "Songti SC", serif;
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-weight: 700;
+  color: #fff6ee;
+  text-shadow: 0 8px 40px rgba(0, 0, 0, 0.55);
+}
+
+.boot-splash-tag {
+  margin: 0;
+  color: rgba(255, 230, 210, 0.72);
+  font-size: 0.92rem;
+}
+
+.boot-splash-cta {
+  margin: 1.1rem 0 0;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 210, 160, 0.45);
+  background: rgba(12, 14, 20, 0.45);
+  color: #ffe8d0;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  animation: boot-cta-pulse 1.6s ease-in-out infinite;
+}
+
+.boot-splash-hint {
+  margin: 0.35rem 0 0;
+  color: rgba(255, 230, 210, 0.5);
+  font-size: 0.78rem;
+}
+
+@keyframes boot-cta-pulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* —— Title account strip —— */
+.title-account-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 220, 180, 0.16);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.title-account-status {
+  color: rgba(255, 236, 220, 0.88);
+  font-size: 0.82rem;
+}
+
+/* —— Now playing chips —— */
+.now-playing-chip {
+  max-width: min(18rem, 42vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 210, 160, 0.28);
+  background: rgba(10, 12, 18, 0.72);
+  color: rgba(255, 230, 200, 0.92);
+  font-size: 0.72rem;
+}
+
+/* —— Gallery audio play —— */
+.gallery-audio-list li {
+  list-style: none;
+}
+
+.gallery-audio-play {
+  display: grid;
+  gap: 0.15rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(255, 220, 180, 0.18);
+  background: rgba(0, 0, 0, 0.28);
+  color: #fff6ee;
+  cursor: pointer;
+  font: inherit;
+}
+
+.gallery-audio-play:hover {
+  border-color: rgba(232, 160, 106, 0.45);
+}
+
+.gallery-audio-title {
+  font-weight: 700;
+}
+
+.gallery-audio-meta {
+  color: rgba(255, 220, 190, 0.62);
+  font-size: 0.78rem;
+}
+
+/* Language pickers */
+.title-lang-row {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.65rem;
+}
+
+.title-lang,
+.settings-lang {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 220, 180, 0.22);
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(255, 236, 220, 0.88);
+  padding: 0.35rem 0.75rem;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.title-lang.is-active,
+.settings-lang.is-active {
+  border-color: rgba(232, 160, 106, 0.55);
+  background: rgba(232, 160, 106, 0.22);
+  color: #fff6ee;
+  font-weight: 700;
+}
+
+.settings-lang-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.settings-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.settings-lang-tag {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}

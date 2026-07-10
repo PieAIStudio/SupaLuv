@@ -1,0 +1,233 @@
+/* Co-play banner, cursors, RPS — split from styles.css for AI navigability */
+/* —— Co-play local demo —— */
+.title-coplay-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+  padding: 0.85rem 0.9rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(140, 190, 255, 0.22);
+  background: rgba(18, 28, 42, 0.55);
+}
+
+.title-coplay-lead {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(210, 230, 255, 0.88);
+}
+
+.title-coplay-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: rgba(255, 245, 236, 0.75);
+}
+
+.title-coplay-field input {
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(8, 10, 16, 0.8);
+  color: #fff6ee;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.coplay-banner {
+  position: absolute;
+  top: 0.55rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem 0.75rem;
+  max-width: min(92%, 42rem);
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(140, 190, 255, 0.28);
+  background: rgba(8, 12, 20, 0.82);
+  backdrop-filter: blur(8px);
+  font-size: 0.78rem;
+  color: rgba(230, 240, 255, 0.92);
+  pointer-events: auto;
+}
+
+.coplay-banner-code {
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #e8a06a;
+}
+
+.coplay-banner-peers,
+.coplay-banner-votes,
+.coplay-banner-hint {
+  opacity: 0.88;
+}
+
+.coplay-banner-leave {
+  border: 0;
+  background: transparent;
+  color: rgba(255, 200, 180, 0.9);
+  cursor: pointer;
+  text-decoration: underline;
+  font: inherit;
+  font-size: 0.75rem;
+}
+
+.coplay-guest-hud {
+  position: absolute;
+  top: 2.8rem;
+  right: 0.75rem;
+  z-index: 35;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.65rem;
+  background: rgba(8, 10, 16, 0.72);
+  font-size: 0.8rem;
+  color: rgba(255, 245, 236, 0.85);
+}
+
+.coplay-cursor-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.coplay-cursor {
+  position: absolute;
+  transform: translate(-20%, -20%);
+  transition:
+    left 40ms linear,
+    top 40ms linear;
+}
+
+.coplay-cursor-dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--coplay-cursor-color, #e8a06a);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.35);
+}
+
+.coplay-cursor-label {
+  display: block;
+  margin-top: 0.2rem;
+  margin-left: 0.15rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.35rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff6ee;
+  font-size: 0.68rem;
+  white-space: nowrap;
+  max-width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* —— RPS duel —— */
+.rps-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  background: rgba(4, 6, 12, 0.72);
+  backdrop-filter: blur(6px);
+  pointer-events: auto;
+}
+
+.rps-panel {
+  width: min(28rem, 92vw);
+}
+
+.rps-lead {
+  margin: 0 0 0.5rem;
+  line-height: 1.55;
+  color: rgba(255, 245, 236, 0.92);
+}
+
+.rps-sub {
+  margin: 0 0 0.85rem;
+  font-size: 0.88rem;
+  color: rgba(255, 220, 180, 0.8);
+}
+
+.rps-throws {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.rps-status,
+.rps-result {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+}
+
+.rps-result {
+  color: #e8a06a;
+  font-weight: 600;
+}
+
+.settings-pack-preview {
+  margin-top: 0.35rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 220, 180, 0.25);
+  object-fit: cover;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.settings-pack-error {
+  color: #ffb4a8 !important;
+}
+
+.rps-lean {
+  color: rgba(140, 190, 255, 0.95);
+  font-size: 0.85em;
+}
+
+.oracle-row {
+  margin-bottom: 0.55rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.75rem;
+  border: 1px dashed rgba(140, 190, 255, 0.35);
+  background: rgba(20, 32, 48, 0.45);
+}
+
+.oracle-lead {
+  margin: 0 0 0.4rem;
+  font-size: 0.78rem;
+  color: rgba(190, 220, 255, 0.9);
+}
+
+.oracle-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.oracle-hit {
+  color: #8fd9a8;
+  font-weight: 600;
+}
+
+.oracle-miss {
+  color: rgba(255, 200, 160, 0.9);
+}
+
+.chapter-end-oracle {
+  margin-top: 0.85rem;
+}

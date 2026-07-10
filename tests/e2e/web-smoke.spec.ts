@@ -1,31 +1,73 @@
 import { expect, test } from "@playwright/test";
 
-test("defaults to prototype story and can switch to chapter 01 trial", async ({ page }) => {
+async function clickIfVisible(page: import("@playwright/test").Page, name: RegExp) {
+  const button = page.getByRole("button", { name });
+  await page
+    .getByTestId("story-copy")
+    .click()
+    .catch(() => undefined);
+  await expect(button.first()).toBeVisible({ timeout: 10_000 });
+  await button.first().click();
+}
+
+test("commercial shell: cinematic title, play, system save", async ({ page }) => {
   await page.goto("/");
+  // Ensure no leftover save trips new-game confirm.
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.clear();
+  });
+  await page.reload();
 
-  await expect(page.getByTestId("vn-stage")).toBeVisible();
-  await expect(page.getByTestId("dialogue-box")).toBeVisible();
-  await expect(page.getByTestId("prototype-badge")).toBeVisible();
-  await expect(page.getByLabel(/story selector/i)).toHaveValue("prototype-act1");
-  await expect(page.getByTestId("story-map-panel")).toBeHidden();
-  await expect(page.getByRole("heading", { name: /静态故事总览图/i })).toBeHidden();
+  // Boot splash requires a click to unlock audio (session-scoped).
+  const boot = page.getByTestId("boot-splash");
+  if (await boot.isVisible().catch(() => false)) {
+    await boot.click();
+  }
 
-  const firstChoice = page.getByRole("button", { name: /继续测试/i });
-  await expect(firstChoice).toBeVisible();
-  await firstChoice.click();
+  await expect(page.getByTestId("title-screen")).toBeVisible();
+  await page.getByRole("button", { name: "中文" }).click();
+  await expect(page.getByRole("heading", { name: "超级爱人" })).toBeVisible();
+  await page.getByTestId("title-new-game").click();
 
-  await expect(page.getByText(/论坛贴/)).toBeVisible();
+  await expect(page.getByTestId("game-viewport")).toBeVisible();
+  await expect(page.getByTestId("fullscreen-toggle")).toBeVisible();
+  await expect(page.getByTestId("system-menu-toggle")).toBeVisible();
 
-  await page.getByLabel(/story selector/i).selectOption("chapter-01-trial");
-  await expect(page.getByLabel(/story selector/i)).toHaveValue("chapter-01-trial");
-  await expect(page.getByTestId("story-label")).toHaveText(/退款期已过/i);
+  const stageBox = await page.getByTestId("vn-stage").boundingBox();
+  expect(stageBox).toBeTruthy();
+  if (stageBox) {
+    const ratio = stageBox.width / stageBox.height;
+    expect(ratio).toBeGreaterThan(1.6);
+    expect(ratio).toBeLessThan(1.9);
+  }
 
-  const trialChoice = page.getByRole("button", { name: /查看物业照片/i });
-  await expect(trialChoice).toBeVisible();
-  await trialChoice.click();
-  await expect(page.getByTestId("dialogue-box").getByText(/物业前台/i)).toBeVisible();
+  await expect(page.getByTestId("cutscene-layer")).toBeVisible();
+  await page.getByRole("button", { name: /跳过 CG/i }).click();
 
-  await page.getByRole("button", { name: /creator map/i }).click();
-  await expect(page.getByTestId("story-map-panel")).toBeVisible();
-  await expect(page.getByRole("heading", { name: /静态故事总览图/i })).toBeVisible();
+  await clickIfVisible(page, /^继续$/i);
+  await clickIfVisible(page, /^继续$/i);
+  await clickIfVisible(page, /^继续$/i);
+  await page.getByTestId("story-copy").click();
+  await expect(page.getByRole("button", { name: /立刻删掉/i })).toBeVisible({ timeout: 10_000 });
+
+  const dialogue = page.getByTestId("dialogue-box");
+  const box = await dialogue.boundingBox();
+  expect(box && box.height > 140).toBeTruthy();
+
+  await page.getByTestId("history-toggle").click({ force: true });
+  await expect(page.getByTestId("history-drawer")).toBeVisible();
+  await page.getByRole("button", { name: "关闭" }).click({ force: true });
+
+  await page.getByTestId("system-menu-toggle").click({ force: true });
+  await expect(page.getByTestId("system-menu")).toBeVisible();
+  await expect(page.getByTestId("autoplay-toggle")).toBeVisible();
+  await page.getByTestId("save-button").click({ force: true });
+  await expect(page.getByTestId("save-toast")).toBeVisible();
+
+  // Esc closes system menu
+  await page.getByTestId("system-menu-toggle").click({ force: true });
+  await expect(page.getByTestId("system-menu")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByTestId("system-menu")).toHaveCount(0);
 });
