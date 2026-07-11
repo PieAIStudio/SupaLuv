@@ -4,6 +4,7 @@
  */
 
 import type { InkStoryRunner, InkStorySnapshot } from "../story/inkStoryRunner";
+import type { StoryCharacterBindings } from "../characters/characterPackTypes";
 import { getStoryDefinition, type StoryId } from "../story/storyMapAdapter";
 import {
   presentationFromSnapshot,
@@ -19,6 +20,7 @@ export function writeStorySave(input: {
   readonly slotId: string;
   readonly chapterHint?: string;
   readonly presentationSnapshot?: InkStorySnapshot;
+  readonly characterBindings?: StoryCharacterBindings;
 }): SavePresentation {
   const presentation = presentationFromSnapshot(
     input.presentationSnapshot ?? input.runner.getSnapshot(),
@@ -33,6 +35,7 @@ export function writeStorySave(input: {
     unlocks: input.unlocks,
     chapterHint: input.chapterHint ?? presentation.sceneId ?? undefined,
     presentation,
+    ...(input.characterBindings ? { characterBindings: input.characterBindings } : {}),
   });
   return presentation;
 }

@@ -3,12 +3,14 @@ import {
   EMPTY_PORTRAIT_PACK,
   hasCustomPortraitPack,
   leadSlotForStem,
+  legacyPortraitBindings,
   loadPortraitPack,
   resolvePortraitUrl,
   rewritePortraitUrl,
   savePortraitPack,
   setLeadOverride,
 } from "../../apps/web/src/persistence/portraitPack";
+import { resolveCharacterPortrait } from "../../apps/web/src/characters/portraitResolver";
 
 beforeAll(() => {
   const store = new Map<string, string>();
@@ -57,5 +59,33 @@ describe("portraitPack", () => {
     expect(rewritePortraitUrl("/assets/portraits/lin-neutral.png", pack)).toBe(
       "data:image/png;base64,zz",
     );
+  });
+
+  it("resolves exact mood, then bound base, then official fallback", () => {
+    const bindings = {
+      lead_suming: {
+        slotId: "lead_suming",
+        packId: "pack-1",
+        baseUrl: "https://private/base.png",
+        moodUrls: { happy: "https://private/happy.png" },
+        lockedAt: "2026-07-12T00:00:00.000Z",
+      },
+    } as const;
+    expect(resolveCharacterPortrait("lead_suming", "happy", bindings, "/official.png")).toBe(
+      "https://private/happy.png",
+    );
+    expect(resolveCharacterPortrait("lead_suming", "sad", bindings, "/official.png")).toBe(
+      "https://private/base.png",
+    );
+    expect(resolveCharacterPortrait("robot_kai", "happy", bindings, "/official.png")).toBe(
+      "/official.png",
+    );
+  });
+
+  it("snapshots legacy local overrides into the new slot vocabulary", () => {
+    const pack = setLeadOverride(EMPTY_PORTRAIT_PACK, "suming", "data:image/png;base64,old");
+    expect(legacyPortraitBindings(pack, "2026-07-12T00:00:00.000Z")).toMatchObject({
+      lead_suming: { packId: "legacy-local-suming", baseUrl: "data:image/png;base64,old" },
+    });
   });
 });

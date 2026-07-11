@@ -48,7 +48,7 @@ describe("chapter 01 narrative draft", () => {
     expect(content.ch01Scenes.length).toBeGreaterThanOrEqual(35);
   });
 
-  it("exposes art, portrait, audio, and video assets for chapter 01 demo", async () => {
+  it("exposes still art, portrait, and audio assets for chapter 01 demo", async () => {
     const content = await import("@supaluv/content");
     const artKeys = content.ch01Scenes.map((scene) => scene.artKey).filter(Boolean);
     const requiredBg = ["bg-office-night", "bg-rental-room", "bg-product-page", "bg-lobby-white"];
@@ -65,16 +65,7 @@ describe("chapter 01 narrative draft", () => {
         (scene) => "portraitKey" in scene && scene.portraitKey === "suming-shame",
       ),
     ).toBe(true);
-    expect(
-      content.ch01Scenes.some(
-        (scene) => "videoKey" in scene && scene.videoKey === "ch01-cold-open",
-      ),
-    ).toBe(true);
-    expect(
-      content.ch01Scenes.some(
-        (scene) => "videoKey" in scene && scene.videoKey === "ch01-demo-echo",
-      ),
-    ).toBe(true);
+    expect(content.ch01Scenes.every((scene) => !("videoKey" in scene))).toBe(true);
 
     expect(
       existsSync(
@@ -83,10 +74,10 @@ describe("chapter 01 narrative draft", () => {
     ).toBe(true);
     expect(
       existsSync(new URL("../../apps/web/public/assets/video/ch01-cold-open.mp4", import.meta.url)),
-    ).toBe(true);
+    ).toBe(false);
     expect(
       existsSync(new URL("../../apps/web/public/assets/video/ch01-demo-echo.mp4", import.meta.url)),
-    ).toBe(true);
+    ).toBe(false);
     expect(
       existsSync(new URL("../../apps/web/public/assets/audio/sfx/ui-click.mp3", import.meta.url)),
     ).toBe(true);

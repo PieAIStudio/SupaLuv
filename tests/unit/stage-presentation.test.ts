@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   mapDialogueForPlayer,
   mapPortraitsForPlayer,
+  resolveStageMotion,
 } from "../../apps/web/src/views/play/stagePresentation";
 
 describe("stagePresentation", () => {
@@ -32,5 +33,11 @@ describe("stagePresentation", () => {
     );
     expect(mapped[0]?.name).toBe("阿飞");
     expect(mapped[0]?.url).toBe("data:image/png;base64,xx");
+  });
+
+  it("keeps authored motion restrained and disables it for reduced motion", () => {
+    expect(resolveStageMotion("slow_push", false)).toBe("slow_push");
+    expect(resolveStageMotion("flash", false)).toBe("flash");
+    expect(resolveStageMotion("slow_push", true)).toBe("none");
   });
 });

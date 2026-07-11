@@ -46,6 +46,7 @@ export interface StagePortrait {
   readonly url: string;
   readonly side: "left" | "right";
   readonly active: boolean;
+  readonly fallbackUrl?: string;
 }
 
 function portraitUrl(stem: string): string {

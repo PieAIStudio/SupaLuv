@@ -3,6 +3,10 @@ import { trackEvent } from "./analytics/productAnalytics";
 import { gameAudio } from "./audio/gameAudio";
 import { useCoPlaySession } from "./coplay/useCoPlaySession";
 import type { CoPlayRole } from "./coplay/protocol";
+import type { StoryCharacterBindings } from "./characters/characterPackTypes";
+import { createCharacterPackClient } from "./characters/characterPackClient";
+import { refreshCharacterBindingUrls } from "./characters/storyRunBindings";
+import { useAuth } from "./auth/AuthContext";
 import { unlockAchievement, type AchievementDef } from "./persistence/achievements";
 import {
   loadDisplayNames,
@@ -11,12 +15,14 @@ import {
 } from "./persistence/displayNames";
 import {
   hasCustomPortraitPack,
+  legacyPortraitBindings,
   loadPortraitPack,
   savePortraitPack,
   type PortraitPackState,
 } from "./persistence/portraitPack";
 import {
   AUTOSAVE_SLOT,
+  CH01_CLEAR_REWARDS,
   collectAllUnlocks,
   EMPTY_UNLOCKS,
   loadSave,
@@ -57,8 +63,26 @@ const VisualNovelPrototype = lazy(() =>
     default: VisualNovelPrototype,
   })),
 );
+const CharacterStudioScreen = lazy(() =>
+  import("./views/CharacterStudioScreen").then(({ CharacterStudioScreen }) => ({
+    default: CharacterStudioScreen,
+  })),
+);
+const AiSpendAnalysisScreen = lazy(() =>
+  import("./views/AiSpendAnalysisScreen").then(({ AiSpendAnalysisScreen }) => ({
+    default: AiSpendAnalysisScreen,
+  })),
+);
 
-type AppScreen = "title" | "play" | "gallery" | "settings" | "help" | "achievements";
+type AppScreen =
+  | "title"
+  | "character-studio"
+  | "play"
+  | "gallery"
+  | "settings"
+  | "help"
+  | "achievements"
+  | "ai-spend";
 
 const DEFAULT_STORY_ID: StoryId = "ch01";
 const BOOT_SEEN_KEY = "supaluv.boot.seen.v1";
@@ -109,6 +133,7 @@ function unlockCount(unlocks: GalleryUnlocks): number {
 }
 
 export function App() {
+  const auth = useAuth();
   const [bootDone, setBootDone] = useState(() => {
     try {
       return sessionStorage.getItem(BOOT_SEEN_KEY) === "1";
@@ -120,6 +145,7 @@ export function App() {
   const [settings, setSettings] = useState<GameSettings>(() => loadSettings());
   const [displayNames, setDisplayNames] = useState<DisplayNameMap>(() => loadDisplayNames());
   const [portraitPack, setPortraitPack] = useState<PortraitPackState>(() => loadPortraitPack());
+  const [characterBindings, setCharacterBindings] = useState<StoryCharacterBindings>({});
   const [unlocks, setUnlocks] = useState<GalleryUnlocks>(() => collectAllUnlocks());
   const [storyId, setStoryId] = useState<StoryId>(DEFAULT_STORY_ID);
   const [storyRevision, setStoryRevision] = useState(0);
@@ -218,6 +244,7 @@ export function App() {
       slotId: string,
       chapterHint?: string,
       presentationSnapshot?: ReturnType<InkStoryRunner["getSnapshot"]>,
+      bindings: StoryCharacterBindings = characterBindings,
     ) => {
       storyRuntime?.writeStorySave({
         runner: nextRunner,
@@ -226,12 +253,13 @@ export function App() {
         slotId,
         chapterHint,
         presentationSnapshot,
+        characterBindings: bindings,
       });
     },
-    [],
+    [characterBindings],
   );
 
-  function openMeta(next: "gallery" | "settings" | "help" | "achievements") {
+  function openMeta(next: "gallery" | "settings" | "help" | "achievements" | "ai-spend") {
     metaReturnScreen.current = screen === "play" ? "play" : "title";
     if (next === "gallery") {
       tryAchievement("gallery_start");
@@ -245,7 +273,7 @@ export function App() {
     setScreen(target);
   }
 
-  async function startNewGame() {
+  async function startNewGame(bindings: StoryCharacterBindings = {}) {
     gameAudio.unlock();
     trackEvent({ name: "title_new_game" });
     tryAchievement("first_play");
@@ -263,6 +291,7 @@ export function App() {
       runtime.unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
     );
     setStoryId(DEFAULT_STORY_ID);
+    setCharacterBindings(bindings);
     setRunner(nextRunner);
     setSnapshot(nextSnapshot);
     setUnlocks(nextUnlocks);
@@ -275,6 +304,7 @@ export function App() {
       AUTOSAVE_SLOT,
       nextSnapshot.sceneId ?? undefined,
       nextSnapshot,
+      bindings,
     );
   }
 
@@ -356,6 +386,13 @@ export function App() {
     setStoryId(save.storyId);
     setRunner(nextRunner);
     setSnapshot(restored);
+    const savedBindings =
+      save.characterBindings ?? legacyPortraitBindings(portraitPack, save.savedAt);
+    const refreshedBindings = await refreshCharacterBindingUrls(
+      savedBindings,
+      createCharacterPackClient({ getAccessToken: auth.getAccessToken }).getPack,
+    );
+    setCharacterBindings(refreshedBindings);
     setUnlocks(save.unlocks ?? EMPTY_UNLOCKS);
     setStoryRevision((value) => value + 1);
     setScreen("play");
@@ -482,13 +519,7 @@ export function App() {
       tryAchievement("first_ai_branch");
     }
     // A4 — achievement-linked gallery seeds (decoupled content rewards).
-    setUnlocks((prev) =>
-      applyUnlocks(prev, {
-        images: ["bg-product-page", "bg-office-night"],
-        videos: ["ch01-demo-echo"],
-        audio: ["title-theme", "soft-piano", "chapter-end", "lonely-pad", "night-ambient"],
-      }),
-    );
+    setUnlocks((prev) => applyUnlocks(prev, CH01_CLEAR_REWARDS));
   }
 
   if (!bootDone) {
@@ -514,18 +545,26 @@ export function App() {
       <OrientationGate />
       {screen === "title" ? (
         <TitleScreen
-          onNewGame={() => runStoryAction(startNewGame)}
+          onNewGame={() => setScreen("character-studio")}
           onContinue={(slotId) => runStoryAction(() => continueGame(slotId))}
           onOpenGallery={() => openMeta("gallery")}
           onOpenSettings={() => openMeta("settings")}
           onOpenHelp={() => openMeta("help")}
           onOpenAchievements={() => openMeta("achievements")}
+          onOpenAiSpend={() => openMeta("ai-spend")}
           onHostCoPlay={(roomCode, alias) => runStoryAction(() => startHostCoPlay(roomCode, alias))}
           onJoinCoPlay={(roomCode, alias) => runStoryAction(() => joinGuestCoPlay(roomCode, alias))}
         />
       ) : null}
 
       <Suspense fallback={<ScreenLoading />}>
+        {screen === "character-studio" ? (
+          <CharacterStudioScreen
+            onCancel={() => setScreen("title")}
+            onComplete={(bindings) => runStoryAction(() => startNewGame(bindings))}
+          />
+        ) : null}
+
         {screen === "gallery" ? <GalleryScreen unlocks={unlocks} onBack={backFromMeta} /> : null}
 
         {screen === "settings" ? (
@@ -543,6 +582,8 @@ export function App() {
         {screen === "help" ? <HelpScreen onBack={backFromMeta} /> : null}
 
         {screen === "achievements" ? <AchievementsScreen onBack={backFromMeta} /> : null}
+
+        {screen === "ai-spend" ? <AiSpendAnalysisScreen onBack={backFromMeta} /> : null}
       </Suspense>
 
       <Suspense fallback={<ScreenLoading />}>
@@ -562,6 +603,8 @@ export function App() {
               activeSaveSlot={activeManualSlot}
               displayNames={displayNames}
               portraitPack={portraitPack}
+              characterBindings={characterBindings}
+              onCharacterBindingsChange={setCharacterBindings}
               coPlay={coPlay}
               onLeaveCoPlay={leaveCoPlay}
               onRareEcho={() => tryAchievement("rare_echo_path")}

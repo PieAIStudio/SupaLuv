@@ -45,6 +45,77 @@
     inset 0 -18% 14% -8% rgba(0, 0, 0, 0.55);
 }
 
+.vn-stage-art,
+.vn-stage-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.vn-stage-art {
+  z-index: 0;
+  background-position: center;
+  background-size: cover;
+  will-change: transform;
+}
+
+.vn-stage-flash {
+  z-index: 3;
+  background: rgba(225, 240, 255, 0.68);
+  opacity: 0;
+}
+
+.vn-stage[data-motion="slow_push"] .vn-stage-art {
+  animation: still-slow-push 12s ease-out both;
+}
+
+.vn-stage[data-motion="drift"] .vn-stage-art {
+  animation: still-drift 14s ease-in-out both;
+}
+
+.vn-stage[data-motion="flash"] .vn-stage-flash {
+  animation: still-flash 620ms ease-out both;
+}
+
+@keyframes still-slow-push {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.065);
+  }
+}
+
+@keyframes still-drift {
+  from {
+    transform: scale(1.035) translateX(-0.8%);
+  }
+  to {
+    transform: scale(1.055) translateX(0.8%);
+  }
+}
+
+@keyframes still-flash {
+  0% {
+    opacity: 0;
+  }
+  16% {
+    opacity: 0.42;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vn-stage[data-motion] .vn-stage-art,
+  .vn-stage[data-motion] .vn-stage-flash {
+    animation: none;
+    transform: none;
+    opacity: 0;
+  }
+}
+
 .vn-stage-backdrop,
 .vn-stage::before,
 .vn-stage::after {
@@ -367,13 +438,13 @@
   max-width: min(100%, 15rem);
   object-fit: contain;
   object-position: bottom center;
-  filter: drop-shadow(0 0.8rem 1.4rem rgba(0, 0, 0, 0.5));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.1rem 1.1rem 0.35rem 0.35rem;
+  background: rgba(7, 8, 12, 0.58);
+  box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.5);
   user-select: none;
   pointer-events: none;
   animation: portrait-in 420ms ease;
-  /* Soft edge helps hide residual chroma fringe commercially. */
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 
 .portrait-name {

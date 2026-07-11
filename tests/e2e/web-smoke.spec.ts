@@ -1,5 +1,85 @@
 import { expect, test } from "@playwright/test";
 
+const fakeSession = {
+  access_token: "e2e-access-token",
+  refresh_token: "e2e-refresh-token",
+  expires_in: 3600,
+  expires_at: Math.floor(Date.now() / 1000) + 3600,
+  token_type: "bearer",
+  user: {
+    id: "00000000-0000-4000-8000-000000000001",
+    aud: "authenticated",
+    role: "authenticated",
+    email: "player@example.test",
+    app_metadata: {},
+    user_metadata: {},
+    identities: [],
+    created_at: "2026-07-12T00:00:00.000Z",
+  },
+};
+
+async function installSignedInSession(page: import("@playwright/test").Page) {
+  await page.addInitScript((session) => {
+    localStorage.setItem("supaluv.swimmer.auth.v1", JSON.stringify(session));
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  }, fakeSession);
+  await page.route("**/api/wallet/balance", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: '{"batteries":99}' }),
+  );
+  await page.route("**/tts/synthesize", (route) =>
+    route.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: '{"error":"disabled_in_e2e"}',
+    }),
+  );
+  await page.route("**/ai/branch", (route) =>
+    route.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: '{"error":"disabled_in_e2e"}',
+    }),
+  );
+  await page.route("**/choice-stats**", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: '{"counts":{}}' }),
+  );
+}
+
+async function reachChapterEnd(page: import("@playwright/test").Page) {
+  await page.getByTestId("title-new-game").click();
+  await page.getByRole("button", { name: "使用官方形象" }).click();
+  await page.getByRole("button", { name: "使用官方形象" }).click();
+  for (let step = 0; step < 90; step += 1) {
+    if (
+      await page
+        .getByTestId("ending-ai-experience")
+        .isVisible()
+        .catch(() => false)
+    )
+      return;
+    if (
+      await page
+        .getByTestId("character-studio")
+        .isVisible()
+        .catch(() => false)
+    ) {
+      await page
+        .getByRole("button", { name: "使用官方形象" })
+        .first()
+        .click({ force: true })
+        .catch(() => undefined);
+      continue;
+    }
+    await page
+      .getByTestId("story-copy")
+      .click()
+      .catch(() => undefined);
+    const choice = page.locator(".choice-button:not(.ai-choice-button)").first();
+    if (await choice.isVisible().catch(() => false)) await choice.click();
+  }
+  throw new Error("Chapter end was not reached within 90 authored actions");
+}
+
 async function clickIfVisible(page: import("@playwright/test").Page, name: RegExp) {
   const button = page.getByRole("button", { name });
   await page
@@ -33,6 +113,10 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   // A fast double-click must not create two asynchronous story runtimes.
   await page.getByTestId("title-new-game").dblclick();
 
+  await expect(page.getByTestId("character-studio")).toBeVisible();
+  await page.getByRole("button", { name: "使用官方形象" }).click();
+  await page.getByRole("button", { name: "使用官方形象" }).click();
+
   await expect(page.getByTestId("game-viewport")).toBeVisible();
   await expect(page.getByTestId("fullscreen-toggle")).toBeVisible();
   await expect(page.getByTestId("system-menu-toggle")).toBeVisible();
@@ -45,8 +129,8 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
     expect(ratio).toBeLessThan(1.9);
   }
 
-  await expect(page.getByTestId("cutscene-layer")).toBeVisible();
-  await page.getByRole("button", { name: /跳过 CG/i }).click();
+  await expect(page.getByTestId("vn-stage")).toHaveAttribute("data-motion", "slow_push");
+  await expect(page.getByTestId("cutscene-layer")).toHaveCount(0);
 
   await clickIfVisible(page, /^继续$/i);
   await clickIfVisible(page, /^继续$/i);
@@ -64,6 +148,7 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
 
   await page.getByTestId("system-menu-toggle").click({ force: true });
   await expect(page.getByTestId("system-menu")).toBeVisible();
+  await expect(page.getByTestId("dev-tools-toggle")).toHaveCount(0);
   await expect(page.getByTestId("autoplay-toggle")).toBeVisible();
   await page.getByTestId("save-button").click({ force: true });
   await expect(page.getByTestId("save-toast")).toBeVisible();
@@ -74,4 +159,150 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("system-menu")).toHaveCount(0);
   expect(pageErrors).toEqual([]);
+});
+
+test("AI spend analysis explains that authored story is free", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  });
+  await page.reload();
+
+  await page.getByTestId("title-ai-spend").click();
+  await expect(page.getByTestId("ai-spend-screen")).toBeVisible();
+  await expect(page.getByText(/作者剧情完全免费|只有你主动使用 AI 功能/)).toBeVisible();
+  await expect(page.getByText("需要登录")).toBeVisible();
+});
+
+test("AI spend analysis shows only committed labeled receipts", async ({ page }) => {
+  await installSignedInSession(page);
+  await page.route("**/api/ai/spend", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        items: [
+          {
+            id: "receipt-1",
+            label: "生成角色基准形象",
+            actionKind: "character_base",
+            amountPowerUnits: 120,
+            batteries: 1.2,
+            scopeType: "character_pack",
+            scopeId: "pack-1",
+            metadata: {},
+          },
+          {
+            id: "receipt-2",
+            label: "推进 AI 最终章",
+            actionKind: "ai_ending_segment",
+            amountPowerUnits: 80,
+            batteries: 0.8,
+            scopeType: "ai_ending_session",
+            scopeId: "ending-1",
+            metadata: {},
+          },
+        ],
+        groups: [],
+        totalPowerUnits: 200,
+        totalBatteries: 2,
+      }),
+    }),
+  );
+  await page.goto("/");
+  await page.getByTestId("title-ai-spend").click();
+
+  await expect(page.getByTestId("ai-spend-total")).toHaveText("2");
+  await expect(page.getByText("生成角色基准形象")).toBeVisible();
+  await expect(page.getByText("推进 AI 最终章")).toBeVisible();
+  await expect(page.getByText(/失败、拦截、退款和重复请求不会记账/)).toBeVisible();
+});
+
+test("landscape phone keeps casting controls reachable", async ({ page }) => {
+  await page.setViewportSize({ width: 844, height: 390 });
+  await page.goto("/");
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  });
+  await page.reload();
+  await page.getByTestId("title-new-game").click();
+
+  await expect(page.getByTestId("character-studio")).toBeVisible();
+  const official = page.getByRole("button", { name: "使用官方形象" });
+  await official.scrollIntoViewIfNeeded();
+  await expect(official).toBeVisible();
+});
+
+test("AI ending accepts choices and free text, resumes, and terminates", async ({ page }) => {
+  test.setTimeout(90_000);
+  await installSignedInSession(page);
+  const segments: Array<Record<string, unknown>> = [];
+  const makeSegment = (sequence: number, terminal = false) => ({
+    sequence,
+    text: terminal ? "订单生成了，人也终于决定承担自己的选择。" : `最终章片段 ${sequence}`,
+    beats: [`beat-${sequence}`],
+    choices: terminal
+      ? []
+      : [
+          { id: `choice-${sequence}-a`, label: "继续嘴硬", actionSummary: "嘴硬" },
+          { id: `choice-${sequence}-b`, label: "承认害怕", actionSummary: "坦白" },
+        ],
+    terminal,
+    ...(terminal ? { outcomeAnchor: "awkward_responsibility" } : {}),
+  });
+  await page.route("**/api/ai/endings/sessions**", async (route) => {
+    const url = new URL(route.request().url());
+    if (url.pathname.endsWith("/resume")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          session: {
+            id: "ending-session-1",
+            currentVersion: segments.length,
+            currentSequence: segments.length,
+            status: "active",
+          },
+          checkpoints: segments.map((segment) => ({ segment })),
+        }),
+      });
+      return;
+    }
+    const isAdvance = url.pathname.endsWith("/actions");
+    const sequence = isAdvance ? segments.length + 1 : 1;
+    const segment = makeSegment(sequence, sequence === 4);
+    segments.push(segment);
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        checkpoint: { sessionId: "ending-session-1", sessionVersion: sequence },
+        segment,
+        idempotent: false,
+      }),
+    });
+  });
+
+  await page.goto("/");
+  await reachChapterEnd(page);
+  await page.getByTestId("ending-ai-experience").click();
+  await page.getByRole("button", { name: "开始我的最终章" }).click();
+  await expect(page.getByText("最终章片段 1")).toBeVisible();
+  await page.getByRole("button", { name: "继续嘴硬" }).click();
+  await expect(page.getByText("最终章片段 2")).toBeVisible();
+  await page.getByRole("textbox", { name: "自由行动" }).fill("把账单摊在桌上，先把话说清楚。 ");
+  await page.getByRole("button", { name: "提交自由行动" }).click();
+  await expect(page.getByText("最终章片段 3")).toBeVisible();
+
+  await page.reload();
+  await page.getByTestId("title-continue").click();
+  await expect(page.getByTestId("ending-ai-experience")).toBeVisible();
+  await page.getByTestId("ending-ai-experience").click();
+  await page.getByRole("button", { name: "开始我的最终章" }).click();
+  await expect(page.getByText("最终章片段 3")).toBeVisible();
+  await page.getByRole("button", { name: "承认害怕" }).click();
+  await expect(page.getByText("结局已生成")).toBeVisible();
+  await expect(page.getByText(/awkward_responsibility/)).toBeVisible();
 });

@@ -4,9 +4,11 @@ packages:
   - services/*
   - tools/*
 allowBuilds:
+  '@google/genai': false
   core-js: false
   esbuild: true
   lefthook: true
+  protobufjs: false
 minimumReleaseAgeExclude:
   - "@pieai/doc-gov"
   - "@pieai/pro-gov"

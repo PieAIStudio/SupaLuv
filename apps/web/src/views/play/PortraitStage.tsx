@@ -25,7 +25,18 @@ export function PortraitStage({ portraits, hasArt, mood }: PortraitStageProps) {
                 key={`${side}-${slot.name}-${slot.url}`}
                 className={`portrait-slot side-${side}${slot.active ? " is-active" : " is-dim"}`}
               >
-                <img className="portrait-image" src={slot.url} alt="" draggable={false} />
+                <img
+                  className="portrait-image"
+                  src={slot.url}
+                  alt=""
+                  draggable={false}
+                  onError={(event) => {
+                    const fallback = slot.fallbackUrl;
+                    if (fallback && event.currentTarget.src !== fallback) {
+                      event.currentTarget.src = fallback;
+                    }
+                  }}
+                />
                 <span className="portrait-name">{slot.name}</span>
               </div>
             );

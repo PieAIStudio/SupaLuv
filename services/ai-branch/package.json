@@ -9,9 +9,11 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@google/genai": "2.11.0",
     "@mastra/core": "^1.50.1",
-    "@pieai/swimmer-ai-kit": "file:../../vendor/pieai-swimmer-ai-kit-0.2.0-f44601f.tgz",
+    "@pieai/swimmer-ai-kit": "file:../../vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz",
     "@supabase/supabase-js": "2.108.1",
+    "@supaluv/content": "workspace:*",
     "dotenv": "17.4.2",
     "zod": "3.25.76"
   },

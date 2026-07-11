@@ -23,6 +23,7 @@ interface TitleScreenProps {
   readonly onOpenSettings: () => void;
   readonly onOpenHelp?: () => void;
   readonly onOpenAchievements?: () => void;
+  readonly onOpenAiSpend?: () => void;
   readonly onHostCoPlay?: (roomCode: string, alias: string) => void;
   readonly onJoinCoPlay?: (roomCode: string, alias: string) => void;
 }
@@ -42,6 +43,7 @@ export function TitleScreen({
   onOpenSettings,
   onOpenHelp,
   onOpenAchievements,
+  onOpenAiSpend,
   onHostCoPlay,
   onJoinCoPlay,
 }: TitleScreenProps) {
@@ -255,6 +257,19 @@ export function TitleScreen({
                 data-testid="title-achievements"
               >
                 {t("title.achievements")}
+              </GameButton>
+            ) : null}
+            {onOpenAiSpend ? (
+              <GameButton
+                type="button"
+                variant="ghost"
+                onClick={() => {
+                  armAudio();
+                  onOpenAiSpend();
+                }}
+                data-testid="title-ai-spend"
+              >
+                AI 消费分析
               </GameButton>
             ) : null}
             {onOpenHelp ? (

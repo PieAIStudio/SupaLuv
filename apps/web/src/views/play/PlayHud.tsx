@@ -33,7 +33,7 @@ interface PlayHudProps {
   readonly onOpenHelp?: () => void;
   readonly onOpenAchievements?: () => void;
   readonly onOpenTitle: () => void;
-  readonly onToggleDevTools: () => void;
+  readonly onToggleDevTools?: () => void;
   readonly onOpenMap: () => void;
 }
 

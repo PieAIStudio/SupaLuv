@@ -15,7 +15,7 @@ export default defineConfig({
     channel: process.env.PLAYWRIGHT_CHANNEL ?? "chrome",
   },
   webServer: {
-    command: `SUPALUV_E2E_WEB_PORT=${webPort} pnpm --filter @supaluv/web dev`,
+    command: `SUPALUV_E2E_WEB_PORT=${webPort} VITE_SWIMMER_CORE_SUPABASE_URL=https://e2e.supabase.co VITE_SWIMMER_CORE_PUBLISHABLE_KEY=e2e-public-key pnpm --filter @supaluv/web dev`,
     url: webBaseUrl,
     reuseExistingServer: process.env.PLAYWRIGHT_REUSE_EXISTING_SERVER === "1",
     timeout: 120_000,

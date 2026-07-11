@@ -5,6 +5,16 @@
 
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { verifyBearerToken } from "./authGate.js";
+import {
+  getConfiguredCharacterAssetDependencies,
+  handleCharacterAssetRoute,
+} from "./characterAssetService.js";
+import {
+  getConfiguredCharacterPackDependencies,
+  handleCharacterPackRoute,
+} from "./characterRoutes.js";
+import { getConfiguredEndingDependencies, handleEndingRoute } from "./endingRoutes.js";
+import { handleSpendRoute } from "./spendRoutes.js";
 import { getCountsForStory, recordChoice } from "./choiceStatsStore.js";
 import { generateAiBranch, type AiBranchRequestBody } from "./handler.js";
 import { hasOpenRouterKey, readBody, sendJson } from "./httpUtils.js";
@@ -18,6 +28,7 @@ import {
   getWalletBalance,
   refundReservation,
   reserveBatteries,
+  settleReservation,
   walletMeterConfigured,
   walletOptionalMode,
 } from "./walletMeter.js";
@@ -31,6 +42,44 @@ export async function handleAiBranchRequest(
     sendJson(res, 204, {});
     return true;
   }
+
+  if (
+    url.pathname.startsWith("/ai/characters/references") ||
+    url.pathname === "/internal/ai/characters/references/cleanup"
+  ) {
+    try {
+      if (
+        await handleCharacterAssetRoute(req, res, url, getConfiguredCharacterAssetDependencies())
+      ) {
+        return true;
+      }
+    } catch {
+      sendJson(res, 503, { error: "CHARACTER_ASSET_SERVICE_UNAVAILABLE" });
+      return true;
+    }
+  }
+
+  if (url.pathname.startsWith("/ai/characters/packs")) {
+    try {
+      if (await handleCharacterPackRoute(req, res, url, getConfiguredCharacterPackDependencies())) {
+        return true;
+      }
+    } catch {
+      sendJson(res, 503, { error: "CHARACTER_SERVICE_UNAVAILABLE" });
+      return true;
+    }
+  }
+
+  if (url.pathname.startsWith("/ai/endings/sessions")) {
+    try {
+      if (await handleEndingRoute(req, res, url, getConfiguredEndingDependencies())) return true;
+    } catch {
+      sendJson(res, 503, { error: "AI_ENDING_SERVICE_UNAVAILABLE" });
+      return true;
+    }
+  }
+
+  if (await handleSpendRoute(req, res, url)) return true;
 
   if (req.method === "GET" && (url.pathname === "/health" || url.pathname === "/")) {
     sendJson(res, 200, {
@@ -245,7 +294,16 @@ export async function handleAiBranchRequest(
         return true;
       }
 
-      await commitReservation({ reservationId, reason: "ai_branch" });
+      if (!reserved.skipped) {
+        await settleReservation({
+          ownerId: auth.userId,
+          reservationId,
+          actionKind: "ai_side_choice",
+          scopeType: "story_run",
+          amountPowerUnits: reserved.amountPowerUnits,
+          metadata: { storyId: body.storyId, sceneId: body.sceneId },
+        });
+      }
       sendJson(res, 200, {
         ...result,
         provider: `${result.provider}+auth`,

@@ -65,3 +65,4 @@ export {
 };
 export { CHARACTER_BY_NAME, resolveCharacter } from "../characters/registry";
 export type { CharacterDef, PortraitSide } from "../characters/registry";
+export { CHARACTER_SLOTS, INITIAL_CHARACTER_MOODS } from "../characters/slots";

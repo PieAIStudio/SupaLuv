@@ -1,5 +1,6 @@
 import type { StoryId } from "../story/storyMapAdapter";
 import type { ComedyMeters, InkStoryChoice, InkStorySnapshot } from "../story/inkStoryRunner";
+import type { StoryCharacterBindings } from "../characters/characterPackTypes";
 
 export const SAVE_VERSION = 1 as const;
 export const AUTOSAVE_SLOT = "autosave";
@@ -37,12 +38,19 @@ export interface GameSavePayload {
   readonly chapterHint?: string;
   /** Optional for legacy saves written before presentation snapshots. */
   readonly presentation?: SavePresentation;
+  readonly characterBindings?: StoryCharacterBindings;
 }
 
 export const EMPTY_UNLOCKS: GalleryUnlocks = {
   images: [],
   videos: [],
   audio: [],
+};
+
+export const CH01_CLEAR_REWARDS: GalleryUnlocks = {
+  images: ["bg-product-page", "bg-office-night"],
+  videos: [],
+  audio: ["title-theme", "soft-piano", "chapter-end", "lonely-pad", "night-ambient"],
 };
 
 function slotKey(slotId: string): string {

@@ -33,6 +33,8 @@ import { DialogueHistoryDrawer } from "./play/DialogueHistoryDrawer";
 import { DialoguePanel } from "./play/DialoguePanel";
 import { PlayHud } from "./play/PlayHud";
 import { PortraitStage } from "./play/PortraitStage";
+import type { StoryCharacterBindings } from "../characters/characterPackTypes";
+import { CharacterStudioScreen, type CharacterStudioSlot } from "./CharacterStudioScreen";
 import { mapDialogueForPlayer, mapPortraitsForPlayer } from "./play/stagePresentation";
 import { getScenePathMemory } from "../persistence/pathMemory";
 import { findDecision } from "../stats/choiceStatsCatalog";
@@ -56,6 +58,8 @@ interface VisualNovelPrototypeProps {
   readonly activeSaveSlot: ManualSlotId;
   readonly displayNames?: DisplayNameMap;
   readonly portraitPack?: PortraitPackState;
+  readonly characterBindings?: StoryCharacterBindings;
+  readonly onCharacterBindingsChange?: (bindings: StoryCharacterBindings) => void;
   readonly coPlay?: CoPlaySessionApi | null;
   readonly onLeaveCoPlay?: () => void;
   readonly onRareEcho?: () => void;
@@ -95,6 +99,8 @@ export function VisualNovelPrototype({
   activeSaveSlot,
   displayNames = DEFAULT_DISPLAY_NAMES,
   portraitPack = EMPTY_PORTRAIT_PACK,
+  characterBindings = {},
+  onCharacterBindingsChange,
   coPlay = null,
   onLeaveCoPlay,
   onRareEcho,
@@ -121,9 +127,30 @@ export function VisualNovelPrototype({
 }: VisualNovelPrototypeProps) {
   const auth = useAuth();
   const currentScene = getStoryScene(storyId, snapshot.sceneId);
+  const pendingRobotSlots = (currentScene?.characterSlotLock?.slotIds ?? [])
+    .filter((slotId) => !characterBindings[slotId])
+    .map<CharacterStudioSlot>((slotId) =>
+      slotId === "robot_aila"
+        ? {
+            id: slotId,
+            name: "艾拉",
+            role: "女款机器人",
+            kind: "robot",
+            official: "/assets/portraits/demo-ui.png",
+          }
+        : {
+            id: slotId,
+            name: "凯",
+            role: "男款机器人",
+            kind: "robot",
+            official: "/assets/portraits/demo-ui.png",
+          },
+    );
   const presentation = getStoryPresentation(storyId, snapshot.sceneId);
   const storyLabel = getStoryDefinition(storyId).label;
   const playerMode = storyId === "ch01";
+  const debugToolsAvailable =
+    import.meta.env.DEV && new URLSearchParams(window.location.search).get("debug") === "1";
   const typewriterOpts = textSpeedToTypewriter(textSpeed);
 
   const [showDevTools, setShowDevTools] = useState(!playerMode);
@@ -276,7 +303,12 @@ export function VisualNovelPrototype({
         },
       ]
     : presentation.portraits;
-  const portraits = mapPortraitsForPlayer(basePortraits, displayNames, portraitPack);
+  const portraits = mapPortraitsForPlayer(
+    basePortraits,
+    displayNames,
+    portraitPack,
+    characterBindings,
+  );
 
   useHostCoPlayMirror({
     coPlay,
@@ -579,6 +611,18 @@ export function VisualNovelPrototype({
     onEscape: handleEscape,
   });
 
+  if (pendingRobotSlots.length > 0) {
+    return (
+      <CharacterStudioScreen
+        slots={pendingRobotSlots}
+        initialBindings={characterBindings}
+        allowCancel={false}
+        onCancel={() => undefined}
+        onComplete={(bindings) => onCharacterBindingsChange?.(bindings)}
+      />
+    );
+  }
+
   return (
     <div className="game-viewport" data-testid="game-viewport" ref={stageRootRef}>
       <section
@@ -591,23 +635,25 @@ export function VisualNovelPrototype({
         data-player-mode={playerMode ? "true" : "false"}
         data-autoplay={localAutoPlay ? "true" : "false"}
         data-ai-branch={aiPlaying ? "true" : "false"}
+        data-motion={activeAiBeat ? "none" : (currentScene?.stageMotion ?? "none")}
         data-coplay={coPlay ? coPlay.role : "off"}
         data-testid="vn-stage"
         data-pointer-mode={pointerMode}
         onPointerMove={coPlay ? handleStagePointer : undefined}
         onPointerDown={coPlay ? handleStageTouchFocus : undefined}
-        style={
-          artUrl && !isGuestSpectator
-            ? {
-                backgroundImage: `linear-gradient(180deg, rgba(4, 5, 8, 0.18) 0%, rgba(4, 5, 8, 0.35) 42%, rgba(4, 5, 8, 0.78) 100%), url(${artUrl})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }
-            : undefined
-        }
       >
+        {artUrl && !isGuestSpectator ? (
+          <div
+            className="vn-stage-art"
+            aria-hidden="true"
+            style={{
+              backgroundImage: `linear-gradient(180deg, rgba(4, 5, 8, 0.18) 0%, rgba(4, 5, 8, 0.35) 42%, rgba(4, 5, 8, 0.78) 100%), url(${artUrl})`,
+            }}
+          />
+        ) : null}
         <div className="vn-stage-backdrop" />
         <div className="vn-stage-vignette" aria-hidden="true" />
+        <div className="vn-stage-flash" aria-hidden="true" />
 
         {coPlay ? (
           <CoPlayBanner
@@ -680,7 +726,9 @@ export function VisualNovelPrototype({
             onOpenHelp={onOpenHelp}
             onOpenAchievements={onOpenAchievements}
             onOpenTitle={onOpenTitle}
-            onToggleDevTools={() => setShowDevTools((value) => !value)}
+            onToggleDevTools={
+              debugToolsAvailable ? () => setShowDevTools((value) => !value) : undefined
+            }
             onOpenMap={onOpenMap}
           />
         ) : (
@@ -762,6 +810,7 @@ export function VisualNovelPrototype({
           impulse={impulse}
           sessionStatsPicks={isGuestSpectator ? [] : sessionStatsPicks}
           displayNames={displayNames}
+          characterBindings={characterBindings}
           onRareEcho={onRareEcho}
           onReverseCurrent={onReverseCurrent}
           onOracleHit={onOracleHit}

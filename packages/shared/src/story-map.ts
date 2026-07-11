@@ -1,3 +1,5 @@
+import type { AiEndingContract } from "./ai-ending.js";
+
 export const PROTOTYPE_SCENE_SOURCE = "experimental-chapter-01-pipeline-dummy" as const;
 export const CHAPTER_01_TRIAL_SCENE_SOURCE = "chapter-01-trial-pipeline-dummy" as const;
 export const CHAPTER_01_NARRATIVE_DRAFT_SOURCE = "chapter-01-narrative-draft" as const;
@@ -23,6 +25,8 @@ export interface PrototypeSceneCard {
   readonly backgroundKey?: string;
   /** Public art id under /assets/scenes/{artKey}.jpg when present. */
   readonly artKey?: string;
+  /** Restrained still-image motion used instead of identity-breaking prerendered human video. */
+  readonly stageMotion?: "slow_push" | "drift" | "flash";
   /** Portrait id under /assets/portraits/{portraitKey}.png when present. */
   readonly portraitKey?: string;
   /**
@@ -49,6 +53,11 @@ export interface PrototypeSceneCard {
   readonly cutsceneTitle?: string;
   readonly speaker?: string;
   readonly mood?: string;
+  /** Character slots selected exactly once when this authored scene is reached. */
+  readonly characterSlotLock?: {
+    readonly slotIds: readonly string[];
+  };
+  readonly aiEnding?: AiEndingContract;
   /**
    * Optional live AI choice slot on this authored beat.
    * AI may add ONE extra choice and short side content, then MUST rejoin

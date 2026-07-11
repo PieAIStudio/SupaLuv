@@ -162,34 +162,76 @@ export async function reserveBatteries(input: {
   return { ok: true, reservationId, amountPowerUnits: amount, skipped: false };
 }
 
-export async function commitReservation(input: {
-  readonly reservationId: string;
-  readonly reason: string;
-}): Promise<void> {
+export async function commitReservation(
+  input: {
+    readonly reservationId: string;
+    readonly reason: string;
+  },
+  client?: SupabaseClient,
+): Promise<void> {
   if (!input.reservationId || !walletMeterConfigured()) {
     return;
   }
-  const sb = adminClient()!;
-  await sb.rpc("wallet_commit", {
+  const sb = client ?? adminClient()!;
+  const { error } = await sb.rpc("wallet_commit", {
     p_reservation_id: input.reservationId,
     p_app_id: appId(),
     p_idempotency_key: `commit:${input.reservationId}`,
     p_metadata: { reason: input.reason, product: "supaluv" },
   });
+  if (error) throw new Error(`wallet commit failed: ${error.message.slice(0, 160)}`);
 }
 
-export async function refundReservation(input: {
-  readonly reservationId: string;
-  readonly reason: string;
-}): Promise<void> {
+export async function settleReservation(
+  input: {
+    readonly ownerId: string;
+    readonly reservationId: string;
+    readonly actionKind:
+      | "character_base"
+      | "character_regeneration"
+      | "character_mood_pack"
+      | "character_mood"
+      | "ai_side_choice"
+      | "ai_ending_segment"
+      | "ai_ending_still";
+    readonly scopeType: "character_pack" | "story_run" | "ai_ending_session";
+    readonly scopeId?: string;
+    readonly amountPowerUnits: number;
+    readonly metadata: Readonly<Record<string, unknown>>;
+  },
+  client?: SupabaseClient,
+): Promise<void> {
+  if (!input.reservationId || input.amountPowerUnits <= 0 || !walletMeterConfigured()) return;
+  const sb = (client ?? adminClient()!).schema("supaluv");
+  const { error } = await sb.rpc("settle_spend_receipt", {
+    p_owner_id: input.ownerId,
+    p_wallet_reservation_id: input.reservationId,
+    p_action_kind: input.actionKind,
+    p_scope_type: input.scopeType,
+    p_scope_id: input.scopeId ?? null,
+    p_amount_power_units: input.amountPowerUnits,
+    p_commit_metadata: { reason: input.actionKind, product: "supaluv" },
+    p_receipt_metadata: input.metadata,
+  });
+  if (error) throw new Error(`wallet settlement failed: ${error.message.slice(0, 160)}`);
+}
+
+export async function refundReservation(
+  input: {
+    readonly reservationId: string;
+    readonly reason: string;
+  },
+  client?: SupabaseClient,
+): Promise<void> {
   if (!input.reservationId || !walletMeterConfigured()) {
     return;
   }
-  const sb = adminClient()!;
-  await sb.rpc("wallet_refund", {
+  const sb = client ?? adminClient()!;
+  const { error } = await sb.rpc("wallet_refund", {
     p_reservation_id: input.reservationId,
     p_app_id: appId(),
     p_idempotency_key: `refund:${input.reservationId}`,
     p_metadata: { reason: input.reason, product: "supaluv" },
   });
+  if (error) throw new Error(`wallet refund failed: ${error.message.slice(0, 160)}`);
 }

@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-07-11
+last_reviewed: 2026-07-12
 domain: meta
 tags:
   - current-work
@@ -30,7 +30,11 @@ This file is the current project work index. It is not the agents-routing algori
 
 - **Product phase**: Chapter 01 is a densified, noncanonical **playable commercial
   demo shell** (title → play → save → gallery → settings → ending modal).
-- **Default player path**: open app → title screen → 新的游戏 → `ch01`.
+- **Default player path**: open app → title screen → 新的游戏 → 主角选角 → `ch01`.
+- **Active AI product proof**: `SPEC-0002` + `PLAN-0004` implement paid adult
+  character packs, robot locks, bounded resumable AI endings, and AI spend
+  analysis. Deterministic proof is green; live Gemini/SwimmerCore/wallet proof
+  still requires a configured non-production environment.
 - **Active polish plan**: `docs/plans/active/PLAN-0003-ch01-polish-loops.md`
   (Loops 1–6 largely landed; residual polish only).
 - **Older pipeline plan/spec** (still valid provenance for trial dummy path):
@@ -45,7 +49,8 @@ This file is the current project work index. It is not the agents-routing algori
 | Capability | Status |
 | --- | --- |
 | 16:9 stage + fullscreen | in runtime |
-| Event CG cutscenes | cold open + demo echo |
+| Human video cutscenes | removed; generic player remains dormant |
+| Still-first cinema cues | slow push + drift/flash, reduced-motion safe |
 | Dual portraits L/R | 苏明 / 林晓棠 / 周鹿 |
 | Densified Ink (~40 beats) | `packages/content/ink/ch01.ink` |
 | Title / continue / multi-slot save | localStorage |
@@ -66,6 +71,9 @@ This file is the current project work index. It is not the agents-routing algori
 | Feature status + A/B/C/D roadmap | `docs/reference/execution/feature-status-and-roadmap.md` |
 | Co-play local (host/guest/cursor/RPS) | `apps/web/src/coplay/*` + architecture doc |
 | Protagonist names + local portrait pack | `displayNames.ts`, `portraitPack.ts` · ADR-0002 CG skip |
+| Persistent AI character packs | lead pre-game lock + robot authored-scene lock · ADR-0005 |
+| Bounded AI final chapter | checkpointed 2–4 choices/free text, max 8 segments |
+| AI spend analysis | atomic wallet commit + delivered action + committed receipt; failures/refunds omitted |
 | Chapter-end global choice stats | `apps/web/src/stats/*` |
 | Share card % + rare/RPS/pack achievements | end card + `achievements.ts` |
 
@@ -77,7 +85,7 @@ This file is the current project work index. It is not the agents-routing algori
 | Play stage orchestration | `apps/web/src/views/VisualNovelPrototype.tsx` |
 | Play HUD / system menu / dialogue panel | `apps/web/src/views/play/*` |
 | Continue-choice helpers | `apps/web/src/views/play/vnHelpers.ts` |
-| Title / gallery / settings / end / CG | `apps/web/src/views/*.tsx` |
+| Title / casting / gallery / settings / ending | `apps/web/src/views/*.tsx` |
 | Ink runner | `apps/web/src/story/inkStoryRunner.ts` |
 | Presentation / dual portraits | `apps/web/src/story/storyMapAdapter.ts` |
 | Audio | `apps/web/src/audio/gameAudio.ts` |
@@ -117,7 +125,10 @@ Boundary notes:
 9. **Settings:** player panels in `views/settings/SettingsPlayerSection.tsx`;
    lab (portrait pack / unmetered notes) in `SettingsLabSection.tsx`.
 10. **CSS:** do not re-merge into one blob — edit the matching
-    `styles/{base,stage,meta,coplay,chrome}.css` partial.
+    `styles/{base,stage,meta,coplay,chrome,character-studio}.css` partial.
+11. **Character assets:** persist pack ids in saves and refresh private signed
+    URLs through `characters/storyRunBindings.ts`; never treat signed URLs as
+    permanent storage identities.
 
 ## Non-negotiables
 

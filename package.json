@@ -36,7 +36,7 @@
   "devDependencies": {
     "@pieai/doc-gov": "0.4.4",
     "@pieai/pro-gov": "0.4.4",
-    "@pieai/swimmer-ai-kit": "file:vendor/pieai-swimmer-ai-kit-0.2.0-f44601f.tgz",
+    "@pieai/swimmer-ai-kit": "file:vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz",
     "@playwright/test": "1.59.1",
     "@types/node": "24.13.2",
     "lefthook": "2.1.9",

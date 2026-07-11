@@ -5,12 +5,10 @@ Exact runtime paths, byte sizes, and SHA-256 fingerprints live in
 commercial-release asset merely because it is present in the demo: the ledger's
 `release_status` column is the release gate.
 
-## Generated in-house (AI image / video tools)
+## Generated in-house (AI image tools)
 
 - Scene backgrounds: `apps/web/public/assets/scenes/*.jpg`
 - Character portraits: `apps/web/public/assets/portraits/suming-*.png`
-- Cold-open cutscene: `apps/web/public/assets/video/ch01-cold-open.mp4`
-- Event CG (demo echo): `apps/web/public/assets/video/ch01-demo-echo.mp4`
 - Boot splash still: `apps/web/public/assets/ui/boot-splash.jpg` (click-to-start gate)
 
 These are project-owned generation outputs for SupaLuv prototype use.
@@ -22,7 +20,7 @@ files duplicated `suming-lonely` and `suming-shame`. The final prompts,
 invariants, processing steps and source references are recorded in
 `packages/content/characters/suming/prompts.md`. This repairs provenance for
 those two outputs only; it does not retroactively clear the older generated
-image/video set.
+image set.
 
 Current OpenAI service terms say customers own output to the extent permitted by
 law, while visual-capability users remain responsible for having necessary

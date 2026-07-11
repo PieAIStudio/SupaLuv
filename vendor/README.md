@@ -6,7 +6,7 @@ in SupaLuv; shared package source remains in its owning repository.
 
 | Package | Version | Upstream commit | SHA-256 |
 | --- | --- | --- | --- |
-| `@pieai/swimmer-ai-kit` | `0.2.0` | `f44601f91804deb778778e56172b564971c9a138` | `c2bb1ba1282a19002f661cdeab84750ce61506d1c35f6e5d3d2c800ec93c1ddb` |
+| `@pieai/swimmer-ai-kit` | `0.2.1` | `ff9adeb49264b42fe8dbd5f14e695a4d33a9e859` | `7f32fbe1ff00297383e0f92c1dd5d5fa2390597dc051b904f6fe1f2036afd6b8` |
 
 The commit suffix in the filename is an audit hint; the SHA-256 is the artifact
 integrity proof. `@pieai/swimmer-ui-kit` is no longer vendored: SupaLuv pins the

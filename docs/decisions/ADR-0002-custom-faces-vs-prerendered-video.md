@@ -2,11 +2,11 @@
 id: ADR-0002
 title: Custom Lead Faces vs Pre-rendered Lead-Face Video
 type: decision
-status: accepted
-canonical: true
+status: superseded
+canonical: false
 owner: ai-assisted
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-11
 domain: architecture
 tags:
   - supaluv
@@ -21,15 +21,15 @@ related:
   - REF-CURRENT-WORK
   - ADR-0001
 supersedes: []
-superseded_by: null
+superseded_by: ADR-0005
 ---
 
 # ADR-0002: Custom Lead Faces vs Pre-rendered Lead-Face Video
 
 ## Status
 
-**Accepted** for demo and near-term product. Revisit if a real-time face-in-video
-pipeline becomes cost-viable.
+**Superseded by ADR-0005.** The hybrid official-video/custom-face rule is no
+longer the product direction. This record remains as decision history.
 
 ## Context
 

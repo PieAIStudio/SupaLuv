@@ -9,7 +9,7 @@ interface GalleryScreenProps {
 }
 
 export function GalleryScreen({ unlocks, onBack }: GalleryScreenProps) {
-  const total = unlocks.images.length + unlocks.videos.length + unlocks.audio.length;
+  const total = unlocks.images.length + unlocks.audio.length;
 
   return (
     <div className="meta-screen gallery-screen" data-testid="gallery-screen">
@@ -36,29 +36,6 @@ export function GalleryScreen({ unlocks, onBack }: GalleryScreenProps) {
               {unlocks.images.map((id) => (
                 <li key={id}>
                   <img src={`/assets/scenes/${id}.jpg`} alt={id} className="gallery-thumb" />
-                  <span>{id}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </GamePanel>
-
-        <GamePanel title="视频 / 事件 CG" tone="strong">
-          <div className="gallery-badges">
-            <GameBadge tone="ai">已解锁 {unlocks.videos.length}</GameBadge>
-          </div>
-          {unlocks.videos.length === 0 ? (
-            <GameEmptyState title="还没有视频" description="看过的开场/事件 CG 会记在这里。" />
-          ) : (
-            <ul className="gallery-list">
-              {unlocks.videos.map((id) => (
-                <li key={id}>
-                  <video
-                    src={`/assets/video/${id}.mp4`}
-                    className="gallery-thumb"
-                    muted
-                    playsInline
-                  />
                   <span>{id}</span>
                 </li>
               ))}

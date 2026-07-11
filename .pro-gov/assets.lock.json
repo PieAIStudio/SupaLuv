@@ -39,12 +39,6 @@
       "targetPath": ".agents/skills/codebase-design"
     },
     {
-      "id": "npx-skills/design-an-interface",
-      "sourcePath": "skills/npx-skills/.agents/skills/design-an-interface",
-      "contentHash": "sha256:6542fd942be3ece9155ef515d4326005e19c785145132ed428b0dc44a2d27698",
-      "targetPath": ".agents/skills/design-an-interface"
-    },
-    {
       "id": "npx-skills/diagnosing-bugs",
       "sourcePath": "skills/npx-skills/.agents/skills/diagnosing-bugs",
       "contentHash": "sha256:30d504909484072b68fd2662cf1874da1d5f2c57fa02cbfc0750896c269713bb",
@@ -135,18 +129,6 @@
       "targetPath": ".agents/skills/prototype"
     },
     {
-      "id": "npx-skills/qa",
-      "sourcePath": "skills/npx-skills/.agents/skills/qa",
-      "contentHash": "sha256:a179fd6bd7f69612c776230d1cb5aa7c859c8ea5c84a7ab885f41fc883dc1d05",
-      "targetPath": ".agents/skills/qa"
-    },
-    {
-      "id": "npx-skills/request-refactor-plan",
-      "sourcePath": "skills/npx-skills/.agents/skills/request-refactor-plan",
-      "contentHash": "sha256:3087b88bf8124691c10bd2bc248114a89f991b2e039c15c90d179a234f02db58",
-      "targetPath": ".agents/skills/request-refactor-plan"
-    },
-    {
       "id": "npx-skills/research",
       "sourcePath": "skills/npx-skills/.agents/skills/research",
       "contentHash": "sha256:6e70265f3f531ab6f3c77ee5ecbafaed4398cc2094ca04510a0048553f560c5e",
@@ -205,12 +187,6 @@
       "sourcePath": "skills/npx-skills/.agents/skills/triage",
       "contentHash": "sha256:ac70de32fe89f8f08941e0baa3659954cb38d2a0de41a4050ded1456b81f5699",
       "targetPath": ".agents/skills/triage"
-    },
-    {
-      "id": "npx-skills/ubiquitous-language",
-      "sourcePath": "skills/npx-skills/.agents/skills/ubiquitous-language",
-      "contentHash": "sha256:675e0300ef2aaafb4ce16599f40cbbb8e1b6954bee2e73cc09df8799e9760c67",
-      "targetPath": ".agents/skills/ubiquitous-language"
     },
     {
       "id": "npx-skills/ui-ux-pro-max",

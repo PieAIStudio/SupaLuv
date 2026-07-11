@@ -150,3 +150,35 @@ export function setLeadOverride(
     byLead: { ...pack.byLead, [slot]: dataUrl },
   };
 }
+
+/**
+ * Compatibility bridge for saves created before server character packs existed.
+ * It snapshots only the old lead overrides; callers may persist the result in a new story run.
+ */
+export function legacyPortraitBindings(pack: PortraitPackState, lockedAt: string) {
+  const bindings: Record<
+    string,
+    { slotId: string; packId: string; baseUrl: string; moodUrls: {}; lockedAt: string }
+  > = {};
+  const suming = pack.byLead.suming;
+  if (suming) {
+    bindings.lead_suming = {
+      slotId: "lead_suming",
+      packId: "legacy-local-suming",
+      baseUrl: suming,
+      moodUrls: {},
+      lockedAt,
+    };
+  }
+  const femaleLead = pack.byLead.lin_xiaotang;
+  if (femaleLead) {
+    bindings.lead_zhou_lu = {
+      slotId: "lead_zhou_lu",
+      packId: "legacy-local-female-lead",
+      baseUrl: femaleLead,
+      moodUrls: {},
+      lockedAt,
+    };
+  }
+  return bindings;
+}

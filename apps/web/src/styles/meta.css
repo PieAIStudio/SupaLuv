@@ -46,7 +46,8 @@
 }
 
 .app-shell[data-screen="help"],
-.app-shell[data-screen="achievements"] {
+.app-shell[data-screen="achievements"],
+.app-shell[data-screen="ai-spend"] {
   min-height: 100dvh;
   background: radial-gradient(ellipse at 50% 0%, rgba(70, 48, 36, 0.4), transparent 52%), #07080c;
 }
@@ -284,9 +285,59 @@
 .app-shell[data-screen="gallery"],
 .app-shell[data-screen="settings"],
 .app-shell[data-screen="help"],
-.app-shell[data-screen="achievements"] {
+.app-shell[data-screen="achievements"],
+.app-shell[data-screen="ai-spend"] {
   min-height: 100dvh;
   background: radial-gradient(ellipse at 50% 0%, rgba(70, 48, 36, 0.4), transparent 52%), #07080c;
+}
+
+.meta-kicker {
+  margin: 0 0 0.25rem;
+  color: rgba(255, 188, 145, 0.72);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+}
+
+.ai-spend-total {
+  display: flex !important;
+  align-items: baseline;
+  gap: 0.65rem;
+}
+
+.ai-spend-total strong {
+  color: #fff5ec;
+  font-size: 2.2rem;
+}
+
+.ai-spend-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.ai-spend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 0.85rem;
+  background: rgba(14, 16, 24, 0.84);
+}
+
+.ai-spend-row div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.ai-spend-row span {
+  color: rgba(255, 245, 236, 0.58);
+  font-size: 0.78rem;
+}
+
+.ai-spend-row b {
+  color: #ffbe94;
+  white-space: nowrap;
 }
 
 /* Settings volume labels must stay high-contrast on dark panels */

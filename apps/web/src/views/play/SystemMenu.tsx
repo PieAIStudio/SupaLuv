@@ -13,7 +13,7 @@ interface SystemMenuProps {
   readonly onOpenHelp?: () => void;
   readonly onOpenAchievements?: () => void;
   readonly onOpenTitle: () => void;
-  readonly onToggleDevTools: () => void;
+  readonly onToggleDevTools?: () => void;
   readonly onOpenMap: () => void;
 }
 
@@ -82,15 +82,17 @@ export function SystemMenu({
       <button type="button" onClick={onOpenTitle} role="menuitem">
         返回标题
       </button>
-      <button
-        type="button"
-        data-testid="dev-tools-toggle"
-        onClick={onToggleDevTools}
-        role="menuitem"
-      >
-        {showDevTools ? "隐藏开发工具" : "开发工具"}
-      </button>
-      {showDevTools ? (
+      {onToggleDevTools ? (
+        <button
+          type="button"
+          data-testid="dev-tools-toggle"
+          onClick={onToggleDevTools}
+          role="menuitem"
+        >
+          {showDevTools ? "隐藏开发工具" : "开发工具"}
+        </button>
+      ) : null}
+      {showDevTools && onToggleDevTools ? (
         <button type="button" onClick={onOpenMap} role="menuitem">
           Creator Map
         </button>
