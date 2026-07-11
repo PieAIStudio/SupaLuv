@@ -18,10 +18,16 @@ let largestJsBytes = 0;
 
 if (result.status === 0) {
   const html = readFileSync(resolve(dist, "index.html"), "utf8");
-  const entries = [...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+\.js)["'][^>]*>/g)].map(
+  const scripts = [...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+\.js)["'][^>]*>/g)].map(
     (match) => match[1]
   );
-  entrypointPresent = entries.length > 0 ? 1 : 0;
+  const modulePreloads = [...html.matchAll(/<link\b[^>]*>/g)]
+    .map((match) => match[0])
+    .filter((tag) => /\brel=["']modulepreload["']/.test(tag))
+    .map((tag) => /\bhref=["']([^"']+\.js)["']/.exec(tag)?.[1])
+    .filter((entry) => entry !== undefined);
+  const entries = [...new Set([...scripts, ...modulePreloads])];
+  entrypointPresent = scripts.length > 0 ? 1 : 0;
 
   for (const entry of entries) {
     const content = readFileSync(resolve(dist, entry.replace(/^\//, "")));
