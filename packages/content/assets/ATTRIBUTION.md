@@ -15,6 +15,24 @@ commercial-release asset merely because it is present in the demo: the ledger's
 
 These are project-owned generation outputs for SupaLuv prototype use.
 
+### Recorded 2026-07-11 mood repairs
+
+`suming-committed` and `suming-restless` were regenerated because their previous
+files duplicated `suming-lonely` and `suming-shame`. The final prompts,
+invariants, processing steps and source references are recorded in
+`packages/content/characters/suming/prompts.md`. This repairs provenance for
+those two outputs only; it does not retroactively clear the older generated
+image/video set.
+
+Current OpenAI service terms say customers own output to the extent permitted by
+law, while visual-capability users remain responsible for having necessary
+input and likeness rights. Keep the two repaired assets at
+`terms_review_pending` until the product's release-rights review records the
+applicable account agreement and confirms the fictional-character input chain:
+
+- <https://openai.com/policies/service-terms/>
+- <https://cdn.openai.com/osa/openai-services-agreement.pdf>
+
 ## AI music beds (Lyria 3 via Gemini, 2026-07)
 
 Owner-generated instrumental beds. Runtime IDs are stable; original export
@@ -35,6 +53,12 @@ Notes:
   the Mixkit prototype beds were replaced.
 - Voice channel is reserved (no VO files yet). TTS vendor research:
   `docs/reference/research/ai-voice-tts-vendor-selection-v1.md`.
+- Google states that it does not claim ownership of original output from
+  labs.google/fx and documents downloading Lyria tracks, but the local files do
+  not retain generation-session receipts. Their commercial evidence therefore
+  remains pending rather than inferred from the general terms:
+  <https://labs.google/fx/en-gb/faq> and
+  <https://support.google.com/gemini/answer/16901237>.
 
 ## Third-party free SFX (Mixkit License)
 
