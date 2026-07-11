@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { trackEvent } from "./analytics/productAnalytics";
 import { gameAudio } from "./audio/gameAudio";
 import { useCoPlaySession } from "./coplay/useCoPlaySession";
@@ -32,16 +32,27 @@ import { loadSettings, saveSettings, type GameSettings } from "./persistence/set
 import { createInkStoryRunner, type InkStoryRunner } from "./story/inkStoryRunner";
 import { resolveStatsPick } from "./stats/choiceStatsCatalog";
 import { getStoryDefinition, type StoryId } from "./story/storyMapAdapter";
-import { AchievementsScreen } from "./views/AchievementsScreen";
 import { BootSplash } from "./views/BootSplash";
 import type { EndingPathMeta } from "./views/ChapterEndCard";
-import { GalleryScreen } from "./views/GalleryScreen";
-import { HelpScreen } from "./views/HelpScreen";
 import { OrientationGate } from "./views/OrientationGate";
-import { SettingsScreen } from "./views/SettingsScreen";
 import { StoryMapPreview } from "./views/StoryMapPreview";
 import { TitleScreen } from "./views/TitleScreen";
 import { VisualNovelPrototype } from "./views/VisualNovelPrototype";
+
+const AchievementsScreen = lazy(() =>
+  import("./views/AchievementsScreen").then(({ AchievementsScreen }) => ({
+    default: AchievementsScreen,
+  })),
+);
+const GalleryScreen = lazy(() =>
+  import("./views/GalleryScreen").then(({ GalleryScreen }) => ({ default: GalleryScreen })),
+);
+const HelpScreen = lazy(() =>
+  import("./views/HelpScreen").then(({ HelpScreen }) => ({ default: HelpScreen })),
+);
+const SettingsScreen = lazy(() =>
+  import("./views/SettingsScreen").then(({ SettingsScreen }) => ({ default: SettingsScreen })),
+);
 
 type AppScreen = "title" | "play" | "gallery" | "settings" | "help" | "achievements";
 
@@ -429,23 +440,25 @@ export function App() {
         />
       ) : null}
 
-      {screen === "gallery" ? <GalleryScreen unlocks={unlocks} onBack={backFromMeta} /> : null}
+      <Suspense fallback={null}>
+        {screen === "gallery" ? <GalleryScreen unlocks={unlocks} onBack={backFromMeta} /> : null}
 
-      {screen === "settings" ? (
-        <SettingsScreen
-          settings={settings}
-          onChange={setSettings}
-          displayNames={displayNames}
-          onDisplayNamesChange={setDisplayNames}
-          portraitPack={portraitPack}
-          onPortraitPackChange={setPortraitPack}
-          onBack={backFromMeta}
-        />
-      ) : null}
+        {screen === "settings" ? (
+          <SettingsScreen
+            settings={settings}
+            onChange={setSettings}
+            displayNames={displayNames}
+            onDisplayNamesChange={setDisplayNames}
+            portraitPack={portraitPack}
+            onPortraitPackChange={setPortraitPack}
+            onBack={backFromMeta}
+          />
+        ) : null}
 
-      {screen === "help" ? <HelpScreen onBack={backFromMeta} /> : null}
+        {screen === "help" ? <HelpScreen onBack={backFromMeta} /> : null}
 
-      {screen === "achievements" ? <AchievementsScreen onBack={backFromMeta} /> : null}
+        {screen === "achievements" ? <AchievementsScreen onBack={backFromMeta} /> : null}
+      </Suspense>
 
       {screen === "play" && runner ? (
         <>
