@@ -2,6 +2,7 @@
 **/dist/**
 **/build/**
 **/.vite/**
+**/.vercel/**
 coverage/
 playwright-report/
 test-results/

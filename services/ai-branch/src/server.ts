@@ -9,8 +9,9 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import { hasOpenRouterKey, sendJson } from "./httpUtils.js";
 import { handleAiBranchRequest } from "./routeTable.js";
+import { normalizeAiBranchServiceUrl } from "./serviceMount.js";
 
-const PORT = Number(process.env.SUPALUV_AI_BRANCH_PORT ?? 8787);
+const PORT = Number(process.env.PORT ?? process.env.SUPALUV_AI_BRANCH_PORT ?? 8787);
 const HOST = process.env.SUPALUV_AI_BRANCH_HOST ?? "127.0.0.1";
 
 function loadDotEnvFile(path: string): void {
@@ -59,16 +60,20 @@ function loadSecrets(): void {
 loadSecrets();
 
 const server = createServer(async (req, res) => {
-  const url = new URL(req.url ?? "/", `http://${HOST}:${PORT}`);
+  const url = normalizeAiBranchServiceUrl(new URL(req.url ?? "/", `http://${HOST}:${PORT}`));
   const handled = await handleAiBranchRequest(req, res, url);
   if (!handled) {
     sendJson(res, 404, { error: "Not found" });
   }
 });
 
-server.listen(PORT, HOST, () => {
-  // eslint-disable-next-line no-console
-  console.log(
-    `[supaluv-ai-branch] http://${HOST}:${PORT}  openRouter=${hasOpenRouterKey() ? "yes" : "NO KEY"}`,
-  );
-});
+if (!process.env.VERCEL) {
+  server.listen(PORT, HOST, () => {
+    // eslint-disable-next-line no-console
+    console.log(
+      `[supaluv-ai-branch] http://${HOST}:${PORT}  openRouter=${hasOpenRouterKey() ? "yes" : "NO KEY"}`,
+    );
+  });
+}
+
+export default server;

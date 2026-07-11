@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-11
 domain: meta
 tags:
   - current-work
@@ -105,7 +105,7 @@ Boundary notes:
 2. **App saves only via `writeStorySave`** (`persistence/saveWriter.ts`).
 3. **Content changes do not require shell rewrites.** Add Ink + scene manifest +
    assets + catalog entry.
-4. **SwimmerUIKit** for brand controls (pin **1.0.1** vendored tarball); local CSS only
+4. **SwimmerUIKit** for brand controls (pin registry version **1.0.1**); local CSS only
    for cinema stage / theme overrides.
 5. **Save schema** `supaluv.save.v1.<slot>` and **settings** `supaluv.settings.v1`
    are stable contracts — change only with intentional migration.
@@ -167,6 +167,8 @@ See **ADR-0003** for freemium commercial model (canonical).
 - Tone locked: black humor sex comedy, **not** rom-com / 黑色爱情 (ADR-0004).
 - Public pitch stays adult comedy energy; no free-form porn generator.
 - Public site CTA: open demo at `https://supaluv.pieaistudio.com`.
+- Vercel project `supaluv` uses one **Services** deployment: Vite Web + Node
+  `ai-branch`; Preview deployments keep Vercel authentication enabled.
 - E21 image-gen pipeline: after framework solid.
 - **TTS runtime truth**: Chinese → MiniMax; Western → ElevenLabs (`dual-tts-routing.md`). Research notes that still mention OpenAI fallback are **stale** for runtime.
 - Lyria beds installed (C12); see `packages/content/assets/ATTRIBUTION.md`.
@@ -174,7 +176,7 @@ See **ADR-0003** for freemium commercial model (canonical).
 - Content safety in **SwimmerAIKit** (`content-safety` + Sightengine visual); SupaLuv uses adult-comedy policy.
 - External full commercial audit is **archived**; owner extract: `owner-approved-audit-extract-2026-07.md`.
 - Framework shell map: `docs/reference/architecture/framework-shell-2026-07.md`.
-- SwimmerUIKit **1.0.1** (commit-pinned vendored tarball) — `GameCallout` + coarse-pointer button min-height.
+- SwimmerUIKit **1.0.1** (exact npm registry version) — `GameCallout` + coarse-pointer button min-height.
 
 ## Residual / next optional polish (not blocking)
 
@@ -182,7 +184,10 @@ See **ADR-0003** for freemium commercial model (canonical).
 - Loudnorm / loop-seam polish on new Lyria beds if needed.
 - Magenta chroma fringe audit on new portrait exports.
 - Chapter 2 only when owner delivers novel text.
-- Register `supaluv` app in SwimmerCore + set `SWIMMER_CORE_SECRET_KEY` for live billing.
+- Decide the welcome-battery / first-AI-use policy; new users correctly start at zero
+  and receive `402 INSUFFICIENT_BATTERIES` rather than an unmetered AI call.
+- Add `MINIMAX_GROUP_ID` before claiming Chinese TTS Preview is live; English
+  ElevenLabs Preview is verified.
 - Optional: upgrade ElevenLabs plan if free-tier voice limits bite; clone fixed cast voices.
 - AI memory token → Ink callback; Help rewrite; production hide Developer Lab.
 

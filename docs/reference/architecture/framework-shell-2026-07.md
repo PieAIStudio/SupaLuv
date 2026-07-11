@@ -45,7 +45,9 @@ SUPALUV_WALLET_OPTIONAL=1   # server may skip reserve
 VITE_SUPALUV_AI_ALLOW_UNMETERED=1  # client allows AI while balance null
 ```
 
-Production: set `SWIMMER_CORE_SECRET_KEY` + register app id `supaluv` (or `SUPALUV_SWIMMER_APP_ID`) in Core.
+Preview billing is wired with a product-specific `supaluv_server` secret key and
+the active `core.apps.id = 'supaluv'` registration. New users intentionally start
+at zero batteries; onboarding grants require a separate product decision.
 
 ## TTS
 
@@ -80,9 +82,13 @@ Deferred: seat SKUs, Colyseus, voice chat (players use phone voice).
 
 | Surface | Config |
 | --- | --- |
-| Web static (Vercel) | root `vercel.json` → `apps/web/dist` |
-| AI edge | Node process / later Function; not pure static |
-| Secrets | `/Users/yuanfei/PieAI/.secrets/supaluv.env` |
+| Web | Vercel Services `web` → `apps/web` (Vite) |
+| AI edge | Vercel Services `ai-branch` → `services/ai-branch/src/server.ts` (Node) |
+| Public routing | `/api/*` → `ai-branch`; everything else → `web` |
+| Secrets | Local: `/Users/yuanfei/PieAI/.secrets/supaluv.env`; cloud: Preview-only Vercel env |
+
+Operational checks and current limitations live in
+`docs/reference/execution/vercel-preview-runbook.md`.
 
 ## Explicitly deferred
 

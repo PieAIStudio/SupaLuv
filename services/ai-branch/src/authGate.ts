@@ -19,6 +19,13 @@ export interface AuthGateFailure {
 export async function verifyBearerToken(
   authorizationHeader: string | undefined,
 ): Promise<AuthGateResult | AuthGateFailure> {
+  const raw = authorizationHeader?.trim() ?? "";
+  const match = /^Bearer\s+(.+)$/i.exec(raw);
+  const token = match?.[1]?.trim();
+  if (!token) {
+    return { ok: false, status: 401, error: "Missing Authorization Bearer token" };
+  }
+
   const url = (
     process.env.SWIMMER_CORE_SUPABASE_URL ||
     process.env.VITE_SWIMMER_CORE_SUPABASE_URL ||
@@ -36,15 +43,8 @@ export async function verifyBearerToken(
     return {
       ok: false,
       status: 401,
-      error: "Auth not configured on AI edge (SwimmerCore URL/key missing)",
+      error: "Authentication is temporarily unavailable",
     };
-  }
-
-  const raw = authorizationHeader?.trim() ?? "";
-  const match = /^Bearer\s+(.+)$/i.exec(raw);
-  const token = match?.[1]?.trim();
-  if (!token) {
-    return { ok: false, status: 401, error: "Missing Authorization Bearer token" };
   }
 
   const supabase = createClient(url, key, {

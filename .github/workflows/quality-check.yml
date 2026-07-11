@@ -27,5 +27,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm cloud:check
+      - name: Prepare non-secret Vercel build metadata
+        run: |
+          mkdir -p .vercel
+          node -e 'require("node:fs").writeFileSync(".vercel/project.json", JSON.stringify({ projectId: "prj_FyzCfVF0HRsFPTNYxg05OpQWDyeU", orgId: "team_C63r8BVtFCpiOK1k2h7xytT9", projectName: "supaluv" }))'
+      - run: pnpm build:vercel
+      - run: pnpm verify:vercel-output
       - run: pnpm test:e2e
       - run: git diff --check

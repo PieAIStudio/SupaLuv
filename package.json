@@ -15,6 +15,8 @@
     "dev:full": "pnpm --parallel --filter @supaluv/web --filter @supaluv/ai-branch dev",
     "build": "pnpm -r --if-present build",
     "build:web": "pnpm --filter @supaluv/web build",
+    "build:vercel": "vercel build --standalone",
+    "verify:vercel-output": "node tools/verify-vercel-output.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "oxlint apps packages tests tools docs/governance -c ./.oxlintrc.json --react-plugin",
     "lint:audit": "oxlint apps packages tests tools docs/governance -c ./.oxlintrc.json --react-plugin --jsx-a11y-plugin --vitest-plugin --import-plugin",
@@ -23,7 +25,6 @@
     "assets:check": "awk -F, 'NR > 1 { print $3 \"  \" $2 }' packages/content/assets/RUNTIME-ASSET-LEDGER.csv | shasum -a 256 -c -",
     "test": "vitest run --config vitest.config.ts",
     "test:e2e": "playwright test --config=playwright.config.ts tests/e2e",
-    "prepare": "lefthook install",
     "doc-gov": "doc-gov",
     "pro-gov": "pro-gov",
     "docs:check": "pnpm pro-gov doctor && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor",
@@ -40,6 +41,7 @@
     "oxfmt": "^0.44.0",
     "oxlint": "^1.62.0",
     "typescript": "6.0.3",
+    "vercel": "55.0.0",
     "vitest": "4.1.5"
   }
 }

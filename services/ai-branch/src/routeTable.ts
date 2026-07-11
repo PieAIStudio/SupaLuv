@@ -191,19 +191,16 @@ export async function handleAiBranchRequest(
   }
 
   if (req.method === "POST" && (url.pathname === "/ai/branch" || url.pathname === "/")) {
-    if (!hasOpenRouterKey()) {
-      sendJson(res, 503, {
-        error:
-          "OPENROUTER_API_KEY missing. Put it in /Users/yuanfei/PieAI/.secrets/supaluv.env (see .secrets/supaluv.env.example).",
-      });
-      return true;
-    }
-
     let reservationId = "";
     try {
       const auth = await verifyBearerToken(req.headers.authorization);
       if (!auth.ok) {
         sendJson(res, auth.status, { error: auth.error });
+        return true;
+      }
+
+      if (!hasOpenRouterKey()) {
+        sendJson(res, 503, { error: "AI provider is not configured" });
         return true;
       }
 

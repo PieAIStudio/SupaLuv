@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-10T11:03:03.315Z
+generated_at: 2026-07-11T03:16:09.458Z
 generator_version: doc-gov@0.4.0
-docs_count: 29
+docs_count: 30
 docs:
   - id: ARCH-COMMERCIAL-COMPLETION-AUDIT-2026-07
     path: docs/archive/commercial-completion-audit-2026-07.md
@@ -170,7 +170,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-10
+    last_reviewed: 2026-07-11
     pinned: true
   - id: REF-FEATURE-STATUS-ROADMAP
     path: docs/reference/execution/feature-status-and-roadmap.md
@@ -179,6 +179,13 @@ docs:
     canonical: true
     last_reviewed: 2026-07-10
     pinned: true
+  - id: REF-VERCEL-PREVIEW-RUNBOOK
+    path: docs/reference/execution/vercel-preview-runbook.md
+    type: reference
+    status: active
+    canonical: false
+    last_reviewed: 2026-07-11
+    pinned: false
   - id: REF-AI-VOICE-TTS-VENDOR-SELECTION-V1
     path: docs/reference/research/ai-voice-tts-vendor-selection-v1.md
     type: reference
