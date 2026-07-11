@@ -34,8 +34,8 @@
     "cloud:check": "pnpm governance:check && pnpm format:check && pnpm lint && pnpm assets:check && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
-    "@pieai/doc-gov": "0.4.4",
-    "@pieai/pro-gov": "0.4.4",
+    "@pieai/doc-gov": "0.4.5",
+    "@pieai/pro-gov": "0.4.5",
     "@pieai/swimmer-ai-kit": "file:vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz",
     "@playwright/test": "1.59.1",
     "@types/node": "24.13.2",
