@@ -63,6 +63,14 @@ type AppScreen = "title" | "play" | "gallery" | "settings" | "help" | "achieveme
 const DEFAULT_STORY_ID: StoryId = "ch01";
 const BOOT_SEEN_KEY = "supaluv.boot.seen.v1";
 
+function ScreenLoading() {
+  return (
+    <p className="meta-lead" role="status">
+      正在加载…
+    </p>
+  );
+}
+
 type StoryRuntime = typeof import("./story/inkStoryRunner") &
   typeof import("./story/storyMapAdapter") &
   typeof import("./persistence/sceneUnlocks") &
@@ -72,17 +80,24 @@ let storyRuntime: StoryRuntime | null = null;
 let storyRuntimePromise: Promise<StoryRuntime> | null = null;
 
 function loadStoryRuntime(): Promise<StoryRuntime> {
-  storyRuntimePromise ??= Promise.all([
-    import("./story/inkStoryRunner"),
-    import("./story/storyMapAdapter"),
-    import("./persistence/sceneUnlocks"),
-    import("./persistence/saveWriter"),
-  ]).then(([runnerModule, storyMapModule, sceneUnlockModule, saveWriterModule]) => ({
-    ...runnerModule,
-    ...storyMapModule,
-    ...sceneUnlockModule,
-    ...saveWriterModule,
-  }));
+  if (!storyRuntimePromise) {
+    storyRuntimePromise = Promise.all([
+      import("./story/inkStoryRunner"),
+      import("./story/storyMapAdapter"),
+      import("./persistence/sceneUnlocks"),
+      import("./persistence/saveWriter"),
+    ])
+      .then(([runnerModule, storyMapModule, sceneUnlockModule, saveWriterModule]) => ({
+        ...runnerModule,
+        ...storyMapModule,
+        ...sceneUnlockModule,
+        ...saveWriterModule,
+      }))
+      .catch((error: unknown) => {
+        storyRuntimePromise = null;
+        throw error;
+      });
+  }
   return storyRuntimePromise.then((runtime) => {
     storyRuntime = runtime;
     return runtime;
@@ -114,6 +129,7 @@ export function App() {
   const [isCreatorMapOpen, setCreatorMapOpen] = useState(false);
   const [unlockToast, setUnlockToast] = useState<string | null>(null);
   const unlockToastTimer = useRef<number | null>(null);
+  const storyActionInFlight = useRef(false);
   const metaReturnScreen = useRef<AppScreen>("title");
   const [coPlayConfig, setCoPlayConfig] = useState<{
     roomCode: string;
@@ -161,6 +177,18 @@ export function App() {
     },
     [showUnlockToast],
   );
+
+  function runStoryAction(action: () => Promise<void>) {
+    if (storyActionInFlight.current) {
+      return;
+    }
+    storyActionInFlight.current = true;
+    void action()
+      .catch(() => showUnlockToast("故事加载失败，请检查网络后重试。"))
+      .finally(() => {
+        storyActionInFlight.current = false;
+      });
+  }
 
   useEffect(() => {
     savePortraitPack(portraitPack);
@@ -362,7 +390,7 @@ export function App() {
   }
 
   function handleReset() {
-    void loadStory(storyId);
+    runStoryAction(() => loadStory(storyId));
   }
 
   function handleChoose(index: number) {
@@ -486,18 +514,18 @@ export function App() {
       <OrientationGate />
       {screen === "title" ? (
         <TitleScreen
-          onNewGame={startNewGame}
-          onContinue={continueGame}
+          onNewGame={() => runStoryAction(startNewGame)}
+          onContinue={(slotId) => runStoryAction(() => continueGame(slotId))}
           onOpenGallery={() => openMeta("gallery")}
           onOpenSettings={() => openMeta("settings")}
           onOpenHelp={() => openMeta("help")}
           onOpenAchievements={() => openMeta("achievements")}
-          onHostCoPlay={startHostCoPlay}
-          onJoinCoPlay={joinGuestCoPlay}
+          onHostCoPlay={(roomCode, alias) => runStoryAction(() => startHostCoPlay(roomCode, alias))}
+          onJoinCoPlay={(roomCode, alias) => runStoryAction(() => joinGuestCoPlay(roomCode, alias))}
         />
       ) : null}
 
-      <Suspense fallback={null}>
+      <Suspense fallback={<ScreenLoading />}>
         {screen === "gallery" ? <GalleryScreen unlocks={unlocks} onBack={backFromMeta} /> : null}
 
         {screen === "settings" ? (
@@ -517,7 +545,7 @@ export function App() {
         {screen === "achievements" ? <AchievementsScreen onBack={backFromMeta} /> : null}
       </Suspense>
 
-      <Suspense fallback={null}>
+      <Suspense fallback={<ScreenLoading />}>
         {screen === "play" && runner && snapshot ? (
           <>
             <VisualNovelPrototype
@@ -551,7 +579,7 @@ export function App() {
                   return next;
                 });
               }}
-              onStoryChange={(nextStoryId) => loadStory(nextStoryId)}
+              onStoryChange={(nextStoryId) => runStoryAction(() => loadStory(nextStoryId))}
               onChoose={handleChoose}
               onJumpTo={handleJumpTo}
               onOpenMap={() => setCreatorMapOpen(true)}
