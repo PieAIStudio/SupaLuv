@@ -35,9 +35,7 @@ import { getStoryDefinition, type StoryId } from "./story/storyMapAdapter";
 import { BootSplash } from "./views/BootSplash";
 import type { EndingPathMeta } from "./views/ChapterEndCard";
 import { OrientationGate } from "./views/OrientationGate";
-import { StoryMapPreview } from "./views/StoryMapPreview";
 import { TitleScreen } from "./views/TitleScreen";
-import { VisualNovelPrototype } from "./views/VisualNovelPrototype";
 
 const AchievementsScreen = lazy(() =>
   import("./views/AchievementsScreen").then(({ AchievementsScreen }) => ({
@@ -52,6 +50,14 @@ const HelpScreen = lazy(() =>
 );
 const SettingsScreen = lazy(() =>
   import("./views/SettingsScreen").then(({ SettingsScreen }) => ({ default: SettingsScreen })),
+);
+const StoryMapPreview = lazy(() =>
+  import("./views/StoryMapPreview").then(({ StoryMapPreview }) => ({ default: StoryMapPreview })),
+);
+const VisualNovelPrototype = lazy(() =>
+  import("./views/VisualNovelPrototype").then(({ VisualNovelPrototype }) => ({
+    default: VisualNovelPrototype,
+  })),
 );
 
 type AppScreen = "title" | "play" | "gallery" | "settings" | "help" | "achievements";
@@ -460,68 +466,72 @@ export function App() {
         {screen === "achievements" ? <AchievementsScreen onBack={backFromMeta} /> : null}
       </Suspense>
 
-      {screen === "play" && runner ? (
-        <>
-          <VisualNovelPrototype
-            key={storyRevision}
-            storyId={storyId}
-            snapshot={snapshot}
-            textSpeed={settings.textSpeed}
-            autoPlay={settings.autoPlay}
-            masterMuted={settings.masterMuted}
-            musicVolume={settings.musicVolume}
-            ambientVolume={settings.ambientVolume}
-            sfxVolume={settings.sfxVolume}
-            voiceVolume={settings.voiceVolume}
-            activeSaveSlot={activeManualSlot}
-            displayNames={displayNames}
-            portraitPack={portraitPack}
-            coPlay={coPlay}
-            onLeaveCoPlay={leaveCoPlay}
-            onRareEcho={() => tryAchievement("rare_echo_path")}
-            onReverseCurrent={() => tryAchievement("reverse_current")}
-            onOracleHit={() => tryAchievement("oracle_hit")}
-            onRpsResolvedAchievement={() => tryAchievement("first_rps")}
-            onCustomPackCgSkipped={() => showUnlockToast("自定义立绘模式：已跳过官方正脸 CG")}
-            onBedHeard={(bedId) => {
-              setUnlocks((prev) => {
-                if (prev.audio.includes(bedId)) {
-                  return prev;
-                }
-                const next = applyUnlocks(prev, { audio: [bedId] });
-                showUnlockToast(`配乐已收藏：${bedId}`);
-                return next;
-              });
-            }}
-            onStoryChange={(nextStoryId) => loadStory(nextStoryId)}
-            onChoose={handleChoose}
-            onJumpTo={handleJumpTo}
-            onOpenMap={() => setCreatorMapOpen(true)}
-            onReset={handleReset}
-            onSave={handleManualSave}
-            onOpenTitle={() => {
-              gameAudio.stopAmbient();
-              gameAudio.playExclusiveBed("title-theme");
-              setCoPlayConfig(null);
-              setScreen("title");
-            }}
-            onOpenGallery={() => openMeta("gallery")}
-            onOpenSettings={() => openMeta("settings")}
-            onOpenHelp={() => openMeta("help")}
-            onOpenAchievements={() => openMeta("achievements")}
-            onAutoPlayChange={(next) => setSettings((prev) => ({ ...prev, autoPlay: next }))}
-            onMasterMutedChange={(next) => setSettings((prev) => ({ ...prev, masterMuted: next }))}
-            onAiBranchUsed={() => tryAchievement("first_ai_branch")}
-            onChapterClear={handleChapterClear}
-          />
-          <StoryMapPreview
-            storyId={storyId}
-            currentSceneId={snapshot.sceneId}
-            isOpen={isCreatorMapOpen}
-            onClose={() => setCreatorMapOpen(false)}
-          />
-        </>
-      ) : null}
+      <Suspense fallback={null}>
+        {screen === "play" && runner ? (
+          <>
+            <VisualNovelPrototype
+              key={storyRevision}
+              storyId={storyId}
+              snapshot={snapshot}
+              textSpeed={settings.textSpeed}
+              autoPlay={settings.autoPlay}
+              masterMuted={settings.masterMuted}
+              musicVolume={settings.musicVolume}
+              ambientVolume={settings.ambientVolume}
+              sfxVolume={settings.sfxVolume}
+              voiceVolume={settings.voiceVolume}
+              activeSaveSlot={activeManualSlot}
+              displayNames={displayNames}
+              portraitPack={portraitPack}
+              coPlay={coPlay}
+              onLeaveCoPlay={leaveCoPlay}
+              onRareEcho={() => tryAchievement("rare_echo_path")}
+              onReverseCurrent={() => tryAchievement("reverse_current")}
+              onOracleHit={() => tryAchievement("oracle_hit")}
+              onRpsResolvedAchievement={() => tryAchievement("first_rps")}
+              onCustomPackCgSkipped={() => showUnlockToast("自定义立绘模式：已跳过官方正脸 CG")}
+              onBedHeard={(bedId) => {
+                setUnlocks((prev) => {
+                  if (prev.audio.includes(bedId)) {
+                    return prev;
+                  }
+                  const next = applyUnlocks(prev, { audio: [bedId] });
+                  showUnlockToast(`配乐已收藏：${bedId}`);
+                  return next;
+                });
+              }}
+              onStoryChange={(nextStoryId) => loadStory(nextStoryId)}
+              onChoose={handleChoose}
+              onJumpTo={handleJumpTo}
+              onOpenMap={() => setCreatorMapOpen(true)}
+              onReset={handleReset}
+              onSave={handleManualSave}
+              onOpenTitle={() => {
+                gameAudio.stopAmbient();
+                gameAudio.playExclusiveBed("title-theme");
+                setCoPlayConfig(null);
+                setScreen("title");
+              }}
+              onOpenGallery={() => openMeta("gallery")}
+              onOpenSettings={() => openMeta("settings")}
+              onOpenHelp={() => openMeta("help")}
+              onOpenAchievements={() => openMeta("achievements")}
+              onAutoPlayChange={(next) => setSettings((prev) => ({ ...prev, autoPlay: next }))}
+              onMasterMutedChange={(next) =>
+                setSettings((prev) => ({ ...prev, masterMuted: next }))
+              }
+              onAiBranchUsed={() => tryAchievement("first_ai_branch")}
+              onChapterClear={handleChapterClear}
+            />
+            <StoryMapPreview
+              storyId={storyId}
+              currentSceneId={snapshot.sceneId}
+              isOpen={isCreatorMapOpen}
+              onClose={() => setCreatorMapOpen(false)}
+            />
+          </>
+        ) : null}
+      </Suspense>
 
       {unlockToast ? (
         <div className="global-toast" data-testid="unlock-toast" role="status">
