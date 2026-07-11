@@ -168,7 +168,8 @@ See **ADR-0003** for freemium commercial model (canonical).
 - Public pitch stays adult comedy energy; no free-form porn generator.
 - Public site CTA: open demo at `https://supaluv.pieaistudio.com`.
 - Vercel project `supaluv` uses one **Services** deployment: Vite Web + Node
-  `ai-branch`; Preview deployments keep Vercel authentication enabled.
+  `ai-branch`; Production is live at `https://supaluv.pieaistudio.com`, while
+  Preview deployments keep Vercel authentication enabled.
 - E21 image-gen pipeline: after framework solid.
 - **TTS runtime truth**: Chinese → MiniMax; Western → ElevenLabs (`dual-tts-routing.md`). Research notes that still mention OpenAI fallback are **stale** for runtime.
 - Lyria beds installed (C12); see `packages/content/assets/ATTRIBUTION.md`.
@@ -186,8 +187,8 @@ See **ADR-0003** for freemium commercial model (canonical).
 - Chapter 2 only when owner delivers novel text.
 - Decide the welcome-battery / first-AI-use policy; new users correctly start at zero
   and receive `402 INSUFFICIENT_BATTERIES` rather than an unmetered AI call.
-- Add `MINIMAX_GROUP_ID` before claiming Chinese TTS Preview is live; English
-  ElevenLabs Preview is verified.
+- Add `MINIMAX_GROUP_ID` before claiming Chinese TTS is live; English
+  ElevenLabs is verified in both Preview and Production.
 - Optional: upgrade ElevenLabs plan if free-tier voice limits bite; clone fixed cast voices.
 - AI memory token → Ink callback; Help rewrite; production hide Developer Lab.
 

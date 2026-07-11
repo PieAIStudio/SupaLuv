@@ -1,6 +1,6 @@
 ---
 id: REF-VERCEL-PREVIEW-RUNBOOK
-title: SupaLuv Vercel Preview Runbook
+title: SupaLuv Vercel Deployment Runbook
 type: reference
 status: active
 canonical: false
@@ -19,7 +19,7 @@ related:
   - REF-FRAMEWORK-SHELL-2026-07
 ---
 
-# SupaLuv Vercel Preview Runbook
+# SupaLuv Vercel Deployment Runbook
 
 ## Deployment contract
 
@@ -31,25 +31,30 @@ related:
   automation; do not disable protection merely to make plain `curl` pass.
 - Use Vercel CLI `55.0.0` or newer. Older CLI `54.14.5` generates the obsolete
   `experimentalServices` key and cannot validate GA service destinations.
-- The planned public domain is `supaluv.pieaistudio.com`; it is not assigned by
-  this runbook.
+- Production domain: `https://supaluv.pieaistudio.com`.
+- Namecheap remains the authoritative DNS provider. The `supaluv` CNAME points
+  to `cname.vercel-dns.com`; changing the whole domain to Vercel nameservers is
+  not required.
 
 ## Build and deploy
 
 ```bash
 pnpm cloud:check
 pnpm test:e2e
-pnpm dlx vercel@55.0.0 build
-pnpm dlx vercel@55.0.0 deploy --target=preview --yes
+pnpm build:vercel
+pnpm verify:vercel-output
+pnpm vercel deploy --target=preview --yes
+# Explicit owner approval is required before:
+pnpm vercel deploy --prod --yes
 ```
 
 The repository test suite includes the service-routing contract. A deployment is
 not accepted solely because the local build succeeds; inspect the READY
 deployment and run the checks below against its deployment ID.
 
-## Preview environment groups
+## Environment groups
 
-Never print or commit values. Preview currently needs:
+Never print or commit values. Preview and Production need:
 
 - AI and safety: `OPENROUTER_API_KEY`, `SUPALUV_OPENROUTER_MODEL`,
   `SUPALUV_THINKING_LEVEL`, `SIGHTENGINE_API_USER`,
@@ -64,8 +69,9 @@ Never print or commit values. Preview currently needs:
 - Product analytics: `VITE_ENABLE_POSTHOG`, `VITE_POSTHOG_KEY`,
   `VITE_POSTHOG_HOST`.
 
-Keep these variables in Vercel Preview until production promotion is explicitly
-approved.
+Store secret values as Vercel Sensitive variables. Production promotion was
+approved and completed on 2026-07-11. `MINIMAX_GROUP_ID` remains absent, so
+Chinese TTS must not be advertised as live yet.
 
 ## Acceptance checks
 
@@ -84,6 +90,8 @@ approved.
 ## Verified evidence (2026-07-11)
 
 - READY protected Preview: deployment `dpl_3ujeofHfHjbMYzLQ5Y2MSUiY8NXe`.
+- READY Production: deployment `dpl_FcLXhdhiS5oGBjRTeQfdYHKy5iUJ`, aliased to
+  `https://supaluv.pieaistudio.com` with a valid HTTPS certificate.
 - Routing/auth regression tests: 11 focused tests passed before deployment.
 - Live health: OpenRouter, Sightengine, ElevenLabs, MiniMax key and wallet meter
   detected; MiniMax group ID absent.
@@ -91,3 +99,5 @@ approved.
 - Live AI gate: authenticated zero-balance user returned 402.
 - Live English TTS: 200 with a parsed audio payload; the temporary smoke user was
   deleted afterward.
+- Production repeated the same acceptance contract: home 200, API root 404,
+  wallet 200 with zero batteries, AI 402 `INSUFFICIENT`, and English TTS 200.
