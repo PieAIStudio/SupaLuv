@@ -50,13 +50,12 @@ Markdown.
 
 Extra governed roots are allowed only when a project explicitly opts in.
 
-Compound Engineering external artifacts are explicitly outside the default Doc
-Gov schema:
+Learning and optional-tool artifacts are explicitly outside the default Doc Gov
+schema:
 
 - `docs/solutions/**`
 - `docs/brainstorms/**`
 - `docs/pulse-reports/**`
-- CE-native root artifacts under `docs/plans/*`
 
 PGS plans remain under `docs/plans/active/**` and
 `docs/plans/completed/**`.
@@ -117,7 +116,7 @@ works for governed docs:
 | Project AI/development policy | `docs/policy/` |
 | Product or feature requirement | `docs/specs/` |
 | Step-by-step implementation work | `docs/plans/` |
-| Compound Engineering learning records | `docs/solutions/**`, governed by CE schema |
+| Reusable learning records | `docs/solutions/**`, outside Doc Gov schema |
 | Durable workspace/system truth | `docs/canon/` |
 | How-to guides, architecture maps, tool notes | `docs/reference/` |
 | Retired governed history | `docs/archive/` |

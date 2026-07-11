@@ -45,8 +45,7 @@ project-specific AI development habits live.
 - Product canon, runtime truth, or content truth.
 - Product prompts, generated media notes, or project-package workbench files.
 - Current project plans or active specs.
-- Superpowers plugin content.
-- Compound Engineering plugin content.
+- External workflow plugin content.
 
 ## Put Those Elsewhere
 
@@ -60,7 +59,7 @@ project-specific AI development habits live.
 | Product or world truth | `docs/canon/` |
 | Active implementation work | `docs/plans/active/` |
 | Completed proof records | `docs/plans/completed/` |
-| Compound Engineering learnings | `docs/solutions/**` as CE-owned external artifacts |
+| Reusable project learnings | `docs/solutions/**` as learning artifacts |
 | Product artifacts outside governed docs | Project package, workbench, assets, runtime config, or source tree |
 
 When unsure, ask this question: is this rule about how the document system works,
@@ -77,7 +76,5 @@ product packages, workbenches, prompt libraries, source folders, or asset
 folders can be product artifacts. Keep those files where the product package
 expects them unless a project explicitly opts them into doc-gov.
 
-Compound Engineering external artifacts under `docs/solutions/**`,
-`docs/brainstorms/**`, `docs/pulse-reports/**`, and CE-native root files under
-`docs/plans/*` are not governed docs by default. They remain valid project
-artifacts, but their frontmatter belongs to Compound Engineering, not Doc Gov.
+Learning artifacts under `docs/solutions/**` are not governed docs by default.
+They remain searchable project artifacts with their own lightweight metadata.

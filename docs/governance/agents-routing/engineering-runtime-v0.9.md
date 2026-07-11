@@ -36,7 +36,7 @@ flowchart TD
   D -- "yes" --> E["Use Directed Development to split ordered DD Blocks"]
   E --> C
   D -- "no" --> F["Enter local lane"]
-  F --> G["Use matching Superpowers workflow if applicable"]
+  F --> G["Use a narrowly matched skill only when helpful"]
   G --> H["Use AI-in-the-Loop evidence cycle"]
   H --> I["Record evidence in doc-gov"]
 ```
@@ -70,9 +70,10 @@ But the shared router must not define project-specific lanes.
 
 ## External Workflow Boundary
 
-This route runs before external workflow systems such as Superpowers or GStack.
-Those systems may provide skills, reviews, browser workflows, or shipping gates,
-but they execute **inside** the lane selected by this route.
+This route runs before optional skill packs such as mattpocock/skills. Skills
+may provide reviews, browser workflows, PRD/issue shaping, or domain-modeling
+artifacts, but their own narrow trigger must match the selected lane. No skill
+pack owns every engineering task.
 
 Host-specific adapters such as `CLAUDE.md` may adapt the route for a specific AI
 client, but they must not replace the project `AGENTS.md` route.
