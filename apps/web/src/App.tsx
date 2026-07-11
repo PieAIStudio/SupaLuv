@@ -26,12 +26,10 @@ import {
   type GalleryUnlocks,
   type ManualSlotId,
 } from "./persistence/gameSave";
-import { writeStorySave } from "./persistence/saveWriter";
-import { unlockCount, unlocksFromScene } from "./persistence/sceneUnlocks";
 import { loadSettings, saveSettings, type GameSettings } from "./persistence/settings";
-import { createInkStoryRunner, type InkStoryRunner } from "./story/inkStoryRunner";
+import type { InkStoryRunner, InkStorySnapshot } from "./story/inkStoryRunner";
 import { resolveStatsPick } from "./stats/choiceStatsCatalog";
-import { getStoryDefinition, type StoryId } from "./story/storyMapAdapter";
+import type { StoryId } from "./story/storyMapAdapter";
 import { BootSplash } from "./views/BootSplash";
 import type { EndingPathMeta } from "./views/ChapterEndCard";
 import { OrientationGate } from "./views/OrientationGate";
@@ -65,6 +63,36 @@ type AppScreen = "title" | "play" | "gallery" | "settings" | "help" | "achieveme
 const DEFAULT_STORY_ID: StoryId = "ch01";
 const BOOT_SEEN_KEY = "supaluv.boot.seen.v1";
 
+type StoryRuntime = typeof import("./story/inkStoryRunner") &
+  typeof import("./story/storyMapAdapter") &
+  typeof import("./persistence/sceneUnlocks") &
+  typeof import("./persistence/saveWriter");
+
+let storyRuntime: StoryRuntime | null = null;
+let storyRuntimePromise: Promise<StoryRuntime> | null = null;
+
+function loadStoryRuntime(): Promise<StoryRuntime> {
+  storyRuntimePromise ??= Promise.all([
+    import("./story/inkStoryRunner"),
+    import("./story/storyMapAdapter"),
+    import("./persistence/sceneUnlocks"),
+    import("./persistence/saveWriter"),
+  ]).then(([runnerModule, storyMapModule, sceneUnlockModule, saveWriterModule]) => ({
+    ...runnerModule,
+    ...storyMapModule,
+    ...sceneUnlockModule,
+    ...saveWriterModule,
+  }));
+  return storyRuntimePromise.then((runtime) => {
+    storyRuntime = runtime;
+    return runtime;
+  });
+}
+
+function unlockCount(unlocks: GalleryUnlocks): number {
+  return unlocks.images.length + unlocks.videos.length + unlocks.audio.length;
+}
+
 export function App() {
   const [bootDone, setBootDone] = useState(() => {
     try {
@@ -82,9 +110,7 @@ export function App() {
   const [storyRevision, setStoryRevision] = useState(0);
   const [activeManualSlot, setActiveManualSlot] = useState<ManualSlotId>("slot-1");
   const [runner, setRunner] = useState<InkStoryRunner | null>(null);
-  const [snapshot, setSnapshot] = useState(() =>
-    createInkStoryRunner(getStoryDefinition(DEFAULT_STORY_ID).inkSource).getSnapshot(),
-  );
+  const [snapshot, setSnapshot] = useState<InkStorySnapshot | null>(null);
   const [isCreatorMapOpen, setCreatorMapOpen] = useState(false);
   const [unlockToast, setUnlockToast] = useState<string | null>(null);
   const unlockToastTimer = useRef<number | null>(null);
@@ -165,7 +191,7 @@ export function App() {
       chapterHint?: string,
       presentationSnapshot?: ReturnType<InkStoryRunner["getSnapshot"]>,
     ) => {
-      writeStorySave({
+      storyRuntime?.writeStorySave({
         runner: nextRunner,
         storyId: nextStoryId,
         unlocks: nextUnlocks,
@@ -191,7 +217,7 @@ export function App() {
     setScreen(target);
   }
 
-  function startNewGame() {
+  async function startNewGame() {
     gameAudio.unlock();
     trackEvent({ name: "title_new_game" });
     tryAchievement("first_play");
@@ -199,11 +225,14 @@ export function App() {
     if (coPlayConfig?.role === "guest") {
       setCoPlayConfig(null);
     }
-    const nextRunner = createInkStoryRunner(getStoryDefinition(DEFAULT_STORY_ID).inkSource);
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(DEFAULT_STORY_ID).inkSource,
+    );
     const nextSnapshot = nextRunner.getSnapshot();
     const nextUnlocks = applyUnlocks(
       EMPTY_UNLOCKS,
-      unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
+      runtime.unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
     );
     setStoryId(DEFAULT_STORY_ID);
     setRunner(nextRunner);
@@ -221,17 +250,20 @@ export function App() {
     );
   }
 
-  function startHostCoPlay(roomCode: string, alias: string) {
+  async function startHostCoPlay(roomCode: string, alias: string) {
     gameAudio.unlock();
     tryAchievement("first_coplay");
     setCoPlayConfig({ roomCode, role: "host", alias });
     trackEvent({ name: "title_new_game" });
     tryAchievement("first_play");
-    const nextRunner = createInkStoryRunner(getStoryDefinition(DEFAULT_STORY_ID).inkSource);
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(DEFAULT_STORY_ID).inkSource,
+    );
     const nextSnapshot = nextRunner.getSnapshot();
     const nextUnlocks = applyUnlocks(
       EMPTY_UNLOCKS,
-      unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
+      runtime.unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
     );
     setStoryId(DEFAULT_STORY_ID);
     setRunner(nextRunner);
@@ -249,12 +281,15 @@ export function App() {
     );
   }
 
-  function joinGuestCoPlay(roomCode: string, alias: string) {
+  async function joinGuestCoPlay(roomCode: string, alias: string) {
     gameAudio.unlock();
     tryAchievement("first_coplay");
     setCoPlayConfig({ roomCode, role: "guest", alias });
     // Guest needs a inert runner shell so play screen can mount.
-    const nextRunner = createInkStoryRunner(getStoryDefinition(DEFAULT_STORY_ID).inkSource);
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(DEFAULT_STORY_ID).inkSource,
+    );
     setStoryId(DEFAULT_STORY_ID);
     setRunner(nextRunner);
     setSnapshot(nextRunner.getSnapshot());
@@ -271,7 +306,7 @@ export function App() {
     }
   }
 
-  function continueGame(slotId?: string) {
+  async function continueGame(slotId?: string) {
     gameAudio.unlock();
     trackEvent({ name: "title_continue" });
     tryAchievement("first_play");
@@ -279,13 +314,14 @@ export function App() {
     if (!save) {
       const anyManual = MANUAL_SLOTS.map((id) => loadSave(id)).find(Boolean);
       if (!anyManual) {
-        startNewGame();
+        await startNewGame();
         return;
       }
       return continueGame(anyManual.slotId);
     }
-    const nextRunner = createInkStoryRunner(
-      getStoryDefinition(save.storyId).inkSource,
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(save.storyId).inkSource,
       save.inkStateJson,
     );
     const restored = restoreSnapshotFromSave(nextRunner.getSnapshot(), save.presentation);
@@ -300,10 +336,16 @@ export function App() {
     }
   }
 
-  function loadStory(nextStoryId: StoryId) {
-    const nextRunner = createInkStoryRunner(getStoryDefinition(nextStoryId).inkSource);
+  async function loadStory(nextStoryId: StoryId) {
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(nextStoryId).inkSource,
+    );
     const nextSnapshot = nextRunner.getSnapshot();
-    const nextUnlocks = applyUnlocks(unlocks, unlocksFromScene(nextStoryId, nextSnapshot.sceneId));
+    const nextUnlocks = applyUnlocks(
+      unlocks,
+      runtime.unlocksFromScene(nextStoryId, nextSnapshot.sceneId),
+    );
     setStoryId(nextStoryId);
     setRunner(nextRunner);
     setSnapshot(nextSnapshot);
@@ -320,11 +362,11 @@ export function App() {
   }
 
   function handleReset() {
-    loadStory(storyId);
+    void loadStory(storyId);
   }
 
   function handleChoose(index: number) {
-    if (!runner) {
+    if (!runner || !snapshot || !storyRuntime) {
       return;
     }
     const choice =
@@ -338,7 +380,10 @@ export function App() {
       choiceId: statsPick?.option.choiceId,
     });
     const nextSnapshot = runner.choose(index);
-    const nextUnlocks = applyUnlocks(unlocks, unlocksFromScene(storyId, nextSnapshot.sceneId));
+    const nextUnlocks = applyUnlocks(
+      unlocks,
+      storyRuntime.unlocksFromScene(storyId, nextSnapshot.sceneId),
+    );
     setSnapshot(nextSnapshot);
     setUnlocks(nextUnlocks);
     persistSave(
@@ -355,7 +400,7 @@ export function App() {
   }
 
   function handleJumpTo(path: string) {
-    if (!runner) {
+    if (!runner || !storyRuntime) {
       return;
     }
     trackEvent({
@@ -365,7 +410,10 @@ export function App() {
     });
     tryAchievement("first_ai_branch");
     const nextSnapshot = runner.jumpTo(path);
-    const nextUnlocks = applyUnlocks(unlocks, unlocksFromScene(storyId, nextSnapshot.sceneId));
+    const nextUnlocks = applyUnlocks(
+      unlocks,
+      storyRuntime.unlocksFromScene(storyId, nextSnapshot.sceneId),
+    );
     setSnapshot(nextSnapshot);
     setUnlocks(nextUnlocks);
     persistSave(
@@ -379,7 +427,7 @@ export function App() {
   }
 
   function handleManualSave(slotId: ManualSlotId = activeManualSlot) {
-    if (!runner) {
+    if (!runner || !snapshot) {
       return;
     }
     setActiveManualSlot(slotId);
@@ -390,6 +438,9 @@ export function App() {
   }
 
   function handleChapterClear(path: EndingPathMeta) {
+    if (!snapshot) {
+      return;
+    }
     gameAudio.stopAmbient();
     gameAudio.playExclusiveBed("chapter-end");
     tryAchievement("ch01_clear");
@@ -467,7 +518,7 @@ export function App() {
       </Suspense>
 
       <Suspense fallback={null}>
-        {screen === "play" && runner ? (
+        {screen === "play" && runner && snapshot ? (
           <>
             <VisualNovelPrototype
               key={storyRevision}
