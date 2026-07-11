@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { trackEvent } from "./analytics/productAnalytics";
 import { gameAudio } from "./audio/gameAudio";
 import { useCoPlaySession } from "./coplay/useCoPlaySession";
@@ -26,27 +26,87 @@ import {
   type GalleryUnlocks,
   type ManualSlotId,
 } from "./persistence/gameSave";
-import { writeStorySave } from "./persistence/saveWriter";
-import { unlockCount, unlocksFromScene } from "./persistence/sceneUnlocks";
 import { loadSettings, saveSettings, type GameSettings } from "./persistence/settings";
-import { createInkStoryRunner, type InkStoryRunner } from "./story/inkStoryRunner";
+import type { InkStoryRunner, InkStorySnapshot } from "./story/inkStoryRunner";
 import { resolveStatsPick } from "./stats/choiceStatsCatalog";
-import { getStoryDefinition, type StoryId } from "./story/storyMapAdapter";
-import { AchievementsScreen } from "./views/AchievementsScreen";
+import type { StoryId } from "./story/storyMapAdapter";
 import { BootSplash } from "./views/BootSplash";
 import type { EndingPathMeta } from "./views/ChapterEndCard";
-import { GalleryScreen } from "./views/GalleryScreen";
-import { HelpScreen } from "./views/HelpScreen";
 import { OrientationGate } from "./views/OrientationGate";
-import { SettingsScreen } from "./views/SettingsScreen";
-import { StoryMapPreview } from "./views/StoryMapPreview";
 import { TitleScreen } from "./views/TitleScreen";
-import { VisualNovelPrototype } from "./views/VisualNovelPrototype";
+
+const AchievementsScreen = lazy(() =>
+  import("./views/AchievementsScreen").then(({ AchievementsScreen }) => ({
+    default: AchievementsScreen,
+  })),
+);
+const GalleryScreen = lazy(() =>
+  import("./views/GalleryScreen").then(({ GalleryScreen }) => ({ default: GalleryScreen })),
+);
+const HelpScreen = lazy(() =>
+  import("./views/HelpScreen").then(({ HelpScreen }) => ({ default: HelpScreen })),
+);
+const SettingsScreen = lazy(() =>
+  import("./views/SettingsScreen").then(({ SettingsScreen }) => ({ default: SettingsScreen })),
+);
+const StoryMapPreview = lazy(() =>
+  import("./views/StoryMapPreview").then(({ StoryMapPreview }) => ({ default: StoryMapPreview })),
+);
+const VisualNovelPrototype = lazy(() =>
+  import("./views/VisualNovelPrototype").then(({ VisualNovelPrototype }) => ({
+    default: VisualNovelPrototype,
+  })),
+);
 
 type AppScreen = "title" | "play" | "gallery" | "settings" | "help" | "achievements";
 
 const DEFAULT_STORY_ID: StoryId = "ch01";
 const BOOT_SEEN_KEY = "supaluv.boot.seen.v1";
+
+function ScreenLoading() {
+  return (
+    <p className="meta-lead" role="status">
+      正在加载…
+    </p>
+  );
+}
+
+type StoryRuntime = typeof import("./story/inkStoryRunner") &
+  typeof import("./story/storyMapAdapter") &
+  typeof import("./persistence/sceneUnlocks") &
+  typeof import("./persistence/saveWriter");
+
+let storyRuntime: StoryRuntime | null = null;
+let storyRuntimePromise: Promise<StoryRuntime> | null = null;
+
+function loadStoryRuntime(): Promise<StoryRuntime> {
+  if (!storyRuntimePromise) {
+    storyRuntimePromise = Promise.all([
+      import("./story/inkStoryRunner"),
+      import("./story/storyMapAdapter"),
+      import("./persistence/sceneUnlocks"),
+      import("./persistence/saveWriter"),
+    ])
+      .then(([runnerModule, storyMapModule, sceneUnlockModule, saveWriterModule]) => ({
+        ...runnerModule,
+        ...storyMapModule,
+        ...sceneUnlockModule,
+        ...saveWriterModule,
+      }))
+      .catch((error: unknown) => {
+        storyRuntimePromise = null;
+        throw error;
+      });
+  }
+  return storyRuntimePromise.then((runtime) => {
+    storyRuntime = runtime;
+    return runtime;
+  });
+}
+
+function unlockCount(unlocks: GalleryUnlocks): number {
+  return unlocks.images.length + unlocks.videos.length + unlocks.audio.length;
+}
 
 export function App() {
   const [bootDone, setBootDone] = useState(() => {
@@ -65,12 +125,11 @@ export function App() {
   const [storyRevision, setStoryRevision] = useState(0);
   const [activeManualSlot, setActiveManualSlot] = useState<ManualSlotId>("slot-1");
   const [runner, setRunner] = useState<InkStoryRunner | null>(null);
-  const [snapshot, setSnapshot] = useState(() =>
-    createInkStoryRunner(getStoryDefinition(DEFAULT_STORY_ID).inkSource).getSnapshot(),
-  );
+  const [snapshot, setSnapshot] = useState<InkStorySnapshot | null>(null);
   const [isCreatorMapOpen, setCreatorMapOpen] = useState(false);
   const [unlockToast, setUnlockToast] = useState<string | null>(null);
   const unlockToastTimer = useRef<number | null>(null);
+  const storyActionInFlight = useRef(false);
   const metaReturnScreen = useRef<AppScreen>("title");
   const [coPlayConfig, setCoPlayConfig] = useState<{
     roomCode: string;
@@ -119,6 +178,18 @@ export function App() {
     [showUnlockToast],
   );
 
+  function runStoryAction(action: () => Promise<void>) {
+    if (storyActionInFlight.current) {
+      return;
+    }
+    storyActionInFlight.current = true;
+    void action()
+      .catch(() => showUnlockToast("故事加载失败，请检查网络后重试。"))
+      .finally(() => {
+        storyActionInFlight.current = false;
+      });
+  }
+
   useEffect(() => {
     savePortraitPack(portraitPack);
     if (hasCustomPortraitPack(portraitPack)) {
@@ -148,7 +219,7 @@ export function App() {
       chapterHint?: string,
       presentationSnapshot?: ReturnType<InkStoryRunner["getSnapshot"]>,
     ) => {
-      writeStorySave({
+      storyRuntime?.writeStorySave({
         runner: nextRunner,
         storyId: nextStoryId,
         unlocks: nextUnlocks,
@@ -174,7 +245,7 @@ export function App() {
     setScreen(target);
   }
 
-  function startNewGame() {
+  async function startNewGame() {
     gameAudio.unlock();
     trackEvent({ name: "title_new_game" });
     tryAchievement("first_play");
@@ -182,11 +253,14 @@ export function App() {
     if (coPlayConfig?.role === "guest") {
       setCoPlayConfig(null);
     }
-    const nextRunner = createInkStoryRunner(getStoryDefinition(DEFAULT_STORY_ID).inkSource);
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(DEFAULT_STORY_ID).inkSource,
+    );
     const nextSnapshot = nextRunner.getSnapshot();
     const nextUnlocks = applyUnlocks(
       EMPTY_UNLOCKS,
-      unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
+      runtime.unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
     );
     setStoryId(DEFAULT_STORY_ID);
     setRunner(nextRunner);
@@ -204,17 +278,20 @@ export function App() {
     );
   }
 
-  function startHostCoPlay(roomCode: string, alias: string) {
+  async function startHostCoPlay(roomCode: string, alias: string) {
     gameAudio.unlock();
     tryAchievement("first_coplay");
     setCoPlayConfig({ roomCode, role: "host", alias });
     trackEvent({ name: "title_new_game" });
     tryAchievement("first_play");
-    const nextRunner = createInkStoryRunner(getStoryDefinition(DEFAULT_STORY_ID).inkSource);
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(DEFAULT_STORY_ID).inkSource,
+    );
     const nextSnapshot = nextRunner.getSnapshot();
     const nextUnlocks = applyUnlocks(
       EMPTY_UNLOCKS,
-      unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
+      runtime.unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
     );
     setStoryId(DEFAULT_STORY_ID);
     setRunner(nextRunner);
@@ -232,12 +309,15 @@ export function App() {
     );
   }
 
-  function joinGuestCoPlay(roomCode: string, alias: string) {
+  async function joinGuestCoPlay(roomCode: string, alias: string) {
     gameAudio.unlock();
     tryAchievement("first_coplay");
     setCoPlayConfig({ roomCode, role: "guest", alias });
     // Guest needs a inert runner shell so play screen can mount.
-    const nextRunner = createInkStoryRunner(getStoryDefinition(DEFAULT_STORY_ID).inkSource);
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(DEFAULT_STORY_ID).inkSource,
+    );
     setStoryId(DEFAULT_STORY_ID);
     setRunner(nextRunner);
     setSnapshot(nextRunner.getSnapshot());
@@ -254,7 +334,7 @@ export function App() {
     }
   }
 
-  function continueGame(slotId?: string) {
+  async function continueGame(slotId?: string) {
     gameAudio.unlock();
     trackEvent({ name: "title_continue" });
     tryAchievement("first_play");
@@ -262,13 +342,14 @@ export function App() {
     if (!save) {
       const anyManual = MANUAL_SLOTS.map((id) => loadSave(id)).find(Boolean);
       if (!anyManual) {
-        startNewGame();
+        await startNewGame();
         return;
       }
       return continueGame(anyManual.slotId);
     }
-    const nextRunner = createInkStoryRunner(
-      getStoryDefinition(save.storyId).inkSource,
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(save.storyId).inkSource,
       save.inkStateJson,
     );
     const restored = restoreSnapshotFromSave(nextRunner.getSnapshot(), save.presentation);
@@ -283,10 +364,16 @@ export function App() {
     }
   }
 
-  function loadStory(nextStoryId: StoryId) {
-    const nextRunner = createInkStoryRunner(getStoryDefinition(nextStoryId).inkSource);
+  async function loadStory(nextStoryId: StoryId) {
+    const runtime = await loadStoryRuntime();
+    const nextRunner = runtime.createInkStoryRunner(
+      runtime.getStoryDefinition(nextStoryId).inkSource,
+    );
     const nextSnapshot = nextRunner.getSnapshot();
-    const nextUnlocks = applyUnlocks(unlocks, unlocksFromScene(nextStoryId, nextSnapshot.sceneId));
+    const nextUnlocks = applyUnlocks(
+      unlocks,
+      runtime.unlocksFromScene(nextStoryId, nextSnapshot.sceneId),
+    );
     setStoryId(nextStoryId);
     setRunner(nextRunner);
     setSnapshot(nextSnapshot);
@@ -303,11 +390,11 @@ export function App() {
   }
 
   function handleReset() {
-    loadStory(storyId);
+    runStoryAction(() => loadStory(storyId));
   }
 
   function handleChoose(index: number) {
-    if (!runner) {
+    if (!runner || !snapshot || !storyRuntime) {
       return;
     }
     const choice =
@@ -321,7 +408,10 @@ export function App() {
       choiceId: statsPick?.option.choiceId,
     });
     const nextSnapshot = runner.choose(index);
-    const nextUnlocks = applyUnlocks(unlocks, unlocksFromScene(storyId, nextSnapshot.sceneId));
+    const nextUnlocks = applyUnlocks(
+      unlocks,
+      storyRuntime.unlocksFromScene(storyId, nextSnapshot.sceneId),
+    );
     setSnapshot(nextSnapshot);
     setUnlocks(nextUnlocks);
     persistSave(
@@ -338,7 +428,7 @@ export function App() {
   }
 
   function handleJumpTo(path: string) {
-    if (!runner) {
+    if (!runner || !storyRuntime) {
       return;
     }
     trackEvent({
@@ -348,7 +438,10 @@ export function App() {
     });
     tryAchievement("first_ai_branch");
     const nextSnapshot = runner.jumpTo(path);
-    const nextUnlocks = applyUnlocks(unlocks, unlocksFromScene(storyId, nextSnapshot.sceneId));
+    const nextUnlocks = applyUnlocks(
+      unlocks,
+      storyRuntime.unlocksFromScene(storyId, nextSnapshot.sceneId),
+    );
     setSnapshot(nextSnapshot);
     setUnlocks(nextUnlocks);
     persistSave(
@@ -362,7 +455,7 @@ export function App() {
   }
 
   function handleManualSave(slotId: ManualSlotId = activeManualSlot) {
-    if (!runner) {
+    if (!runner || !snapshot) {
       return;
     }
     setActiveManualSlot(slotId);
@@ -373,6 +466,9 @@ export function App() {
   }
 
   function handleChapterClear(path: EndingPathMeta) {
+    if (!snapshot) {
+      return;
+    }
     gameAudio.stopAmbient();
     gameAudio.playExclusiveBed("chapter-end");
     tryAchievement("ch01_clear");
@@ -418,97 +514,103 @@ export function App() {
       <OrientationGate />
       {screen === "title" ? (
         <TitleScreen
-          onNewGame={startNewGame}
-          onContinue={continueGame}
+          onNewGame={() => runStoryAction(startNewGame)}
+          onContinue={(slotId) => runStoryAction(() => continueGame(slotId))}
           onOpenGallery={() => openMeta("gallery")}
           onOpenSettings={() => openMeta("settings")}
           onOpenHelp={() => openMeta("help")}
           onOpenAchievements={() => openMeta("achievements")}
-          onHostCoPlay={startHostCoPlay}
-          onJoinCoPlay={joinGuestCoPlay}
+          onHostCoPlay={(roomCode, alias) => runStoryAction(() => startHostCoPlay(roomCode, alias))}
+          onJoinCoPlay={(roomCode, alias) => runStoryAction(() => joinGuestCoPlay(roomCode, alias))}
         />
       ) : null}
 
-      {screen === "gallery" ? <GalleryScreen unlocks={unlocks} onBack={backFromMeta} /> : null}
+      <Suspense fallback={<ScreenLoading />}>
+        {screen === "gallery" ? <GalleryScreen unlocks={unlocks} onBack={backFromMeta} /> : null}
 
-      {screen === "settings" ? (
-        <SettingsScreen
-          settings={settings}
-          onChange={setSettings}
-          displayNames={displayNames}
-          onDisplayNamesChange={setDisplayNames}
-          portraitPack={portraitPack}
-          onPortraitPackChange={setPortraitPack}
-          onBack={backFromMeta}
-        />
-      ) : null}
-
-      {screen === "help" ? <HelpScreen onBack={backFromMeta} /> : null}
-
-      {screen === "achievements" ? <AchievementsScreen onBack={backFromMeta} /> : null}
-
-      {screen === "play" && runner ? (
-        <>
-          <VisualNovelPrototype
-            key={storyRevision}
-            storyId={storyId}
-            snapshot={snapshot}
-            textSpeed={settings.textSpeed}
-            autoPlay={settings.autoPlay}
-            masterMuted={settings.masterMuted}
-            musicVolume={settings.musicVolume}
-            ambientVolume={settings.ambientVolume}
-            sfxVolume={settings.sfxVolume}
-            voiceVolume={settings.voiceVolume}
-            activeSaveSlot={activeManualSlot}
+        {screen === "settings" ? (
+          <SettingsScreen
+            settings={settings}
+            onChange={setSettings}
             displayNames={displayNames}
+            onDisplayNamesChange={setDisplayNames}
             portraitPack={portraitPack}
-            coPlay={coPlay}
-            onLeaveCoPlay={leaveCoPlay}
-            onRareEcho={() => tryAchievement("rare_echo_path")}
-            onReverseCurrent={() => tryAchievement("reverse_current")}
-            onOracleHit={() => tryAchievement("oracle_hit")}
-            onRpsResolvedAchievement={() => tryAchievement("first_rps")}
-            onCustomPackCgSkipped={() => showUnlockToast("自定义立绘模式：已跳过官方正脸 CG")}
-            onBedHeard={(bedId) => {
-              setUnlocks((prev) => {
-                if (prev.audio.includes(bedId)) {
-                  return prev;
-                }
-                const next = applyUnlocks(prev, { audio: [bedId] });
-                showUnlockToast(`配乐已收藏：${bedId}`);
-                return next;
-              });
-            }}
-            onStoryChange={(nextStoryId) => loadStory(nextStoryId)}
-            onChoose={handleChoose}
-            onJumpTo={handleJumpTo}
-            onOpenMap={() => setCreatorMapOpen(true)}
-            onReset={handleReset}
-            onSave={handleManualSave}
-            onOpenTitle={() => {
-              gameAudio.stopAmbient();
-              gameAudio.playExclusiveBed("title-theme");
-              setCoPlayConfig(null);
-              setScreen("title");
-            }}
-            onOpenGallery={() => openMeta("gallery")}
-            onOpenSettings={() => openMeta("settings")}
-            onOpenHelp={() => openMeta("help")}
-            onOpenAchievements={() => openMeta("achievements")}
-            onAutoPlayChange={(next) => setSettings((prev) => ({ ...prev, autoPlay: next }))}
-            onMasterMutedChange={(next) => setSettings((prev) => ({ ...prev, masterMuted: next }))}
-            onAiBranchUsed={() => tryAchievement("first_ai_branch")}
-            onChapterClear={handleChapterClear}
+            onPortraitPackChange={setPortraitPack}
+            onBack={backFromMeta}
           />
-          <StoryMapPreview
-            storyId={storyId}
-            currentSceneId={snapshot.sceneId}
-            isOpen={isCreatorMapOpen}
-            onClose={() => setCreatorMapOpen(false)}
-          />
-        </>
-      ) : null}
+        ) : null}
+
+        {screen === "help" ? <HelpScreen onBack={backFromMeta} /> : null}
+
+        {screen === "achievements" ? <AchievementsScreen onBack={backFromMeta} /> : null}
+      </Suspense>
+
+      <Suspense fallback={<ScreenLoading />}>
+        {screen === "play" && runner && snapshot ? (
+          <>
+            <VisualNovelPrototype
+              key={storyRevision}
+              storyId={storyId}
+              snapshot={snapshot}
+              textSpeed={settings.textSpeed}
+              autoPlay={settings.autoPlay}
+              masterMuted={settings.masterMuted}
+              musicVolume={settings.musicVolume}
+              ambientVolume={settings.ambientVolume}
+              sfxVolume={settings.sfxVolume}
+              voiceVolume={settings.voiceVolume}
+              activeSaveSlot={activeManualSlot}
+              displayNames={displayNames}
+              portraitPack={portraitPack}
+              coPlay={coPlay}
+              onLeaveCoPlay={leaveCoPlay}
+              onRareEcho={() => tryAchievement("rare_echo_path")}
+              onReverseCurrent={() => tryAchievement("reverse_current")}
+              onOracleHit={() => tryAchievement("oracle_hit")}
+              onRpsResolvedAchievement={() => tryAchievement("first_rps")}
+              onCustomPackCgSkipped={() => showUnlockToast("自定义立绘模式：已跳过官方正脸 CG")}
+              onBedHeard={(bedId) => {
+                setUnlocks((prev) => {
+                  if (prev.audio.includes(bedId)) {
+                    return prev;
+                  }
+                  const next = applyUnlocks(prev, { audio: [bedId] });
+                  showUnlockToast(`配乐已收藏：${bedId}`);
+                  return next;
+                });
+              }}
+              onStoryChange={(nextStoryId) => runStoryAction(() => loadStory(nextStoryId))}
+              onChoose={handleChoose}
+              onJumpTo={handleJumpTo}
+              onOpenMap={() => setCreatorMapOpen(true)}
+              onReset={handleReset}
+              onSave={handleManualSave}
+              onOpenTitle={() => {
+                gameAudio.stopAmbient();
+                gameAudio.playExclusiveBed("title-theme");
+                setCoPlayConfig(null);
+                setScreen("title");
+              }}
+              onOpenGallery={() => openMeta("gallery")}
+              onOpenSettings={() => openMeta("settings")}
+              onOpenHelp={() => openMeta("help")}
+              onOpenAchievements={() => openMeta("achievements")}
+              onAutoPlayChange={(next) => setSettings((prev) => ({ ...prev, autoPlay: next }))}
+              onMasterMutedChange={(next) =>
+                setSettings((prev) => ({ ...prev, masterMuted: next }))
+              }
+              onAiBranchUsed={() => tryAchievement("first_ai_branch")}
+              onChapterClear={handleChapterClear}
+            />
+            <StoryMapPreview
+              storyId={storyId}
+              currentSceneId={snapshot.sceneId}
+              isOpen={isCreatorMapOpen}
+              onClose={() => setCreatorMapOpen(false)}
+            />
+          </>
+        ) : null}
+      </Suspense>
 
       {unlockToast ? (
         <div className="global-toast" data-testid="unlock-toast" role="status">

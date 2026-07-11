@@ -11,6 +11,8 @@ async function clickIfVisible(page: import("@playwright/test").Page, name: RegEx
 }
 
 test("commercial shell: cinematic title, play, system save", async ({ page }) => {
+  const pageErrors: string[] = [];
+  page.on("pageerror", (error) => pageErrors.push(error.message));
   await page.goto("/");
   // Ensure no leftover save trips new-game confirm.
   await page.evaluate(() => {
@@ -28,7 +30,8 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   await expect(page.getByTestId("title-screen")).toBeVisible();
   await page.getByRole("button", { name: "中文" }).click();
   await expect(page.getByRole("heading", { name: "超级爱人" })).toBeVisible();
-  await page.getByTestId("title-new-game").click();
+  // A fast double-click must not create two asynchronous story runtimes.
+  await page.getByTestId("title-new-game").dblclick();
 
   await expect(page.getByTestId("game-viewport")).toBeVisible();
   await expect(page.getByTestId("fullscreen-toggle")).toBeVisible();
@@ -70,4 +73,5 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   await expect(page.getByTestId("system-menu")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("system-menu")).toHaveCount(0);
+  expect(pageErrors).toEqual([]);
 });
