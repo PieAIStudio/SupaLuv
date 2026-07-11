@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { gameAudio } from "../audio/gameAudio";
-import { requestDialogueTts, speakerToCharacterId } from "../audio/ttsClient";
 
 interface UseDialogueVoiceOptions {
   readonly enabled: boolean;
@@ -41,20 +40,27 @@ export function useDialogueVoice({
 
     const controller = new AbortController();
     abortRef.current = controller;
-    const characterId = speakerToCharacterId(speaker);
 
-    void requestDialogueTts({
-      text: text.slice(0, 480),
-      language,
-      characterId,
-      emotion,
-      accessToken,
-      signal: controller.signal,
-    })
-      .then((result) => {
+    void import("../audio/ttsClient")
+      .then(({ requestDialogueTts, speakerToCharacterId }) => {
         if (controller.signal.aborted) {
+          return null;
+        }
+
+        return requestDialogueTts({
+          text: text.slice(0, 480),
+          language,
+          characterId: speakerToCharacterId(speaker),
+          emotion,
+          accessToken,
+          signal: controller.signal,
+        });
+      })
+      .then((result) => {
+        if (!result || controller.signal.aborted) {
           return;
         }
+
         gameAudio.unlock();
         gameAudio.playVoiceFromBase64(result.audioBase64, result.mimeType, {
           speaker,
