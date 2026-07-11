@@ -40,7 +40,7 @@ Before main work, read:
 
 SupaLuv uses the `engineering-runtime` profile because it is a game/runtime project with browser UI, video playback, AI service boundaries, save state, platform packaging, and later engine migration risk.
 
-Use `docs/governance/agents-routing/engineering-runtime-v0.9.md` to choose workflow depth. External workflow systems such as Superpowers or Directed Development run inside the lane selected by this router; they do not replace it.
+Use `docs/governance/agents-routing/engineering-runtime-v0.9.md` to choose workflow depth. Codex and this router own normal execution; Directed Development and other optional skills run only when a narrow trigger matches the selected lane.
 
 Local lane profile:
 
