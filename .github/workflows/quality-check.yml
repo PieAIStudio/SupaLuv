@@ -30,7 +30,7 @@ jobs:
       - name: Prepare non-secret Vercel build metadata
         run: |
           mkdir -p .vercel
-          node -e 'require("node:fs").writeFileSync(".vercel/project.json", JSON.stringify({ projectId: "prj_FyzCfVF0HRsFPTNYxg05OpQWDyeU", orgId: "team_C63r8BVtFCpiOK1k2h7xytT9", projectName: "supaluv" }))'
+          cp tools/vercel-project-ci.json .vercel/project.json
       - run: pnpm build:vercel
       - run: pnpm verify:vercel-output
       - run: pnpm test:e2e
