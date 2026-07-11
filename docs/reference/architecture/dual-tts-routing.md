@@ -48,7 +48,8 @@ Implementation lives in **SwimmerAIKit** (`@pieai/swimmer-ai-kit/tts`):
 
 ## Secrets
 
-Place keys only in `/Users/yuanfei/PieAI/.secrets/supaluv.env` (never `VITE_*`):
+Place keys only in
+`/Users/yuanfei/PieAI/.secrets/supaluv/local.server.env` (never `VITE_*`):
 
 ```bash
 ELEVENLABS_API_KEY=

@@ -14,10 +14,7 @@ const moderation = createContentModerationProvider({
 export async function reviewAiBranchRequest(
   body: AiBranchRequestBody,
 ): Promise<{ allowed: true } | { allowed: false; reason: string }> {
-  const corpus = [
-    body.config.context,
-    ...body.authoredChoiceLabels,
-  ].join("\n");
+  const corpus = [body.config.context, ...body.authoredChoiceLabels].join("\n");
   const decision = await moderation.reviewText({ stage: "input", text: corpus });
   if (!decision.allowed) {
     return {

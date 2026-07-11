@@ -60,7 +60,7 @@ This file is the current project work index. It is not the agents-routing algori
 | Constrained AI side choice | wait slot → live edge or mock → rejoin Ink |
 | BGM / SFX separate volumes | settings |
 | Local AI edge | `services/ai-branch` (Mastra + SwimmerAIKit + Gemini 3.5 Flash) |
-| Secrets | `/Users/yuanfei/PieAI/.secrets/supaluv.env` |
+| Local config | server: `/Users/yuanfei/PieAI/.secrets/supaluv/local.server.env`; browser-safe `VITE_*`: `/Users/yuanfei/PieAI/.secrets/supaluv/local.public.env` |
 | PostHog | `apps/web/src/analytics/productAnalytics.ts` + `VITE_POSTHOG_KEY` |
 | Achievements / Help / End path | shipped — see `feature-status-and-roadmap.md` |
 | Feature status + A/B/C/D roadmap | `docs/reference/execution/feature-status-and-roadmap.md` |

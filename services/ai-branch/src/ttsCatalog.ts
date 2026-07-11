@@ -5,10 +5,7 @@
 
 export type TtsPreviewId = "zh_preview" | "en_preview";
 
-const PREVIEWS: Record<
-  TtsPreviewId,
-  { language: string; text: string; characterId: string }
-> = {
+const PREVIEWS: Record<TtsPreviewId, { language: string; text: string; characterId: string }> = {
   zh_preview: {
     language: "zh-CN",
     text: "测试语音：你好，我是超级爱人双路配音试听。",

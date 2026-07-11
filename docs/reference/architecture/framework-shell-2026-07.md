@@ -86,7 +86,7 @@ Deferred: seat SKUs, Colyseus, voice chat (players use phone voice).
 | Web | Vercel Services `web` → `apps/web` (Vite) |
 | AI edge | Vercel Services `ai-branch` → `services/ai-branch/src/server.ts` (Node) |
 | Public routing | `/api/*` → `ai-branch`; everything else → `web` |
-| Secrets | Local: `/Users/yuanfei/PieAI/.secrets/supaluv.env`; cloud: Vercel Sensitive vars in Preview + Production |
+| Configuration | Local server: `/Users/yuanfei/PieAI/.secrets/supaluv/local.server.env`; local browser-safe `VITE_*`: `/Users/yuanfei/PieAI/.secrets/supaluv/local.public.env`; cloud: scoped Vercel variables in Preview + Production, with server secrets marked Sensitive |
 
 Production is live at `https://supaluv.pieaistudio.com`. DNS stays at Namecheap
 with a `supaluv` CNAME to Vercel.

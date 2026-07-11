@@ -40,9 +40,7 @@ export async function synthesizeDialogue(input: {
   signal?: AbortSignal;
 }): Promise<TtsSynthesizeResult> {
   const language =
-    input.language?.trim() ||
-    process.env.SUPALUV_TTS_DEFAULT_LANG?.trim() ||
-    "zh-CN";
+    input.language?.trim() || process.env.SUPALUV_TTS_DEFAULT_LANG?.trim() || "zh-CN";
   return router.synthesize({
     text: input.text,
     language,

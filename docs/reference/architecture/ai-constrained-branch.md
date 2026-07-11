@@ -83,7 +83,10 @@ Browser (SupaLuv web)
 
 ```bash
 # 1) Fill OpenRouter key
-cp /Users/yuanfei/PieAI/.secrets/supaluv.env.example /Users/yuanfei/PieAI/.secrets/supaluv.env
+mkdir -p /Users/yuanfei/PieAI/.secrets/supaluv
+# Copy server-only names from .env.example into local.server.env.
+# Copy browser-safe VITE_* names into local.public.env.
+chmod 600 /Users/yuanfei/PieAI/.secrets/supaluv/local.*.env
 # edit OPENROUTER_API_KEY=...
 
 # 2) Run edge + web
@@ -100,7 +103,8 @@ pnpm dev:web    # proxies /api/ai/branch → :8787
 | Model config | SwimmerAIKit `createOpenRouterModel` → OpenRouter |
 | Fallback | direct `requestOpenRouterChatCompletion` if Mastra path fails |
 | Default model | `google/gemini-3.5-flash` + `SUPALUV_THINKING_LEVEL=high` |
-| Secrets | `/Users/yuanfei/PieAI/.secrets/supaluv.env` |
+| Local server config | `/Users/yuanfei/PieAI/.secrets/supaluv/local.server.env` |
+| Local browser-safe config | `/Users/yuanfei/PieAI/.secrets/supaluv/local.public.env` (`VITE_*` only) |
 | Browser provider | hybrid: live first, mock fallback |
 | Analytics | PostHog typed adapter `apps/web/src/analytics/productAnalytics.ts` |
 

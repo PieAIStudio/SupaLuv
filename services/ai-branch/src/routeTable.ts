@@ -142,8 +142,7 @@ export async function handleAiBranchRequest(
       if (!phrase) {
         if (!allowFreeform) {
           sendJson(res, 400, {
-            error:
-              "Free-form TTS disabled. Use previewId (zh_preview|en_preview) or /tts/preview.",
+            error: "Free-form TTS disabled. Use previewId (zh_preview|en_preview) or /tts/preview.",
           });
           return true;
         }

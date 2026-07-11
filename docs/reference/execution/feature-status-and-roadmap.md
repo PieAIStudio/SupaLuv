@@ -162,4 +162,6 @@ Telltale-style「全球有多少玩家和你选一样」— 异步社交证明�
 pnpm typecheck && pnpm lint && pnpm test && pnpm test:e2e && pnpm docs:check
 ```
 
-AI live: `pnpm dev:ai` + `pnpm dev:web` · secrets `/Users/yuanfei/PieAI/.secrets/supaluv.env`.
+AI live: `pnpm dev:ai` + `pnpm dev:web` · server config
+`/Users/yuanfei/PieAI/.secrets/supaluv/local.server.env` · browser-safe
+`VITE_*` config `/Users/yuanfei/PieAI/.secrets/supaluv/local.public.env`.

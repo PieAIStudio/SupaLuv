@@ -11,9 +11,7 @@ import { randomUUID } from "node:crypto";
 
 const POWER_PER_BATTERY = 100;
 
-export const AI_BRANCH_COST_BATTERIES = Number(
-  process.env.SUPALUV_AI_BRANCH_COST_BATTERIES ?? "1",
-);
+export const AI_BRANCH_COST_BATTERIES = Number(process.env.SUPALUV_AI_BRANCH_COST_BATTERIES ?? "1");
 export const TTS_COST_BATTERIES = Number(process.env.SUPALUV_TTS_COST_BATTERIES ?? "0");
 
 function appId(): string {
@@ -131,8 +129,7 @@ export async function reserveBatteries(input: {
 
   const sb = adminClient()!;
   const idem =
-    input.idempotencyKey?.trim() ||
-    `supaluv:${input.reason}:${input.userId}:${randomUUID()}`;
+    input.idempotencyKey?.trim() || `supaluv:${input.reason}:${input.userId}:${randomUUID()}`;
 
   const { data, error } = await sb.rpc("wallet_reserve", {
     p_user_id: input.userId,

@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@pieai/doc-gov':
-        specifier: 0.4.2
-        version: 0.4.2
+        specifier: 0.4.3
+        version: 0.4.3
       '@pieai/pro-gov':
-        specifier: 0.4.2
-        version: 0.4.2
+        specifier: 0.4.3
+        version: 0.4.3
       '@pieai/swimmer-ai-kit':
         specifier: file:vendor/pieai-swimmer-ai-kit-0.2.0-f44601f.tgz
         version: file:vendor/pieai-swimmer-ai-kit-0.2.0-f44601f.tgz
@@ -84,6 +84,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: 6.0.1
         version: 6.0.1(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0))
+      dotenv:
+        specifier: 17.4.2
+        version: 17.4.2
       vite:
         specifier: 8.0.10
         version: 8.0.10(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)
@@ -107,6 +110,9 @@ importers:
       '@supabase/supabase-js':
         specifier: 2.108.1
         version: 2.108.1
+      dotenv:
+        specifier: 17.4.2
+        version: 17.4.2
       zod:
         specifier: 3.25.76
         version: 3.25.76
@@ -1218,13 +1224,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@pieai/doc-gov@0.4.2':
-    resolution: {integrity: sha512-jLNCJK3DECvEqWPjmGfw4YA3BbMbwvJ/8WJ80Tz0tbUVM+LINHyUEkM8vM0xHGV5wsLQG9PnMDrff+NSBGiz7g==}
+  '@pieai/doc-gov@0.4.3':
+    resolution: {integrity: sha512-C2i00XEq9mu068wPvt4qbole4QO3c1Ov9nxonXlkM2r1tRWMtzediem3f7xTRig4+XQ/iyrs14Vw8Rzzb3wlUQ==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
-  '@pieai/pro-gov@0.4.2':
-    resolution: {integrity: sha512-sj+B2xkb8r6i6nhfJ2edUtDLRA2bf/rbGJ2MqWENqYIEUsYgO9pQTT0f8hNBlB5+J2pg/rLczU2cJ8LsYfa24A==}
+  '@pieai/pro-gov@0.4.3':
+    resolution: {integrity: sha512-suAg0vqfKYLg06U3EM1x3wPytLBJKYCGnBZdslcm6jaOVOV/50wSLM3LQ71FSV7DU7/BOeOkiy9TjsFDRC2WIw==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
@@ -4417,11 +4423,11 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.64.0':
     optional: true
 
-  '@pieai/doc-gov@0.4.2': {}
+  '@pieai/doc-gov@0.4.3': {}
 
-  '@pieai/pro-gov@0.4.2':
+  '@pieai/pro-gov@0.4.3':
     dependencies:
-      '@pieai/doc-gov': 0.4.2
+      '@pieai/doc-gov': 0.4.3
 
   '@pieai/swimmer-ai-kit@file:vendor/pieai-swimmer-ai-kit-0.2.0-f44601f.tgz': {}
 
