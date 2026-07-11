@@ -25,6 +25,7 @@
     "assets:check": "awk -F, 'NR > 1 { print $3 \"  \" $2 }' packages/content/assets/RUNTIME-ASSET-LEDGER.csv | shasum -a 256 -c -",
     "test": "vitest run --config vitest.config.ts",
     "test:e2e": "playwright test --config=playwright.config.ts tests/e2e",
+    "prepare": "node tools/install-git-hooks.mjs",
     "doc-gov": "doc-gov",
     "pro-gov": "pro-gov",
     "docs:check": "pnpm pro-gov doctor && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor",
