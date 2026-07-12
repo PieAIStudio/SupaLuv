@@ -23,6 +23,9 @@ playwright-report/
 .DS_Store
 .codex/
 .worktrees/
+.scratch/
+.grok-reports/
+.devspace-reports/
 
 # Deployment metadata
 .vercel/

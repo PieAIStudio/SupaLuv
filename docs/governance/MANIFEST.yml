@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-12T14:07:25.082Z
+generated_at: 2026-07-12T15:20:22.844Z
 generator_version: doc-gov@0.5.1
-docs_count: 29
+docs_count: 31
 docs:
   - id: PLAN-0001
     path: docs/archive/2026-q3-plan/PLAN-0001-react-inkjs-pixivn-spike.md
@@ -123,6 +123,13 @@ docs:
     canonical: true
     last_reviewed: 2026-05-09
     pinned: true
+  - id: PLAN-0005
+    path: docs/plans/active/PLAN-0005-draft-chapters-productization.md
+    type: plan
+    status: active
+    canonical: true
+    last_reviewed: 2026-07-12
+    pinned: true
   - id: PLAN-0003
     path: docs/plans/completed/PLAN-0003-ch01-polish-loops.md
     type: plan
@@ -193,6 +200,13 @@ docs:
     canonical: true
     last_reviewed: 2026-07-12
     pinned: false
+  - id: SPEC-0003
+    path: docs/specs/active/SPEC-0003-draft-chapters-story-graph-and-game-feel.md
+    type: spec
+    status: active
+    canonical: true
+    last_reviewed: 2026-07-12
+    pinned: true
   - id: SPEC-0001
     path: docs/specs/completed/SPEC-0001-chapter-01-trial-pipeline.md
     type: spec

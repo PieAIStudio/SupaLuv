@@ -40,6 +40,8 @@ related:
 | 免费剧情与 AI 电池计费 | `docs/adr/0003-freemium-battery-ai-no-free-quota.md` |
 | 成人黑色幽默 / 性喜剧语气 | `docs/adr/0004-tone-black-humor-sex-comedy-not-romance.md` |
 | 真人形象、角色锁定、AI 最终章 | `docs/adr/0005-generative-identity-and-bounded-ai-endings.md` |
+| 当前两章改编、剧情图与加载规格 | `docs/specs/active/SPEC-0003-draft-chapters-story-graph-and-game-feel.md` |
+| 当前执行任务池 | `docs/plans/active/PLAN-0005-draft-chapters-productization.md` |
 | 实际可执行行为 | 当前代码、配置和测试 |
 | Web 包局部模块边界 | `apps/web/README.md` |
 | 内容包生产边界 | `packages/content/README.md` |
