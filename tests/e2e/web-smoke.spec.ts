@@ -49,6 +49,7 @@ async function reachChapterEnd(page: import("@playwright/test").Page) {
   await page.getByTestId("title-new-game").click();
   await page.getByRole("button", { name: "使用官方形象" }).click();
   await page.getByRole("button", { name: "使用官方形象" }).click();
+  await expect(page.getByTestId("game-viewport")).toBeVisible();
   for (let step = 0; step < 90; step += 1) {
     if (
       await page
