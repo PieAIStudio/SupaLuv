@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-07-12
+last_reviewed: 2026-07-13
 domain: meta
 tags:
   - current-work
@@ -25,11 +25,11 @@ related:
 ## 当前结论
 
 - **生产官网**：<https://supaluv.pieaistudio.com>
-- **产品阶段**：核心技术 Demo 闭环已上线；完整商业内容尚未完成。
-- **当前主线工作**：把 `Temp/draft01.md`、`Temp/draft02.md` 的两章草稿完整改编为默认游戏内容，
-  同时验证正式章节可重复导入的内容管线；执行以 `SPEC-0003`、`PLAN-0005` 为准。
-- **内容边界**：当前线上 `ch01` 是即将退休的短篇验证内容；新两章仍是 noncanonical 草稿，
-  不是作者已经冻结的最终小说。
+- **产品阶段**：功能闭环已齐，两章草稿已在官网可玩；加载、正式视听资产和内容演出仍需产品化。
+- **当前主线工作**：`PLAN-0005` Stage 1 已完成；当前并行推进游戏式原子加载与第一个
+  剧情内互动，之后串行建立共享 `NarrativeGraph`，再交付两种剧情地图。
+- **内容边界**：官网默认内容已经是 `draft-ch01`、`draft-ch02`；两章仍是 noncanonical 草稿，
+  不是作者已经冻结的最终小说。旧短篇 Demo 仅保留为开发 fixture，不再是玩家默认故事。
 - **开发原则**：小说与技术可以并行推进。正式内容到位后，应填入现有内容管线，
   不为每一章重做引擎。
 
@@ -57,10 +57,13 @@ related:
 
 ## 当前优先级
 
-1. **两章内容基线**：来源覆盖、跨章存档、完整 Ink/manifest 和旧 Demo 退休。
+1. **游戏式加载与互动**：原子换幕、关键资产预取、情绪样本校准和剧情内 UI 互动。
 2. **共享剧情图**：同一 NarrativeGraph 驱动本地 Creator Studio 与玩家路径图。
-3. **游戏式加载与互动**：原子换幕、关键资产预取、情绪样本标注和剧情内 UI 互动。
-4. **视听与试玩打磨**：正式资产、TTS/BGM/SFX、两轮 playtest 与修复后证据。
+3. **视听与试玩打磨**：正式资产、TTS/BGM/SFX、两轮 playtest 与修复后证据。
+
+已完成的两章内容基线包括 169 个正文段落的来源覆盖、跨章存档、完整 Ink/manifest、
+旧 Demo 退休和 Production 最小试玩。当前已知体验债是冷加载仍会出现网页式渐进呈现，
+生产入口 chunk 约 521 KB；它们是当前加载工作包的验收目标，不应被描述成纯审美问题。
 
 当前 active work 只有 `SPEC-0003` 与 `PLAN-0005`。不要并行创建竞争规格或把 completed 文档
 重新改成 active。
