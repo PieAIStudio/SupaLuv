@@ -15,8 +15,8 @@ importers:
         specifier: 0.4.6
         version: 0.4.6
       '@pieai/swimmer-ai-kit':
-        specifier: file:vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz
-        version: file:vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz
+        specifier: file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz
+        version: file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz
       '@playwright/test':
         specifier: 1.59.1
         version: 1.59.1
@@ -108,8 +108,8 @@ importers:
         specifier: ^1.50.1
         version: 1.50.1(express@5.2.1)(zod@3.25.76)
       '@pieai/swimmer-ai-kit':
-        specifier: file:../../vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz
-        version: file:vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz
+        specifier: file:../../vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz
+        version: file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz
       '@supabase/supabase-js':
         specifier: 2.108.1
         version: 2.108.1
@@ -1249,9 +1249,9 @@ packages:
     engines: {node: '>=24 <25'}
     hasBin: true
 
-  '@pieai/swimmer-ai-kit@file:vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz':
-    resolution: {integrity: sha512-hIPFRRqmhwuNyCQkrdAOA8LNtnfajEy+qeW6El9+RpLNWgn2h/jfBNffHAibXIOmD36oFZSYsPLq2JB6h6mFxw==, tarball: file:vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz}
-    version: 0.2.1
+  '@pieai/swimmer-ai-kit@file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz':
+    resolution: {integrity: sha512-hF0SAjhRuV0epchFsDfW001QnGlXcYeuha3ooPzvC1EdY2fYcnUVMrxvNgeBRN5m2dmy+rFb25mDurBkofsztA==, tarball: file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz}
+    version: 0.2.2
     engines: {node: '>=24 <25'}
 
   '@pieai/swimmer-ui-kit@1.0.1':
@@ -4567,7 +4567,7 @@ snapshots:
     dependencies:
       '@pieai/doc-gov': 0.4.6
 
-  '@pieai/swimmer-ai-kit@file:vendor/pieai-swimmer-ai-kit-0.2.1-ff9adeb.tgz': {}
+  '@pieai/swimmer-ai-kit@file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz': {}
 
   '@pieai/swimmer-ui-kit@1.0.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
