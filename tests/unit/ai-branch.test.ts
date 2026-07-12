@@ -1,21 +1,20 @@
 import { describe, expect, it, vi } from "vitest";
 import { getAiBranchProvider } from "../../apps/web/src/ai/aiBranchProvider";
 import { createMockAiBranchProvider } from "../../apps/web/src/ai/mockAiBranchProvider";
-import { createInkStoryRunner } from "../../apps/web/src/story/inkStoryRunner";
-import { ch01InkSource } from "@supaluv/content";
+import { createInkStoryRunnerForId } from "../../apps/web/src/story/inkStoryRunner";
 
 describe("constrained AI branch", () => {
   it("live provider requires access token", async () => {
     const provider = getAiBranchProvider();
     await expect(
       provider.generate({
-        storyId: "ch01",
-        sceneId: "ch01_office_delete_or_shot",
-        authoredChoiceLabels: ["立刻删掉"],
+        storyId: "draft-ch01",
+        sceneId: "dch01_s003",
+        authoredChoiceLabels: ["点头：至少说人话了"],
         accessToken: null,
         config: {
           enabled: true,
-          rejoinSceneId: "ch01_phone_buzz",
+          rejoinSceneId: "dch01_s004",
           maxAiBeats: 1,
           context: "test",
         },
@@ -34,12 +33,12 @@ describe("constrained AI branch", () => {
 
     const provider = createMockAiBranchProvider();
     const result = await provider.generate({
-      storyId: "ch01",
-      sceneId: "ch01_office_delete_or_shot",
-      authoredChoiceLabels: ["立刻删掉", "先截图备份"],
+      storyId: "draft-ch01",
+      sceneId: "dch01_s003",
+      authoredChoiceLabels: ["点头：至少说人话了", "冷笑：后门也算诚实"],
       config: {
         enabled: true,
-        rejoinSceneId: "ch01_phone_buzz",
+        rejoinSceneId: "dch01_s004",
         maxAiBeats: 2,
         context: "test",
         artPool: ["bg-office-night"],
@@ -47,7 +46,7 @@ describe("constrained AI branch", () => {
       },
     });
 
-    expect(result.rejoinSceneId).toBe("ch01_phone_buzz");
+    expect(result.rejoinSceneId).toBe("dch01_s004");
     expect(result.choiceLabel.length).toBeGreaterThan(4);
     expect(result.beats.length).toBeGreaterThan(0);
     expect(result.beats.length).toBeLessThanOrEqual(2);
@@ -56,11 +55,10 @@ describe("constrained AI branch", () => {
     }
   });
 
-  it("ink runner can jump to rejoin knot after side content", () => {
-    const runner = createInkStoryRunner(ch01InkSource);
-    // Advance to first branch scene roughly via continues — or jump directly.
-    const joined = runner.jumpTo("ch01_phone_buzz");
-    expect(joined.sceneId).toBe("ch01_phone_buzz");
+  it("ink runner can jump to rejoin knot after side content", async () => {
+    const runner = await createInkStoryRunnerForId("draft-ch01");
+    const joined = runner.jumpTo("dch01_s010");
+    expect(joined.sceneId).toBe("dch01_s010");
     expect(joined.text.length).toBeGreaterThan(0);
   });
 });

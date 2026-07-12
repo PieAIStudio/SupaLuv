@@ -73,7 +73,7 @@ export function PlayHud({
       <div className="hud-left">
         <span data-testid="prototype-badge">
           <GameBadge tone={playerMode ? "ai" : "warning"}>
-            {playerMode ? "第01章 · Demo" : "Draft"}
+            {playerMode ? "剧情模式" : "开发模式"}
           </GameBadge>
         </span>
         {autoPlay ? <GameBadge tone="success">AUTO</GameBadge> : null}
@@ -116,7 +116,8 @@ export function PlayHud({
               value={storyId}
               onChange={(event) => onStoryChange(event.target.value as StoryId)}
             >
-              <option value="ch01">第01章 · 不会嫌弃你</option>
+              <option value="draft-ch01">第01章 · 你有病吧</option>
+              <option value="draft-ch02">第02章 · 她不会评判你</option>
               <option value="prototype-act1">Prototype Act 1</option>
               <option value="chapter-01-trial">Chapter 01 Trial</option>
             </select>

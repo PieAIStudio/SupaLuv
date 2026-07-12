@@ -126,10 +126,15 @@ export function DialoguePanel({
           ) : null}
 
           {choices.map((choice, index) => {
-            const seen = seenChoiceLabels.includes(choice.text);
+            const choiceId =
+              "choiceId" in choice && typeof choice.choiceId === "string" ? choice.choiceId : null;
+            const seen =
+              seenChoiceLabels.includes(choice.text) ||
+              (choiceId ? seenChoiceLabels.includes(`id:${choiceId}`) : false) ||
+              seenChoiceLabels.includes(`label:${choice.text}`);
             return (
               <GameButton
-                key={`${sceneId ?? "unknown"}-${choice.index}-${choice.text}`}
+                key={`${sceneId ?? "unknown"}-${choice.index}-${choice.choiceId ?? choice.text}`}
                 type="button"
                 className={`choice-button${seen ? " is-seen-path" : ""}`}
                 variant={index === 0 ? "primary" : "secondary"}

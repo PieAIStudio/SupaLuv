@@ -3,6 +3,7 @@ import {
   AUTOSAVE_SLOT,
   EMPTY_UNLOCKS,
   collectAllUnlocks,
+  evaluateSaveCompatibility,
   findLatestSave,
   listSaveSlots,
   loadSave,
@@ -12,6 +13,8 @@ import {
   writeSave,
   type GameSavePayload,
 } from "../../apps/web/src/persistence/gameSave";
+import { writeStorySave } from "../../apps/web/src/persistence/saveWriter";
+import { createDraftCh02InkStoryRunner } from "../../apps/web/src/story/inkStoryRunner";
 
 function installMemoryLocalStorage() {
   const store = new Map<string, string>();
@@ -48,14 +51,15 @@ beforeAll(() => {
 
 function makeSave(overrides: Partial<GameSavePayload> = {}): GameSavePayload {
   return {
-    version: 1,
+    version: 2,
     slotId: AUTOSAVE_SLOT,
-    storyId: "ch01",
+    storyId: "draft-ch01",
+    packageId: "draft-2026-07",
     inkStateJson: "{}",
-    label: "第01章",
+    label: "第01章 · 你有病吧",
     savedAt: "2026-07-10T00:00:00.000Z",
     unlocks: EMPTY_UNLOCKS,
-    chapterHint: "ch01_office_night",
+    chapterHint: "dch01_s001",
     ...overrides,
   };
 }
@@ -68,8 +72,8 @@ describe("gameSave", () => {
   it("writes and loads a slot", () => {
     writeSave(makeSave());
     const loaded = loadSave(AUTOSAVE_SLOT);
-    expect(loaded?.storyId).toBe("ch01");
-    expect(loaded?.chapterHint).toBe("ch01_office_night");
+    expect(loaded?.storyId).toBe("draft-ch01");
+    expect(loaded?.chapterHint).toBe("dch01_s001");
   });
 
   it("rejects wrong version", () => {
@@ -120,9 +124,9 @@ describe("gameSave", () => {
 
   it("restores blank ink presentation from saved snapshot", () => {
     const presentation = presentationFromSnapshot({
-      sceneId: "ch01_office_delete_or_shot",
+      sceneId: "dch01_s003",
       text: "保存时看到的台词",
-      choices: [{ index: 0, text: "立刻删掉" }],
+      choices: [{ index: 0, text: "点头：至少说人话了", choiceId: "d1_bones_accept" }],
       isEnded: false,
       meters: { dignity: 48, impulse: 55 },
     });
@@ -131,13 +135,39 @@ describe("gameSave", () => {
     const inkBlank = {
       sceneId: null,
       text: "",
-      choices: [{ index: 0, text: "立刻删掉" }],
+      choices: [{ index: 0, text: "点头：至少说人话了", choiceId: "d1_bones_accept" }],
       isEnded: false,
       meters: { dignity: 48, impulse: 55 },
     };
     const restored = restoreSnapshotFromSave(inkBlank, loaded?.presentation);
-    expect(restored.sceneId).toBe("ch01_office_delete_or_shot");
+    expect(restored.sceneId).toBe("dch01_s003");
     expect(restored.text).toContain("台词");
-    expect(restored.choices[0]?.text).toContain("删掉");
+    expect(restored.choices[0]?.text).toContain("说人话");
+  });
+
+  it("flags retired ch01 saves as incompatible", () => {
+    const result = evaluateSaveCompatibility(
+      makeSave({ version: 1, storyId: "ch01", label: "旧 Demo" }),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.reason).toBe("retired");
+      expect(result.message).toMatch(/退休|不兼容/);
+    }
+  });
+
+  it("persists inherited chapter variables for refresh recovery", async () => {
+    const runner = await createDraftCh02InkStoryRunner({ dignity: 61, clue_subsidy_sms: true });
+    writeStorySave({
+      runner,
+      storyId: "draft-ch02",
+      unlocks: EMPTY_UNLOCKS,
+      slotId: AUTOSAVE_SLOT,
+      inheritedVariables: { dignity: 61, clue_subsidy_sms: true },
+    });
+    expect(loadSave(AUTOSAVE_SLOT)?.inheritedVariables).toEqual({
+      dignity: 61,
+      clue_subsidy_sms: true,
+    });
   });
 });

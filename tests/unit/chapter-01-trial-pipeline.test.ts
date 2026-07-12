@@ -57,46 +57,44 @@ describe("chapter 01 trial pipeline", () => {
   });
 
   it("exports 12-20 noncanonical scene cards for the trial chapter", async () => {
-    const content = await import("@supaluv/content");
+    const { chapter01TrialScenes } = await import("@supaluv/content/chapter-01-trial-scenes");
 
-    expect(content.chapter01TrialScenes.length).toBeGreaterThanOrEqual(12);
-    expect(content.chapter01TrialScenes.length).toBeLessThanOrEqual(20);
-    expect(content.chapter01TrialScenes.every((scene) => scene.noncanonical)).toBe(true);
+    expect(chapter01TrialScenes.length).toBeGreaterThanOrEqual(12);
+    expect(chapter01TrialScenes.length).toBeLessThanOrEqual(20);
+    expect(chapter01TrialScenes.every((scene) => scene.noncanonical)).toBe(true);
     expect(
-      content.chapter01TrialScenes.every(
-        (scene) => scene.source === "chapter-01-trial-pipeline-dummy",
-      ),
+      chapter01TrialScenes.every((scene) => scene.source === "chapter-01-trial-pipeline-dummy"),
     ).toBe(true);
   });
 
   it("keeps Chapter 01 trial scene ids aligned between metadata and Ink", async () => {
-    const content = await import("@supaluv/content");
-    const sceneIds = content.chapter01TrialScenes.map((scene) => scene.id).sort();
-    const knotIds = getInkKnotIds(content.chapter01TrialInkSource).sort();
+    const { chapter01TrialScenes } = await import("@supaluv/content/chapter-01-trial-scenes");
+    const sceneIds = chapter01TrialScenes.map((scene) => scene.id).sort();
+    const knotIds = getInkKnotIds(readFileSync(chapter01TrialInkPath, "utf8")).sort();
 
     expect(knotIds).toEqual(sceneIds);
   });
 
   it("keeps Chapter 01 trial metadata targets inside known scene ids", async () => {
-    const content = await import("@supaluv/content");
-    const sceneIds = content.chapter01TrialScenes.map((scene): string => scene.id);
+    const { chapter01TrialScenes } = await import("@supaluv/content/chapter-01-trial-scenes");
+    const sceneIds = chapter01TrialScenes.map((scene): string => scene.id);
 
     expect(
-      content.chapter01TrialScenes.every((scene) =>
+      chapter01TrialScenes.every((scene) =>
         getMetadataTargets(scene).every((target) => sceneIds.includes(target)),
       ),
     ).toBe(true);
   });
 
   it("builds and persists an Obsidian Canvas overview", async () => {
-    const content = await import("@supaluv/content");
+    const { chapter01TrialScenes } = await import("@supaluv/content/chapter-01-trial-scenes");
     const generator = await import("../../tools/storygraph/ink-to-canvas");
 
     expect(existsSync(chapter01TrialCanvasPath)).toBe(true);
 
     const canvasDocument = generator.buildCanvasDocument({
       storyId: "chapter-01-trial",
-      scenes: content.chapter01TrialScenes,
+      scenes: chapter01TrialScenes,
     });
     const persistedCanvas = JSON.parse(readFileSync(chapter01TrialCanvasPath, "utf8")) as {
       nodes: Array<{
@@ -120,7 +118,7 @@ describe("chapter 01 trial pipeline", () => {
     const returnEdges = persistedCanvas.edges.filter((edge) => edge.label.startsWith("↩ "));
     const textNodes = persistedCanvas.nodes.filter((node) => node.type === "text");
 
-    expect(textNodes.length).toBe(content.chapter01TrialScenes.length);
+    expect(textNodes.length).toBe(chapter01TrialScenes.length);
     expect(canvasDocument.edges.length).toBeGreaterThan(0);
     expect(persistedCanvas.nodes.length).toBeGreaterThan(0);
     expect(persistedCanvas.edges.length).toBeGreaterThan(0);

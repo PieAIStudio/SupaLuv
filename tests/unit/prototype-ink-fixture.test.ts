@@ -1,8 +1,12 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import type { PrototypeSceneCard } from "@supaluv/shared";
 import { describe, expect, it } from "vitest";
 
 const prototypeInkPath = new URL("../../packages/content/ink/prototype-act1.ink", import.meta.url);
+
+function readPrototypeInk(): string {
+  return readFileSync(prototypeInkPath, "utf8");
+}
 
 function getInkKnotIds(source: string): string[] {
   return Array.from(source.matchAll(/^===\s+([a-z0-9_]+)\s+===/gm), (match) => match[1]).filter(
@@ -65,22 +69,20 @@ describe("prototype Ink fixture", () => {
   });
 
   it("marks every derived scene as noncanonical", async () => {
-    const content = await import("@supaluv/content");
+    const { prototypeScenes } = await import("@supaluv/content/prototype-scenes");
 
-    expect(content.prototypeScenes).toHaveLength(8);
-    expect(content.prototypeScenes.every((scene) => scene.noncanonical)).toBe(true);
+    expect(prototypeScenes).toHaveLength(8);
+    expect(prototypeScenes.every((scene) => scene.noncanonical)).toBe(true);
     expect(
-      content.prototypeScenes.every(
-        (scene) => scene.source === "experimental-chapter-01-pipeline-dummy",
-      ),
+      prototypeScenes.every((scene) => scene.source === "experimental-chapter-01-pipeline-dummy"),
     ).toBe(true);
   });
 
   it("includes minimal presentation metadata for the VN-like pass", async () => {
-    const content = await import("@supaluv/content");
+    const { prototypeScenes } = await import("@supaluv/content/prototype-scenes");
 
     expect(
-      content.prototypeScenes.every(
+      prototypeScenes.every(
         (scene) =>
           typeof scene.backgroundKey === "string" &&
           scene.backgroundKey.length > 0 &&
@@ -93,32 +95,32 @@ describe("prototype Ink fixture", () => {
   });
 
   it("keeps scene ids aligned between metadata and Ink knots", async () => {
-    const content = await import("@supaluv/content");
-    const knotIds = getInkKnotIds(content.prototypeAct1InkSource);
-    const sceneIds = content.prototypeScenes.map((scene) => scene.id);
+    const { prototypeScenes } = await import("@supaluv/content/prototype-scenes");
+    const knotIds = getInkKnotIds(readPrototypeInk());
+    const sceneIds = prototypeScenes.map((scene) => scene.id);
 
     expect([...knotIds].sort()).toEqual([...sceneIds].sort());
   });
 
   it("keeps every metadata edge target inside the declared scene ids", async () => {
-    const content = await import("@supaluv/content");
-    const sceneIds = content.prototypeScenes.map((scene): string => scene.id);
+    const { prototypeScenes } = await import("@supaluv/content/prototype-scenes");
+    const sceneIds = prototypeScenes.map((scene): string => scene.id);
 
     expect(
-      content.prototypeScenes.every((scene) =>
+      prototypeScenes.every((scene) =>
         getMetadataTargets(scene).every((target) => sceneIds.includes(target)),
       ),
     ).toBe(true);
   });
 
   it("keeps parsed Ink outgoing targets aligned with metadata scene edges", async () => {
-    const content = await import("@supaluv/content");
+    const { prototypeScenes } = await import("@supaluv/content/prototype-scenes");
     const metadataTargetsByScene = new Map(
-      content.prototypeScenes.map(
+      prototypeScenes.map(
         (scene) => [scene.id as string, getMetadataTargets(scene).sort()] as const,
       ),
     );
-    const inkTargetsByKnot = getInkOutgoingTargetsByKnot(content.prototypeAct1InkSource);
+    const inkTargetsByKnot = getInkOutgoingTargetsByKnot(readPrototypeInk());
 
     expect([...inkTargetsByKnot.keys()].sort()).toEqual([...metadataTargetsByScene.keys()].sort());
 

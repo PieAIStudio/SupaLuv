@@ -22,6 +22,7 @@ import { EMPTY_PORTRAIT_PACK, type PortraitPackState } from "../persistence/port
 import { textSpeedToTypewriter, type GameSettings } from "../persistence/settings";
 import type { InkStorySnapshot } from "../story/inkStoryRunner";
 import {
+  getChapterCheckpoint,
   getStoryDefinition,
   getStoryPresentation,
   getStoryScene,
@@ -148,12 +149,12 @@ export function VisualNovelPrototype({
     );
   const presentation = getStoryPresentation(storyId, snapshot.sceneId);
   const storyLabel = getStoryDefinition(storyId).label;
-  const playerMode = storyId === "ch01";
+  const playerMode = getStoryDefinition(storyId).role === "production";
   const debugToolsAvailable =
     import.meta.env.DEV && new URLSearchParams(window.location.search).get("debug") === "1";
   const typewriterOpts = textSpeedToTypewriter(textSpeed);
 
-  const [showDevTools, setShowDevTools] = useState(!playerMode);
+  const [showDevTools, setShowDevTools] = useState(!playerMode || debugToolsAvailable);
   const [saveFlash, setSaveFlash] = useState(false);
   const [systemOpen, setSystemOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
@@ -363,8 +364,9 @@ export function VisualNovelPrototype({
   void oracleTick;
 
   useEffect(() => {
-    setShowDevTools(!playerMode);
-  }, [playerMode]);
+    // Production stories hide tools by default; ?debug=1 keeps them available.
+    setShowDevTools(!playerMode || debugToolsAvailable);
+  }, [playerMode, debugToolsAvailable]);
 
   useEffect(() => {
     if (!isComplete || !displayText) {
@@ -586,7 +588,11 @@ export function VisualNovelPrototype({
     }
   }, [activeCutscene, dismissCutscene, historyOpen, systemOpen]);
 
+  const checkpoint = getChapterCheckpoint(storyId);
+  const isInterChapter = checkpoint.kind === "next_chapter";
   const chapterEnded = snapshot.isEnded && isComplete && !aiPlaying;
+  /** Draft package chapter 1 auto-advances; only terminal draft_end / ai_ending show the end card. */
+  const showChapterEndCard = chapterEnded && !isInterChapter;
 
   useEffect(() => {
     if (isGuestSpectator || !chapterEnded || chapterClearReportedRef.current) {
@@ -759,7 +765,11 @@ export function VisualNovelPrototype({
             isComplete={dialogueComplete}
             choices={
               isGuestSpectator
-                ? guestChoices.map((c) => ({ index: c.index, text: c.text }))
+                ? guestChoices.map((c) => ({
+                    index: c.index,
+                    text: c.text,
+                    choiceId: "choiceId" in c ? (c.choiceId as string | null) : null,
+                  }))
                 : snapshot.choices
             }
             seenChoiceLabels={isGuestSpectator ? [] : seenChoiceLabels}
@@ -804,13 +814,17 @@ export function VisualNovelPrototype({
         />
 
         <ChapterEndCard
-          open={isGuestSpectator ? Boolean(remoteStory?.isEnded) : chapterEnded}
+          open={
+            isGuestSpectator ? Boolean(remoteStory?.isEnded) && !isInterChapter : showChapterEndCard
+          }
           storyId={storyId}
           dignity={dignity}
           impulse={impulse}
           sessionStatsPicks={isGuestSpectator ? [] : sessionStatsPicks}
           displayNames={displayNames}
           characterBindings={characterBindings}
+          allowAiEnding={checkpoint.kind === "ai_ending_allowed"}
+          draftEnd={checkpoint.kind === "draft_end"}
           onRareEcho={onRareEcho}
           onReverseCurrent={onReverseCurrent}
           onOracleHit={onOracleHit}

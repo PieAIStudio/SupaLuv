@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 
 describe("story map", () => {
   it("builds the expected nodes and edges from prototype scenes", async () => {
-    const content = await import("@supaluv/content");
+    const { prototypeScenes } = await import("@supaluv/content/prototype-scenes");
     const shared = await import("@supaluv/shared");
 
-    const map = shared.buildStoryMapFromScenes(content.prototypeScenes);
+    const map = shared.buildStoryMapFromScenes(prototypeScenes);
 
     expect(map.nodes).toHaveLength(8);
     expect(map.edges.some((edge) => edge.kind === "choice")).toBe(true);
@@ -20,10 +20,10 @@ describe("story map", () => {
   });
 
   it("emits a mermaid flowchart string with key prototype scene ids", async () => {
-    const content = await import("@supaluv/content");
+    const { prototypeScenes } = await import("@supaluv/content/prototype-scenes");
     const shared = await import("@supaluv/shared");
 
-    const map = shared.buildStoryMapFromScenes(content.prototypeScenes);
+    const map = shared.buildStoryMapFromScenes(prototypeScenes);
     const mermaid = shared.toMermaidFlowchart(map);
 
     expect(mermaid).toContain("flowchart TD");

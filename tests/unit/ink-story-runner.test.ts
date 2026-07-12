@@ -5,7 +5,7 @@ describe("inkStoryRunner", () => {
     const { createPrototypeInkStoryRunner } =
       await import("../../apps/web/src/story/inkStoryRunner");
 
-    const runner = createPrototypeInkStoryRunner();
+    const runner = await createPrototypeInkStoryRunner();
     const snapshot = runner.getSnapshot();
 
     expect(snapshot.sceneId).toBe("act1_office_shame_test");
@@ -19,7 +19,7 @@ describe("inkStoryRunner", () => {
     const { createPrototypeInkStoryRunner } =
       await import("../../apps/web/src/story/inkStoryRunner");
 
-    const runner = createPrototypeInkStoryRunner();
+    const runner = await createPrototypeInkStoryRunner();
     const first = runner.getSnapshot();
     const second = runner.choose(0);
 
@@ -31,12 +31,21 @@ describe("inkStoryRunner", () => {
     const { createPrototypeInkStoryRunner } =
       await import("../../apps/web/src/story/inkStoryRunner");
 
-    const runner = createPrototypeInkStoryRunner();
+    const runner = await createPrototypeInkStoryRunner();
     // Screenshot path: impulse up, dignity down, then coworker peek.
     runner.choose(1);
     const afterCoworkerPath = runner.getSnapshot();
 
     expect(afterCoworkerPath.meters.impulse).toBeGreaterThan(50);
     expect(afterCoworkerPath.meters.dignity).toBeLessThan(50);
+  });
+
+  it("loads draft-ch01 from precompiled JSON with stable choice ids", async () => {
+    const { createDraftCh01InkStoryRunner } =
+      await import("../../apps/web/src/story/inkStoryRunner");
+    const runner = await createDraftCh01InkStoryRunner();
+    const snapshot = runner.getSnapshot();
+    expect(snapshot.sceneId?.startsWith("dch01_")).toBe(true);
+    expect(snapshot.choices[0]?.choiceId).toBeTruthy();
   });
 });

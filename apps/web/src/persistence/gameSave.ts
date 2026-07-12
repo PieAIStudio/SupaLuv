@@ -1,8 +1,9 @@
+import { isProductionStoryId, isRetiredStoryId } from "@supaluv/content";
 import type { StoryId } from "../story/storyMapAdapter";
 import type { ComedyMeters, InkStoryChoice, InkStorySnapshot } from "../story/inkStoryRunner";
 import type { StoryCharacterBindings } from "../characters/characterPackTypes";
 
-export const SAVE_VERSION = 1 as const;
+export const SAVE_VERSION = 2 as const;
 export const AUTOSAVE_SLOT = "autosave";
 export const MANUAL_SLOTS = ["slot-1", "slot-2", "slot-3"] as const;
 export type ManualSlotId = (typeof MANUAL_SLOTS)[number];
@@ -28,9 +29,10 @@ export interface SavePresentation {
 }
 
 export interface GameSavePayload {
-  readonly version: typeof SAVE_VERSION;
+  readonly version: typeof SAVE_VERSION | 1;
   readonly slotId: string;
-  readonly storyId: StoryId;
+  readonly storyId: string;
+  readonly packageId?: string;
   readonly inkStateJson: string;
   readonly label: string;
   readonly savedAt: string;
@@ -39,7 +41,18 @@ export interface GameSavePayload {
   /** Optional for legacy saves written before presentation snapshots. */
   readonly presentation?: SavePresentation;
   readonly characterBindings?: StoryCharacterBindings;
+  /** Variables carried across chapters within a package. */
+  readonly inheritedVariables?: Readonly<Record<string, unknown>>;
 }
+
+export type SaveCompatibility =
+  | { readonly ok: true; readonly storyId: StoryId; readonly save: GameSavePayload }
+  | {
+      readonly ok: false;
+      readonly reason: "missing" | "corrupt" | "retired" | "unknown_story";
+      readonly message: string;
+      readonly save?: GameSavePayload;
+    };
 
 export const EMPTY_UNLOCKS: GalleryUnlocks = {
   images: [],
@@ -47,11 +60,14 @@ export const EMPTY_UNLOCKS: GalleryUnlocks = {
   audio: [],
 };
 
-export const CH01_CLEAR_REWARDS: GalleryUnlocks = {
-  images: ["bg-product-page", "bg-office-night"],
+export const DRAFT_CLEAR_REWARDS: GalleryUnlocks = {
+  images: ["bg-product-page", "bg-office-night", "bg-rental-room", "bg-lobby-white"],
   videos: [],
   audio: ["title-theme", "soft-piano", "chapter-end", "lonely-pad", "night-ambient"],
 };
+
+/** @deprecated Use DRAFT_CLEAR_REWARDS */
+export const CH01_CLEAR_REWARDS = DRAFT_CLEAR_REWARDS;
 
 function slotKey(slotId: string): string {
   return `${STORAGE_PREFIX}${slotId}`;
@@ -85,7 +101,6 @@ export function restoreSnapshotFromSave(
   return {
     sceneId: inkSnapshot.sceneId ?? presentation.sceneId,
     text: inkHasText ? inkSnapshot.text : presentation.text,
-    // Live Ink choice indices are authoritative when present.
     choices: inkSnapshot.choices.length > 0 ? inkSnapshot.choices : presentation.choices,
     isEnded: inkSnapshot.isEnded || presentation.isEnded,
     meters: inkSnapshot.meters,
@@ -99,13 +114,52 @@ export function loadSave(slotId: string): GameSavePayload | null {
       return null;
     }
     const parsed = JSON.parse(raw) as GameSavePayload;
-    if (parsed.version !== SAVE_VERSION || typeof parsed.inkStateJson !== "string") {
+    if (
+      (parsed.version !== SAVE_VERSION && parsed.version !== 1) ||
+      typeof parsed.inkStateJson !== "string"
+    ) {
       return null;
     }
     return parsed;
   } catch {
     return null;
   }
+}
+
+export function evaluateSaveCompatibility(save: GameSavePayload | null): SaveCompatibility {
+  if (!save) {
+    return {
+      ok: false,
+      reason: "missing",
+      message: "没有可读取的存档。",
+    };
+  }
+  if (isRetiredStoryId(save.storyId)) {
+    return {
+      ok: false,
+      reason: "retired",
+      save,
+      message:
+        "此存档属于已退休的旧 Demo 章节（ch01 · 不会嫌弃你），与当前默认故事不兼容，无法继续。请开始新游戏。",
+    };
+  }
+  if (
+    !isProductionStoryId(save.storyId) &&
+    save.storyId !== "prototype-act1" &&
+    save.storyId !== "chapter-01-trial"
+  ) {
+    return {
+      ok: false,
+      reason: "unknown_story",
+      save,
+      message: `此存档的故事 ID「${save.storyId}」当前不可用，无法恢复。`,
+    };
+  }
+  return {
+    ok: true,
+    storyId: save.storyId as StoryId,
+    save,
+  };
 }
 
 export function writeSave(payload: GameSavePayload): void {

@@ -1,8 +1,12 @@
 import {
-  resolveCharacter,
+  getCachedStoryChapter,
+  getStoryCatalogMeta,
+  loadStoryChapter,
+  productionStoryCatalog,
   storyCatalog,
-  type StoryCatalogEntry,
+  type LoadedStoryChapter,
   type StoryCatalogId,
+  type StoryCatalogMeta,
 } from "@supaluv/content";
 import {
   buildStoryMapFromScenes,
@@ -10,35 +14,69 @@ import {
   type PrototypeSceneCard,
   type StoryMap,
 } from "@supaluv/shared";
+import { resolveCharacter } from "@supaluv/content";
 
 export type StoryId = StoryCatalogId;
 
-type StoryDefinition = StoryCatalogEntry;
+/** Loaded chapter definition used by play surface (meta + presentation). */
+export type StoryDefinition = StoryCatalogMeta & {
+  readonly scenes: readonly PrototypeSceneCard[];
+  readonly compiledStoryJson: string;
+};
 
-const storyDefinitions = new Map<StoryId, StoryDefinition>(
-  storyCatalog.map((story) => [story.id, story] as const),
-);
+export function listProductionStoryIds(): readonly StoryId[] {
+  return productionStoryCatalog.map((entry) => entry.id);
+}
+
+export function listSelectableStoryIds(includeDev: boolean): readonly StoryId[] {
+  if (includeDev) {
+    return storyCatalog.map((entry) => entry.id);
+  }
+  return listProductionStoryIds();
+}
+
+/**
+ * Ensure chapter presentation + compiled JSON are loaded into the content cache.
+ * Call from async story actions (new game / continue / chapter advance) — never from render.
+ */
+export async function ensureStoryLoaded(storyId: StoryId): Promise<LoadedStoryChapter> {
+  return loadStoryChapter(storyId);
+}
 
 export function getStoryDefinition(storyId: StoryId): StoryDefinition {
-  const story = storyDefinitions.get(storyId);
-
-  if (!story) {
-    throw new Error(`Unknown story id: ${storyId}`);
+  const meta = getStoryCatalogMeta(storyId);
+  const loaded = getCachedStoryChapter(storyId);
+  if (!loaded) {
+    throw new Error(
+      `Story presentation for "${storyId}" is not loaded. Call ensureStoryLoaded / createInkStoryRunnerForId first.`,
+    );
   }
+  return {
+    ...meta,
+    scenes: loaded.scenes,
+    compiledStoryJson: loaded.compiledStoryJson,
+  };
+}
 
-  return story;
+/** Meta-only fields that do not require chapter payload (label, checkpoint, inherit vars). */
+export function getStoryMeta(storyId: StoryId): StoryCatalogMeta {
+  return getStoryCatalogMeta(storyId);
 }
 
 export function getStoryScene(storyId: StoryId, sceneId: string | null): PrototypeSceneCard | null {
   if (!sceneId) {
     return null;
   }
-
   return getStoryDefinition(storyId).scenes.find((scene) => scene.id === sceneId) ?? null;
 }
 
 export function getStorySceneChoices(storyId: StoryId, sceneId: string | null) {
+  // Topology lives in Ink; manifests no longer hand-author edges for production drafts.
   return getStoryScene(storyId, sceneId)?.choices ?? [];
+}
+
+export function getChapterCheckpoint(storyId: StoryId) {
+  return getStoryMeta(storyId).checkpoint;
 }
 
 export interface StagePortrait {
@@ -81,7 +119,6 @@ export function getStoryPresentation(storyId: StoryId, sceneId: string | null) {
     });
   }
 
-  // Explicit companion from scene metadata.
   if (scene?.companionPortraitKey) {
     const companionName = scene.companionSpeaker ?? "同伴";
     const companionChar = resolveCharacter(companionName);
@@ -93,7 +130,6 @@ export function getStoryPresentation(storyId: StoryId, sceneId: string | null) {
     });
   }
 
-  // When an NPC speaks, keep 苏明 as dimmed listener on the left.
   if (speaker !== "苏明" && speaker !== "旁白") {
     const suming = resolveCharacter("苏明");
     if (suming && !portraits.some((portrait) => portrait.name === "苏明")) {
@@ -110,7 +146,6 @@ export function getStoryPresentation(storyId: StoryId, sceneId: string | null) {
     }
   }
 
-  // 旁白 with only ambient suming portrait from scene.
   if (speaker === "旁白" && scene?.portraitKey?.startsWith("suming")) {
     if (!portraits.some((portrait) => portrait.name === "苏明")) {
       portraits.push({
@@ -129,12 +164,7 @@ export function getStoryPresentation(storyId: StoryId, sceneId: string | null) {
     portraits,
     videoUrl: videoKey ? `/assets/video/${videoKey}.mp4` : null,
     cutsceneTitle: scene?.cutsceneTitle ?? "事件 CG",
-    /** Legacy single bed — runtime still accepts this. */
     bgmKey: scene?.bgmKey ?? null,
-    /**
-     * Explicit beds. If only bgmKey is set, runtime classifies:
-     * title-theme/soft-piano/chapter-end → music; night-ambient/lonely-pad → ambient.
-     */
     musicKey: scene?.musicKey ?? null,
     ambientKey: scene?.ambientKey ?? null,
     sfxKey: scene?.sfxKey ?? null,
@@ -148,9 +178,10 @@ export function getStoryMapPreview(storyId: StoryId): {
   readonly mermaid: string;
 } {
   const map = buildStoryMapFromScenes(getStoryDefinition(storyId).scenes);
-
   return {
     map,
     mermaid: toMermaidFlowchart(map),
   };
 }
+
+export { getStoryCatalogMeta as getStoryCatalogEntry };

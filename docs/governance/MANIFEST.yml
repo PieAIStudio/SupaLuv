@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-12T15:20:22.844Z
+generated_at: 2026-07-12T16:39:31.591Z
 generator_version: doc-gov@0.5.1
 docs_count: 31
 docs:
@@ -128,7 +128,7 @@ docs:
     type: plan
     status: active
     canonical: true
-    last_reviewed: 2026-07-12
+    last_reviewed: 2026-07-13
     pinned: true
   - id: PLAN-0003
     path: docs/plans/completed/PLAN-0003-ch01-polish-loops.md

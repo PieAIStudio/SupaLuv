@@ -15,10 +15,10 @@ export const en: MessageTree = {
     hint: "Enables audio & title",
   },
   title: {
-    badge: "SupaLuv · Chapter 01 Demo",
+    badge: "SupaLuv · Two-Chapter Draft Playtest",
     eyebrow: "INTERACTIVE CINEMA",
     logo: "SupaLuv",
-    tagline: "It won’t judge you — until the order is generated.",
+    tagline: "It won’t judge you. The questionnaire might.",
     sub: "Black-humor sex comedy · local saves · 16:9 stage · BGM",
     newGame: "New game",
     continue: "Continue",
@@ -34,7 +34,7 @@ export const en: MessageTree = {
     notSignedIn: "Not signed in · AI needs account",
     guestLogin: "Guest sign-in",
     footnote: "Play: Space / Enter advance · Esc closes menus · Fullscreen fills 16:9",
-    credits: "SupaLuv Demo · Ch.01 noncanonical · local saves · AI requires login",
+    credits: "SupaLuv · two-chapter draft · local saves · AI requires login",
   },
   settings: {
     title: "Settings",

@@ -1,0 +1,21 @@
+{
+  "id": "draft-2026-07",
+  "importedAt": "2026-07-13",
+  "note": "Body files under this directory are byte-identical to the original drafts. Metadata lives only in this manifest so source SHA-256 stays pure.",
+  "sources": [
+    {
+      "id": "draft01",
+      "relativePath": "draft01.md",
+      "originalAbsolutePath": "/Users/yuanfei/PieAI/SupaLuv/Temp/draft01.md",
+      "sha256": "98bdaf86e6904baf8bbe67e46074a03bd9c49d4879e41c5c1717fe72fbc15d37",
+      "title": "第一章 你有病吧"
+    },
+    {
+      "id": "draft02",
+      "relativePath": "draft02.md",
+      "originalAbsolutePath": "/Users/yuanfei/PieAI/SupaLuv/Temp/draft02.md",
+      "sha256": "e8397dd051aad1a5cdb3b5c1cc7a30c202e52fa6be038dbffb3e3b714099eab2",
+      "title": "第二章 她不会评判你"
+    }
+  ]
+}

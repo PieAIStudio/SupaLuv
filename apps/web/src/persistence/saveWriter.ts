@@ -8,6 +8,7 @@ import type { StoryCharacterBindings } from "../characters/characterPackTypes";
 import { getStoryDefinition, type StoryId } from "../story/storyMapAdapter";
 import {
   presentationFromSnapshot,
+  SAVE_VERSION,
   writeSave,
   type GalleryUnlocks,
   type SavePresentation,
@@ -21,21 +22,25 @@ export function writeStorySave(input: {
   readonly chapterHint?: string;
   readonly presentationSnapshot?: InkStorySnapshot;
   readonly characterBindings?: StoryCharacterBindings;
+  readonly inheritedVariables?: Readonly<Record<string, unknown>>;
 }): SavePresentation {
   const presentation = presentationFromSnapshot(
     input.presentationSnapshot ?? input.runner.getSnapshot(),
   );
+  const definition = getStoryDefinition(input.storyId);
   writeSave({
-    version: 1,
+    version: SAVE_VERSION,
     slotId: input.slotId,
     storyId: input.storyId,
+    packageId: definition.packageId,
     inkStateJson: input.runner.exportStateJson(),
-    label: getStoryDefinition(input.storyId).label,
+    label: definition.label,
     savedAt: new Date().toISOString(),
     unlocks: input.unlocks,
     chapterHint: input.chapterHint ?? presentation.sceneId ?? undefined,
     presentation,
     ...(input.characterBindings ? { characterBindings: input.characterBindings } : {}),
+    ...(input.inheritedVariables ? { inheritedVariables: input.inheritedVariables } : {}),
   });
   return presentation;
 }

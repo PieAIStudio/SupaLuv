@@ -45,12 +45,41 @@ async function installSignedInSession(page: import("@playwright/test").Page) {
   );
 }
 
-async function reachChapterEnd(page: import("@playwright/test").Page) {
+/**
+ * AI final-chapter e2e uses the short prototype fixture via dev story selector.
+ * Draft package chapter ends intentionally do not open AI final chapter.
+ */
+async function reachPrototypeAiEnd(page: import("@playwright/test").Page) {
+  await page.goto("/?debug=1");
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  });
+  await page.reload();
+  const boot = page.getByTestId("boot-splash");
+  if (await boot.isVisible().catch(() => false)) {
+    await boot.click();
+  }
   await page.getByTestId("title-new-game").click();
   await page.getByRole("button", { name: "使用官方形象" }).click();
   await page.getByRole("button", { name: "使用官方形象" }).click();
   await expect(page.getByTestId("game-viewport")).toBeVisible();
-  for (let step = 0; step < 90; step += 1) {
+  await page.getByTestId("system-menu-toggle").click({ force: true });
+  const devToggle = page.getByTestId("dev-tools-toggle");
+  if (await devToggle.isVisible().catch(() => false)) {
+    const label = (await devToggle.textContent()) ?? "";
+    if (label.includes("开发工具") && !label.includes("隐藏")) {
+      await devToggle.click({ force: true });
+    }
+  }
+  await page.keyboard.press("Escape").catch(() => undefined);
+  const selector = page.locator('select[aria-label="Story selector"]');
+  await expect(selector).toBeVisible({ timeout: 10_000 });
+  await selector.selectOption("prototype-act1");
+  await expect(page.getByTestId("story-label")).toContainText(/Prototype|Comedy/i, {
+    timeout: 10_000,
+  });
+  for (let step = 0; step < 120; step += 1) {
     if (
       await page
         .getByTestId("ending-ai-experience")
@@ -58,19 +87,6 @@ async function reachChapterEnd(page: import("@playwright/test").Page) {
         .catch(() => false)
     )
       return;
-    if (
-      await page
-        .getByTestId("character-studio")
-        .isVisible()
-        .catch(() => false)
-    ) {
-      await page
-        .getByRole("button", { name: "使用官方形象" })
-        .first()
-        .click({ force: true })
-        .catch(() => undefined);
-      continue;
-    }
     await page
       .getByTestId("story-copy")
       .click()
@@ -78,7 +94,7 @@ async function reachChapterEnd(page: import("@playwright/test").Page) {
     const choice = page.locator(".choice-button:not(.ai-choice-button)").first();
     if (await choice.isVisible().catch(() => false)) await choice.click();
   }
-  throw new Error("Chapter end was not reached within 90 authored actions");
+  throw new Error("Prototype AI end was not reached within 120 authored actions");
 }
 
 async function clickIfVisible(page: import("@playwright/test").Page, name: RegExp) {
@@ -135,9 +151,11 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
 
   await clickIfVisible(page, /^继续$/i);
   await clickIfVisible(page, /^继续$/i);
-  await clickIfVisible(page, /^继续$/i);
   await page.getByTestId("story-copy").click();
-  await expect(page.getByRole("button", { name: /立刻删掉/i })).toBeVisible({ timeout: 10_000 });
+  // First authored branch: protocol "bones" choice (ignore oracle guess buttons).
+  await expect(
+    page.locator(".choice-button", { hasText: /说人话了|后门也算诚实/ }).first(),
+  ).toBeVisible({ timeout: 15_000 });
 
   const dialogue = page.getByTestId("dialogue-box");
   const box = await dialogue.boundingBox();
@@ -286,8 +304,7 @@ test("AI ending accepts choices and free text, resumes, and terminates", async (
     });
   });
 
-  await page.goto("/");
-  await reachChapterEnd(page);
+  await reachPrototypeAiEnd(page);
   await page.getByTestId("ending-ai-experience").click();
   await page.getByRole("button", { name: "开始我的最终章" }).click();
   await expect(page.getByText("最终章片段 1")).toBeVisible();

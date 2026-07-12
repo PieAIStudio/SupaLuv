@@ -22,6 +22,55 @@ export const CHARACTER_BY_NAME: Readonly<Record<string, CharacterDef>> = {
     side: "left",
     defaultPortrait: "suming-shame",
   },
+  陈佳: {
+    id: "chen_jia",
+    name: "陈佳",
+    side: "right",
+    defaultPortrait: "lin-neutral",
+  },
+  雷欧: {
+    id: "leo",
+    name: "雷欧",
+    side: "right",
+    defaultPortrait: "zhou-neutral",
+  },
+  石佩欣: {
+    id: "shi_peixin",
+    name: "石佩欣",
+    side: "right",
+    defaultPortrait: "lin-neutral",
+  },
+  工作人员: {
+    id: "staff_worker",
+    name: "工作人员",
+    side: "right",
+    defaultPortrait: "demo-ui",
+  },
+  小组长: {
+    id: "staff_lead",
+    name: "小组长",
+    side: "right",
+    defaultPortrait: "demo-ui",
+  },
+  老板娘: {
+    id: "shop_owner",
+    name: "老板娘",
+    side: "right",
+    defaultPortrait: "zhou-neutral",
+  },
+  AI: {
+    id: "test_ai",
+    name: "AI",
+    side: "right",
+    defaultPortrait: "demo-ui",
+  },
+  旁白: {
+    id: "narrator",
+    name: "旁白",
+    side: "left",
+    defaultPortrait: "suming-shame",
+  },
+  // Legacy archive speakers (not used by draft-2026-07 production chapters).
   林晓棠: {
     id: "lin_xiaotang",
     name: "林晓棠",

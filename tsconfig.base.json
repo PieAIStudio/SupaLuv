@@ -16,7 +16,13 @@
     "noUncheckedIndexedAccess": true,
     "paths": {
       "@supaluv/content": ["./packages/content/src/index.ts"],
-      "@supaluv/content/ch01-scenes": ["./packages/content/manifests/ch01-scenes.ts"],
+      "@supaluv/content/draft-ch01-scenes": ["./packages/content/manifests/draft-ch01-scenes.ts"],
+      "@supaluv/content/draft-ch02-scenes": ["./packages/content/manifests/draft-ch02-scenes.ts"],
+      "@supaluv/content/ch01-scenes": ["./packages/content/manifests/legacy/ch01-scenes.ts"],
+      "@supaluv/content/prototype-scenes": ["./packages/content/manifests/prototype-scenes.ts"],
+      "@supaluv/content/chapter-01-trial-scenes": [
+        "./packages/content/manifests/chapter-01-trial-scenes.ts"
+      ],
       "@supaluv/shared": ["./packages/shared/src/index.ts"],
       "@supaluv/shared/story-map": ["./packages/shared/src/story-map.ts"]
     },

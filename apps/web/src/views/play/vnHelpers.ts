@@ -10,7 +10,12 @@ export function clampMeter(value: number): number {
 }
 
 export function storyHasComedyMeters(storyId: StoryId): boolean {
-  return storyId === "ch01" || storyId === "prototype-act1";
+  return (
+    storyId === "draft-ch01" ||
+    storyId === "draft-ch02" ||
+    storyId === "prototype-act1" ||
+    storyId === "chapter-01-trial"
+  );
 }
 
 /**

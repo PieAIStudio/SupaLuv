@@ -27,9 +27,10 @@ describe("vnHelpers", () => {
   });
 
   it("marks comedy meter stories", () => {
-    expect(storyHasComedyMeters("ch01")).toBe(true);
+    expect(storyHasComedyMeters("draft-ch01")).toBe(true);
+    expect(storyHasComedyMeters("draft-ch02")).toBe(true);
     expect(storyHasComedyMeters("prototype-act1")).toBe(true);
-    expect(storyHasComedyMeters("chapter-01-trial")).toBe(false);
+    expect(storyHasComedyMeters("chapter-01-trial")).toBe(true);
   });
 
   it("detects continue-only single choices", () => {
