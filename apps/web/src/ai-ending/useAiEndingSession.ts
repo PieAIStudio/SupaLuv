@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import {
   AiEndingApiError,
   createAiEndingClient,
+  describeAiEndingFailure,
   type EndingSegmentPayload,
 } from "./aiEndingClient";
 
@@ -73,9 +74,7 @@ export function useAiEndingSession(input: {
       setError(
         payment
           ? "点数不足。最终章已暂停，充值后可以从这里继续。"
-          : caught instanceof Error
-            ? caught.message
-            : "最终章暂不可用",
+          : describeAiEndingFailure(caught, "最终章暂不可用，请稍后重试。"),
       );
     }
   }, [accept, client, input.characterBindings]);
@@ -99,9 +98,7 @@ export function useAiEndingSession(input: {
         setError(
           payment
             ? "点数不足。进度没有丢失，充值后继续。"
-            : caught instanceof Error
-              ? caught.message
-              : "推进失败",
+            : describeAiEndingFailure(caught, "推进失败，请重试。"),
         );
       }
     },

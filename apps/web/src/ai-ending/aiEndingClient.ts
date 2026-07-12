@@ -8,6 +8,16 @@ export class AiEndingApiError extends Error {
   }
 }
 
+export function describeAiEndingFailure(caught: unknown, fallback: string): string {
+  if (!(caught instanceof AiEndingApiError)) return fallback;
+  if (caught.status === 401) return "登录状态已失效，请重新登录后继续。";
+  if (caught.status === 409) return "结局进度已在别处更新，请返回后重新进入最终章。";
+  if (caught.status >= 500) {
+    return "这段 AI 内容未通过质量检查，请重试。失败调用不会扣款。";
+  }
+  return fallback;
+}
+
 export function createAiEndingClient(options: {
   getAccessToken: () => Promise<string | null>;
   fetchImpl?: typeof fetch;
