@@ -1,12 +1,12 @@
 ---
 id: REF-AI-VOICE-TTS-VENDOR-SELECTION-V1
 title: AI Voice TTS Vendor Selection v1
-type: reference
-status: active
+type: archive
+status: archived
 canonical: false
 owner: human
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: research
 tags:
   - tts
@@ -17,6 +17,7 @@ pinned: false
 related:
   - REF-CURRENT-WORK
   - REF-FEATURE-STATUS-ROADMAP
+archive_reason: Vendor research is historical; dual-tts-routing and runtime configuration are current truth.
 ---
 
 # AI Voice TTS Vendor Selection (v1)

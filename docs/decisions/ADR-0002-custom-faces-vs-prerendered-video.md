@@ -16,10 +16,9 @@ tags:
   - cutscenes
 pinned: false
 related:
-  - REF-PLAYER-PROTAGONIST-CUSTOMIZATION
-  - REF-FEATURE-STATUS-ROADMAP
   - REF-CURRENT-WORK
   - ADR-0001
+  - ADR-0005
 supersedes: []
 superseded_by: ADR-0005
 ---

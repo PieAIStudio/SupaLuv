@@ -6,7 +6,7 @@ status: active
 canonical: false
 owner: ai-assisted
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: architecture
 tags:
   - tts
@@ -15,9 +15,8 @@ tags:
   - voice
 pinned: false
 related:
-  - REF-AI-VOICE-TTS-VENDOR-SELECTION-V1
   - REF-CURRENT-WORK
-  - REF-FEATURE-STATUS-ROADMAP
+  - POLICY-PROJECT-BEST-PRACTICE
 ---
 
 # Dual TTS Routing

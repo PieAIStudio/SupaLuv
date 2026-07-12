@@ -1,12 +1,12 @@
 ---
 id: REF-FRAMEWORK-SHELL-2026-07
 title: Framework shell inventory (co-play, wallet, TTS, audio, deploy)
-type: reference
-status: active
+type: archive
+status: archived
 canonical: false
 owner: ai-assisted
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: architecture
 tags:
   - framework
@@ -22,6 +22,7 @@ related:
   - REF-CURRENT-WORK
   - REF-CO-PLAY-INVITE-SESSION
   - REF-DUAL-TTS-ROUTING
+archive_reason: The one-time inventory is completed and current runtime code is authoritative.
 ---
 
 # Framework shell inventory (2026-07)

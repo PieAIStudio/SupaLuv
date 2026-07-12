@@ -14,221 +14,107 @@ tags:
   - supaluv
 pinned: true
 related:
-  - REF-SUPALUV-INTERACTIVE-CINEMA-DISCUSSION-BRIEF
   - REF-DOCUMENTATION-MAP
+  - POLICY-PROJECT-BEST-PRACTICE
   - ADR-0001
-  - PLAN-0003
-  - SPEC-0001
-  - PLAN-0002
+  - ADR-0003
+  - ADR-0004
+  - ADR-0005
 ---
 
 # SupaLuv Current Work
 
-This file is the current project work index. It is not the agents-routing algorithm.
+这是项目当前唯一执行状态入口。代码决定实际行为；本文件解释当前阶段、边界和下一步。
 
-## Current Focus
+## 当前结论
 
-- **Product phase**: Chapter 01 is a densified, noncanonical **playable commercial
-  demo shell** (title → play → save → gallery → settings → ending modal).
-- **Default player path**: open app → title screen → 新的游戏 → 主角选角 → `ch01`.
-- **Active AI product proof**: `SPEC-0002` + `PLAN-0004` implement paid adult
-  character packs, robot locks, bounded resumable AI endings, and AI spend
-  analysis. Deterministic proof is green; live
-  OpenRouter-image/SwimmerCore/wallet proof still requires a configured
-  non-production environment.
-- **Active polish plan**: `docs/plans/active/PLAN-0003-ch01-polish-loops.md`
-  (Loops 1–6 largely landed; residual polish only).
-- **Older pipeline plan/spec** (still valid provenance for trial dummy path):
-  `PLAN-0002`, `SPEC-0001`.
-- **Strategy docs remain discussion, not locked architecture**:
-  discussion brief + `ADR-0001` (proposed).
-- **Later chapters (2–30)**: content drops into the existing shell; do not rebuild
-  engine per chapter.
+- **生产官网**：<https://supaluv.pieaistudio.com>
+- **产品阶段**：核心技术 Demo 闭环已上线；完整商业内容尚未完成。
+- **内容边界**：当前 `ch01` 是短篇、非正式验证内容，不是最终小说第一章。
+- **开发原则**：小说与技术可以并行推进。正式内容到位后，应填入现有内容管线，
+  不为每一章重做引擎。
 
-## What “done” means for Ch1 demo shell
+“技术闭环完成”表示关键能力可以首尾连通，不表示所有章节、美术、文案、平台包装和
+运营细节已经达到正式发行标准。就像影棚、摄影机、剪辑和放映系统已经能拍完一支样片，
+但整部长片仍需要正式剧本、镜头和精修。
 
-| Capability | Status |
+## 已上线能力
+
+| 能力 | 当前真相 |
 | --- | --- |
-| 16:9 stage + fullscreen | in runtime |
-| Human video cutscenes | removed; generic player remains dormant |
-| Still-first cinema cues | slow push + drift/flash, reduced-motion safe |
-| Dual portraits L/R | 苏明 / 林晓棠 / 周鹿 |
-| Densified Ink (~40 beats) | `packages/content/ink/ch01.ink` |
-| Title / continue / multi-slot save | localStorage |
-| Gallery unlock table | architecture live |
-| History log + auto-play | play HUD / settings |
-| History persists across reload | `localStorage` per story |
-| Keyboard Space/Enter + Esc | play stage |
-| BGM + SFX | owner-generated Lyria beds + Mixkit demo SFX; unlock on first gesture |
-| Mute / master volume / text speed / auto-play | localStorage |
-| Gallery unlock toast | global toast on new unlock |
-| Swimmer ending modal | `GameModal` |
-| Constrained AI side choice | wait slot → live edge or mock → rejoin Ink |
-| BGM / SFX separate volumes | settings |
-| Local AI edge | `services/ai-branch` (Mastra + SwimmerAIKit + Gemini 3.5 Flash) |
-| Local config | server: `/Users/yuanfei/PieAI/.secrets/supaluv/local.server.env`; browser-safe `VITE_*`: `/Users/yuanfei/PieAI/.secrets/supaluv/local.public.env` |
-| PostHog | `apps/web/src/analytics/productAnalytics.ts` + `VITE_POSTHOG_KEY` |
-| Achievements / Help / End path | shipped — see `feature-status-and-roadmap.md` |
-| Feature status + A/B/C/D roadmap | `docs/reference/execution/feature-status-and-roadmap.md` |
-| Co-play local (host/guest/cursor/RPS) | `apps/web/src/coplay/*` + architecture doc |
-| Protagonist names + local portrait pack | `displayNames.ts`, `portraitPack.ts` · ADR-0002 CG skip |
-| Persistent AI character packs | lead pre-game lock + robot authored-scene lock · ADR-0005 |
-| Bounded AI final chapter | checkpointed 2–4 choices/free text, max 8 segments |
-| AI spend analysis | atomic wallet commit + delivered action + committed receipt; failures/refunds omitted |
-| Chapter-end global choice stats | `apps/web/src/stats/*` |
-| Share card % + rare/RPS/pack achievements | end card + `achievements.ts` |
+| 游戏外壳 | 标题、新游戏、继续、存档、设置、画廊、成就、帮助、结局页 |
+| 剧情运行 | Ink/InkJS 作者主线，场景清单驱动立绘、背景、音频和演出 |
+| 视听 | 16:9 横屏、静态电影化镜头、BGM、环境声、SFX、双路 TTS |
+| AI 支线 | 预设选择旁提供受约束 AI 选择；短分支后回到作者主线 |
+| 角色定制 | 新游戏锁定男女主形象；剧情指定节点锁定机器人形象；章节中不可反复更换 |
+| 真人照片 | 仅允许成年人；输入审核、私有存储、生成资产与删除流程已接通 |
+| AI 最终章 | 2–4 个选择或自由输入，最多 8 段，约 10–20 分钟，受作者方向约束 |
+| 商业闭环 | 作者预制剧情免费；AI 行为扣电池；成功交付才计费；消费分析可追溯 |
+| 协同试玩 | 本地双标签同玩、投票、冲突处理和章节末全局选择统计 |
+| 线上部署 | Vercel Web + `ai-branch` 服务；SwimmerCore 提供账号、钱包与持久化边界 |
 
-## Runtime map (for next AI)
+生产环境已完成过真人成年照片审核、角色基础图和 6 种表情生成、剧情绑定、完整
+8 段 AI 最终章、钱包扣费/明细、失败退款和测试资产删除的端到端验收。
 
-| Concern | Where |
+## 当前优先级
+
+1. **正式内容**：作者继续创作和修订小说；进入游戏时按内容包流程转换为 Ink、
+   场景清单和资产清单。
+2. **商品打磨**：用真实内容校准节奏、文案、视觉一致性、音频混音、错误恢复和新手引导。
+3. **运营可靠性**：持续观察模型成功率、审核误判、生成耗时、钱包对账和成本。
+4. **发行准备**：当 Web 内容和留存得到验证后，再决定桌面、移动端和商店包装顺序。
+
+没有已批准但尚未完成的 active plan/spec。新工作若超过一次小改，应新建计划或规格，
+不要把 completed 文档重新改成 active。
+
+## 运行时地图
+
+| 关注点 | 位置 |
 | --- | --- |
-| Screen routing + save orchestration | `apps/web/src/App.tsx` |
-| Play stage orchestration | `apps/web/src/views/VisualNovelPrototype.tsx` |
-| Play HUD / system menu / dialogue panel | `apps/web/src/views/play/*` |
-| Continue-choice helpers | `apps/web/src/views/play/vnHelpers.ts` |
-| Title / casting / gallery / settings / ending | `apps/web/src/views/*.tsx` |
-| Ink runner | `apps/web/src/story/inkStoryRunner.ts` |
-| Presentation / dual portraits | `apps/web/src/story/storyMapAdapter.ts` |
-| Audio | `apps/web/src/audio/gameAudio.ts` |
-| Save / settings | `apps/web/src/persistence/*` |
-| Hooks (typewriter / history / fullscreen / keys / AI slot) | `apps/web/src/hooks/*` |
-| Constrained AI branch (mock/remote) | `apps/web/src/ai/*` |
-| AI branch contract doc | `docs/reference/architecture/ai-constrained-branch.md` |
-| Story content | `packages/content/**` |
-| Character locks | `packages/content/characters/**` |
-| Public assets | `apps/web/public/assets/**` |
+| 页面路由与存档编排 | `apps/web/src/App.tsx` |
+| 游戏舞台与 HUD | `apps/web/src/views/VisualNovelPrototype.tsx`, `apps/web/src/views/play/` |
+| Ink 与场景映射 | `apps/web/src/story/`, `packages/content/` |
+| 角色生成与剧情绑定 | `apps/web/src/characters/`, `services/ai-branch/src/character*` |
+| AI 选项与最终章 | `apps/web/src/ai/`, `services/ai-branch/src/` |
+| 音频与 TTS | `apps/web/src/audio/`, `services/ai-branch/src/ttsCatalog.ts`, `ttsRoute.ts` |
+| 存档与设置 | `apps/web/src/persistence/` |
+| 产品分析 | `apps/web/src/analytics/` |
 
-Boundary notes:
+更细模块边界只在需要修改相应代码时读取 `apps/web/README.md` 或
+`packages/content/README.md`，不要把完整模块清单复制回本文件。
 
-- `apps/web/README.md` — web package boundary + module map
-- `packages/content/README.md` — content package boundary + pipeline
+## 锁定边界
 
-## Seam rules (AI/human-friendly)
+- 不是 Supa 卡牌模式；不引入 Boss Race 或多人权威服务器。
+- 语气是成人黑色幽默 / 性喜剧 + 机器人 + AI 结局，不改写成甜宠爱情故事。
+- 不做色情生成器、裸露内容或未成年人真人生成；真人身份规则以 ADR-0005 为准。
+- 主要人物不使用固定面孔的预渲染视频；以可定制立绘和静态电影化演出为主。
+- 作者主线仍由 Ink 控制；AI 支线必须短且回归主线；最终章可以在受约束范围内成为终点。
+- 浏览器不持有模型、审核或服务密钥；所有付费 AI 调用走服务端。
+- SwimmerUIKit 只承载共享组件/API/token；本项目保留页面组合、局部主题和游戏内容。
 
-1. **Do not grow `VisualNovelPrototype.tsx` back into a grab bag.**
-   - UI chrome → `views/play/*`
-   - Choice/RPS flow → `usePlayChoiceFlow.ts`
-   - Beds/CG/SFX → `useStageMedia.ts`
-   - Co-play pointers → `useCoPlayPointers.ts`
-   - Pure rules → `vnHelpers.ts` / `persistence/*` / `story/*`
-2. **App saves only via `writeStorySave`** (`persistence/saveWriter.ts`).
-3. **Content changes do not require shell rewrites.** Add Ink + scene manifest +
-   assets + catalog entry.
-4. **SwimmerUIKit** for brand controls (pin registry version **1.0.1**); local CSS only
-   for cinema stage / theme overrides.
-5. **Save schema** `supaluv.save.v1.<slot>` and **settings** `supaluv.settings.v1`
-   are stable contracts — change only with intentional migration.
-6. **AI edge:** add HTTP routes in `services/ai-branch/src/routeTable.ts`, not
-   `server.ts`.
-7. **Behavior is the contract.** Prefer unit tests for pure helpers
-   (`vnHelpers`, save/settings/unlocks) and e2e for shell path.
-8. Full web module map: `apps/web/README.md`.
-9. **Settings:** player panels in `views/settings/SettingsPlayerSection.tsx`;
-   lab (portrait pack / unmetered notes) in `SettingsLabSection.tsx`.
-10. **CSS:** do not re-merge into one blob — edit the matching
-    `styles/{base,stage,meta,coplay,chrome,character-studio}.css` partial.
-11. **Character assets:** persist pack ids in saves and refresh private signed
-    URLs through `characters/storyRunBindings.ts`; never treat signed URLs as
-    permanent storage identities.
+## 验证门
 
-## Non-negotiables
+代码交付至少执行与改动匹配的验证；发布主路径使用完整门：
 
-- Not a Supa card-game mode.
-- Tone: **black humor / sex comedy**, not romance (ADR-0004). Sex-adjacent
-  young-audience energy is required; not dirty; not sweet love story.
-- Not a free-form porn / erotic generator; no explicit nude gen goal.
-- Live public AI branches remain out of P0 unless owner reopens.
-- Do not edit Obsidian source via
-  `docs/reference/source-material/super-lover-outline.md`.
-- Keep Ch1 noncanonical until owner promotes.
+```bash
+pnpm typecheck
+pnpm test
+pnpm test:e2e
+pnpm build
+pnpm build:vercel
+pnpm verify:vercel-output
+pnpm docs:check
+git diff --check
+```
 
-## Startup Notes For The Next AI Session
+涉及真实 AI、审核、钱包或存储时，模拟测试不能代替 Preview/Production 的最小端到端验收。
 
-1. Read `AGENTS.md`.
-2. Read this file completely.
-3. Read `apps/web/README.md` and `packages/content/README.md`.
-4. Prefer content pipeline over new engines.
-5. Prefer small seams over new frameworks.
-6. Verify with: `pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build`.
+## 历史证据
 
-## Audio truth (4 channels)
+- 已完成产品打磨计划：`docs/plans/completed/PLAN-0003-ch01-polish-loops.md`
+- 已完成 AI 角色与最终章计划：`docs/plans/completed/PLAN-0004-generative-character-packs-and-ai-endings.md`
+- 已完成规格：`docs/specs/completed/`
+- 已退休讨论和旧路线图：`docs/archive/`
 
-| Channel | Settings key | Content |
-| --- | --- | --- |
-| Music | `musicVolume` | `title-theme`, `soft-piano`, `chapter-end` (Lyria beds) |
-| Ambient | `ambientVolume` | `night-ambient`, `lonely-pad` (Lyria room beds) |
-| SFX | `sfxVolume` | UI clicks, payment, notify |
-| Voice | `voiceVolume` | Dual TTS (MiniMax zh / ElevenLabs en…) via Howler + pan/reverb |
-
-- **Controller**: `apps/web/src/audio/gameAudio.ts` — Howler façade; exclusive music beds; VO pan/reverb.
-- **CG hard-pauses** music beds.
-- **Beds (Lyria 3 / Gemini, 2026-07)**: see `packages/content/assets/ATTRIBUTION.md`.
-- **Browser policy**: Boot splash first gesture unlocks audio.
-
-## Owner decisions locked (2026-07-10 → refreshed same day)
-
-See **ADR-0003** for freemium commercial model (canonical).
-
-- Prefab story free; AI / face-gen / **networked** co-play → **battery** (SwimmerCore).
-- **No free AI quota** — studio does not subsidize free users’ compute; show cost-transparency pitch at AI gate.
-- Local dual-tab co-play demo stays free for testing.
-- **Do not freeze systems work** while novels advance in parallel; defer only hard conflicts (e.g. AI faces vs lead CG — ADR-0002).
-- Landscape-first; portrait is rotate-hint only (not full mobile product).
-- Meta surfaces (gallery / achievements / co-play) stay visible unless later evidence says hide.
-- Overseas first; China store later.
-- Tone locked: black humor sex comedy, **not** rom-com / 黑色爱情 (ADR-0004).
-- Public pitch stays adult comedy energy; no free-form porn generator.
-- Public site CTA: open demo at `https://supaluv.pieaistudio.com`.
-- Vercel project `supaluv` uses one **Services** deployment: Vite Web + Node
-  `ai-branch`; Production is live at `https://supaluv.pieaistudio.com`, while
-  Preview deployments keep Vercel authentication enabled.
-- E21 image-gen pipeline: after framework solid.
-- **TTS runtime truth**: Chinese → MiniMax; Western → ElevenLabs (`dual-tts-routing.md`). Research notes that still mention OpenAI fallback are **stale** for runtime.
-- Lyria beds installed (C12); see `packages/content/assets/ATTRIBUTION.md`.
-- **AI branch requires login** (SwimmerCore session; guest OK). Server verifies Bearer JWT.
-- Content safety in **SwimmerAIKit** (`content-safety` + Sightengine visual); SupaLuv uses adult-comedy policy.
-- External full commercial audit is **archived**; owner extract: `owner-approved-audit-extract-2026-07.md`.
-- Framework shell map: `docs/reference/architecture/framework-shell-2026-07.md`.
-- SwimmerUIKit **1.0.1** (exact npm registry version) — `GameCallout` + coarse-pointer button min-height.
-
-## Residual / next optional polish (not blocking)
-
-- More NPC mood portrait variants (林/周 still mostly neutral).
-- Loudnorm / loop-seam polish on new Lyria beds if needed.
-- Magenta chroma fringe audit on new portrait exports.
-- Chapter 2 only when owner delivers novel text.
-- Decide the welcome-battery / first-AI-use policy; new users correctly start at zero
-  and receive `402 INSUFFICIENT_BATTERIES` rather than an unmetered AI call.
-- Add `MINIMAX_GROUP_ID` before claiming Chinese TTS is live; English
-  ElevenLabs is verified in both Preview and Production.
-- Optional: upgrade ElevenLabs plan if free-tier voice limits bite; clone fixed cast voices.
-- AI memory token → Ink callback; Help rewrite; production hide Developer Lab.
-
-## Out of scope right now
-
-- Chapters 2–30 novel production (unless owner delivers text).
-- Unity/Godot/Ren'Py packaging.
-- Seats SKU packages (prefer guest-minute battery later).
-- Full image-gen face packs (E21+) until framework gate.
-- Pixi'VN until a dedicated spike plan reopens.
-
-## Local / optional-cloud co-play how-to
-
-1. Title → **本机同玩（演示）** → 创建房间并开玩（记住房间码）。
-2. 另一标签页（或已配置 Realtime 的另一设备）输入房间码 → 加入围观。
-3. 房主推进；客人投票；冲突 → **RPS** 或房主 **听全球的**。
-4. 运输：无 `VITE_SUPABASE_*` = BroadcastChannel；有 = Realtime broadcast。
-
-## Custom faces / oracle
-
-- 设定 → 本机立绘包；启用后跳过官方正脸 CG（ADR-0002）。
-- 关键抉择上 **预言家** 猜多数；章末揭晓。≥3 次少数派 →「逆流订单」。
-
-## Completed Proof History
-
-Completed plans and specs live in:
-
-- `docs/plans/completed/`
-- `docs/specs/completed/`
-
-Do not move completed work back into active. Create a new plan and link the completed record as provenance.
+这些材料用于追溯，不是默认启动阅读。

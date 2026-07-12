@@ -1,12 +1,12 @@
 ---
 id: PLAN-0001
 title: React InkJS Baseline and PixiVN Spike Plan
-type: plan
-status: active
-canonical: true
+type: archive
+status: archived
+canonical: false
 owner: ai-assisted
 created: 2026-05-13
-last_reviewed: 2026-05-14
+last_reviewed: 2026-07-12
 domain: implementation
 tags:
   - supaluv
@@ -15,12 +15,13 @@ tags:
   - pixivn
   - prototype
   - story-map
-pinned: true
+pinned: false
 related:
   - REF-CURRENT-WORK
   - REF-DOCUMENTATION-MAP
   - REF-SUPALUV-INTERACTIVE-CINEMA-DISCUSSION-BRIEF
   - ADR-0001
+archive_reason: The React and InkJS baseline shipped; unexecuted PixiVN and editor spikes were deliberately not adopted.
 ---
 
 # PLAN-0001: React InkJS Baseline and PixiVN Spike Plan

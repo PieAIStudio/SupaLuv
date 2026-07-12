@@ -1,12 +1,12 @@
 ---
 id: REF-PRODUCT-SHELL-SKELETON
 title: Commercial Product Shell Skeleton
-type: reference
-status: active
+type: archive
+status: archived
 canonical: false
 owner: ai-assisted
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: architecture
 tags:
   - commercial
@@ -16,6 +16,7 @@ pinned: false
 related:
   - REF-CURRENT-WORK
   - REF-FEATURE-STATUS-ROADMAP
+archive_reason: The shell is implemented; runtime code and current-work now carry current truth.
 ---
 
 # Commercial product shell skeleton

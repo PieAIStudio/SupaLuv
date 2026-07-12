@@ -8,7 +8,7 @@
 - **Adopted profile**: `engineering-runtime`
 - **Product type**: independent AI-assisted interactive cinema / visual-novel-like game
 - **Source IP**: 超级爱人
-- **Current stack hypothesis**: React, Vite, TypeScript, Ink / InkJS, optional Pixi'VN, HTML video, AI-assisted authoring, later server-side AI branch service
+- **Current stack**: React, Vite, TypeScript, Ink / InkJS, still-first cinema staging, Mastra + SwimmerAIKit AI service, SwimmerCore account/wallet/storage, OpenRouter model routing
 - **Not part of**: Supa card game, Boss Race, card rules, multiplayer match loop
 
 ## Startup Reading
@@ -43,7 +43,7 @@ changing governed files.
 
 ## Routing
 
-SupaLuv uses the `engineering-runtime` profile because it is a game/runtime project with browser UI, video playback, AI service boundaries, save state, platform packaging, and later engine migration risk.
+SupaLuv uses the `engineering-runtime` profile because it is a game/runtime project with browser UI, AI service boundaries, generated character assets, save state, wallet accounting, platform packaging, and later engine migration risk.
 
 Use `docs/governance/agents-routing/engineering-runtime-v0.9.md` to choose workflow depth. Codex and this router own normal execution; optional skills run only when a narrow trigger matches the selected lane.
 
@@ -53,7 +53,7 @@ Local lane profile:
 | --- | --- | --- |
 | Product / narrative strategy | product thesis, story structure, engine choice, platform order | governed decision or spec |
 | Content package | Ink scripts, story metadata, character variables, AI branch policy | schema validation once runtime exists |
-| Visual / cinema surface | layout, staging, cutscenes, transitions, UI feel | browser screenshot or recording |
+| Visual / cinema surface | layout, still-first staging, transitions, UI feel | browser screenshot or recording |
 | AI branch runtime | user input, moderation, structured output, branch cache | deterministic tests plus live safety sample |
 | Packaging / platform | Web, desktop, mobile, Steam/App Store/Google Play readiness | platform-specific build or review checklist |
 | Pure refactor | names, seams, structure cleanup | tests or governance checks, no behavior change |
@@ -82,26 +82,34 @@ Runtime source/config wins for executable behavior after code exists; docs expla
   energy. This is **not** a romance / rom-com / “believe in love” product —
   never reframe novel or Ink as sweet love story.
 - Do **not** make an AI sex companion, free-form erotic generator, or porn studio.
-  No user-prompted porn; no explicit nude cutscenes as a product goal. Moderated,
-  constrained AI side branches only.
-- Live AI branches must be short, constrained, moderated, and forced back to authored story.
-- Public demo may expose constrained AI branches with owner approval; still moderate
-  input/output and keep rejoin-to-Ink.
+  No user-prompted porn or explicit nude content. Runtime AI is moderated and constrained.
+- AI side branches must be short and forced back to authored Ink. Bounded AI final
+  chapters are a separate terminal contract: at most 8 segments, author-directed,
+  checkpointed, moderated, and not required to rejoin Ink (ADR-0005).
+- Adult real-person character references are supported; reject minors and explicit
+  uploads. Human-containing pre-rendered videos are outside the product path because
+  they conflict with player-selected character identity.
 - Keep the authored story and metadata portable enough to migrate to Unity, Godot, Ren'Py, or another engine later.
 - Do not let platform ambitions block the first 20-30 minute playable prototype.
 - Do not treat draft discussion briefs as final implementation specs.
 
 ## Verification
 
-Use the smallest sufficient set, but know the current ladder:
+Use the smallest sufficient set, but know the current release ladder:
 
 ```bash
+pnpm typecheck
+pnpm test
+pnpm test:e2e
+pnpm build
+pnpm build:vercel
+pnpm verify:vercel-output
 pnpm docs:check
 git diff --check
 ```
 
-When runtime packages are added, extend this section with typecheck, tests,
-browser proof, AI safety samples, and platform build checks.
+For AI, moderation, wallet, storage, or deployment changes, add a minimal live
+Preview/Production proof; mocks do not prove service integration.
 
 <!-- PGS-ROUTER:END -->
 

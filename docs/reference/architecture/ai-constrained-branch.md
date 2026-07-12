@@ -1,123 +1,79 @@
 ---
 id: REF-AI-CONSTRAINED-BRANCH
-title: Constrained AI Side Branch Contract
+title: Constrained AI Narrative Runtime
 type: reference
 status: active
 canonical: true
 owner: ai-assisted
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: architecture
 tags:
   - ai-branching
+  - ai-ending
   - supaluv
   - swimmer
 pinned: false
 related:
   - REF-CURRENT-WORK
   - ADR-0001
-  - PLAN-0003
+  - ADR-0003
+  - ADR-0005
 ---
 
-# Constrained AI Side Branch Contract
+# Constrained AI Narrative Runtime
 
-## Product idea
+本文件说明已上线的两类 AI 叙事能力。产品边界由 ADR-0005 决定；代码是可执行真相。
 
-On some authored choice points:
+## 两种合同
 
-1. Player sees **pre-written choices** immediately.
-2. An extra slot shows **「灵感生成中…」** then becomes **one AI-written choice**.
-3. If the player picks it, AI also supplies a **short** sequence of text (+ optional art/portrait from an allow-list).
-4. After N beats (hard cap), runtime **must rejoin** an authored Ink knot (`rejoinSceneId`).
+| 类型 | 入口 | 长度与选择 | 结束方式 |
+| --- | --- | --- | --- |
+| AI 支线 | 作者主线中的指定选择点 | 1–4 个短节拍；玩家看到预写选择和生成选择 | 必须跳回内容配置的 Ink 节点 |
+| AI 最终章 | 作者剧情交出的终局入口 | 每轮 2–4 个选择或自由输入；最多 8 段，约 10–20 分钟 | 在作者允许的结局方向内终止，不回 Ink |
 
-This is the differentiator: living choices without open-ended free story.
+两者不能合并成一个无限生成器。前者像主路旁的一段观景支路，后者像导演给出边界后让演员
+即兴完成最后一幕；都不是让模型随意重写整部小说。
 
-## Hard rules
-
-| Rule | Why |
-| --- | --- |
-| Spine stays Ink | Portable, lintable, human-owned |
-| AI is a side branch only | Avoid infinite unmoderated novel |
-| Forced rejoin | Prevents “all remaining story is AI forever” |
-| Max AI beats small (1–4) | Cost, safety, playfeel |
-| Art/portrait pools | No free porn/unsafe image gen in public demo |
-| No product secrets in browser | Keys live server-side |
-
-## Runtime modules (SupaLuv)
-
-| Path | Role |
-| --- | --- |
-| `packages/shared` `AiBranchSceneConfig` | Content contract on scene cards |
-| `apps/web/src/ai/*` | Provider interface + mock + remote stub |
-| `apps/web/src/hooks/useAiBranchSlot.ts` | Wait / ready / play state machine |
-| `inkStoryRunner.jumpTo` | Rejoin authored path |
-
-Demo content flag: `ch01_office_delete_or_shot.aiBranch` in `ch01-scenes.ts`.
-
-## Swimmer stack mapping (live later)
-
-| Concern | Kit | Notes |
-| --- | --- | --- |
-| Chat completion transport | **SwimmerAIKit** (`requestOpenRouterChatCompletion`) | Server-only; model aliases product-owned |
-| Env / budget / generator registry | **SwimmerAIKit** | Do not invent a second OpenRouter client |
-| Auth / wallet / moderation tables | **SwimmerCore** | Edge functions + RLS; not Colyseus |
-| Browser API client | **SwimmerClient** | Call product edge, never raw keys |
-| Brand UI loading/choice chrome | **SwimmerUIKit** | Compose buttons/panels only |
-| Multiplayer rooms | **SwimmerGameServerKit** | **Not** for single-player AI branch |
-
-Live topology (target):
+## 请求链路
 
 ```text
-Browser (SupaLuv web)
-  -> VITE_SUPALUV_AI_BRANCH_URL (product edge)
-    -> SwimmerAIKit OpenRouter + budget
-    -> moderation pass
-    -> structured JSON { choiceLabel, beats[], rejoinSceneId }
-  <- browser enforces rejoinSceneId === authored config
-  -> InkStoryRunner.jumpTo(rejoin)
+Web 玩家端
+  -> SupaLuv ai-branch 服务（鉴权、schema、审核、计费）
+    -> SwimmerAIKit / OpenRouter 模型
+    -> SwimmerCore 钱包与产品数据
+  <- 结构化、审核通过且已持久化的结果
 ```
 
-## Mock vs live
-
-### Local live edge (current)
-
-```bash
-# 1) Fill OpenRouter key
-mkdir -p /Users/yuanfei/PieAI/.secrets/supaluv
-# Copy server-only names from .env.example into local.server.env.
-# Copy browser-safe VITE_* names into local.public.env.
-chmod 600 /Users/yuanfei/PieAI/.secrets/supaluv/local.*.env
-# edit OPENROUTER_API_KEY=...
-
-# 2) Run edge + web
-pnpm dev:ai     # services/ai-branch @ :8787
-pnpm dev:web    # proxies /api/ai/branch → :8787
-# or: pnpm dev:full
-```
-
-| Piece | Path |
+| 关注点 | 代码位置 |
 | --- | --- |
-| Edge server | `services/ai-branch` |
-| Prompts | `services/ai-branch/src/prompts.ts` |
-| Mastra agent | `mastraBranch.ts` (`@mastra/core` Agent + structured JSON) |
-| Model config | SwimmerAIKit `createOpenRouterModel` → OpenRouter |
-| Fallback | direct `requestOpenRouterChatCompletion` if Mastra path fails |
-| Default model | `google/gemini-3.5-flash` + `SUPALUV_THINKING_LEVEL=high` |
-| Local server config | `/Users/yuanfei/PieAI/.secrets/supaluv/local.server.env` |
-| Local browser-safe config | `/Users/yuanfei/PieAI/.secrets/supaluv/local.public.env` (`VITE_*` only) |
-| Browser provider | hybrid: live first, mock fallback |
-| Analytics | PostHog typed adapter `apps/web/src/analytics/productAnalytics.ts` |
+| 支线客户端和状态 | `apps/web/src/ai/`, `apps/web/src/hooks/useAiBranchSlot.ts` |
+| 最终章客户端 | `apps/web/src/ai-ending/` |
+| HTTP 路由 | `services/ai-branch/src/routeTable.ts` |
+| 支线生成 | `services/ai-branch/src/mastraBranch.ts`, `prompts.ts` |
+| 最终章生成与恢复 | `services/ai-branch/src/endingSessionService.ts`, `endingRoutes.ts` |
+| 输入/输出审核 | `services/ai-branch/src/safetyGate.ts` |
+| 身份验证 | `services/ai-branch/src/authGate.ts` |
+| 钱包计量 | `services/ai-branch/src/walletMeter.ts`, `spendRoutes.ts` |
 
-### Force mock
+新增 HTTP 能力应进入 `routeTable.ts` 对应模块，不把 `server.ts` 重新变成业务集合体。
 
-`VITE_SUPALUV_AI_FORCE_MOCK=1 pnpm dev:web`
+## 不可破坏的约束
 
-## Ending variants (future)
+- 浏览器只调用产品服务，不能拿到 OpenRouter、审核、SwimmerCore 服务密钥。
+- 服务端验证 SwimmerCore Bearer session；付费 AI 不允许匿名绕过钱包。
+- 所有自由输入先审，模型输出在交付前再审；不允许未成年人真人、裸体或色情生成。
+- 输出必须通过结构化 schema；无效、失败或未交付结果退款且不进入消费明细。
+- AI 支线返回的 `rejoinSceneId` 必须与作者配置一致，浏览器也要防御性校验。
+- AI 最终章按 checkpoint 持久化，刷新或供应商故障后从已提交段恢复，不能重复扣费。
+- 模型别名和价格属于服务端配置，不写进叙事内容或客户端分支逻辑。
 
-Same contract: AI may flavor an ending **card** (copy + badge) then rejoin `ch01_chapter_end` or a small set of ending knots. Infinite *presentation*, finite *anchors*.
+## 本地与真实环境
 
-## Safety non-negotiables
+- 本地密钥：`/Users/yuanfei/PieAI/.secrets/supaluv/local.server.env`
+- 浏览器安全变量：`/Users/yuanfei/PieAI/.secrets/supaluv/local.public.env`
+- 完整本地运行：`pnpm dev:full`
+- 强制模拟：`VITE_SUPALUV_AI_FORCE_MOCK=1 pnpm dev:web`
 
-- Adult black comedy ≠ free erotic generator.
-- Public runtime AI remains moderated and short.
-- Owner may keep mock-only for demos until safety review.
+Mock 用于确定性测试，不代表真实服务已经接通。修改模型、审核、钱包或存储后，仍需在
+Preview 或 Production 做一次最小真实链路验收。

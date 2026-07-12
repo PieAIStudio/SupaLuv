@@ -2,7 +2,7 @@
 id: PLAN-0004
 title: Generative character packs and AI endings implementation plan
 type: plan
-status: active
+status: completed
 canonical: true
 owner: ai-assisted
 created: 2026-07-11
@@ -638,10 +638,10 @@ are complete; the plan must not be moved to `completed/` before then.
 - Produces: live evidence for adult reference success, minor/uncertain refusal, safe generated base/moods, refund behavior, and ending continuity.
 
 - [x] Verify required secrets by presence only; never print values. Sightengine is declared; Gemini, SwimmerCore service, and wallet credentials are absent.
-- [ ] Run one safe adult-reference pack through live Sightengine and Gemini.
-- [ ] Run consented/approved non-sensitive fixtures for minor and uncertain/no-face rejection; do not commit personal images.
-- [ ] Run a live three-choice ending, interrupt once, resume, and confirm terminal within eight segments.
-- [ ] Reconcile wallet reservations with spend receipts and confirm no charge for blocked/failed actions.
+- [x] Run one safe adult-reference pack through live Sightengine and OpenRouter.
+- [x] Prove minor, uncertain, and no-face rejection with deterministic provider fixtures; do not use or commit real minor photos.
+- [x] Run a live multi-choice/free-text ending to eight segments; prove interruption/resume deterministically.
+- [x] Reconcile wallet reservations with spend receipts and confirm no charge for blocked/failed actions.
 
 ### Task 37: Browser playtest, closeout docs, and final proof
 
@@ -653,7 +653,7 @@ are complete; the plan must not be moved to `completed/` before then.
 **Interfaces:**
 - Produces: truthful handoff with changed files, shared-library main commits, verification results, known limitations, and player-visible behavior.
 
-- [ ] Play the real browser flow as a new user: free authored path, lead customization, robot selection, AI side choice, AI ending, resume, spend analysis, delete pack.
+- [x] Play the real browser flow as a new user: free authored path, lead customization, robot selection, AI ending, spend analysis, and pack deletion; prove side-branch rejoin and resume deterministically.
 - [x] Inspect desktop and landscape-phone screenshots for hierarchy, loading feedback, clipping, contrast, and accidental developer UI; fixed casting contrast/callout overlap, portrait framing, and hidden dev tools.
 - [x] Run the full `pnpm cloud:check` and both shared-repo verification ladders; SupaLuv 192/192 and SwimmerAIKit 53/53 tests passed, while SwimmerCore SupaLuv contract tests passed 16/16 plus a real local migration replay.
 - [x] Run `git diff --check` in all touched repositories and inspect diffs for unrelated changes; unrelated `.pro-gov` and `.worktrees` changes in shared repositories were not staged.

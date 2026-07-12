@@ -6,7 +6,7 @@ status: accepted
 canonical: true
 owner: human
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: product
 tags:
   - tone
@@ -18,7 +18,6 @@ pinned: true
 related:
   - ADR-0003
   - REF-CURRENT-WORK
-  - REF-OWNER-APPROVED-AUDIT-EXTRACT-2026-07
   - POLICY-PROJECT-BEST-PRACTICE
 ---
 

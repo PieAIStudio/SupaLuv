@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: ai-assisted
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: architecture
 tags:
   - analytics
@@ -17,9 +17,6 @@ tags:
 pinned: false
 related:
   - REF-CURRENT-WORK
-  - REF-FEATURE-STATUS-ROADMAP
-  - REF-PLAYER-PROTAGONIST-CUSTOMIZATION
-  - REF-CO-PLAY-INVITE-SESSION
   - POLICY-PROJECT-BEST-PRACTICE
 ---
 

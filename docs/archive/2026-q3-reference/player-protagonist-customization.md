@@ -1,12 +1,12 @@
 ---
 id: REF-PLAYER-PROTAGONIST-CUSTOMIZATION
 title: Player Protagonist Customization (Discussion)
-type: reference
-status: draft
+type: archive
+status: archived
 canonical: false
 owner: human
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: architecture
 tags:
   - character-customization
@@ -21,6 +21,7 @@ related:
   - REF-AI-CONSTRAINED-BRANCH
   - REF-CO-PLAY-INVITE-SESSION
   - POLICY-PROJECT-BEST-PRACTICE
+archive_reason: The discussion was resolved by ADR-0005 and SPEC-0002.
 ---
 
 # 玩家自定义双主角（讨论稿，今日不实现）

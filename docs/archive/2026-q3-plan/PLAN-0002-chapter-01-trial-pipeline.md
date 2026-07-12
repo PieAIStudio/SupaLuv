@@ -1,12 +1,12 @@
 ---
 id: PLAN-0002
 title: Chapter 01 Trial Pipeline Plan
-type: plan
-status: active
-canonical: true
+type: archive
+status: archived
+canonical: false
 owner: ai-assisted
 created: 2026-05-14
-last_reviewed: 2026-05-14
+last_reviewed: 2026-07-12
 domain: implementation
 tags:
   - supaluv
@@ -20,6 +20,7 @@ related:
   - REF-DOCUMENTATION-MAP
   - SPEC-0001
   - PLAN-0001
+archive_reason: The early trial-pipeline plan was overtaken by the shipped Chapter 1 content pipeline.
 ---
 
 # PLAN-0002: Chapter 01 Trial Pipeline

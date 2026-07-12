@@ -2,7 +2,7 @@
 id: SPEC-0002
 title: Generative character packs and interactive AI ending sessions
 type: spec
-status: active
+status: completed
 canonical: true
 owner: human
 created: 2026-07-11
@@ -48,12 +48,14 @@ spend receipts and analysis, and still-first Chapter 1 staging. Unit/integration
 tests and browser E2E cover failure, retry, duplicate, refund, choice,
 free-text, refresh/resume, terminal, desktop, and landscape-phone behavior.
 
-The specification remains **active**, not completed, because this machine lacks
-SwimmerCore service and wallet credentials. OpenRouter and Sightengine
-credentials exist locally, but live adult-photo generation, hosted persistence,
-and real wallet reconciliation acceptance evidence therefore still requires a
-configured non-production environment. Running either provider alone would not
-prove the end-to-end paid character-pack flow.
+The specification is **completed**. The integrated path was proven first in a
+hosted Preview environment and then in Production: adult-photo review,
+OpenRouter base/mood generation, locked story presentation, bounded AI ending,
+wallet receipts, spend analysis, refunds, and asset deletion. Minor,
+uncertain, and no-face rejection use deterministic provider fixtures instead of
+collecting real minor photos. Interruption/resume and concurrency remain
+deterministic regression proofs; the live production run covered retry after a
+rejected model output and terminal completion at segment 8.
 
 ## Product boundaries
 
@@ -298,8 +300,9 @@ Completion requires all of the following:
 
 1. A live adult real-person reference passes input review and produces a safe
    identity base and mood pack.
-2. Minor and uncertain/no-face fixtures are blocked before generation and are
-   not charged.
+2. Deterministic minor and uncertain/no-face provider fixtures are blocked
+   before generation and are not charged; real minor photos are not retained as
+   test fixtures.
 3. Text-only and image-referenced robot packs work at authored selection points.
 4. A locked pack replaces the correct runtime portraits, survives refresh, and
    is captured in the server-side story run used by the persistent AI ending.

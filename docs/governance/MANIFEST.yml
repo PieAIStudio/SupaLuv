@@ -1,9 +1,86 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-11T19:04:21.287Z
-generator_version: doc-gov@0.4.4
-docs_count: 33
+generated_at: 2026-07-12T10:57:22.117Z
+generator_version: doc-gov@0.4.9
+docs_count: 34
 docs:
+  - id: PLAN-0001
+    path: docs/archive/2026-q3-plan/PLAN-0001-react-inkjs-pixivn-spike.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: PLAN-0002
+    path: docs/archive/2026-q3-plan/PLAN-0002-chapter-01-trial-pipeline.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-LEGACY-SUPER-LOVER-VN-TECH-DESIGN-2026-05
+    path: docs/archive/2026-q3-reference/2026-05-13-super-lover-vn-tech-design.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-AI-VOICE-TTS-VENDOR-SELECTION-V1
+    path: docs/archive/2026-q3-reference/ai-voice-tts-vendor-selection-v1.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-CO-PLAY-INVITE-SESSION
+    path: docs/archive/2026-q3-reference/co-play-invite-session.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-FEATURE-STATUS-ROADMAP
+    path: docs/archive/2026-q3-reference/feature-status-and-roadmap.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-FRAMEWORK-SHELL-2026-07
+    path: docs/archive/2026-q3-reference/framework-shell-2026-07.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-OWNER-APPROVED-AUDIT-EXTRACT-2026-07
+    path: docs/archive/2026-q3-reference/owner-approved-audit-extract-2026-07.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-PLAYER-PROTAGONIST-CUSTOMIZATION
+    path: docs/archive/2026-q3-reference/player-protagonist-customization.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-PRODUCT-SHELL-SKELETON
+    path: docs/archive/2026-q3-reference/product-shell-skeleton.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-SUPALUV-INTERACTIVE-CINEMA-DISCUSSION-BRIEF
+    path: docs/archive/2026-q3-reference/supaluv-interactive-cinema-discussion-brief.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-12
+    pinned: false
   - id: ARCH-COMMERCIAL-COMPLETION-AUDIT-2026-07
     path: docs/archive/commercial-completion-audit-2026-07.md
     type: archive
@@ -14,9 +91,9 @@ docs:
   - id: ADR-0001
     path: docs/decisions/ADR-0001-propose-web-first-ink-pixivn-evaluation-supaluv.md
     type: decision
-    status: proposed
-    canonical: false
-    last_reviewed: 2026-05-13
+    status: accepted
+    canonical: true
+    last_reviewed: 2026-07-12
     pinned: true
   - id: ADR-0002
     path: docs/decisions/ADR-0002-custom-faces-vs-prerendered-video.md
@@ -30,21 +107,21 @@ docs:
     type: decision
     status: accepted
     canonical: true
-    last_reviewed: 2026-07-10
+    last_reviewed: 2026-07-12
     pinned: true
   - id: ADR-0004
     path: docs/decisions/ADR-0004-tone-black-humor-sex-comedy-not-romance.md
     type: decision
     status: accepted
     canonical: true
-    last_reviewed: 2026-07-10
+    last_reviewed: 2026-07-12
     pinned: true
   - id: ADR-0005
     path: docs/decisions/ADR-0005-generative-identity-and-bounded-ai-endings.md
     type: decision
     status: accepted
     canonical: true
-    last_reviewed: 2026-07-11
+    last_reviewed: 2026-07-12
     pinned: true
   - id: GOV-AGENTS-ROUTING-DOC-ONLY-V0-9
     path: docs/governance/agents-routing/doc-only-v0.9.md
@@ -88,31 +165,17 @@ docs:
     canonical: true
     last_reviewed: 2026-05-09
     pinned: true
-  - id: PLAN-0001
-    path: docs/plans/active/PLAN-0001-react-inkjs-pixivn-spike.md
-    type: plan
-    status: active
-    canonical: true
-    last_reviewed: 2026-05-14
-    pinned: true
-  - id: PLAN-0002
-    path: docs/plans/active/PLAN-0002-chapter-01-trial-pipeline.md
-    type: plan
-    status: active
-    canonical: true
-    last_reviewed: 2026-05-14
-    pinned: false
   - id: PLAN-0003
-    path: docs/plans/active/PLAN-0003-ch01-polish-loops.md
+    path: docs/plans/completed/PLAN-0003-ch01-polish-loops.md
     type: plan
-    status: active
+    status: completed
     canonical: true
-    last_reviewed: 2026-07-10
+    last_reviewed: 2026-07-12
     pinned: false
   - id: PLAN-0004
-    path: docs/plans/active/PLAN-0004-generative-character-packs-and-ai-endings.md
+    path: docs/plans/completed/PLAN-0004-generative-character-packs-and-ai-endings.md
     type: plan
-    status: active
+    status: completed
     canonical: true
     last_reviewed: 2026-07-12
     pinned: false
@@ -121,63 +184,35 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-07-10
+    last_reviewed: 2026-07-12
     pinned: true
   - id: REF-AI-CONSTRAINED-BRANCH
     path: docs/reference/architecture/ai-constrained-branch.md
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-10
+    last_reviewed: 2026-07-12
     pinned: false
   - id: REF-CHAPTER-END-GLOBAL-CHOICE-STATS
     path: docs/reference/architecture/chapter-end-global-choice-stats.md
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-10
-    pinned: false
-  - id: REF-CO-PLAY-INVITE-SESSION
-    path: docs/reference/architecture/co-play-invite-session.md
-    type: reference
-    status: draft
-    canonical: false
-    last_reviewed: 2026-07-10
+    last_reviewed: 2026-07-12
     pinned: false
   - id: REF-DUAL-TTS-ROUTING
     path: docs/reference/architecture/dual-tts-routing.md
     type: reference
     status: active
     canonical: false
-    last_reviewed: 2026-07-10
-    pinned: false
-  - id: REF-FRAMEWORK-SHELL-2026-07
-    path: docs/reference/architecture/framework-shell-2026-07.md
-    type: reference
-    status: active
-    canonical: false
-    last_reviewed: 2026-07-10
-    pinned: false
-  - id: REF-PLAYER-PROTAGONIST-CUSTOMIZATION
-    path: docs/reference/architecture/player-protagonist-customization.md
-    type: reference
-    status: draft
-    canonical: false
-    last_reviewed: 2026-07-10
-    pinned: false
-  - id: REF-PRODUCT-SHELL-SKELETON
-    path: docs/reference/architecture/product-shell-skeleton.md
-    type: reference
-    status: active
-    canonical: false
-    last_reviewed: 2026-07-10
+    last_reviewed: 2026-07-12
     pinned: false
   - id: REF-DOCUMENTATION-MAP
     path: docs/reference/documentation-map.md
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-10
+    last_reviewed: 2026-07-12
     pinned: false
   - id: REF-CURRENT-WORK
     path: docs/reference/execution/current-work.md
@@ -186,13 +221,6 @@ docs:
     canonical: true
     last_reviewed: 2026-07-12
     pinned: true
-  - id: REF-FEATURE-STATUS-ROADMAP
-    path: docs/reference/execution/feature-status-and-roadmap.md
-    type: reference
-    status: active
-    canonical: true
-    last_reviewed: 2026-07-10
-    pinned: true
   - id: REF-VERCEL-PREVIEW-RUNBOOK
     path: docs/reference/execution/vercel-preview-runbook.md
     type: reference
@@ -200,38 +228,17 @@ docs:
     canonical: false
     last_reviewed: 2026-07-11
     pinned: false
-  - id: REF-AI-VOICE-TTS-VENDOR-SELECTION-V1
-    path: docs/reference/research/ai-voice-tts-vendor-selection-v1.md
-    type: reference
-    status: active
-    canonical: false
-    last_reviewed: 2026-07-10
-    pinned: false
-  - id: REF-OWNER-APPROVED-AUDIT-EXTRACT-2026-07
-    path: docs/reference/strategy/owner-approved-audit-extract-2026-07.md
-    type: reference
-    status: active
-    canonical: false
-    last_reviewed: 2026-07-10
-    pinned: false
-  - id: REF-SUPALUV-INTERACTIVE-CINEMA-DISCUSSION-BRIEF
-    path: docs/reference/strategy/supaluv-interactive-cinema-discussion-brief.md
-    type: reference
-    status: draft
-    canonical: false
-    last_reviewed: 2026-05-13
-    pinned: false
   - id: SPEC-0001
-    path: docs/specs/active/SPEC-0001-chapter-01-trial-pipeline.md
+    path: docs/specs/completed/SPEC-0001-chapter-01-trial-pipeline.md
     type: spec
-    status: active
+    status: completed
     canonical: true
-    last_reviewed: 2026-05-14
+    last_reviewed: 2026-07-12
     pinned: false
   - id: SPEC-0002
-    path: docs/specs/active/SPEC-0002-generative-character-packs-and-ai-endings.md
+    path: docs/specs/completed/SPEC-0002-generative-character-packs-and-ai-endings.md
     type: spec
-    status: active
+    status: completed
     canonical: true
     last_reviewed: 2026-07-12
     pinned: false

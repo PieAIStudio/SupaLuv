@@ -49,8 +49,9 @@ Notes:
 - Prefer **instrumental** beds so dialogue stays readable.
 - `soft-piano` keeps a legacy ID so existing scene `bgmKey`s keep working after
   the Mixkit prototype beds were replaced.
-- Voice channel is reserved (no VO files yet). TTS vendor research:
-  `docs/reference/research/ai-voice-tts-vendor-selection-v1.md`.
+- Voice is generated at runtime through the dual-provider route documented in
+  `docs/reference/architecture/dual-tts-routing.md`; it is not stored in this
+  authored-bed asset table.
 - Google states that it does not claim ownership of original output from
   labs.google/fx and documents downloading Lyria tracks, but the local files do
   not retain generation-session receipts. Their commercial evidence therefore

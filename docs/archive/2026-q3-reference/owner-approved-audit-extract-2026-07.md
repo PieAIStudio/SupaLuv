@@ -1,12 +1,12 @@
 ---
 id: REF-OWNER-APPROVED-AUDIT-EXTRACT-2026-07
 title: Owner-approved extract from 2026-07 commercial audit
-type: reference
-status: active
+type: archive
+status: archived
 canonical: false
 owner: human
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: strategy
 tags:
   - audit
@@ -18,6 +18,7 @@ related:
   - REF-CURRENT-WORK
   - REF-FEATURE-STATUS-ROADMAP
   - ARCH-COMMERCIAL-COMPLETION-AUDIT-2026-07
+archive_reason: Accepted findings have either shipped or moved into current-work; keep as audit history.
 ---
 
 # Owner-approved extract (2026-07 commercial audit)

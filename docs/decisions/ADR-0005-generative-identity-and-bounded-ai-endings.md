@@ -6,7 +6,7 @@ status: accepted
 canonical: true
 owner: human
 created: 2026-07-11
-last_reviewed: 2026-07-11
+last_reviewed: 2026-07-12
 domain: product
 tags:
   - supaluv
@@ -20,7 +20,6 @@ related:
   - ADR-0002
   - ADR-0003
   - ADR-0004
-  - SPEC-0002
   - REF-CURRENT-WORK
 supersedes:
   - ADR-0002

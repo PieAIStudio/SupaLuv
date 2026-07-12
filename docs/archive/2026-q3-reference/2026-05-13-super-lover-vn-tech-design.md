@@ -1,4 +1,27 @@
+---
+id: REF-LEGACY-SUPER-LOVER-VN-TECH-DESIGN-2026-05
+title: Legacy Super Lover VN Technical Design (2026-05)
+type: archive
+status: archived
+canonical: false
+owner: human
+created: 2026-05-13
+last_reviewed: 2026-07-12
+domain: archive
+tags:
+  - legacy
+  - engine-evaluation
+  - supaluv
+pinned: false
+related:
+  - ADR-0001
+archive_reason: Early engine, video, schedule, and product assumptions were superseded by the shipped runtime and ADR-0001/ADR-0005.
+---
+
 # 《超级爱人》互动视觉小说 —— 技术方案设计文档
+
+> 历史说明：本文保存 2026 年 5 月的早期选型讨论，其中 PixiVN、人物视频和阶段规划
+> 已被实际实现与 ADR-0001/ADR-0005 取代。它不属于当前执行或默认阅读路径。
 
 ## 0. 文档元信息
 

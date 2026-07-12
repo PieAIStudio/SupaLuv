@@ -1,12 +1,12 @@
 ---
 id: REF-SUPALUV-INTERACTIVE-CINEMA-DISCUSSION-BRIEF
 title: SupaLuv Interactive Cinema Discussion Brief
-type: reference
-status: draft
+type: archive
+status: archived
 canonical: false
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-05-13
+last_reviewed: 2026-07-12
 domain: strategy-discussion
 tags:
   - supaluv
@@ -22,6 +22,7 @@ related:
   - POLICY-PROJECT-BEST-PRACTICE
 supersedes: []
 superseded_by: null
+archive_reason: Initial strategy discussion was resolved by shipped runtime and accepted ADRs; keep only as history.
 ---
 
 # SupaLuv Interactive Cinema Discussion Brief

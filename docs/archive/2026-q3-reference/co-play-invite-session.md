@@ -1,12 +1,12 @@
 ---
 id: REF-CO-PLAY-INVITE-SESSION
 title: Co-Play Invite Session (Discussion)
-type: reference
-status: draft
+type: archive
+status: archived
 canonical: false
 owner: human
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: architecture
 tags:
   - multiplayer
@@ -24,6 +24,7 @@ related:
   - REF-AI-CONSTRAINED-BRANCH
   - REF-PLAYER-PROTAGONIST-CUSTOMIZATION
   - POLICY-PROJECT-BEST-PRACTICE
+archive_reason: The discussion is no longer current work; shipped co-play behavior lives in code and future scope in current-work.
 ---
 
 # Co-Play Invite Session（讨论稿，今日不实现）

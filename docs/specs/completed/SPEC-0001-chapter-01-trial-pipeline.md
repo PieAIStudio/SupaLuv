@@ -2,11 +2,11 @@
 id: SPEC-0001
 title: Chapter 01 Trial Pipeline Spec
 type: spec
-status: active
+status: completed
 canonical: true
 owner: ai-assisted
 created: 2026-05-14
-last_reviewed: 2026-05-14
+last_reviewed: 2026-07-12
 domain: implementation
 tags:
   - supaluv

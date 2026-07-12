@@ -1,18 +1,18 @@
 ---
 id: REF-FEATURE-STATUS-ROADMAP
 title: SupaLuv Feature Status and Roadmap
-type: reference
-status: active
-canonical: true
+type: archive
+status: archived
+canonical: false
 owner: ai-assisted
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: product
 tags:
   - roadmap
   - current-work
   - supaluv
-pinned: true
+pinned: false
 related:
   - REF-CURRENT-WORK
   - REF-AI-CONSTRAINED-BRANCH
@@ -20,6 +20,7 @@ related:
   - REF-PLAYER-PROTAGONIST-CUSTOMIZATION
   - REF-CHAPTER-END-GLOBAL-CHOICE-STATS
   - PLAN-0003
+archive_reason: Current status and next priorities are consolidated into the current-work SSOT.
 ---
 
 # SupaLuv Feature Status and Roadmap

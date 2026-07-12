@@ -2,11 +2,11 @@
 id: PLAN-0003
 title: Chapter 01 Polish Loops (Layout, Brand UI, Portraits, Prose)
 type: plan
-status: active
+status: completed
 canonical: true
 owner: ai-assisted
 created: 2026-07-10
-last_reviewed: 2026-07-10
+last_reviewed: 2026-07-12
 domain: implementation
 tags:
   - supaluv
