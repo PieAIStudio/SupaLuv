@@ -85,6 +85,32 @@ describe("AI ending schemas and prompts", () => {
 });
 
 describe("AI ending generator", () => {
+  it("retries a malformed outline with an explicit schema repair instruction", async () => {
+    const agent: EndingAgent = {
+      generate: vi
+        .fn()
+        .mockResolvedValueOnce("not json")
+        .mockResolvedValueOnce(
+          JSON.stringify({
+            outcomeAnchor: "call_zhoulu",
+            segmentPlan: ["a", "b", "c"],
+            terminalImage: "phone dark",
+          }),
+        ),
+    };
+
+    await expect(createEndingGenerator(agent).generateOutline(contract)).resolves.toMatchObject({
+      outcomeAnchor: "call_zhoulu",
+    });
+    expect(agent.generate).toHaveBeenCalledTimes(2);
+    expect(agent.generate).toHaveBeenLastCalledWith(
+      expect.arrayContaining([
+        expect.objectContaining({ content: expect.stringContaining("严格满足 schema") }),
+      ]),
+      { maxOutputTokens: 900 },
+    );
+  });
+
   it("parses valid outline JSON and rejects a wrong anchor", async () => {
     const valid: EndingAgent = {
       generate: vi.fn(async () =>
