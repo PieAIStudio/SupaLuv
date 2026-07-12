@@ -32,28 +32,14 @@ This file decides **how to choose a workflow**, not what the project is currentl
 flowchart TD
   A["Task arrives"] --> B["Read project router and current work"]
   B --> C["Classify with local lane profile"]
-  C --> D{"Mixed / cross-domain / interdependent product work?"}
-  D -- "yes" --> E["Use Directed Development to split ordered DD Blocks"]
-  E --> C
-  D -- "no" --> F["Enter local lane"]
-  F --> G["Use a narrowly matched skill only when helpful"]
-  G --> H["Use AI-in-the-Loop evidence cycle"]
+  C --> F["Enter local lane"]
+  F --> H["Use AI-in-the-Loop evidence cycle"]
   H --> I["Record evidence in doc-gov"]
 ```
 
 ## Keep It Small
 
 Use this router only to pick depth and workflow. Do not use it as a project roadmap.
-
-## DD Trigger
-
-Use Directed Development only when all are true:
-
-- the task is product work
-- it crosses local lanes or shared contracts
-- sequencing risk makes a flat plan unsafe
-
-Do not trigger DD for broad mechanical edits, renames, formatting, or ordinary docs migration.
 
 ## Project-Local Lane Profile
 
@@ -68,12 +54,7 @@ Typical lanes:
 
 But the shared router must not define project-specific lanes.
 
-## External Workflow Boundary
-
-This route runs before optional skill packs such as mattpocock/skills. Skills
-may provide reviews, browser workflows, PRD/issue shaping, or domain-modeling
-artifacts, but their own narrow trigger must match the selected lane. No skill
-pack owns every engineering task.
+## Host Adapter Boundary
 
 Host-specific adapters such as `CLAUDE.md` may adapt the route for a specific AI
 client, but they must not replace the project `AGENTS.md` route.
