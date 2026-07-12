@@ -15,10 +15,10 @@ export const zhCN: MessageTree = {
     hint: "开启声音与标题",
   },
   title: {
-    badge: "SupaLuv · 第 01 章 Demo",
+    badge: "SupaLuv · 双章草稿试玩",
     eyebrow: "互动影游",
     logo: "超级爱人",
-    tagline: "不会嫌弃你——直到订单生成。",
+    tagline: "它不会评判你，问卷可不一定。",
     sub: "黑色幽默性喜剧 · 本地存档 · 16:9 影游舞台 · 有 BGM",
     newGame: "新的游戏",
     continue: "继续最新",
@@ -34,7 +34,7 @@ export const zhCN: MessageTree = {
     notSignedIn: "未登录 · AI 灵感需账号",
     guestLogin: "游客登录",
     footnote: "游玩：Space / Enter 推进 · Esc 关菜单 · 「全屏」铺满 16:9",
-    credits: "SupaLuv Demo · Ch.01 noncanonical · 本地存档 · AI 需登录",
+    credits: "SupaLuv · 双章草稿 · 本地存档 · AI 需登录",
   },
   settings: {
     title: "设定",

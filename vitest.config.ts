@@ -3,8 +3,24 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   resolve: {
     alias: {
+      "@supaluv/content/draft-ch01-scenes": new URL(
+        "./packages/content/manifests/draft-ch01-scenes.ts",
+        import.meta.url,
+      ).pathname,
+      "@supaluv/content/draft-ch02-scenes": new URL(
+        "./packages/content/manifests/draft-ch02-scenes.ts",
+        import.meta.url,
+      ).pathname,
       "@supaluv/content/ch01-scenes": new URL(
-        "./packages/content/manifests/ch01-scenes.ts",
+        "./packages/content/manifests/legacy/ch01-scenes.ts",
+        import.meta.url,
+      ).pathname,
+      "@supaluv/content/prototype-scenes": new URL(
+        "./packages/content/manifests/prototype-scenes.ts",
+        import.meta.url,
+      ).pathname,
+      "@supaluv/content/chapter-01-trial-scenes": new URL(
+        "./packages/content/manifests/chapter-01-trial-scenes.ts",
         import.meta.url,
       ).pathname,
       "@supaluv/content": new URL("./packages/content/src/index.ts", import.meta.url).pathname,

@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: ai-assisted
 created: 2026-07-12
-last_reviewed: 2026-07-12
+last_reviewed: 2026-07-13
 domain: execution
 tags:
   - narrative
@@ -37,14 +37,14 @@ related:
 
 ### Stage 1 · Content foundation (serial)
 
-- [ ] 固化两份 source snapshot、hash 和 coverage ledger schema。
-- [ ] 退休旧 Demo 默认故事与冲突人物/事件引用，并给旧存档明确提示。
-- [ ] 通用化 story catalog、chapter checkpoint、runner 和跨章存档。
-- [ ] 完整编写第一章 Ink、scene manifest 与来源覆盖映射。
-- [ ] 完整编写第二章 Ink、scene manifest 与来源覆盖映射。
-- [ ] 注册陈佳、雷欧、石佩欣及所需 NPC/声线稳定 ID。
-- [ ] 建来源覆盖、图可达性、manifest 对齐、章间变量与旧 ID 清理测试。
-- [ ] 用占位资产跑通两章至少两条差异路径。
+- [x] 固化两份 source snapshot、hash 和 coverage ledger schema。
+- [x] 退休旧 Demo 默认故事与冲突人物/事件引用，并给旧存档明确提示。
+- [x] 通用化 story catalog、chapter checkpoint、runner 和跨章存档。
+- [x] 完整编写第一章 Ink、scene manifest 与来源覆盖映射。
+- [x] 完整编写第二章 Ink、scene manifest 与来源覆盖映射。
+- [x] 注册陈佳、雷欧、石佩欣及所需 NPC/声线稳定 ID。
+- [x] 建来源覆盖、图可达性、manifest 对齐、章间变量与旧 ID 清理测试。
+- [x] 用占位资产跑通两章至少两条差异路径。
 
 ### Stage 2 · Parallel product lanes (after Stage 1)
 

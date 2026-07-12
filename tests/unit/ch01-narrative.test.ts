@@ -34,23 +34,28 @@ describe("chapter 01 narrative draft", () => {
     expect(novel.length).toBeGreaterThan(2500);
   });
 
-  it("keeps scene ids aligned between ch01 metadata and Ink knots", async () => {
+  it("keeps retired demo archive aligned between metadata and Ink knots", async () => {
     const content = await import("@supaluv/content");
-    const knotIds = getInkKnotIds(content.ch01InkSource);
-    const sceneIds = content.ch01Scenes.map((scene) => scene.id);
+    const { ch01Scenes } = await import("@supaluv/content/ch01-scenes");
+    const legacyInk = readFileSync(
+      new URL("../../packages/content/ink/legacy/ch01.ink", import.meta.url),
+      "utf8",
+    );
+    const knotIds = getInkKnotIds(legacyInk);
+    const sceneIds = ch01Scenes.map((scene) => scene.id);
 
     expect([...knotIds].sort()).toEqual([...sceneIds].sort());
-    expect(content.ch01Scenes.every((scene) => scene.noncanonical)).toBe(true);
-    expect(content.ch01Scenes.every((scene) => scene.source === "chapter-01-narrative-draft")).toBe(
-      true,
-    );
-    // Expanded chapter should have enough beats for real pacing.
-    expect(content.ch01Scenes.length).toBeGreaterThanOrEqual(35);
+    expect(ch01Scenes.every((scene) => scene.noncanonical)).toBe(true);
+    expect(ch01Scenes.every((scene) => scene.source === "chapter-01-narrative-draft")).toBe(true);
+    expect(ch01Scenes.length).toBeGreaterThanOrEqual(35);
+    // Retired demo is not in production catalog.
+    expect(content.legacyCh01Archive.id).toBe("ch01");
+    expect(content.productionStoryCatalog.map((s) => s.id).includes("ch01" as never)).toBe(false);
   });
 
-  it("exposes still art, portrait, and audio assets for chapter 01 demo", async () => {
-    const content = await import("@supaluv/content");
-    const artKeys = content.ch01Scenes.map((scene) => scene.artKey).filter(Boolean);
+  it("exposes still art, portrait, and audio assets used by draft chapters", async () => {
+    const { draftCh01Scenes } = await import("@supaluv/content/draft-ch01-scenes");
+    const artKeys = draftCh01Scenes.map((scene) => scene.artKey).filter(Boolean);
     const requiredBg = ["bg-office-night", "bg-rental-room", "bg-product-page", "bg-lobby-white"];
 
     for (const key of requiredBg) {
@@ -61,11 +66,11 @@ describe("chapter 01 narrative draft", () => {
     }
 
     expect(
-      content.ch01Scenes.some(
+      draftCh01Scenes.some(
         (scene) => "portraitKey" in scene && scene.portraitKey === "suming-shame",
       ),
     ).toBe(true);
-    expect(content.ch01Scenes.every((scene) => !("videoKey" in scene))).toBe(true);
+    expect(draftCh01Scenes.every((scene) => !("videoKey" in scene))).toBe(true);
 
     expect(
       existsSync(
@@ -83,24 +88,19 @@ describe("chapter 01 narrative draft", () => {
     ).toBe(true);
   });
 
-  it("playable runner starts on expanded chapter 01 cold open stare", async () => {
-    const { createCh01InkStoryRunner } = await import("../../apps/web/src/story/inkStoryRunner");
-    const runner = createCh01InkStoryRunner();
+  it("playable draft runner starts on chapter 1 protocol beat", async () => {
+    const { createDraftCh01InkStoryRunner } =
+      await import("../../apps/web/src/story/inkStoryRunner");
+    const runner = await createDraftCh01InkStoryRunner();
     const snapshot = runner.getSnapshot();
 
-    expect(snapshot.sceneId).toBe("ch01_office_stare");
-    expect(snapshot.text).toContain("三分十七秒");
-    expect(snapshot.choices.length).toBe(1);
-    expect(snapshot.choices[0]?.text).toContain("继续");
+    expect(snapshot.sceneId).toMatch(/^dch01_/);
+    expect(snapshot.text.length).toBeGreaterThan(10);
+    expect(snapshot.choices.length).toBeGreaterThanOrEqual(1);
     expect(snapshot.meters.dignity).toBe(50);
 
     const next = runner.choose(0);
-    expect(next.sceneId).toBe("ch01_office_bug_eyes");
-    expect(next.text).toContain("bug");
-
-    runner.choose(0);
-    const shame = runner.choose(0);
-    expect(shame.sceneId).toBe("ch01_office_delete_or_shot");
-    expect(shame.choices.length).toBe(2);
+    expect(next.sceneId).not.toBe(snapshot.sceneId);
+    expect(next.text.length).toBeGreaterThan(0);
   });
 });

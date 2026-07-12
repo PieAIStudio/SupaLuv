@@ -28,7 +28,7 @@ describe("character pack domain contract", () => {
     expect(leads).toHaveLength(2);
     expect(leads.every((slot) => slot.lockPoint.kind === "before_new_game")).toBe(true);
     expect(robots).toHaveLength(2);
-    expect(robots.every((slot) => slot.lockPoint.kind === "story_knot")).toBe(true);
+    expect(robots.every((slot) => slot.lockPoint.kind === "deferred_story_knot")).toBe(true);
   });
 
   it("keeps packs JSON-serializable and provider-independent", () => {

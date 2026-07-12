@@ -4,7 +4,7 @@ import {
   type AiEndingContract,
   type AiEndingSegment,
 } from "@supaluv/shared";
-import { ch01Scenes } from "@supaluv/content";
+import { ch01Scenes } from "@supaluv/content/ch01-scenes";
 import { describe, expect, it } from "vitest";
 
 const choices: readonly AiEndingChoice[] = [

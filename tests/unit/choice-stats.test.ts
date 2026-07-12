@@ -42,45 +42,35 @@ afterEach(() => {
 });
 
 describe("choice stats catalog", () => {
-  it("matches delete vs screenshot labels", () => {
-    const del = resolveStatsPick(
-      "ch01",
-      "ch01_office_delete_or_shot",
-      "立刻删掉，假装什么都没发生",
-    );
-    expect(del?.option.choiceId).toBe("ch01_delete_or_shot.delete");
+  it("matches draft bones branch labels", () => {
+    const accept = resolveStatsPick("draft-ch01", "dch01_s003", "点头：至少说人话了");
+    expect(accept?.option.choiceId).toBe("d1_bones_accept");
 
-    const shot = resolveStatsPick(
-      "ch01",
-      "ch01_office_delete_or_shot",
-      "先截图备份，文件夹叫 not_for_review",
-    );
-    expect(shot?.option.choiceId).toBe("ch01_delete_or_shot.screenshot");
+    const cold = resolveStatsPick("draft-ch01", "dch01_s003", "冷笑：后门也算诚实");
+    expect(cold?.option.choiceId).toBe("d1_bones_cold");
   });
 
   it("ignores continue-only / unlisted scenes", () => {
-    expect(resolveStatsPick("ch01", "ch01_after_delete", "继续")).toBeNull();
+    expect(resolveStatsPick("draft-ch01", "dch01_s001", "继续")).toBeNull();
   });
 });
 
 describe("choice stats math", () => {
   it("merges seed and local counts", () => {
     const merged = mergeCountMaps(CHOICE_STATS_SEED, {
-      "ch01_delete_or_shot.delete": 10,
+      d1_bones_accept: 10,
     });
-    expect(merged["ch01_delete_or_shot.delete"]).toBe(
-      (CHOICE_STATS_SEED["ch01_delete_or_shot.delete"] ?? 0) + 10,
-    );
+    expect(merged.d1_bones_accept).toBe((CHOICE_STATS_SEED.d1_bones_accept ?? 0) + 10);
   });
 
   it("computes percent and cohort", () => {
     const { percent, total } = percentForChoice(
       {
-        "ch01_delete_or_shot.delete": 40,
-        "ch01_delete_or_shot.screenshot": 60,
+        d1_bones_accept: 40,
+        d1_bones_cold: 60,
       },
-      "ch01_delete_or_shot.screenshot",
-      ["ch01_delete_or_shot.delete", "ch01_delete_or_shot.screenshot"],
+      "d1_bones_cold",
+      ["d1_bones_accept", "d1_bones_cold"],
       8,
     );
     expect(total).toBe(100);
@@ -92,29 +82,29 @@ describe("choice stats math", () => {
   it("builds echo rows for session picks", () => {
     const picks: SessionChoicePick[] = [
       {
-        decisionId: "ch01_delete_or_shot",
-        choiceId: "ch01_delete_or_shot.screenshot",
-        prompt: "异常样本出现时",
-        shortLabel: "截图备份",
-        sceneId: "ch01_office_delete_or_shot",
+        decisionId: "d1_bones",
+        choiceId: "d1_bones_cold",
+        prompt: "协议：字面与骨头",
+        shortLabel: "冷笑：后门也算诚实",
+        sceneId: "dch01_s003",
       },
     ];
     const rows = buildEchoRows({
-      storyId: "ch01",
+      storyId: "draft-ch01",
       picks,
-      counts: CHOICE_STATS_SEED,
+      counts: { d1_bones_accept: 40, d1_bones_cold: 60 },
       sourceNote: "test",
     });
     expect(rows).toHaveLength(1);
     expect(rows[0]?.percentSame).toBeTypeOf("number");
-    expect(rows[0]?.yourLabel).toBe("截图备份");
+    expect(rows[0]?.yourLabel).toContain("后门");
   });
 });
 
 describe("choice stats local store", () => {
   it("increments and reads", () => {
-    incrementLocalChoice("ch01_delete_or_shot.delete");
-    incrementLocalChoice("ch01_delete_or_shot.delete", 2);
-    expect(getLocalChoiceCounts()["ch01_delete_or_shot.delete"]).toBe(3);
+    incrementLocalChoice("d1_bones_accept");
+    incrementLocalChoice("d1_bones_accept", 2);
+    expect(getLocalChoiceCounts().d1_bones_accept).toBe(3);
   });
 });

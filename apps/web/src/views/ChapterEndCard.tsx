@@ -29,6 +29,10 @@ interface ChapterEndCardProps {
   readonly sessionStatsPicks?: readonly SessionChoicePick[];
   readonly displayNames?: DisplayNameMap;
   readonly characterBindings?: StoryCharacterBindings;
+  /** When false, hide AI final-chapter entry (draft package chapters). */
+  readonly allowAiEnding?: boolean;
+  /** Current two-chapter draft terminal card copy. */
+  readonly draftEnd?: boolean;
   /** Called once when any echo row is minority (≤32%). */
   readonly onRareEcho?: () => void;
   /** ≥3 minority rows this run. */
@@ -72,13 +76,15 @@ function flavorCopy(dignity: number, impulse: number, usedAi: boolean): string {
 
 export function ChapterEndCard({
   open,
-  storyId = "ch01",
+  storyId = "draft-ch02",
   dignity,
   impulse,
   path,
   sessionStatsPicks = [],
   displayNames = DEFAULT_DISPLAY_NAMES,
   characterBindings = {},
+  allowAiEnding = false,
+  draftEnd = true,
   onRareEcho,
   onReverseCurrent,
   onOracleHit,
@@ -161,16 +167,26 @@ export function ChapterEndCard({
   }, [open, storyId, sessionStatsPicks, onRareEcho, onReverseCurrent, onOracleHit]);
 
   async function handleCopy() {
-    const text = [
-      "【超级爱人 · 第1章结局】",
-      `订单：${orderId}`,
-      `羞耻 ${dignity} · 冲动 ${impulse}`,
-      `批注：${label}`,
-      usedAi ? "路径：走过 AI 旁支后汇合主线" : "路径：纯作者选项",
-      flavor,
-      aiNote ? `AI 结案：${aiNote}` : "",
-      "— SupaLuv Demo",
-    ]
+    const text = (
+      draftEnd
+        ? [
+            "【超级爱人 · 草稿两章当前终点】",
+            "体验官申请：初审通过",
+            "下一步：48小时内完成个性化匹配问卷",
+            `羞耻 ${dignity} · 冲动 ${impulse}`,
+            "苏明：就当我有病。",
+          ]
+        : [
+            "【超级爱人 · 章节结局】",
+            `订单：${orderId}`,
+            `羞耻 ${dignity} · 冲动 ${impulse}`,
+            `批注：${label}`,
+            usedAi ? "路径：走过 AI 旁支后汇合主线" : "路径：纯作者选项",
+            flavor,
+            aiNote ? `AI 结案：${aiNote}` : "",
+            "— SupaLuv Demo",
+          ]
+    )
       .filter(Boolean)
       .join("\n");
     try {
@@ -256,7 +272,7 @@ export function ChapterEndCard({
       />
       <GameModal
         open={open && !showAiEnding}
-        title="第 1 章完成"
+        title={draftEnd ? "草稿两章 · 当前终点" : "章节完成"}
         size="md"
         closeLabel="关闭结算"
         closeOnBackdrop={false}
@@ -264,23 +280,36 @@ export function ChapterEndCard({
         className="chapter-end-modal"
         footer={
           <div className="chapter-end-footer">
-            <GameButton
-              type="button"
-              variant="primary"
-              onClick={() => setShowAiEnding(true)}
-              data-testid="ending-ai-experience"
-            >
-              AI 最终章 · 10–20 分钟
-            </GameButton>
-            <GameButton
-              type="button"
-              variant="ghost"
-              onClick={() => void handleAiEpilogue()}
-              disabled={aiBusy || Boolean(aiNote)}
-              data-testid="ending-ai-note"
-            >
-              {aiBusy ? "结案生成中…" : aiNote ? "已生成结案" : "AI 结案陈词"}
-            </GameButton>
+            {allowAiEnding ? (
+              <GameButton
+                type="button"
+                variant="primary"
+                onClick={() => setShowAiEnding(true)}
+                data-testid="ending-ai-experience"
+              >
+                AI 最终章 · 10–20 分钟
+              </GameButton>
+            ) : (
+              <GameButton
+                type="button"
+                variant="primary"
+                onClick={onTitle ?? onReplay}
+                data-testid="ending-draft-done"
+              >
+                {draftEnd ? "就当我有病 · 回标题" : "回标题"}
+              </GameButton>
+            )}
+            {allowAiEnding ? (
+              <GameButton
+                type="button"
+                variant="ghost"
+                onClick={() => void handleAiEpilogue()}
+                disabled={aiBusy || Boolean(aiNote)}
+                data-testid="ending-ai-note"
+              >
+                {aiBusy ? "结案生成中…" : aiNote ? "已生成结案" : "AI 结案陈词"}
+              </GameButton>
+            ) : null}
             <GameButton
               type="button"
               variant="ghost"
@@ -289,15 +318,17 @@ export function ChapterEndCard({
             >
               {copied ? "已复制摘要" : "复制结局摘要"}
             </GameButton>
-            <GameButton
-              type="button"
-              variant="ghost"
-              onClick={() => void handleShareCard()}
-              disabled={shareBusy}
-              data-testid="ending-share-card"
-            >
-              {shareBusy ? "导出中…" : "下载分享卡"}
-            </GameButton>
+            {!draftEnd ? (
+              <GameButton
+                type="button"
+                variant="ghost"
+                onClick={() => void handleShareCard()}
+                disabled={shareBusy}
+                data-testid="ending-share-card"
+              >
+                {shareBusy ? "导出中…" : "下载分享卡"}
+              </GameButton>
+            ) : null}
             {onTitle ? (
               <GameButton
                 type="button"
@@ -310,29 +341,45 @@ export function ChapterEndCard({
             ) : null}
             <GameButton
               type="button"
-              variant="primary"
+              variant={allowAiEnding ? "primary" : "ghost"}
               onClick={onReplay}
               data-testid="ending-replay"
             >
-              再玩一遍第 1 章
+              {draftEnd ? "再玩一遍草稿" : "再玩一遍"}
             </GameButton>
           </div>
         }
       >
         <div className="chapter-end-body is-reveal" data-testid="ending-note">
           <div className="chapter-end-shine" aria-hidden="true" />
-          <div className="chapter-end-badges">
-            <GameBadge tone="success">订单已确认</GameBadge>
-            <GameBadge tone="ai">分批发货</GameBadge>
-            <GameBadge tone="warning">{label}</GameBadge>
-            {usedAi ? <GameBadge tone="ai">含 AI 旁支</GameBadge> : null}
-          </div>
-
-          <p className="chapter-end-order" data-testid="ending-order-id">
-            订单号 <strong>{orderId}</strong>
-          </p>
-
-          <p className="chapter-end-lead">{flavor}</p>
+          {draftEnd ? (
+            <>
+              <div className="chapter-end-badges">
+                <GameBadge tone="success">初审通过</GameBadge>
+                <GameBadge tone="ai">48 小时内完成匹配问卷</GameBadge>
+                <GameBadge tone="warning">草稿当前终点</GameBadge>
+              </div>
+              <p className="chapter-end-order" data-testid="ending-order-id">
+                体验官申请 <strong>已提交</strong>
+              </p>
+              <p className="chapter-end-lead">
+                三分钟后，短信快得像那头一直有人等着。苏明盯着屏幕：就当我有病。
+              </p>
+            </>
+          ) : (
+            <>
+              <div className="chapter-end-badges">
+                <GameBadge tone="success">订单已确认</GameBadge>
+                <GameBadge tone="ai">分批发货</GameBadge>
+                <GameBadge tone="warning">{label}</GameBadge>
+                {usedAi ? <GameBadge tone="ai">含 AI 旁支</GameBadge> : null}
+              </div>
+              <p className="chapter-end-order" data-testid="ending-order-id">
+                订单号 <strong>{orderId}</strong>
+              </p>
+              <p className="chapter-end-lead">{flavor}</p>
+            </>
+          )}
           {aiNote ? (
             <p className="chapter-end-ai-note" data-testid="ending-ai-text">
               AI 结案：{aiNote}
@@ -446,7 +493,11 @@ export function ChapterEndCard({
             </section>
           ) : null}
 
-          <p className="chapter-end-footnote">实验。不是判决。—— 但订单号已经生成。</p>
+          <p className="chapter-end-footnote">
+            {draftEnd
+              ? "她不会评判你——至少落地页是这么写的。"
+              : "实验。不是判决。—— 但订单号已经生成。"}
+          </p>
         </div>
       </GameModal>
     </>

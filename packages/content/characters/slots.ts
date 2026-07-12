@@ -31,10 +31,12 @@ export const CHARACTER_SLOTS = [
     kind: "robot",
     allowedInputModes: ["text_brief", "image_references"],
     requiredMoodKeys: INITIAL_CHARACTER_MOODS,
+    // Robot identity lock is deferred past the two draft chapters (recruitment
+    // teaser only). Keep slots registered for later packages without binding
+    // retired ch01 product-page knots.
     lockPoint: {
-      kind: "story_knot",
-      storyId: "ch01",
-      knotId: "ch01_product_page",
+      kind: "deferred_story_knot",
+      reason: "Awaiting the authored robot-selection scene in a later chapter.",
     },
   },
   {
@@ -46,9 +48,8 @@ export const CHARACTER_SLOTS = [
     allowedInputModes: ["text_brief", "image_references"],
     requiredMoodKeys: INITIAL_CHARACTER_MOODS,
     lockPoint: {
-      kind: "story_knot",
-      storyId: "ch01",
-      knotId: "ch01_product_page",
+      kind: "deferred_story_knot",
+      reason: "Awaiting the authored robot-selection scene in a later chapter.",
     },
   },
 ] as const satisfies readonly CharacterSlotDefinition[];

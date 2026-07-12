@@ -1,108 +1,81 @@
 /**
  * Whitelist of stats-visible chapter decisions.
  * Continue-only beats are intentionally omitted.
+ * Match uses substrings of choice labels; choiceId is the stable analytics key.
  */
 
 import type { StatsDecisionDef, StatsOptionDef } from "./choiceStatsTypes";
 
 export const CHOICE_STATS_CATALOG: readonly StatsDecisionDef[] = [
   {
-    storyId: "ch01",
-    sceneId: "ch01_office_delete_or_shot",
-    decisionId: "ch01_delete_or_shot",
-    prompt: "异常样本出现时",
+    storyId: "draft-ch01",
+    sceneId: "dch01_s003",
+    decisionId: "d1_bones",
+    prompt: "协议：字面与骨头",
     options: [
       {
-        choiceId: "ch01_delete_or_shot.delete",
-        match: "立刻删掉",
-        shortLabel: "立刻删除，假装没事",
+        choiceId: "d1_bones_accept",
+        match: "至少说人话了",
+        shortLabel: "点头：至少说人话了",
       },
       {
-        choiceId: "ch01_delete_or_shot.screenshot",
-        match: "先截图备份",
-        shortLabel: "截图备份 not_for_review",
+        choiceId: "d1_bones_cold",
+        match: "后门也算诚实",
+        shortLabel: "冷笑：后门也算诚实",
       },
     ],
   },
   {
-    storyId: "ch01",
-    sceneId: "ch01_phone_buzz",
-    decisionId: "ch01_property_timing",
-    prompt: "林晓棠的定位短信",
+    storyId: "draft-ch01",
+    sceneId: "dch01_s005",
+    decisionId: "d1_tell_breakup",
+    prompt: "AI 要真实倾诉",
     options: [
       {
-        choiceId: "ch01_property_timing.go",
-        match: "去物业",
-        shortLabel: "立刻去物业",
+        choiceId: "d1_tell_flat",
+        match: "分手了。昨天",
+        shortLabel: "平平地说：分手了。昨天。",
       },
       {
-        choiceId: "ch01_property_timing.delay",
-        match: "先假装没看见",
-        shortLabel: "先假装没看见",
+        choiceId: "d1_tell_hard",
+        match: "真实的你们要吗",
+        shortLabel: "更硬一点：真实的你们要吗",
       },
     ],
   },
   {
-    storyId: "ch01",
-    sceneId: "ch01_product_page",
-    decisionId: "ch01_product_approach",
-    prompt: "面对「不会嫌弃你」的产品页",
+    storyId: "draft-ch02",
+    sceneId: "dch02_s005",
+    decisionId: "d2_snack",
+    prompt: "惠万家 · 偷辣条",
     options: [
       {
-        choiceId: "ch01_product_approach.demo",
-        match: "打开演示对话",
-        shortLabel: "打开演示对话",
+        choiceId: "d2_catch_firm",
+        match: "按住手腕",
+        shortLabel: "按住手腕：拿出来",
       },
       {
-        choiceId: "ch01_product_approach.pay",
-        match: "直接滑向支付",
-        shortLabel: "直接滑向支付",
-      },
-      {
-        choiceId: "ch01_product_approach.privacy",
-        match: "先看三遍隐私政策",
-        shortLabel: "假装技术调研（隐私政策）",
-      },
-      {
-        choiceId: "ch01_product_approach.retreat",
-        match: "返回出租屋",
-        shortLabel: "返回出租屋再想想",
+        choiceId: "d2_catch_soft",
+        match: "声音放轻",
+        shortLabel: "声音放轻一点，还是要拿出来",
       },
     ],
   },
   {
-    storyId: "ch01",
-    sceneId: "ch01_demo_react",
-    decisionId: "ch01_demo_react",
-    prompt: "演示吐出同一句羞耻",
+    storyId: "draft-ch02",
+    sceneId: "dch02_s013",
+    decisionId: "d2_admit",
+    prompt: "石佩欣问谁提的分手",
     options: [
       {
-        choiceId: "ch01_demo_react.proceed",
-        match: "继续下单流程",
-        shortLabel: "继续下单",
+        choiceId: "d2_admit_me",
+        match: "我提的",
+        shortLabel: "分了……我提的",
       },
       {
-        choiceId: "ch01_demo_react.close",
-        match: "关掉演示",
-        shortLabel: "关掉演示，心里更乱",
-      },
-    ],
-  },
-  {
-    storyId: "ch01",
-    sceneId: "ch01_courier_fantasy",
-    decisionId: "ch01_checkout_nerve",
-    prompt: "想象周鹿接快递电话之后",
-    options: [
-      {
-        choiceId: "ch01_checkout_nerve.confirm",
-        match: "确认地址，进入支付",
-        shortLabel: "确认地址，进入支付",
-      },
-      {
-        choiceId: "ch01_checkout_nerve.price",
-        match: "再看一眼价格",
-        shortLabel: "再看一眼价格",
+        choiceId: "d2_admit_me_hard",
+        match: "硬着头皮",
+        shortLabel: "硬着头皮：我提的",
       },
     ],
   },

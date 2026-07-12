@@ -3,11 +3,13 @@ import type { AiEndingContract } from "./ai-ending.js";
 export const PROTOTYPE_SCENE_SOURCE = "experimental-chapter-01-pipeline-dummy" as const;
 export const CHAPTER_01_TRIAL_SCENE_SOURCE = "chapter-01-trial-pipeline-dummy" as const;
 export const CHAPTER_01_NARRATIVE_DRAFT_SOURCE = "chapter-01-narrative-draft" as const;
+export const DRAFT_2026_07_SOURCE = "draft-2026-07" as const;
 
 export type PrototypeSceneSource =
   | typeof PROTOTYPE_SCENE_SOURCE
   | typeof CHAPTER_01_TRIAL_SCENE_SOURCE
-  | typeof CHAPTER_01_NARRATIVE_DRAFT_SOURCE;
+  | typeof CHAPTER_01_NARRATIVE_DRAFT_SOURCE
+  | typeof DRAFT_2026_07_SOURCE;
 
 export type PrototypeSceneEdgeKind = "choice" | "return";
 
@@ -66,8 +68,30 @@ export interface PrototypeSceneCard {
   readonly aiBranch?: AiBranchSceneConfig;
   readonly noncanonical: true;
   readonly source: PrototypeSceneSource;
+  /**
+   * Legacy edge copies only. Production draft chapters keep topology in Ink —
+   * do not hand-author choices/autoNext for new content.
+   */
   readonly choices?: readonly PrototypeSceneChoice[];
   readonly autoNext?: string;
+}
+
+/** Story package / chapter catalog contract used by content + web runtime. */
+export type StoryCatalogRole = "production" | "dev" | "legacy";
+
+export type ChapterCheckpointKind = "next_chapter" | "draft_end" | "ai_ending_allowed";
+
+export interface ChapterCheckpoint {
+  readonly kind: ChapterCheckpointKind;
+  /** When kind is next_chapter, the production chapter id to load next. */
+  readonly nextChapterId?: string;
+}
+
+export interface StoryPackageMeta {
+  readonly packageId: string;
+  readonly label: string;
+  readonly startChapterId: string;
+  readonly chapterIds: readonly string[];
 }
 
 /** Content-side contract for a constrained AI side branch. */

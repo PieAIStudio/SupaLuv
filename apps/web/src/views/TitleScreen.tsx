@@ -26,6 +26,8 @@ interface TitleScreenProps {
   readonly onOpenAiSpend?: () => void;
   readonly onHostCoPlay?: (roomCode: string, alias: string) => void;
   readonly onJoinCoPlay?: (roomCode: string, alias: string) => void;
+  readonly continueBlockedMessage?: string | null;
+  readonly onDismissContinueBlocked?: () => void;
 }
 
 function formatSave(save: GameSavePayload | null): string {
@@ -46,6 +48,8 @@ export function TitleScreen({
   onOpenAiSpend,
   onHostCoPlay,
   onJoinCoPlay,
+  continueBlockedMessage = null,
+  onDismissContinueBlocked,
 }: TitleScreenProps) {
   const auth = useAuth();
   const { t, locale, setLocale } = useLocale();
@@ -145,6 +149,20 @@ export function TitleScreen({
             </button>
           </div>
           <div className="title-actions">
+            {continueBlockedMessage ? (
+              <div
+                className="title-save-blocked"
+                data-testid="title-save-incompatible"
+                role="alert"
+              >
+                <p>{continueBlockedMessage}</p>
+                {onDismissContinueBlocked ? (
+                  <GameButton type="button" variant="ghost" onClick={onDismissContinueBlocked}>
+                    知道了
+                  </GameButton>
+                ) : null}
+              </div>
+            ) : null}
             <GameButton
               type="button"
               variant="primary"

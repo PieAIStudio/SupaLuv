@@ -39,8 +39,8 @@ export const ACHIEVEMENT_DEFS: readonly AchievementDef[] = [
   },
   {
     id: "ch01_clear",
-    title: "订单已确认",
-    description: "通关第 1 章 demo。",
+    title: "初审通过",
+    description: "完成当前两章草稿。",
   },
   {
     id: "high_impulse",

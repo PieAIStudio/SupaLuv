@@ -27,7 +27,7 @@ let reverbGain: GainNode | null = null;
 let masterDry: GainNode | null = null;
 
 function ensureReverbGraph(): void {
-  if (reverbReady || !Howler.ctx) {
+  if (reverbReady || !Howler.ctx || Howler.ctx.state === "closed") {
     return;
   }
   const ctx = Howler.ctx;
@@ -73,7 +73,9 @@ export function unlockHowler(): void {
   try {
     Howler.mute(false);
     // Resume audio context on user gesture.
-    void Howler.ctx?.resume?.();
+    if (Howler.ctx && Howler.ctx.state !== "closed") {
+      void Howler.ctx.resume().catch(() => undefined);
+    }
     ensureReverbGraph();
   } catch {
     // ignore

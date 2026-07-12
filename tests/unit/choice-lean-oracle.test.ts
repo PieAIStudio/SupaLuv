@@ -10,15 +10,15 @@ import { preferredTransportKind } from "../../apps/web/src/coplay/createCoPlayTr
 describe("choice lean + oracle", () => {
   it("prefers higher community percent", () => {
     const pick = preferCommunityChoiceIndex({
-      storyId: "ch01",
-      sceneId: "ch01_office_delete_or_shot",
-      hostLabel: "立刻删掉，假装什么都没发生",
-      guestLabel: "先截图备份，文件夹叫 not_for_review",
+      storyId: "draft-ch01",
+      sceneId: "dch01_s003",
+      hostLabel: "点头：至少说人话了",
+      guestLabel: "冷笑：后门也算诚实",
       hostIndex: 0,
       guestIndex: 1,
       counts: {
-        "ch01_delete_or_shot.delete": 80,
-        "ch01_delete_or_shot.screenshot": 20,
+        d1_bones_accept: 80,
+        d1_bones_cold: 20,
       },
     });
     expect(pick?.index).toBe(0);

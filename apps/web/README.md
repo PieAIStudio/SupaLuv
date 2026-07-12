@@ -1,6 +1,8 @@
 # @supaluv/web
 
-SupaLuv browser runtime: interactive cinema shell for Chapter 01 demo.
+SupaLuv browser runtime: interactive cinema shell for the default draft package
+(`draft-ch01` → `draft-ch02`). Production loads precompiled Ink JSON; chapter 1
+checkpoint advances into chapter 2 without AI final ending.
 
 ## Responsibility
 
@@ -30,7 +32,7 @@ SupaLuv browser runtime: interactive cinema shell for Chapter 01 demo.
 | `src/commerce/*`                     | Battery pitch copy                                   | pure strings                                |
 | `src/ai/*`                           | AI branch client providers                           | mock only if FORCE_MOCK                     |
 | `src/hooks/*`                        | Cross-view hooks (AI slot, typewriter, fullscreen…)  | no JSX                                      |
-| `src/story/*`                        | Ink runner + scene presentation adapter              | content-facing                              |
+| `src/story/*`                        | Multi-chapter Ink runner (compiled JSON) + adapter   | content-facing                              |
 
 ## Seam rules (refactor doctrine)
 

@@ -14,8 +14,10 @@ describe("sceneUnlocks", () => {
     expect(unlockCount(EMPTY_UNLOCKS)).toBe(0);
   });
 
-  it("derives unlocks from known ch01 scene when present", () => {
-    const partial = unlocksFromScene("ch01", "ch01_office_night");
+  it("derives unlocks from known draft scene when present", async () => {
+    const { loadStoryChapter } = await import("@supaluv/content");
+    await loadStoryChapter("draft-ch01");
+    const partial = unlocksFromScene("draft-ch01", "dch01_s001");
     // Scene may or may not map; ensure function is pure and returns object.
     expect(partial).toBeTypeOf("object");
   });

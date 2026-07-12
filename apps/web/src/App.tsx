@@ -20,11 +20,13 @@ import {
   savePortraitPack,
   type PortraitPackState,
 } from "./persistence/portraitPack";
+import { DEFAULT_STORY_ID as CONTENT_DEFAULT_STORY_ID } from "@supaluv/content";
 import {
   AUTOSAVE_SLOT,
-  CH01_CLEAR_REWARDS,
+  DRAFT_CLEAR_REWARDS,
   collectAllUnlocks,
   EMPTY_UNLOCKS,
+  evaluateSaveCompatibility,
   loadSave,
   MANUAL_SLOTS,
   mergeUnlocks,
@@ -84,7 +86,7 @@ type AppScreen =
   | "achievements"
   | "ai-spend";
 
-const DEFAULT_STORY_ID: StoryId = "ch01";
+const DEFAULT_STORY_ID: StoryId = CONTENT_DEFAULT_STORY_ID;
 const BOOT_SEEN_KEY = "supaluv.boot.seen.v1";
 
 function ScreenLoading() {
@@ -154,8 +156,10 @@ export function App() {
   const [snapshot, setSnapshot] = useState<InkStorySnapshot | null>(null);
   const [isCreatorMapOpen, setCreatorMapOpen] = useState(false);
   const [unlockToast, setUnlockToast] = useState<string | null>(null);
+  const [continueBlockedMessage, setContinueBlockedMessage] = useState<string | null>(null);
   const unlockToastTimer = useRef<number | null>(null);
   const storyActionInFlight = useRef(false);
+  const inheritedVariablesRef = useRef<Record<string, unknown>>({});
   const metaReturnScreen = useRef<AppScreen>("title");
   const [coPlayConfig, setCoPlayConfig] = useState<{
     roomCode: string;
@@ -254,6 +258,7 @@ export function App() {
         chapterHint,
         presentationSnapshot,
         characterBindings: bindings,
+        inheritedVariables: inheritedVariablesRef.current,
       });
     },
     [characterBindings],
@@ -282,9 +287,8 @@ export function App() {
       setCoPlayConfig(null);
     }
     const runtime = await loadStoryRuntime();
-    const nextRunner = runtime.createInkStoryRunner(
-      runtime.getStoryDefinition(DEFAULT_STORY_ID).inkSource,
-    );
+    inheritedVariablesRef.current = {};
+    const nextRunner = await runtime.createInkStoryRunnerForId(DEFAULT_STORY_ID);
     const nextSnapshot = nextRunner.getSnapshot();
     const nextUnlocks = applyUnlocks(
       EMPTY_UNLOCKS,
@@ -296,6 +300,7 @@ export function App() {
     setSnapshot(nextSnapshot);
     setUnlocks(nextUnlocks);
     setStoryRevision((value) => value + 1);
+    setContinueBlockedMessage(null);
     setScreen("play");
     persistSave(
       nextRunner,
@@ -315,9 +320,8 @@ export function App() {
     trackEvent({ name: "title_new_game" });
     tryAchievement("first_play");
     const runtime = await loadStoryRuntime();
-    const nextRunner = runtime.createInkStoryRunner(
-      runtime.getStoryDefinition(DEFAULT_STORY_ID).inkSource,
-    );
+    inheritedVariablesRef.current = {};
+    const nextRunner = await runtime.createInkStoryRunnerForId(DEFAULT_STORY_ID);
     const nextSnapshot = nextRunner.getSnapshot();
     const nextUnlocks = applyUnlocks(
       EMPTY_UNLOCKS,
@@ -345,9 +349,7 @@ export function App() {
     setCoPlayConfig({ roomCode, role: "guest", alias });
     // Guest needs a inert runner shell so play screen can mount.
     const runtime = await loadStoryRuntime();
-    const nextRunner = runtime.createInkStoryRunner(
-      runtime.getStoryDefinition(DEFAULT_STORY_ID).inkSource,
-    );
+    const nextRunner = await runtime.createInkStoryRunnerForId(DEFAULT_STORY_ID);
     setStoryId(DEFAULT_STORY_ID);
     setRunner(nextRunner);
     setSnapshot(nextRunner.getSnapshot());
@@ -377,13 +379,23 @@ export function App() {
       }
       return continueGame(anyManual.slotId);
     }
+    const compatibility = evaluateSaveCompatibility(save);
+    if (!compatibility.ok) {
+      setContinueBlockedMessage(compatibility.message);
+      showUnlockToast(compatibility.message);
+      setScreen("title");
+      return;
+    }
     const runtime = await loadStoryRuntime();
-    const nextRunner = runtime.createInkStoryRunner(
-      runtime.getStoryDefinition(save.storyId).inkSource,
+    const nextRunner = await runtime.createInkStoryRunnerForId(
+      compatibility.storyId,
       save.inkStateJson,
     );
     const restored = restoreSnapshotFromSave(nextRunner.getSnapshot(), save.presentation);
-    setStoryId(save.storyId);
+    inheritedVariablesRef.current = {
+      ...(save.inheritedVariables ?? {}),
+    };
+    setStoryId(compatibility.storyId);
     setRunner(nextRunner);
     setSnapshot(restored);
     const savedBindings =
@@ -395,22 +407,26 @@ export function App() {
     setCharacterBindings(refreshedBindings);
     setUnlocks(save.unlocks ?? EMPTY_UNLOCKS);
     setStoryRevision((value) => value + 1);
+    setContinueBlockedMessage(null);
     setScreen("play");
     if (MANUAL_SLOTS.includes(save.slotId as ManualSlotId)) {
       setActiveManualSlot(save.slotId as ManualSlotId);
     }
   }
 
-  async function loadStory(nextStoryId: StoryId) {
+  async function loadStory(
+    nextStoryId: StoryId,
+    options?: { readonly inheritedVariables?: Readonly<Record<string, unknown>> },
+  ) {
     const runtime = await loadStoryRuntime();
-    const nextRunner = runtime.createInkStoryRunner(
-      runtime.getStoryDefinition(nextStoryId).inkSource,
-    );
+    const inherited = options?.inheritedVariables ?? inheritedVariablesRef.current;
+    const nextRunner = await runtime.createInkStoryRunnerForId(nextStoryId, undefined, inherited);
     const nextSnapshot = nextRunner.getSnapshot();
     const nextUnlocks = applyUnlocks(
       unlocks,
       runtime.unlocksFromScene(nextStoryId, nextSnapshot.sceneId),
     );
+    inheritedVariablesRef.current = { ...inherited };
     setStoryId(nextStoryId);
     setRunner(nextRunner);
     setSnapshot(nextSnapshot);
@@ -424,6 +440,20 @@ export function App() {
       nextSnapshot.sceneId ?? undefined,
       nextSnapshot,
     );
+  }
+
+  async function advanceToNextChapter(fromStoryId: StoryId) {
+    if (!runner || !storyRuntime) {
+      return;
+    }
+    const definition = storyRuntime.getStoryDefinition(fromStoryId);
+    const checkpoint = definition.checkpoint;
+    if (checkpoint.kind !== "next_chapter" || !checkpoint.nextChapterId) {
+      return;
+    }
+    const inherited = runner.exportVariables(definition.inheritVariableNames);
+    inheritedVariablesRef.current = inherited;
+    await loadStory(checkpoint.nextChapterId as StoryId, { inheritedVariables: inherited });
   }
 
   function handleReset() {
@@ -503,7 +533,13 @@ export function App() {
   }
 
   function handleChapterClear(path: EndingPathMeta) {
-    if (!snapshot) {
+    if (!snapshot || !storyRuntime) {
+      return;
+    }
+    const checkpoint = storyRuntime.getChapterCheckpoint(storyId);
+    // Chapter 1 of the draft package advances to chapter 2 — no AI final ending.
+    if (checkpoint.kind === "next_chapter" && checkpoint.nextChapterId) {
+      runStoryAction(() => advanceToNextChapter(storyId));
       return;
     }
     gameAudio.stopAmbient();
@@ -518,8 +554,7 @@ export function App() {
     if (path.usedAiBranch) {
       tryAchievement("first_ai_branch");
     }
-    // A4 — achievement-linked gallery seeds (decoupled content rewards).
-    setUnlocks((prev) => applyUnlocks(prev, CH01_CLEAR_REWARDS));
+    setUnlocks((prev) => applyUnlocks(prev, DRAFT_CLEAR_REWARDS));
   }
 
   if (!bootDone) {
@@ -554,6 +589,8 @@ export function App() {
           onOpenAiSpend={() => openMeta("ai-spend")}
           onHostCoPlay={(roomCode, alias) => runStoryAction(() => startHostCoPlay(roomCode, alias))}
           onJoinCoPlay={(roomCode, alias) => runStoryAction(() => joinGuestCoPlay(roomCode, alias))}
+          continueBlockedMessage={continueBlockedMessage}
+          onDismissContinueBlocked={() => setContinueBlockedMessage(null)}
         />
       ) : null}
 

@@ -5,10 +5,16 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./ch01-scenes": "./manifests/ch01-scenes.ts"
+    "./draft-ch01-scenes": "./manifests/draft-ch01-scenes.ts",
+    "./draft-ch02-scenes": "./manifests/draft-ch02-scenes.ts",
+    "./prototype-scenes": "./manifests/prototype-scenes.ts",
+    "./chapter-01-trial-scenes": "./manifests/chapter-01-trial-scenes.ts",
+    "./ch01-scenes": "./manifests/legacy/ch01-scenes.ts"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json --noEmit",
+    "compile-ink": "node ./scripts/compile-ink.mjs",
+    "generate-coverage": "node ./scripts/generate-coverage.mjs",
+    "build": "pnpm compile-ink && pnpm generate-coverage && tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

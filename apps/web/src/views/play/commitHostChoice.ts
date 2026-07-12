@@ -32,7 +32,7 @@ export function commitHostChoice(input: HostChoiceCommitInput): HostChoiceCommit
   let sessionPicks = input.sessionPicks;
   if (choice) {
     if (input.snapshot.sceneId) {
-      markChoiceTaken(input.storyId, input.snapshot.sceneId, choice.text);
+      markChoiceTaken(input.storyId, input.snapshot.sceneId, choice.text, choice.choiceId);
     }
     const statsPick = recordStatsChoice(input.storyId, input.snapshot.sceneId, choice.text);
     if (statsPick) {

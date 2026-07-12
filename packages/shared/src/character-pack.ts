@@ -18,6 +18,10 @@ export type CharacterLockPoint =
       readonly kind: "story_knot";
       readonly storyId: string;
       readonly knotId: string;
+    }
+  | {
+      readonly kind: "deferred_story_knot";
+      readonly reason: string;
     };
 
 export interface CharacterSlotDefinition {

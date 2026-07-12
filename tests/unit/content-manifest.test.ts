@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { CHARACTER_SLOTS, ch01Scenes, superLoverSeedManifest } from "@supaluv/content";
+import { CHARACTER_SLOTS, productionStoryCatalog, superLoverSeedManifest } from "@supaluv/content";
+import { draftCh01Scenes } from "@supaluv/content/draft-ch01-scenes";
+import { draftCh02Scenes } from "@supaluv/content/draft-ch02-scenes";
 import { isReadonlySourceMaterial } from "@supaluv/shared";
 
 describe("superLoverSeedManifest", () => {
@@ -19,23 +21,25 @@ describe("superLoverSeedManifest", () => {
 });
 
 describe("character slot lock manifest", () => {
-  it("declares both robot slots at the authored product-selection scene", () => {
-    const scene = ch01Scenes.find((item) => item.id === "ch01_product_page");
-    expect(scene?.characterSlotLock?.slotIds).toEqual(["robot_aila", "robot_kai"]);
-    for (const slotId of scene?.characterSlotLock?.slotIds ?? []) {
+  it("keeps robot slots registered without binding retired ch01 product page", () => {
+    for (const slotId of ["robot_aila", "robot_kai"] as const) {
       const slot = CHARACTER_SLOTS.find((item) => item.id === slotId);
       expect(slot?.kind).toBe("robot");
       expect(slot?.lockPoint).toEqual({
-        kind: "story_knot",
-        storyId: "ch01",
-        knotId: "ch01_product_page",
+        kind: "deferred_story_knot",
+        reason: "Awaiting the authored robot-selection scene in a later chapter.",
       });
     }
+    // Draft scenes intentionally do not force robot selection mid-chapter.
+    expect(draftCh01Scenes.every((scene) => !("characterSlotLock" in scene))).toBe(true);
+    expect(draftCh02Scenes.every((scene) => !("characterSlotLock" in scene))).toBe(true);
   });
 });
 
 describe("human-video removal", () => {
-  it("keeps Chapter 1 still-first with no authored video references", () => {
-    expect(ch01Scenes.every((scene) => !("videoKey" in scene))).toBe(true);
+  it("keeps draft chapters still-first with no authored video references", () => {
+    expect(draftCh01Scenes.every((scene) => !("videoKey" in scene))).toBe(true);
+    expect(draftCh02Scenes.every((scene) => !("videoKey" in scene))).toBe(true);
+    expect(productionStoryCatalog.map((s) => s.id)).toEqual(["draft-ch01", "draft-ch02"]);
   });
 });
