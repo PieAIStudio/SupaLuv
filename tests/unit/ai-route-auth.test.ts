@@ -17,6 +17,33 @@ afterEach(async () => {
 });
 
 describe("AI route authentication order", () => {
+  it("reports the selected character image provider without exposing credentials", async () => {
+    vi.stubEnv("OPENROUTER_API_KEY", "configured-test-key");
+    vi.stubEnv("SUPALUV_CHARACTER_IMAGE_PROVIDER", "openrouter");
+    server = createServer(async (req, res) => {
+      const handled = await handleAiBranchRequest(
+        req,
+        res,
+        normalizeAiBranchServiceUrl(new URL(req.url ?? "/", "http://127.0.0.1")),
+      );
+      if (!handled) sendJson(res, 404, { error: "Not found" });
+    });
+    await new Promise<void>((resolve) => server?.listen(0, "127.0.0.1", resolve));
+    const address = server.address();
+    if (!address || typeof address === "string") throw new Error("Missing test port");
+
+    const response = await fetch(`http://127.0.0.1:${address.port}/health`);
+    const body = (await response.json()) as Record<string, unknown>;
+
+    expect(body.characterImage).toEqual({
+      provider: "openrouter",
+      configured: true,
+      imageModel: "google/gemini-3.1-flash-image",
+      reviewModel: "google/gemini-3.1-flash-lite",
+    });
+    expect(JSON.stringify(body)).not.toContain("configured-test-key");
+  });
+
   it("rejects unauthenticated AI generation before reporting provider configuration", async () => {
     vi.stubEnv("OPENROUTER_API_KEY", "");
     vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "");

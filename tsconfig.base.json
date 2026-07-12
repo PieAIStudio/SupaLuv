@@ -16,7 +16,9 @@
     "noUncheckedIndexedAccess": true,
     "paths": {
       "@supaluv/content": ["./packages/content/src/index.ts"],
-      "@supaluv/shared": ["./packages/shared/src/index.ts"]
+      "@supaluv/content/ch01-scenes": ["./packages/content/manifests/ch01-scenes.ts"],
+      "@supaluv/shared": ["./packages/shared/src/index.ts"],
+      "@supaluv/shared/story-map": ["./packages/shared/src/story-map.ts"]
     },
     "jsx": "react-jsx"
   }

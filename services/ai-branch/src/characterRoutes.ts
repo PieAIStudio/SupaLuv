@@ -8,24 +8,20 @@ import {
 import { z } from "zod";
 import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
 import { verifyBearerToken } from "./authGate.js";
+import { createConfiguredCharacterProviders } from "./characterProviderConfig.js";
 import {
   CharacterAssetStorageError,
   CHARACTER_ASSET_BODY_LIMIT_BYTES,
   createSupabaseCharacterAssetStorage,
 } from "./characterAssetService.js";
 import { CharacterImageProviderError } from "./characterImageProvider.js";
-import { createConfiguredGeminiCharacterImageProvider } from "./geminiCharacterImageProvider.js";
 import {
   CharacterGenerationBusyError,
   CharacterGenerationPaymentError,
   createCharacterGenerationService,
   type CharacterGenerationService,
 } from "./characterGenerationService.js";
-import { CharacterSafetyError } from "./characterSafety.js";
-import {
-  createCharacterSafety,
-  createConfiguredGeminiAdultPresentationReviewer,
-} from "./characterSafety.js";
+import { CharacterSafetyError, createCharacterSafety } from "./characterSafety.js";
 import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
 import { createSupabaseSupaluvStore, type SupaluvStore } from "./supaluvStore.js";
 import { commitReservation, refundReservation, reserveBatteries } from "./walletMeter.js";
@@ -228,6 +224,7 @@ export function getConfiguredCharacterPackDependencies(): CharacterPackRouteDepe
   });
   const store = createSupabaseSupaluvStore(client);
   const storage = createSupabaseCharacterAssetStorage(client);
+  const characterProviders = createConfiguredCharacterProviders();
   const moderation = createContentModerationProvider({
     policy: ADULT_COMEDY_MODERATION_POLICY,
     sightengineApiUser: process.env.SIGHTENGINE_API_USER,
@@ -239,10 +236,10 @@ export function getConfiguredCharacterPackDependencies(): CharacterPackRouteDepe
     generation: createCharacterGenerationService({
       store,
       storage,
-      provider: createConfiguredGeminiCharacterImageProvider(),
+      provider: characterProviders.imageProvider,
       safety: createCharacterSafety({
         moderation,
-        semanticReviewer: createConfiguredGeminiAdultPresentationReviewer(),
+        semanticReviewer: characterProviders.adultReviewer,
       }),
       wallet: {
         reserve: (input) =>

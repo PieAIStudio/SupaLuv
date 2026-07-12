@@ -13,7 +13,8 @@ const reference = { bytes: Buffer.from("reference"), mimeType: "image/jpeg" as c
 const generated = {
   bytes: Buffer.from("generated"),
   mimeType: "image/png" as const,
-  modelId: "gemini-3.1-flash-image",
+  providerId: "openrouter",
+  modelId: "google/gemini-3.1-flash-image",
   providerRequestMetadata: {
     interactionId: "interaction-1",
     referenceCount: 1,
@@ -120,7 +121,12 @@ describe("character generation coordinator", () => {
       "store-image",
     ]);
     expect(context.wallet.commit).not.toHaveBeenCalled();
-    expect(result.asset).toMatchObject({ assetKind: "base", actionKey: expect.any(String) });
+    expect(result.asset).toMatchObject({
+      assetKind: "base",
+      actionKey: expect.any(String),
+      provider: "openrouter",
+      model: "google/gemini-3.1-flash-image",
+    });
     await expect(context.store.listSpendReceipts("owner-a")).resolves.toHaveLength(1);
   });
 

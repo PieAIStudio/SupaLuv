@@ -63,12 +63,25 @@ const semanticDecisionSchema = z.object({
   status: z.enum(["adult", "minor", "uncertain"]),
 });
 
-const SEMANTIC_REVIEW_PROMPT = [
+export const GENERATED_ADULT_PRESENTATION_PROMPT = [
   "Review only the apparent age presentation of the main depicted human character.",
   "Return adult only when the character is unmistakably 25 years old or older.",
   "Return minor for an apparent child or teenager, and uncertain for ambiguity or no assessable human.",
   "Do not identify the person, infer their real identity, or treat fame or political status as relevant.",
 ].join(" ");
+
+export function parseGeneratedAdultPresentationDecision(
+  outputText: string | undefined,
+  provider: string,
+): GeneratedAdultPresentationDecision {
+  try {
+    const parsed = semanticDecisionSchema.safeParse(JSON.parse(outputText ?? ""));
+    if (!parsed.success) throw new Error("invalid semantic result");
+    return { status: parsed.data.status, provider };
+  } catch {
+    return { status: "uncertain", provider, reasonCode: "semantic_review_invalid" };
+  }
+}
 
 export function createGeminiGeneratedAdultPresentationReviewer(
   client: GeminiAdultReviewClient,
@@ -78,19 +91,16 @@ export function createGeminiGeneratedAdultPresentationReviewer(
       try {
         const result = await client.create({
           model: GEMINI_ADULT_PRESENTATION_MODEL,
-          prompt: SEMANTIC_REVIEW_PROMPT,
+          prompt: GENERATED_ADULT_PRESENTATION_PROMPT,
           imageData: Buffer.from(image.bytes).toString("base64"),
           imageMimeType: image.mimeType,
         });
-        const parsed = semanticDecisionSchema.safeParse(JSON.parse(result.outputText ?? ""));
-        if (!parsed.success) throw new Error("invalid semantic result");
-        return { status: parsed.data.status, provider: GEMINI_ADULT_PRESENTATION_MODEL };
+        return parseGeneratedAdultPresentationDecision(
+          result.outputText,
+          GEMINI_ADULT_PRESENTATION_MODEL,
+        );
       } catch {
-        return {
-          status: "uncertain",
-          provider: GEMINI_ADULT_PRESENTATION_MODEL,
-          reasonCode: "semantic_review_invalid",
-        };
+        return parseGeneratedAdultPresentationDecision(undefined, GEMINI_ADULT_PRESENTATION_MODEL);
       }
     },
   };

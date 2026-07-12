@@ -1,4 +1,3 @@
-import { GoogleGenAI } from "@google/genai";
 import {
   CharacterImageProviderError,
   type CharacterImageInput,
@@ -6,34 +5,33 @@ import {
   type GeneratedCharacterImage,
 } from "./characterImageProvider.js";
 
-export const GEMINI_CHARACTER_IMAGE_MODEL = "gemini-3.1-flash-image";
+export const OPENROUTER_CHARACTER_IMAGE_MODEL = "google/gemini-3.1-flash-image";
 
-type GeminiTextInput = { readonly type: "text"; readonly text: string };
-type GeminiInlineImageInput = {
-  readonly type: "image";
-  readonly data: string;
-  readonly mime_type: string;
+type OpenRouterReference = {
+  readonly type: "image_url";
+  readonly image_url: { readonly url: string };
 };
-type GeminiInteractionRequest = {
+
+export type OpenRouterImageRequest = {
   readonly model: string;
-  readonly input: readonly (GeminiTextInput | GeminiInlineImageInput)[];
-  readonly response_format: {
-    readonly type: "image";
-    readonly mime_type: "image/png";
-    readonly aspect_ratio: "3:4" | "16:9";
-    readonly image_size: "1K";
-  };
-};
-type GeminiInteractionResponse = {
-  readonly id?: string;
-  readonly output_image?: {
-    readonly data?: string;
-    readonly mime_type?: string;
-  };
+  readonly prompt: string;
+  readonly input_references: readonly OpenRouterReference[];
+  readonly n: 1;
+  readonly resolution: "1K";
+  readonly aspect_ratio: "3:4" | "16:9";
+  readonly output_format: "png";
 };
 
-export interface GeminiImageInteractionClient {
-  create(request: GeminiInteractionRequest): Promise<GeminiInteractionResponse>;
+export type OpenRouterImageResponse = {
+  readonly id?: string;
+  readonly data?: readonly {
+    readonly b64_json?: string;
+    readonly media_type?: string;
+  }[];
+};
+
+export interface OpenRouterImageClient {
+  generate(request: OpenRouterImageRequest): Promise<OpenRouterImageResponse>;
 }
 
 const REQUIRED_SAFETY_PROMPT = [
@@ -43,11 +41,12 @@ const REQUIRED_SAFETY_PROMPT = [
   "Adult black-comedy energy and mildly suggestive styling are allowed, while all clothing remains non-explicit.",
 ].join(" ");
 
-function inlineImage(image: CharacterImageInput): GeminiInlineImageInput {
+function inlineReference(image: CharacterImageInput): OpenRouterReference {
   return {
-    type: "image",
-    data: Buffer.from(image.bytes).toString("base64"),
-    mime_type: image.mimeType,
+    type: "image_url",
+    image_url: {
+      url: `data:${image.mimeType};base64,${Buffer.from(image.bytes).toString("base64")}`,
+    },
   };
 }
 
@@ -80,14 +79,14 @@ function decodeStrictBase64(data: string | undefined): Uint8Array {
   return bytes;
 }
 
-function providerStatus(error: unknown): number | undefined {
+function statusOf(error: unknown): number | undefined {
   if (!error || typeof error !== "object") return undefined;
   const status = (error as { status?: unknown }).status;
   return typeof status === "number" ? status : undefined;
 }
 
 async function generate(
-  client: GeminiImageInteractionClient,
+  client: OpenRouterImageClient,
   input: {
     readonly purpose: "base" | "mood" | "still";
     readonly prompt: string;
@@ -95,23 +94,19 @@ async function generate(
     readonly aspectRatio: "3:4" | "16:9";
   },
 ): Promise<GeneratedCharacterImage> {
-  let response: GeminiInteractionResponse;
+  let response: OpenRouterImageResponse;
   try {
-    response = await client.create({
-      model: GEMINI_CHARACTER_IMAGE_MODEL,
-      input: [
-        { type: "text", text: `${REQUIRED_SAFETY_PROMPT}\n\nCreative direction: ${input.prompt}` },
-        ...input.references.map(inlineImage),
-      ],
-      response_format: {
-        type: "image",
-        mime_type: "image/png",
-        aspect_ratio: input.aspectRatio,
-        image_size: "1K",
-      },
+    response = await client.generate({
+      model: OPENROUTER_CHARACTER_IMAGE_MODEL,
+      prompt: `${REQUIRED_SAFETY_PROMPT}\n\nCreative direction: ${input.prompt}`,
+      input_references: input.references.map(inlineReference),
+      n: 1,
+      resolution: "1K",
+      aspect_ratio: input.aspectRatio,
+      output_format: "png",
     });
   } catch (error) {
-    const status = providerStatus(error);
+    const status = statusOf(error);
     throw new CharacterImageProviderError(
       "provider_rejected",
       "The image provider could not complete this request",
@@ -119,15 +114,16 @@ async function generate(
     );
   }
 
-  const image = response.output_image;
-  if (!image?.data) {
+  const image = response.data?.[0];
+  if (!image?.b64_json) {
     throw new CharacterImageProviderError(
       "missing_image",
       "The image provider did not return an image",
       true,
     );
   }
-  if (!image.mime_type || !["image/png", "image/jpeg", "image/webp"].includes(image.mime_type)) {
+  const mimeType = image.media_type || "image/png";
+  if (!["image/png", "image/jpeg", "image/webp"].includes(mimeType)) {
     throw new CharacterImageProviderError(
       "invalid_image",
       "The image provider returned an unsupported image format",
@@ -136,10 +132,10 @@ async function generate(
   }
 
   return {
-    bytes: decodeStrictBase64(image.data),
-    mimeType: image.mime_type as GeneratedCharacterImage["mimeType"],
-    providerId: "google",
-    modelId: GEMINI_CHARACTER_IMAGE_MODEL,
+    bytes: decodeStrictBase64(image.b64_json),
+    mimeType: mimeType as GeneratedCharacterImage["mimeType"],
+    providerId: "openrouter",
+    modelId: OPENROUTER_CHARACTER_IMAGE_MODEL,
     providerRequestMetadata: {
       ...(response.id ? { interactionId: response.id } : {}),
       referenceCount: input.references.length,
@@ -148,11 +144,11 @@ async function generate(
   };
 }
 
-export function createGeminiCharacterImageProvider(
-  client: GeminiImageInteractionClient,
+export function createOpenRouterCharacterImageProvider(
+  client: OpenRouterImageClient,
 ): CharacterImageProvider {
   return {
-    async generateBase(input) {
+    generateBase(input) {
       assertReferenceCount(input.references.length, 0, 3);
       return generate(client, {
         purpose: "base",
@@ -161,7 +157,7 @@ export function createGeminiCharacterImageProvider(
         aspectRatio: "3:4",
       });
     },
-    async generateMood(input) {
+    generateMood(input) {
       return generate(client, {
         purpose: "mood",
         prompt: `Preserve the accepted identity, age, wardrobe, and visual style exactly. Change only the expression and pose to mood: ${input.mood}. ${input.prompt}`,
@@ -169,7 +165,7 @@ export function createGeminiCharacterImageProvider(
         aspectRatio: "3:4",
       });
     },
-    async generateStill(input) {
+    generateStill(input) {
       assertReferenceCount(input.characters.length, 1, 4);
       return generate(client, {
         purpose: "still",
@@ -181,27 +177,30 @@ export function createGeminiCharacterImageProvider(
   };
 }
 
-export function createConfiguredGeminiCharacterImageProvider(
-  apiKey = process.env.GEMINI_API_KEY,
+export function createConfiguredOpenRouterCharacterImageProvider(
+  apiKey = process.env.OPENROUTER_API_KEY,
+  fetchImpl: typeof fetch = fetch,
 ): CharacterImageProvider {
   const key = apiKey?.trim();
-  if (!key) throw new Error("GEMINI_API_KEY is required for character image generation");
-  const ai = new GoogleGenAI({ apiKey: key });
-  return createGeminiCharacterImageProvider({
-    async create(request) {
-      const response = await ai.interactions.create({
-        ...request,
-        input: [...request.input],
+  if (!key) throw new Error("OPENROUTER_API_KEY is required for character image generation");
+  return createOpenRouterCharacterImageProvider({
+    async generate(request) {
+      const response = await fetchImpl("https://openrouter.ai/api/v1/images", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${key}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://supaluv.pieaistudio.com",
+          "X-Title": "SupaLuv",
+        },
+        body: JSON.stringify(request),
       });
-      return {
-        id: response.id,
-        output_image: response.output_image
-          ? {
-              data: response.output_image.data,
-              mime_type: response.output_image.mime_type,
-            }
-          : undefined,
-      };
+      if (!response.ok) {
+        throw Object.assign(new Error("OpenRouter image request failed"), {
+          status: response.status,
+        });
+      }
+      return (await response.json()) as OpenRouterImageResponse;
     },
   });
 }

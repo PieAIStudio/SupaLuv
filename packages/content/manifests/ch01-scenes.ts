@@ -1,4 +1,4 @@
-import type { PrototypeSceneCard } from "@supaluv/shared";
+import type { PrototypeSceneCard } from "@supaluv/shared/story-map";
 /** Auto-aligned with densified ch01.ink — novel-to-script expansion. */
 export const ch01Scenes = [
   {

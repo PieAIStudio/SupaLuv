@@ -33,8 +33,9 @@ This file is the current project work index. It is not the agents-routing algori
 - **Default player path**: open app → title screen → 新的游戏 → 主角选角 → `ch01`.
 - **Active AI product proof**: `SPEC-0002` + `PLAN-0004` implement paid adult
   character packs, robot locks, bounded resumable AI endings, and AI spend
-  analysis. Deterministic proof is green; live Gemini/SwimmerCore/wallet proof
-  still requires a configured non-production environment.
+  analysis. Deterministic proof is green; live
+  OpenRouter-image/SwimmerCore/wallet proof still requires a configured
+  non-production environment.
 - **Active polish plan**: `docs/plans/active/PLAN-0003-ch01-polish-loops.md`
   (Loops 1–6 largely landed; residual polish only).
 - **Older pipeline plan/spec** (still valid provenance for trial dummy path):

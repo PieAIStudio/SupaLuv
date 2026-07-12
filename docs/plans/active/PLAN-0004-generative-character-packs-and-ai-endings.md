@@ -25,17 +25,17 @@ related:
 
 # Generative Character Packs and AI Endings Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. The owner explicitly prohibited subagents, so `subagent-driven-development` must not be used. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** Follow the project router and execute this plan task-by-task. The owner explicitly prohibited subagents. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Ship live, paid, persistent adult-reference character packs and bounded interactive AI ending sessions while removing human-video content conflicts.
 
 **Architecture:** Add one generic adult-reference assessment seam to SwimmerAIKit, add owner-scoped SupaLuv product persistence to SwimmerCore, and keep product orchestration in SupaLuv's existing AI service. Character packs and AI ending sessions are separate domain modules; paid delivery uses SwimmerCore transactions that atomically commit the wallet reservation, persist the delivered action, and write its spend receipt.
 
-**Tech Stack:** React 19.2.5, Vite 8.0.10, TypeScript 6.0.3, InkJS 2.4.0, Mastra 1.50.x, Zod 3.25.76, Supabase JS 2.108.1, SwimmerUIKit 1.0.1, SwimmerAIKit 0.2.x, Gemini 3.1 Flash Image via `@google/genai`, Sightengine `face-age`, Vitest 4.1.5, Playwright 1.59.1.
+**Tech Stack:** React 19.2.5, Vite 8.0.10, TypeScript 6.0.3, InkJS 2.4.0, Mastra 1.50.x, Zod 3.25.76, Supabase JS 2.108.1, SwimmerUIKit 1.0.1, SwimmerAIKit 0.2.x, Gemini 3.1 Flash Image through OpenRouter's unified Image API by default (`@google/genai` retained for optional direct mode), Sightengine `face-age`, Vitest 4.1.5, Playwright 1.59.1.
 
 **2026-07-12 checkpoint:** Blocks A–F deterministic implementation is complete
 through Task 35. Task 36 live-provider proof remains open because the local
-secret set has Sightengine but no Gemini, SwimmerCore service, or wallet
+secret set has OpenRouter and Sightengine but no SwimmerCore service or wallet
 credentials. Task 37 remains open until that live proof and hosted reconciliation
 are complete; the plan must not be moved to `completed/` before then.
 
@@ -317,6 +317,22 @@ are complete; the plan must not be moved to `completed/` before then.
 
 **Official research note (verified 2026-07-12):** Google lists `gemini-3.1-flash-image` as the stable model code, with text/image input and image/text output; its image guide documents 1K output and up to four character references. The current JavaScript examples use the Interactions API and `response_format`. Sources: [model card](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-image), [image-generation guide](https://ai.google.dev/gemini-api/docs/image-generation), [official SDK package](https://www.npmjs.com/package/@google/genai), and [SDK API reference](https://googleapis.github.io/js-genai/).
 
+### Task 16A: Route test-stage character generation through OpenRouter
+
+**Files:**
+- Create: `/Users/yuanfei/PieAI/SupaLuv/services/ai-branch/src/openRouterCharacterImageProvider.ts`
+- Create: `/Users/yuanfei/PieAI/SupaLuv/services/ai-branch/src/openRouterCharacterSafety.ts`
+- Create: `/Users/yuanfei/PieAI/SupaLuv/services/ai-branch/src/characterProviderConfig.ts`
+- Test: `/Users/yuanfei/PieAI/SupaLuv/tests/unit/openrouter-character-*.test.ts`
+
+**Interfaces:**
+- Keeps `CharacterImageProvider` and `GeneratedAdultPresentationReviewer` provider-neutral while selecting OpenRouter by default and direct Gemini only by explicit configuration.
+
+- [x] Verify OpenRouter's unified Image API exposes `google/gemini-3.1-flash-image`, private base64 references, 1K/3:4/16:9 output, and up to 14 references.
+- [x] Add test-first OpenRouter image and structured adult-review adapters using the existing server-only `OPENROUTER_API_KEY`.
+- [x] Add `SUPALUV_CHARACTER_IMAGE_PROVIDER=openrouter` default and preserve `gemini` as an explicit future option requiring `GEMINI_API_KEY`.
+- [x] Persist the actual provider/model on generated assets and expose non-secret provider readiness through `/health`.
+
 ### Task 17: Build the character safety pipeline
 
 **Files:**
@@ -357,7 +373,7 @@ are complete; the plan must not be moved to `completed/` before then.
 - Produces: `/ai/characters/references`, `/ai/characters/packs`, `/ai/characters/packs/:id/base`, `/moods`, and delete operations. Story-run bindings are captured when the ending session creates its server-side story run; there is no standalone `/bind` route.
 
 - [x] Add failing route-table tests for pack creation, base generation/acceptance, moods, deletion, owner derivation, and structured error status; observed the expected missing-route-module failure.
-- [x] Implement authenticated delegation and production dependency wiring through the existing auth, SwimmerCore, private storage, Gemini, Sightengine, and wallet seams.
+- [x] Implement authenticated delegation and production dependency wiring through the existing auth, SwimmerCore, private storage, configured image provider, Sightengine, and wallet seams.
 - [x] Implement stable 402, 403, 409, 413, 422, and 503 mappings; no browser-provided owner id is accepted.
 - [x] Run combined character route/auth/store/provider/safety/coordinator tests; 39/39 passed with root/service typechecks.
 

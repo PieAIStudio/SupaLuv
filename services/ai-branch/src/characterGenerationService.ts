@@ -179,7 +179,7 @@ export function createCharacterGenerationService(options: {
           input: input.kind === "human" ? "adult" : "not_applicable",
           output: "allowed",
         },
-        provider: "google",
+        provider: generated.providerId,
         model: generated.modelId,
       };
       let asset: GeneratedAssetRecord;
@@ -201,7 +201,7 @@ export function createCharacterGenerationService(options: {
           await options.store.saveCharacterPack({
             ...pack,
             status: "base_ready",
-            provider: "google",
+            provider: generated.providerId,
             model: generated.modelId,
           });
         }

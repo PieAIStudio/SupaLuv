@@ -5,6 +5,7 @@
 
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { verifyBearerToken } from "./authGate.js";
+import { characterProviderHealthSnapshot } from "./characterProviderConfig.js";
 import {
   getConfiguredCharacterAssetDependencies,
   handleCharacterAssetRoute,
@@ -93,6 +94,7 @@ export async function handleAiBranchRequest(
       sightengineConfigured: Boolean(
         process.env.SIGHTENGINE_API_USER?.trim() && process.env.SIGHTENGINE_API_SECRET?.trim(),
       ),
+      characterImage: characterProviderHealthSnapshot(),
       tts: ttsHealthSnapshot(),
       wallet: {
         meterConfigured: walletMeterConfigured(),

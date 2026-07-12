@@ -49,11 +49,11 @@ tests and browser E2E cover failure, retry, duplicate, refund, choice,
 free-text, refresh/resume, terminal, desktop, and landscape-phone behavior.
 
 The specification remains **active**, not completed, because this machine lacks
-`GEMINI_API_KEY`, SwimmerCore service credentials, and wallet credentials. The
-live adult-photo generation, hosted persistence, and real wallet reconciliation
-acceptance evidence therefore still requires a configured non-production
-environment. Sightengine credentials exist locally, but running that classifier
-alone would not prove the end-to-end paid character-pack flow.
+SwimmerCore service and wallet credentials. OpenRouter and Sightengine
+credentials exist locally, but live adult-photo generation, hosted persistence,
+and real wallet reconciliation acceptance evidence therefore still requires a
+configured non-production environment. Running either provider alone would not
+prove the end-to-end paid character-pack flow.
 
 ## Product boundaries
 
@@ -143,9 +143,9 @@ status, version, and timestamps.
 5. For human slots, assess that every real human reference is adult. Reject the
    entire request on `minor`, `uncertain`, or `no_real_face`.
 6. Reserve the configured battery cost with an idempotency key.
-7. Generate one identity base image with Gemini 3.1 Flash Image through a
-   product-owned provider interface wrapped by SwimmerAIKit's generator and
-   provider-budget primitives.
+7. Generate one identity base image with Gemini 3.1 Flash Image through the
+   product-owned provider interface. OpenRouter's unified Image API is the
+   test/default route; direct Google Gemini remains an explicit optional route.
 8. Review generated output before persistence or display. This combines normal
    visual moderation, the image provider's non-adjustable child-safety guard,
    and a secondary semantic check that the generated character is clearly
@@ -173,9 +173,9 @@ visual content gate.
 - Derived character packs remain until player deletion or account-data cleanup.
 - Deletion removes stored objects and tombstones product records without
   rewriting wallet ledger history.
-- Provider disclosure must state that paid Gemini input is not used for product
-  training under current provider terms but may be retained for limited abuse
-  monitoring; SupaLuv must not promise zero third-party retention.
+- Provider disclosure must name OpenRouter and the selected underlying image
+  model when that route is used. SupaLuv must not promise zero third-party
+  retention; provider terms and retention claims must be rechecked before launch.
 
 ## Runtime character presentation
 

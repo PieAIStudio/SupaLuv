@@ -4,6 +4,7 @@ export type CharacterImageInput = {
 };
 
 export type GeneratedCharacterImage = CharacterImageInput & {
+  readonly providerId: string;
   readonly modelId: string;
   readonly providerRequestMetadata: Readonly<{
     interactionId?: string;

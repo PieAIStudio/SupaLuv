@@ -4,7 +4,7 @@ import {
   ADULT_COMEDY_MODERATION_POLICY,
   createContentModerationProvider,
 } from "@pieai/swimmer-ai-kit/content-safety";
-import { ch01Scenes } from "@supaluv/content";
+import { ch01Scenes } from "@supaluv/content/ch01-scenes";
 import { z } from "zod";
 import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
 import { verifyBearerToken } from "./authGate.js";
