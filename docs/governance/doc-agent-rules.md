@@ -42,7 +42,6 @@ If a canonical document exists, update it instead of creating a parallel documen
 Use only:
 
 - `policy`
-- `decision`
 - `spec`
 - `plan`
 - `canon`
@@ -57,13 +56,10 @@ Normal documents:
 draft -> active -> completed -> stable -> superseded -> archived
 ```
 
-Decision documents:
-
-```text
-proposed -> accepted -> rejected | superseded
-```
-
 `completed` is for finished execution records or specs that should no longer appear in active folders.
+
+Durable decisions belong only in `docs/adr/**`. They use Matt's concise ADR
+format and remain outside the Doc Gov status machine.
 
 ## Upstream Rule
 

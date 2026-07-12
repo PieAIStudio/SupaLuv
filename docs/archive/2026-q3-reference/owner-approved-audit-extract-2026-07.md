@@ -14,7 +14,6 @@ tags:
   - ux
 pinned: false
 related:
-  - ADR-0003
   - REF-CURRENT-WORK
   - REF-FEATURE-STATUS-ROADMAP
   - ARCH-COMMERCIAL-COMPLETION-AUDIT-2026-07

@@ -16,10 +16,6 @@ pinned: true
 related:
   - REF-DOCUMENTATION-MAP
   - POLICY-PROJECT-BEST-PRACTICE
-  - ADR-0001
-  - ADR-0003
-  - ADR-0004
-  - ADR-0005
 ---
 
 # SupaLuv Current Work

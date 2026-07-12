@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-12T10:57:22.117Z
-generator_version: doc-gov@0.4.9
-docs_count: 34
+generated_at: 2026-07-12T14:07:25.082Z
+generator_version: doc-gov@0.5.1
+docs_count: 29
 docs:
   - id: PLAN-0001
     path: docs/archive/2026-q3-plan/PLAN-0001-react-inkjs-pixivn-spike.md
@@ -88,50 +88,8 @@ docs:
     canonical: false
     last_reviewed: 2026-07-10
     pinned: false
-  - id: ADR-0001
-    path: docs/decisions/ADR-0001-propose-web-first-ink-pixivn-evaluation-supaluv.md
-    type: decision
-    status: accepted
-    canonical: true
-    last_reviewed: 2026-07-12
-    pinned: true
-  - id: ADR-0002
-    path: docs/decisions/ADR-0002-custom-faces-vs-prerendered-video.md
-    type: decision
-    status: superseded
-    canonical: false
-    last_reviewed: 2026-07-11
-    pinned: false
-  - id: ADR-0003
-    path: docs/decisions/ADR-0003-freemium-battery-ai-no-free-quota.md
-    type: decision
-    status: accepted
-    canonical: true
-    last_reviewed: 2026-07-12
-    pinned: true
-  - id: ADR-0004
-    path: docs/decisions/ADR-0004-tone-black-humor-sex-comedy-not-romance.md
-    type: decision
-    status: accepted
-    canonical: true
-    last_reviewed: 2026-07-12
-    pinned: true
-  - id: ADR-0005
-    path: docs/decisions/ADR-0005-generative-identity-and-bounded-ai-endings.md
-    type: decision
-    status: accepted
-    canonical: true
-    last_reviewed: 2026-07-12
-    pinned: true
-  - id: GOV-AGENTS-ROUTING-DOC-ONLY-V0-9
-    path: docs/governance/agents-routing/doc-only-v0.9.md
-    type: policy
-    status: stable
-    canonical: true
-    last_reviewed: 2026-05-09
-    pinned: true
-  - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V0-9
-    path: docs/governance/agents-routing/engineering-runtime-v0.9.md
+  - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-0
+    path: docs/governance/agents-routing/engineering-runtime-v1.0.md
     type: policy
     status: stable
     canonical: true
@@ -158,8 +116,8 @@ docs:
     canonical: true
     last_reviewed: 2026-05-08
     pinned: true
-  - id: GOV-SSOT-V0-9
-    path: docs/governance/ssot-v0.9.md
+  - id: GOV-SSOT-V1-0
+    path: docs/governance/ssot-v1.0.md
     type: policy
     status: stable
     canonical: true
@@ -227,6 +185,13 @@ docs:
     status: active
     canonical: false
     last_reviewed: 2026-07-11
+    pinned: false
+  - id: LEARNING-SEPARATE-LOCAL-ENV-TRUST-BOUNDARY
+    path: docs/reference/learnings/separate-local-env-files-at-the-browser-trust-boundary.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-12
     pinned: false
   - id: SPEC-0001
     path: docs/specs/completed/SPEC-0001-chapter-01-trial-pipeline.md

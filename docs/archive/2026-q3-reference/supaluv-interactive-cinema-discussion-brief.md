@@ -18,7 +18,6 @@ tags:
   - discussion
 pinned: false
 related:
-  - ADR-0001
   - POLICY-PROJECT-BEST-PRACTICE
 supersedes: []
 superseded_by: null

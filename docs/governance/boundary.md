@@ -53,13 +53,14 @@ project-specific AI development habits live.
 | --- | --- |
 | AI startup entry | `AGENTS.md` |
 | Agent routing algorithm | `docs/governance/agents-routing/` |
-| Governed SSOT rules | `docs/governance/ssot-v0.9.md` |
+| Governed SSOT rules | `docs/governance/ssot-v1.0.md` |
 | Project AI development practices | `docs/policy/best-practice-for-this-project.md` |
 | Current work index | `docs/reference/execution/current-work.md` |
 | Product or world truth | `docs/canon/` |
+| Durable decisions | `docs/adr/`, the single Matt-compatible decision surface |
 | Active implementation work | `docs/plans/active/` |
 | Completed proof records | `docs/plans/completed/` |
-| Reusable project learnings | `docs/solutions/**` as learning artifacts |
+| Reusable project learnings | `docs/reference/learnings/**` as governed reference documents |
 | Product artifacts outside governed docs | Project package, workbench, assets, runtime config, or source tree |
 
 When unsure, ask this question: is this rule about how the document system works,
@@ -76,5 +77,6 @@ product packages, workbenches, prompt libraries, source folders, or asset
 folders can be product artifacts. Keep those files where the product package
 expects them unless a project explicitly opts them into doc-gov.
 
-Learning artifacts under `docs/solutions/**` are not governed docs by default.
-They remain searchable project artifacts with their own lightweight metadata.
+Matt-native files under `docs/adr/**` and `docs/agents/**` are not governed docs
+by default. `docs/adr/**` is nevertheless the only durable decision surface;
+do not copy ADRs into a second PGS decision directory.

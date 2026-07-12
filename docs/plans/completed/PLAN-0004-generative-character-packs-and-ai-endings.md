@@ -16,9 +16,6 @@ tags:
   - swimmer-ai-kit
   - swimmer-core
 related:
-  - ADR-0003
-  - ADR-0004
-  - ADR-0005
   - SPEC-0002
   - REF-CURRENT-WORK
 ---

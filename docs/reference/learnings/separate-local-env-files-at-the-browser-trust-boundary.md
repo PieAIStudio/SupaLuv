@@ -1,16 +1,21 @@
 ---
-title: "Separate local env files at the browser trust boundary"
-date: 2026-07-11
-category: security-issues
-module: "local environment loading"
-problem_type: knowledge
-component: development_workflow
-severity: medium
-capture_mode: pgs-fallback
-applies_when:
-  - "A Vite application and its server process share local configuration"
-  - "Browser-safe values and server-only secrets currently live in one file"
-tags: [environment, secrets, vite, trust-boundary]
+id: LEARNING-SEPARATE-LOCAL-ENV-TRUST-BOUNDARY
+title: Separate local env files at the browser trust boundary
+type: reference
+status: stable
+canonical: true
+owner: project
+created: 2026-07-11
+last_reviewed: 2026-07-12
+domain: security
+tags:
+  - security
+  - environment
+  - secrets
+  - vite
+  - trust-boundary
+pinned: false
+related: []
 ---
 
 # Separate local env files at the browser trust boundary
@@ -19,9 +24,7 @@ tags: [environment, secrets, vite, trust-boundary]
 
 SupaLuv previously loaded one mixed local env file from both its Vite config
 and AI server. Vite filtered keys in code, but a future filtering regression
-would have exposed a much larger set of values. This record used the PGS
-fallback capture because the task explicitly prohibited the subagents required
-by the full Compound workflow.
+would have exposed a much larger set of values.
 
 ## Guidance
 

@@ -1,6 +1,6 @@
 ---
-id: GOV-SSOT-V0-9
-title: SSOT Documentation Governance Rules v0.9
+id: GOV-SSOT-V1-0
+title: SSOT Documentation Governance Rules v1.0
 type: policy
 status: stable
 canonical: true
@@ -19,7 +19,7 @@ supersedes: []
 superseded_by: null
 ---
 
-# SSOT Documentation Governance Rules v0.9
+# SSOT Documentation Governance Rules v1.0
 
 This rule defines how projects using Project Governance System handle
 **SSOT (Single Source of Truth)** for governed documentation.
@@ -37,7 +37,7 @@ Project Governance System governs:
 - `AGENTS.md` and equivalent AI entry files.
 - Governed Markdown under `docs/**`.
 - Documentation governance rules, agent routing rules, templates, manifests,
-  plans, specs, decisions, references, canon, and archives that live under
+  plans, specs, references, canon, and archives that live under
   `docs/**`.
 
 Project Governance System does **not** automatically govern every Markdown file
@@ -50,10 +50,12 @@ Markdown.
 
 Extra governed roots are allowed only when a project explicitly opts in.
 
-Learning and optional-tool artifacts are explicitly outside the default Doc Gov
-schema:
+Matt-native and optional-tool artifacts are explicitly outside the default Doc
+Gov schema:
 
-- `docs/solutions/**`
+- `CONTEXT.md` and `CONTEXT-MAP.md`
+- `docs/adr/**`
+- `docs/agents/**`
 - `docs/brainstorms/**`
 - `docs/pulse-reports/**`
 
@@ -83,7 +85,7 @@ Before changing docs, look for project-local guidance in this order:
 
 1. `AGENTS.md`, `CLAUDE.md`, or equivalent AI router/config adapter.
 2. `docs/governance/boundary.md`.
-3. `docs/governance/ssot-v0.9.md`.
+3. `docs/governance/ssot-v1.0.md`.
 4. `docs/governance/agents-routing/` and the project's selected agents-routing file.
 5. `docs/reference/documentation-map.md`, root `README.md` for human-facing
    orientation, or another project-defined documentation index.
@@ -114,9 +116,10 @@ works for governed docs:
 | Agents-routing rules | `docs/governance/agents-routing/` |
 | Doc-system rules, templates, and manifest | `docs/governance/` |
 | Project AI/development policy | `docs/policy/` |
+| Durable decisions | `docs/adr/`, the single Matt-compatible decision surface outside Doc Gov schema |
 | Product or feature requirement | `docs/specs/` |
 | Step-by-step implementation work | `docs/plans/` |
-| Reusable learning records | `docs/solutions/**`, outside Doc Gov schema |
+| Reusable learning records | `docs/reference/learnings/**`, governed as `reference` documents and recalled on demand |
 | Durable workspace/system truth | `docs/canon/` |
 | How-to guides, architecture maps, tool notes | `docs/reference/` |
 | Retired governed history | `docs/archive/` |

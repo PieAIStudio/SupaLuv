@@ -28,7 +28,6 @@ Allowed types:
 | Type | Default path |
 | --- | --- |
 | `policy` | `docs/policy/` for project policy; `docs/governance/` for doc-system policy |
-| `decision` | `docs/decisions/` |
 | `spec` | `docs/specs/active/` or `docs/specs/completed/` |
 | `plan` | `docs/plans/active/` or `docs/plans/completed/` |
 | `canon` | `docs/canon/` |
@@ -43,8 +42,5 @@ Normal documents use:
 draft -> active -> completed -> stable -> superseded -> archived
 ```
 
-Decision documents use:
-
-```text
-proposed -> accepted -> rejected | superseded
-```
+Durable decisions use the Matt-compatible `docs/adr/**` surface and stay
+outside the Doc Gov schema. Do not duplicate them in another decision folder.

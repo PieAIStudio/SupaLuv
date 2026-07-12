@@ -17,9 +17,6 @@ tags:
   - billing
   - persistence
 related:
-  - ADR-0003
-  - ADR-0004
-  - ADR-0005
   - REF-AI-CONSTRAINED-BRANCH
   - REF-CURRENT-WORK
 ---

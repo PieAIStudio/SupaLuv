@@ -17,8 +17,6 @@ tags:
   - deploy
 pinned: false
 related:
-  - ADR-0003
-  - ADR-0004
   - REF-CURRENT-WORK
   - REF-CO-PLAY-INVITE-SESSION
   - REF-DUAL-TTS-ROUTING

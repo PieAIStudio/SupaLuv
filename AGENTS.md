@@ -1,6 +1,6 @@
 # SupaLuv AI Router
 
-<!-- PGS-ROUTER:BEGIN v0.9 -->
+<!-- PGS-ROUTER:BEGIN v1.0 -->
 
 ## Project At A Glance
 
@@ -20,7 +20,7 @@ Before main work, read:
 1. All Markdown files under `docs/policy/**/*.md`, including files in
    subdirectories and symlinked shared-rule files.
 2. `docs/governance/boundary.md`.
-3. The selected agents routing file: `docs/governance/agents-routing/engineering-runtime-v0.9.md`.
+3. The selected agents routing file: `docs/governance/agents-routing/engineering-runtime-v1.0.md`.
 4. `docs/reference/execution/current-work.md`.
 5. Relevant discussion briefs, active specs, or decisions named by current work.
 6. Before non-trivial implementation, debugging, release, architecture, or
@@ -28,7 +28,7 @@ Before main work, read:
    any relevant prior-learning hits before changing files.
 
 When the task creates, edits, moves, deletes, or governs documentation, also
-read `docs/governance/ssot-v0.9.md`,
+read `docs/governance/ssot-v1.0.md`,
 `docs/governance/doc-agent-rules.md`, and `docs/governance/doc-types.md` before
 changing governed files.
 
@@ -45,13 +45,13 @@ changing governed files.
 
 SupaLuv uses the `engineering-runtime` profile because it is a game/runtime project with browser UI, AI service boundaries, generated character assets, save state, wallet accounting, platform packaging, and later engine migration risk.
 
-Use `docs/governance/agents-routing/engineering-runtime-v0.9.md` to choose workflow depth. Codex and this router own normal execution; optional skills run only when a narrow trigger matches the selected lane.
+Use `docs/governance/agents-routing/engineering-runtime-v1.0.md` to choose workflow depth. Codex and this router own normal execution; optional skills run only when a narrow trigger matches the selected lane.
 
 Local lane profile:
 
 | Lane | Use for | Proof |
 | --- | --- | --- |
-| Product / narrative strategy | product thesis, story structure, engine choice, platform order | governed decision or spec |
+| Product / narrative strategy | product thesis, story structure, engine choice, platform order | ADR or governed spec |
 | Content package | Ink scripts, story metadata, character variables, AI branch policy | schema validation once runtime exists |
 | Visual / cinema surface | layout, still-first staging, transitions, UI feel | browser screenshot or recording |
 | AI branch runtime | user input, moderation, structured output, branch cache | deterministic tests plus live safety sample |
@@ -64,7 +64,7 @@ When facts conflict, use this order:
 
 1. User instruction in the current thread.
 2. `docs/reference/execution/current-work.md`.
-3. Accepted decisions under `docs/decisions/`.
+3. Accepted decisions under `docs/adr/`.
 4. Active specs under `docs/specs/active/`.
 5. Project policy under `docs/policy/`.
 6. Draft discussion/reference docs under `docs/reference/` and canon docs under `docs/canon/`.

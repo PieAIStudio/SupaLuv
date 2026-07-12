@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@pieai/doc-gov':
-        specifier: 0.4.8
-        version: 0.4.8
+        specifier: 0.5.1
+        version: 0.5.1
       '@pieai/pro-gov':
-        specifier: 0.4.8
-        version: 0.4.8
+        specifier: 0.5.1
+        version: 0.5.1
       '@pieai/swimmer-ai-kit':
         specifier: file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz
         version: file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz
@@ -1239,13 +1239,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@pieai/doc-gov@0.4.8':
-    resolution: {integrity: sha512-vlXPsTqjknXl47ooRPN2W+OpUx+lK2WM1t9E4V+ouT3Sb882KOeID2uIH/xZhHH739I1C5aNjI1vAxqtYw3tOQ==}
+  '@pieai/doc-gov@0.5.1':
+    resolution: {integrity: sha512-UHsKgZ+4Np+ySeStc8rzoiogSEvDayj43tbYyncLlXFydYfiZKhMXw1tGHQqGKUIaoHld56q3oJ/KAvxOyklnQ==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
-  '@pieai/pro-gov@0.4.8':
-    resolution: {integrity: sha512-+KB0Bz2o0RylNrc0Av4ZnQoYFsb+uT602B3msOQeIStOedg8VhZVpbZ+n6WW5PUI7oZnhOaFdz35kQhA5SBPKA==}
+  '@pieai/pro-gov@0.5.1':
+    resolution: {integrity: sha512-8z5VRg+5C3lLlYJ6tKrTNHc99wV8C0Xqy3YjSxLK3WfoIwfKG8SLaf6iJ/jsF9tfMVQnMaRgq58ZK5mR6op5sA==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
@@ -4561,11 +4561,11 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.64.0':
     optional: true
 
-  '@pieai/doc-gov@0.4.8': {}
+  '@pieai/doc-gov@0.5.1': {}
 
-  '@pieai/pro-gov@0.4.8':
+  '@pieai/pro-gov@0.5.1':
     dependencies:
-      '@pieai/doc-gov': 0.4.8
+      '@pieai/doc-gov': 0.5.1
 
   '@pieai/swimmer-ai-kit@file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz': {}
 

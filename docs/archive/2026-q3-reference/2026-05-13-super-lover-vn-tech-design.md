@@ -13,8 +13,7 @@ tags:
   - engine-evaluation
   - supaluv
 pinned: false
-related:
-  - ADR-0001
+related: []
 archive_reason: Early engine, video, schedule, and product assumptions were superseded by the shipped runtime and ADR-0001/ADR-0005.
 ---
 

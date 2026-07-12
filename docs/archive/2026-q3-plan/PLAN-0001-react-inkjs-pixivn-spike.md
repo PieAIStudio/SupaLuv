@@ -20,7 +20,6 @@ related:
   - REF-CURRENT-WORK
   - REF-DOCUMENTATION-MAP
   - REF-SUPALUV-INTERACTIVE-CINEMA-DISCUSSION-BRIEF
-  - ADR-0001
 archive_reason: The React and InkJS baseline shipped; unexecuted PixiVN and editor spikes were deliberately not adopted.
 ---
 
@@ -283,6 +282,7 @@ experimental chapter summary
 **Files:**
 
 - Create: `docs/decisions/ADR-0002-accept-react-inkjs-baseline-or-pixivn.md`
+  (historical proposed path; current successor: `docs/adr/0001-web-first-react-ink-baseline.md`)
   only after `pnpm doc-gov find "react inkjs pixivn decision"` finds no better
   existing decision.
 - Modify: `docs/reference/execution/current-work.md`

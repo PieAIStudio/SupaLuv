@@ -16,9 +16,6 @@ tags:
 pinned: false
 related:
   - REF-CURRENT-WORK
-  - ADR-0001
-  - ADR-0003
-  - ADR-0005
 ---
 
 # Constrained AI Narrative Runtime

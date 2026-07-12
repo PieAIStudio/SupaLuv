@@ -1,6 +1,6 @@
 ---
-id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V0-9
-title: Engineering Runtime Agents Routing v0.9
+id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-0
+title: Engineering Runtime Agents Routing v1.0
 type: policy
 status: stable
 canonical: true
@@ -14,13 +14,13 @@ tags:
   - workflow
 pinned: true
 related:
-  - GOV-SSOT-V0-9
+  - GOV-SSOT-V1-0
   - REF-DOC-GOVERNANCE-BOUNDARY
 supersedes: []
 superseded_by: null
 ---
 
-# Engineering Runtime Agents Routing v0.9
+# Engineering Runtime Agents Routing v1.0
 
 Shared routing algorithm for app, game, runtime, and code-heavy projects.
 

@@ -1,23 +1,3 @@
----
-id: REPLACE-ME
-title: Replace Me
-type: decision
-status: proposed
-canonical: true
-owner: human
-created: YYYY-MM-DD
-last_reviewed: YYYY-MM-DD
-domain: meta
-tags:
-  - replace-me
-pinned: false
-related: []
----
+# Replace Me
 
-# REPLACE-ME: Replace Me
-
-## Context
-
-## Decision
-
-## Consequences
+Record the context, decision, and why in one to three sentences.

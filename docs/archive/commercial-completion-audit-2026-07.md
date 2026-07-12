@@ -14,7 +14,6 @@ tags:
   - do-not-auto-follow
 pinned: false
 related:
-  - ADR-0003
   - REF-OWNER-APPROVED-AUDIT-EXTRACT-2026-07
   - REF-CURRENT-WORK
 archive_reason: >

@@ -16,10 +16,6 @@ pinned: true
 related:
   - POLICY-DOC-AGENT-RULES
   - POLICY-DOC-TYPES
-  - ADR-0001
-  - ADR-0003
-  - ADR-0004
-  - ADR-0005
 supersedes: []
 superseded_by: null
 ---

@@ -15,10 +15,6 @@ pinned: false
 related:
   - REF-CURRENT-WORK
   - POLICY-PROJECT-BEST-PRACTICE
-  - ADR-0001
-  - ADR-0003
-  - ADR-0004
-  - ADR-0005
 ---
 
 # SupaLuv Documentation Map
@@ -40,10 +36,10 @@ related:
 | --- | --- |
 | 当前在做什么、线上到哪一步 | `docs/reference/execution/current-work.md` |
 | 产品与工程硬边界 | `docs/policy/best-practice-for-this-project.md` |
-| Web + Ink 技术基线 | `ADR-0001` |
-| 免费剧情与 AI 电池计费 | `ADR-0003` |
-| 成人黑色幽默 / 性喜剧语气 | `ADR-0004` |
-| 真人形象、角色锁定、AI 最终章 | `ADR-0005` |
+| Web + Ink 技术基线 | `docs/adr/0001-web-first-react-ink-baseline.md` |
+| 免费剧情与 AI 电池计费 | `docs/adr/0003-freemium-battery-ai-no-free-quota.md` |
+| 成人黑色幽默 / 性喜剧语气 | `docs/adr/0004-tone-black-humor-sex-comedy-not-romance.md` |
+| 真人形象、角色锁定、AI 最终章 | `docs/adr/0005-generative-identity-and-bounded-ai-endings.md` |
 | 实际可执行行为 | 当前代码、配置和测试 |
 | Web 包局部模块边界 | `apps/web/README.md` |
 | 内容包生产边界 | `packages/content/README.md` |
@@ -56,10 +52,11 @@ related:
 | 位置 | 用途 | 默认读取 |
 | --- | --- | --- |
 | `docs/policy/` | 项目规则 | 是，按 AGENTS 要求 |
-| `docs/decisions/` | 长期稳定决策 | 仅任务相关 |
+| `docs/adr/` | 长期稳定决策（Matt-compatible，Doc Gov lifecycle 外） | 仅任务相关 |
 | `docs/specs/active/` | 当前未完成需求 | 有内容时读取 |
 | `docs/plans/active/` | 当前执行计划 | 有内容时读取 |
 | `docs/reference/` | 当前架构、运行和导航说明 | 仅任务相关 |
+| `docs/reference/learnings/` | 可复用项目经验（受管 reference） | 按 learn recall / 任务相关 |
 | `docs/plans/completed/`, `docs/specs/completed/` | 已完成证据 | 否 |
 | `docs/archive/` | 已退休或被取代材料 | 否 |
 | `docs/governance/` | PGS 规则与清单 | 按 AGENTS 要求 |
