@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { getNarrativeGraphPlayerSkeleton } from "@supaluv/content";
 import { gameAudio } from "../audio/gameAudio";
 import { CoPlayBanner } from "../coplay/CoPlayBanner";
 import { CursorOverlay } from "../coplay/CursorOverlay";
@@ -15,6 +16,7 @@ import type { ManualSlotId } from "../persistence/gameSave";
 import { DEFAULT_DISPLAY_NAMES, type DisplayNameMap } from "../persistence/displayNames";
 import { EMPTY_PORTRAIT_PACK, type PortraitPackState } from "../persistence/portraitPack";
 import type { GameSettings } from "../persistence/settings";
+import { recordScenePresented } from "../persistence/pathMemory";
 import type { InkStorySnapshot } from "../story/inkStoryRunner";
 import {
   getStoryDefinition,
@@ -38,6 +40,20 @@ import { useNarrativeSource } from "./play/experience/useNarrativeSource";
 import { useStageMedia } from "./play/useStageMedia";
 import { isContinueOnly, storyHasComedyMeters } from "./play/vnHelpers";
 
+const playerGraph = getNarrativeGraphPlayerSkeleton();
+const playerPathScope = {
+  packageId: playerGraph.packageId,
+  revision: playerGraph.revision,
+} as const;
+
+function observedSummary(text: string): string | null {
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (!normalized) {
+    return null;
+  }
+  return normalized.length > 180 ? `${normalized.slice(0, 177)}…` : normalized;
+}
+
 interface VisualNovelPrototypeProps {
   readonly storyId: StoryId;
   readonly snapshot: InkStorySnapshot;
@@ -59,7 +75,8 @@ interface VisualNovelPrototypeProps {
   readonly onStoryChange: (storyId: StoryId) => void;
   readonly onChoose: (index: number) => void;
   readonly onJumpTo: (path: string) => void;
-  readonly onOpenMap: () => void;
+  readonly onOpenPlayerPath: () => void;
+  readonly onOpenCreatorMap: () => void;
   readonly onReset: () => void;
   readonly onSave: (slotId?: ManualSlotId) => void;
   readonly onOpenTitle: () => void;
@@ -96,7 +113,8 @@ export function VisualNovelPrototype({
   onStoryChange,
   onChoose,
   onJumpTo,
-  onOpenMap,
+  onOpenPlayerPath,
+  onOpenCreatorMap,
   onReset,
   onSave,
   onOpenTitle,
@@ -111,6 +129,7 @@ export function VisualNovelPrototype({
   onBedHeard,
 }: VisualNovelPrototypeProps) {
   const auth = useAuth();
+  const recordedPresentationRef = useRef<string>("");
   const currentScene = getStoryScene(storyId, snapshot.sceneId);
   const pendingRobotSlots = (currentScene?.characterSlotLock?.slotIds ?? [])
     .filter((slotId) => !characterBindings[slotId])
@@ -223,6 +242,54 @@ export function VisualNovelPrototype({
   });
 
   const { frame, history, commands: narrativeCommands } = narrative;
+
+  useEffect(() => {
+    if (isGuestSpectator || !snapshot.sceneId) {
+      return;
+    }
+    const dialoguePresented = !activeStoryInteraction && frame.dialogueComplete;
+    const interactionPresented = Boolean(activeStoryInteraction);
+    if (!dialoguePresented && !interactionPresented) {
+      return;
+    }
+    const choices =
+      dialoguePresented || interactionPresented
+        ? snapshot.choices.map((choice) => ({
+            choiceId: choice.choiceId ?? null,
+            label: choice.text,
+          }))
+        : [];
+    const signature = JSON.stringify({
+      storyId,
+      sceneId: snapshot.sceneId,
+      dialoguePresented,
+      interaction: activeStoryInteraction?.definition.id ?? null,
+      interactionStep: activeStoryInteraction?.stepIndex ?? null,
+      title: dialoguePresented ? frame.sceneTitle : null,
+      summary: dialoguePresented ? snapshot.text : null,
+      choices,
+    });
+    if (recordedPresentationRef.current === signature) {
+      return;
+    }
+    recordedPresentationRef.current = signature;
+    recordScenePresented(playerPathScope, {
+      storyId,
+      sceneId: snapshot.sceneId,
+      title: dialoguePresented ? frame.sceneTitle : null,
+      summary: dialoguePresented ? observedSummary(snapshot.text) : null,
+      choices,
+    });
+  }, [
+    activeStoryInteraction,
+    frame.dialogueComplete,
+    frame.sceneTitle,
+    isGuestSpectator,
+    snapshot.choices,
+    snapshot.sceneId,
+    snapshot.text,
+    storyId,
+  ]);
   const historyEntries = history.entries;
   const {
     reveal: revealDialogue,
@@ -535,7 +602,8 @@ export function VisualNovelPrototype({
             onToggleDevTools={
               debugToolsAvailable ? () => setShowDevTools((value) => !value) : undefined
             }
-            onOpenMap={onOpenMap}
+            onOpenPlayerPath={onOpenPlayerPath}
+            onOpenCreatorMap={onOpenCreatorMap}
           />
         ) : (
           <div className="coplay-guest-hud">

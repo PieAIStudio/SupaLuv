@@ -1,6 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { commitHostChoice } from "../../apps/web/src/views/play/commitHostChoice";
 import type { InkStorySnapshot } from "../../apps/web/src/story/inkStoryRunner";
+import { getPlayerPathObservation } from "../../apps/web/src/persistence/pathMemory";
+
+const pathScope = { packageId: "draft-2026-07", revision: "revision-a" } as const;
 
 const memory = new Map<string, string>();
 Object.defineProperty(globalThis, "localStorage", {
@@ -44,6 +47,7 @@ describe("commitHostChoice", () => {
 
     const result = commitHostChoice({
       storyId: "draft-ch01",
+      pathScope,
       snapshot: snapshot(),
       choiceIndex: 1,
       sessionPicks: [],
@@ -56,6 +60,9 @@ describe("commitHostChoice", () => {
     expect(onChoose).toHaveBeenCalledWith(1);
     expect(clearVotes).toHaveBeenCalledOnce();
     expect(result.sessionPicks).toEqual([]);
+    expect(getPlayerPathObservation(pathScope).selectedChoiceIds).toEqual([
+      { storyId: "draft-ch01", choiceId: "left" },
+    ]);
   });
 
   it("still advances when choice index is missing without recording history", () => {
@@ -64,6 +71,7 @@ describe("commitHostChoice", () => {
 
     commitHostChoice({
       storyId: "draft-ch01",
+      pathScope,
       snapshot: snapshot({ choices: [] }),
       choiceIndex: 0,
       sessionPicks: [],
