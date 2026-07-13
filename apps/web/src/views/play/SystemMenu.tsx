@@ -14,7 +14,8 @@ interface SystemMenuProps {
   readonly onOpenAchievements?: () => void;
   readonly onOpenTitle: () => void;
   readonly onToggleDevTools?: () => void;
-  readonly onOpenMap: () => void;
+  readonly onOpenPlayerPath: () => void;
+  readonly onOpenCreatorMap: () => void;
 }
 
 export function SystemMenu({
@@ -31,7 +32,8 @@ export function SystemMenu({
   onOpenAchievements,
   onOpenTitle,
   onToggleDevTools,
-  onOpenMap,
+  onOpenPlayerPath,
+  onOpenCreatorMap,
 }: SystemMenuProps) {
   if (!open) {
     return null;
@@ -79,6 +81,14 @@ export function SystemMenu({
           成就
         </button>
       ) : null}
+      <button
+        type="button"
+        onClick={onOpenPlayerPath}
+        data-testid="player-path-menu-button"
+        role="menuitem"
+      >
+        我的路线
+      </button>
       <button type="button" onClick={onOpenTitle} role="menuitem">
         返回标题
       </button>
@@ -93,8 +103,13 @@ export function SystemMenu({
         </button>
       ) : null}
       {showDevTools && onToggleDevTools ? (
-        <button type="button" onClick={onOpenMap} role="menuitem">
-          Creator Map
+        <button
+          type="button"
+          onClick={onOpenCreatorMap}
+          data-testid="creator-map-menu-button"
+          role="menuitem"
+        >
+          创作地图
         </button>
       ) : null}
     </div>

@@ -62,6 +62,10 @@ const loadStoryMapPreviewModule = createModulePreloader(() => import("./views/St
 const StoryMapPreview = lazy(() =>
   loadStoryMapPreviewModule().then(({ StoryMapPreview }) => ({ default: StoryMapPreview })),
 );
+const loadPlayerPathPanelModule = createModulePreloader(() => import("./views/PlayerPathPanel"));
+const PlayerPathPanel = lazy(() =>
+  loadPlayerPathPanelModule().then(({ PlayerPathPanel }) => ({ default: PlayerPathPanel })),
+);
 const loadVisualNovelModule = createModulePreloader(() => import("./views/VisualNovelPrototype"));
 const VisualNovelPrototype = lazy(() =>
   loadVisualNovelModule().then(({ VisualNovelPrototype }) => ({
@@ -107,7 +111,12 @@ async function preloadStoryPresentation(
   const artPromise = scene?.artKey
     ? preloadDecodedImage(`/assets/scenes/${scene.artKey}.jpg`)
     : Promise.resolve();
-  await Promise.all([loadVisualNovelModule(), loadStoryMapPreviewModule(), artPromise]);
+  await Promise.all([
+    loadVisualNovelModule(),
+    loadStoryMapPreviewModule(),
+    loadPlayerPathPanelModule(),
+    artPromise,
+  ]);
 }
 
 export function App() {
@@ -129,6 +138,7 @@ export function App() {
   const [displayNames, setDisplayNames] = useState<DisplayNameMap>(() => loadDisplayNames());
   const [portraitPack, setPortraitPack] = useState<PortraitPackState>(() => loadPortraitPack());
   const [isCreatorMapOpen, setCreatorMapOpen] = useState(false);
+  const [isPlayerPathOpen, setPlayerPathOpen] = useState(false);
   const [unlockToast, setUnlockToast] = useState<string | null>(null);
   const [loadingTransition, setLoadingTransition] = useState<{
     kind: AtomicLoadingKind;
@@ -510,7 +520,7 @@ export function App() {
 
   return (
     <main className="app-shell" data-screen={screen}>
-      <OrientationGate />
+      {!isPlayerPathOpen ? <OrientationGate /> : null}
       {screen === "title" ? (
         titleReady ? (
           <Suspense fallback={<AtomicLoadingOverlay kind="title" />}>
@@ -600,7 +610,8 @@ export function App() {
               }
               onChoose={handleChoose}
               onJumpTo={handleJumpTo}
-              onOpenMap={() => setCreatorMapOpen(true)}
+              onOpenPlayerPath={() => setPlayerPathOpen(true)}
+              onOpenCreatorMap={() => setCreatorMapOpen(true)}
               onReset={handleReset}
               onSave={handleManualSave}
               onOpenTitle={() => {
@@ -626,6 +637,7 @@ export function App() {
               isOpen={isCreatorMapOpen}
               onClose={() => setCreatorMapOpen(false)}
             />
+            <PlayerPathPanel isOpen={isPlayerPathOpen} onClose={() => setPlayerPathOpen(false)} />
           </>
         ) : null}
       </Suspense>

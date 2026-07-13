@@ -3,13 +3,14 @@
  * Pure orchestration helper — no React.
  */
 
-import { markChoiceTaken } from "../../persistence/pathMemory";
+import { recordChoiceSelected, type PlayerPathScope } from "../../persistence/pathMemory";
 import { recordStatsChoice, type SessionChoicePick } from "../../stats/choiceStatsClient";
 import type { InkStorySnapshot } from "../../story/inkStoryRunner";
 import type { StoryId } from "../../story/storyMapAdapter";
 
 export interface HostChoiceCommitInput {
   readonly storyId: StoryId;
+  readonly pathScope: PlayerPathScope;
   readonly snapshot: InkStorySnapshot;
   readonly choiceIndex: number;
   readonly sessionPicks: readonly SessionChoicePick[];
@@ -28,7 +29,12 @@ export function commitHostChoice(input: HostChoiceCommitInput): HostChoiceCommit
   let sessionPicks = input.sessionPicks;
   if (choice) {
     if (input.snapshot.sceneId) {
-      markChoiceTaken(input.storyId, input.snapshot.sceneId, choice.text, choice.choiceId);
+      recordChoiceSelected(input.pathScope, {
+        storyId: input.storyId,
+        sceneId: input.snapshot.sceneId,
+        label: choice.text,
+        choiceId: choice.choiceId ?? null,
+      });
     }
     const statsPick = recordStatsChoice(input.storyId, input.snapshot.sceneId, choice.text);
     if (statsPick) {

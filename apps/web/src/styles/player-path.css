@@ -1,0 +1,420 @@
+.player-path-backdrop {
+  --path-panel: rgba(19, 20, 31, 0.97);
+  --path-surface: rgba(255, 255, 255, 0.055);
+  --path-border: rgba(255, 255, 255, 0.16);
+  --path-text: #f8f5ff;
+  --path-muted: #b8b3c8;
+  --path-current: #ffe08a;
+  --path-visited: #b7a6ff;
+  --path-unselected: #9a98a5;
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(4, 4, 10, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.player-path-panel {
+  width: min(1180px, 100%);
+  height: min(790px, calc(100dvh - 48px));
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  overflow: hidden;
+  color: var(--path-text);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(125, 87, 255, 0.2), transparent 36%), var(--path-panel);
+  border: 1px solid var(--path-border);
+  border-radius: 22px;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.48);
+}
+
+.player-path-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 24px 16px;
+  border-bottom: 1px solid var(--path-border);
+}
+
+.player-path-header h2,
+.player-path-header p {
+  margin: 0;
+}
+
+.player-path-header h2 {
+  margin-top: 3px;
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  letter-spacing: 0.02em;
+}
+
+.player-path-header > div > p:last-child {
+  max-width: 720px;
+  margin-top: 8px;
+  color: var(--path-muted);
+  line-height: 1.55;
+}
+
+.player-path-eyebrow,
+.player-path-detail-kicker {
+  color: var(--path-current);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.player-path-close,
+.player-path-tabs button,
+.player-path-linear button {
+  min-height: 44px;
+  color: inherit;
+  font: inherit;
+  border: 1px solid var(--path-border);
+  border-radius: 12px;
+  background: var(--path-surface);
+  cursor: pointer;
+}
+
+.player-path-close {
+  min-width: 72px;
+  padding: 0 18px;
+}
+
+.player-path-close:hover,
+.player-path-close:focus-visible,
+.player-path-tabs button:focus-visible,
+.player-path-linear button:focus-visible {
+  outline: 2px solid var(--path-current);
+  outline-offset: 2px;
+}
+
+.player-path-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 24px;
+}
+
+.player-path-tabs button {
+  padding: 0 18px;
+  color: var(--path-muted);
+}
+
+.player-path-tabs button[aria-selected="true"] {
+  color: var(--path-text);
+  border-color: rgba(255, 224, 138, 0.65);
+  background: rgba(255, 224, 138, 0.1);
+}
+
+.player-path-content {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 14px;
+  padding: 0 18px 18px;
+}
+
+.player-path-graph,
+.player-path-linear,
+.player-path-detail {
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid var(--path-border);
+  border-radius: 16px;
+  background: rgba(5, 6, 14, 0.52);
+}
+
+.player-path-graph.is-hidden,
+.player-path-linear.is-hidden {
+  display: none;
+}
+
+.player-path-graph .react-flow__pane {
+  cursor: grab;
+}
+
+.player-path-node {
+  width: 184px !important;
+  min-height: 72px;
+  display: grid;
+  place-items: center;
+  padding: 10px 14px;
+  color: var(--path-text);
+  text-align: center;
+  line-height: 1.35;
+  white-space: normal;
+  border: 1px solid var(--path-border) !important;
+  border-radius: 14px !important;
+  background: rgba(37, 35, 57, 0.96) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.32);
+}
+
+.player-path-node--current {
+  border-color: var(--path-current) !important;
+  box-shadow:
+    0 0 0 3px rgba(255, 224, 138, 0.18),
+    0 12px 36px rgba(0, 0, 0, 0.4);
+}
+
+.player-path-node--visited {
+  border-color: var(--path-visited) !important;
+}
+
+.player-path-node--locked {
+  color: var(--path-muted);
+  border-style: dashed !important;
+  background: rgba(28, 28, 37, 0.92) !important;
+}
+
+.player-path-edge--selected .react-flow__edge-path {
+  stroke: var(--path-current);
+  stroke-width: 3;
+}
+
+.player-path-edge--available_unselected .react-flow__edge-path {
+  stroke: var(--path-unselected);
+  stroke-width: 2;
+  stroke-dasharray: 7 6;
+}
+
+.player-path-graph .react-flow__edge-text {
+  fill: var(--path-text);
+  font-size: 12px;
+}
+
+.player-path-graph .react-flow__edge-textbg {
+  fill: #171822;
+  fill-opacity: 0.96;
+}
+
+.player-path-graph .react-flow__controls {
+  overflow: hidden;
+  border: 1px solid var(--path-border);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.player-path-graph .react-flow__controls-button {
+  color: var(--path-text);
+  background: #232431;
+  border-bottom-color: var(--path-border);
+}
+
+.player-path-linear {
+  overflow: auto;
+  padding: 14px;
+}
+
+.player-path-linear > ol,
+.player-path-linear ul,
+.player-path-detail ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.player-path-linear > ol {
+  display: grid;
+  gap: 12px;
+}
+
+.player-path-linear > ol > li {
+  padding: 10px;
+  border: 1px solid var(--path-border);
+  border-radius: 14px;
+  background: var(--path-surface);
+}
+
+.player-path-linear > ol > li.is-current {
+  border-color: var(--path-current);
+}
+
+.player-path-linear button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  text-align: left;
+}
+
+.player-path-linear button span:last-child {
+  display: grid;
+  gap: 3px;
+}
+
+.player-path-linear small {
+  color: var(--path-muted);
+}
+
+.player-path-step {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: #17131f;
+  background: var(--path-current);
+  font-weight: 900;
+}
+
+.player-path-linear ul {
+  display: grid;
+  gap: 6px;
+  padding: 9px 12px 0 56px;
+  color: var(--path-muted);
+  font-size: 0.88rem;
+}
+
+.player-path-linear li.is-selected,
+.player-path-detail li.is-selected span {
+  color: var(--path-current);
+}
+
+.player-path-linear li.is-unselected,
+.player-path-detail li.is-unselected span {
+  color: var(--path-unselected);
+}
+
+.player-path-detail {
+  overflow: auto;
+  padding: 20px;
+}
+
+.player-path-detail h3 {
+  margin: 8px 0 10px;
+  font-size: 1.25rem;
+}
+
+.player-path-detail p {
+  color: var(--path-muted);
+  line-height: 1.6;
+}
+
+.player-path-detail ul {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.player-path-detail li {
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--path-unselected);
+  background: var(--path-surface);
+}
+
+.player-path-detail li.is-selected {
+  border-left-color: var(--path-current);
+}
+
+.player-path-detail li span {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.player-path-no-jump {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--path-border);
+  font-size: 0.82rem;
+}
+
+.player-path-empty {
+  align-self: center;
+  justify-self: center;
+  max-width: 560px;
+  padding: 40px 24px;
+  color: var(--path-muted);
+  text-align: center;
+  line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+  .player-path-backdrop {
+    padding: 0;
+  }
+
+  .player-path-panel {
+    width: 100%;
+    height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .player-path-header {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .player-path-header > div > p:last-child {
+    font-size: 0.86rem;
+  }
+
+  .player-path-tabs {
+    padding: 10px 16px;
+  }
+
+  .player-path-tabs button {
+    flex: 1;
+  }
+
+  .player-path-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(300px, 1fr) auto;
+    padding: 0 10px 10px;
+  }
+
+  .player-path-detail {
+    max-height: 34dvh;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .player-path-header {
+    padding: 10px 14px 8px;
+  }
+
+  .player-path-header > div > p:last-child,
+  .player-path-eyebrow {
+    display: none;
+  }
+
+  .player-path-tabs {
+    position: absolute;
+    top: 10px;
+    right: 98px;
+    padding: 0;
+  }
+
+  .player-path-tabs button {
+    min-height: 40px;
+  }
+
+  .player-path-content {
+    grid-template-columns: minmax(0, 1fr) 270px;
+    grid-template-rows: minmax(0, 1fr);
+    padding-top: 10px;
+  }
+
+  .player-path-detail {
+    max-height: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player-path-panel *,
+  .player-path-panel *::before,
+  .player-path-panel *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

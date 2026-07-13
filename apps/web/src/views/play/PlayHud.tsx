@@ -34,7 +34,8 @@ interface PlayHudProps {
   readonly onOpenAchievements?: () => void;
   readonly onOpenTitle: () => void;
   readonly onToggleDevTools?: () => void;
-  readonly onOpenMap: () => void;
+  readonly onOpenPlayerPath: () => void;
+  readonly onOpenCreatorMap: () => void;
 }
 
 export function PlayHud({
@@ -66,7 +67,8 @@ export function PlayHud({
   onOpenAchievements,
   onOpenTitle,
   onToggleDevTools,
-  onOpenMap,
+  onOpenPlayerPath,
+  onOpenCreatorMap,
 }: PlayHudProps) {
   return (
     <header className="vn-hud">
@@ -176,7 +178,8 @@ export function PlayHud({
             onOpenAchievements={onOpenAchievements}
             onOpenTitle={onOpenTitle}
             onToggleDevTools={onToggleDevTools}
-            onOpenMap={onOpenMap}
+            onOpenPlayerPath={onOpenPlayerPath}
+            onOpenCreatorMap={onOpenCreatorMap}
           />
         </div>
       </div>

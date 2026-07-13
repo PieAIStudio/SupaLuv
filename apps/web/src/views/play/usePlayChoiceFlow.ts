@@ -5,6 +5,7 @@
  */
 
 import { useCallback, useEffect } from "react";
+import { getNarrativeGraphPlayerSkeleton } from "@supaluv/content";
 import { gameAudio } from "../../audio/gameAudio";
 import { shouldOpenRpsDuel } from "../../coplay/rpsRules";
 import type { CoPlaySessionApi } from "../../coplay/useCoPlaySession";
@@ -12,6 +13,12 @@ import type { InkStorySnapshot } from "../../story/inkStoryRunner";
 import type { StoryId } from "../../story/storyMapAdapter";
 import type { SessionChoicePick } from "../../stats/choiceStatsClient";
 import { commitHostChoice as applyHostChoice } from "./commitHostChoice";
+
+const playerGraph = getNarrativeGraphPlayerSkeleton();
+const pathScope = {
+  packageId: playerGraph.packageId,
+  revision: playerGraph.revision,
+} as const;
 
 export function usePlayChoiceFlow(input: {
   readonly storyId: StoryId;
@@ -52,6 +59,7 @@ export function usePlayChoiceFlow(input: {
       cancelAi();
       const result = applyHostChoice({
         storyId,
+        pathScope,
         snapshot,
         choiceIndex: index,
         sessionPicks: sessionStatsPicksRef.current,
