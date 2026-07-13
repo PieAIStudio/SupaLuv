@@ -1,72 +1,26 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
   createConfiguredPersistenceModules,
   createInMemoryPersistenceModules,
   createSupabasePersistenceModules,
   EndingVersionConflictError,
-  ReceiptConflictError,
   type CharacterGenerationStore,
   type EndingSessionStore,
   type PersistenceModules,
-  type SideBranchSpendInput,
-  type SideBranchSpendRecorder,
 } from "../../services/ai-branch/src/persistence/index";
 import { describe, expect, it, vi } from "vitest";
-
-/**
- * Compile-time seam proof: character/ending action and scope fields cannot cross
- * SideBranchSpendRecorder.recordSideBranchSpend. These @ts-expect-error lines fail
- * typecheck if the public input ever re-admits actionKind or scopeType.
- */
-function sideBranchSeamTypeProof(recorder: SideBranchSpendRecorder): void {
-  void recorder.recordSideBranchSpend({
-    ownerId: "owner",
-    walletReservationId: "reservation",
-    amountPowerUnits: 1,
-    metadata: {},
-    // @ts-expect-error character actionKind cannot cross the side-branch spend seam
-    actionKind: "character_base",
-  });
-
-  void recorder.recordSideBranchSpend({
-    ownerId: "owner",
-    walletReservationId: "reservation",
-    amountPowerUnits: 1,
-    metadata: {},
-    // @ts-expect-error ending actionKind cannot cross the side-branch spend seam
-    actionKind: "ai_ending_segment",
-  });
-
-  void recorder.recordSideBranchSpend({
-    ownerId: "owner",
-    walletReservationId: "reservation",
-    amountPowerUnits: 1,
-    metadata: {},
-    // @ts-expect-error character scopeType cannot cross the side-branch spend seam
-    scopeType: "character_pack",
-  });
-
-  void recorder.recordSideBranchSpend({
-    ownerId: "owner",
-    walletReservationId: "reservation",
-    amountPowerUnits: 1,
-    metadata: {},
-    // @ts-expect-error ending scopeType cannot cross the side-branch spend seam
-    scopeType: "ai_ending_session",
-  });
-
-  // Valid shape still type-checks (unused at runtime; keeps proof compilation honest).
-  const valid: SideBranchSpendInput = {
-    ownerId: "owner",
-    walletReservationId: "reservation",
-    amountPowerUnits: 1,
-    metadata: {},
-  };
-  void valid;
-}
 
 function memory(): PersistenceModules {
   return createInMemoryPersistenceModules();
 }
+
+const DELETED_SIDE_BRANCH_SYMBOLS = [
+  "SideBranchSpendRecorder",
+  "recordSideBranchSpend",
+  "SideBranchSpendInput",
+  "sideBranchSpend",
+] as const;
 
 async function seedPack(store: CharacterGenerationStore, ownerId = "owner-a", packId = "pack-1") {
   await store.saveCharacterPack({
@@ -271,17 +225,8 @@ describe("commercial persistence modules (in-memory)", () => {
     await expect(store.getCharacterPack("owner-a", "pack-1")).resolves.toMatchObject({
       status: "base_ready",
     });
-
-    // Same reservation cannot be rewritten through the side-branch seam (adapter fixes kinds;
-    // still conflicts with the character settle receipt on the shared ledger).
-    await expect(
-      modules.sideBranchSpend.recordSideBranchSpend({
-        ownerId: "owner-a",
-        walletReservationId: "reservation-settle",
-        amountPowerUnits: 100,
-        metadata: {},
-      }),
-    ).rejects.toBeInstanceOf(ReceiptConflictError);
+    // Receipt list remains owner-scoped and read-only (no side-branch writer surface).
+    expect(modules).not.toHaveProperty("sideBranchSpend");
 
     // Failed claim token is rejected.
     await seedPack(store, "owner-a", "pack-2");
@@ -375,33 +320,31 @@ describe("commercial persistence modules (in-memory)", () => {
     expect(checkpoints).toHaveLength(2);
   });
 
-  it("records one side-branch receipt per wallet reservation and rejects conflicting reuse", async () => {
+  it("does not expose the deleted SideBranchSpendRecorder surface", () => {
     const modules = memory();
-    const input: SideBranchSpendInput = {
-      ownerId: "owner-a",
-      walletReservationId: "reservation-1",
-      scopeId: "run-1",
-      amountPowerUnits: 30,
-      metadata: { sceneId: "ch01-demo" },
-    };
+    expect(modules).not.toHaveProperty("sideBranchSpend");
+    expect(Object.keys(modules).sort()).toEqual([
+      "characterGeneration",
+      "endingSession",
+      "spendReceipts",
+    ]);
 
-    const first = await modules.sideBranchSpend.recordSideBranchSpend(input);
-    const replay = await modules.sideBranchSpend.recordSideBranchSpend(input);
-
-    expect(first.idempotent).toBe(false);
-    expect(first.actionKind).toBe("ai_side_choice");
-    expect(first.scopeType).toBe("story_run");
-    expect(replay).toEqual({ ...first, idempotent: true });
-    await expect(
-      modules.sideBranchSpend.recordSideBranchSpend({ ...input, amountPowerUnits: 99 }),
-    ).rejects.toBeInstanceOf(ReceiptConflictError);
-    await expect(modules.spendReceipts.listSpendReceipts("owner-a")).resolves.toHaveLength(1);
-  });
-
-  it("exposes a side-branch spend seam without caller-controlled actionKind/scopeType", () => {
-    // TypeScript checks the function body; reference it without executing invalid examples.
-    void sideBranchSeamTypeProof;
-    expect(true).toBe(true);
+    const persistenceRoot = join(process.cwd(), "services/ai-branch/src/persistence");
+    for (const name of [
+      "types.ts",
+      "spendReceipts.ts",
+      "index.ts",
+      "compose.ts",
+      "memory.ts",
+      "supabase.ts",
+      "README.md",
+    ] as const) {
+      const source = readFileSync(join(persistenceRoot, name), "utf8");
+      for (const symbol of DELETED_SIDE_BRANCH_SYMBOLS) {
+        expect(source).not.toContain(symbol);
+      }
+      expect(source).not.toContain("record_spend_receipt");
+    }
   });
 
   it("fails closed in production when server credentials are absent", () => {

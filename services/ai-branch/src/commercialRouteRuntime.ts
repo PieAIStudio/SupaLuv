@@ -34,6 +34,7 @@ import type { CharacterPackRouteDependencies } from "./characterRoutes.js";
 import type { EndingRouteDependencies } from "./endingRoutes.js";
 import { createEndingSessionService } from "./endingSessionService.js";
 import { createConfiguredEndingGenerator } from "./mastraEnding.js";
+import { resolveCommercialServerCredentials } from "./commercialServerConfig.js";
 import {
   createInMemoryPersistenceModules,
   createSupabasePersistenceFromClient,
@@ -86,10 +87,11 @@ type SharedDatabaseCore = {
 };
 
 function readEnvFromProcess(): CommercialRouteEnv {
+  const creds = resolveCommercialServerCredentials();
   return {
     nodeEnv: process.env.NODE_ENV,
-    supabaseUrl: process.env.SWIMMER_CORE_SUPABASE_URL,
-    serviceRoleKey: process.env.SWIMMER_CORE_SECRET_KEY,
+    supabaseUrl: creds?.supabaseUrl,
+    serviceRoleKey: creds?.serviceRoleKey,
     sightengineApiUser: process.env.SIGHTENGINE_API_USER,
     sightengineApiSecret: process.env.SIGHTENGINE_API_SECRET,
     referenceCleanupSecret: process.env.SUPALUV_REFERENCE_CLEANUP_SECRET,
@@ -161,11 +163,15 @@ export function createCommercialRouteRuntime(
   }
 
   function credentials(): { readonly url: string; readonly key: string } | null {
+    // Deterministic tests inject via options.env (supabaseUrl / serviceRoleKey).
+    // Live paths use resolveCommercialServerCredentials (canonical vars only).
     const snapshot = env();
-    const url = snapshot.supabaseUrl?.trim() ?? "";
-    const key = snapshot.serviceRoleKey?.trim() ?? "";
-    if (!url || !key) return null;
-    return { url, key };
+    const resolved = resolveCommercialServerCredentials({
+      SWIMMER_CORE_SUPABASE_URL: snapshot.supabaseUrl,
+      SWIMMER_CORE_SECRET_KEY: snapshot.serviceRoleKey,
+    });
+    if (!resolved) return null;
+    return { url: resolved.supabaseUrl, key: resolved.serviceRoleKey };
   }
 
   function ensureSharedCore(): SharedDatabaseCore | null {

@@ -1,15 +1,13 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { CharacterGenerationStore } from "./characterGenerationStore.js";
 import type { EndingSessionStore } from "./endingSessionStore.js";
-import { EndingVersionConflictError, ReceiptConflictError } from "./errors.js";
-import type { SideBranchSpendRecorder, SpendReceiptReader } from "./spendReceipts.js";
+import { EndingVersionConflictError } from "./errors.js";
+import type { SpendReceiptReader } from "./spendReceipts.js";
 import { asRow, clone, mapGeneratedAsset, mapPack, requireData } from "./shared.js";
 import type {
   EndingSessionRecord,
   ReferenceAssetRecord,
-  SideBranchSpendInput,
   SpendReceiptInput,
-  SpendReceiptRecord,
   StoryRunRecord,
 } from "./types.js";
 
@@ -17,44 +15,7 @@ export type SupabasePersistenceModules = {
   readonly characterGeneration: CharacterGenerationStore;
   readonly endingSession: EndingSessionStore;
   readonly spendReceipts: SpendReceiptReader;
-  /** Side-branch analytics only; character/ending must use settle*. */
-  readonly sideBranchSpend: SideBranchSpendRecorder;
 };
-
-function createSideBranchSpendRecorder(
-  product: ReturnType<SupabaseClient["schema"]>,
-): SideBranchSpendRecorder {
-  return {
-    async recordSideBranchSpend(input: SideBranchSpendInput): Promise<SpendReceiptRecord> {
-      // Structural fixed kinds — callers cannot choose character/ending action or scope.
-      const actionKind = "ai_side_choice" as const;
-      const scopeType = "story_run" as const;
-      const result = await product.rpc("record_spend_receipt", {
-        p_owner_id: input.ownerId,
-        p_wallet_reservation_id: input.walletReservationId,
-        p_action_kind: actionKind,
-        p_scope_type: scopeType,
-        p_scope_id: input.scopeId ?? null,
-        p_amount_power_units: input.amountPowerUnits,
-        p_metadata: input.metadata,
-      });
-      if (result.error?.code === "23505") throw new ReceiptConflictError();
-      const rows = requireData(result, "record spend receipt");
-      const row = asRow(Array.isArray(rows) ? rows[0] : rows);
-      return {
-        ownerId: input.ownerId,
-        walletReservationId: input.walletReservationId,
-        actionKind,
-        scopeType,
-        ...(input.scopeId ? { scopeId: input.scopeId } : {}),
-        amountPowerUnits: input.amountPowerUnits,
-        metadata: clone(input.metadata),
-        id: String(row.receipt_id),
-        idempotent: Boolean(row.idempotent),
-      };
-    },
-  };
-}
 
 function createSpendReceiptReader(
   product: ReturnType<SupabaseClient["schema"]>,
@@ -580,6 +541,5 @@ export function createSupabasePersistenceModules(
     characterGeneration: createCharacterGenerationStore(product),
     endingSession: createEndingSessionStore(product),
     spendReceipts: createSpendReceiptReader(product),
-    sideBranchSpend: createSideBranchSpendRecorder(product),
   };
 }

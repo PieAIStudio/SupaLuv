@@ -1,6 +1,6 @@
 # Server commercial persistence
 
-Last reviewed: 2026-07-13 (Round A rework)
+Last reviewed: 2026-07-13 (Round E commercial hygiene)
 
 ## Responsibility
 
@@ -12,11 +12,15 @@ Atomic commercial persistence for SupaLuv server AI features:
 | `EndingSessionStore`       | story runs, ending sessions, checkpoints    | `settleEndingCheckpoint`    |
 | `SpendReceiptReader`       | list/read spend receipts                    | none (read only)            |
 
-Side-branch AI option receipts use `SideBranchSpendRecorder.recordSideBranchSpend` after successful delivery. That method accepts only `SideBranchSpendInput` (no `actionKind` / `scopeType`); adapters always write `actionKind: "ai_side_choice"` and `scopeType: "story_run"`. Character and ending charges must never use that path — only `settle*`.
+AI side-choice settlement is **not** a persistence writer. The sole production
+path is `routeTable` → `walletMeter.settleReservation` → Supabase RPC
+`supaluv.settle_spend_receipt` (atomic wallet commit + idempotent receipt).
+Character and ending charges must never use that wallet path for domain writes —
+only their store `settle*` methods.
 
 ## Not responsible
 
-- Wallet reserve/commit/refund (`walletMeter.ts`)
+- Wallet reserve/commit/refund/settle (`walletMeter.ts`)
 - HTTP routes, moderation, image providers
 - Browser save state (`apps/web/src/persistence/`)
 - Reading `process.env` (composition stays in `commercialRouteRuntime.ts` / `compose.ts`)
@@ -39,4 +43,4 @@ pnpm typecheck
 
 ## Stability
 
-Evolving seam (Round A). Observable commercial behaviour frozen; module boundaries may deepen further.
+Evolving seam. Observable commercial behaviour frozen; module boundaries may deepen further.

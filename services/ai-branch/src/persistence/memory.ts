@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { CharacterGenerationStore } from "./characterGenerationStore.js";
 import type { EndingSessionStore } from "./endingSessionStore.js";
 import { EndingVersionConflictError, ReceiptConflictError } from "./errors.js";
-import type { SideBranchSpendRecorder, SpendReceiptReader } from "./spendReceipts.js";
+import type { SpendReceiptReader } from "./spendReceipts.js";
 import { clone, sameReceipt } from "./shared.js";
 import type {
   CharacterPackRecord,
@@ -10,7 +10,6 @@ import type {
   EndingSessionRecord,
   GeneratedAssetRecord,
   ReferenceAssetRecord,
-  SideBranchSpendInput,
   SpendReceiptInput,
   SpendReceiptRecord,
   StoryRunRecord,
@@ -21,8 +20,6 @@ export type InMemoryPersistenceModules = {
   readonly characterGeneration: CharacterGenerationStore;
   readonly endingSession: EndingSessionStore;
   readonly spendReceipts: SpendReceiptReader;
-  /** Side-branch analytics only; character/ending must use settle*. */
-  readonly sideBranchSpend: SideBranchSpendRecorder;
 };
 
 type GenerationActionRow = {
@@ -35,16 +32,6 @@ type GenerationActionRow = {
 
 function createReceiptLedger(receipts: Map<string, SpendReceiptRecord>) {
   return {
-    async recordSpendReceipt(input: SpendReceiptInput): Promise<SpendReceiptRecord> {
-      const existing = receipts.get(input.walletReservationId);
-      if (existing) {
-        if (!sameReceipt(existing, input)) throw new ReceiptConflictError();
-        return { ...clone(existing), idempotent: true };
-      }
-      const receipt: SpendReceiptRecord = { ...clone(input), id: randomUUID(), idempotent: false };
-      receipts.set(input.walletReservationId, receipt);
-      return clone(receipt);
-    },
     async listSpendReceipts(ownerId: string): Promise<readonly SpendReceiptRecord[]> {
       return [...receipts.values()].filter((record) => record.ownerId === ownerId).map(clone);
     },
@@ -354,19 +341,6 @@ export function createInMemoryPersistenceModules(): InMemoryPersistenceModules {
     endingSession,
     spendReceipts: {
       listSpendReceipts: ledger.listSpendReceipts,
-    },
-    sideBranchSpend: {
-      async recordSideBranchSpend(input: SideBranchSpendInput): Promise<SpendReceiptRecord> {
-        return ledger.recordSpendReceipt({
-          ownerId: input.ownerId,
-          walletReservationId: input.walletReservationId,
-          actionKind: "ai_side_choice",
-          scopeType: "story_run",
-          ...(input.scopeId ? { scopeId: input.scopeId } : {}),
-          amountPowerUnits: input.amountPowerUnits,
-          metadata: input.metadata,
-        });
-      },
     },
   };
 }

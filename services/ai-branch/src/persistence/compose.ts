@@ -2,18 +2,13 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { CharacterGenerationStore } from "./characterGenerationStore.js";
 import type { EndingSessionStore } from "./endingSessionStore.js";
 import { createInMemoryPersistenceModules } from "./memory.js";
-import type { SideBranchSpendRecorder, SpendReceiptReader } from "./spendReceipts.js";
+import type { SpendReceiptReader } from "./spendReceipts.js";
 import { createSupabasePersistenceModules } from "./supabase.js";
 
 export type PersistenceModules = {
   readonly characterGeneration: CharacterGenerationStore;
   readonly endingSession: EndingSessionStore;
   readonly spendReceipts: SpendReceiptReader;
-  /**
-   * Side-branch AI option receipts only.
-   * Not part of SpendReceiptReader: character/ending charge writes stay inside settle*.
-   */
-  readonly sideBranchSpend: SideBranchSpendRecorder;
 };
 
 export type ConfiguredPersistenceOptions = {
@@ -24,8 +19,9 @@ export type ConfiguredPersistenceOptions = {
 };
 
 /**
- * Build the three commercial persistence modules (plus side-branch receipt writer).
+ * Build the three commercial persistence modules.
  * Source/config construction stays here — domain interfaces never read process.env.
+ * AI side-choice settlement is walletMeter.settleReservation, not a persistence writer.
  */
 export function createConfiguredPersistenceModules(
   options: ConfiguredPersistenceOptions,

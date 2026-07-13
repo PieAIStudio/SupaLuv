@@ -4,10 +4,18 @@
  *
  * When SWIMMER_CORE_SECRET_KEY is missing, metering is "open" only if
  * SUPALUV_WALLET_OPTIONAL=1 (local framework); otherwise AI/TTS spend is denied.
+ *
+ * Credentials: SWIMMER_CORE_SUPABASE_URL + SWIMMER_CORE_SECRET_KEY only
+ * (see commercialServerConfig.ts). Browser VITE_* keys and generic service-role
+ * aliases do not enable metering.
  */
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
+import {
+  commercialServerCredentialsConfigured,
+  resolveCommercialServerCredentials,
+} from "./commercialServerConfig.js";
 
 const POWER_PER_BATTERY = 100;
 
@@ -18,25 +26,8 @@ function appId(): string {
   return (process.env.SUPALUV_SWIMMER_APP_ID ?? "supaluv").trim() || "supaluv";
 }
 
-function coreUrl(): string {
-  return (
-    process.env.SWIMMER_CORE_SUPABASE_URL ||
-    process.env.VITE_SWIMMER_CORE_SUPABASE_URL ||
-    process.env.VITE_SUPABASE_URL ||
-    ""
-  ).trim();
-}
-
-function serviceKey(): string {
-  return (
-    process.env.SWIMMER_CORE_SECRET_KEY ||
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    ""
-  ).trim();
-}
-
 export function walletMeterConfigured(): boolean {
-  return Boolean(coreUrl() && serviceKey());
+  return commercialServerCredentialsConfigured();
 }
 
 export function walletOptionalMode(): boolean {
@@ -44,12 +35,11 @@ export function walletOptionalMode(): boolean {
 }
 
 function adminClient(): SupabaseClient | null {
-  const url = coreUrl();
-  const key = serviceKey();
-  if (!url || !key) {
+  const creds = resolveCommercialServerCredentials();
+  if (!creds) {
     return null;
   }
-  return createClient(url, key, {
+  return createClient(creds.supabaseUrl, creds.serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 }

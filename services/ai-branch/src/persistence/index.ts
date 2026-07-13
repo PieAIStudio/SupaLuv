@@ -10,7 +10,6 @@ export type {
   AdvanceEndingCheckpointInput,
   EndingCheckpointRecord,
   SpendReceiptInput,
-  SideBranchSpendInput,
   SpendReceiptRecord,
   SettleCharacterGenerationInput,
   SettleEndingCheckpointInput,
@@ -20,7 +19,7 @@ export { EndingVersionConflictError, ReceiptConflictError } from "./errors.js";
 
 export type { CharacterGenerationStore } from "./characterGenerationStore.js";
 export type { EndingSessionStore } from "./endingSessionStore.js";
-export type { SpendReceiptReader, SideBranchSpendRecorder } from "./spendReceipts.js";
+export type { SpendReceiptReader } from "./spendReceipts.js";
 
 export { createInMemoryPersistenceModules, type InMemoryPersistenceModules } from "./memory.js";
 export { createSupabasePersistenceModules, type SupabasePersistenceModules } from "./supabase.js";

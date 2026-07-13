@@ -8,12 +8,17 @@ import {
   createCommercialRouteRuntime,
   getCommercialRouteRuntime,
 } from "../../services/ai-branch/src/commercialRouteRuntime.js";
+import {
+  commercialServerCredentialsConfigured,
+  resolveCommercialServerCredentials,
+} from "../../services/ai-branch/src/commercialServerConfig.js";
 import { handleEndingRoute } from "../../services/ai-branch/src/endingRoutes.js";
 import { sendJson } from "../../services/ai-branch/src/httpUtils.js";
 import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index.js";
 import { handleAiBranchRequest } from "../../services/ai-branch/src/routeTable.js";
 import { normalizeAiBranchServiceUrl } from "../../services/ai-branch/src/serviceMount.js";
 import { handleSpendRoute } from "../../services/ai-branch/src/spendRoutes.js";
+import { walletMeterConfigured } from "../../services/ai-branch/src/walletMeter.js";
 
 let server: Server | undefined;
 
@@ -195,14 +200,73 @@ describe("commercial route runtime composition", () => {
     const pack = await packDeps.store.getCharacterPack("owner-a", "pack-1");
     expect(pack?.clientPackId).toBe("client-pack-1");
 
-    await persistence.sideBranchSpend.recordSideBranchSpend({
-      ownerId: "owner-a",
-      walletReservationId: "res-1",
-      amountPowerUnits: 50,
-      metadata: { storyId: "ch01", sceneId: "s1" },
-    });
+    // Spend reader is available via the same injected persistence (read-only).
     const receipts = await runtime.getSpendReceiptReader().listSpendReceipts("owner-a");
-    expect(receipts).toHaveLength(1);
+    expect(receipts).toEqual([]);
+    expect(persistence).not.toHaveProperty("sideBranchSpend");
+  });
+
+  it("agrees with walletMeter on configured vs unconfigured commercial credentials", () => {
+    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "");
+    vi.stubEnv("SWIMMER_CORE_SECRET_KEY", "");
+    vi.stubEnv("VITE_SWIMMER_CORE_SUPABASE_URL", "https://vite.invalid");
+    vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "generic-service-role");
+
+    expect(resolveCommercialServerCredentials()).toBeNull();
+    expect(commercialServerCredentialsConfigured()).toBe(false);
+    expect(walletMeterConfigured()).toBe(false);
+
+    const unconfigured = createCommercialRouteRuntime();
+    expect(() => unconfigured.getSpendReceiptReader()).toThrow(
+      /Spend analysis database credentials are required/,
+    );
+
+    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "  https://core.invalid  ");
+    vi.stubEnv("SWIMMER_CORE_SECRET_KEY", "  secret-key  ");
+
+    expect(resolveCommercialServerCredentials()).toEqual({
+      supabaseUrl: "https://core.invalid",
+      serviceRoleKey: "secret-key",
+    });
+    expect(walletMeterConfigured()).toBe(true);
+    expect(commercialServerCredentialsConfigured()).toBe(true);
+
+    // Deterministic injection still trims and enables shared construction without process secrets.
+    const { runtime, clientFactory } = testRuntime({
+      env: {
+        nodeEnv: "test",
+        supabaseUrl: "  https://injected.invalid  ",
+        serviceRoleKey: "  injected-key  ",
+      },
+    });
+    runtime.getSpendReceiptReader();
+    expect(clientFactory).toHaveBeenCalledWith(
+      "https://injected.invalid",
+      "injected-key",
+      expect.any(Object),
+    );
+  });
+
+  it("does not resolve commercial credentials from deprecated aliases in source", () => {
+    const root = join(process.cwd(), "services/ai-branch/src");
+    const stripComments = (source: string) =>
+      source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
+    for (const name of [
+      "walletMeter.ts",
+      "commercialRouteRuntime.ts",
+      "commercialServerConfig.ts",
+    ]) {
+      const code = stripComments(readFileSync(join(root, name), "utf8"));
+      expect(code).not.toContain("VITE_SWIMMER_CORE_SUPABASE_URL");
+      expect(code).not.toContain("VITE_SUPABASE_URL");
+      expect(code).not.toContain("SUPABASE_SERVICE_ROLE_KEY");
+    }
+    const walletSource = readFileSync(join(root, "walletMeter.ts"), "utf8");
+    expect(walletSource).toContain("resolveCommercialServerCredentials");
+    expect(walletSource).toContain("settleReservation");
+    const configSource = readFileSync(join(root, "commercialServerConfig.ts"), "utf8");
+    expect(configSource).toContain("SWIMMER_CORE_SUPABASE_URL");
+    expect(configSource).toContain("SWIMMER_CORE_SECRET_KEY");
   });
 
   it("retries shared construction after a transient factory failure", () => {

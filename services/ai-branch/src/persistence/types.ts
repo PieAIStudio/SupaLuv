@@ -121,19 +121,6 @@ export type SpendReceiptInput = {
   readonly metadata: Readonly<Record<string, unknown>>;
 };
 
-/**
- * Public input for side-branch AI option receipts only.
- * Callers cannot supply actionKind/scopeType — adapters fix those to
- * `ai_side_choice` / `story_run` so character/ending settle* cannot be bypassed.
- */
-export type SideBranchSpendInput = {
-  readonly ownerId: string;
-  readonly walletReservationId: string;
-  readonly amountPowerUnits: number;
-  readonly metadata: Readonly<Record<string, unknown>>;
-  readonly scopeId?: string;
-};
-
 export type SpendReceiptRecord = SpendReceiptInput & {
   readonly id: string;
   readonly idempotent: boolean;
