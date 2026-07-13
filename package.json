@@ -37,8 +37,8 @@
   "devDependencies": {
     "@pieai/doc-gov": "0.7.1",
     "@pieai/pro-gov": "0.7.1",
-    "@pieai/swimmer-ai-kit": "file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz",
-    "@playwright/test": "1.59.1",
+    "@pieai/swimmer-ai-kit": "0.2.2",
+    "@playwright/test": "1.61.1",
     "@types/node": "24.13.2",
     "lefthook": "2.1.9",
     "oxfmt": "0.58.0",
@@ -46,6 +46,6 @@
     "sharp": "0.35.3",
     "typescript": "6.0.3",
     "vercel": "55.0.0",
-    "vitest": "4.1.5"
+    "vitest": "4.1.10"
   }
 }
