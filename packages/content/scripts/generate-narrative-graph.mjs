@@ -79,6 +79,7 @@ const sharedNg = await import(
   pathToFileURL(resolve(repoRoot, "packages/shared/src/narrative-graph.ts")).href
 );
 const {
+  assertNarrativeGraphIntegrity,
   narrativeSceneNodeId,
   narrativeChoiceEdgeId,
   narrativeChapterTransitionEdgeId,
@@ -174,7 +175,8 @@ function buildSourceIndex(inkSource, inkRelPath) {
     }
   }
 
-  // Collect first non-empty non-tag prose lines per scene for title/excerpt.
+  // Collect every non-empty non-structural prose line. Creator Studio uses
+  // these exact one-line source ranges as its only editable surface.
   for (const [sceneId, range] of sceneRanges) {
     const prose = [];
     for (let lineNo = range.startLine; lineNo <= range.endLine; lineNo += 1) {
@@ -191,7 +193,6 @@ function buildSourceIndex(inkSource, inkRelPath) {
       if (trimmed.startsWith("{") || trimmed.startsWith("}")) continue;
       if (trimmed.startsWith("- ")) continue;
       prose.push({ lineNo, text: trimmed });
-      if (prose.length >= 12) break;
     }
     range.textLines = prose;
     range.titleLine = prose[0]?.text ?? sceneId;
@@ -376,7 +377,27 @@ function sortById(items) {
   return [...items].sort((a, b) => a.id.localeCompare(b.id));
 }
 
-function buildPackageGraph() {
+function normalizeRepoPath(value) {
+  return value.split("\\").join("/");
+}
+
+function readSourceWithOverrides(absolutePath, sourceOverrides) {
+  const repoRelative = normalizeRepoPath(relative(repoRoot, absolutePath));
+  if (sourceOverrides instanceof Map && sourceOverrides.has(repoRelative)) {
+    return sourceOverrides.get(repoRelative);
+  }
+  if (
+    sourceOverrides &&
+    !(sourceOverrides instanceof Map) &&
+    Object.prototype.hasOwnProperty.call(sourceOverrides, repoRelative)
+  ) {
+    return sourceOverrides[repoRelative];
+  }
+  return readFileSync(absolutePath, "utf8");
+}
+
+function buildPackageGraph(options = {}) {
+  const sourceOverrides = options.sourceOverrides ?? new Map();
   const revisionInputs = [];
   const creatorNodes = [];
   const creatorEdges = [];
@@ -387,7 +408,7 @@ function buildPackageGraph() {
   for (const chapter of CHAPTERS) {
     const inkAbs = join(inkDir, chapter.inkFile);
     const manifestAbs = join(manifestsDir, chapter.manifestFile);
-    const inkSource = readFileSync(inkAbs, "utf8");
+    const inkSource = readSourceWithOverrides(inkAbs, sourceOverrides);
     const manifestSource = readFileSync(manifestAbs, "utf8");
     const inkRelPath = relative(repoRoot, inkAbs).split("\\").join("/");
 
@@ -602,6 +623,9 @@ function buildPackageGraph() {
   // Player skeleton: opaque handles only (no semantic scene/choice ids).
   const player = toPlayerSkeleton(creator);
 
+  assertNarrativeGraphIntegrity(creator);
+  assertNarrativeGraphIntegrity(player);
+
   // Collision check on opaque handles (order-independent hash must stay unique).
   if (new Set(player.nodes.map((n) => n.id)).size !== player.nodes.length) {
     throw new Error("Opaque node handle collision");
@@ -680,4 +704,4 @@ if (isDirect) {
   }
 }
 
-export { buildPackageGraph, exploreChapterTopology, buildSourceIndex };
+export { buildPackageGraph, exploreChapterTopology, buildSourceIndex, readSourceWithOverrides };

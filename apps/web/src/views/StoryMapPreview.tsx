@@ -1,4 +1,7 @@
-import { getStoryMapPreview, type StoryId } from "../story/storyMapAdapter";
+import { lazy, Suspense } from "react";
+import type { StoryId } from "../story/storyMapAdapter";
+
+const CreatorStudio = import.meta.env.DEV ? lazy(() => import("../creator/CreatorStudio")) : null;
 
 interface StoryMapPreviewProps {
   readonly storyId: StoryId;
@@ -13,65 +16,26 @@ export function StoryMapPreview({
   isOpen,
   onClose,
 }: StoryMapPreviewProps) {
-  const { map, mermaid } = getStoryMapPreview(storyId);
-
+  if (!isOpen) return null;
+  if (!CreatorStudio) {
+    return (
+      <aside className="story-map-panel is-open" data-testid="story-map-panel" role="dialog">
+        <h2>创作地图</h2>
+        <p>此作者工具仅在本地开发服务器可用。</p>
+        <button type="button" onClick={onClose}>
+          关闭
+        </button>
+      </aside>
+    );
+  }
   return (
-    <aside
-      className={isOpen ? "story-map-panel is-open" : "story-map-panel"}
-      aria-labelledby="story-map-title"
-      aria-hidden={!isOpen}
-      data-testid="story-map-panel"
-      hidden={!isOpen}
-    >
-      <div className="panel-header">
-        <div className="drawer-header-row">
-          <div>
-            <p className="eyebrow">Creator overview</p>
-            <h2 id="story-map-title">静态故事总览图</h2>
-          </div>
-          <button type="button" className="hud-button secondary" onClick={onClose}>
-            Close
-          </button>
-        </div>
-        <p className="panel-copy">
-          这里先用项目内 scene metadata 生成节点、边和 Mermaid 字符串，不引入 React Flow。
-        </p>
-      </div>
-
-      <div className="story-map-grid">
-        <section aria-labelledby="scene-list-title">
-          <h3 id="scene-list-title">Scene list</h3>
-          <div className="scene-list">
-            {map.nodes.map((node) => (
-              <article
-                key={node.id}
-                className={node.id === currentSceneId ? "scene-card current" : "scene-card"}
-              >
-                <p className="scene-card-id">{node.id}</p>
-                <h4>{node.title}</h4>
-                <p>{node.purpose}</p>
-                <p className="scene-card-visual">{node.visualPlaceholder}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section aria-labelledby="edge-list-title">
-          <h3 id="edge-list-title">Edge list</h3>
-          <ul className="edge-list">
-            {map.edges.map((edge) => (
-              <li key={`${edge.from}-${edge.label}-${edge.to}`}>
-                <strong>{edge.kind}</strong> {edge.from} -[{edge.label}]-&gt; {edge.to}
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-
-      <section aria-labelledby="mermaid-title">
-        <h3 id="mermaid-title">Mermaid flowchart</h3>
-        <pre className="mermaid-preview">{mermaid}</pre>
-      </section>
-    </aside>
+    <Suspense fallback={<div className="creator-loading">正在载入创作地图…</div>}>
+      <CreatorStudio
+        storyId={storyId}
+        currentSceneId={currentSceneId}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
+    </Suspense>
   );
 }

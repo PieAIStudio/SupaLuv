@@ -1,11 +1,15 @@
 import { homedir } from "node:os";
-import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { join, resolve } from "node:path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { loadPublicEnvFile } from "./localPublicEnv";
+import { createCreatorStudioDevPlugin } from "./src/creator/server/creatorStudioDevPlugin";
+import { shouldEnableCreatorStudio } from "./src/creator/server/creatorStudioServer";
 
 const webPort = Number(process.env.SUPALUV_WEB_PORT ?? process.env.SUPALUV_E2E_WEB_PORT ?? 5173);
 const aiBranchTarget = process.env.SUPALUV_AI_BRANCH_PROXY ?? "http://127.0.0.1:8787";
+const repoRoot = resolve(fileURLToPath(new URL("../..", import.meta.url)));
 
 /** Load the first local public-config file; injected shell/Vercel values keep priority. */
 function loadLocalPublicEnv() {
@@ -23,9 +27,12 @@ function loadLocalPublicEnv() {
 
 loadLocalPublicEnv();
 
-export default defineConfig(() => {
+export default defineConfig(({ command, mode }) => {
+  const creatorPlugin = shouldEnableCreatorStudio(command, mode)
+    ? [createCreatorStudioDevPlugin({ repoRoot })]
+    : [];
   return {
-    plugins: [react()],
+    plugins: [react(), ...creatorPlugin],
     build: {
       rolldownOptions: {
         output: {
