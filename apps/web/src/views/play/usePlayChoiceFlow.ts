@@ -1,6 +1,7 @@
 /**
  * Solo / host / guest choice + RPS conflict — kept out of VisualNovelPrototype.
  * Ink authority always stays with host/solo via onChoose.
+ * Dialogue history shape is owned by narrative playback (`recordPlayerChoice`).
  */
 
 import { useCallback, useEffect } from "react";
@@ -21,12 +22,7 @@ export function usePlayChoiceFlow(input: {
   readonly remoteSceneId: string | null;
   readonly sessionStatsPicksRef: { current: SessionChoicePick[] };
   readonly setSessionStatsPicks: (next: SessionChoicePick[]) => void;
-  readonly appendHistory: (entry: {
-    speaker: string;
-    meta: string;
-    text: string;
-    kind: "human" | "system" | "mystery";
-  }) => void;
+  readonly recordPlayerChoice: (text: string) => void;
   readonly onChoose: (index: number) => void;
   readonly cancelAi: () => void;
   readonly ensureAudioUnlocked: () => void;
@@ -44,7 +40,7 @@ export function usePlayChoiceFlow(input: {
     remoteSceneId,
     sessionStatsPicksRef,
     setSessionStatsPicks,
-    appendHistory,
+    recordPlayerChoice,
     onChoose,
     cancelAi,
     ensureAudioUnlocked,
@@ -59,7 +55,7 @@ export function usePlayChoiceFlow(input: {
         snapshot,
         choiceIndex: index,
         sessionPicks: sessionStatsPicksRef.current,
-        appendHistory,
+        recordPlayerChoice,
         onChoose,
         clearVotes: coPlay?.clearVotes,
       });
@@ -70,10 +66,10 @@ export function usePlayChoiceFlow(input: {
       gameAudio.playSfx("ui-choice", 0.5);
     },
     [
-      appendHistory,
       cancelAi,
       coPlay?.clearVotes,
       onChoose,
+      recordPlayerChoice,
       sessionStatsPicksRef,
       setSessionStatsPicks,
       snapshot,

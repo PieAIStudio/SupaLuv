@@ -22,7 +22,7 @@ export function storyHasComedyMeters(storyId: StoryId): boolean {
  * True when the only available choice is a "continue-like" advance.
  * Used by auto-play and keyboard Space/Enter advance.
  */
-export function isContinueOnly(snapshot: InkStorySnapshot): boolean {
+export function isContinueOnly(snapshot: Pick<InkStorySnapshot, "choices">): boolean {
   return (
     snapshot.choices.length === 1 && CONTINUE_CHOICE_RE.test(snapshot.choices[0]?.text.trim() ?? "")
   );

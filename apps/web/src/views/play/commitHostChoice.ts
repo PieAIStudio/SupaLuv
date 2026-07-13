@@ -13,12 +13,8 @@ export interface HostChoiceCommitInput {
   readonly snapshot: InkStorySnapshot;
   readonly choiceIndex: number;
   readonly sessionPicks: readonly SessionChoicePick[];
-  readonly appendHistory: (entry: {
-    speaker: string;
-    meta: string;
-    text: string;
-    kind: "human" | "system" | "mystery";
-  }) => void;
+  /** Narrative command — records the player choice line; no history shape leakage. */
+  readonly recordPlayerChoice: (text: string) => void;
   readonly onChoose: (index: number) => void;
   readonly clearVotes?: () => void;
 }
@@ -41,12 +37,7 @@ export function commitHostChoice(input: HostChoiceCommitInput): HostChoiceCommit
         sessionPicks = [...sessionPicks, statsPick];
       }
     }
-    input.appendHistory({
-      speaker: "你",
-      meta: "选择",
-      text: choice.text,
-      kind: "mystery",
-    });
+    input.recordPlayerChoice(choice.text);
   }
   input.onChoose(input.choiceIndex);
   input.clearVotes?.();
