@@ -38,10 +38,22 @@ import { loadSettings, saveSettings, type GameSettings } from "./persistence/set
 import type { InkStoryRunner, InkStorySnapshot } from "./story/inkStoryRunner";
 import { resolveStatsPick } from "./stats/choiceStatsCatalog";
 import type { StoryId } from "./story/storyMapAdapter";
+import { AtomicLoadingOverlay, type AtomicLoadingKind } from "./loading/AtomicLoadingOverlay";
+import {
+  CASTING_CRITICAL_ASSETS,
+  createModulePreloader,
+  preloadDecodedImage,
+  preloadDecodedImages,
+  TITLE_CRITICAL_ASSETS,
+} from "./loading/atomicLoading";
 import { BootSplash } from "./views/BootSplash";
 import type { EndingPathMeta } from "./views/ChapterEndCard";
 import { OrientationGate } from "./views/OrientationGate";
-import { TitleScreen } from "./views/TitleScreen";
+
+const loadTitleScreenModule = createModulePreloader(() => import("./views/TitleScreen"));
+const TitleScreen = lazy(() =>
+  loadTitleScreenModule().then(({ TitleScreen }) => ({ default: TitleScreen })),
+);
 
 const AchievementsScreen = lazy(() =>
   import("./views/AchievementsScreen").then(({ AchievementsScreen }) => ({
@@ -57,16 +69,21 @@ const HelpScreen = lazy(() =>
 const SettingsScreen = lazy(() =>
   import("./views/SettingsScreen").then(({ SettingsScreen }) => ({ default: SettingsScreen })),
 );
+const loadStoryMapPreviewModule = createModulePreloader(() => import("./views/StoryMapPreview"));
 const StoryMapPreview = lazy(() =>
-  import("./views/StoryMapPreview").then(({ StoryMapPreview }) => ({ default: StoryMapPreview })),
+  loadStoryMapPreviewModule().then(({ StoryMapPreview }) => ({ default: StoryMapPreview })),
 );
+const loadVisualNovelModule = createModulePreloader(() => import("./views/VisualNovelPrototype"));
 const VisualNovelPrototype = lazy(() =>
-  import("./views/VisualNovelPrototype").then(({ VisualNovelPrototype }) => ({
+  loadVisualNovelModule().then(({ VisualNovelPrototype }) => ({
     default: VisualNovelPrototype,
   })),
 );
+const loadCharacterStudioModule = createModulePreloader(
+  () => import("./views/CharacterStudioScreen"),
+);
 const CharacterStudioScreen = lazy(() =>
-  import("./views/CharacterStudioScreen").then(({ CharacterStudioScreen }) => ({
+  loadCharacterStudioModule().then(({ CharacterStudioScreen }) => ({
     default: CharacterStudioScreen,
   })),
 );
@@ -88,14 +105,6 @@ type AppScreen =
 
 const DEFAULT_STORY_ID: StoryId = CONTENT_DEFAULT_STORY_ID;
 const BOOT_SEEN_KEY = "supaluv.boot.seen.v1";
-
-function ScreenLoading() {
-  return (
-    <p className="meta-lead" role="status">
-      正在加载…
-    </p>
-  );
-}
 
 type StoryRuntime = typeof import("./story/inkStoryRunner") &
   typeof import("./story/storyMapAdapter") &
@@ -130,6 +139,22 @@ function loadStoryRuntime(): Promise<StoryRuntime> {
   });
 }
 
+async function preloadTitlePresentation(): Promise<void> {
+  await Promise.all([loadTitleScreenModule(), preloadDecodedImages(TITLE_CRITICAL_ASSETS)]);
+}
+
+async function preloadStoryPresentation(
+  runtime: StoryRuntime,
+  nextStoryId: StoryId,
+  sceneId: string | null,
+): Promise<void> {
+  const scene = runtime.getStoryScene(nextStoryId, sceneId);
+  const artPromise = scene?.artKey
+    ? preloadDecodedImage(`/assets/scenes/${scene.artKey}.jpg`)
+    : Promise.resolve();
+  await Promise.all([loadVisualNovelModule(), loadStoryMapPreviewModule(), artPromise]);
+}
+
 function unlockCount(unlocks: GalleryUnlocks): number {
   return unlocks.images.length + unlocks.videos.length + unlocks.audio.length;
 }
@@ -144,6 +169,8 @@ export function App() {
     }
   });
   const [screen, setScreen] = useState<AppScreen>("title");
+  const [titleReady, setTitleReady] = useState(false);
+  const [titleLoadAttempt, setTitleLoadAttempt] = useState(0);
   const [settings, setSettings] = useState<GameSettings>(() => loadSettings());
   const [displayNames, setDisplayNames] = useState<DisplayNameMap>(() => loadDisplayNames());
   const [portraitPack, setPortraitPack] = useState<PortraitPackState>(() => loadPortraitPack());
@@ -157,6 +184,11 @@ export function App() {
   const [isCreatorMapOpen, setCreatorMapOpen] = useState(false);
   const [unlockToast, setUnlockToast] = useState<string | null>(null);
   const [continueBlockedMessage, setContinueBlockedMessage] = useState<string | null>(null);
+  const [loadingTransition, setLoadingTransition] = useState<{
+    kind: AtomicLoadingKind;
+    error?: string | null;
+    retry?: () => void;
+  } | null>(null);
   const unlockToastTimer = useRef<number | null>(null);
   const storyActionInFlight = useRef(false);
   const inheritedVariablesRef = useRef<Record<string, unknown>>({});
@@ -181,6 +213,58 @@ export function App() {
   useEffect(() => {
     saveDisplayNames(displayNames);
   }, [displayNames]);
+
+  useEffect(() => {
+    const onPreloadError = (event: Event) => {
+      event.preventDefault();
+      setLoadingTransition({
+        kind: "retry",
+        error: "更新后的游戏代码没有完整下载。请重试；若仍失败，刷新页面会从存档恢复。",
+        retry: () => window.location.reload(),
+      });
+    };
+    window.addEventListener("vite:preloadError", onPreloadError);
+    return () => window.removeEventListener("vite:preloadError", onPreloadError);
+  }, []);
+
+  useEffect(() => {
+    if (!bootDone) {
+      void preloadTitlePresentation().catch(() => undefined);
+      return;
+    }
+
+    if (!titleReady) {
+      let active = true;
+      void preloadTitlePresentation()
+        .then(() => {
+          if (active) {
+            setTitleReady(true);
+          }
+        })
+        .catch(() => {
+          if (!active) {
+            return;
+          }
+          setLoadingTransition({
+            kind: "retry",
+            error: "标题画面没有完整下载。请重试；若仍失败，刷新页面会重新获取资源。",
+            retry: () => {
+              setLoadingTransition(null);
+              setTitleLoadAttempt((value) => value + 1);
+            },
+          });
+        });
+      return () => {
+        active = false;
+      };
+    }
+
+    const timer = window.setTimeout(() => {
+      void loadCharacterStudioModule().catch(() => undefined);
+      void loadStoryRuntime().catch(() => undefined);
+    }, 450);
+    return () => window.clearTimeout(timer);
+  }, [bootDone, titleLoadAttempt, titleReady]);
 
   /** Meta screens share document scroll — reset so Help/Achievements never open mid-page. */
   useEffect(() => {
@@ -208,17 +292,83 @@ export function App() {
     [showUnlockToast],
   );
 
-  function runStoryAction(action: () => Promise<void>) {
+  function runStoryAction(action: () => Promise<void>, kind?: AtomicLoadingKind) {
     if (storyActionInFlight.current) {
       return;
     }
     storyActionInFlight.current = true;
+    if (kind) {
+      setLoadingTransition({ kind });
+    }
     void action()
-      .catch(() => showUnlockToast("故事加载失败，请检查网络后重试。"))
+      .then(() => {
+        if (kind) {
+          setLoadingTransition(null);
+        }
+      })
+      .catch(() => {
+        const retry = () => {
+          setLoadingTransition(null);
+          storyActionInFlight.current = false;
+          runStoryAction(action, kind);
+        };
+        if (kind) {
+          setLoadingTransition({
+            kind: "retry",
+            error: "换幕没有完成，当前画面仍然保留。请检查网络后重试。",
+            retry,
+          });
+        } else {
+          showUnlockToast("故事加载失败，请检查网络后重试。");
+        }
+      })
       .finally(() => {
         storyActionInFlight.current = false;
       });
   }
+
+  function enterTitle() {
+    runStoryAction(async () => {
+      await preloadTitlePresentation();
+      try {
+        sessionStorage.setItem(BOOT_SEEN_KEY, "1");
+      } catch {
+        // ignore
+      }
+      setUnlocks((prev) => applyUnlocks(prev, { audio: ["title-theme"] }));
+      setTitleReady(true);
+      setBootDone(true);
+    }, "title");
+  }
+
+  function openCharacterStudio() {
+    runStoryAction(async () => {
+      await Promise.all([
+        loadCharacterStudioModule(),
+        preloadDecodedImages(CASTING_CRITICAL_ASSETS),
+      ]);
+      setScreen("character-studio");
+    }, "casting");
+  }
+
+  useEffect(() => {
+    if (
+      !import.meta.env.DEV ||
+      !new URLSearchParams(window.location.search).has("atomic-loading-fixture")
+    ) {
+      return;
+    }
+    const testWindow = window as Window & {
+      __SUPALUV_ATOMIC_LOADING_TEST__?: { transitionToChapter2: () => void };
+    };
+    testWindow.__SUPALUV_ATOMIC_LOADING_TEST__ = {
+      transitionToChapter2: () =>
+        runStoryAction(() => loadStory("draft-ch02" as StoryId), "chapter"),
+    };
+    return () => {
+      delete testWindow.__SUPALUV_ATOMIC_LOADING_TEST__;
+    };
+  });
 
   useEffect(() => {
     savePortraitPack(portraitPack);
@@ -290,6 +440,7 @@ export function App() {
     inheritedVariablesRef.current = {};
     const nextRunner = await runtime.createInkStoryRunnerForId(DEFAULT_STORY_ID);
     const nextSnapshot = nextRunner.getSnapshot();
+    await preloadStoryPresentation(runtime, DEFAULT_STORY_ID, nextSnapshot.sceneId);
     const nextUnlocks = applyUnlocks(
       EMPTY_UNLOCKS,
       runtime.unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
@@ -323,6 +474,7 @@ export function App() {
     inheritedVariablesRef.current = {};
     const nextRunner = await runtime.createInkStoryRunnerForId(DEFAULT_STORY_ID);
     const nextSnapshot = nextRunner.getSnapshot();
+    await preloadStoryPresentation(runtime, DEFAULT_STORY_ID, nextSnapshot.sceneId);
     const nextUnlocks = applyUnlocks(
       EMPTY_UNLOCKS,
       runtime.unlocksFromScene(DEFAULT_STORY_ID, nextSnapshot.sceneId),
@@ -350,6 +502,7 @@ export function App() {
     // Guest needs a inert runner shell so play screen can mount.
     const runtime = await loadStoryRuntime();
     const nextRunner = await runtime.createInkStoryRunnerForId(DEFAULT_STORY_ID);
+    await preloadStoryPresentation(runtime, DEFAULT_STORY_ID, nextRunner.getSnapshot().sceneId);
     setStoryId(DEFAULT_STORY_ID);
     setRunner(nextRunner);
     setSnapshot(nextRunner.getSnapshot());
@@ -392,6 +545,7 @@ export function App() {
       save.inkStateJson,
     );
     const restored = restoreSnapshotFromSave(nextRunner.getSnapshot(), save.presentation);
+    await preloadStoryPresentation(runtime, compatibility.storyId, restored.sceneId);
     inheritedVariablesRef.current = {
       ...(save.inheritedVariables ?? {}),
     };
@@ -422,6 +576,7 @@ export function App() {
     const inherited = options?.inheritedVariables ?? inheritedVariablesRef.current;
     const nextRunner = await runtime.createInkStoryRunnerForId(nextStoryId, undefined, inherited);
     const nextSnapshot = nextRunner.getSnapshot();
+    await preloadStoryPresentation(runtime, nextStoryId, nextSnapshot.sceneId);
     const nextUnlocks = applyUnlocks(
       unlocks,
       runtime.unlocksFromScene(nextStoryId, nextSnapshot.sceneId),
@@ -539,7 +694,7 @@ export function App() {
     const checkpoint = storyRuntime.getChapterCheckpoint(storyId);
     // Chapter 1 of the draft package advances to chapter 2 — no AI final ending.
     if (checkpoint.kind === "next_chapter" && checkpoint.nextChapterId) {
-      runStoryAction(() => advanceToNextChapter(storyId));
+      runStoryAction(() => advanceToNextChapter(storyId), "chapter");
       return;
     }
     gameAudio.stopAmbient();
@@ -560,17 +715,14 @@ export function App() {
   if (!bootDone) {
     return (
       <main className="app-shell" data-screen="boot">
-        <BootSplash
-          onEnter={() => {
-            try {
-              sessionStorage.setItem(BOOT_SEEN_KEY, "1");
-            } catch {
-              // ignore
-            }
-            setUnlocks((prev) => applyUnlocks(prev, { audio: ["title-theme"] }));
-            setBootDone(true);
-          }}
-        />
+        <BootSplash onEnter={enterTitle} />
+        {loadingTransition ? (
+          <AtomicLoadingOverlay
+            kind={loadingTransition.kind}
+            error={loadingTransition.error}
+            onRetry={loadingTransition.retry}
+          />
+        ) : null}
       </main>
     );
   }
@@ -579,26 +731,36 @@ export function App() {
     <main className="app-shell" data-screen={screen}>
       <OrientationGate />
       {screen === "title" ? (
-        <TitleScreen
-          onNewGame={() => setScreen("character-studio")}
-          onContinue={(slotId) => runStoryAction(() => continueGame(slotId))}
-          onOpenGallery={() => openMeta("gallery")}
-          onOpenSettings={() => openMeta("settings")}
-          onOpenHelp={() => openMeta("help")}
-          onOpenAchievements={() => openMeta("achievements")}
-          onOpenAiSpend={() => openMeta("ai-spend")}
-          onHostCoPlay={(roomCode, alias) => runStoryAction(() => startHostCoPlay(roomCode, alias))}
-          onJoinCoPlay={(roomCode, alias) => runStoryAction(() => joinGuestCoPlay(roomCode, alias))}
-          continueBlockedMessage={continueBlockedMessage}
-          onDismissContinueBlocked={() => setContinueBlockedMessage(null)}
-        />
+        titleReady ? (
+          <Suspense fallback={<AtomicLoadingOverlay kind="title" />}>
+            <TitleScreen
+              onNewGame={openCharacterStudio}
+              onContinue={(slotId) => runStoryAction(() => continueGame(slotId), "story")}
+              onOpenGallery={() => openMeta("gallery")}
+              onOpenSettings={() => openMeta("settings")}
+              onOpenHelp={() => openMeta("help")}
+              onOpenAchievements={() => openMeta("achievements")}
+              onOpenAiSpend={() => openMeta("ai-spend")}
+              onHostCoPlay={(roomCode, alias) =>
+                runStoryAction(() => startHostCoPlay(roomCode, alias), "story")
+              }
+              onJoinCoPlay={(roomCode, alias) =>
+                runStoryAction(() => joinGuestCoPlay(roomCode, alias), "story")
+              }
+              continueBlockedMessage={continueBlockedMessage}
+              onDismissContinueBlocked={() => setContinueBlockedMessage(null)}
+            />
+          </Suspense>
+        ) : (
+          <AtomicLoadingOverlay kind="title" />
+        )
       ) : null}
 
-      <Suspense fallback={<ScreenLoading />}>
+      <Suspense fallback={<AtomicLoadingOverlay kind="casting" />}>
         {screen === "character-studio" ? (
           <CharacterStudioScreen
             onCancel={() => setScreen("title")}
-            onComplete={(bindings) => runStoryAction(() => startNewGame(bindings))}
+            onComplete={(bindings) => runStoryAction(() => startNewGame(bindings), "story")}
           />
         ) : null}
 
@@ -623,7 +785,7 @@ export function App() {
         {screen === "ai-spend" ? <AiSpendAnalysisScreen onBack={backFromMeta} /> : null}
       </Suspense>
 
-      <Suspense fallback={<ScreenLoading />}>
+      <Suspense fallback={<AtomicLoadingOverlay kind="story" />}>
         {screen === "play" && runner && snapshot ? (
           <>
             <VisualNovelPrototype
@@ -659,7 +821,9 @@ export function App() {
                   return next;
                 });
               }}
-              onStoryChange={(nextStoryId) => runStoryAction(() => loadStory(nextStoryId))}
+              onStoryChange={(nextStoryId) =>
+                runStoryAction(() => loadStory(nextStoryId), "chapter")
+              }
               onChoose={handleChoose}
               onJumpTo={handleJumpTo}
               onOpenMap={() => setCreatorMapOpen(true)}
@@ -696,6 +860,13 @@ export function App() {
         <div className="global-toast" data-testid="unlock-toast" role="status">
           {unlockToast}
         </div>
+      ) : null}
+      {loadingTransition ? (
+        <AtomicLoadingOverlay
+          kind={loadingTransition.kind}
+          error={loadingTransition.error}
+          onRetry={loadingTransition.retry}
+        />
       ) : null}
     </main>
   );

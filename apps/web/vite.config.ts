@@ -26,6 +26,30 @@ loadLocalPublicEnv();
 export default defineConfig(() => {
   return {
     plugins: [react()],
+    build: {
+      rolldownOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes("node_modules")) {
+              return undefined;
+            }
+            if (id.includes("/react/") || id.includes("/react-dom/")) {
+              return "react-vendor";
+            }
+            if (id.includes("@supabase") || id.includes("/ws/")) {
+              return "auth-vendor";
+            }
+            if (id.includes("@pieai/swimmer-ui-kit")) {
+              return "ui-vendor";
+            }
+            if (id.includes("howler")) {
+              return "audio-vendor";
+            }
+            return undefined;
+          },
+        },
+      },
+    },
     server: {
       host: "127.0.0.1",
       port: webPort,

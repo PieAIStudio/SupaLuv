@@ -1,6 +1,7 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { gameAudio } from "../audio/gameAudio";
 import { useLocale } from "../i18n";
+import { preloadDecodedImage } from "../loading/atomicLoading";
 
 interface BootSplashProps {
   readonly onEnter: () => void;
@@ -12,12 +13,27 @@ interface BootSplashProps {
  */
 export function BootSplash({ onEnter }: BootSplashProps) {
   const { t } = useLocale();
+  const [artReady, setArtReady] = useState(false);
   const enter = useCallback(() => {
     gameAudio.unlock();
     gameAudio.stopAmbient();
     gameAudio.playExclusiveBed("title-theme");
     onEnter();
   }, [onEnter]);
+
+  useEffect(() => {
+    let active = true;
+    void preloadDecodedImage("/assets/ui/boot-splash.jpg")
+      .then(() => {
+        if (active) {
+          setArtReady(true);
+        }
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -44,7 +60,16 @@ export function BootSplash({ onEnter }: BootSplashProps) {
         }
       }}
     >
-      <img className="boot-splash-art" src="/assets/ui/boot-splash.jpg" alt="" draggable={false} />
+      {artReady ? (
+        <img
+          className="boot-splash-art is-ready"
+          src="/assets/ui/boot-splash.jpg"
+          alt=""
+          draggable={false}
+        />
+      ) : (
+        <div className="boot-splash-art boot-splash-art-fallback" aria-hidden="true" />
+      )}
       <div className="boot-splash-scrim" aria-hidden="true" />
       <div className="boot-splash-copy">
         <p className="boot-splash-eyebrow">{t("boot.eyebrow")}</p>
