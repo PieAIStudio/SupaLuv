@@ -1,7 +1,7 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-12T17:06:30.476Z
-generator_version: doc-gov@0.5.1
+generated_at: 2026-07-13T18:28:56.620Z
+generator_version: doc-gov@0.5.4
 docs_count: 31
 docs:
   - id: PLAN-0001
@@ -128,7 +128,7 @@ docs:
     type: plan
     status: active
     canonical: true
-    last_reviewed: 2026-07-13
+    last_reviewed: 2026-07-14
     pinned: true
   - id: PLAN-0003
     path: docs/plans/completed/PLAN-0003-ch01-polish-loops.md
@@ -184,7 +184,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-13
+    last_reviewed: 2026-07-14
     pinned: true
   - id: REF-VERCEL-PREVIEW-RUNBOOK
     path: docs/reference/execution/vercel-preview-runbook.md

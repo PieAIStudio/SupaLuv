@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-07-13
+last_reviewed: 2026-07-14
 domain: meta
 tags:
   - current-work
@@ -26,9 +26,9 @@ related:
 
 - **生产官网**：<https://supaluv.pieaistudio.com>
 - **产品阶段**：核心商业与技术闭环已齐，两章草稿已在官网可玩；Creator Studio、玩家路线图、
-  选角移动端体验和立绘透明蒙版已完成首轮商品化。正式内容、视听资产、剩余互动和发行验收仍未完成。
-- **当前主线工作**：`PLAN-0005` Stage 1 与 Stage 2 的地图/加载/首个互动/选角/立绘工作已完成；
-  下一步集中在剩余剧情互动、正式视听与内容节奏，再做两轮发行级试玩。
+  选角移动端体验、立绘透明蒙版和中英玩家界面已完成首轮商品化。正式内容、视听资产、剩余互动和发行验收仍未完成。
+- **当前主线工作**：`PLAN-0005` Stage 1 与 Stage 2 的地图/加载/首个互动/选角/立绘/中英界面工作已完成；
+  下一步集中在 co-play 深层界面、剩余剧情互动、正式视听与内容节奏，再做两轮发行级试玩。
 - **内容边界**：官网默认内容已经是 `draft-ch01`、`draft-ch02`；两章仍是 noncanonical 草稿，
   不是作者已经冻结的最终小说。旧短篇 Demo 仅保留为开发 fixture，不再是玩家默认故事。
 - **开发原则**：小说与技术可以并行推进。正式内容到位后，应填入现有内容管线，
@@ -86,6 +86,7 @@ chunk 从约 521 KB 降到约 65 KB；第一章已接入可跳过、可存档恢
 | 共享剧情图 | `packages/shared/src/narrative-graph.ts`, `packages/content/generated/` |
 | 角色生成与剧情绑定 | `apps/web/src/characters/`, `services/ai-branch/src/character*` |
 | AI 选项与最终章 | `apps/web/src/ai/`, `services/ai-branch/src/` |
+| 玩家界面语言 | `apps/web/src/i18n/`, `apps/web/src/views/` |
 | 音频与 TTS | `apps/web/src/audio/`, `services/ai-branch/src/ttsCatalog.ts`, `ttsRoute.ts` |
 | 存档与设置 | `apps/web/src/persistence/` |
 | 产品分析 | `apps/web/src/analytics/` |
@@ -126,5 +127,13 @@ git diff --check
 - 已完成 AI 角色与最终章计划：`docs/plans/completed/PLAN-0004-generative-character-packs-and-ai-endings.md`
 - 已完成规格：`docs/specs/completed/`
 - 已退休讨论和旧路线图：`docs/archive/`
+
+## Round 7 evidence
+
+- 中英玩家界面已覆盖标题、选角、设置、画廊、帮助、成就、AI 消费、播放 HUD、历史、结算和分享卡；
+  运行时解锁 toast 也跟随语言切换。
+- 修复英文选角长文案横向溢出；测试环境固定 `zh-CN`，英文场景显式切换，避免机器区域设置造成假失败。
+- 主线 `f0292fb`：格式、lint、资产、类型、368 单测、20 个 E2E、构建和 Vercel 输出契约均通过。
+- co-play 深层 overlay 仍保留为下一轮局部工作；真实 AI、审核、钱包和存储服务的 Preview/Production 证据仍按发布门单独复验。
 
 这些材料用于追溯，不是默认启动阅读。

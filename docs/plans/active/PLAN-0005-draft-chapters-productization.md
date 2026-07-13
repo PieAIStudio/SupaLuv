@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: ai-assisted
 created: 2026-07-12
-last_reviewed: 2026-07-13
+last_reviewed: 2026-07-14
 domain: execution
 tags:
   - narrative
@@ -55,6 +55,8 @@ related:
 - [x] 优化标题、角色工作室与首幕关键图片的尺寸/格式/加载优先级。
 - [x] 交付完整 loading composition 与 `vite:preloadError` 恢复。
 - [x] 交付“情绪样本标注”小游戏并接入剧情变量与无障碍输入。
+- [x] 交付中英玩家界面、运行时 toast、分享卡和选角长文案溢出修复。
+- [ ] 统一 co-play 深层 overlay 的中英界面文案与状态反馈。
 - [ ] 交付协议、测试仪表、看房热点和手机问卷等剧情内互动。
 - [ ] 交付算法羞耻档案，并与玩家路径和回看关联。
 
@@ -72,7 +74,8 @@ related:
 - [x] 第一轮技术/视觉 playtest：加载、裁切、地图、选角和卡住点；内容节奏 critic 仍待正式稿。
 - [ ] 修复后独立 critic pass，并保存对应 after evidence。
 - [ ] 第二轮 playtest：选择感、视听、地图、存档与失败恢复。
-- [ ] 跑完整 release ladder 与 Production 最小试玩。
+- [x] 跑本轮完整 release ladder（格式、lint、资产、类型、368 单测、20 个 E2E、构建和 Vercel 输出）。
+- [ ] Production 最小试玩（真实 AI、审核、钱包和存储）仍需发布门单独验收。
 - [ ] 更新 SSOT；完成后归档计划/规格并清理所有分支/worktree。
 
 ## Round 6 evidence
@@ -80,6 +83,12 @@ related:
 四个并行包已合入 `main`：Creator Studio、Player Path、portrait matte、casting/mobile polish。
 合并提交为 `97957a8`、`9c7c4b9`、`60efd33`、`4810116`；主线完整 E2E 已通过 18/18。
 这些是执行证据，不替代真实 Preview/Production 的 AI、审核、钱包和存储验收。
+
+## Round 7 evidence
+
+`f0292fb` 合入中英玩家界面覆盖和运行时 toast 本地化；主线完整 E2E 为 20/20，单测为 368/368。
+英文选角页的长边界提示已通过截图与横向溢出断言复验。co-play 深层 overlay 尚未纳入本轮，
+真实服务验收仍以 Preview/Production 最小链路为准。
 
 ## Release gates
 
