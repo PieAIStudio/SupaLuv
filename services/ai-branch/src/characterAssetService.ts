@@ -1,10 +1,9 @@
 import { randomUUID, timingSafeEqual } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { CharacterImageInput } from "./characterImageProvider.js";
 import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
-import { verifyBearerToken } from "./authGate.js";
 import {
   CHARACTER_IMAGE_MIME_TYPES,
   MAX_CHARACTER_REFERENCE_BYTES,
@@ -12,11 +11,7 @@ import {
 } from "./characterSchemas.js";
 import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
 import type { CharacterGenerationStore } from "./persistence/characterGenerationStore.js";
-import {
-  createInMemoryPersistenceModules,
-  createSupabasePersistenceFromClient,
-  type ReferenceAssetRecord,
-} from "./persistence/index.js";
+import type { ReferenceAssetRecord } from "./persistence/index.js";
 
 export const CHARACTER_ASSET_BUCKET = "supaluv-character-assets";
 export const CHARACTER_ASSET_BODY_LIMIT_BYTES = 64 * 1024;
@@ -419,51 +414,4 @@ export async function handleCharacterAssetRoute(
     }
     return true;
   }
-}
-
-let configuredDependencies: CharacterAssetRouteDependencies | undefined;
-
-export function getConfiguredCharacterAssetDependencies(): CharacterAssetRouteDependencies {
-  if (configuredDependencies) return configuredDependencies;
-  const mode = process.env.NODE_ENV === "production" ? "production" : "development";
-  const url = process.env.SWIMMER_CORE_SUPABASE_URL?.trim();
-  const key = process.env.SWIMMER_CORE_SECRET_KEY?.trim();
-  if (!url || !key) {
-    const unavailable: CharacterAssetStorage = {
-      createSignedUpload: async () => {
-        throw new CharacterAssetStorageError();
-      },
-      inspect: async () => {
-        throw new CharacterAssetStorageError();
-      },
-      remove: async () => {
-        throw new CharacterAssetStorageError();
-      },
-    };
-    configuredDependencies = {
-      verifyAuth: verifyBearerToken,
-      assets: createCharacterAssetService({
-        store: createInMemoryPersistenceModules().characterGeneration,
-        storage: unavailable,
-      }),
-      cleanupSecret: process.env.SUPALUV_REFERENCE_CLEANUP_SECRET,
-    };
-    if (mode === "production") {
-      throw new Error("SupaLuv character storage credentials are required in production");
-    }
-    return configuredDependencies;
-  }
-
-  const client = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  configuredDependencies = {
-    verifyAuth: verifyBearerToken,
-    assets: createCharacterAssetService({
-      store: createSupabasePersistenceFromClient(client).characterGeneration,
-      storage: createSupabaseCharacterAssetStorage(client),
-    }),
-    cleanupSecret: process.env.SUPALUV_REFERENCE_CLEANUP_SECRET,
-  };
-  return configuredDependencies;
 }

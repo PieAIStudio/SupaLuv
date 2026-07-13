@@ -6,15 +6,10 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { verifyBearerToken } from "./authGate.js";
 import { characterProviderHealthSnapshot } from "./characterProviderConfig.js";
-import {
-  getConfiguredCharacterAssetDependencies,
-  handleCharacterAssetRoute,
-} from "./characterAssetService.js";
-import {
-  getConfiguredCharacterPackDependencies,
-  handleCharacterPackRoute,
-} from "./characterRoutes.js";
-import { getConfiguredEndingDependencies, handleEndingRoute } from "./endingRoutes.js";
+import { handleCharacterAssetRoute } from "./characterAssetService.js";
+import { handleCharacterPackRoute } from "./characterRoutes.js";
+import { getCommercialRouteRuntime } from "./commercialRouteRuntime.js";
+import { handleEndingRoute } from "./endingRoutes.js";
 import { handleSpendRoute } from "./spendRoutes.js";
 import { getCountsForStory, recordChoice } from "./choiceStatsStore.js";
 import { generateAiBranch, type AiBranchRequestBody } from "./handler.js";
@@ -34,6 +29,8 @@ import {
   walletOptionalMode,
 } from "./walletMeter.js";
 
+const commercialRuntime = getCommercialRouteRuntime();
+
 export async function handleAiBranchRequest(
   req: IncomingMessage,
   res: ServerResponse,
@@ -50,7 +47,12 @@ export async function handleAiBranchRequest(
   ) {
     try {
       if (
-        await handleCharacterAssetRoute(req, res, url, getConfiguredCharacterAssetDependencies())
+        await handleCharacterAssetRoute(
+          req,
+          res,
+          url,
+          commercialRuntime.getCharacterAssetDependencies(),
+        )
       ) {
         return true;
       }
@@ -62,7 +64,14 @@ export async function handleAiBranchRequest(
 
   if (url.pathname.startsWith("/ai/characters/packs")) {
     try {
-      if (await handleCharacterPackRoute(req, res, url, getConfiguredCharacterPackDependencies())) {
+      if (
+        await handleCharacterPackRoute(
+          req,
+          res,
+          url,
+          commercialRuntime.getCharacterPackDependencies(),
+        )
+      ) {
         return true;
       }
     } catch {
@@ -73,14 +82,23 @@ export async function handleAiBranchRequest(
 
   if (url.pathname.startsWith("/ai/endings/sessions")) {
     try {
-      if (await handleEndingRoute(req, res, url, getConfiguredEndingDependencies())) return true;
+      if (await handleEndingRoute(req, res, url, commercialRuntime.getEndingDependencies())) {
+        return true;
+      }
     } catch {
       sendJson(res, 503, { error: "AI_ENDING_SERVICE_UNAVAILABLE" });
       return true;
     }
   }
 
-  if (await handleSpendRoute(req, res, url)) return true;
+  if (
+    await handleSpendRoute(req, res, url, {
+      verifyAuth: verifyBearerToken,
+      getStore: () => commercialRuntime.getSpendReceiptReader(),
+    })
+  ) {
+    return true;
+  }
 
   if (req.method === "GET" && (url.pathname === "/health" || url.pathname === "/")) {
     sendJson(res, 200, {

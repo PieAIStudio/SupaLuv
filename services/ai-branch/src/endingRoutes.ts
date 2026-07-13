@@ -1,27 +1,11 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createClient } from "@supabase/supabase-js";
-import {
-  ADULT_COMEDY_MODERATION_POLICY,
-  createContentModerationProvider,
-} from "@pieai/swimmer-ai-kit/content-safety";
 import { ch01Scenes } from "@supaluv/content/ch01-scenes";
 import { z } from "zod";
 import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
-import { verifyBearerToken } from "./authGate.js";
-import type { CharacterGenerationWallet } from "./characterGenerationService.js";
-import {
-  createEndingSessionService,
-  EndingPaymentError,
-  type EndingSessionService,
-} from "./endingSessionService.js";
+import { EndingPaymentError, type EndingSessionService } from "./endingSessionService.js";
 import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
-import { createConfiguredEndingGenerator } from "./mastraEnding.js";
 import type { EndingSessionStore } from "./persistence/endingSessionStore.js";
-import {
-  createSupabasePersistenceFromClient,
-  EndingVersionConflictError,
-} from "./persistence/index.js";
-import { commitReservation, refundReservation, reserveBatteries } from "./walletMeter.js";
+import { EndingVersionConflictError } from "./persistence/index.js";
 
 const BODY_LIMIT = 64 * 1024;
 const stableId = z.string().trim().min(1).max(128);
@@ -156,54 +140,4 @@ export async function handleEndingRoute(
     }
     return true;
   }
-}
-
-let configured: EndingRouteDependencies | undefined;
-export function getConfiguredEndingDependencies(): EndingRouteDependencies {
-  if (configured) return configured;
-  const url = process.env.SWIMMER_CORE_SUPABASE_URL?.trim();
-  const key = process.env.SWIMMER_CORE_SECRET_KEY?.trim();
-  if (!url || !key) throw new Error("AI ending database credentials are required");
-  const client = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  const store = createSupabasePersistenceFromClient(client).endingSession;
-  const moderation = createContentModerationProvider({
-    policy: ADULT_COMEDY_MODERATION_POLICY,
-    sightengineApiUser: process.env.SIGHTENGINE_API_USER,
-    sightengineApiSecret: process.env.SIGHTENGINE_API_SECRET,
-  });
-  const wallet: CharacterGenerationWallet = {
-    reserve: (input) =>
-      reserveBatteries({
-        userId: input.ownerId,
-        batteries: input.batteries,
-        reason: input.reason,
-        idempotencyKey: input.idempotencyKey,
-      }),
-    commit: (reservationId, reason) => commitReservation({ reservationId, reason }),
-    refund: (reservationId, reason) => refundReservation({ reservationId, reason }),
-  };
-  configured = {
-    verifyAuth: verifyBearerToken,
-    store,
-    service: createEndingSessionService({
-      store,
-      wallet,
-      generator: createConfiguredEndingGenerator(),
-      segmentCostBatteries: Number(process.env.SUPALUV_ENDING_SEGMENT_COST_BATTERIES ?? "1"),
-      safety: {
-        async reviewInput(action) {
-          const text = action.kind === "free_text" ? action.text : action.choiceId;
-          const decision = await moderation.reviewText({ stage: "input", text });
-          if (!decision.allowed) throw new Error("SAFETY_BLOCKED");
-        },
-        async reviewOutput(segment) {
-          const decision = await moderation.reviewText({ stage: "output", text: segment.text });
-          if (!decision.allowed) throw new Error("SAFETY_BLOCKED");
-        },
-      },
-    }),
-  };
-  return configured;
 }

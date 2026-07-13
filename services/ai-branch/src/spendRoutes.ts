@@ -1,69 +1,31 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createClient } from "@supabase/supabase-js";
-import { verifyBearerToken } from "./authGate.js";
+import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
 import { sendJson } from "./httpUtils.js";
-import {
-  createSupabasePersistenceFromClient,
-  type SideBranchSpendRecorder,
-  type SpendReceiptInput,
-  type SpendReceiptReader,
-} from "./persistence/index.js";
+import type { SpendReceiptInput, SpendReceiptReader } from "./persistence/index.js";
 
-type SpendModules = {
-  readonly spendReceipts: SpendReceiptReader;
-  readonly sideBranchSpend: SideBranchSpendRecorder;
+type VerifyAuth = (
+  authorizationHeader: string | undefined,
+) => Promise<AuthGateResult | AuthGateFailure>;
+
+export type SpendRouteDependencies = {
+  readonly verifyAuth: VerifyAuth;
+  readonly getStore: () => SpendReceiptReader;
 };
-
-let modules: SpendModules | undefined;
-function configuredSpendModules(): SpendModules {
-  if (modules) return modules;
-  const url = process.env.SWIMMER_CORE_SUPABASE_URL?.trim();
-  const key = process.env.SWIMMER_CORE_SECRET_KEY?.trim();
-  if (!url || !key) throw new Error("Spend analysis database credentials are required");
-  modules = createSupabasePersistenceFromClient(
-    createClient(url, key, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    }),
-  );
-  return modules;
-}
-
-export async function recordShortBranchReceipt(input: {
-  ownerId: string;
-  reservationId: string;
-  amountPowerUnits: number;
-  storyId: string;
-  sceneId: string;
-}): Promise<void> {
-  if (!input.reservationId || input.amountPowerUnits <= 0) return;
-  // Adapter supplies actionKind/scopeType; caller only passes delivery facts.
-  await configuredSpendModules().sideBranchSpend.recordSideBranchSpend({
-    ownerId: input.ownerId,
-    walletReservationId: input.reservationId,
-    amountPowerUnits: input.amountPowerUnits,
-    metadata: { storyId: input.storyId, sceneId: input.sceneId },
-  });
-}
 
 export async function handleSpendRoute(
   req: IncomingMessage,
   res: ServerResponse,
   url: URL,
-  dependencies: {
-    verifyAuth?: typeof verifyBearerToken;
-    store?: SpendReceiptReader;
-  } = {},
+  dependencies: SpendRouteDependencies,
 ): Promise<boolean> {
   if (url.pathname !== "/ai/spend" || req.method !== "GET") return false;
   try {
-    const auth = await (dependencies.verifyAuth ?? verifyBearerToken)(req.headers.authorization);
+    const auth = await dependencies.verifyAuth(req.headers.authorization);
     if (!auth.ok) {
       sendJson(res, auth.status, { error: auth.error });
       return true;
     }
-    const receipts = await (
-      dependencies.store ?? configuredSpendModules().spendReceipts
-    ).listSpendReceipts(auth.userId);
+    const receipts = await dependencies.getStore().listSpendReceipts(auth.userId);
     sendJson(res, 200, groupSpendReceipts(receipts));
   } catch {
     sendJson(res, 503, { error: "SPEND_ANALYSIS_UNAVAILABLE" });

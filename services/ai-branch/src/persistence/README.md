@@ -19,7 +19,7 @@ Side-branch AI option receipts use `SideBranchSpendRecorder.recordSideBranchSpen
 - Wallet reserve/commit/refund (`walletMeter.ts`)
 - HTTP routes, moderation, image providers
 - Browser save state (`apps/web/src/persistence/`)
-- Reading `process.env` (composition stays in route factories / `compose.ts`)
+- Reading `process.env` (composition stays in `commercialRouteRuntime.ts` / `compose.ts`)
 
 ## Entrypoints
 

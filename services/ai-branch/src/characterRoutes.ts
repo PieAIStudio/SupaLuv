@@ -1,31 +1,20 @@
 import { randomUUID } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createClient } from "@supabase/supabase-js";
-import {
-  ADULT_COMEDY_MODERATION_POLICY,
-  createContentModerationProvider,
-} from "@pieai/swimmer-ai-kit/content-safety";
 import { z } from "zod";
 import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
-import { verifyBearerToken } from "./authGate.js";
-import { createConfiguredCharacterProviders } from "./characterProviderConfig.js";
 import {
   CharacterAssetStorageError,
   CHARACTER_ASSET_BODY_LIMIT_BYTES,
-  createSupabaseCharacterAssetStorage,
 } from "./characterAssetService.js";
 import { CharacterImageProviderError } from "./characterImageProvider.js";
 import {
   CharacterGenerationBusyError,
   CharacterGenerationPaymentError,
-  createCharacterGenerationService,
   type CharacterGenerationService,
 } from "./characterGenerationService.js";
-import { CharacterSafetyError, createCharacterSafety } from "./characterSafety.js";
+import { CharacterSafetyError } from "./characterSafety.js";
 import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
 import type { CharacterGenerationStore } from "./persistence/characterGenerationStore.js";
-import { createSupabasePersistenceFromClient } from "./persistence/index.js";
-import { commitReservation, refundReservation, reserveBatteries } from "./walletMeter.js";
 
 const stableId = z
   .string()
@@ -211,52 +200,4 @@ export async function handleCharacterPackRoute(
     }
     return true;
   }
-}
-
-let configured: CharacterPackRouteDependencies | undefined;
-
-export function getConfiguredCharacterPackDependencies(): CharacterPackRouteDependencies {
-  if (configured) return configured;
-  const url = process.env.SWIMMER_CORE_SUPABASE_URL?.trim();
-  const key = process.env.SWIMMER_CORE_SECRET_KEY?.trim();
-  if (!url || !key) throw new Error("SupaLuv character database credentials are required");
-  const client = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  const store = createSupabasePersistenceFromClient(client).characterGeneration;
-  const storage = createSupabaseCharacterAssetStorage(client);
-  const characterProviders = createConfiguredCharacterProviders();
-  const moderation = createContentModerationProvider({
-    policy: ADULT_COMEDY_MODERATION_POLICY,
-    sightengineApiUser: process.env.SIGHTENGINE_API_USER,
-    sightengineApiSecret: process.env.SIGHTENGINE_API_SECRET,
-  });
-  configured = {
-    verifyAuth: verifyBearerToken,
-    store,
-    generation: createCharacterGenerationService({
-      store,
-      storage,
-      provider: characterProviders.imageProvider,
-      safety: createCharacterSafety({
-        moderation,
-        semanticReviewer: characterProviders.adultReviewer,
-      }),
-      wallet: {
-        reserve: (input) =>
-          reserveBatteries({
-            userId: input.ownerId,
-            batteries: input.batteries,
-            reason: input.reason,
-            idempotencyKey: input.idempotencyKey,
-          }),
-        commit: (reservationId, reason) => commitReservation({ reservationId, reason }),
-        refund: (reservationId, reason) => refundReservation({ reservationId, reason }),
-      },
-      baseCostBatteries: Number(process.env.SUPALUV_CHARACTER_BASE_COST_BATTERIES ?? "1"),
-      moodCostBatteries: Number(process.env.SUPALUV_CHARACTER_MOOD_COST_BATTERIES ?? "1"),
-    }),
-    signAsset: (storagePath) => storage.createSignedDownload(storagePath),
-  };
-  return configured;
 }
