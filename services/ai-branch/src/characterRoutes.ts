@@ -23,7 +23,8 @@ import {
 } from "./characterGenerationService.js";
 import { CharacterSafetyError, createCharacterSafety } from "./characterSafety.js";
 import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
-import { createSupabaseSupaluvStore, type SupaluvStore } from "./supaluvStore.js";
+import type { CharacterGenerationStore } from "./persistence/characterGenerationStore.js";
+import { createSupabasePersistenceFromClient } from "./persistence/index.js";
 import { commitReservation, refundReservation, reserveBatteries } from "./walletMeter.js";
 
 const stableId = z
@@ -53,13 +54,13 @@ type VerifyAuth = (
 
 export type CharacterPackRouteDependencies = {
   readonly verifyAuth: VerifyAuth;
-  readonly store: SupaluvStore;
+  readonly store: CharacterGenerationStore;
   readonly generation: CharacterGenerationService;
   readonly signAsset?: (storagePath: string) => Promise<string>;
 };
 
 async function presentAsset(
-  asset: Awaited<ReturnType<SupaluvStore["listGeneratedAssets"]>>[number],
+  asset: Awaited<ReturnType<CharacterGenerationStore["listGeneratedAssets"]>>[number],
   signAsset?: (storagePath: string) => Promise<string>,
 ) {
   return { ...asset, ...(signAsset ? { url: await signAsset(asset.storagePath) } : {}) };
@@ -222,7 +223,7 @@ export function getConfiguredCharacterPackDependencies(): CharacterPackRouteDepe
   const client = createClient(url, key, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
-  const store = createSupabaseSupaluvStore(client);
+  const store = createSupabasePersistenceFromClient(client).characterGeneration;
   const storage = createSupabaseCharacterAssetStorage(client);
   const characterProviders = createConfiguredCharacterProviders();
   const moderation = createContentModerationProvider({

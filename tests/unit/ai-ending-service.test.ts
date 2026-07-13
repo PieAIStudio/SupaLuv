@@ -7,7 +7,7 @@ import {
   createEndingSessionService,
   EndingPaymentError,
 } from "../../services/ai-branch/src/endingSessionService";
-import { createInMemorySupaluvStore } from "../../services/ai-branch/src/supaluvStore";
+import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index";
 import type { CharacterGenerationWallet } from "../../services/ai-branch/src/characterGenerationService";
 
 const contract: AiEndingContract = {
@@ -168,7 +168,9 @@ describe("AI ending generator", () => {
 });
 
 async function sessionSetup() {
-  const store = createInMemorySupaluvStore();
+  const modules = createInMemoryPersistenceModules();
+  const store = modules.endingSession;
+  const spendReceipts = modules.spendReceipts;
   await store.saveStoryRun({
     id: "run-1",
     ownerId: "owner-a",
@@ -210,7 +212,7 @@ async function sessionSetup() {
     safety,
     segmentCostBatteries: 1,
   });
-  return { store, generator, wallet, safety, service };
+  return { store, spendReceipts, generator, wallet, safety, service };
 }
 
 describe("AI ending session coordinator", () => {
@@ -230,7 +232,7 @@ describe("AI ending session coordinator", () => {
     expect(context.wallet.reserve).toHaveBeenCalledOnce();
     expect(context.wallet.commit).not.toHaveBeenCalled();
     expect(result.segment.sequence).toBe(1);
-    await expect(context.store.listSpendReceipts("owner-a")).resolves.toHaveLength(1);
+    await expect(context.spendReceipts.listSpendReceipts("owner-a")).resolves.toHaveLength(1);
   });
 
   it("rolls back the checkpoint and refunds when atomic ending settlement fails", async () => {
@@ -256,7 +258,7 @@ describe("AI ending session coordinator", () => {
       "atomic-failure-session",
     );
     await expect(context.store.listEndingCheckpoints("owner-a", session!.id)).resolves.toEqual([]);
-    await expect(context.store.listSpendReceipts("owner-a")).resolves.toEqual([]);
+    await expect(context.spendReceipts.listSpendReceipts("owner-a")).resolves.toEqual([]);
   });
 
   it("blocks unsafe input before reservation and pauses on insufficient batteries", async () => {

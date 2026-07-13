@@ -7,7 +7,7 @@ import {
   createCharacterGenerationService,
   type CharacterGenerationWallet,
 } from "../../services/ai-branch/src/characterGenerationService";
-import { createInMemorySupaluvStore } from "../../services/ai-branch/src/supaluvStore";
+import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index";
 
 const reference = { bytes: Buffer.from("reference"), mimeType: "image/jpeg" as const };
 const generated = {
@@ -24,7 +24,9 @@ const generated = {
 
 async function setup() {
   const events: string[] = [];
-  const store = createInMemorySupaluvStore();
+  const modules = createInMemoryPersistenceModules();
+  const store = modules.characterGeneration;
+  const spendReceipts = modules.spendReceipts;
   await store.saveCharacterPack({
     id: "pack-1",
     ownerId: "owner-a",
@@ -98,7 +100,7 @@ async function setup() {
     baseCostBatteries: 1,
     moodCostBatteries: 1,
   });
-  return { events, store, safety, provider, storage, wallet, service };
+  return { events, store, spendReceipts, safety, provider, storage, wallet, service };
 }
 
 describe("character generation coordinator", () => {
@@ -127,7 +129,7 @@ describe("character generation coordinator", () => {
       provider: "openrouter",
       model: "google/gemini-3.1-flash-image",
     });
-    await expect(context.store.listSpendReceipts("owner-a")).resolves.toHaveLength(1);
+    await expect(context.spendReceipts.listSpendReceipts("owner-a")).resolves.toHaveLength(1);
   });
 
   it("refunds and removes the uploaded image when atomic settlement fails", async () => {

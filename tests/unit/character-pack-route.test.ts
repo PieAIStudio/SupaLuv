@@ -8,7 +8,7 @@ import {
   CharacterGenerationBusyError,
   CharacterGenerationPaymentError,
 } from "../../services/ai-branch/src/characterGenerationService";
-import { createInMemorySupaluvStore } from "../../services/ai-branch/src/supaluvStore";
+import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index";
 
 let server: Server | undefined;
 afterEach(async () => {
@@ -23,7 +23,7 @@ function deps(): CharacterPackRouteDependencies {
         ? { ok: true as const, userId: "owner-a", isAnonymous: false }
         : { ok: false as const, status: 401 as const, error: "Missing authorization" },
     ),
-    store: createInMemorySupaluvStore(),
+    store: createInMemoryPersistenceModules().characterGeneration,
     generation: {
       generateBase: vi.fn(async () => ({ asset: { id: "base-1" }, idempotent: false })) as never,
       acceptBase: vi.fn(async () => undefined),

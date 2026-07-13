@@ -11,12 +11,12 @@ import {
   MAX_CHARACTER_REFERENCES,
 } from "./characterSchemas.js";
 import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
+import type { CharacterGenerationStore } from "./persistence/characterGenerationStore.js";
 import {
-  createInMemorySupaluvStore,
-  createSupabaseSupaluvStore,
+  createInMemoryPersistenceModules,
+  createSupabasePersistenceFromClient,
   type ReferenceAssetRecord,
-  type SupaluvStore,
-} from "./supaluvStore.js";
+} from "./persistence/index.js";
 
 export const CHARACTER_ASSET_BUCKET = "supaluv-character-assets";
 export const CHARACTER_ASSET_BODY_LIMIT_BYTES = 64 * 1024;
@@ -134,7 +134,7 @@ function expectedStoragePath(
 }
 
 export function createCharacterAssetService(options: {
-  readonly store: SupaluvStore;
+  readonly store: CharacterGenerationStore;
   readonly storage: CharacterAssetStorage;
   readonly now?: () => Date;
 }): CharacterAssetService {
@@ -443,7 +443,7 @@ export function getConfiguredCharacterAssetDependencies(): CharacterAssetRouteDe
     configuredDependencies = {
       verifyAuth: verifyBearerToken,
       assets: createCharacterAssetService({
-        store: createInMemorySupaluvStore(),
+        store: createInMemoryPersistenceModules().characterGeneration,
         storage: unavailable,
       }),
       cleanupSecret: process.env.SUPALUV_REFERENCE_CLEANUP_SECRET,
@@ -460,7 +460,7 @@ export function getConfiguredCharacterAssetDependencies(): CharacterAssetRouteDe
   configuredDependencies = {
     verifyAuth: verifyBearerToken,
     assets: createCharacterAssetService({
-      store: createSupabaseSupaluvStore(client),
+      store: createSupabasePersistenceFromClient(client).characterGeneration,
       storage: createSupabaseCharacterAssetStorage(client),
     }),
     cleanupSecret: process.env.SUPALUV_REFERENCE_CLEANUP_SECRET,

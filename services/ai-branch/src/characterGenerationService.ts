@@ -8,7 +8,8 @@ import type { CharacterAssetBinaryStorage } from "./characterAssetService.js";
 import { CHARACTER_ASSET_BUCKET } from "./characterAssetService.js";
 import type { CharacterImageProvider } from "./characterImageProvider.js";
 import type { CharacterSafety } from "./characterSafety.js";
-import type { GeneratedAssetRecord, GenerationActionKind, SupaluvStore } from "./supaluvStore.js";
+import type { CharacterGenerationStore } from "./persistence/characterGenerationStore.js";
+import type { GeneratedAssetRecord, GenerationActionKind } from "./persistence/types.js";
 
 export interface CharacterGenerationWallet {
   reserve(input: {
@@ -80,7 +81,7 @@ function extension(mimeType: string): string {
 }
 
 export function createCharacterGenerationService(options: {
-  readonly store: SupaluvStore;
+  readonly store: CharacterGenerationStore;
   readonly safety: CharacterSafety;
   readonly provider: CharacterImageProvider;
   readonly storage: CharacterAssetBinaryStorage;

@@ -7,7 +7,8 @@ import type {
 import { makeActionIdempotencyKey } from "./actionIdentity.js";
 import type { CharacterGenerationWallet } from "./characterGenerationService.js";
 import type { EndingGenerator } from "./mastraEnding.js";
-import type { EndingSessionRecord, SupaluvStore } from "./supaluvStore.js";
+import type { EndingSessionStore } from "./persistence/endingSessionStore.js";
+import type { EndingSessionRecord } from "./persistence/types.js";
 
 export interface EndingSafety {
   reviewInput(action: AiEndingPlayerAction): Promise<void>;
@@ -25,7 +26,7 @@ export class EndingPaymentError extends Error {
 }
 
 export function createEndingSessionService(options: {
-  readonly store: SupaluvStore;
+  readonly store: EndingSessionStore;
   readonly wallet: CharacterGenerationWallet;
   readonly safety: EndingSafety;
   readonly generator: EndingGenerator;

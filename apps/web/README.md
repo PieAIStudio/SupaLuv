@@ -70,14 +70,15 @@ checkpoint advances into chapter 2 without AI final ending.
 
 ## AI edge map (`services/ai-branch`)
 
-| File                             | Role                               |
-| -------------------------------- | ---------------------------------- |
-| `server.ts`                      | secrets + listen only              |
-| `routeTable.ts`                  | all HTTP endpoints                 |
-| `walletMeter.ts`                 | service_role reserve/commit/refund |
-| `ttsCatalog.ts`                  | trusted preview phrases            |
-| `authGate.ts`                    | JWT verify (publishable key)       |
-| `handler.ts` / `mastraBranch.ts` | constrained AI generation          |
+| File                             | Role                                                              |
+| -------------------------------- | ----------------------------------------------------------------- |
+| `server.ts`                      | secrets + listen only                                             |
+| `routeTable.ts`                  | all HTTP endpoints                                                |
+| `walletMeter.ts`                 | service_role reserve/commit/refund                                |
+| `persistence/`                   | commercial modules: character settle, ending settle, spend reader |
+| `ttsCatalog.ts`                  | trusted preview phrases                                           |
+| `authGate.ts`                    | JWT verify (publishable key)                                      |
+| `handler.ts` / `mastraBranch.ts` | constrained AI generation                                         |
 
 ## Stability
 

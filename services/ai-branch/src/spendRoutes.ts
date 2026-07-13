@@ -3,23 +3,29 @@ import { createClient } from "@supabase/supabase-js";
 import { verifyBearerToken } from "./authGate.js";
 import { sendJson } from "./httpUtils.js";
 import {
-  createSupabaseSupaluvStore,
+  createSupabasePersistenceFromClient,
+  type SideBranchSpendRecorder,
   type SpendReceiptInput,
-  type SupaluvStore,
-} from "./supaluvStore.js";
+  type SpendReceiptReader,
+} from "./persistence/index.js";
 
-let store: SupaluvStore | undefined;
-function configuredStore(): SupaluvStore {
-  if (store) return store;
+type SpendModules = {
+  readonly spendReceipts: SpendReceiptReader;
+  readonly sideBranchSpend: SideBranchSpendRecorder;
+};
+
+let modules: SpendModules | undefined;
+function configuredSpendModules(): SpendModules {
+  if (modules) return modules;
   const url = process.env.SWIMMER_CORE_SUPABASE_URL?.trim();
   const key = process.env.SWIMMER_CORE_SECRET_KEY?.trim();
   if (!url || !key) throw new Error("Spend analysis database credentials are required");
-  store = createSupabaseSupaluvStore(
+  modules = createSupabasePersistenceFromClient(
     createClient(url, key, {
       auth: { autoRefreshToken: false, persistSession: false },
     }),
   );
-  return store;
+  return modules;
 }
 
 export async function recordShortBranchReceipt(input: {
@@ -30,11 +36,10 @@ export async function recordShortBranchReceipt(input: {
   sceneId: string;
 }): Promise<void> {
   if (!input.reservationId || input.amountPowerUnits <= 0) return;
-  await configuredStore().recordSpendReceipt({
+  // Adapter supplies actionKind/scopeType; caller only passes delivery facts.
+  await configuredSpendModules().sideBranchSpend.recordSideBranchSpend({
     ownerId: input.ownerId,
     walletReservationId: input.reservationId,
-    actionKind: "ai_side_choice",
-    scopeType: "story_run",
     amountPowerUnits: input.amountPowerUnits,
     metadata: { storyId: input.storyId, sceneId: input.sceneId },
   });
@@ -44,7 +49,10 @@ export async function handleSpendRoute(
   req: IncomingMessage,
   res: ServerResponse,
   url: URL,
-  dependencies: { verifyAuth?: typeof verifyBearerToken; store?: SupaluvStore } = {},
+  dependencies: {
+    verifyAuth?: typeof verifyBearerToken;
+    store?: SpendReceiptReader;
+  } = {},
 ): Promise<boolean> {
   if (url.pathname !== "/ai/spend" || req.method !== "GET") return false;
   try {
@@ -53,7 +61,9 @@ export async function handleSpendRoute(
       sendJson(res, auth.status, { error: auth.error });
       return true;
     }
-    const receipts = await (dependencies.store ?? configuredStore()).listSpendReceipts(auth.userId);
+    const receipts = await (
+      dependencies.store ?? configuredSpendModules().spendReceipts
+    ).listSpendReceipts(auth.userId);
     sendJson(res, 200, groupSpendReceipts(receipts));
   } catch {
     sendJson(res, 503, { error: "SPEND_ANALYSIS_UNAVAILABLE" });

@@ -16,11 +16,11 @@ import {
 } from "./endingSessionService.js";
 import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
 import { createConfiguredEndingGenerator } from "./mastraEnding.js";
+import type { EndingSessionStore } from "./persistence/endingSessionStore.js";
 import {
+  createSupabasePersistenceFromClient,
   EndingVersionConflictError,
-  createSupabaseSupaluvStore,
-  type SupaluvStore,
-} from "./supaluvStore.js";
+} from "./persistence/index.js";
 import { commitReservation, refundReservation, reserveBatteries } from "./walletMeter.js";
 
 const BODY_LIMIT = 64 * 1024;
@@ -49,7 +49,7 @@ const advanceSchema = z
 type VerifyAuth = (header: string | undefined) => Promise<AuthGateResult | AuthGateFailure>;
 export interface EndingRouteDependencies {
   readonly verifyAuth: VerifyAuth;
-  readonly store: SupaluvStore;
+  readonly store: EndingSessionStore;
   readonly service: EndingSessionService;
 }
 
@@ -167,7 +167,7 @@ export function getConfiguredEndingDependencies(): EndingRouteDependencies {
   const client = createClient(url, key, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
-  const store = createSupabaseSupaluvStore(client);
+  const store = createSupabasePersistenceFromClient(client).endingSession;
   const moderation = createContentModerationProvider({
     policy: ADULT_COMEDY_MODERATION_POLICY,
     sightengineApiUser: process.env.SIGHTENGINE_API_USER,

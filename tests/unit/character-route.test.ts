@@ -7,7 +7,7 @@ import {
   type CharacterAssetStorage,
   type CharacterAssetRouteDependencies,
 } from "../../services/ai-branch/src/characterAssetService";
-import { createInMemorySupaluvStore } from "../../services/ai-branch/src/supaluvStore";
+import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index";
 
 let server: Server | undefined;
 
@@ -154,7 +154,7 @@ describe("character reference routes", () => {
 
 describe("character reference lifecycle", () => {
   it("derives the private path from the authenticated owner and expires originals after 180 days", async () => {
-    const store = createInMemorySupaluvStore();
+    const store = createInMemoryPersistenceModules().characterGeneration;
     await store.saveCharacterPack({
       id: "pack-1",
       ownerId: "owner-a",
@@ -202,7 +202,7 @@ describe("character reference lifecycle", () => {
   });
 
   it("deletes expired database rows and their private storage objects", async () => {
-    const store = createInMemorySupaluvStore();
+    const store = createInMemoryPersistenceModules().characterGeneration;
     await store.saveCharacterPack({
       id: "pack-1",
       ownerId: "owner-a",

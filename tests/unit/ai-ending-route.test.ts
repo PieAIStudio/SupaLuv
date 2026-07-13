@@ -6,9 +6,9 @@ import {
 } from "../../services/ai-branch/src/endingRoutes";
 import { EndingPaymentError } from "../../services/ai-branch/src/endingSessionService";
 import {
+  createInMemoryPersistenceModules,
   EndingVersionConflictError,
-  createInMemorySupaluvStore,
-} from "../../services/ai-branch/src/supaluvStore";
+} from "../../services/ai-branch/src/persistence/index";
 
 let server: Server | undefined;
 afterEach(async () => {
@@ -23,7 +23,7 @@ function deps(): EndingRouteDependencies {
         ? { ok: true as const, userId: "owner-a", isAnonymous: false }
         : { ok: false as const, status: 401 as const, error: "auth required" },
     ),
-    store: createInMemorySupaluvStore(),
+    store: createInMemoryPersistenceModules().endingSession,
     service: {
       startSession: vi.fn(async () => ({
         checkpoint: { sessionId: "session-1" },
