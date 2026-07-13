@@ -1,0 +1,92 @@
+{
+  "defaultPackageId": "draft-2026-07",
+  "packages": [
+    {
+      "packageId": "draft-2026-07",
+      "label": "草稿两章 · 2026-07",
+      "startChapterId": "draft-ch01",
+      "chapterIds": ["draft-ch01", "draft-ch02"]
+    }
+  ],
+  "productionChapters": [
+    {
+      "id": "draft-ch01",
+      "label": "第01章 · 你有病吧",
+      "packageId": "draft-2026-07",
+      "chapterIndex": 1,
+      "role": "production",
+      "checkpoint": {
+        "kind": "next_chapter",
+        "nextChapterId": "draft-ch02"
+      },
+      "inheritVariableNames": [
+        "dignity",
+        "impulse",
+        "told_breakup_flat",
+        "closed_membership",
+        "budget_900",
+        "paid_snack",
+        "admitted_breakup",
+        "asked_guest",
+        "applied_robot",
+        "clue_subsidy_sms",
+        "clue_rental_receipt",
+        "clue_nda",
+        "clue_pass_sms"
+      ],
+      "inkFile": "draft-ch01.ink",
+      "manifestFile": "draft-ch01-scenes.ts"
+    },
+    {
+      "id": "draft-ch02",
+      "label": "第02章 · 她不会评判你",
+      "packageId": "draft-2026-07",
+      "chapterIndex": 2,
+      "role": "production",
+      "checkpoint": {
+        "kind": "draft_end"
+      },
+      "inheritVariableNames": [
+        "dignity",
+        "impulse",
+        "told_breakup_flat",
+        "closed_membership",
+        "budget_900",
+        "paid_snack",
+        "admitted_breakup",
+        "asked_guest",
+        "applied_robot",
+        "clue_subsidy_sms",
+        "clue_rental_receipt",
+        "clue_nda",
+        "clue_pass_sms"
+      ],
+      "inkFile": "draft-ch02.ink",
+      "manifestFile": "draft-ch02-scenes.ts"
+    }
+  ],
+  "devChapters": [
+    {
+      "id": "prototype-act1",
+      "label": "Prototype Act 1 · Comedy Beat Lab",
+      "packageId": "dev-prototype",
+      "chapterIndex": 1,
+      "role": "dev",
+      "checkpoint": {
+        "kind": "ai_ending_allowed"
+      },
+      "inheritVariableNames": ["dignity", "impulse"]
+    },
+    {
+      "id": "chapter-01-trial",
+      "label": "Chapter 01 Trial / 管线dummy",
+      "packageId": "dev-trial",
+      "chapterIndex": 1,
+      "role": "dev",
+      "checkpoint": {
+        "kind": "ai_ending_allowed"
+      },
+      "inheritVariableNames": ["dignity", "impulse"]
+    }
+  ]
+}

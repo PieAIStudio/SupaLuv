@@ -1,0 +1,1378 @@
+{
+  "schemaVersion": 1,
+  "packageId": "draft-2026-07",
+  "revision": "edf585e377a1387d",
+  "nodes": [
+    {
+      "id": "n_23adde913ff7ad78c08893c3cecd94d2",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "terminal"
+    },
+    {
+      "id": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_84b7bfeb421382ce9cba9525795ed980",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "entry"
+    },
+    {
+      "id": "n_85b7c17e4113813b99ba906c7c5ede39",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_86b7c31140137fa89aba91ff7b5edca6",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_87b7c4a447138aad97ba8d467e5ee15f",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_88b7c6374613891a98ba8ed97d5edfcc",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_89b7c7ca4513878795ba8a20805ee485",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_8ab7c95d441385f496ba8bb37f5ee2f2",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7bb7b1c03b1377c9a3baa02a825ee7ab",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7cb7b3533a137636a4baa1bd815ee618",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_09bacfe1bd1072d8a1bcdb9b945cc56a",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_08bace4ebe10746ba0bcda08955cc6fd",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_07baccbbbf1075fea3bcdec1925cc244",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_06bacb28c0107791a2bcdd2e935cc3d7",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0dbad62dc1107924a5bce1e7905cbf1e",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0cbad49ac2107ab7a4bce054915cc0b1",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0bbad307c3107c4aa7bce50d8e5cbbf8",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0abad174c4107ddda6bce37a8f5cbd8b",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_01bac349b510664099bccf038c5cb8d2",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_00bac1b6b61067d398bccd708d5cba65",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0fbd17ea2f17e2130fb53a008e5a7d61",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_10bd197d2e17e08010b53b938d5a7bce",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0dbd14c43117e53911b53d268c5a7a3b",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0ebd16573017e3a612b53eb98b5a78a8",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0bbd119e3317e85f13b5404c925a83ad",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0cbd13313217e6cc14b541df915a821a",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_09bd0e783517eb8515b54372905a8087",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0abd100b3417e9f216b545058f5a7ef4",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_07bd0b523717eeab17b54698865a70c9",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_08bd0ce53617ed1818b5482b855a6f36",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_f5bf2d934915cc6a95b84b8908576bd8",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_f4bf2c004a15cdfd94b849f609576d6b",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_f7bf30b94715c94493b848630a576efe",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_f6bf2f264815cad792b846d00b577091",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_f9bf33df4515c61e99b851d50c577224",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_f8bf324c4615c7b198b850420d5773b7",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_fbbf37054315c2f897b84eaf0e57754a",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_fabf35724415c48b96b84d1c0f5776dd",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_fdbf3a2b4115bfd29db8582100575f40",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_fcbf38984215c1659cb8568e015760d3",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7bc23f1cbb1d3ba513c44ad61268c4b7",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7cc240afba1d3a1214c44c691168c324",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7dc24242b91d387f11c447b01468c7dd",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7ec243d5b81d36ec12c449431368c64a",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_77c238d0b71d355917c451220e68be6b",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_78c23a63b61d33c618c452b50d68bcd8",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_79c23bf6b51d323315c44dfc1068c191",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7ac23d89b41d30a016c44f8f0f68bffe",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_83c24bb4c31d483d1bc4576e0a68b81f",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_84c24d47c21d46aa1cc459010968b68c",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_81c48725b51af39c19c692df0c667cae",
+      "storyId": "draft-ch01",
+      "chapterId": "draft-ch01",
+      "chapterOrder": 1,
+      "kind": "scene"
+    },
+    {
+      "id": "n_d4cf7ed30e4b32dad52862dd566b3424",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "terminal"
+    },
+    {
+      "id": "n_76334dcf31ca56e261bb057176eb939c",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "entry"
+    },
+    {
+      "id": "n_77334f6230ca554f5ebb00b879eb9855",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_783350f52fca53bc5fbb024b78eb96c2",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_713345f02eca522964bb0a2a73eb8ee3",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_723347832dca509665bb0bbd72eb8d50",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_733349162cca4f0362bb070475eb9209",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_74334aa92bca4d7063bb089774eb9076",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7d3358d43aca650d58baf7467feba1c7",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7e335a6739ca637a59baf8d97eeba034",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7b3594452cc8106c66bd4be7f1e883a6",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7a3592b22dc811ff65bd4a54f2e88539",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_7935911f2ec8139268bd4f0defe88080",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_78358f8c2fc8152567bd4d7af0e88213",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_77358df928c80a2062bd459bf5e889f2",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_76358c6629c80bb361bd4408f6e88b85",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_75358ad32ac80d4664bd48c1f3e886cc",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_743589402bc80ed963bd472ef4e8885f",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_8335a0dd34c81d045ebd3f4ff9e8903e",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_82359f4a35c81e975dbd3dbcfae891d1",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0138a5cebecfb207d4b5aa4c0be66dfd",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0238a761bdcfb074d5b5abdf0ae66c6a",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_ff38a2a8c0cfb52dd6b5ad7209e66ad7",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0038a43bbfcfb39ad7b5af0508e66944",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0538ac1abacfabbbd0b5a40007e667b1",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0638adadb9cfaa28d1b5a59306e6661e",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0338a8f4bccfaee1d2b5a72605e6648b",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_0438aa87bbcfad4ed3b5a8b904e662f8",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_f9389936b6cfa56fdcb5b6e403e66165",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_fa389ac9b5cfa3dcddb5b87702e65fd2",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_073aedd738cca07e5ab8bbd505e425f4",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_063aec4439cca21159b8ba4206e42787",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_093af0fd36cc9d5858b8b8af07e4291a",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_083aef6a37cc9eeb57b8b71c08e42aad",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_033ae78b3ccca6ca56b8b58901e41fa8",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_023ae5f83dcca85d55b8b3f602e4213b",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_053aeab13acca3a454b8b26303e422ce",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_043ae91e3bcca53753b8b0d004e42461",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_ff3ae13f30cc93e662b8c86dfde4195c",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_fe3adfac31cc957961b8c6dafee41aef",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    },
+    {
+      "id": "n_fd2994f8bac0a131e8b14c9a7fe1146b",
+      "storyId": "draft-ch02",
+      "chapterId": "draft-ch02",
+      "chapterOrder": 2,
+      "kind": "scene"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_bc0b9508dd2814a1f2a2484a8e8548e3",
+      "kind": "chapter_transition",
+      "fromNodeId": "n_23adde913ff7ad78c08893c3cecd94d2",
+      "toNodeId": "n_76334dcf31ca56e261bb057176eb939c"
+    },
+    {
+      "id": "e_467659c8314f94d19bbfbd2a8a554f1b",
+      "kind": "choice",
+      "fromNodeId": "n_86b7c31140137fa89aba91ff7b5edca6",
+      "toNodeId": "n_87b7c4a447138aad97ba8d467e5ee15f"
+    },
+    {
+      "id": "e_d8a4ffba8ddad7378b20fa3c37d46401",
+      "kind": "choice",
+      "fromNodeId": "n_86b7c31140137fa89aba91ff7b5edca6",
+      "toNodeId": "n_87b7c4a447138aad97ba8d467e5ee15f"
+    },
+    {
+      "id": "e_31f7ce3ec86f1f6fa7f0c878662a0e81",
+      "kind": "choice",
+      "fromNodeId": "n_fcbf38984215c1659cb8568e015760d3",
+      "toNodeId": "n_7bc23f1cbb1d3ba513c44ad61268c4b7"
+    },
+    {
+      "id": "e_309aaa695d6f7cc2384e151f1c51f2b8",
+      "kind": "choice",
+      "fromNodeId": "n_0bbd119e3317e85f13b5404c925a83ad",
+      "toNodeId": "n_0cbd13313217e6cc14b541df915a821a"
+    },
+    {
+      "id": "e_ee02fa549261091f74b4fbfe0c54c1f9",
+      "kind": "choice",
+      "fromNodeId": "n_7ac23d89b41d30a016c44f8f0f68bffe",
+      "toNodeId": "n_83c24bb4c31d483d1bc4576e0a68b81f"
+    },
+    {
+      "id": "e_d4c1cbde821146ef18c8a1b845dd6549",
+      "kind": "continue",
+      "fromNodeId": "n_23adde913ff7ad78c08893c3cecd94d2",
+      "toNodeId": "n_23adde913ff7ad78c08893c3cecd94d2",
+      "endsChapter": true
+    },
+    {
+      "id": "e_58efba016ce0d26aa5610e3be0e854ac",
+      "kind": "choice",
+      "fromNodeId": "n_0dbad62dc1107924a5bce1e7905cbf1e",
+      "toNodeId": "n_0cbad49ac2107ab7a4bce054915cc0b1"
+    },
+    {
+      "id": "e_6702a930552abf29eb2e89d6b3fd196f",
+      "kind": "choice",
+      "fromNodeId": "n_0dbad62dc1107924a5bce1e7905cbf1e",
+      "toNodeId": "n_0cbad49ac2107ab7a4bce054915cc0b1"
+    },
+    {
+      "id": "e_de333486e0544f4f9c01b768a9878fe9",
+      "kind": "choice",
+      "fromNodeId": "n_f5bf2d934915cc6a95b84b8908576bd8",
+      "toNodeId": "n_f4bf2c004a15cdfd94b849f609576d6b"
+    },
+    {
+      "id": "e_ad60141e253f85918930aa585b1b438b",
+      "kind": "choice",
+      "fromNodeId": "n_0bbd119e3317e85f13b5404c925a83ad",
+      "toNodeId": "n_0cbd13313217e6cc14b541df915a821a"
+    },
+    {
+      "id": "e_1c528398b033414ba0d9880e467c00a1",
+      "kind": "choice",
+      "fromNodeId": "n_fcbf38984215c1659cb8568e015760d3",
+      "toNodeId": "n_7bc23f1cbb1d3ba513c44ad61268c4b7"
+    },
+    {
+      "id": "e_f9576adb2d891ba4c5679e0d7b54d81e",
+      "kind": "choice",
+      "fromNodeId": "n_88b7c6374613891a98ba8ed97d5edfcc",
+      "toNodeId": "n_89b7c7ca4513878795ba8a20805ee485"
+    },
+    {
+      "id": "e_6dac6f691b1f4fc6a355e4d370b6c5c0",
+      "kind": "choice",
+      "fromNodeId": "n_88b7c6374613891a98ba8ed97d5edfcc",
+      "toNodeId": "n_89b7c7ca4513878795ba8a20805ee485"
+    },
+    {
+      "id": "e_8827de88c56b8f03bb586e4a0937fe0d",
+      "kind": "choice",
+      "fromNodeId": "n_f5bf2d934915cc6a95b84b8908576bd8",
+      "toNodeId": "n_f4bf2c004a15cdfd94b849f609576d6b"
+    },
+    {
+      "id": "e_e4c95c9a64636ef3a838f1e8350c9fa9",
+      "kind": "choice",
+      "fromNodeId": "n_7ac23d89b41d30a016c44f8f0f68bffe",
+      "toNodeId": "n_83c24bb4c31d483d1bc4576e0a68b81f"
+    },
+    {
+      "id": "e_78d93177689322fabef1967133ff8014",
+      "kind": "continue",
+      "fromNodeId": "n_84b7bfeb421382ce9cba9525795ed980",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_8a5af058bf85070ddbf166eeac75f263",
+      "kind": "continue",
+      "fromNodeId": "n_85b7c17e4113813b99ba906c7c5ede39",
+      "toNodeId": "n_86b7c31140137fa89aba91ff7b5edca6"
+    },
+    {
+      "id": "e_16fc6de25c773d8fb366888c4bd0cff9",
+      "kind": "continue",
+      "fromNodeId": "n_87b7c4a447138aad97ba8d467e5ee15f",
+      "toNodeId": "n_88b7c6374613891a98ba8ed97d5edfcc"
+    },
+    {
+      "id": "e_1476579c765a1db968e4a012b8f8c7cf",
+      "kind": "continue",
+      "fromNodeId": "n_89b7c7ca4513878795ba8a20805ee485",
+      "toNodeId": "n_8ab7c95d441385f496ba8bb37f5ee2f2"
+    },
+    {
+      "id": "e_d7e3f3954967db909c8a067bdebd7ab6",
+      "kind": "continue",
+      "fromNodeId": "n_8ab7c95d441385f496ba8bb37f5ee2f2",
+      "toNodeId": "n_7bb7b1c03b1377c9a3baa02a825ee7ab"
+    },
+    {
+      "id": "e_5156fe7699d7b40b82b44d002f2858d5",
+      "kind": "continue",
+      "fromNodeId": "n_7bb7b1c03b1377c9a3baa02a825ee7ab",
+      "toNodeId": "n_7cb7b3533a137636a4baa1bd815ee618"
+    },
+    {
+      "id": "e_06dcdb8f6c96cfe20a205a69d9830cdc",
+      "kind": "continue",
+      "fromNodeId": "n_7cb7b3533a137636a4baa1bd815ee618",
+      "toNodeId": "n_09bacfe1bd1072d8a1bcdb9b945cc56a"
+    },
+    {
+      "id": "e_738c2c1d3d404b844be7bd77990b2e2e",
+      "kind": "continue",
+      "fromNodeId": "n_09bacfe1bd1072d8a1bcdb9b945cc56a",
+      "toNodeId": "n_08bace4ebe10746ba0bcda08955cc6fd"
+    },
+    {
+      "id": "e_15a3a8e450842c3dc80de67e9fcec8a7",
+      "kind": "continue",
+      "fromNodeId": "n_08bace4ebe10746ba0bcda08955cc6fd",
+      "toNodeId": "n_07baccbbbf1075fea3bcdec1925cc244"
+    },
+    {
+      "id": "e_fa3487330737b16a98fa59415e9b9348",
+      "kind": "continue",
+      "fromNodeId": "n_07baccbbbf1075fea3bcdec1925cc244",
+      "toNodeId": "n_06bacb28c0107791a2bcdd2e935cc3d7"
+    },
+    {
+      "id": "e_a555b64a42ed5ad35d697c58daa8a7b1",
+      "kind": "continue",
+      "fromNodeId": "n_06bacb28c0107791a2bcdd2e935cc3d7",
+      "toNodeId": "n_0dbad62dc1107924a5bce1e7905cbf1e"
+    },
+    {
+      "id": "e_f27b1ee08cac3069ea0af9e2ab0a11bb",
+      "kind": "continue",
+      "fromNodeId": "n_0cbad49ac2107ab7a4bce054915cc0b1",
+      "toNodeId": "n_0bbad307c3107c4aa7bce50d8e5cbbf8"
+    },
+    {
+      "id": "e_1cc34d1fc5b59766aaf27f950b7f8acc",
+      "kind": "continue",
+      "fromNodeId": "n_0bbad307c3107c4aa7bce50d8e5cbbf8",
+      "toNodeId": "n_0abad174c4107ddda6bce37a8f5cbd8b"
+    },
+    {
+      "id": "e_612968c6e084d2bfe784e39cace63845",
+      "kind": "continue",
+      "fromNodeId": "n_0abad174c4107ddda6bce37a8f5cbd8b",
+      "toNodeId": "n_01bac349b510664099bccf038c5cb8d2"
+    },
+    {
+      "id": "e_823fa36535f25e8cd9eb678f6209c2a6",
+      "kind": "continue",
+      "fromNodeId": "n_01bac349b510664099bccf038c5cb8d2",
+      "toNodeId": "n_00bac1b6b61067d398bccd708d5cba65"
+    },
+    {
+      "id": "e_85a7e2ec4601290524658a76b9cbafff",
+      "kind": "continue",
+      "fromNodeId": "n_00bac1b6b61067d398bccd708d5cba65",
+      "toNodeId": "n_0fbd17ea2f17e2130fb53a008e5a7d61"
+    },
+    {
+      "id": "e_f48a9fbc6fc09e457864424ae64a8b6b",
+      "kind": "continue",
+      "fromNodeId": "n_0fbd17ea2f17e2130fb53a008e5a7d61",
+      "toNodeId": "n_10bd197d2e17e08010b53b938d5a7bce"
+    },
+    {
+      "id": "e_f4bb4d35ce59f0cccd431333f8e20fc2",
+      "kind": "continue",
+      "fromNodeId": "n_10bd197d2e17e08010b53b938d5a7bce",
+      "toNodeId": "n_0dbd14c43117e53911b53d268c5a7a3b"
+    },
+    {
+      "id": "e_f0ce2a826de477bbe8b234e4e8bd2a75",
+      "kind": "continue",
+      "fromNodeId": "n_0dbd14c43117e53911b53d268c5a7a3b",
+      "toNodeId": "n_0ebd16573017e3a612b53eb98b5a78a8"
+    },
+    {
+      "id": "e_8619672b7723f352469ab81d47d84dfc",
+      "kind": "continue",
+      "fromNodeId": "n_0ebd16573017e3a612b53eb98b5a78a8",
+      "toNodeId": "n_0bbd119e3317e85f13b5404c925a83ad"
+    },
+    {
+      "id": "e_39e89be12175f948efd1d91f254d7cde",
+      "kind": "continue",
+      "fromNodeId": "n_0cbd13313217e6cc14b541df915a821a",
+      "toNodeId": "n_09bd0e783517eb8515b54372905a8087"
+    },
+    {
+      "id": "e_3672c39e62a92ea7c589aae0ffa56b21",
+      "kind": "continue",
+      "fromNodeId": "n_09bd0e783517eb8515b54372905a8087",
+      "toNodeId": "n_0abd100b3417e9f216b545058f5a7ef4"
+    },
+    {
+      "id": "e_a75bd1975be5942ef1c312493f94a0b8",
+      "kind": "continue",
+      "fromNodeId": "n_0abd100b3417e9f216b545058f5a7ef4",
+      "toNodeId": "n_07bd0b523717eeab17b54698865a70c9"
+    },
+    {
+      "id": "e_9aaf4f7469ca1b7d9f1c62f207260c03",
+      "kind": "continue",
+      "fromNodeId": "n_07bd0b523717eeab17b54698865a70c9",
+      "toNodeId": "n_08bd0ce53617ed1818b5482b855a6f36"
+    },
+    {
+      "id": "e_c17d9ead059f0cc4ccec1e5b9e79895a",
+      "kind": "continue",
+      "fromNodeId": "n_08bd0ce53617ed1818b5482b855a6f36",
+      "toNodeId": "n_f5bf2d934915cc6a95b84b8908576bd8"
+    },
+    {
+      "id": "e_95d61412725daf1fb6bbadf0c061d1e5",
+      "kind": "continue",
+      "fromNodeId": "n_f4bf2c004a15cdfd94b849f609576d6b",
+      "toNodeId": "n_f7bf30b94715c94493b848630a576efe"
+    },
+    {
+      "id": "e_f066c705481580e017d9ecef0a300572",
+      "kind": "continue",
+      "fromNodeId": "n_f7bf30b94715c94493b848630a576efe",
+      "toNodeId": "n_f6bf2f264815cad792b846d00b577091"
+    },
+    {
+      "id": "e_e057fc8c744ee8490b28c35637ffc0db",
+      "kind": "continue",
+      "fromNodeId": "n_f6bf2f264815cad792b846d00b577091",
+      "toNodeId": "n_f9bf33df4515c61e99b851d50c577224"
+    },
+    {
+      "id": "e_e6ac2c67faf0184a8dda126d19be6ae8",
+      "kind": "continue",
+      "fromNodeId": "n_f9bf33df4515c61e99b851d50c577224",
+      "toNodeId": "n_f8bf324c4615c7b198b850420d5773b7"
+    },
+    {
+      "id": "e_08e2daee4fcee9333a6fd634346acb51",
+      "kind": "continue",
+      "fromNodeId": "n_f8bf324c4615c7b198b850420d5773b7",
+      "toNodeId": "n_fbbf37054315c2f897b84eaf0e57754a"
+    },
+    {
+      "id": "e_ebe30a716b3e0ae49c126983f5b49b4e",
+      "kind": "continue",
+      "fromNodeId": "n_fbbf37054315c2f897b84eaf0e57754a",
+      "toNodeId": "n_fabf35724415c48b96b84d1c0f5776dd"
+    },
+    {
+      "id": "e_7bd81c08c9268e1d3365e6dab0d18c47",
+      "kind": "continue",
+      "fromNodeId": "n_fabf35724415c48b96b84d1c0f5776dd",
+      "toNodeId": "n_fdbf3a2b4115bfd29db8582100575f40"
+    },
+    {
+      "id": "e_ed52f8d30d2ccece9491c8a153c5d764",
+      "kind": "continue",
+      "fromNodeId": "n_fdbf3a2b4115bfd29db8582100575f40",
+      "toNodeId": "n_fcbf38984215c1659cb8568e015760d3"
+    },
+    {
+      "id": "e_0ba6b232c7a7fc07a63ff334c89aae51",
+      "kind": "continue",
+      "fromNodeId": "n_7bc23f1cbb1d3ba513c44ad61268c4b7",
+      "toNodeId": "n_7cc240afba1d3a1214c44c691168c324"
+    },
+    {
+      "id": "e_a108159ba8105d0ef9aa2f6dadee4de8",
+      "kind": "continue",
+      "fromNodeId": "n_7cc240afba1d3a1214c44c691168c324",
+      "toNodeId": "n_7dc24242b91d387f11c447b01468c7dd"
+    },
+    {
+      "id": "e_4fe60f2ccd61cb119f3603da45016f47",
+      "kind": "continue",
+      "fromNodeId": "n_7dc24242b91d387f11c447b01468c7dd",
+      "toNodeId": "n_7ec243d5b81d36ec12c449431368c64a"
+    },
+    {
+      "id": "e_6bf892a5cc008ca807e2868389e47e4e",
+      "kind": "continue",
+      "fromNodeId": "n_7ec243d5b81d36ec12c449431368c64a",
+      "toNodeId": "n_77c238d0b71d355917c451220e68be6b"
+    },
+    {
+      "id": "e_5275fb0ef6a2779b228bcaf05491b4e5",
+      "kind": "continue",
+      "fromNodeId": "n_77c238d0b71d355917c451220e68be6b",
+      "toNodeId": "n_78c23a63b61d33c618c452b50d68bcd8"
+    },
+    {
+      "id": "e_720d9a076141143248dd999957f9f46c",
+      "kind": "continue",
+      "fromNodeId": "n_78c23a63b61d33c618c452b50d68bcd8",
+      "toNodeId": "n_79c23bf6b51d323315c44dfc1068c191"
+    },
+    {
+      "id": "e_76662aa8c192f4a576f8e056cc2fa3db",
+      "kind": "continue",
+      "fromNodeId": "n_79c23bf6b51d323315c44dfc1068c191",
+      "toNodeId": "n_7ac23d89b41d30a016c44f8f0f68bffe"
+    },
+    {
+      "id": "e_5c8dfd8ab52a245f4894c87cf10697c9",
+      "kind": "continue",
+      "fromNodeId": "n_83c24bb4c31d483d1bc4576e0a68b81f",
+      "toNodeId": "n_84c24d47c21d46aa1cc459010968b68c"
+    },
+    {
+      "id": "e_cf2f50730c1a0006e979a4f5c4cd3060",
+      "kind": "continue",
+      "fromNodeId": "n_84c24d47c21d46aa1cc459010968b68c",
+      "toNodeId": "n_81c48725b51af39c19c692df0c667cae"
+    },
+    {
+      "id": "e_ce187ee197dc2098358d4d93e94e7f62",
+      "kind": "continue",
+      "fromNodeId": "n_81c48725b51af39c19c692df0c667cae",
+      "toNodeId": "n_23adde913ff7ad78c08893c3cecd94d2"
+    },
+    {
+      "id": "e_3e73ef3e78772021b4a4222c7458ecef",
+      "kind": "continue",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_85b7c17e4113813b99ba906c7c5ede39"
+    },
+    {
+      "id": "e_7ff5e199a01eb9f8c9b2d7d3d65c6a6a",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_bff9caac1eb83b85a4262f422d8bb6ab",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_2860f8a9e63feb106eea34976a33fbe6",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_02b680cb8f1e6d3443a6395151e4c2b2",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_1eaddace89915f772cb990b4cfb4c8d5",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_bdf54b8f34167f36f59c2691d7598c08",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_70266afa2f6b973b200352fc1b48cbb5",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_e1671a26e9faa865ac77f220c737c387",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_fdee7707b31b923ea00673c5d1493604",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_c19253461508e3bf328dbbf8b09acce1",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_e433450bf585c1aa50851f259f501c4c",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_69c09815adad08768238b5d764b0a7d0",
+      "kind": "choice",
+      "fromNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32",
+      "toNodeId": "n_4a71a47fa850f46c1c08ee9dea214b32"
+    },
+    {
+      "id": "e_92fc0572d50dd4b74aff51101cdf122d",
+      "kind": "continue",
+      "fromNodeId": "n_d4cf7ed30e4b32dad52862dd566b3424",
+      "toNodeId": "n_d4cf7ed30e4b32dad52862dd566b3424",
+      "endsChapter": true
+    },
+    {
+      "id": "e_4e685048df9417c15a048d9279e5fe53",
+      "kind": "choice",
+      "fromNodeId": "n_78358f8c2fc8152567bd4d7af0e88213",
+      "toNodeId": "n_77358df928c80a2062bd459bf5e889f2"
+    },
+    {
+      "id": "e_5912686c1d8a0c13132798522e2b7f49",
+      "kind": "choice",
+      "fromNodeId": "n_78358f8c2fc8152567bd4d7af0e88213",
+      "toNodeId": "n_77358df928c80a2062bd459bf5e889f2"
+    },
+    {
+      "id": "e_432c3f9881d5424b07301382809e5225",
+      "kind": "choice",
+      "fromNodeId": "n_053aeab13acca3a454b8b26303e422ce",
+      "toNodeId": "n_043ae91e3bcca53753b8b0d004e42461"
+    },
+    {
+      "id": "e_a011a93f2c670c0082d241814105ec3a",
+      "kind": "choice",
+      "fromNodeId": "n_053aeab13acca3a454b8b26303e422ce",
+      "toNodeId": "n_043ae91e3bcca53753b8b0d004e42461"
+    },
+    {
+      "id": "e_643a246260c2c499b0a7b8c8ae96048f",
+      "kind": "choice",
+      "fromNodeId": "n_8335a0dd34c81d045ebd3f4ff9e8903e",
+      "toNodeId": "n_82359f4a35c81e975dbd3dbcfae891d1"
+    },
+    {
+      "id": "e_09184ce80f1d3575378be3627ccbbe17",
+      "kind": "choice",
+      "fromNodeId": "n_723347832dca509665bb0bbd72eb8d50",
+      "toNodeId": "n_733349162cca4f0362bb070475eb9209"
+    },
+    {
+      "id": "e_034bd1cc62519c912f16fcb277ce7c4f",
+      "kind": "choice",
+      "fromNodeId": "n_723347832dca509665bb0bbd72eb8d50",
+      "toNodeId": "n_733349162cca4f0362bb070475eb9209"
+    },
+    {
+      "id": "e_6cf3a8092f56d6ba3dd93c07c9f97ff0",
+      "kind": "choice",
+      "fromNodeId": "n_fa389ac9b5cfa3dcddb5b87702e65fd2",
+      "toNodeId": "n_073aedd738cca07e5ab8bbd505e425f4"
+    },
+    {
+      "id": "e_c7c7faf75806fbecd984720966644f56",
+      "kind": "choice",
+      "fromNodeId": "n_fa389ac9b5cfa3dcddb5b87702e65fd2",
+      "toNodeId": "n_073aedd738cca07e5ab8bbd505e425f4"
+    },
+    {
+      "id": "e_eb861928ea555eade551f9f681cc89ab",
+      "kind": "choice",
+      "fromNodeId": "n_7d3358d43aca650d58baf7467feba1c7",
+      "toNodeId": "n_7e335a6739ca637a59baf8d97eeba034"
+    },
+    {
+      "id": "e_fa7e61c1f86ba5842f13ea1365b51e26",
+      "kind": "choice",
+      "fromNodeId": "n_7d3358d43aca650d58baf7467feba1c7",
+      "toNodeId": "n_7e335a6739ca637a59baf8d97eeba034"
+    },
+    {
+      "id": "e_1b1b4d944dfc42b324b69e0a884314f9",
+      "kind": "choice",
+      "fromNodeId": "n_8335a0dd34c81d045ebd3f4ff9e8903e",
+      "toNodeId": "n_82359f4a35c81e975dbd3dbcfae891d1"
+    },
+    {
+      "id": "e_2ffe5ed5bfb0162862e3e7cf076677ca",
+      "kind": "continue",
+      "fromNodeId": "n_76334dcf31ca56e261bb057176eb939c",
+      "toNodeId": "n_77334f6230ca554f5ebb00b879eb9855"
+    },
+    {
+      "id": "e_323c2422bb578587cc99d8d0d59ced9d",
+      "kind": "continue",
+      "fromNodeId": "n_77334f6230ca554f5ebb00b879eb9855",
+      "toNodeId": "n_783350f52fca53bc5fbb024b78eb96c2"
+    },
+    {
+      "id": "e_b89f844b9bbfe68ef5bbeff977b46a64",
+      "kind": "continue",
+      "fromNodeId": "n_783350f52fca53bc5fbb024b78eb96c2",
+      "toNodeId": "n_713345f02eca522964bb0a2a73eb8ee3"
+    },
+    {
+      "id": "e_d5d7c098b5427e257b412a3a7ed40e9f",
+      "kind": "continue",
+      "fromNodeId": "n_713345f02eca522964bb0a2a73eb8ee3",
+      "toNodeId": "n_723347832dca509665bb0bbd72eb8d50"
+    },
+    {
+      "id": "e_103f10beea52011bddeaa01480c547c9",
+      "kind": "continue",
+      "fromNodeId": "n_733349162cca4f0362bb070475eb9209",
+      "toNodeId": "n_74334aa92bca4d7063bb089774eb9076"
+    },
+    {
+      "id": "e_06ba6ab754f09db24aa1914d548be060",
+      "kind": "continue",
+      "fromNodeId": "n_74334aa92bca4d7063bb089774eb9076",
+      "toNodeId": "n_7d3358d43aca650d58baf7467feba1c7"
+    },
+    {
+      "id": "e_a18c774dc41ed8a0afcf84b72e1e9872",
+      "kind": "continue",
+      "fromNodeId": "n_7e335a6739ca637a59baf8d97eeba034",
+      "toNodeId": "n_7b3594452cc8106c66bd4be7f1e883a6"
+    },
+    {
+      "id": "e_349e179be7f00da270f87eb5e17b7f54",
+      "kind": "continue",
+      "fromNodeId": "n_7b3594452cc8106c66bd4be7f1e883a6",
+      "toNodeId": "n_7a3592b22dc811ff65bd4a54f2e88539"
+    },
+    {
+      "id": "e_9f3cb4326e536dcb70c7d13ccbfb668d",
+      "kind": "continue",
+      "fromNodeId": "n_7a3592b22dc811ff65bd4a54f2e88539",
+      "toNodeId": "n_7935911f2ec8139268bd4f0defe88080"
+    },
+    {
+      "id": "e_ff8e94a5900cfc5c025698ab7509827a",
+      "kind": "continue",
+      "fromNodeId": "n_7935911f2ec8139268bd4f0defe88080",
+      "toNodeId": "n_78358f8c2fc8152567bd4d7af0e88213"
+    },
+    {
+      "id": "e_05a39c07c5f2fa3eb625cd6155de3b10",
+      "kind": "continue",
+      "fromNodeId": "n_77358df928c80a2062bd459bf5e889f2",
+      "toNodeId": "n_76358c6629c80bb361bd4408f6e88b85"
+    },
+    {
+      "id": "e_e60bfd0ebc6e54371c7b00f882d07d39",
+      "kind": "continue",
+      "fromNodeId": "n_76358c6629c80bb361bd4408f6e88b85",
+      "toNodeId": "n_75358ad32ac80d4664bd48c1f3e886cc"
+    },
+    {
+      "id": "e_0b5d6b118b8baa1823990317b367bff6",
+      "kind": "continue",
+      "fromNodeId": "n_75358ad32ac80d4664bd48c1f3e886cc",
+      "toNodeId": "n_743589402bc80ed963bd472ef4e8885f"
+    },
+    {
+      "id": "e_09fc2ca89d639f01b2aff51e68ed9d0f",
+      "kind": "continue",
+      "fromNodeId": "n_743589402bc80ed963bd472ef4e8885f",
+      "toNodeId": "n_8335a0dd34c81d045ebd3f4ff9e8903e"
+    },
+    {
+      "id": "e_f023ff8a62ffe1e316ec80f439f4b515",
+      "kind": "continue",
+      "fromNodeId": "n_82359f4a35c81e975dbd3dbcfae891d1",
+      "toNodeId": "n_0138a5cebecfb207d4b5aa4c0be66dfd"
+    },
+    {
+      "id": "e_5e38a89e8e154c6f4f6e98b4fe791e55",
+      "kind": "continue",
+      "fromNodeId": "n_0138a5cebecfb207d4b5aa4c0be66dfd",
+      "toNodeId": "n_0238a761bdcfb074d5b5abdf0ae66c6a"
+    },
+    {
+      "id": "e_cf21b697816422d6a2d8d4eda8d3d25c",
+      "kind": "continue",
+      "fromNodeId": "n_0238a761bdcfb074d5b5abdf0ae66c6a",
+      "toNodeId": "n_ff38a2a8c0cfb52dd6b5ad7209e66ad7"
+    },
+    {
+      "id": "e_c803b4785348dc194864a95a871a43cb",
+      "kind": "continue",
+      "fromNodeId": "n_ff38a2a8c0cfb52dd6b5ad7209e66ad7",
+      "toNodeId": "n_0038a43bbfcfb39ad7b5af0508e66944"
+    },
+    {
+      "id": "e_61ae80e12cf70d70b1112c0300b6e3a2",
+      "kind": "continue",
+      "fromNodeId": "n_0038a43bbfcfb39ad7b5af0508e66944",
+      "toNodeId": "n_0538ac1abacfabbbd0b5a40007e667b1"
+    },
+    {
+      "id": "e_18940f82124dc903cbba7070b62a7501",
+      "kind": "continue",
+      "fromNodeId": "n_0538ac1abacfabbbd0b5a40007e667b1",
+      "toNodeId": "n_0638adadb9cfaa28d1b5a59306e6661e"
+    },
+    {
+      "id": "e_addf4c2ba9a1465af20c3f19a4528018",
+      "kind": "continue",
+      "fromNodeId": "n_0638adadb9cfaa28d1b5a59306e6661e",
+      "toNodeId": "n_0338a8f4bccfaee1d2b5a72605e6648b"
+    },
+    {
+      "id": "e_1c5084bc041571ed202785d6d5352a37",
+      "kind": "continue",
+      "fromNodeId": "n_0338a8f4bccfaee1d2b5a72605e6648b",
+      "toNodeId": "n_0438aa87bbcfad4ed3b5a8b904e662f8"
+    },
+    {
+      "id": "e_1c813235b0ab35b42cd8af6fdeb9d03e",
+      "kind": "continue",
+      "fromNodeId": "n_0438aa87bbcfad4ed3b5a8b904e662f8",
+      "toNodeId": "n_f9389936b6cfa56fdcb5b6e403e66165"
+    },
+    {
+      "id": "e_d439dd9662ff46d7f1c36dfc700736cd",
+      "kind": "continue",
+      "fromNodeId": "n_f9389936b6cfa56fdcb5b6e403e66165",
+      "toNodeId": "n_fa389ac9b5cfa3dcddb5b87702e65fd2"
+    },
+    {
+      "id": "e_22afaf3d3bc50a60debbf3139a2af8d6",
+      "kind": "continue",
+      "fromNodeId": "n_073aedd738cca07e5ab8bbd505e425f4",
+      "toNodeId": "n_063aec4439cca21159b8ba4206e42787"
+    },
+    {
+      "id": "e_0f6bce8467fe71c982a45faaa6dc226f",
+      "kind": "continue",
+      "fromNodeId": "n_063aec4439cca21159b8ba4206e42787",
+      "toNodeId": "n_093af0fd36cc9d5858b8b8af07e4291a"
+    },
+    {
+      "id": "e_1518ddd3aa73544650dad57d45bde370",
+      "kind": "continue",
+      "fromNodeId": "n_093af0fd36cc9d5858b8b8af07e4291a",
+      "toNodeId": "n_083aef6a37cc9eeb57b8b71c08e42aad"
+    },
+    {
+      "id": "e_d963346a660d389fecafc6c46c0fb219",
+      "kind": "continue",
+      "fromNodeId": "n_083aef6a37cc9eeb57b8b71c08e42aad",
+      "toNodeId": "n_033ae78b3ccca6ca56b8b58901e41fa8"
+    },
+    {
+      "id": "e_5ed7b3695eed946463b6cfffc2681c5a",
+      "kind": "continue",
+      "fromNodeId": "n_033ae78b3ccca6ca56b8b58901e41fa8",
+      "toNodeId": "n_023ae5f83dcca85d55b8b3f602e4213b"
+    },
+    {
+      "id": "e_d76ba600bcd6179d0bf4e2a62b149f03",
+      "kind": "continue",
+      "fromNodeId": "n_023ae5f83dcca85d55b8b3f602e4213b",
+      "toNodeId": "n_053aeab13acca3a454b8b26303e422ce"
+    },
+    {
+      "id": "e_97e11a66437e72b36dcfa9401cdc47ed",
+      "kind": "continue",
+      "fromNodeId": "n_043ae91e3bcca53753b8b0d004e42461",
+      "toNodeId": "n_ff3ae13f30cc93e662b8c86dfde4195c"
+    },
+    {
+      "id": "e_182cac0524e627e854f531bb493c0fde",
+      "kind": "continue",
+      "fromNodeId": "n_ff3ae13f30cc93e662b8c86dfde4195c",
+      "toNodeId": "n_fe3adfac31cc957961b8c6dafee41aef"
+    },
+    {
+      "id": "e_081de18c3f9288515e34ad527bc61cd7",
+      "kind": "continue",
+      "fromNodeId": "n_fe3adfac31cc957961b8c6dafee41aef",
+      "toNodeId": "n_fd2994f8bac0a131e8b14c9a7fe1146b"
+    },
+    {
+      "id": "e_1b935e90b334908d2192e7ca9d9c7617",
+      "kind": "continue",
+      "fromNodeId": "n_fd2994f8bac0a131e8b14c9a7fe1146b",
+      "toNodeId": "n_d4cf7ed30e4b32dad52862dd566b3424"
+    }
+  ],
+  "entryNodeIds": ["n_84b7bfeb421382ce9cba9525795ed980", "n_76334dcf31ca56e261bb057176eb939c"],
+  "terminalNodeIds": ["n_23adde913ff7ad78c08893c3cecd94d2", "n_d4cf7ed30e4b32dad52862dd566b3424"]
+}

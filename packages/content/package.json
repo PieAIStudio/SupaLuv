@@ -5,6 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./narrative-graph-player": "./src/narrative-graph-player.ts",
+    "./narrative-graph-creator.node": "./src/narrative-graph-creator.node.ts",
     "./draft-ch01-scenes": "./manifests/draft-ch01-scenes.ts",
     "./draft-ch02-scenes": "./manifests/draft-ch02-scenes.ts",
     "./prototype-scenes": "./manifests/prototype-scenes.ts",
@@ -14,7 +16,8 @@
   "scripts": {
     "compile-ink": "node ./scripts/compile-ink.mjs",
     "generate-coverage": "node ./scripts/generate-coverage.mjs",
-    "build": "pnpm compile-ink && pnpm generate-coverage && tsc -p tsconfig.json --noEmit",
+    "generate-narrative-graph": "node ./scripts/generate-narrative-graph.mjs",
+    "build": "pnpm compile-ink && pnpm generate-coverage && pnpm generate-narrative-graph && tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

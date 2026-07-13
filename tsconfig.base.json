@@ -16,6 +16,12 @@
     "noUncheckedIndexedAccess": true,
     "paths": {
       "@supaluv/content": ["./packages/content/src/index.ts"],
+      "@supaluv/content/narrative-graph-player": [
+        "./packages/content/src/narrative-graph-player.ts"
+      ],
+      "@supaluv/content/narrative-graph-creator.node": [
+        "./packages/content/src/narrative-graph-creator.node.ts"
+      ],
       "@supaluv/content/draft-ch01-scenes": ["./packages/content/manifests/draft-ch01-scenes.ts"],
       "@supaluv/content/draft-ch02-scenes": ["./packages/content/manifests/draft-ch02-scenes.ts"],
       "@supaluv/content/ch01-scenes": ["./packages/content/manifests/legacy/ch01-scenes.ts"],
@@ -24,7 +30,8 @@
         "./packages/content/manifests/chapter-01-trial-scenes.ts"
       ],
       "@supaluv/shared": ["./packages/shared/src/index.ts"],
-      "@supaluv/shared/story-map": ["./packages/shared/src/story-map.ts"]
+      "@supaluv/shared/story-map": ["./packages/shared/src/story-map.ts"],
+      "@supaluv/shared/narrative-graph": ["./packages/shared/src/narrative-graph.ts"]
     },
     "jsx": "react-jsx"
   }

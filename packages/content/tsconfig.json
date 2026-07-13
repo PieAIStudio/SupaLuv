@@ -4,5 +4,13 @@
     "types": [],
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts", "manifests/**/*.ts", "compiled/**/*.json", "characters/**/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    "manifests/**/*.ts",
+    "catalog/**/*.json",
+    "compiled/**/*.json",
+    "generated/**/*.json",
+    "characters/**/*.ts"
+  ],
+  "exclude": ["src/**/*.node.ts"]
 }

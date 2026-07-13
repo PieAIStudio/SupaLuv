@@ -23,9 +23,21 @@ export default defineConfig({
         "./packages/content/manifests/chapter-01-trial-scenes.ts",
         import.meta.url,
       ).pathname,
+      "@supaluv/content/narrative-graph-player": new URL(
+        "./packages/content/src/narrative-graph-player.ts",
+        import.meta.url,
+      ).pathname,
+      "@supaluv/content/narrative-graph-creator.node": new URL(
+        "./packages/content/src/narrative-graph-creator.node.ts",
+        import.meta.url,
+      ).pathname,
       "@supaluv/content": new URL("./packages/content/src/index.ts", import.meta.url).pathname,
       "@supaluv/shared/story-map": new URL("./packages/shared/src/story-map.ts", import.meta.url)
         .pathname,
+      "@supaluv/shared/narrative-graph": new URL(
+        "./packages/shared/src/narrative-graph.ts",
+        import.meta.url,
+      ).pathname,
       "@supaluv/shared": new URL("./packages/shared/src/index.ts", import.meta.url).pathname,
     },
   },

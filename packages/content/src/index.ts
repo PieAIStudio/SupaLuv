@@ -5,6 +5,7 @@ import type {
   StoryPackageMeta,
   StorySeedManifest,
 } from "@supaluv/shared";
+import storyCatalogJson from "../catalog/story-catalog.json";
 
 export const superLoverSeedManifest = {
   id: "super-lover-p0-seed",
@@ -34,24 +35,10 @@ export type AnyKnownStoryId = StoryCatalogId | RetiredStoryId;
 
 export const RETIRED_STORY_IDS = ["ch01"] as const satisfies readonly RetiredStoryId[];
 
-export const DEFAULT_STORY_PACKAGE_ID = "draft-2026-07" as const;
-export const DEFAULT_STORY_ID: StoryCatalogId = "draft-ch01";
+/** Data-only catalog SSOT shared with the Node NarrativeGraph generator. */
+export const storyCatalogDocument = storyCatalogJson;
 
-const SHARED_INHERIT_VARS = [
-  "dignity",
-  "impulse",
-  "told_breakup_flat",
-  "closed_membership",
-  "budget_900",
-  "paid_snack",
-  "admitted_breakup",
-  "asked_guest",
-  "applied_robot",
-  "clue_subsidy_sms",
-  "clue_rental_receipt",
-  "clue_nda",
-  "clue_pass_sms",
-] as const;
+export const DEFAULT_STORY_PACKAGE_ID = storyCatalogJson.defaultPackageId as "draft-2026-07";
 
 /**
  * Lightweight catalog metadata only — no compiled JSON, raw Ink, or scene arrays.
@@ -89,49 +76,34 @@ function asCompiledJson(value: unknown): string {
   return typeof value === "string" ? value : JSON.stringify(value);
 }
 
+function toCatalogMeta(entry: {
+  readonly id: string;
+  readonly label: string;
+  readonly packageId: string;
+  readonly chapterIndex: number;
+  readonly role: string;
+  readonly checkpoint: { readonly kind: string; readonly nextChapterId?: string };
+  readonly inheritVariableNames: readonly string[];
+}): StoryCatalogMeta {
+  return {
+    id: entry.id as StoryCatalogId,
+    label: entry.label,
+    packageId: entry.packageId,
+    chapterIndex: entry.chapterIndex,
+    role: entry.role as StoryCatalogRole,
+    checkpoint: entry.checkpoint as ChapterCheckpoint,
+    inheritVariableNames: entry.inheritVariableNames,
+  };
+}
+
 /** Player-facing production catalog (title / new game). No chapter payloads. */
-export const productionStoryCatalog: readonly StoryCatalogMeta[] = [
-  {
-    id: "draft-ch01",
-    label: "第01章 · 你有病吧",
-    packageId: DEFAULT_STORY_PACKAGE_ID,
-    chapterIndex: 1,
-    role: "production",
-    checkpoint: { kind: "next_chapter", nextChapterId: "draft-ch02" },
-    inheritVariableNames: SHARED_INHERIT_VARS,
-  },
-  {
-    id: "draft-ch02",
-    label: "第02章 · 她不会评判你",
-    packageId: DEFAULT_STORY_PACKAGE_ID,
-    chapterIndex: 2,
-    role: "production",
-    checkpoint: { kind: "draft_end" },
-    inheritVariableNames: SHARED_INHERIT_VARS,
-  },
-] as const;
+export const productionStoryCatalog: readonly StoryCatalogMeta[] =
+  storyCatalogJson.productionChapters.map((entry) => toCatalogMeta(entry));
 
 /** Dev fixture metadata (debug selector only). */
-export const devStoryCatalog: readonly StoryCatalogMeta[] = [
-  {
-    id: "prototype-act1",
-    label: "Prototype Act 1 · Comedy Beat Lab",
-    packageId: "dev-prototype",
-    chapterIndex: 1,
-    role: "dev",
-    checkpoint: { kind: "ai_ending_allowed" },
-    inheritVariableNames: ["dignity", "impulse"],
-  },
-  {
-    id: "chapter-01-trial",
-    label: "Chapter 01 Trial / 管线dummy",
-    packageId: "dev-trial",
-    chapterIndex: 1,
-    role: "dev",
-    checkpoint: { kind: "ai_ending_allowed" },
-    inheritVariableNames: ["dignity", "impulse"],
-  },
-] as const;
+export const devStoryCatalog: readonly StoryCatalogMeta[] = storyCatalogJson.devChapters.map(
+  (entry) => toCatalogMeta(entry),
+);
 
 /** Full selectable catalog metadata; never includes retired ch01. */
 export const storyCatalog: readonly StoryCatalogMeta[] = [
@@ -139,12 +111,22 @@ export const storyCatalog: readonly StoryCatalogMeta[] = [
   ...devStoryCatalog,
 ] as const;
 
+const defaultPackage =
+  storyCatalogJson.packages.find((pkg) => pkg.packageId === storyCatalogJson.defaultPackageId) ??
+  storyCatalogJson.packages[0];
+
+if (!defaultPackage) {
+  throw new Error("story-catalog.json: missing default package");
+}
+
 export const draft2026Package: StoryPackageMeta = {
-  packageId: DEFAULT_STORY_PACKAGE_ID,
-  label: "草稿两章 · 2026-07",
-  startChapterId: "draft-ch01",
-  chapterIds: ["draft-ch01", "draft-ch02"],
+  packageId: defaultPackage.packageId,
+  label: defaultPackage.label,
+  startChapterId: defaultPackage.startChapterId,
+  chapterIds: defaultPackage.chapterIds,
 };
+
+export const DEFAULT_STORY_ID: StoryCatalogId = defaultPackage.startChapterId as StoryCatalogId;
 
 const metaById = new Map<StoryCatalogId, StoryCatalogMeta>(
   storyCatalog.map((entry) => [entry.id, entry]),
@@ -237,3 +219,12 @@ export type { StorySeedManifest } from "@supaluv/shared";
 export { CHARACTER_BY_NAME, resolveCharacter } from "../characters/registry";
 export type { CharacterDef, PortraitSide } from "../characters/registry";
 export { CHARACTER_SLOTS, INITIAL_CHARACTER_MOODS } from "../characters/slots";
+
+/**
+ * Production-safe NarrativeGraph skeleton only.
+ * The full creator graph is Node/dev-only and is not re-exported here.
+ */
+export {
+  getNarrativeGraphPlayerSkeleton,
+  narrativeGraphPlayerSkeleton,
+} from "./narrative-graph-player";

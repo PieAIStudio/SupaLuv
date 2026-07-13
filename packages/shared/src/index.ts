@@ -28,5 +28,6 @@ export function isReadonlySourceMaterial(reference: SourceMaterialReference): bo
 }
 
 export * from "./story-map";
+export * from "./narrative-graph";
 export * from "./character-pack";
 export * from "./ai-ending";
