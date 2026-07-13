@@ -1,12 +1,12 @@
 ---
-id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-0
-title: Engineering Runtime Agents Routing v1.0
+id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
+title: Engineering Runtime Agents Routing v1.1
 type: policy
 status: stable
 canonical: true
 owner: human
-created: 2026-05-09
-last_reviewed: 2026-05-09
+created: 2026-07-13
+last_reviewed: 2026-07-13
 domain: agents-routing
 tags:
   - agents-routing
@@ -14,13 +14,13 @@ tags:
   - workflow
 pinned: true
 related:
-  - GOV-SSOT-V1-0
+  - GOV-SSOT-V1-1
   - REF-DOC-GOVERNANCE-BOUNDARY
 supersedes: []
 superseded_by: null
 ---
 
-# Engineering Runtime Agents Routing v1.0
+# Engineering Runtime Agents Routing v1.1
 
 Shared routing algorithm for app, game, runtime, and code-heavy projects.
 
@@ -54,7 +54,7 @@ Typical lanes:
 
 But the shared router must not define project-specific lanes.
 
-## Host Adapter Boundary
+## Host Compatibility Boundary
 
-Host-specific adapters such as `CLAUDE.md` may adapt the route for a specific AI
-client, but they must not replace the project `AGENTS.md` route.
+Follow the Project AI Host SSOT in `docs/governance/ssot-v1.1.md`. Host-specific
+runtime settings must not create a second project router or skill tree.

@@ -53,7 +53,7 @@ project-specific AI development habits live.
 | --- | --- |
 | AI startup entry | `AGENTS.md` |
 | Agent routing algorithm | `docs/governance/agents-routing/` |
-| Governed SSOT rules | `docs/governance/ssot-v1.0.md` |
+| Governed SSOT rules | `docs/governance/ssot-v1.1.md` |
 | Project AI development practices | `docs/policy/best-practice-for-this-project.md` |
 | Current work index | `docs/reference/execution/current-work.md` |
 | Product or world truth | `docs/canon/` |

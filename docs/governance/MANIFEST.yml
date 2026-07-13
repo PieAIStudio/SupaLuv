@@ -1,7 +1,7 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-13T18:28:56.620Z
-generator_version: doc-gov@0.5.4
+generated_at: 2026-07-13T20:19:35.103Z
+generator_version: doc-gov@0.7.1
 docs_count: 31
 docs:
   - id: PLAN-0001
@@ -88,12 +88,12 @@ docs:
     canonical: false
     last_reviewed: 2026-07-10
     pinned: false
-  - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-0
-    path: docs/governance/agents-routing/engineering-runtime-v1.0.md
+  - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
+    path: docs/governance/agents-routing/engineering-runtime-v1.1.md
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-05-09
+    last_reviewed: 2026-07-13
     pinned: true
   - id: REF-DOC-GOVERNANCE-BOUNDARY
     path: docs/governance/boundary.md
@@ -116,12 +116,12 @@ docs:
     canonical: true
     last_reviewed: 2026-05-08
     pinned: true
-  - id: GOV-SSOT-V1-0
-    path: docs/governance/ssot-v1.0.md
+  - id: GOV-SSOT-V1-1
+    path: docs/governance/ssot-v1.1.md
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-05-09
+    last_reviewed: 2026-07-13
     pinned: true
   - id: PLAN-0005
     path: docs/plans/active/PLAN-0005-draft-chapters-productization.md
