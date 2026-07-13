@@ -2,7 +2,7 @@ import type {
   AiEndingContract,
   AiEndingContinuity,
   AiEndingPlayerAction,
-} from "../../../packages/shared/src/ai-ending.js";
+} from "@supaluv/shared/ai-ending";
 
 export function buildEndingMessages(input: {
   readonly contract: AiEndingContract;

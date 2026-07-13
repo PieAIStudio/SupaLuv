@@ -1,8 +1,5 @@
 import { randomUUID } from "node:crypto";
-import {
-  INITIAL_CHARACTER_MOOD_KEYS,
-  type CharacterKind,
-} from "../../../packages/shared/src/character-pack.js";
+import { INITIAL_CHARACTER_MOOD_KEYS, type CharacterKind } from "@supaluv/shared/character-pack";
 import { makeActionIdempotencyKey } from "./actionIdentity.js";
 import type { CharacterAssetBinaryStorage } from "./characterAssetService.js";
 import { CHARACTER_ASSET_BUCKET } from "./characterAssetService.js";

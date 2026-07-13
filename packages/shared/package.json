@@ -6,7 +6,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./story-map": "./src/story-map.ts",
-    "./narrative-graph": "./src/narrative-graph.ts"
+    "./narrative-graph": "./src/narrative-graph.ts",
+    "./character-pack": "./src/character-pack.ts",
+    "./ai-ending": "./src/ai-ending.ts"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json --noEmit",

@@ -6,7 +6,7 @@ import type {
   AiEndingContinuity,
   AiEndingPlayerAction,
   AiEndingSegment,
-} from "../../../packages/shared/src/ai-ending.js";
+} from "@supaluv/shared/ai-ending";
 import { endingOutlineSchema, parseEndingSegment } from "./endingSchemas.js";
 import { buildEndingMessages } from "./endingPrompts.js";
 

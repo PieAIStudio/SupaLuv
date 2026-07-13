@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { AiEndingContract, AiEndingSegment } from "../../../packages/shared/src/ai-ending.js";
+import type { AiEndingContract, AiEndingSegment } from "@supaluv/shared/ai-ending";
 
 export const endingOutlineSchema = z.object({
   outcomeAnchor: z.string().min(1).max(120),

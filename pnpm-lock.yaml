@@ -131,6 +131,9 @@ importers:
       '@supaluv/content':
         specifier: workspace:*
         version: link:../../packages/content
+      '@supaluv/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       dotenv:
         specifier: 17.4.2
         version: 17.4.2

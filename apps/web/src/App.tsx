@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "./analytics/productAnalytics";
 import { gameAudio } from "./audio/gameAudio";
+import { syncGameAudioFromSettings } from "./audio/syncGameAudioFromSettings";
 import { useCoPlaySession } from "./coplay/useCoPlaySession";
 import type { CoPlayRole } from "./coplay/protocol";
 import type { StoryCharacterBindings } from "./characters/characterPackTypes";
@@ -187,11 +188,7 @@ export function App() {
   } = story;
 
   useEffect(() => {
-    gameAudio.setMuted(settings.masterMuted);
-    gameAudio.setMusicVolume(settings.musicVolume);
-    gameAudio.setAmbientVolume(settings.ambientVolume);
-    gameAudio.setSfxVolume(settings.sfxVolume);
-    gameAudio.setVoiceVolume(settings.voiceVolume);
+    syncGameAudioFromSettings(settings);
     saveSettings(settings);
   }, [settings]);
 
@@ -579,10 +576,6 @@ export function App() {
               textSpeed={settings.textSpeed}
               autoPlay={settings.autoPlay}
               masterMuted={settings.masterMuted}
-              musicVolume={settings.musicVolume}
-              ambientVolume={settings.ambientVolume}
-              sfxVolume={settings.sfxVolume}
-              voiceVolume={settings.voiceVolume}
               activeSaveSlot={activeManualSlot}
               displayNames={displayNames}
               portraitPack={portraitPack}

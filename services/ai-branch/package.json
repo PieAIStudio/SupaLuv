@@ -14,6 +14,7 @@
     "@pieai/swimmer-ai-kit": "file:../../vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz",
     "@supabase/supabase-js": "2.108.1",
     "@supaluv/content": "workspace:*",
+    "@supaluv/shared": "workspace:*",
     "dotenv": "17.4.2",
     "zod": "3.25.76"
   },

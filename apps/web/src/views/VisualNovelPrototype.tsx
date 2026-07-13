@@ -7,7 +7,6 @@ import type { CoPlaySessionApi } from "../coplay/useCoPlaySession";
 import { shouldShowRemoteCursors } from "../coplay/pointerPolicy";
 import { useAuth } from "../auth/AuthContext";
 import { useFullscreen } from "../hooks/useFullscreen";
-import { useGameAudioSettings } from "../hooks/useGameAudioSettings";
 import { usePlayInput } from "../hooks/usePlayInput";
 import { usePointerPresenceMode } from "../hooks/usePointerPresenceMode";
 import { EmotionCalibrationInteraction } from "../interactions/EmotionCalibrationInteraction";
@@ -45,10 +44,6 @@ interface VisualNovelPrototypeProps {
   readonly textSpeed: GameSettings["textSpeed"];
   readonly autoPlay: boolean;
   readonly masterMuted: boolean;
-  readonly musicVolume: number;
-  readonly ambientVolume: number;
-  readonly sfxVolume: number;
-  readonly voiceVolume: number;
   readonly activeSaveSlot: ManualSlotId;
   readonly displayNames?: DisplayNameMap;
   readonly portraitPack?: PortraitPackState;
@@ -86,10 +81,6 @@ export function VisualNovelPrototype({
   textSpeed,
   autoPlay,
   masterMuted,
-  musicVolume,
-  ambientVolume,
-  sfxVolume,
-  voiceVolume,
   activeSaveSlot,
   displayNames = DEFAULT_DISPLAY_NAMES,
   portraitPack = EMPTY_PORTRAIT_PACK,
@@ -317,14 +308,6 @@ export function VisualNovelPrototype({
   useEffect(() => {
     setLocalAutoPlay(autoPlay);
   }, [autoPlay]);
-
-  useGameAudioSettings({
-    masterMuted,
-    musicVolume,
-    ambientVolume,
-    sfxVolume,
-    voiceVolume,
-  });
 
   useEffect(() => {
     // Production stories hide tools by default; ?debug=1 keeps them available.

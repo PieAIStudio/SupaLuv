@@ -38,6 +38,12 @@ export default defineConfig({
         "./packages/shared/src/narrative-graph.ts",
         import.meta.url,
       ).pathname,
+      "@supaluv/shared/character-pack": new URL(
+        "./packages/shared/src/character-pack.ts",
+        import.meta.url,
+      ).pathname,
+      "@supaluv/shared/ai-ending": new URL("./packages/shared/src/ai-ending.ts", import.meta.url)
+        .pathname,
       "@supaluv/shared": new URL("./packages/shared/src/index.ts", import.meta.url).pathname,
     },
   },

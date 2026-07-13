@@ -61,27 +61,28 @@ checkpoint advances into chapter 2 without AI final ending.
 
 ## Module map (where to change what)
 
-| If you need to…              | Edit                                                                                       |
-| ---------------------------- | ------------------------------------------------------------------------------------------ |
-| Add a meta screen            | `views/<Screen>.tsx` + route in `App.tsx`                                                  |
-| Play HUD / system menu       | `views/play/PlayHud.tsx`, `SystemMenu.tsx`                                                 |
-| Dialogue + AI choice UI      | `views/play/DialoguePanel.tsx`                                                             |
-| Narrative source / playback  | `views/play/experience/useNarrativeSource.ts` + `useNarrativePlayback.ts` + pure resolvers |
-| Decision / ending lifecycle  | `views/play/experience/useDecisionExperience.ts` + `resolveDecisionOutcome.ts`             |
-| Host/guest choice + RPS open | `views/play/usePlayChoiceFlow.ts` (owned via decision experience)                          |
-| Cutscene / BGM / SFX timing  | `views/play/useStageMedia.ts`                                                              |
-| Shared cursor / touch focus  | `coplay/pointerPolicy.ts` + `useCoPlayPointers.ts`                                         |
-| Save / resume / chapter flow | `story/session/*` + `persistence/gameSave.ts` + `saveWriter.ts`                            |
-| Save schema                  | `persistence/gameSave.ts` + `saveWriter.ts` + tests                                        |
-| Settings values              | `persistence/settings.ts` + `views/settings/*` (player vs lab)                             |
-| Local cinema CSS             | `styles/{base,stage,meta,coplay,chrome}.css` (barrel `styles.css`)                         |
-| Co-play RPS presentation     | `coplay/rpsViewModel.ts`                                                                   |
-| Audio play/pan/reverb        | `audio/gameAudio.ts` + `howlerEngine.ts`                                                   |
-| Battery pitch copy           | `commerce/aiBatteryPitch.ts`                                                               |
-| AI edge HTTP                 | `services/ai-branch/src/routeTable.ts` (not `server.ts`)                                   |
-| Wallet reserve/commit        | `services/ai-branch/src/walletMeter.ts`                                                    |
-| TTS fixed phrases            | `services/ai-branch/src/ttsCatalog.ts`                                                     |
-| Story content                | **`packages/content`**                                                                     |
+| If you need to…              | Edit                                                                                          |
+| ---------------------------- | --------------------------------------------------------------------------------------------- |
+| Add a meta screen            | `views/<Screen>.tsx` + route in `App.tsx`                                                     |
+| Play HUD / system menu       | `views/play/PlayHud.tsx`, `SystemMenu.tsx`                                                    |
+| Dialogue + AI choice UI      | `views/play/DialoguePanel.tsx`                                                                |
+| Narrative source / playback  | `views/play/experience/useNarrativeSource.ts` + `useNarrativePlayback.ts` + pure resolvers    |
+| Decision / ending lifecycle  | `views/play/experience/useDecisionExperience.ts` + `resolveDecisionOutcome.ts`                |
+| Host/guest choice + RPS open | `views/play/usePlayChoiceFlow.ts` (owned via decision experience)                             |
+| Cutscene / BGM / SFX timing  | `views/play/useStageMedia.ts`                                                                 |
+| Shared cursor / touch focus  | `coplay/pointerPolicy.ts` + `useCoPlayPointers.ts`                                            |
+| Save / resume / chapter flow | `story/session/*` + `persistence/gameSave.ts` + `saveWriter.ts`                               |
+| Save schema                  | `persistence/gameSave.ts` + `saveWriter.ts` + tests                                           |
+| Settings values              | `persistence/settings.ts` + `views/settings/*` (player vs lab)                                |
+| Local cinema CSS             | `styles/{base,stage,meta,coplay,chrome}.css` (barrel `styles.css`)                            |
+| Co-play RPS presentation     | `coplay/rpsViewModel.ts`                                                                      |
+| Audio play/pan/reverb        | `audio/gameAudio.ts` + `howlerEngine.ts`                                                      |
+| Settings → audio gains       | `audio/syncGameAudioFromSettings.ts` (owned by `App`; settings UI may preview optimistically) |
+| Battery pitch copy           | `commerce/aiBatteryPitch.ts`                                                                  |
+| AI edge HTTP                 | `services/ai-branch/src/routeTable.ts` (not `server.ts`)                                      |
+| Wallet reserve/commit        | `services/ai-branch/src/walletMeter.ts`                                                       |
+| TTS fixed phrases            | `services/ai-branch/src/ttsCatalog.ts`                                                        |
+| Story content                | **`packages/content`**                                                                        |
 
 ## AI edge map (`services/ai-branch`)
 

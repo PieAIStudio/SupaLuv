@@ -3,7 +3,7 @@ import type {
   AiEndingContract,
   AiEndingPlayerAction,
   AiEndingSegment,
-} from "../../../packages/shared/src/ai-ending.js";
+} from "@supaluv/shared/ai-ending";
 import { makeActionIdempotencyKey } from "./actionIdentity.js";
 import type { CharacterGenerationWallet } from "./characterGenerationService.js";
 import type { EndingGenerator } from "./mastraEnding.js";
