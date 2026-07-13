@@ -60,6 +60,7 @@ async function reachPrototypeAiEnd(page: import("@playwright/test").Page) {
   if (await boot.isVisible().catch(() => false)) {
     await boot.click();
   }
+  await page.getByRole("button", { name: "中文", exact: true }).click();
   await page.getByTestId("title-new-game").click();
   await page.getByRole("button", { name: "使用官方形象" }).click();
   await page.getByRole("button", { name: "使用官方形象" }).click();
@@ -191,6 +192,7 @@ test("AI spend analysis explains that authored story is free", async ({ page }) 
   });
   await page.reload();
 
+  await page.getByRole("button", { name: "中文", exact: true }).click();
   await page.getByTestId("title-ai-spend").click();
   await expect(page.getByTestId("ai-spend-screen")).toBeVisible();
   await expect(page.getByText(/作者剧情完全免费|只有你主动使用 AI 功能/)).toBeVisible();
@@ -233,6 +235,7 @@ test("AI spend analysis shows only committed labeled receipts", async ({ page })
     }),
   );
   await page.goto("/");
+  await page.getByRole("button", { name: "中文", exact: true }).click();
   await page.getByTestId("title-ai-spend").click();
 
   await expect(page.getByTestId("ai-spend-total")).toHaveText("2");
@@ -249,6 +252,7 @@ test("landscape phone keeps casting controls reachable", async ({ page }) => {
     sessionStorage.setItem("supaluv.boot.seen.v1", "1");
   });
   await page.reload();
+  await page.getByRole("button", { name: "中文", exact: true }).click();
   await page.getByTestId("title-new-game").click();
 
   await expect(page.getByTestId("character-studio")).toBeVisible();

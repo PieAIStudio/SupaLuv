@@ -64,15 +64,17 @@ export function SettingsPlayerSection({
       <GamePanel title={t("settings.account")} className="settings-panel">
         {!auth.configured ? (
           <p className="meta-lead" data-testid="settings-auth-missing">
-            未配置 VITE_SWIMMER_CORE_SUPABASE_URL / PUBLISHABLE_KEY — AI 灵感与电池不可用。
+            {t("settings.authMissing")}
           </p>
         ) : auth.isSignedIn ? (
           <>
             <p className="meta-lead" data-testid="settings-auth-user">
-              已登录
-              {auth.user?.is_anonymous ? "（游客账号）" : ""} · id{" "}
+              {t("settings.signedIn")}
+              {auth.user?.is_anonymous ? ` (${t("settings.guestAccount")})` : ""} · id{" "}
               {(auth.user?.id ?? "").slice(0, 8)}…
-              {auth.batteries !== null ? ` · 电池约 ${auth.batteries.toFixed(2)}` : ""}
+              {auth.batteries !== null
+                ? ` · ${t("common.batteries")} ${t("settings.batteryApprox")} ${auth.batteries.toFixed(2)}`
+                : ""}
             </p>
             <GameButton
               type="button"
@@ -81,14 +83,12 @@ export function SettingsPlayerSection({
               onClick={() => void auth.signOutUser()}
               data-testid="settings-auth-signout"
             >
-              退出登录
+              {t("settings.signOut")}
             </GameButton>
           </>
         ) : (
           <>
-            <p className="meta-lead">
-              预制主线免费。AI 灵感 / 联网同玩 / 生图需要登录（可先游客）。
-            </p>
+            <p className="meta-lead">{t("settings.authLead")}</p>
             <GameButton
               type="button"
               variant="primary"
@@ -96,10 +96,10 @@ export function SettingsPlayerSection({
               onClick={() => void auth.signInGuest()}
               data-testid="settings-auth-guest"
             >
-              游客登录（一键）
+              {t("settings.guestLogin")}
             </GameButton>
             <label className="settings-name-field">
-              <span className="settings-volume-label">邮箱</span>
+              <span className="settings-volume-label">{t("settings.email")}</span>
               <input
                 type="email"
                 className="settings-name-input"
@@ -109,7 +109,7 @@ export function SettingsPlayerSection({
               />
             </label>
             <label className="settings-name-field">
-              <span className="settings-volume-label">密码</span>
+              <span className="settings-volume-label">{t("settings.password")}</span>
               <input
                 type="password"
                 className="settings-name-input"
@@ -125,7 +125,7 @@ export function SettingsPlayerSection({
               onClick={() => void auth.signInEmail(email.trim(), password)}
               data-testid="settings-auth-email-submit"
             >
-              邮箱登录 / 注册
+              {t("settings.emailSubmit")}
             </GameButton>
           </>
         )}
@@ -138,7 +138,7 @@ export function SettingsPlayerSection({
 
       <GamePanel title={t("settings.names")} className="settings-panel">
         <label className="settings-name-field">
-          <span className="settings-volume-label">男主显示名（默认 苏明）</span>
+          <span className="settings-volume-label">{t("settings.maleDisplayName")}</span>
           <input
             type="text"
             className="settings-name-input"
@@ -160,7 +160,7 @@ export function SettingsPlayerSection({
           />
         </label>
         <label className="settings-name-field">
-          <span className="settings-volume-label">女主显示名（默认 林晓棠）</span>
+          <span className="settings-volume-label">{t("settings.femaleDisplayName")}</span>
           <input
             type="text"
             className="settings-name-input"
@@ -190,11 +190,9 @@ export function SettingsPlayerSection({
           onClick={() => onDisplayNamesChange(DEFAULT_DISPLAY_NAMES)}
           data-testid="settings-name-reset"
         >
-          恢复默认名字
+          {t("settings.resetNames")}
         </GameButton>
-        <p className="meta-lead">
-          只改名牌与对白里的称呼显示，不改剧本逻辑 ID。配角（如周鹿）暂不可改。
-        </p>
+        <p className="meta-lead">{t("settings.namesHint")}</p>
       </GamePanel>
 
       <GamePanel title={t("settings.audio")} className="settings-panel">
@@ -275,7 +273,7 @@ export function SettingsPlayerSection({
           onClick={() => {
             void (async () => {
               if (!auth.session?.access_token) {
-                onPreviewError("Login required (guest OK)");
+                onPreviewError(t("settings.previewLoginRequired"));
                 return;
               }
               onPreviewError(null);
@@ -294,8 +292,8 @@ export function SettingsPlayerSection({
                 const message = error instanceof Error ? error.message : "TTS failed";
                 onPreviewError(
                   message.includes("Failed to fetch") || message.includes("Network")
-                    ? "TTS offline: run `pnpm dev:full` (web + ai-branch)."
-                    : `TTS: ${message.slice(0, 120)}`,
+                    ? t("settings.ttsOffline")
+                    : `${t("settings.ttsFailed")}: ${message.slice(0, 120)}`,
                 );
               }
             })();

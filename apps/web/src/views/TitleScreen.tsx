@@ -30,12 +30,12 @@ interface TitleScreenProps {
   readonly onDismissContinueBlocked?: () => void;
 }
 
-function formatSave(save: GameSavePayload | null): string {
+function formatSave(save: GameSavePayload | null, emptyLabel: string, locale: string): string {
   if (!save) {
-    return "空";
+    return emptyLabel;
   }
   const hint = save.chapterHint ? ` · ${save.chapterHint}` : "";
-  return `${save.label}${hint} · ${new Date(save.savedAt).toLocaleString()}`;
+  return `${save.label}${hint} · ${new Date(save.savedAt).toLocaleString(locale)}`;
 }
 
 const NARROW_LANDSCAPE_QUERY = "(max-height: 520px) and (orientation: landscape)";
@@ -65,7 +65,7 @@ export function TitleScreen({
     shouldExpandSecondaryTitleActions,
   );
   const [joinCode, setJoinCode] = useState("");
-  const [coPlayAlias, setCoPlayAlias] = useState("朋友");
+  const [coPlayAlias, setCoPlayAlias] = useState("");
   const [nowPlaying, setNowPlaying] = useState<string | null>(() => gameAudio.getNowPlayingKey());
   const latest = findLatestSave();
   const autosave = loadSave(AUTOSAVE_SLOT);
@@ -110,7 +110,7 @@ export function TitleScreen({
           </p>
           {nowPlaying ? (
             <p className="title-audio-hint is-live" data-testid="title-now-playing">
-              ♪ {bedLabel(nowPlaying)}
+              ♪ {bedLabel(nowPlaying, locale)}
             </p>
           ) : null}
         </div>
@@ -175,19 +175,19 @@ export function TitleScreen({
                 <p>{continueBlockedMessage}</p>
                 {onDismissContinueBlocked ? (
                   <GameButton type="button" variant="ghost" onClick={onDismissContinueBlocked}>
-                    知道了
+                    {t("title.dismiss")}
                   </GameButton>
                 ) : null}
               </div>
             ) : null}
-            <div className="title-primary-actions" aria-label="主要操作">
+            <div className="title-primary-actions" aria-label={t("title.primaryActions")}>
               <GameButton
                 type="button"
                 variant="primary"
                 onClick={() => {
                   armAudio();
                   if (latest) {
-                    const ok = window.confirm("开始新游戏会覆盖自动存档进度（手动槽保留）。确定？");
+                    const ok = window.confirm(t("title.newGameConfirm"));
                     if (!ok) {
                       return;
                     }
@@ -209,7 +209,7 @@ export function TitleScreen({
                 data-testid="title-continue"
               >
                 {t("title.continue")}
-                {latest ? ` · ${new Date(latest.savedAt).toLocaleString()}` : ""}
+                {latest ? ` · ${new Date(latest.savedAt).toLocaleString(locale)}` : ""}
               </GameButton>
             </div>
             <details
@@ -218,12 +218,8 @@ export function TitleScreen({
               onToggle={(event) => setShowSecondaryActions(event.currentTarget.open)}
             >
               <summary data-testid="title-more-toggle">
-                <span>{locale === "zh-CN" ? "更多选项" : "More options"}</span>
-                <small>
-                  {locale === "zh-CN"
-                    ? "存档、画廊、设置与同玩"
-                    : "Saves, gallery, settings and co-play"}
-                </small>
+                <span>{t("title.more")}</span>
+                <small>{t("title.moreHint")}</small>
               </summary>
               <div className="title-secondary-actions">
                 <GameButton
@@ -250,8 +246,8 @@ export function TitleScreen({
                         }
                       }}
                     >
-                      <span>自动存档</span>
-                      <span>{formatSave(autosave)}</span>
+                      <span>{t("title.autosave")}</span>
+                      <span>{formatSave(autosave, t("common.empty"), locale)}</span>
                     </button>
                     {MANUAL_SLOTS.map((slotId, index) => {
                       const save = manualSaves[index] ?? null;
@@ -268,8 +264,10 @@ export function TitleScreen({
                             }
                           }}
                         >
-                          <span>手动槽 {index + 1}</span>
-                          <span>{formatSave(save)}</span>
+                          <span>
+                            {t("title.manualSlot")} {index + 1}
+                          </span>
+                          <span>{formatSave(save, t("common.empty"), locale)}</span>
                         </button>
                       );
                     })}
@@ -320,7 +318,7 @@ export function TitleScreen({
                     }}
                     data-testid="title-ai-spend"
                   >
-                    AI 消费分析
+                    {t("title.aiSpend")}
                   </GameButton>
                 ) : null}
                 {onOpenHelp ? (
@@ -352,20 +350,21 @@ export function TitleScreen({
                 {showCoPlay && onHostCoPlay && onJoinCoPlay ? (
                   <div className="title-coplay-panel" data-testid="title-coplay-panel">
                     <p className="title-coplay-lead">
-                      一方「创建房间」开玩，另一方输入房间码「加入围观」。 当前运输：
+                      {t("title.coPlayLead")} {t("title.coPlayTransport")}{" "}
                       <strong>
                         {preferredTransportKind() === "realtime"
-                          ? "跨网 Realtime（已配置 Supabase）"
-                          : "本机多标签 BroadcastChannel"}
-                      </strong>
-                      。未配置 VITE_SUPABASE_* 时请开两个标签页。
+                          ? t("title.coPlayRealtime")
+                          : t("title.coPlayLocal")}
+                      </strong>{" "}
+                      {t("title.coPlayFallback")}
                     </p>
                     <label className="title-coplay-field">
-                      <span>你的昵称</span>
+                      <span>{t("title.nickname")}</span>
                       <input
                         type="text"
                         maxLength={12}
                         value={coPlayAlias}
+                        placeholder={t("title.guestAlias")}
                         onChange={(e) => setCoPlayAlias(e.target.value.slice(0, 12))}
                         data-testid="title-coplay-alias"
                       />
@@ -376,19 +375,19 @@ export function TitleScreen({
                       onClick={() => {
                         armAudio();
                         const code = makeRoomCode();
-                        onHostCoPlay(code, coPlayAlias.trim() || "房主");
+                        onHostCoPlay(code, coPlayAlias.trim() || t("title.hostAlias"));
                       }}
                       data-testid="title-coplay-host"
                     >
-                      创建房间并开玩
+                      {t("title.createRoom")}
                     </GameButton>
                     <label className="title-coplay-field">
-                      <span>加入房间码</span>
+                      <span>{t("title.roomCode")}</span>
                       <input
                         type="text"
                         maxLength={6}
                         value={joinCode}
-                        placeholder="例如 AB3K"
+                        placeholder={t("title.roomCodeExample")}
                         onChange={(e) => setJoinCode(normalizeRoomCode(e.target.value))}
                         data-testid="title-coplay-code"
                       />
@@ -403,11 +402,11 @@ export function TitleScreen({
                         if (code.length < 4) {
                           return;
                         }
-                        onJoinCoPlay(code, coPlayAlias.trim() || "朋友");
+                        onJoinCoPlay(code, coPlayAlias.trim() || t("title.guestAlias"));
                       }}
                       data-testid="title-coplay-join"
                     >
-                      加入围观
+                      {t("title.joinRoom")}
                     </GameButton>
                   </div>
                 ) : null}

@@ -1,5 +1,6 @@
 import { GameButton, GameCallout, GamePanel } from "@pieai/swimmer-ui-kit";
 import type { AiChoiceSlotState } from "../../ai/aiBranchTypes";
+import { useLocale } from "../../i18n";
 import type { InkStorySnapshot } from "../../story/inkStoryRunner";
 
 export interface OracleOptionView {
@@ -49,6 +50,7 @@ export function DialoguePanel({
   onAdvanceAi,
   onRequestAuth,
 }: DialoguePanelProps) {
+  const { t } = useLocale();
   return (
     <GamePanel
       className="dialogue-box"
@@ -58,7 +60,7 @@ export function DialoguePanel({
       <div className="dialogue-meta">
         <p className="scene-chip">
           {sceneTitle}
-          {aiMode ? " · AI 旁支" : ""}
+          {aiMode ? ` · ${t("play.aiBranch")}` : ""}
         </p>
         <h1 id="prototype-title" className="nameplate">
           {speaker}
@@ -81,7 +83,9 @@ export function DialoguePanel({
         }}
         role={isComplete && !aiMode ? undefined : "button"}
         tabIndex={isComplete && !aiMode ? undefined : 0}
-        aria-label={aiMode ? "继续 AI 旁支" : isComplete ? undefined : "跳过打字机，显示全部对白"}
+        aria-label={
+          aiMode ? t("play.continueAi") : isComplete ? undefined : t("play.revealDialogue")
+        }
       >
         {visibleText
           .split("\n\n")
@@ -102,12 +106,14 @@ export function DialoguePanel({
       </div>
 
       {isComplete && !aiMode ? (
-        <div className="choice-stack" aria-label="Current choices">
+        <div className="choice-stack" aria-label={t("play.choices")}>
           {oracleOptions.length > 0 && onOracleGuess ? (
             <div className="oracle-row" data-testid="oracle-row">
               <p className="oracle-lead">
-                预言家
-                {oracleGuessLabel ? ` · 你猜多数：${oracleGuessLabel}` : " · 猜多数会选？"}
+                {t("play.oracle")}
+                {oracleGuessLabel
+                  ? ` · ${t("play.oraclePicked")}${oracleGuessLabel}`
+                  : ` · ${t("play.oracleGuess")}`}
               </p>
               <div className="oracle-buttons">
                 {oracleOptions.map((option) => (
@@ -141,7 +147,7 @@ export function DialoguePanel({
                 onClick={() => onChoose(choice.index)}
               >
                 <span className="choice-label">
-                  {seen ? <span className="seen-path-tag">曾选</span> : null}
+                  {seen ? <span className="seen-path-tag">{t("play.seenChoice")}</span> : null}
                   {choice.text}
                 </span>
               </GameButton>
@@ -170,7 +176,7 @@ export function DialoguePanel({
             >
               <span className="choice-label">
                 <span className="ai-choice-tag">AI</span>
-                登录后使用灵感（需电池）
+                {t("play.aiAuth")}
               </span>
             </GameButton>
           ) : null}
@@ -207,7 +213,7 @@ export function DialoguePanel({
 
           {aiSlot?.status === "error" ? (
             <p className="ai-choice-error" data-testid="ai-choice-error">
-              灵感未连上：{aiSlot.message}（主线选项仍可用）
+              {t("play.aiErrorPrefix")} {aiSlot.message} {t("play.aiErrorSuffix")}
             </p>
           ) : null}
 
@@ -225,7 +231,7 @@ export function DialoguePanel({
       ) : null}
 
       {isComplete && aiMode ? (
-        <div className="choice-stack" aria-label="AI branch continue">
+        <div className="choice-stack" aria-label={t("play.aiContinueChoices")}>
           <GameButton
             type="button"
             className="choice-button"
@@ -233,7 +239,7 @@ export function DialoguePanel({
             onClick={() => onAdvanceAi?.()}
             data-testid="ai-branch-continue"
           >
-            <span className="choice-label">继续</span>
+            <span className="choice-label">{t("play.continue")}</span>
           </GameButton>
         </div>
       ) : null}

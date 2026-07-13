@@ -1,17 +1,8 @@
 import { GameBadge, GameButton, GameEmptyState, GamePanel } from "@pieai/swimmer-ui-kit";
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
-import {
-  createAiSpendClient,
-  type AiSpendAnalysis,
-  type AiSpendItem,
-} from "../commerce/aiSpendClient";
-
-const scopeLabels: Record<AiSpendItem["scopeType"], string> = {
-  character_pack: "角色形象",
-  story_run: "故事进程",
-  ai_ending_session: "AI 最终章",
-};
+import { useLocale } from "../i18n";
+import { createAiSpendClient, type AiSpendAnalysis } from "../commerce/aiSpendClient";
 
 function formatBatteries(value: number): string {
   return Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/0+$/, "");
@@ -19,6 +10,7 @@ function formatBatteries(value: number): string {
 
 export function AiSpendAnalysisScreen({ onBack }: { readonly onBack: () => void }) {
   const auth = useAuth();
+  const { t } = useLocale();
   const client = useMemo(
     () => createAiSpendClient({ getAccessToken: auth.getAccessToken }),
     [auth.getAccessToken],
@@ -53,49 +45,54 @@ export function AiSpendAnalysisScreen({ onBack }: { readonly onBack: () => void 
       <header className="meta-header">
         <div>
           <p className="meta-kicker">BATTERY LEDGER</p>
-          <h1>AI 消费分析</h1>
+          <h1>{t("aiSpend.title")}</h1>
         </div>
         <GameButton type="button" variant="ghost" onClick={onBack}>
-          返回
+          {t("common.back")}
         </GameButton>
       </header>
 
-      <p className="meta-lead">
-        作者剧情完全免费。这里只展示已经成功交付并正式扣除的 AI
-        功能；失败、拦截、退款和重复请求不会记账。
-      </p>
+      <p className="meta-lead">{t("aiSpend.lead")}</p>
 
       {!auth.isSignedIn ? (
         <GameEmptyState
-          title="需要登录"
-          description="登录同一个账号，才能查看自己的 AI 消费明细。"
+          title={t("aiSpend.needsLogin")}
+          description={t("aiSpend.needsLoginDescription")}
         />
       ) : loading ? (
         <p className="meta-lead" role="status">
-          正在核对消费记录…
+          {t("aiSpend.loading")}
         </p>
       ) : error ? (
-        <GameEmptyState title="暂时无法读取" description="消费明细服务暂不可用，请稍后重试。" />
-      ) : !analysis || analysis.items.length === 0 ? (
         <GameEmptyState
-          title="还没有 AI 消费"
-          description="作者剧情完全免费；只有你主动使用 AI 功能后才会出现记录。"
+          title={t("aiSpend.unavailable")}
+          description={t("aiSpend.unavailableDescription")}
         />
+      ) : !analysis || analysis.items.length === 0 ? (
+        <GameEmptyState title={t("aiSpend.empty")} description={t("aiSpend.emptyDescription")} />
       ) : (
         <>
           <GamePanel className="ai-spend-total" tone="strong">
-            <span>累计已用</span>
+            <span>{t("aiSpend.total")}</span>
             <strong data-testid="ai-spend-total">{formatBatteries(analysis.totalBatteries)}</strong>
-            <GameBadge tone="ai">电池</GameBadge>
+            <GameBadge tone="ai">{t("common.batteries")}</GameBadge>
           </GamePanel>
           <div className="ai-spend-list" data-testid="ai-spend-list">
             {analysis.items.map((item) => (
               <article className="ai-spend-row" key={item.id}>
                 <div>
-                  <strong>{item.label}</strong>
-                  <span>{scopeLabels[item.scopeType]}</span>
+                  <strong>{t(`aiSpend.actions.${item.actionKind}`, item.label)}</strong>
+                  <span>
+                    {item.scopeType === "character_pack"
+                      ? t("aiSpend.scopeCharacter")
+                      : item.scopeType === "story_run"
+                        ? t("aiSpend.scopeStory")
+                        : t("aiSpend.scopeEnding")}
+                  </span>
                 </div>
-                <b>{formatBatteries(item.batteries)} 电池</b>
+                <b>
+                  {formatBatteries(item.batteries)} {t("common.batteries")}
+                </b>
               </article>
             ))}
           </div>

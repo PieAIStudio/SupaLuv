@@ -1,5 +1,6 @@
 import { GameBadge, GameButton } from "@pieai/swimmer-ui-kit";
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "../i18n";
 
 interface CutscenePlayerProps {
   readonly videoKey: string;
@@ -23,6 +24,7 @@ function formatTime(seconds: number): string {
  * Always starts muted so browsers allow autoplay; motion is the proof of "video".
  */
 export function CutscenePlayer({ videoKey, url, title, onDismiss }: CutscenePlayerProps) {
+  const { t } = useLocale();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [status, setStatus] = useState<"loading" | "playing" | "error">("loading");
   const [current, setCurrent] = useState(0);
@@ -56,9 +58,7 @@ export function CutscenePlayer({ videoKey, url, title, onDismiss }: CutscenePlay
       } catch (error) {
         if (!cancelled) {
           setStatus("error");
-          setErrorMessage(
-            error instanceof Error ? error.message : "浏览器拦截了自动播放，请点下方重试。",
-          );
+          setErrorMessage(error instanceof Error ? error.message : t("cutscene.autoplayBlocked"));
         }
       }
     }
@@ -69,7 +69,7 @@ export function CutscenePlayer({ videoKey, url, title, onDismiss }: CutscenePlay
       cancelled = true;
       video.pause();
     };
-  }, [url, videoKey]);
+  }, [t, url, videoKey]);
 
   const progress = duration > 0 ? Math.min(100, (current / duration) * 100) : 0;
 
@@ -94,20 +94,20 @@ export function CutscenePlayer({ videoKey, url, title, onDismiss }: CutscenePlay
         onPlaying={() => setStatus("playing")}
         onError={() => {
           setStatus("error");
-          setErrorMessage("视频加载失败。请检查 /assets/video 是否可访问。");
+          setErrorMessage(t("cutscene.loadFailed"));
         }}
         onEnded={onDismiss}
       />
       <div className="cutscene-scrim" />
       <div className="cutscene-chrome">
-        <GameBadge tone="ai">事件 CG · Cutscene</GameBadge>
+        <GameBadge tone="ai">{t("cutscene.badge")}</GameBadge>
         <h2 className="cutscene-title">{title}</h2>
         <p className="cutscene-hint" data-testid="cutscene-status">
-          {status === "loading" ? "正在加载并播放 CG…" : null}
+          {status === "loading" ? t("cutscene.loading") : null}
           {status === "playing"
-            ? `播放中 ${formatTime(current)} / ${formatTime(duration || 6)} · 缓慢推镜，请看画面运动`
+            ? `${t("cutscene.playingPrefix")} ${formatTime(current)} / ${formatTime(duration || 6)} · ${t("cutscene.playingHint")}`
             : null}
-          {status === "error" ? (errorMessage ?? "播放失败") : null}
+          {status === "error" ? (errorMessage ?? t("cutscene.failed")) : null}
         </p>
         <div
           className="cutscene-progress"
@@ -115,7 +115,7 @@ export function CutscenePlayer({ videoKey, url, title, onDismiss }: CutscenePlay
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={Math.round(progress)}
-          aria-label="CG 播放进度"
+          aria-label={t("cutscene.progress")}
           data-testid="cutscene-progress"
         >
           <div className="cutscene-progress-fill" style={{ width: `${progress}%` }} />
@@ -137,16 +137,16 @@ export function CutscenePlayer({ videoKey, url, title, onDismiss }: CutscenePlay
                   () => setStatus("playing"),
                   () => {
                     setStatus("error");
-                    setErrorMessage("仍无法自动播放，请直接跳过进入故事。");
+                    setErrorMessage(t("cutscene.retryFailed"));
                   },
                 );
               }}
             >
-              重试播放
+              {t("cutscene.retry")}
             </GameButton>
           ) : null}
           <GameButton type="button" variant="primary" onClick={onDismiss}>
-            跳过 CG · 继续
+            {t("cutscene.skip")}
           </GameButton>
         </div>
       </div>

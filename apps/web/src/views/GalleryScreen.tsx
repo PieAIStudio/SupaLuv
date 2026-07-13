@@ -1,6 +1,7 @@
 import { GameBadge, GameButton, GameEmptyState, GamePanel } from "@pieai/swimmer-ui-kit";
 import { bedLabel, bedTitle } from "../audio/bedCatalog";
 import { gameAudio } from "../audio/gameAudio";
+import { useLocale } from "../i18n";
 import type { GalleryUnlocks } from "../persistence/gameSave";
 
 interface GalleryScreenProps {
@@ -9,28 +10,32 @@ interface GalleryScreenProps {
 }
 
 export function GalleryScreen({ unlocks, onBack }: GalleryScreenProps) {
+  const { locale, t } = useLocale();
   const total = unlocks.images.length + unlocks.audio.length;
 
   return (
     <div className="meta-screen gallery-screen" data-testid="gallery-screen">
       <header className="meta-header">
-        <h1>鉴赏 / 图鉴</h1>
+        <h1>{t("gallery.title")}</h1>
         <GameButton type="button" variant="ghost" onClick={onBack}>
-          返回
+          {t("common.back")}
         </GameButton>
       </header>
 
-      <p className="meta-lead">
-        解锁内容会在推进剧情或听过配乐时写入本机图鉴。点曲目可试听（独占播放）。
-      </p>
+      <p className="meta-lead">{t("gallery.lead")}</p>
 
       <div className="gallery-grid">
-        <GamePanel title="图片 CG" tone="strong">
+        <GamePanel title={t("gallery.images")} tone="strong">
           <div className="gallery-badges">
-            <GameBadge tone="neutral">已解锁 {unlocks.images.length}</GameBadge>
+            <GameBadge tone="neutral">
+              {t("gallery.unlockedCount")} {unlocks.images.length}
+            </GameBadge>
           </div>
           {unlocks.images.length === 0 ? (
-            <GameEmptyState title="还没有图片" description="进入带场景图的节点后会出现在这里。" />
+            <GameEmptyState
+              title={t("gallery.noImages")}
+              description={t("gallery.noImagesDescription")}
+            />
           ) : (
             <ul className="gallery-list">
               {unlocks.images.map((id) => (
@@ -43,14 +48,16 @@ export function GalleryScreen({ unlocks, onBack }: GalleryScreenProps) {
           )}
         </GamePanel>
 
-        <GamePanel title="配乐收藏" tone="strong">
+        <GamePanel title={t("gallery.audio")} tone="strong">
           <div className="gallery-badges">
-            <GameBadge tone="success">已解锁 {unlocks.audio.length}</GameBadge>
+            <GameBadge tone="success">
+              {t("gallery.unlockedCount")} {unlocks.audio.length}
+            </GameBadge>
           </div>
           {unlocks.audio.length === 0 ? (
             <GameEmptyState
-              title="还没有配乐"
-              description="听过的 BGM（标题 / 场景 / 章末）会出现在这里，可点播放。"
+              title={t("gallery.noAudio")}
+              description={t("gallery.noAudioDescription")}
             />
           ) : (
             <ul className="gallery-list text-only gallery-audio-list">
@@ -66,7 +73,7 @@ export function GalleryScreen({ unlocks, onBack }: GalleryScreenProps) {
                     }}
                   >
                     <span className="gallery-audio-title">{bedTitle(id)}</span>
-                    <span className="gallery-audio-meta">{bedLabel(id)}</span>
+                    <span className="gallery-audio-meta">{bedLabel(id, locale)}</span>
                   </button>
                 </li>
               ))}
@@ -75,7 +82,9 @@ export function GalleryScreen({ unlocks, onBack }: GalleryScreenProps) {
         </GamePanel>
       </div>
 
-      <p className="meta-lead">合计解锁：{total}</p>
+      <p className="meta-lead">
+        {t("gallery.total")}: {total}
+      </p>
     </div>
   );
 }

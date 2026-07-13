@@ -16,6 +16,7 @@ import { useHostCoPlayMirror } from "../../../hooks/useHostCoPlayMirror";
 import { useTypewriter } from "../../../hooks/useTypewriter";
 import { textSpeedToTypewriter, type GameSettings } from "../../../persistence/settings";
 import type { InkStorySnapshot } from "../../../story/inkStoryRunner";
+import { useLocale } from "../../../i18n";
 import { resolveAutoplayDelayMs, resolveAutoplayEligibility } from "./resolveAutoplay";
 import {
   buildDialogueLogStamp,
@@ -87,6 +88,7 @@ export function useNarrativePlayback(input: {
     readonly ensureAudioUnlocked: () => void;
   };
 }): NarrativePlayback {
+  const { locale, t } = useLocale();
   const { sourceController, playback, host, auth, actions } = input;
   const { identity, dialogue, ai, choices, meters, remote } = sourceController;
   const { snapshot, isGuestSpectator } = identity;
@@ -127,7 +129,7 @@ export function useNarrativePlayback(input: {
     accessToken: auth.accessToken,
     text: isGuestSpectator ? "" : dialogue.rawText,
     speaker: isGuestSpectator ? "" : dialogue.rawSpeaker,
-    language: "zh-CN",
+    language: locale === "zh-CN" ? "zh-CN" : "en",
     emotion: ai.beat?.mood,
     lineKey: dialogue.voiceLineKey,
   });
@@ -173,6 +175,12 @@ export function useNarrativePlayback(input: {
         aiPlaying: ai.playing,
         sceneTitle: identity.authoredSceneTitle,
         snapshotSceneId: snapshot.sceneId,
+        copy: {
+          aiBranch: t("play.aiBranch"),
+          you: t("play.you"),
+          choice: t("play.choiceMeta"),
+          aiChoice: t("play.aiChoiceMeta"),
+        },
       }),
     );
   }, [
@@ -185,6 +193,7 @@ export function useNarrativePlayback(input: {
     isGuestSpectator,
     playback.hasStoryInteraction,
     snapshot.sceneId,
+    t,
     typewriterComplete,
   ]);
 
@@ -232,9 +241,16 @@ export function useNarrativePlayback(input: {
 
   const recordPlayerChoice = useCallback(
     (text: string) => {
-      appendHistory(resolvePlayerChoiceHistoryEntry(text));
+      appendHistory(
+        resolvePlayerChoiceHistoryEntry(text, {
+          aiBranch: t("play.aiBranch"),
+          you: t("play.you"),
+          choice: t("play.choiceMeta"),
+          aiChoice: t("play.aiChoiceMeta"),
+        }),
+      );
     },
-    [appendHistory],
+    [appendHistory, t],
   );
 
   const beginPlaying = ai.beginPlaying;
@@ -250,11 +266,18 @@ export function useNarrativePlayback(input: {
       ensureAudioUnlocked();
       // Exact prior order: unlock → run marker/outward notify → history → SFX → begin.
       onAiBranchUsed();
-      appendHistory(resolveAiChoiceHistoryEntry(aiSlot.result.choiceLabel));
+      appendHistory(
+        resolveAiChoiceHistoryEntry(aiSlot.result.choiceLabel, {
+          aiBranch: t("play.aiBranch"),
+          you: t("play.you"),
+          choice: t("play.choiceMeta"),
+          aiChoice: t("play.aiChoiceMeta"),
+        }),
+      );
       gameAudio.playSfx("ui-choice", 0.5);
       beginPlaying(aiSlot.result);
     },
-    [aiSlot, appendHistory, beginPlaying, ensureAudioUnlocked, isGuestSpectator],
+    [aiSlot, appendHistory, beginPlaying, ensureAudioUnlocked, isGuestSpectator, t],
   );
 
   const advanceAi = useCallback(() => {

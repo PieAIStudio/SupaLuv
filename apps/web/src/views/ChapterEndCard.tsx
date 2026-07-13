@@ -13,6 +13,7 @@ import { listOracleGuesses, scoreOracleVerdicts, type OracleVerdict } from "../s
 import { downloadShareCard } from "./play/ShareCardExporter";
 import { AiEndingExperience } from "./AiEndingExperience";
 import type { StoryCharacterBindings } from "../characters/characterPackTypes";
+import { useLocale } from "../i18n";
 
 export interface EndingPathMeta {
   readonly usedAiBranch: boolean;
@@ -48,32 +49,6 @@ function buildOrderId(): string {
   return `SL-CH01-${n}`;
 }
 
-function toneLabel(dignity: number, impulse: number): string {
-  if (impulse >= 65) {
-    return "冲动偏高 · 夜账已结";
-  }
-  if (dignity >= 55) {
-    return "体面残留 · 实验备注";
-  }
-  return "不英勇也不彻底";
-}
-
-function flavorCopy(dignity: number, impulse: number, usedAi: boolean): string {
-  if (usedAi && impulse >= 60) {
-    return "你让灵感替你点了一次头。作者主线收回绳索——但订单号不会假装没发生。";
-  }
-  if (usedAi) {
-    return "AI 旁支像一次没写进 PR 的 commit：短、可回滚、却留了痕迹。";
-  }
-  if (impulse >= 65) {
-    return "体面是白天的职业，夜晚另有账单。你付了。";
-  }
-  if (dignity >= 55) {
-    return "你把脏样本擦得很干净。干净到像从未存在——直到物流短信响起。";
-  }
-  return "苏明点下了确认。实验。不是判决。—— 但系统已出单。";
-}
-
 export function ChapterEndCard({
   open,
   storyId = "draft-ch02",
@@ -92,6 +67,7 @@ export function ChapterEndCard({
   onTitle,
 }: ChapterEndCardProps) {
   const auth = useAuth();
+  const { t } = useLocale();
   const [copied, setCopied] = useState(false);
   const [shareBusy, setShareBusy] = useState(false);
   const [aiNote, setAiNote] = useState<string | null>(null);
@@ -105,8 +81,22 @@ export function ChapterEndCard({
   const oracleFiredRef = useRef(false);
   const orderId = useMemo(() => (open ? buildOrderId() : ""), [open]);
   const usedAi = Boolean(path?.usedAiBranch);
-  const label = toneLabel(dignity, impulse);
-  const flavor = flavorCopy(dignity, impulse, usedAi);
+  const label =
+    impulse >= 65
+      ? t("chapterEnd.toneImpulse")
+      : dignity >= 55
+        ? t("chapterEnd.toneDignity")
+        : t("chapterEnd.toneNeutral");
+  const flavor =
+    usedAi && impulse >= 60
+      ? t("chapterEnd.flavorAiImpulse")
+      : usedAi
+        ? t("chapterEnd.flavorAi")
+        : impulse >= 65
+          ? t("chapterEnd.flavorImpulse")
+          : dignity >= 55
+            ? t("chapterEnd.flavorDignity")
+            : t("chapterEnd.flavorNeutral");
 
   useEffect(() => {
     if (!open) {
@@ -170,20 +160,20 @@ export function ChapterEndCard({
     const text = (
       draftEnd
         ? [
-            "【超级爱人 · 草稿两章当前终点】",
-            "体验官申请：初审通过",
-            "下一步：48小时内完成个性化匹配问卷",
-            `羞耻 ${dignity} · 冲动 ${impulse}`,
-            "苏明：就当我有病。",
+            `【${t("chapterEnd.clipboardDraftTitle")}】`,
+            t("chapterEnd.clipboardApplication"),
+            t("chapterEnd.clipboardNext"),
+            `${t("chapterEnd.clipboardMeters")}: ${dignity} · ${impulse}`,
+            t("chapterEnd.draftLead"),
           ]
         : [
-            "【超级爱人 · 章节结局】",
-            `订单：${orderId}`,
-            `羞耻 ${dignity} · 冲动 ${impulse}`,
-            `批注：${label}`,
-            usedAi ? "路径：走过 AI 旁支后汇合主线" : "路径：纯作者选项",
+            `【${t("chapterEnd.clipboardEndingTitle")}】`,
+            `${t("chapterEnd.clipboardOrder")}${orderId}`,
+            `${t("chapterEnd.clipboardMeters")}: ${dignity} · ${impulse}`,
+            `${t("chapterEnd.clipboardNote")}${label}`,
+            usedAi ? t("chapterEnd.clipboardPathAi") : t("chapterEnd.clipboardPathAuthor"),
             flavor,
-            aiNote ? `AI 结案：${aiNote}` : "",
+            aiNote ? `${t("chapterEnd.aiNotePrefix")}${aiNote}` : "",
             "— SupaLuv Demo",
           ]
     )
@@ -218,6 +208,16 @@ export function ChapterEndCard({
             label: row.yourLabel,
             percentSame: row.percentSame as number,
           })),
+        copy: {
+          title: t("chapterEnd.shareTitle"),
+          order: t("chapterEnd.shareOrder"),
+          dignity: t("play.dignity"),
+          impulse: t("play.impulse"),
+          leads: t("chapterEnd.shareLeads"),
+          aiPath: t("chapterEnd.sharePathAi"),
+          echo: t("chapterEnd.shareEcho"),
+          same: t("chapterEnd.shareSame"),
+        },
       });
     } catch {
       // ignore
@@ -232,7 +232,7 @@ export function ChapterEndCard({
       return;
     }
     if (!auth.isSignedIn) {
-      setAiNote("（AI 结案需要登录——主线结算仍有效。可在设定中登录。）");
+      setAiNote(t("chapterEnd.loginRequired"));
       return;
     }
     setAiBusy(true);
@@ -241,15 +241,15 @@ export function ChapterEndCard({
       const result = await provider.generate({
         storyId: "ch01",
         sceneId: "ch01_chapter_end",
-        authoredChoiceLabels: ["再玩一遍", "返回标题"],
+        authoredChoiceLabels: [t("chapterEnd.replayChoice"), t("chapterEnd.titleChoice")],
         meters: { dignity, impulse },
         accessToken: auth.session?.access_token ?? null,
         config: {
           enabled: true,
           rejoinSceneId: "ch01_chapter_end",
           maxAiBeats: 1,
-          context: "第1章已结束。用一句黑色喜剧结案陈词（≤60字），像系统备注。禁止色情与人身攻击。",
-          speakerPool: ["旁白"],
+          context: t("chapterEnd.aiPrompt"),
+          speakerPool: [t("chapterEnd.narrator")],
           artPool: [],
           portraitPool: [],
         },
@@ -257,7 +257,7 @@ export function ChapterEndCard({
       const line = result.beats[0]?.text ?? result.choiceLabel;
       setAiNote(line.slice(0, 120));
     } catch {
-      setAiNote("（结案服务暂不可用——订单仍已生成。）");
+      setAiNote(t("chapterEnd.unavailable"));
     } finally {
       setAiBusy(false);
     }
@@ -272,9 +272,9 @@ export function ChapterEndCard({
       />
       <GameModal
         open={open && !showAiEnding}
-        title={draftEnd ? "草稿两章 · 当前终点" : "章节完成"}
+        title={draftEnd ? t("chapterEnd.draftTitle") : t("chapterEnd.title")}
         size="md"
-        closeLabel="关闭结算"
+        closeLabel={t("chapterEnd.close")}
         closeOnBackdrop={false}
         onClose={onReplay}
         className="chapter-end-modal"
@@ -287,7 +287,7 @@ export function ChapterEndCard({
                 onClick={() => setShowAiEnding(true)}
                 data-testid="ending-ai-experience"
               >
-                AI 最终章 · 10–20 分钟
+                {t("chapterEnd.aiEnding")}
               </GameButton>
             ) : (
               <GameButton
@@ -296,7 +296,7 @@ export function ChapterEndCard({
                 onClick={onTitle ?? onReplay}
                 data-testid="ending-draft-done"
               >
-                {draftEnd ? "就当我有病 · 回标题" : "回标题"}
+                {draftEnd ? t("chapterEnd.draftDone") : t("chapterEnd.returnTitle")}
               </GameButton>
             )}
             {allowAiEnding ? (
@@ -307,7 +307,11 @@ export function ChapterEndCard({
                 disabled={aiBusy || Boolean(aiNote)}
                 data-testid="ending-ai-note"
               >
-                {aiBusy ? "结案生成中…" : aiNote ? "已生成结案" : "AI 结案陈词"}
+                {aiBusy
+                  ? t("chapterEnd.aiNoteLoading")
+                  : aiNote
+                    ? t("chapterEnd.aiNoteDone")
+                    : t("chapterEnd.aiNoteAction")}
               </GameButton>
             ) : null}
             <GameButton
@@ -316,7 +320,7 @@ export function ChapterEndCard({
               onClick={() => void handleCopy()}
               data-testid="ending-copy"
             >
-              {copied ? "已复制摘要" : "复制结局摘要"}
+              {copied ? t("chapterEnd.copied") : t("chapterEnd.copy")}
             </GameButton>
             {!draftEnd ? (
               <GameButton
@@ -326,7 +330,7 @@ export function ChapterEndCard({
                 disabled={shareBusy}
                 data-testid="ending-share-card"
               >
-                {shareBusy ? "导出中…" : "下载分享卡"}
+                {shareBusy ? t("chapterEnd.exporting") : t("chapterEnd.share")}
               </GameButton>
             ) : null}
             {onTitle ? (
@@ -336,7 +340,7 @@ export function ChapterEndCard({
                 onClick={onTitle}
                 data-testid="ending-title"
               >
-                返回标题
+                {t("chapterEnd.returnTitle")}
               </GameButton>
             ) : null}
             <GameButton
@@ -345,7 +349,7 @@ export function ChapterEndCard({
               onClick={onReplay}
               data-testid="ending-replay"
             >
-              {draftEnd ? "再玩一遍草稿" : "再玩一遍"}
+              {draftEnd ? t("chapterEnd.replayDraft") : t("chapterEnd.replay")}
             </GameButton>
           </div>
         }
@@ -355,71 +359,82 @@ export function ChapterEndCard({
           {draftEnd ? (
             <>
               <div className="chapter-end-badges">
-                <GameBadge tone="success">初审通过</GameBadge>
-                <GameBadge tone="ai">48 小时内完成匹配问卷</GameBadge>
-                <GameBadge tone="warning">草稿当前终点</GameBadge>
+                <GameBadge tone="success">{t("chapterEnd.draftApproved")}</GameBadge>
+                <GameBadge tone="ai">{t("chapterEnd.questionnaire")}</GameBadge>
+                <GameBadge tone="warning">{t("chapterEnd.draftEndpoint")}</GameBadge>
               </div>
               <p className="chapter-end-order" data-testid="ending-order-id">
-                体验官申请 <strong>已提交</strong>
+                {t("chapterEnd.application")} <strong>{t("chapterEnd.submitted")}</strong>
               </p>
-              <p className="chapter-end-lead">
-                三分钟后，短信快得像那头一直有人等着。苏明盯着屏幕：就当我有病。
-              </p>
+              <p className="chapter-end-lead">{t("chapterEnd.draftLead")}</p>
             </>
           ) : (
             <>
               <div className="chapter-end-badges">
-                <GameBadge tone="success">订单已确认</GameBadge>
-                <GameBadge tone="ai">分批发货</GameBadge>
+                <GameBadge tone="success">{t("chapterEnd.orderConfirmed")}</GameBadge>
+                <GameBadge tone="ai">{t("chapterEnd.partialDelivery")}</GameBadge>
                 <GameBadge tone="warning">{label}</GameBadge>
-                {usedAi ? <GameBadge tone="ai">含 AI 旁支</GameBadge> : null}
+                {usedAi ? <GameBadge tone="ai">{t("chapterEnd.containsAi")}</GameBadge> : null}
               </div>
               <p className="chapter-end-order" data-testid="ending-order-id">
-                订单号 <strong>{orderId}</strong>
+                {t("chapterEnd.orderNumber")} <strong>{orderId}</strong>
               </p>
               <p className="chapter-end-lead">{flavor}</p>
             </>
           )}
           {aiNote ? (
             <p className="chapter-end-ai-note" data-testid="ending-ai-text">
-              AI 结案：{aiNote}
+              {t("chapterEnd.aiNotePrefix")}
+              {aiNote}
             </p>
           ) : null}
 
-          {path?.pathHint ? <p className="chapter-end-path-hint">{path.pathHint}</p> : null}
+          {path?.pathHint ? (
+            <p className="chapter-end-path-hint">
+              {usedAi ? t("chapterEnd.pathAi") : t("chapterEnd.pathAuthor")}
+            </p>
+          ) : null}
 
-          <div className="chapter-end-meters" aria-label="本局数值结算">
+          <div className="chapter-end-meters" aria-label={t("chapterEnd.metersAria")}>
             <div className="chapter-end-meter reveal-item" style={{ animationDelay: "90ms" }}>
               <div className="chapter-end-meter-head">
-                <span>羞耻</span>
+                <span>{t("play.dignity")}</span>
                 <strong>{dignity}</strong>
               </div>
-              <GameProgress label="本局羞耻" value={dignity} tone="warning" showValue />
+              <GameProgress
+                label={t("chapterEnd.runDignity")}
+                value={dignity}
+                tone="warning"
+                showValue
+              />
             </div>
             <div className="chapter-end-meter reveal-item" style={{ animationDelay: "180ms" }}>
               <div className="chapter-end-meter-head">
-                <span>冲动</span>
+                <span>{t("play.impulse")}</span>
                 <strong>{impulse}</strong>
               </div>
-              <GameProgress label="本局冲动" value={impulse} tone="danger" showValue />
+              <GameProgress
+                label={t("chapterEnd.runImpulse")}
+                value={impulse}
+                tone="danger"
+                showValue
+              />
             </div>
           </div>
 
           <section
             className="chapter-end-echo"
-            aria-label="全球选项回声"
+            aria-label={t("chapterEnd.echoAria")}
             data-testid="ending-global-echo"
           >
             <header className="chapter-end-echo-head">
-              <h3>全球回声</h3>
-              <p>有多少玩家在关键抉择上和你一样——像互动影游的章末结算。</p>
+              <h3>{t("chapterEnd.echoTitle")}</h3>
+              <p>{t("chapterEnd.echoLead")}</p>
             </header>
             {echoLoading ? (
-              <p className="chapter-end-echo-empty">正在汇总社区选择…</p>
+              <p className="chapter-end-echo-empty">{t("chapterEnd.echoLoading")}</p>
             ) : echoRows.length === 0 ? (
-              <p className="chapter-end-echo-empty">
-                本局未经过统计白名单里的关键分叉（或仍在演示捷径）。再走一遍完整路径即可看到回声。
-              </p>
+              <p className="chapter-end-echo-empty">{t("chapterEnd.echoEmpty")}</p>
             ) : (
               <ul className="chapter-end-echo-list">
                 {echoRows.map((row, index) => (
@@ -431,7 +446,7 @@ export function ChapterEndCard({
                   >
                     <p className="chapter-end-echo-prompt">{row.prompt}</p>
                     <p className="chapter-end-echo-yours">
-                      你选了：<strong>{row.yourLabel}</strong>
+                      {t("chapterEnd.youChose")} <strong>{row.yourLabel}</strong>
                     </p>
                     <div className="chapter-end-echo-bar-wrap" aria-hidden="true">
                       <div
@@ -446,10 +461,10 @@ export function ChapterEndCard({
                     </div>
                     <div className="chapter-end-echo-meta">
                       {row.percentSame === null ? (
-                        <span>样本不足，暂不显示百分比</span>
+                        <span>{t("chapterEnd.insufficient")}</span>
                       ) : (
                         <span>
-                          <strong>{row.percentSame}%</strong> 的玩家与你相同
+                          <strong>{row.percentSame}%</strong> {t("chapterEnd.playersSame")}
                         </span>
                       )}
                       <span className={`chapter-end-echo-tag is-${row.cohortKind}`}>
@@ -469,22 +484,22 @@ export function ChapterEndCard({
             <section
               className="chapter-end-oracle"
               data-testid="ending-oracle"
-              aria-label="预言家结算"
+              aria-label={t("chapterEnd.oracleAria")}
             >
               <header className="chapter-end-echo-head">
-                <h3>预言家</h3>
-                <p>你猜的多数 vs 社区实际多数。</p>
+                <h3>{t("chapterEnd.oracleTitle")}</h3>
+                <p>{t("chapterEnd.oracleLead")}</p>
               </header>
               <ul className="chapter-end-echo-list">
                 {oracleVerdicts.map((v) => (
                   <li key={v.decisionId} className="chapter-end-echo-row">
                     <p className="chapter-end-echo-yours">
-                      你猜：<strong>{v.predictedLabel}</strong>
+                      {t("chapterEnd.predicted")} <strong>{v.predictedLabel}</strong>
                       {" · "}
-                      多数：<strong>{v.actualMajorityLabel}</strong>
+                      {t("chapterEnd.majority")} <strong>{v.actualMajorityLabel}</strong>
                       {" · "}
                       <span className={v.correct ? "oracle-hit" : "oracle-miss"}>
-                        {v.correct ? "命中" : "偏差"}
+                        {v.correct ? t("chapterEnd.hit") : t("chapterEnd.miss")}
                       </span>
                     </p>
                   </li>
@@ -494,9 +509,7 @@ export function ChapterEndCard({
           ) : null}
 
           <p className="chapter-end-footnote">
-            {draftEnd
-              ? "她不会评判你——至少落地页是这么写的。"
-              : "实验。不是判决。—— 但订单号已经生成。"}
+            {draftEnd ? t("chapterEnd.draftFootnote") : t("chapterEnd.footnote")}
           </p>
         </div>
       </GameModal>

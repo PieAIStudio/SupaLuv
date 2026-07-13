@@ -4,13 +4,20 @@
  */
 
 import { GameButton } from "@pieai/swimmer-ui-kit";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useLocale } from "../i18n";
 import type { DisplayNameMap } from "../persistence/displayNames";
 import type { PortraitPackState } from "../persistence/portraitPack";
 import type { GameSettings } from "../persistence/settings";
-import { SettingsLabSection } from "./settings/SettingsLabSection";
 import { SettingsPlayerSection } from "./settings/SettingsPlayerSection";
+
+const SettingsLabSection = import.meta.env.DEV
+  ? lazy(() =>
+      import("./settings/SettingsLabSection").then((module) => ({
+        default: module.SettingsLabSection,
+      })),
+    )
+  : null;
 
 interface SettingsScreenProps {
   readonly settings: GameSettings;
@@ -51,11 +58,15 @@ export function SettingsScreen({
         onPreviewError={setPreviewError}
       />
 
-      <SettingsLabSection
-        portraitPack={portraitPack}
-        onPortraitPackChange={onPortraitPackChange}
-        previewError={previewError}
-      />
+      {SettingsLabSection ? (
+        <Suspense fallback={null}>
+          <SettingsLabSection
+            portraitPack={portraitPack}
+            onPortraitPackChange={onPortraitPackChange}
+            previewError={previewError}
+          />
+        </Suspense>
+      ) : null}
     </div>
   );
 }

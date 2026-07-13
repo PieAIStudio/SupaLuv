@@ -16,18 +16,9 @@ export function StoryMapPreview({
   isOpen,
   onClose,
 }: StoryMapPreviewProps) {
+  if (!import.meta.env.DEV) return null;
   if (!isOpen) return null;
-  if (!CreatorStudio) {
-    return (
-      <aside className="story-map-panel is-open" data-testid="story-map-panel" role="dialog">
-        <h2>创作地图</h2>
-        <p>此作者工具仅在本地开发服务器可用。</p>
-        <button type="button" onClick={onClose}>
-          关闭
-        </button>
-      </aside>
-    );
-  }
+  if (!CreatorStudio) return null;
   return (
     <Suspense fallback={<div className="creator-loading">正在载入创作地图…</div>}>
       <CreatorStudio

@@ -11,6 +11,16 @@ export interface BedCatalogEntry {
   readonly kind: "music" | "ambient";
 }
 
+type BedLocale = string | undefined;
+
+const ENGLISH_ROLES: Readonly<Record<string, string>> = {
+  "title-theme": "Title theme",
+  "soft-piano": "Dialogue melody",
+  "chapter-end": "Chapter-end afterglow",
+  "night-ambient": "Office / public",
+  "lonely-pad": "Apartment / private",
+};
+
 export const BED_CATALOG: readonly BedCatalogEntry[] = [
   {
     id: "title-theme",
@@ -53,20 +63,23 @@ export function bedTitle(id: string | null | undefined): string {
   return BY_ID.get(id)?.title ?? id;
 }
 
-export function bedRole(id: string | null | undefined): string {
+export function bedRole(id: string | null | undefined, locale: BedLocale = "zh-CN"): string {
   if (!id) {
     return "";
+  }
+  if (locale && !locale.toLowerCase().startsWith("zh")) {
+    return ENGLISH_ROLES[id] ?? "";
   }
   return BY_ID.get(id)?.role ?? "";
 }
 
-export function bedLabel(id: string | null | undefined): string {
+export function bedLabel(id: string | null | undefined, locale: BedLocale = "zh-CN"): string {
   if (!id) {
-    return "静音";
+    return locale && !locale.toLowerCase().startsWith("zh") ? "Muted" : "静音";
   }
   const entry = BY_ID.get(id);
   if (!entry) {
     return id;
   }
-  return `${entry.title} · ${entry.role}`;
+  return `${entry.title} · ${bedRole(id, locale)}`;
 }

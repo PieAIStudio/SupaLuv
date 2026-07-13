@@ -1,5 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "./analytics/productAnalytics";
+import { bedLabel } from "./audio/bedCatalog";
 import { gameAudio } from "./audio/gameAudio";
 import { syncGameAudioFromSettings } from "./audio/syncGameAudioFromSettings";
 import { useCoPlaySession } from "./coplay/useCoPlaySession";
@@ -8,6 +9,7 @@ import type { StoryCharacterBindings } from "./characters/characterPackTypes";
 import { createCharacterPackClient } from "./characters/characterPackClient";
 import { refreshCharacterBindingUrls } from "./characters/storyRunBindings";
 import { useAuth } from "./auth/AuthContext";
+import { useLocale } from "./i18n";
 import { unlockAchievement, type AchievementDef } from "./persistence/achievements";
 import {
   loadDisplayNames,
@@ -121,8 +123,11 @@ async function preloadStoryPresentation(
 
 export function App() {
   const auth = useAuth();
+  const { locale, t } = useLocale();
   const authRef = useRef(auth);
   authRef.current = auth;
+  const translateRef = useRef(t);
+  translateRef.current = t;
 
   const [bootDone, setBootDone] = useState(() => {
     try {
@@ -179,7 +184,7 @@ export function App() {
             }).getPack,
           ),
         onUnlocksGained: (gained) => {
-          showUnlockToastRef.current(`图鉴 +${gained}`);
+          showUnlockToastRef.current(`${translateRef.current("common.galleryUnlock")} +${gained}`);
           gameAudio.playSfx("notify-soft", 0.35);
         },
       }),
@@ -211,13 +216,13 @@ export function App() {
       event.preventDefault();
       setLoadingTransition({
         kind: "retry",
-        error: "更新后的游戏代码没有完整下载。请重试；若仍失败，刷新页面会从存档恢复。",
+        error: t("common.codeUpdateError"),
         retry: () => window.location.reload(),
       });
     };
     window.addEventListener("vite:preloadError", onPreloadError);
     return () => window.removeEventListener("vite:preloadError", onPreloadError);
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     if (!bootDone) {
@@ -239,7 +244,7 @@ export function App() {
           }
           setLoadingTransition({
             kind: "retry",
-            error: "标题画面没有完整下载。请重试；若仍失败，刷新页面会重新获取资源。",
+            error: t("common.titleLoadError"),
             retry: () => {
               setLoadingTransition(null);
               setTitleLoadAttempt((value) => value + 1);
@@ -256,7 +261,7 @@ export function App() {
       void loadStoryRuntime().catch(() => undefined);
     }, 450);
     return () => window.clearTimeout(timer);
-  }, [bootDone, titleLoadAttempt, titleReady]);
+  }, [bootDone, t, titleLoadAttempt, titleReady]);
 
   /** Meta screens share document scroll — reset so Help/Achievements never open mid-page. */
   useEffect(() => {
@@ -269,11 +274,13 @@ export function App() {
     (id: Parameters<typeof unlockAchievement>[0]) => {
       const def: AchievementDef | null = unlockAchievement(id);
       if (def) {
-        showUnlockToast(`成就 · ${def.title}`);
+        showUnlockToast(
+          `${t("common.achievement")} · ${t(`achievements.items.${id}.title`, def.title)}`,
+        );
         gameAudio.playSfx("notify-soft", 0.4);
       }
     },
-    [showUnlockToast],
+    [showUnlockToast, t],
   );
 
   function runStoryAction(action: () => Promise<void>, kind?: AtomicLoadingKind) {
@@ -299,11 +306,11 @@ export function App() {
         if (kind) {
           setLoadingTransition({
             kind: "retry",
-            error: "换幕没有完成，当前画面仍然保留。请检查网络后重试。",
+            error: t("common.transitionError"),
             retry,
           });
         } else {
-          showUnlockToast("故事加载失败，请检查网络后重试。");
+          showUnlockToast(t("common.storyLoadError"));
         }
       })
       .finally(() => {
@@ -597,13 +604,13 @@ export function App() {
               onReverseCurrent={() => tryAchievement("reverse_current")}
               onOracleHit={() => tryAchievement("oracle_hit")}
               onRpsResolvedAchievement={() => tryAchievement("first_rps")}
-              onCustomPackCgSkipped={() => showUnlockToast("自定义立绘模式：已跳过官方正脸 CG")}
+              onCustomPackCgSkipped={() => showUnlockToast(t("common.customPortraitCgSkipped"))}
               onBedHeard={(bedId) => {
                 if (unlocks.audio.includes(bedId)) {
                   return;
                 }
                 session.addUnlocks({ audio: [bedId] });
-                showUnlockToast(`配乐已收藏：${bedId}`);
+                showUnlockToast(`${t("common.musicUnlocked")}: ${bedLabel(bedId, locale)}`);
               }}
               onStoryChange={(nextStoryId) =>
                 runStoryAction(() => session.loadChapter(nextStoryId), "chapter")

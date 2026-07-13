@@ -1,5 +1,6 @@
 import { GameBadge, GameButton, GameProgress } from "@pieai/swimmer-ui-kit";
 import { bedLabel } from "../../audio/bedCatalog";
+import { useLocale } from "../../i18n";
 import type { ManualSlotId } from "../../persistence/gameSave";
 import type { StoryId } from "../../story/storyMapAdapter";
 import { SystemMenu } from "./SystemMenu";
@@ -70,39 +71,44 @@ export function PlayHud({
   onOpenPlayerPath,
   onOpenCreatorMap,
 }: PlayHudProps) {
+  const { locale, t } = useLocale();
+  const modeLabel =
+    !playerMode && import.meta.env.DEV
+      ? locale === "zh-CN"
+        ? "开发模式"
+        : "Developer mode"
+      : t("play.storyMode");
   return (
     <header className="vn-hud">
       <div className="hud-left">
         <span data-testid="prototype-badge">
-          <GameBadge tone={playerMode ? "ai" : "warning"}>
-            {playerMode ? "剧情模式" : "开发模式"}
-          </GameBadge>
+          <GameBadge tone={playerMode ? "ai" : "warning"}>{modeLabel}</GameBadge>
         </span>
         {autoPlay ? <GameBadge tone="success">AUTO</GameBadge> : null}
         {showComedyMeters ? (
           <div className="meter-rail" data-testid="comedy-meters">
             <div className="meter-block">
-              <span className="meter-label">羞耻</span>
-              <GameProgress label="羞耻" value={dignity} tone="warning" showValue />
+              <span className="meter-label">{t("play.dignity")}</span>
+              <GameProgress label={t("play.dignity")} value={dignity} tone="warning" showValue />
             </div>
             <div className="meter-block">
-              <span className="meter-label">冲动</span>
-              <GameProgress label="冲动" value={impulse} tone="danger" showValue />
+              <span className="meter-label">{t("play.impulse")}</span>
+              <GameProgress label={t("play.impulse")} value={impulse} tone="danger" showValue />
             </div>
           </div>
         ) : null}
         {saveFlash ? (
           <span className="save-toast" data-testid="save-toast">
-            已保存
+            {t("play.saved")}
           </span>
         ) : null}
         {nowPlayingBedId ? (
           <span
             className="now-playing-chip"
             data-testid="now-playing"
-            title={bedLabel(nowPlayingBedId)}
+            title={bedLabel(nowPlayingBedId, locale)}
           >
-            ♪ {bedLabel(nowPlayingBedId)}
+            ♪ {bedLabel(nowPlayingBedId, locale)}
           </span>
         ) : null}
       </div>
@@ -135,7 +141,7 @@ export function PlayHud({
           onClick={onToggleFullscreen}
           data-testid="fullscreen-toggle"
         >
-          {isFullscreen ? "退出全屏" : "全屏"}
+          {isFullscreen ? t("play.exitFullscreen") : t("play.fullscreen")}
         </GameButton>
         <GameButton
           type="button"
@@ -144,7 +150,7 @@ export function PlayHud({
           data-testid="mute-toggle"
           aria-pressed={muted}
         >
-          {muted ? "声音关" : "声音开"}
+          {muted ? t("play.soundOff") : t("play.soundOn")}
         </GameButton>
         <GameButton
           type="button"
@@ -152,7 +158,7 @@ export function PlayHud({
           onClick={onOpenHistory}
           data-testid="history-toggle"
         >
-          历史
+          {t("play.history")}
         </GameButton>
         <div className="system-menu-wrap">
           <GameButton
@@ -162,7 +168,7 @@ export function PlayHud({
             data-testid="system-menu-toggle"
             aria-expanded={systemOpen}
           >
-            系统
+            {t("play.system")}
           </GameButton>
           <SystemMenu
             open={systemOpen}
