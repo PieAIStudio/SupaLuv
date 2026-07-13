@@ -10,10 +10,13 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@dagrejs/dagre": "3.0.0",
     "@pieai/swimmer-ui-kit": "1.0.1",
     "@supabase/supabase-js": "2.108.1",
     "@supaluv/content": "workspace:*",
     "@supaluv/shared": "workspace:*",
+    "@uiw/react-codemirror": "4.25.11",
+    "@xyflow/react": "12.11.2",
     "howler": "2.2.4",
     "inkjs": "2.4.0",
     "posthog-js": "^1.399.0",

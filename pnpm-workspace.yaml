@@ -9,6 +9,8 @@ allowBuilds:
   esbuild: true
   lefthook: true
   protobufjs: false
+overrides:
+  use-sync-external-store: 1.6.0
 minimumReleaseAgeExclude:
   - "@pieai/doc-gov"
   - "@pieai/pro-gov"
