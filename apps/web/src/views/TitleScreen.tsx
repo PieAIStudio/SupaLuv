@@ -38,6 +38,12 @@ function formatSave(save: GameSavePayload | null): string {
   return `${save.label}${hint} · ${new Date(save.savedAt).toLocaleString()}`;
 }
 
+const NARROW_LANDSCAPE_QUERY = "(max-height: 520px) and (orientation: landscape)";
+
+function shouldExpandSecondaryTitleActions(): boolean {
+  return typeof window === "undefined" || !window.matchMedia(NARROW_LANDSCAPE_QUERY).matches;
+}
+
 export function TitleScreen({
   onNewGame,
   onContinue,
@@ -55,6 +61,9 @@ export function TitleScreen({
   const { t, locale, setLocale } = useLocale();
   const [showSlots, setShowSlots] = useState(false);
   const [showCoPlay, setShowCoPlay] = useState(false);
+  const [showSecondaryActions, setShowSecondaryActions] = useState(
+    shouldExpandSecondaryTitleActions,
+  );
   const [joinCode, setJoinCode] = useState("");
   const [coPlayAlias, setCoPlayAlias] = useState("朋友");
   const [nowPlaying, setNowPlaying] = useState<string | null>(() => gameAudio.getNowPlayingKey());
@@ -74,6 +83,14 @@ export function TitleScreen({
   }, []);
 
   useEffect(() => gameAudio.onNowPlayingChange(setNowPlaying), []);
+
+  useEffect(() => {
+    const media = window.matchMedia(NARROW_LANDSCAPE_QUERY);
+    const syncSecondaryActions = () => setShowSecondaryActions(!media.matches);
+    syncSecondaryActions();
+    media.addEventListener("change", syncSecondaryActions);
+    return () => media.removeEventListener("change", syncSecondaryActions);
+  }, []);
 
   return (
     <div className="title-screen" data-testid="title-screen">
@@ -163,221 +180,239 @@ export function TitleScreen({
                 ) : null}
               </div>
             ) : null}
-            <GameButton
-              type="button"
-              variant="primary"
-              onClick={() => {
-                armAudio();
-                if (latest) {
-                  const ok = window.confirm("开始新游戏会覆盖自动存档进度（手动槽保留）。确定？");
-                  if (!ok) {
-                    return;
-                  }
-                }
-                onNewGame();
-              }}
-              data-testid="title-new-game"
-            >
-              {t("title.newGame")}
-            </GameButton>
-            <GameButton
-              type="button"
-              variant="secondary"
-              onClick={() => {
-                armAudio();
-                onContinue();
-              }}
-              disabled={!latest}
-              data-testid="title-continue"
-            >
-              {t("title.continue")}
-              {latest ? ` · ${new Date(latest.savedAt).toLocaleString()}` : ""}
-            </GameButton>
-            <GameButton
-              type="button"
-              variant="ghost"
-              onClick={() => {
-                armAudio();
-                setShowSlots((value) => !value);
-              }}
-              data-testid="title-slots"
-            >
-              {t("title.slots")}
-            </GameButton>
-            {showSlots ? (
-              <div className="title-slot-list" data-testid="title-slot-list">
-                <button
-                  type="button"
-                  className="title-slot-row"
-                  disabled={!autosave}
-                  onClick={() => {
-                    armAudio();
-                    if (autosave) {
-                      onContinue(AUTOSAVE_SLOT);
+            <div className="title-primary-actions" aria-label="主要操作">
+              <GameButton
+                type="button"
+                variant="primary"
+                onClick={() => {
+                  armAudio();
+                  if (latest) {
+                    const ok = window.confirm("开始新游戏会覆盖自动存档进度（手动槽保留）。确定？");
+                    if (!ok) {
+                      return;
                     }
-                  }}
-                >
-                  <span>自动存档</span>
-                  <span>{formatSave(autosave)}</span>
-                </button>
-                {MANUAL_SLOTS.map((slotId, index) => {
-                  const save = manualSaves[index] ?? null;
-                  return (
-                    <button
-                      key={slotId}
-                      type="button"
-                      className="title-slot-row"
-                      disabled={!save}
-                      onClick={() => {
-                        armAudio();
-                        if (save) {
-                          onContinue(slotId as ManualSlotId);
-                        }
-                      }}
-                    >
-                      <span>手动槽 {index + 1}</span>
-                      <span>{formatSave(save)}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            ) : null}
-            <GameButton
-              type="button"
-              variant="ghost"
-              onClick={() => {
-                armAudio();
-                onOpenGallery();
-              }}
-              data-testid="title-gallery"
+                  }
+                  onNewGame();
+                }}
+                data-testid="title-new-game"
+              >
+                {t("title.newGame")}
+              </GameButton>
+              <GameButton
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  armAudio();
+                  onContinue();
+                }}
+                disabled={!latest}
+                data-testid="title-continue"
+              >
+                {t("title.continue")}
+                {latest ? ` · ${new Date(latest.savedAt).toLocaleString()}` : ""}
+              </GameButton>
+            </div>
+            <details
+              className="title-more"
+              open={showSecondaryActions}
+              onToggle={(event) => setShowSecondaryActions(event.currentTarget.open)}
             >
-              {t("title.gallery")}
-            </GameButton>
-            <GameButton
-              type="button"
-              variant="ghost"
-              onClick={() => {
-                armAudio();
-                onOpenSettings();
-              }}
-              data-testid="title-settings"
-            >
-              {t("title.settings")}
-            </GameButton>
-            {onOpenAchievements ? (
-              <GameButton
-                type="button"
-                variant="ghost"
-                onClick={() => {
-                  armAudio();
-                  onOpenAchievements();
-                }}
-                data-testid="title-achievements"
-              >
-                {t("title.achievements")}
-              </GameButton>
-            ) : null}
-            {onOpenAiSpend ? (
-              <GameButton
-                type="button"
-                variant="ghost"
-                onClick={() => {
-                  armAudio();
-                  onOpenAiSpend();
-                }}
-                data-testid="title-ai-spend"
-              >
-                AI 消费分析
-              </GameButton>
-            ) : null}
-            {onOpenHelp ? (
-              <GameButton
-                type="button"
-                variant="ghost"
-                onClick={() => {
-                  armAudio();
-                  onOpenHelp();
-                }}
-                data-testid="title-help"
-              >
-                {t("title.help")}
-              </GameButton>
-            ) : null}
-            {onHostCoPlay && onJoinCoPlay ? (
-              <GameButton
-                type="button"
-                variant="ghost"
-                onClick={() => {
-                  armAudio();
-                  setShowCoPlay((v) => !v);
-                }}
-                data-testid="title-coplay"
-              >
-                {t("title.coplay")}
-              </GameButton>
-            ) : null}
-            {showCoPlay && onHostCoPlay && onJoinCoPlay ? (
-              <div className="title-coplay-panel" data-testid="title-coplay-panel">
-                <p className="title-coplay-lead">
-                  一方「创建房间」开玩，另一方输入房间码「加入围观」。 当前运输：
-                  <strong>
-                    {preferredTransportKind() === "realtime"
-                      ? "跨网 Realtime（已配置 Supabase）"
-                      : "本机多标签 BroadcastChannel"}
-                  </strong>
-                  。未配置 VITE_SUPABASE_* 时请开两个标签页。
-                </p>
-                <label className="title-coplay-field">
-                  <span>你的昵称</span>
-                  <input
-                    type="text"
-                    maxLength={12}
-                    value={coPlayAlias}
-                    onChange={(e) => setCoPlayAlias(e.target.value.slice(0, 12))}
-                    data-testid="title-coplay-alias"
-                  />
-                </label>
-                <GameButton
-                  type="button"
-                  variant="secondary"
-                  onClick={() => {
-                    armAudio();
-                    const code = makeRoomCode();
-                    onHostCoPlay(code, coPlayAlias.trim() || "房主");
-                  }}
-                  data-testid="title-coplay-host"
-                >
-                  创建房间并开玩
-                </GameButton>
-                <label className="title-coplay-field">
-                  <span>加入房间码</span>
-                  <input
-                    type="text"
-                    maxLength={6}
-                    value={joinCode}
-                    placeholder="例如 AB3K"
-                    onChange={(e) => setJoinCode(normalizeRoomCode(e.target.value))}
-                    data-testid="title-coplay-code"
-                  />
-                </label>
+              <summary data-testid="title-more-toggle">
+                <span>{locale === "zh-CN" ? "更多选项" : "More options"}</span>
+                <small>
+                  {locale === "zh-CN"
+                    ? "存档、画廊、设置与同玩"
+                    : "Saves, gallery, settings and co-play"}
+                </small>
+              </summary>
+              <div className="title-secondary-actions">
                 <GameButton
                   type="button"
                   variant="ghost"
-                  disabled={normalizeRoomCode(joinCode).length < 4}
                   onClick={() => {
                     armAudio();
-                    const code = normalizeRoomCode(joinCode);
-                    if (code.length < 4) {
-                      return;
-                    }
-                    onJoinCoPlay(code, coPlayAlias.trim() || "朋友");
+                    setShowSlots((value) => !value);
                   }}
-                  data-testid="title-coplay-join"
+                  data-testid="title-slots"
                 >
-                  加入围观
+                  {t("title.slots")}
                 </GameButton>
+                {showSlots ? (
+                  <div className="title-slot-list" data-testid="title-slot-list">
+                    <button
+                      type="button"
+                      className="title-slot-row"
+                      disabled={!autosave}
+                      onClick={() => {
+                        armAudio();
+                        if (autosave) {
+                          onContinue(AUTOSAVE_SLOT);
+                        }
+                      }}
+                    >
+                      <span>自动存档</span>
+                      <span>{formatSave(autosave)}</span>
+                    </button>
+                    {MANUAL_SLOTS.map((slotId, index) => {
+                      const save = manualSaves[index] ?? null;
+                      return (
+                        <button
+                          key={slotId}
+                          type="button"
+                          className="title-slot-row"
+                          disabled={!save}
+                          onClick={() => {
+                            armAudio();
+                            if (save) {
+                              onContinue(slotId as ManualSlotId);
+                            }
+                          }}
+                        >
+                          <span>手动槽 {index + 1}</span>
+                          <span>{formatSave(save)}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : null}
+                <GameButton
+                  type="button"
+                  variant="ghost"
+                  onClick={() => {
+                    armAudio();
+                    onOpenGallery();
+                  }}
+                  data-testid="title-gallery"
+                >
+                  {t("title.gallery")}
+                </GameButton>
+                <GameButton
+                  type="button"
+                  variant="ghost"
+                  onClick={() => {
+                    armAudio();
+                    onOpenSettings();
+                  }}
+                  data-testid="title-settings"
+                >
+                  {t("title.settings")}
+                </GameButton>
+                {onOpenAchievements ? (
+                  <GameButton
+                    type="button"
+                    variant="ghost"
+                    onClick={() => {
+                      armAudio();
+                      onOpenAchievements();
+                    }}
+                    data-testid="title-achievements"
+                  >
+                    {t("title.achievements")}
+                  </GameButton>
+                ) : null}
+                {onOpenAiSpend ? (
+                  <GameButton
+                    type="button"
+                    variant="ghost"
+                    onClick={() => {
+                      armAudio();
+                      onOpenAiSpend();
+                    }}
+                    data-testid="title-ai-spend"
+                  >
+                    AI 消费分析
+                  </GameButton>
+                ) : null}
+                {onOpenHelp ? (
+                  <GameButton
+                    type="button"
+                    variant="ghost"
+                    onClick={() => {
+                      armAudio();
+                      onOpenHelp();
+                    }}
+                    data-testid="title-help"
+                  >
+                    {t("title.help")}
+                  </GameButton>
+                ) : null}
+                {onHostCoPlay && onJoinCoPlay ? (
+                  <GameButton
+                    type="button"
+                    variant="ghost"
+                    onClick={() => {
+                      armAudio();
+                      setShowCoPlay((v) => !v);
+                    }}
+                    data-testid="title-coplay"
+                  >
+                    {t("title.coplay")}
+                  </GameButton>
+                ) : null}
+                {showCoPlay && onHostCoPlay && onJoinCoPlay ? (
+                  <div className="title-coplay-panel" data-testid="title-coplay-panel">
+                    <p className="title-coplay-lead">
+                      一方「创建房间」开玩，另一方输入房间码「加入围观」。 当前运输：
+                      <strong>
+                        {preferredTransportKind() === "realtime"
+                          ? "跨网 Realtime（已配置 Supabase）"
+                          : "本机多标签 BroadcastChannel"}
+                      </strong>
+                      。未配置 VITE_SUPABASE_* 时请开两个标签页。
+                    </p>
+                    <label className="title-coplay-field">
+                      <span>你的昵称</span>
+                      <input
+                        type="text"
+                        maxLength={12}
+                        value={coPlayAlias}
+                        onChange={(e) => setCoPlayAlias(e.target.value.slice(0, 12))}
+                        data-testid="title-coplay-alias"
+                      />
+                    </label>
+                    <GameButton
+                      type="button"
+                      variant="secondary"
+                      onClick={() => {
+                        armAudio();
+                        const code = makeRoomCode();
+                        onHostCoPlay(code, coPlayAlias.trim() || "房主");
+                      }}
+                      data-testid="title-coplay-host"
+                    >
+                      创建房间并开玩
+                    </GameButton>
+                    <label className="title-coplay-field">
+                      <span>加入房间码</span>
+                      <input
+                        type="text"
+                        maxLength={6}
+                        value={joinCode}
+                        placeholder="例如 AB3K"
+                        onChange={(e) => setJoinCode(normalizeRoomCode(e.target.value))}
+                        data-testid="title-coplay-code"
+                      />
+                    </label>
+                    <GameButton
+                      type="button"
+                      variant="ghost"
+                      disabled={normalizeRoomCode(joinCode).length < 4}
+                      onClick={() => {
+                        armAudio();
+                        const code = normalizeRoomCode(joinCode);
+                        if (code.length < 4) {
+                          return;
+                        }
+                        onJoinCoPlay(code, coPlayAlias.trim() || "朋友");
+                      }}
+                      data-testid="title-coplay-join"
+                    >
+                      加入围观
+                    </GameButton>
+                  </div>
+                ) : null}
               </div>
-            ) : null}
+            </details>
           </div>
           <p className="title-footnote">{t("title.footnote")}</p>
           <p className="title-credits" data-testid="title-credits">
