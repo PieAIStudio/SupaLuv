@@ -6,7 +6,7 @@ import {
   GameProgress,
   GameTextArea,
 } from "@pieai/swimmer-ui-kit";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { createCharacterPackClient } from "../characters/characterPackClient";
 import type {
@@ -39,6 +39,105 @@ const LEAD_SLOTS: readonly CharacterStudioSlot[] = [
   },
 ];
 
+export const MAX_CHARACTER_REFERENCE_FILES = 3;
+export const CHARACTER_FILE_ACCEPT = "image/jpeg,image/png,image/webp,image/avif";
+
+const CHARACTER_IMAGE_MIME_TYPES = new Set(CHARACTER_FILE_ACCEPT.split(","));
+const CHARACTER_IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp", "avif"]);
+
+export type CharacterFileSelectionStatus = "empty" | "ready" | "warning" | "error";
+
+export interface CharacterFileSelectionResult {
+  readonly files: File[];
+  readonly invalidCount: number;
+  readonly trimmedCount: number;
+  readonly status: CharacterFileSelectionStatus;
+  readonly message: string;
+}
+
+export interface CharacterFileControlPresentation {
+  readonly disabled: boolean;
+  readonly triggerLabel: string;
+  readonly statusText: string;
+}
+
+export function isAcceptedCharacterReference(file: Pick<File, "name" | "type">): boolean {
+  const mimeType = file.type.trim().toLowerCase();
+  if (mimeType) return CHARACTER_IMAGE_MIME_TYPES.has(mimeType);
+  const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
+  return CHARACTER_IMAGE_EXTENSIONS.has(extension);
+}
+
+export function normalizeCharacterReferenceFiles(
+  selectedFiles: Iterable<File>,
+): CharacterFileSelectionResult {
+  const selected = Array.from(selectedFiles);
+  const accepted = selected.filter(isAcceptedCharacterReference);
+  const files = accepted.slice(0, MAX_CHARACTER_REFERENCE_FILES);
+  const invalidCount = selected.length - accepted.length;
+  const trimmedCount = Math.max(0, accepted.length - MAX_CHARACTER_REFERENCE_FILES);
+
+  if (files.length === 0) {
+    if (invalidCount > 0) {
+      return {
+        files,
+        invalidCount,
+        trimmedCount,
+        status: "error",
+        message: `未选择照片：${invalidCount} 个文件类型不支持。请使用 JPG、PNG、WebP 或 AVIF。`,
+      };
+    }
+    return {
+      files,
+      invalidCount,
+      trimmedCount,
+      status: "empty",
+      message: "尚未选择照片。",
+    };
+  }
+
+  const ignoredParts = [
+    invalidCount > 0 ? `${invalidCount} 个类型不支持` : null,
+    trimmedCount > 0 ? `${trimmedCount} 个超出上限` : null,
+  ].filter(Boolean);
+
+  if (ignoredParts.length > 0) {
+    return {
+      files,
+      invalidCount,
+      trimmedCount,
+      status: invalidCount > 0 ? "error" : "warning",
+      message: `已选择 ${files.length} 张；${ignoredParts.join("、")}，已忽略。`,
+    };
+  }
+
+  return {
+    files,
+    invalidCount,
+    trimmedCount,
+    status: "ready",
+    message: `已选择 ${files.length} 张，可以生成。`,
+  };
+}
+
+export function getCharacterFileControlPresentation(
+  selection: CharacterFileSelectionResult,
+  busy: boolean,
+  kind: CharacterStudioSlot["kind"],
+): CharacterFileControlPresentation {
+  return {
+    disabled: busy,
+    triggerLabel: selection.files.length > 0 ? "重新选择照片" : "选择参考照片",
+    statusText: busy
+      ? "正在处理，暂时无法更改参考照片。"
+      : selection.status === "empty"
+        ? kind === "human"
+          ? "尚未选择照片；真人角色需要 1–3 张参考照片。"
+          : "尚未选择参考图；机器人角色也可以只填写形象说明。"
+        : selection.message,
+  };
+}
+
 type SlotWork = {
   readonly packId?: string;
   readonly base?: { readonly id: string; readonly url: string };
@@ -64,8 +163,11 @@ export function CharacterStudioScreen({
     () => createCharacterPackClient({ getAccessToken: auth.getAccessToken }),
     [auth.getAccessToken],
   );
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [slotIndex, setSlotIndex] = useState(0);
-  const [files, setFiles] = useState<File[]>([]);
+  const [fileSelection, setFileSelection] = useState<CharacterFileSelectionResult>(() =>
+    normalizeCharacterReferenceFiles([]),
+  );
   const [brief, setBrief] = useState("25岁以上，电影感半身肖像，保留本人主要面部特征");
   const [works, setWorks] = useState<Record<string, SlotWork>>({});
   const [phase, setPhase] = useState<"idle" | "uploading" | "generating" | "moods">("idle");
@@ -73,11 +175,21 @@ export function CharacterStudioScreen({
   const slot = slots[slotIndex]!;
   const work = works[slot.id] ?? {};
   const busy = phase !== "idle";
+  const files = fileSelection.files;
+  const fileControl = getCharacterFileControlPresentation(fileSelection, busy, slot.kind);
+  const fileFieldId = `character-files-${slot.id}`;
+  const fileLabelId = `${fileFieldId}-label`;
+  const fileStatusId = `${fileFieldId}-status`;
+
+  function resetFiles() {
+    setFileSelection(normalizeCharacterReferenceFiles([]));
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
 
   function moveNext(nextWorks: Record<string, SlotWork>) {
     if (slotIndex < slots.length - 1) {
       setSlotIndex((value) => value + 1);
-      setFiles([]);
+      resetFiles();
       setError(null);
       return;
     }
@@ -222,7 +334,11 @@ export function CharacterStudioScreen({
       </div>
 
       <div className="character-studio-grid">
-        <GamePanel className="character-studio-preview" tone="strong">
+        <GamePanel
+          className="character-studio-preview"
+          tone="strong"
+          data-testid="character-studio-preview"
+        >
           <span className="character-studio-role">{slot.role}</span>
           <img src={work.base?.url ?? slot.official} alt={`${slot.name}当前形象预览`} />
           <strong>{slot.name}</strong>
@@ -231,18 +347,23 @@ export function CharacterStudioScreen({
 
         <GamePanel className="character-studio-controls" tone="strong">
           <h2>{work.base ? "这张脸可以演十小时吗？" : `定制${slot.name}`}</h2>
+          <p className="character-studio-scroll-note" data-testid="character-studio-scroll-note">
+            此面板可上下滚动，主要操作固定在底部。
+          </p>
           {work.base ? (
             <>
-              <p>
-                确认后会继续生成六种常用表情；不满意可以重新生成，已发生的 AI
-                调用会按现有点数规则记录。
-              </p>
-              <div className="character-studio-actions">
+              <div className="character-studio-control-body">
+                <p>
+                  确认后会继续生成六种常用表情；不满意可以重新生成，已发生的 AI
+                  调用会按现有点数规则记录。
+                </p>
+              </div>
+              <div className="character-studio-actions" data-testid="character-studio-actions">
                 <GameButton
                   type="button"
                   variant="primary"
                   onClick={() => void approve()}
-                  disabled={busy}
+                  disabled={fileControl.disabled}
                 >
                   确认并生成表情
                 </GameButton>
@@ -258,41 +379,96 @@ export function CharacterStudioScreen({
             </>
           ) : (
             <>
-              <label className="character-file-field">
-                <span>
-                  {slot.kind === "human"
-                    ? "真人参考照片（1–3 张）"
-                    : "机器人参考图（可选，最多 3 张）"}
-                </span>
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp,image/avif"
-                  multiple
-                  disabled={busy}
-                  onChange={(event) => setFiles(Array.from(event.target.files ?? []).slice(0, 3))}
-                />
-                <small>
-                  {files.length > 0
-                    ? `已选择 ${files.length} 张`
-                    : slot.kind === "human"
-                      ? "每张只放一个清晰成年面孔；原图可删除，180 天未使用自动清理。"
-                      : "可以只写说明，也可以上传外观参考图。"}
-                </small>
-              </label>
-              <label className="character-brief-field">
-                <span>形象说明</span>
-                <GameTextArea
-                  aria-label="形象说明"
-                  value={brief}
-                  onChange={(event) => setBrief(event.target.value)}
-                  rows={4}
-                  disabled={busy}
-                />
-              </label>
-              <GameCallout tone="info" heading="内容边界">
-                仅上传你有权使用的清晰成年人参考图；未成年人、裸体、色情或无法确认成年人的照片不能使用。
-              </GameCallout>
-              <div className="character-studio-actions">
+              <div className="character-studio-control-body">
+                <div
+                  className="character-file-field"
+                  role="group"
+                  aria-labelledby={fileLabelId}
+                  aria-busy={busy}
+                >
+                  <div className="character-file-heading">
+                    <span id={fileLabelId}>
+                      {slot.kind === "human"
+                        ? "真人参考照片（1–3 张）"
+                        : "机器人参考图（可选，最多 3 张）"}
+                    </span>
+                    <span className="character-file-count" aria-hidden="true">
+                      {files.length} / {MAX_CHARACTER_REFERENCE_FILES}
+                    </span>
+                  </div>
+                  <input
+                    ref={fileInputRef}
+                    id={fileFieldId}
+                    className="character-file-input"
+                    data-testid="character-file-input"
+                    type="file"
+                    accept={CHARACTER_FILE_ACCEPT}
+                    multiple
+                    disabled={fileControl.disabled}
+                    tabIndex={-1}
+                    aria-labelledby={fileLabelId}
+                    aria-describedby={fileStatusId}
+                    onChange={(event) => {
+                      setError(null);
+                      setFileSelection(
+                        normalizeCharacterReferenceFiles(event.currentTarget.files ?? []),
+                      );
+                    }}
+                  />
+                  <div className="character-file-picker">
+                    <div className="character-file-reel" aria-hidden="true">
+                      {Array.from({ length: MAX_CHARACTER_REFERENCE_FILES }, (_, index) => (
+                        <span key={index} className={index < files.length ? "is-filled" : ""}>
+                          {index < files.length ? "✓" : index + 1}
+                        </span>
+                      ))}
+                    </div>
+                    <GameButton
+                      type="button"
+                      variant="secondary"
+                      className="character-file-trigger"
+                      data-testid="character-file-trigger"
+                      disabled={busy}
+                      aria-controls={fileFieldId}
+                      aria-describedby={fileStatusId}
+                      onClick={() => {
+                        const input = fileInputRef.current;
+                        if (!input || busy) return;
+                        input.value = "";
+                        input.click();
+                      }}
+                    >
+                      {fileControl.triggerLabel}
+                    </GameButton>
+                  </div>
+                  <p
+                    id={fileStatusId}
+                    data-testid="character-file-status"
+                    className={`character-file-status is-${fileSelection.status}`}
+                    role={fileSelection.status === "error" ? "alert" : "status"}
+                    aria-live="polite"
+                  >
+                    {fileControl.statusText}
+                  </p>
+                  <small className="character-file-guidance">
+                    每张只放一个清晰成年面孔；原图可删除，180 天未使用自动清理。
+                  </small>
+                </div>
+                <label className="character-brief-field">
+                  <span>形象说明</span>
+                  <GameTextArea
+                    aria-label="形象说明"
+                    value={brief}
+                    onChange={(event) => setBrief(event.target.value)}
+                    rows={4}
+                    disabled={busy}
+                  />
+                </label>
+                <GameCallout tone="info" heading="内容边界">
+                  仅上传你有权使用的清晰成年人参考图；未成年人、裸体、色情或无法确认成年人的照片不能使用。
+                </GameCallout>
+              </div>
+              <div className="character-studio-actions" data-testid="character-studio-actions">
                 <GameButton
                   type="button"
                   variant="primary"
@@ -321,7 +497,7 @@ export function CharacterStudioScreen({
             />
           ) : null}
           {error ? (
-            <p className="character-studio-error" role="alert">
+            <p className="character-studio-error" role="alert" data-testid="character-studio-error">
               {error}
             </p>
           ) : null}

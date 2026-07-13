@@ -2,6 +2,7 @@
   --studio-ink: #f8f2e8;
   --studio-coral: #ff725e;
   position: relative;
+  box-sizing: border-box;
   min-height: 100dvh;
   overflow: hidden;
   padding: clamp(20px, 4vw, 52px);
@@ -117,11 +118,23 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
+  min-width: 0;
   padding: clamp(20px, 3vw, 34px);
 }
 .character-studio-controls h2 {
   margin: 0;
   font-size: clamp(24px, 3vw, 36px);
+}
+.character-studio-control-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+}
+.character-studio-scroll-note {
+  display: none;
+  margin: 0;
 }
 .character-studio-controls .game-ui-callout {
   position: static !important;
@@ -129,25 +142,104 @@
 }
 .character-file-field {
   display: grid;
-  gap: 8px;
+  gap: 10px;
   padding: 15px;
   border: 1px dashed rgb(43 33 29 / 24%);
   border-radius: 14px;
+  background: rgb(255 255 255 / 34%);
 }
 .character-brief-field {
   display: grid;
   gap: 8px;
 }
-.character-file-field input {
-  color: inherit;
+.character-file-heading,
+.character-file-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
-.character-file-field small {
+.character-file-heading > span:first-child {
+  font-weight: 700;
+}
+.character-file-count {
+  flex: none;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgb(43 33 29 / 8%);
+  color: rgb(43 33 29 / 68%);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.character-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+.character-file-reel {
+  display: flex;
+  gap: 6px;
+}
+.character-file-reel span {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgb(43 33 29 / 18%);
+  border-radius: 8px;
+  background: rgb(43 33 29 / 5%);
+  color: rgb(43 33 29 / 48%);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.character-file-reel span.is-filled {
+  border-color: rgb(217 81 62 / 46%);
+  background: rgb(255 114 94 / 14%);
+  color: #9f2f21;
+  font-weight: 800;
+}
+.character-file-trigger.game-ui-button {
+  min-height: 44px;
+  white-space: nowrap;
+}
+.character-file-trigger.game-ui-button:focus-visible {
+  outline: 3px solid #b53424;
+  outline-offset: 3px;
+}
+.character-file-status {
+  min-height: 1.4em;
+  margin: 0;
+  color: rgb(43 33 29 / 70%);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.character-file-status.is-ready {
+  color: #2f6a48;
+}
+.character-file-status.is-warning {
+  color: #7a4c00;
+}
+.character-file-status.is-error {
+  color: #a5212c;
+}
+.character-file-guidance {
   color: rgb(43 33 29 / 62%);
+  line-height: 1.45;
 }
 .character-studio-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+.character-studio-actions .game-ui-button {
+  min-height: 44px;
 }
 .character-studio-error {
   margin: 0;
@@ -175,6 +267,212 @@
   .character-studio-preview img {
     grid-row: 1 / 4;
     width: 100px;
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .character-studio {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 6px;
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+      max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    overflow: hidden;
+  }
+
+  .character-studio-header,
+  .character-studio-grid,
+  .character-studio-steps {
+    width: min(1000px, 100%);
+  }
+
+  .character-studio-header {
+    align-items: center;
+    gap: 12px;
+  }
+
+  .character-studio-header > div {
+    min-width: 0;
+  }
+
+  .character-studio-header h1 {
+    margin: 3px 0 1px;
+    font-size: clamp(26px, 4.4vw, 34px);
+    line-height: 1;
+  }
+
+  .character-studio-header p {
+    max-width: none;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .character-studio-header .game-ui-button {
+    flex: none;
+    min-height: 44px;
+  }
+
+  .character-studio-steps {
+    gap: 6px;
+    margin-block: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .character-studio-steps span {
+    flex: none;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .character-studio-grid {
+    grid-template-columns: minmax(190px, 0.58fr) minmax(0, 1.65fr);
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .character-studio-preview,
+  .character-studio-controls {
+    min-height: 0;
+    max-height: 100%;
+  }
+
+  .character-studio-preview {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    align-content: center;
+    justify-items: start;
+    gap: 4px 10px;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .character-studio-preview img {
+    grid-row: 1 / 4;
+    width: 88px;
+    height: 118px;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgb(0 0 0 / 32%);
+  }
+
+  .character-studio-preview strong {
+    align-self: end;
+    font-size: 21px;
+  }
+
+  .character-studio-preview small {
+    align-self: start;
+    line-height: 1.3;
+  }
+
+  .character-studio-role {
+    align-self: end;
+    justify-self: start;
+    font-size: 11px;
+  }
+
+  .character-studio-controls {
+    gap: 7px;
+    padding: 10px 12px;
+    overflow: hidden;
+  }
+
+  .character-studio-controls h2 {
+    flex: none;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+
+  .character-studio-scroll-note {
+    display: block;
+    flex: none;
+    color: rgb(43 33 29 / 58%);
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .character-studio-control-body {
+    gap: 8px;
+    min-height: 0;
+    padding-right: 4px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+  }
+
+  .character-file-field {
+    gap: 6px;
+    padding: 9px 10px;
+    border-radius: 10px;
+  }
+
+  .character-file-heading,
+  .character-file-picker {
+    gap: 8px;
+  }
+
+  .character-file-reel {
+    gap: 4px;
+  }
+
+  .character-file-reel span {
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+  }
+
+  .character-file-trigger.game-ui-button {
+    min-height: 44px;
+    padding-inline: 12px;
+  }
+
+  .character-file-status,
+  .character-file-guidance {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .character-brief-field {
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  .character-brief-field textarea {
+    min-height: 58px;
+    max-height: 72px;
+    padding: 8px 10px;
+  }
+
+  .character-studio-controls .game-ui-callout {
+    padding: 8px 10px;
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .character-studio-actions {
+    flex: none;
+    gap: 8px;
+    padding-top: 2px;
+  }
+
+  .character-studio-actions .game-ui-button {
+    flex: 1 1 160px;
+    min-height: 44px;
+  }
+
+  .character-studio-error {
+    max-height: 44px;
+    overflow-y: auto;
+    font-size: 12px;
   }
 }
 
