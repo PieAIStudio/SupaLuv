@@ -50,7 +50,11 @@ export type NarrativePlayback = {
   };
   readonly commands: {
     readonly reveal: () => void;
-    readonly chooseAi: () => void;
+    /**
+     * AI choice start. The run-marker callback fires after audio unlock and before
+     * history append / SFX / beginPlaying (run marker + outward notification).
+     */
+    readonly chooseAi: (onAiBranchUsed: () => void) => void;
     readonly advanceAi: () => void;
     readonly requestAiAuth: () => void;
     readonly recordPlayerChoice: (text: string) => void;
@@ -79,7 +83,6 @@ export function useNarrativePlayback(input: {
   readonly actions: {
     readonly onChoose: (index: number) => void;
     readonly onJumpTo: (path: string) => void;
-    readonly onAiBranchUsed?: () => void;
     readonly onAuthFallback: () => void;
     readonly ensureAudioUnlocked: () => void;
   };
@@ -187,7 +190,6 @@ export function useNarrativePlayback(input: {
 
   const onChoose = actions.onChoose;
   const onJumpTo = actions.onJumpTo;
-  const onAiBranchUsed = actions.onAiBranchUsed;
   const onAuthFallback = actions.onAuthFallback;
   const ensureAudioUnlocked = actions.ensureAudioUnlocked;
 
@@ -240,16 +242,20 @@ export function useNarrativePlayback(input: {
   const cancelAi = ai.cancel;
   const aiSlot = ai.slot;
 
-  const chooseAi = useCallback(() => {
-    if (aiSlot.status !== "ready" || isGuestSpectator) {
-      return;
-    }
-    ensureAudioUnlocked();
-    onAiBranchUsed?.();
-    appendHistory(resolveAiChoiceHistoryEntry(aiSlot.result.choiceLabel));
-    gameAudio.playSfx("ui-choice", 0.5);
-    beginPlaying(aiSlot.result);
-  }, [aiSlot, appendHistory, beginPlaying, ensureAudioUnlocked, isGuestSpectator, onAiBranchUsed]);
+  const chooseAi = useCallback(
+    (onAiBranchUsed: () => void) => {
+      if (aiSlot.status !== "ready" || isGuestSpectator) {
+        return;
+      }
+      ensureAudioUnlocked();
+      // Exact prior order: unlock → run marker/outward notify → history → SFX → begin.
+      onAiBranchUsed();
+      appendHistory(resolveAiChoiceHistoryEntry(aiSlot.result.choiceLabel));
+      gameAudio.playSfx("ui-choice", 0.5);
+      beginPlaying(aiSlot.result);
+    },
+    [aiSlot, appendHistory, beginPlaying, ensureAudioUnlocked, isGuestSpectator],
+  );
 
   const advanceAi = useCallback(() => {
     ensureAudioUnlocked();

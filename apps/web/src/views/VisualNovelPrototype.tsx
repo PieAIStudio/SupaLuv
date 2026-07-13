@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { gameAudio } from "../audio/gameAudio";
 import { CoPlayBanner } from "../coplay/CoPlayBanner";
 import { CursorOverlay } from "../coplay/CursorOverlay";
@@ -10,7 +10,6 @@ import { useFullscreen } from "../hooks/useFullscreen";
 import { useGameAudioSettings } from "../hooks/useGameAudioSettings";
 import { usePlayInput } from "../hooks/usePlayInput";
 import { usePointerPresenceMode } from "../hooks/usePointerPresenceMode";
-import { useRpsGlobalLean } from "../hooks/useRpsGlobalLean";
 import { EmotionCalibrationInteraction } from "../interactions/EmotionCalibrationInteraction";
 import { resolveStoryInteraction } from "../interactions/storyInteractionRegistry";
 import type { ManualSlotId } from "../persistence/gameSave";
@@ -19,7 +18,6 @@ import { EMPTY_PORTRAIT_PACK, type PortraitPackState } from "../persistence/port
 import type { GameSettings } from "../persistence/settings";
 import type { InkStorySnapshot } from "../story/inkStoryRunner";
 import {
-  getChapterCheckpoint,
   getStoryDefinition,
   getStoryPresentation,
   getStoryScene,
@@ -34,14 +32,10 @@ import { PortraitStage } from "./play/PortraitStage";
 import type { StoryCharacterBindings } from "../characters/characterPackTypes";
 import { CharacterStudioScreen, type CharacterStudioSlot } from "./CharacterStudioScreen";
 import { mapPortraitsForPlayer } from "./play/stagePresentation";
-import { getScenePathMemory } from "../persistence/pathMemory";
-import { findDecision } from "../stats/choiceStatsCatalog";
-import type { SessionChoicePick } from "../stats/choiceStatsClient";
-import { clearOracleGuesses, getOracleGuess, setOracleGuess } from "../stats/oracleMemory";
 import { useCoPlayPointers } from "./play/useCoPlayPointers";
+import { useDecisionExperience } from "./play/experience/useDecisionExperience";
 import { useNarrativePlayback } from "./play/experience/useNarrativePlayback";
 import { useNarrativeSource } from "./play/experience/useNarrativeSource";
-import { usePlayChoiceFlow } from "./play/usePlayChoiceFlow";
 import { useStageMedia } from "./play/useStageMedia";
 import { isContinueOnly, storyHasComedyMeters } from "./play/vnHelpers";
 
@@ -159,13 +153,6 @@ export function VisualNovelPrototype({
   const [localAutoPlay, setLocalAutoPlay] = useState(autoPlay);
   const stageRootRef = useRef<HTMLDivElement | null>(null);
   const { isFullscreen, toggleFullscreen } = useFullscreen(stageRootRef);
-  const usedAiBranchRef = useRef(false);
-  const chapterClearReportedRef = useRef(false);
-  /** Stats-visible picks this run (chapter-end global echo). */
-  const sessionStatsPicksRef = useRef<SessionChoicePick[]>([]);
-  const [sessionStatsPicks, setSessionStatsPicks] = useState<SessionChoicePick[]>([]);
-  /** Bump to re-render after in-memory oracle guess writes. */
-  const [oracleTick, setOracleTick] = useState(0);
   const [nowPlayingBedId, setNowPlayingBedId] = useState<string | null>(() =>
     gameAudio.getNowPlayingKey(),
   );
@@ -179,11 +166,6 @@ export function VisualNovelPrototype({
   const ensureAudioUnlocked = useCallback(() => {
     gameAudio.unlock();
   }, []);
-
-  const handleAiBranchUsed = useCallback(() => {
-    usedAiBranchRef.current = true;
-    onAiBranchUsed?.();
-  }, [onAiBranchUsed]);
 
   // Order: narrative source → stage media → narrative playback (same-render cutscene gates).
   const narrativeSource = useNarrativeSource({
@@ -244,7 +226,6 @@ export function VisualNovelPrototype({
     actions: {
       onChoose,
       onJumpTo,
-      onAiBranchUsed: handleAiBranchUsed,
       onAuthFallback: onOpenSettings,
       ensureAudioUnlocked,
     },
@@ -261,6 +242,52 @@ export function VisualNovelPrototype({
     cancelAi,
     reset: resetNarrative,
   } = narrativeCommands;
+
+  const performPlaySurfaceReset = useCallback(() => {
+    resetMediaMemory();
+    resetNarrative();
+    setActiveCutscene(null);
+    setSystemOpen(false);
+    onReset();
+  }, [onReset, resetMediaMemory, resetNarrative, setActiveCutscene]);
+
+  const decision = useDecisionExperience({
+    source: {
+      storyId,
+      snapshot,
+      coPlay,
+    },
+    viewer: {
+      isGuestSpectator,
+      guestChoices: frame.choices,
+      remoteSceneId: frame.remoteSceneId,
+      remoteIsEnded: frame.remoteIsEnded,
+    },
+    narrative: {
+      typewriterComplete: frame.typewriterComplete,
+      aiPlaying: frame.aiPlaying,
+      recordPlayerChoice,
+      cancelAi,
+    },
+    actions: {
+      onChoose,
+      onRpsResolvedAchievement,
+      onAiBranchUsed,
+      onChapterClear,
+      ensureAudioUnlocked,
+      performExternalReset: performPlaySurfaceReset,
+    },
+  });
+
+  const {
+    choice: decisionChoice,
+    oracle: decisionOracle,
+    rps: decisionRps,
+    ending: decisionEnding,
+    commands: decisionCommands,
+  } = decision;
+  const { handleChoose, seenLabels, sessionStatsPicks } = decisionChoice;
+  const { notifyAiBranchUsed, clearOracleForReset, replayFromEndCard } = decisionCommands;
 
   const showComedyMeters = storyHasComedyMeters(storyId);
   const activeAiBeat = frame.activeAiBeat;
@@ -299,36 +326,6 @@ export function VisualNovelPrototype({
     voiceVolume,
   });
 
-  const rpsOpen = coPlay?.rpsDuel?.open ?? null;
-  const { lean: rpsGlobalLean, refereePick } = useRpsGlobalLean({
-    enabled: Boolean(rpsOpen && coPlay?.role === "host"),
-    storyId,
-    sceneId: rpsOpen?.sceneId ?? null,
-    hostLabel: rpsOpen?.hostChoiceText ?? "",
-    guestLabel: rpsOpen?.guestChoiceText ?? "",
-    hostIndex: rpsOpen?.hostChoiceIndex ?? 0,
-    guestIndex: rpsOpen?.guestChoiceIndex ?? 0,
-  });
-
-  const oracleDecision =
-    !isGuestSpectator && snapshot.sceneId ? findDecision(storyId, snapshot.sceneId) : null;
-  const oracleOptions = useMemo(
-    () =>
-      oracleDecision
-        ? oracleDecision.options.map((o) => ({
-            choiceId: o.choiceId,
-            shortLabel: o.shortLabel,
-            matchLabel: o.match,
-          }))
-        : [],
-    [oracleDecision],
-  );
-  // oracleTick forces re-read after setOracleGuess (module memory, not React state).
-  const oracleGuessLabel = oracleDecision
-    ? (getOracleGuess(oracleDecision.decisionId)?.predictedLabel ?? null)
-    : null;
-  void oracleTick;
-
   useEffect(() => {
     // Production stories hide tools by default; ?debug=1 keeps them available.
     setShowDevTools(!playerMode || debugToolsAvailable);
@@ -364,30 +361,12 @@ export function VisualNovelPrototype({
     }
   }, [ensureAudioUnlocked, frame.typewriterComplete, revealDialogue]);
 
-  const { handleChoose } = usePlayChoiceFlow({
-    storyId,
-    snapshot,
-    coPlay,
-    isGuestSpectator,
-    guestChoices: frame.choices,
-    remoteSceneId: frame.remoteSceneId,
-    sessionStatsPicksRef,
-    setSessionStatsPicks,
-    recordPlayerChoice,
-    onChoose,
-    cancelAi,
-    ensureAudioUnlocked,
-    onRpsResolvedAchievement,
-  });
-
   const pointerMode = usePointerPresenceMode();
   const showRemoteCursors = shouldShowRemoteCursors(pointerMode);
   const { handleStagePointer, handleStageTouchFocus } = useCoPlayPointers({
     coPlay,
     pointerMode,
   });
-
-  const seenChoiceLabels = snapshot.sceneId ? getScenePathMemory(storyId, snapshot.sceneId) : [];
 
   const handleMuteToggle = useCallback(() => {
     const next = !masterMuted;
@@ -397,13 +376,9 @@ export function VisualNovelPrototype({
   }, [ensureAudioUnlocked, masterMuted, onMasterMutedChange]);
 
   const handleReset = useCallback(() => {
-    resetMediaMemory();
-    resetNarrative();
-    clearOracleGuesses();
-    setActiveCutscene(null);
-    setSystemOpen(false);
-    onReset();
-  }, [onReset, resetMediaMemory, resetNarrative, setActiveCutscene]);
+    clearOracleForReset();
+    performPlaySurfaceReset();
+  }, [clearOracleForReset, performPlaySurfaceReset]);
 
   const handleSave = useCallback(
     (slotId?: ManualSlotId) => {
@@ -451,28 +426,11 @@ export function VisualNovelPrototype({
     }
   }, [activeCutscene, dismissCutscene, historyOpen, systemOpen]);
 
-  const checkpoint = getChapterCheckpoint(storyId);
-  const isInterChapter = checkpoint.kind === "next_chapter";
-  const chapterEnded = snapshot.isEnded && frame.typewriterComplete && !frame.aiPlaying;
-  /** Draft package chapter 1 auto-advances; only terminal draft_end / ai_ending show the end card. */
-  const showChapterEndCard = chapterEnded && !isInterChapter;
-
-  useEffect(() => {
-    if (isGuestSpectator || !chapterEnded || chapterClearReportedRef.current) {
-      return;
-    }
-    chapterClearReportedRef.current = true;
-    onChapterClear?.({
-      usedAiBranch: usedAiBranchRef.current,
-      pathHint: usedAiBranchRef.current
-        ? "本局走过 AI 灵感旁支，并汇合作者主线。"
-        : "本局仅走作者预写选项。",
-    });
-  }, [chapterEnded, isGuestSpectator, onChapterClear]);
-
   usePlayInput({
     enabled:
-      !isGuestSpectator && !activeStoryInteraction && (!chapterEnded || Boolean(activeCutscene)),
+      !isGuestSpectator &&
+      !activeStoryInteraction &&
+      (!decisionEnding.chapterEnded || Boolean(activeCutscene)),
     isComplete: Boolean(activeCutscene) || frame.typewriterComplete,
     canContinue:
       Boolean(activeCutscene) || frame.aiPlaying || (!frame.aiPlaying && isContinueOnly(snapshot)),
@@ -544,16 +502,9 @@ export function VisualNovelPrototype({
           <RpsDuelOverlay
             duel={coPlay.rpsView}
             role={coPlay.role}
-            globalLean={coPlay.role === "host" ? rpsGlobalLean : null}
+            globalLean={decisionRps.globalLean}
             onThrow={(value) => coPlay.publishRpsThrow(value)}
-            onGlobalReferee={
-              coPlay.role === "host" && refereePick
-                ? () => {
-                    coPlay.resolveRpsWithGlobal(refereePick.index, refereePick.note);
-                    gameAudio.playSfx("notify-soft", 0.5);
-                  }
-                : undefined
-            }
+            onGlobalReferee={decisionRps.onGlobalReferee}
           />
         ) : null}
 
@@ -632,7 +583,7 @@ export function VisualNovelPrototype({
           />
         ) : null}
 
-        {!activeStoryInteraction && !(isGuestSpectator ? frame.remoteIsEnded : chapterEnded) ? (
+        {!activeStoryInteraction && !decisionEnding.dialogueYieldsToEnding ? (
           <DialoguePanel
             sceneTitle={frame.sceneTitle}
             speaker={frame.displaySpeaker}
@@ -648,28 +599,15 @@ export function VisualNovelPrototype({
                   }))
                 : snapshot.choices
             }
-            seenChoiceLabels={isGuestSpectator ? [] : seenChoiceLabels}
+            seenChoiceLabels={seenLabels}
             aiSlot={isGuestSpectator ? undefined : frame.aiSlot}
             aiMode={isGuestSpectator ? Boolean(frame.panelAiMode) : frame.aiPlaying}
-            oracleOptions={isGuestSpectator ? [] : oracleOptions}
-            oracleGuessLabel={isGuestSpectator ? null : oracleGuessLabel}
-            onOracleGuess={
-              isGuestSpectator || !oracleDecision
-                ? undefined
-                : (option) => {
-                    setOracleGuess({
-                      decisionId: oracleDecision.decisionId,
-                      predictedChoiceId: option.choiceId,
-                      predictedLabel: option.shortLabel,
-                      sceneId: oracleDecision.sceneId,
-                    });
-                    setOracleTick((n) => n + 1);
-                    gameAudio.playSfx("ui-click", 0.35);
-                  }
-            }
+            oracleOptions={decisionOracle.options}
+            oracleGuessLabel={decisionOracle.guessLabel}
+            onOracleGuess={decisionOracle.onGuess}
             onDialogueActivate={isGuestSpectator ? () => undefined : handleDialogueActivate}
             onChoose={handleChoose}
-            onChooseAi={isGuestSpectator ? undefined : chooseAi}
+            onChooseAi={isGuestSpectator ? undefined : () => chooseAi(notifyAiBranchUsed)}
             onAdvanceAi={isGuestSpectator ? undefined : advanceAi}
             onRequestAuth={isGuestSpectator ? undefined : requestAiAuth}
           />
@@ -682,35 +620,20 @@ export function VisualNovelPrototype({
         />
 
         <ChapterEndCard
-          open={isGuestSpectator ? frame.remoteIsEnded && !isInterChapter : showChapterEndCard}
+          open={decisionEnding.endCardOpen}
           storyId={storyId}
           dignity={frame.dignity}
           impulse={frame.impulse}
-          sessionStatsPicks={isGuestSpectator ? [] : sessionStatsPicks}
+          sessionStatsPicks={sessionStatsPicks}
           displayNames={displayNames}
           characterBindings={characterBindings}
-          allowAiEnding={checkpoint.kind === "ai_ending_allowed"}
-          draftEnd={checkpoint.kind === "draft_end"}
+          allowAiEnding={decisionEnding.allowAiEnding}
+          draftEnd={decisionEnding.draftEnd}
           onRareEcho={onRareEcho}
           onReverseCurrent={onReverseCurrent}
           onOracleHit={onOracleHit}
-          path={{
-            usedAiBranch: usedAiBranchRef.current,
-            pathHint: usedAiBranchRef.current
-              ? "本局走过 AI 灵感旁支，并汇合作者主线。"
-              : "本局仅走作者预写选项。",
-          }}
-          onReplay={() => {
-            if (isGuestSpectator) {
-              return;
-            }
-            ensureAudioUnlocked();
-            usedAiBranchRef.current = false;
-            chapterClearReportedRef.current = false;
-            sessionStatsPicksRef.current = [];
-            setSessionStatsPicks([]);
-            handleReset();
-          }}
+          path={decisionEnding.path}
+          onReplay={replayFromEndCard}
           onTitle={onOpenTitle}
         />
       </section>
