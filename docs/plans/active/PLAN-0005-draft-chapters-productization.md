@@ -51,10 +51,10 @@ related:
 - [ ] 建 `NarrativeGraph` 适配层与 fixture 回归测试。
 - [ ] 交付本地 Creator Studio：React Flow + Dagre + CodeMirror + 安全保存事务。
 - [ ] 交付 Player Path：探索遮罩、已走节点/边、回看与剧透裁剪。
-- [ ] 交付资源清单、首图 decode 门闩、下一可达节点预取和原子转场。
+- [x] 交付资源清单、首图 decode 门闩、下一可达节点预取和原子转场。
 - [ ] 优化标题、角色工作室与首幕关键图片的尺寸/格式/加载优先级。
-- [ ] 交付完整 loading composition 与 `vite:preloadError` 恢复。
-- [ ] 交付“情绪样本标注”小游戏并接入剧情变量与无障碍输入。
+- [x] 交付完整 loading composition 与 `vite:preloadError` 恢复。
+- [x] 交付“情绪样本标注”小游戏并接入剧情变量与无障碍输入。
 - [ ] 交付协议、测试仪表、看房热点和手机问卷等剧情内互动。
 - [ ] 交付算法羞耻档案，并与玩家路径和回看关联。
 
@@ -84,4 +84,3 @@ related:
 ## Closeout
 
 完成后把本计划与 `SPEC-0003` 移入 completed，并在 `current-work.md` 只保留最终状态与下一步。
-

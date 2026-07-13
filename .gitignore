@@ -26,6 +26,7 @@ playwright-report/
 .scratch/
 .grok-reports/
 .devspace-reports/
+.devspace-visual/
 
 # Deployment metadata
 .vercel/
