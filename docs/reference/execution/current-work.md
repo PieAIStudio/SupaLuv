@@ -26,8 +26,9 @@ related:
 
 - **生产官网**：<https://supaluv.pieaistudio.com>
 - **产品阶段**：功能闭环已齐，两章草稿已在官网可玩；加载、正式视听资产和内容演出仍需产品化。
-- **当前主线工作**：`PLAN-0005` Stage 1 与首批 Stage 2 已完成；游戏式原子加载和第一个
-  剧情内互动已交付。当前串行建立共享 `NarrativeGraph`，之后再并行交付两种剧情地图。
+- **当前主线工作**：`PLAN-0005` Stage 1 与首批 Stage 2 已完成；游戏式原子加载、第一个
+  剧情内互动和共享 `NarrativeGraph` 已交付。下一批并行交付 Creator Studio、玩家路线图与
+  立绘透明蒙版修复。
 - **内容边界**：官网默认内容已经是 `draft-ch01`、`draft-ch02`；两章仍是 noncanonical 草稿，
   不是作者已经冻结的最终小说。旧短篇 Demo 仅保留为开发 fixture，不再是玩家默认故事。
 - **开发原则**：小说与技术可以并行推进。正式内容到位后，应填入现有内容管线，
@@ -57,14 +58,17 @@ related:
 
 ## 当前优先级
 
-1. **共享剧情图**：同一 NarrativeGraph 驱动本地 Creator Studio 与玩家路径图。
-2. **剩余剧情互动**：协议测试、看房热点、手机问卷和算法羞耻档案。
-3. **视听与试玩打磨**：正式资产、TTS/BGM/SFX、两轮 playtest 与修复后证据。
+1. **两种剧情地图**：共享 NarrativeGraph 已就绪；并行实现本地 Creator Studio 与玩家路线图。
+2. **立绘商品修复**：苏明 8 张立绘仅 2 张透明背景合格，其余 6 张残留洋红底；修复资产并建立自动门禁。
+3. **剩余剧情互动**：协议测试、看房热点、手机问卷和算法羞耻档案。
+4. **视听与试玩打磨**：正式资产、TTS/BGM/SFX、两轮 playtest 与修复后证据。
 
 已完成的两章内容基线包括 169 个正文段落的来源覆盖、跨章存档、完整 Ink/manifest、
 旧 Demo 退休和 Production 最小试玩。游戏式加载现已等待关键图片解码后原子换幕，生产入口
 chunk 从约 521 KB 降到约 65 KB；第一章已接入可跳过、可存档恢复的情绪样本校准互动。
-当前主要缺口转为共享剧情图、两种地图、剩余互动和正式视听资产，而不是基础加载闭环。
+共享 NarrativeGraph 现从真实 Ink 路径生成 93 个场景节点、119 条边，并分别输出本地创作全图与
+不携带剧情语义的玩家安全骨架。当前主要缺口转为两种地图、立绘透明蒙版、剩余互动和正式视听资产，
+而不是基础加载或图数据闭环。
 
 当前 active work 只有 `SPEC-0003` 与 `PLAN-0005`。不要并行创建竞争规格或把 completed 文档
 重新改成 active。
@@ -76,6 +80,7 @@ chunk 从约 521 KB 降到约 65 KB；第一章已接入可跳过、可存档恢
 | 页面路由与存档编排 | `apps/web/src/App.tsx` |
 | 游戏舞台与 HUD | `apps/web/src/views/VisualNovelPrototype.tsx`, `apps/web/src/views/play/` |
 | Ink 与场景映射 | `apps/web/src/story/`, `packages/content/` |
+| 共享剧情图 | `packages/shared/src/narrative-graph.ts`, `packages/content/generated/` |
 | 角色生成与剧情绑定 | `apps/web/src/characters/`, `services/ai-branch/src/character*` |
 | AI 选项与最终章 | `apps/web/src/ai/`, `services/ai-branch/src/` |
 | 音频与 TTS | `apps/web/src/audio/`, `services/ai-branch/src/ttsCatalog.ts`, `ttsRoute.ts` |

@@ -48,7 +48,7 @@ related:
 
 ### Stage 2 · Parallel product lanes (after Stage 1)
 
-- [ ] 建 `NarrativeGraph` 适配层与 fixture 回归测试。
+- [x] 建 `NarrativeGraph` 适配层与 fixture 回归测试。
 - [ ] 交付本地 Creator Studio：React Flow + Dagre + CodeMirror + 安全保存事务。
 - [ ] 交付 Player Path：探索遮罩、已走节点/边、回看与剧透裁剪。
 - [x] 交付资源清单、首图 decode 门闩、下一可达节点预取和原子转场。
@@ -61,6 +61,7 @@ related:
 ### Stage 3 · Art, audio, and content polish
 
 - [ ] 为两章制作并登记背景、道具 UI、NPC/主角情绪立绘和授权/hash。
+- [ ] 修复苏明 6 张残留洋红底的立绘，并增加透明蒙版像素门禁与舞台截图回归。
 - [ ] 配置核心角色 TTS，完成雷欧中英路由、取消、跳过和混音 ducking。
 - [ ] 配置 sequence 级 BGM、ambient 和 SFX，移除错用旧 Demo 音画。
 - [ ] 校准长文本节拍、镜头变化、选项回响和小游戏出现频率。
