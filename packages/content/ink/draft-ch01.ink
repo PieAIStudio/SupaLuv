@@ -13,6 +13,12 @@ VAR clue_subsidy_sms = false
 VAR clue_rental_receipt = false
 VAR clue_nda = false
 VAR clue_pass_sms = false
+VAR emotion_calibration_correct_count = 0
+VAR emotion_calibration_skipped = false
+VAR emotion_calibration_q1 = "unanswered"
+VAR emotion_calibration_q2 = "unanswered"
+VAR emotion_calibration_q3 = "unanswered"
+VAR emotion_calibration_completed_at_version = ""
 
 -> dch01_s001
 
@@ -24,6 +30,94 @@ VAR clue_pass_sms = false
 工作人员这句话说出口的时候，手指正点在协议签字页上，笑得跟卖保险的一样职业，那种笑法练了不知道多少年，嘴角弧度都是标准的。苏明这才有空打量起这间屋子——四面钉着蜂窝状的隔音棉，摸上去凉丝丝的，带一点橡胶味，天花板正中央嵌着一个鱼眼摄像头，镜头边缘那颗红点常年亮着，不闪，也不熄，像一只从不眨眼的眼睛，安安静静地盯着底下发生的一切。桌上摆着一块平板，靠背椅是那种网吧同款的人体工学椅，只不过换了个说法，叫"沉浸座椅"——听着高级，坐进去才知道，跟网吧那把椅子没什么两样，弹簧一样会硌人。
 
 + [继续 # choice:dch01_s001_continue]
+    -> dch01_emotion_calibration
+
+=== dch01_emotion_calibration ===
+{ emotion_calibration_completed_at_version != "":
+    -> result
+- else:
+    -> q1
+}
+
+= q1
+# scene:dch01_emotion_calibration
+# interaction:emotion-calibration-v1
+# interaction-step:1
+校准台载入虚构样本 1/3。
++ [平静 # choice:emotion_calibration_q1_calm]
+    ~ emotion_calibration_q1 = "calm"
+    ~ emotion_calibration_correct_count = emotion_calibration_correct_count + 1
+    -> q2
++ [刺痛 # choice:emotion_calibration_q1_sting]
+    ~ emotion_calibration_q1 = "sting"
+    -> q2
++ [爆表 # choice:emotion_calibration_q1_overload]
+    ~ emotion_calibration_q1 = "overload"
+    -> q2
++ [跳过校准 # choice:emotion_calibration_q1_skip]
+    -> skipped
+
+= q2
+# scene:dch01_emotion_calibration
+# interaction:emotion-calibration-v1
+# interaction-step:2
+校准台载入虚构样本 2/3。
++ [平静 # choice:emotion_calibration_q2_calm]
+    ~ emotion_calibration_q2 = "calm"
+    -> q3
++ [刺痛 # choice:emotion_calibration_q2_sting]
+    ~ emotion_calibration_q2 = "sting"
+    ~ emotion_calibration_correct_count = emotion_calibration_correct_count + 1
+    -> q3
++ [爆表 # choice:emotion_calibration_q2_overload]
+    ~ emotion_calibration_q2 = "overload"
+    -> q3
++ [跳过校准 # choice:emotion_calibration_q2_skip]
+    -> skipped
+
+= q3
+# scene:dch01_emotion_calibration
+# interaction:emotion-calibration-v1
+# interaction-step:3
+校准台载入虚构样本 3/3。
++ [平静 # choice:emotion_calibration_q3_calm]
+    ~ emotion_calibration_q3 = "calm"
+    ~ emotion_calibration_completed_at_version = "emotion-calibration-v1"
+    -> result
++ [刺痛 # choice:emotion_calibration_q3_sting]
+    ~ emotion_calibration_q3 = "sting"
+    ~ emotion_calibration_completed_at_version = "emotion-calibration-v1"
+    -> result
++ [爆表 # choice:emotion_calibration_q3_overload]
+    ~ emotion_calibration_q3 = "overload"
+    ~ emotion_calibration_correct_count = emotion_calibration_correct_count + 1
+    ~ emotion_calibration_completed_at_version = "emotion-calibration-v1"
+    -> result
++ [跳过校准 # choice:emotion_calibration_q3_skip]
+    -> skipped
+
+= skipped
+~ emotion_calibration_skipped = true
+~ emotion_calibration_completed_at_version = "emotion-calibration-v1"
+-> result
+
+= result
+# scene:dch01_emotion_calibration
+{ emotion_calibration_skipped:
+    系统把未完成项标成“人工判断保留”。工作人员扫了一眼：“不想替机器猜也行，主测照常。”
+- else:
+    { emotion_calibration_correct_count == 3:
+        三格指示灯同时转绿。工作人员挑了下眉：“准得像干过客服。别得意，机器正学你。”
+    - else:
+        { emotion_calibration_correct_count == 2:
+            两格亮绿，一格保持灰色。工作人员点点头：“够用。剩下一格让模型自己挨骂长记性。”
+        - else:
+            屏幕把结果记成“个人阈值偏差”。工作人员耸耸肩：“这不是考试，你和机器只是不疼在一个地方。”
+        }
+    }
+}
+
++ [继续 # choice:emotion_calibration_continue]
     -> dch01_s002
 
 === dch01_s002 ===

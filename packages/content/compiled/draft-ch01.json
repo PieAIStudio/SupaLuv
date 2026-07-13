@@ -42,13 +42,657 @@
             "c-0": [
               "\n",
               {
-                "->": "dch01_s002"
+                "->": "dch01_emotion_calibration"
               },
               null
             ]
           }
         ],
         null
+      ],
+      "dch01_emotion_calibration": [
+        "ev",
+        {
+          "VAR?": "emotion_calibration_completed_at_version"
+        },
+        "str",
+        "^",
+        "/str",
+        "!=",
+        "/ev",
+        [
+          {
+            "->": ".^.b",
+            "c": true
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.result"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        [
+          {
+            "->": ".^.b"
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.q1"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        "nop",
+        "\n",
+        {
+          "q1": [
+            [
+              "#",
+              "^scene:dch01_emotion_calibration",
+              "/#",
+              "#",
+              "^interaction:emotion-calibration-v1",
+              "/#",
+              "#",
+              "^interaction-step:1",
+              "/#",
+              "^校准台载入虚构样本 1/3。",
+              "\n",
+              "ev",
+              "str",
+              "^平静 ",
+              "#",
+              "^choice:emotion_calibration_q1_calm",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^刺痛 ",
+              "#",
+              "^choice:emotion_calibration_q1_sting",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^爆表 ",
+              "#",
+              "^choice:emotion_calibration_q1_overload",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过校准 ",
+              "#",
+              "^choice:emotion_calibration_q1_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-3",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^calm",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_q1",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "emotion_calibration_correct_count"
+                  },
+                  1,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_correct_count",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^sting",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^overload",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-3": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q2": [
+            [
+              "#",
+              "^scene:dch01_emotion_calibration",
+              "/#",
+              "#",
+              "^interaction:emotion-calibration-v1",
+              "/#",
+              "#",
+              "^interaction-step:2",
+              "/#",
+              "^校准台载入虚构样本 2/3。",
+              "\n",
+              "ev",
+              "str",
+              "^平静 ",
+              "#",
+              "^choice:emotion_calibration_q2_calm",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^刺痛 ",
+              "#",
+              "^choice:emotion_calibration_q2_sting",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^爆表 ",
+              "#",
+              "^choice:emotion_calibration_q2_overload",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过校准 ",
+              "#",
+              "^choice:emotion_calibration_q2_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-3",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^calm",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_q2",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^sting",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_q2",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "emotion_calibration_correct_count"
+                  },
+                  1,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_correct_count",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^overload",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_q2",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-3": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q3": [
+            [
+              "#",
+              "^scene:dch01_emotion_calibration",
+              "/#",
+              "#",
+              "^interaction:emotion-calibration-v1",
+              "/#",
+              "#",
+              "^interaction-step:3",
+              "/#",
+              "^校准台载入虚构样本 3/3。",
+              "\n",
+              "ev",
+              "str",
+              "^平静 ",
+              "#",
+              "^choice:emotion_calibration_q3_calm",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^刺痛 ",
+              "#",
+              "^choice:emotion_calibration_q3_sting",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^爆表 ",
+              "#",
+              "^choice:emotion_calibration_q3_overload",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过校准 ",
+              "#",
+              "^choice:emotion_calibration_q3_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-3",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^calm",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^emotion-calibration-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^sting",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^emotion-calibration-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^overload",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_q3",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "emotion_calibration_correct_count"
+                  },
+                  1,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_correct_count",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^emotion-calibration-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "emotion_calibration_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-3": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "skipped": [
+            "ev",
+            true,
+            "/ev",
+            {
+              "VAR=": "emotion_calibration_skipped",
+              "re": true
+            },
+            "ev",
+            "str",
+            "^emotion-calibration-v1",
+            "/str",
+            "/ev",
+            {
+              "VAR=": "emotion_calibration_completed_at_version",
+              "re": true
+            },
+            {
+              "->": ".^.^.result"
+            },
+            null
+          ],
+          "result": [
+            [
+              "#",
+              "^scene:dch01_emotion_calibration",
+              "/#",
+              "ev",
+              {
+                "VAR?": "emotion_calibration_skipped"
+              },
+              "/ev",
+              [
+                {
+                  "->": ".^.b",
+                  "c": true
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^系统把未完成项标成“人工判断保留”。工作人员扫了一眼：“不想替机器猜也行，主测照常。”",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              [
+                {
+                  "->": ".^.b"
+                },
+                {
+                  "b": [
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "emotion_calibration_correct_count"
+                    },
+                    3,
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^三格指示灯同时转绿。工作人员挑了下眉：“准得像干过客服。别得意，机器正学你。”",
+                          "\n",
+                          {
+                            "->": ".^.^.^.8"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    [
+                      {
+                        "->": ".^.b"
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "ev",
+                          {
+                            "VAR?": "emotion_calibration_correct_count"
+                          },
+                          2,
+                          "==",
+                          "/ev",
+                          [
+                            {
+                              "->": ".^.b",
+                              "c": true
+                            },
+                            {
+                              "b": [
+                                "\n",
+                                "^两格亮绿，一格保持灰色。工作人员点点头：“够用。剩下一格让模型自己挨骂长记性。”",
+                                "\n",
+                                {
+                                  "->": ".^.^.^.8"
+                                },
+                                null
+                              ]
+                            }
+                          ],
+                          [
+                            {
+                              "->": ".^.b"
+                            },
+                            {
+                              "b": [
+                                "\n",
+                                "^屏幕把结果记成“个人阈值偏差”。工作人员耸耸肩：“这不是考试，你和机器只是不疼在一个地方。”",
+                                "\n",
+                                {
+                                  "->": ".^.^.^.8"
+                                },
+                                null
+                              ]
+                            }
+                          ],
+                          "nop",
+                          "\n",
+                          {
+                            "->": ".^.^.^.8"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              "nop",
+              "\n",
+              "ev",
+              "str",
+              "^继续 ",
+              "#",
+              "^choice:emotion_calibration_continue",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  {
+                    "->": "dch01_s002"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ]
+        }
       ],
       "dch01_s002": [
         [
@@ -2032,6 +2676,38 @@
         false,
         {
           "VAR=": "clue_pass_sms"
+        },
+        0,
+        {
+          "VAR=": "emotion_calibration_correct_count"
+        },
+        false,
+        {
+          "VAR=": "emotion_calibration_skipped"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "emotion_calibration_q1"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "emotion_calibration_q2"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "emotion_calibration_q3"
+        },
+        "str",
+        "^",
+        "/str",
+        {
+          "VAR=": "emotion_calibration_completed_at_version"
         },
         "/ev",
         "end",

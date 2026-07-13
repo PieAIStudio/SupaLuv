@@ -1,0 +1,347 @@
+.emotion-calibration {
+  position: absolute;
+  inset: 13% clamp(0.8rem, 6vw, 6rem) 7%;
+  z-index: 3;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  gap: clamp(0.45rem, 1.2vw, 0.9rem);
+  min-height: 0;
+  padding: clamp(0.75rem, 1.8vw, 1.35rem);
+  overflow: hidden;
+  border: 1px solid rgba(150, 234, 214, 0.48);
+  border-radius: clamp(0.7rem, 1.2vw, 1.1rem);
+  outline: none;
+  background:
+    linear-gradient(135deg, rgba(14, 35, 36, 0.98), rgba(7, 14, 20, 0.97)), rgba(4, 9, 13, 0.96);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.72),
+    0 1.5rem 5rem rgba(0, 0, 0, 0.56),
+    inset 0 0 4rem rgba(80, 220, 190, 0.06);
+  color: #ebfff9;
+  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  animation: emotion-calibration-enter 260ms ease-out both;
+}
+
+.emotion-calibration:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(191, 255, 235, 0.85),
+    0 1.5rem 5rem rgba(0, 0, 0, 0.56),
+    inset 0 0 4rem rgba(80, 220, 190, 0.06);
+}
+
+.emotion-calibration-scanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(180, 255, 235, 0.045) 0,
+    rgba(180, 255, 235, 0.045) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+}
+
+.emotion-calibration-header,
+.emotion-calibration-footer,
+.emotion-calibration-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.emotion-calibration-kicker,
+.emotion-calibration-progress,
+.emotion-calibration-sender,
+.emotion-calibration-instructions,
+.emotion-calibration-feedback {
+  margin: 0;
+}
+
+.emotion-calibration-kicker {
+  color: rgba(183, 255, 235, 0.62);
+  font-size: clamp(0.56rem, 0.8vw, 0.7rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.emotion-calibration h2 {
+  margin: 0.14rem 0 0;
+  font-size: clamp(1.15rem, 2.3vw, 1.8rem);
+  letter-spacing: 0.04em;
+}
+
+.emotion-calibration-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+  padding: 0.36rem 0.62rem;
+  border: 1px solid rgba(155, 243, 218, 0.25);
+  border-radius: 999px;
+  background: rgba(10, 33, 33, 0.64);
+  color: rgba(224, 255, 247, 0.78);
+  font-size: clamp(0.62rem, 0.9vw, 0.76rem);
+}
+
+.emotion-calibration-status span {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: #77efc7;
+  box-shadow: 0 0 0.7rem rgba(119, 239, 199, 0.7);
+}
+
+.emotion-calibration-progress {
+  color: rgba(211, 255, 243, 0.68);
+  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+}
+
+.emotion-calibration-progress-rail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(2rem, 5rem));
+  gap: 0.35rem;
+}
+
+.emotion-calibration-progress-rail i {
+  height: 0.26rem;
+  border-radius: 999px;
+  background: rgba(210, 255, 244, 0.14);
+}
+
+.emotion-calibration-progress-rail i.is-active {
+  background: #7be9c8;
+  box-shadow: 0 0 0.7rem rgba(123, 233, 200, 0.3);
+}
+
+.emotion-calibration-sample {
+  position: relative;
+  align-self: stretch;
+  display: grid;
+  place-content: center;
+  min-height: 0;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  border: 1px solid rgba(212, 255, 244, 0.16);
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(90deg, rgba(110, 222, 195, 0.08), transparent 28%), rgba(2, 8, 12, 0.64);
+}
+
+.emotion-calibration-sender {
+  margin-bottom: 0.55rem;
+  color: rgba(171, 240, 221, 0.62);
+  font-size: clamp(0.65rem, 1vw, 0.8rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.emotion-calibration blockquote {
+  margin: 0;
+  color: #f7fffc;
+  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-size: clamp(1rem, 2.1vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.55;
+  text-wrap: balance;
+}
+
+.emotion-calibration-instructions {
+  color: rgba(222, 255, 247, 0.67);
+  font-size: clamp(0.63rem, 0.95vw, 0.78rem);
+}
+
+.emotion-calibration-levels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.4rem, 0.9vw, 0.75rem);
+}
+
+.emotion-calibration-levels button,
+.emotion-calibration-skip {
+  font: inherit;
+  cursor: pointer;
+}
+
+.emotion-calibration-levels button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3.5rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(195, 255, 239, 0.2);
+  border-radius: 0.68rem;
+  background: rgba(18, 43, 44, 0.7);
+  color: #edfff9;
+  text-align: left;
+  transition:
+    transform 120ms ease,
+    border-color 120ms ease,
+    background 120ms ease;
+}
+
+.emotion-calibration-levels button:hover:not(:disabled),
+.emotion-calibration-levels button:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(147, 255, 225, 0.72);
+  outline: none;
+  background: rgba(28, 68, 65, 0.9);
+}
+
+.emotion-calibration-levels button.is-selected {
+  border-color: #99f4d7;
+  background: rgba(40, 94, 84, 0.92);
+  box-shadow: inset 0 0 1.2rem rgba(120, 255, 215, 0.08);
+}
+
+.emotion-calibration-levels button:disabled,
+.emotion-calibration-skip:disabled {
+  cursor: default;
+  opacity: 0.58;
+}
+
+.emotion-calibration-levels strong,
+.emotion-calibration-levels small {
+  display: block;
+}
+
+.emotion-calibration-levels strong {
+  font-size: clamp(0.82rem, 1.35vw, 1rem);
+}
+
+.emotion-calibration-levels small {
+  margin-top: 0.16rem;
+  overflow: hidden;
+  color: rgba(218, 255, 246, 0.58);
+  font-size: clamp(0.54rem, 0.8vw, 0.67rem);
+  line-height: 1.25;
+  text-overflow: ellipsis;
+}
+
+.emotion-calibration-key {
+  display: grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 1px solid rgba(212, 255, 244, 0.28);
+  border-radius: 0.4rem;
+  color: #bff8e8;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.emotion-calibration-feedback {
+  min-width: 0;
+  color: rgba(229, 255, 249, 0.78);
+  font-size: clamp(0.64rem, 0.95vw, 0.78rem);
+}
+
+.emotion-calibration-skip {
+  flex: 0 0 auto;
+  min-height: 2.2rem;
+  padding: 0.35rem 0.65rem;
+  border: 0;
+  border-bottom: 1px solid rgba(203, 255, 241, 0.28);
+  background: transparent;
+  color: rgba(220, 255, 246, 0.7);
+}
+
+.emotion-calibration-skip:hover:not(:disabled),
+.emotion-calibration-skip:focus-visible {
+  outline: none;
+  color: #fff;
+  border-color: rgba(203, 255, 241, 0.72);
+}
+
+.emotion-calibration-skip span {
+  margin-left: 0.3rem;
+  opacity: 0.62;
+  font-size: 0.7em;
+}
+
+@keyframes emotion-calibration-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.45rem) scale(0.992);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 900px), (max-height: 560px) {
+  .emotion-calibration {
+    inset: 12% 0.7rem 4%;
+    gap: 0.38rem;
+    padding: 0.62rem 0.72rem;
+  }
+
+  .emotion-calibration-sample {
+    padding: 0.55rem 0.75rem;
+  }
+
+  .emotion-calibration-sender {
+    margin-bottom: 0.25rem;
+  }
+
+  .emotion-calibration-levels button {
+    min-height: 2.75rem;
+    padding: 0.35rem 0.45rem;
+  }
+
+  .emotion-calibration-levels small {
+    display: none;
+  }
+
+  .emotion-calibration-instructions {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 900px) and (max-height: 560px) {
+  .vn-stage[data-story-interaction="emotion-calibration-v1"] .meter-rail,
+  .vn-stage[data-story-interaction="emotion-calibration-v1"] .now-playing-chip,
+  .vn-stage[data-story-interaction="emotion-calibration-v1"] .player-story-label {
+    display: none;
+  }
+
+  .vn-stage[data-story-interaction="emotion-calibration-v1"] .vn-hud,
+  .vn-stage[data-story-interaction="emotion-calibration-v1"] .hud-right {
+    flex-wrap: nowrap;
+  }
+
+  .vn-stage[data-story-interaction="emotion-calibration-v1"] .hud-right {
+    gap: 0.3rem;
+  }
+
+  .vn-stage[data-story-interaction="emotion-calibration-v1"] .hud-right button {
+    min-height: 2rem;
+    padding: 0.35rem 0.55rem;
+    font-size: 0.72rem;
+  }
+
+  .emotion-calibration {
+    inset: 17% 0.7rem 3%;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+  }
+
+  .emotion-calibration-header {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emotion-calibration,
+  .emotion-calibration-levels button {
+    animation: none;
+    transition: none;
+  }
+}

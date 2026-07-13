@@ -125,6 +125,7 @@ describe("gameSave", () => {
   it("restores blank ink presentation from saved snapshot", () => {
     const presentation = presentationFromSnapshot({
       sceneId: "dch01_s003",
+      tags: ["scene:dch01_s003"],
       text: "保存时看到的台词",
       choices: [{ index: 0, text: "点头：至少说人话了", choiceId: "d1_bones_accept" }],
       isEnded: false,
@@ -134,6 +135,7 @@ describe("gameSave", () => {
     const loaded = loadSave(AUTOSAVE_SLOT);
     const inkBlank = {
       sceneId: null,
+      tags: [],
       text: "",
       choices: [{ index: 0, text: "点头：至少说人话了", choiceId: "d1_bones_accept" }],
       isEnded: false,
@@ -141,6 +143,7 @@ describe("gameSave", () => {
     };
     const restored = restoreSnapshotFromSave(inkBlank, loaded?.presentation);
     expect(restored.sceneId).toBe("dch01_s003");
+    expect(restored.tags).toEqual(["scene:dch01_s003"]);
     expect(restored.text).toContain("台词");
     expect(restored.choices[0]?.text).toContain("说人话");
   });

@@ -22,6 +22,8 @@ export interface GalleryUnlocks {
  */
 export interface SavePresentation {
   readonly sceneId: string | null;
+  /** Optional for saves written before story interactions shipped. */
+  readonly tags?: readonly string[];
   readonly text: string;
   readonly choices: readonly InkStoryChoice[];
   readonly isEnded: boolean;
@@ -76,6 +78,7 @@ function slotKey(slotId: string): string {
 export function presentationFromSnapshot(snapshot: InkStorySnapshot): SavePresentation {
   return {
     sceneId: snapshot.sceneId,
+    tags: snapshot.tags,
     text: snapshot.text,
     choices: snapshot.choices,
     isEnded: snapshot.isEnded,
@@ -94,12 +97,9 @@ export function restoreSnapshotFromSave(
     return inkSnapshot;
   }
   const inkHasText = inkSnapshot.text.trim().length > 0;
-  const inkHasScene = Boolean(inkSnapshot.sceneId);
-  if (inkHasText && inkHasScene) {
-    return inkSnapshot;
-  }
   return {
     sceneId: inkSnapshot.sceneId ?? presentation.sceneId,
+    tags: inkSnapshot.tags.length > 0 ? inkSnapshot.tags : (presentation.tags ?? []),
     text: inkHasText ? inkSnapshot.text : presentation.text,
     choices: inkSnapshot.choices.length > 0 ? inkSnapshot.choices : presentation.choices,
     isEnded: inkSnapshot.isEnded || presentation.isEnded,
