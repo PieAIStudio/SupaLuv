@@ -20,6 +20,12 @@
   object-position: center 35%;
 }
 
+.boot-splash-art-fallback {
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(232, 160, 106, 0.22), transparent 42%),
+    linear-gradient(145deg, #171820, #090a0f 62%, #1c120d);
+}
+
 .boot-splash-scrim {
   position: absolute;
   inset: 0;
@@ -94,6 +100,12 @@
   50% {
     opacity: 1;
     transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-splash-cta {
+    animation: none;
   }
 }
 

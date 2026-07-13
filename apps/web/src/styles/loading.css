@@ -1,0 +1,125 @@
+.atomic-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  overflow: hidden;
+  color: #fff6ee;
+  isolation: isolate;
+}
+
+.atomic-loading-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(5, 6, 10, 0.72), rgba(5, 6, 10, 0.94)),
+    radial-gradient(ellipse at 50% 30%, rgba(232, 160, 106, 0.2), transparent 48%), #090a0f;
+  backdrop-filter: blur(16px) saturate(0.8);
+}
+
+.atomic-loading-card {
+  display: grid;
+  gap: 0.75rem;
+  width: min(34rem, 100%);
+  padding: clamp(1.25rem, 4vw, 2.4rem);
+  border: 1px solid rgba(255, 220, 190, 0.2);
+  border-radius: 1.25rem;
+  background: rgba(13, 15, 22, 0.86);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.55);
+}
+
+.atomic-loading-eyebrow,
+.atomic-loading-body,
+.atomic-loading-tip {
+  margin: 0;
+}
+
+.atomic-loading-eyebrow {
+  color: rgba(255, 191, 145, 0.78);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.atomic-loading-card h2 {
+  margin: 0;
+  font-size: clamp(1.55rem, 5vw, 2.35rem);
+  line-height: 1.15;
+}
+
+.atomic-loading-body {
+  color: rgba(255, 242, 232, 0.82);
+  line-height: 1.65;
+}
+
+.atomic-loading-tip {
+  color: rgba(255, 220, 190, 0.58);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.atomic-loading-meter {
+  position: relative;
+  height: 0.25rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.atomic-loading-meter span {
+  position: absolute;
+  inset-block: 0;
+  width: 42%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, #e8a06a, transparent);
+  animation: atomic-loading-scan 1.35s ease-in-out infinite;
+}
+
+.atomic-loading-retry {
+  justify-self: start;
+  margin-top: 0.25rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid rgba(255, 210, 170, 0.36);
+  border-radius: 999px;
+  background: rgba(232, 160, 106, 0.16);
+  color: #fff6ee;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@keyframes atomic-loading-scan {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(340%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atomic-loading-meter span {
+    left: 29%;
+    animation: none;
+  }
+}
+
+@media (max-height: 440px) {
+  .atomic-loading-card {
+    gap: 0.45rem;
+    padding: 0.9rem 1.1rem;
+  }
+
+  .atomic-loading-card h2 {
+    font-size: 1.35rem;
+  }
+
+  .atomic-loading-body,
+  .atomic-loading-tip {
+    font-size: 0.76rem;
+    line-height: 1.35;
+  }
+}
