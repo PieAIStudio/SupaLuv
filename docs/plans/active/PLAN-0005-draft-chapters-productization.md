@@ -49,10 +49,10 @@ related:
 ### Stage 2 · Parallel product lanes (after Stage 1)
 
 - [x] 建 `NarrativeGraph` 适配层与 fixture 回归测试。
-- [ ] 交付本地 Creator Studio：React Flow + Dagre + CodeMirror + 安全保存事务。
-- [ ] 交付 Player Path：探索遮罩、已走节点/边、回看与剧透裁剪。
+- [x] 交付本地 Creator Studio：React Flow + Dagre + CodeMirror + 安全保存事务。
+- [x] 交付 Player Path：探索遮罩、已走节点/边、回看与剧透裁剪。
 - [x] 交付资源清单、首图 decode 门闩、下一可达节点预取和原子转场。
-- [ ] 优化标题、角色工作室与首幕关键图片的尺寸/格式/加载优先级。
+- [x] 优化标题、角色工作室与首幕关键图片的尺寸/格式/加载优先级。
 - [x] 交付完整 loading composition 与 `vite:preloadError` 恢复。
 - [x] 交付“情绪样本标注”小游戏并接入剧情变量与无障碍输入。
 - [ ] 交付协议、测试仪表、看房热点和手机问卷等剧情内互动。
@@ -61,19 +61,25 @@ related:
 ### Stage 3 · Art, audio, and content polish
 
 - [ ] 为两章制作并登记背景、道具 UI、NPC/主角情绪立绘和授权/hash。
-- [ ] 修复苏明 6 张残留洋红底的立绘，并增加透明蒙版像素门禁与舞台截图回归。
+- [x] 修复苏明 6 张残留洋红底的立绘，并增加透明蒙版像素门禁与舞台截图回归。
 - [ ] 配置核心角色 TTS，完成雷欧中英路由、取消、跳过和混音 ducking。
 - [ ] 配置 sequence 级 BGM、ambient 和 SFX，移除错用旧 Demo 音画。
-- [ ] 商品化选角与窄屏菜单：上传控件本地化、移动横屏可达性和清晰视觉层级。
+- [x] 商品化选角与窄屏菜单：上传控件本地化、移动横屏可达性和清晰视觉层级。
 - [ ] 校准长文本节拍、镜头变化、选项回响和小游戏出现频率。
 
 ### Stage 4 · Verification and release
 
-- [ ] 第一轮 playtest：来源遗漏、节奏、加载、裁切和卡住点。
+- [x] 第一轮技术/视觉 playtest：加载、裁切、地图、选角和卡住点；内容节奏 critic 仍待正式稿。
 - [ ] 修复后独立 critic pass，并保存对应 after evidence。
 - [ ] 第二轮 playtest：选择感、视听、地图、存档与失败恢复。
 - [ ] 跑完整 release ladder 与 Production 最小试玩。
 - [ ] 更新 SSOT；完成后归档计划/规格并清理所有分支/worktree。
+
+## Round 6 evidence
+
+四个并行包已合入 `main`：Creator Studio、Player Path、portrait matte、casting/mobile polish。
+合并提交为 `97957a8`、`9c7c4b9`、`60efd33`、`4810116`；主线完整 E2E 已通过 18/18。
+这些是执行证据，不替代真实 Preview/Production 的 AI、审核、钱包和存储验收。
 
 ## Release gates
 

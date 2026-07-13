@@ -274,7 +274,7 @@ test("localized upload supports keyboard activation, selection feedback, limits,
   expect(Number.parseFloat(focusStyle.outlineWidth)).toBeGreaterThanOrEqual(3);
 
   const chooserPromise = page.waitForEvent("filechooser");
-  await page.keyboard.press("Enter");
+  await trigger.press("Enter");
   const chooser = await chooserPromise;
   await chooser.setFiles({
     name: "adult-reference.png",

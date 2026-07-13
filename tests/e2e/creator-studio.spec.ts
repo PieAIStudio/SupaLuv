@@ -32,7 +32,7 @@ async function startDraftAndOpenCreatorStudio(page: Page) {
   if (!((await devToggle.textContent()) ?? "").includes("隐藏")) {
     await devToggle.click({ force: true });
   }
-  await page.getByRole("menuitem", { name: "Creator Map" }).evaluate((button) => {
+  await page.getByRole("menuitem", { name: "创作地图" }).evaluate((button) => {
     (button as HTMLButtonElement).click();
   });
   await expect(page.getByTestId("creator-studio")).toBeVisible();
