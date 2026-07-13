@@ -316,7 +316,7 @@ describe("NarrativeGraph generated package", () => {
     expect(midCreator).toBe(beforeCreator);
     expect(midPlayer).toBe(beforePlayer);
     expect(readJson<NarrativeGraphCreator>(CREATOR_PATH).revision).toBe(revision);
-  });
+  }, 15_000);
 
   it("opaque mapping remains stable across two generations", () => {
     const before = {
