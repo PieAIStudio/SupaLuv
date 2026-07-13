@@ -16,6 +16,8 @@ import { usePlayInput } from "../hooks/usePlayInput";
 import { usePointerPresenceMode } from "../hooks/usePointerPresenceMode";
 import { useRpsGlobalLean } from "../hooks/useRpsGlobalLean";
 import { useTypewriter } from "../hooks/useTypewriter";
+import { EmotionCalibrationInteraction } from "../interactions/EmotionCalibrationInteraction";
+import { resolveStoryInteraction } from "../interactions/storyInteractionRegistry";
 import type { ManualSlotId } from "../persistence/gameSave";
 import { DEFAULT_DISPLAY_NAMES, type DisplayNameMap } from "../persistence/displayNames";
 import { EMPTY_PORTRAIT_PACK, type PortraitPackState } from "../persistence/portraitPack";
@@ -212,6 +214,7 @@ export function VisualNovelPrototype({
 
   const isGuestSpectator = coPlay?.role === "guest";
   const remoteStory = coPlay?.remoteStory ?? null;
+  const activeStoryInteraction = !isGuestSpectator ? resolveStoryInteraction(snapshot) : null;
 
   const { activeCutscene, setActiveCutscene, sceneFlash, resetMediaMemory } = useStageMedia({
     sceneId: snapshot.sceneId,
@@ -251,7 +254,11 @@ export function VisualNovelPrototype({
   );
 
   useDialogueVoice({
-    enabled: !isGuestSpectator && !activeCutscene && Boolean(rawDisplayText.trim()),
+    enabled:
+      !isGuestSpectator &&
+      !activeCutscene &&
+      !activeStoryInteraction &&
+      Boolean(rawDisplayText.trim()),
     isSignedIn: auth.isSignedIn,
     accessToken: auth.session?.access_token ?? null,
     text: isGuestSpectator ? "" : rawDisplayText,
@@ -369,7 +376,7 @@ export function VisualNovelPrototype({
   }, [playerMode, debugToolsAvailable]);
 
   useEffect(() => {
-    if (!isComplete || !displayText) {
+    if (!isComplete || !displayText || activeStoryInteraction) {
       return;
     }
     const stamp = aiPlaying
@@ -391,6 +398,7 @@ export function VisualNovelPrototype({
   }, [
     aiPlaying,
     aiSlot,
+    activeStoryInteraction,
     appendHistory,
     currentScene?.title,
     displaySpeaker,
@@ -404,6 +412,7 @@ export function VisualNovelPrototype({
     if (
       isGuestSpectator ||
       aiPlaying ||
+      activeStoryInteraction ||
       !localAutoPlay ||
       !isComplete ||
       activeCutscene ||
@@ -421,6 +430,7 @@ export function VisualNovelPrototype({
     return () => window.clearTimeout(timer);
   }, [
     activeCutscene,
+    activeStoryInteraction,
     aiPlaying,
     isComplete,
     isGuestSpectator,
@@ -608,7 +618,8 @@ export function VisualNovelPrototype({
   }, [chapterEnded, isGuestSpectator, onChapterClear]);
 
   usePlayInput({
-    enabled: !isGuestSpectator && (!chapterEnded || Boolean(activeCutscene)),
+    enabled:
+      !isGuestSpectator && !activeStoryInteraction && (!chapterEnded || Boolean(activeCutscene)),
     isComplete: Boolean(activeCutscene) || isComplete,
     canContinue: Boolean(activeCutscene) || aiPlaying || (!aiPlaying && isContinueOnly(snapshot)),
     overlaysOpen: historyOpen || systemOpen,
@@ -641,6 +652,7 @@ export function VisualNovelPrototype({
         data-player-mode={playerMode ? "true" : "false"}
         data-autoplay={localAutoPlay ? "true" : "false"}
         data-ai-branch={aiPlaying ? "true" : "false"}
+        data-story-interaction={activeStoryInteraction?.definition.id ?? "none"}
         data-motion={activeAiBeat ? "none" : (currentScene?.stageMotion ?? "none")}
         data-coplay={coPlay ? coPlay.role : "off"}
         data-testid="vn-stage"
@@ -756,7 +768,18 @@ export function VisualNovelPrototype({
           />
         ) : null}
 
-        {!(isGuestSpectator ? Boolean(remoteStory?.isEnded) : chapterEnded) ? (
+        {activeStoryInteraction ? (
+          <EmotionCalibrationInteraction
+            key={`${activeStoryInteraction.definition.id}-${activeStoryInteraction.stepIndex}`}
+            active={activeStoryInteraction}
+            snapshot={snapshot}
+            paused={historyOpen || systemOpen || Boolean(activeCutscene)}
+            onChoose={handleChoose}
+          />
+        ) : null}
+
+        {!activeStoryInteraction &&
+        !(isGuestSpectator ? Boolean(remoteStory?.isEnded) : chapterEnded) ? (
           <DialoguePanel
             sceneTitle={displaySceneTitle}
             speaker={displaySpeaker}

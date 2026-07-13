@@ -13,6 +13,7 @@ function snap(
   return {
     text: "",
     sceneId: "x",
+    tags: [],
     isEnded: false,
     meters: { dignity: 50, impulse: 50 },
     ...partial,

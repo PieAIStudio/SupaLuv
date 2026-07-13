@@ -64,6 +64,14 @@ function getInkKnotIds(source: string): string[] {
   );
 }
 
+function getInkPathIds(source: string): string[] {
+  const stitches = Array.from(
+    source.matchAll(/^=\s+([a-z0-9_]+)\s*$/gm),
+    (match) => match[1],
+  ).filter((stitchId): stitchId is string => stitchId !== undefined);
+  return [...getInkKnotIds(source), ...stitches];
+}
+
 function getInkDivertTargets(source: string): string[] {
   return Array.from(source.matchAll(/->\s+([A-Za-z0-9_]+)/g), (match) => match[1]).filter(
     (id): id is string => Boolean(id) && id !== "END",
@@ -322,7 +330,7 @@ describe("draft ink / scene alignment and topology", () => {
   it("only diverts to existing knots", () => {
     for (const storyId of ["draft-ch01", "draft-ch02"] as const) {
       const source = readInkSource(`packages/content/ink/${storyId}.ink`);
-      const knots = new Set(getInkKnotIds(source));
+      const knots = new Set(getInkPathIds(source));
       for (const target of getInkDivertTargets(source)) {
         expect(knots.has(target)).toBe(true);
       }

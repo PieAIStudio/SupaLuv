@@ -7,6 +7,9 @@ export default defineConfig({
   timeout: 30_000,
   expect: { timeout: 5_000 },
   fullyParallel: false,
+  // The game suites share one Vite runtime; serial workers avoid teardown leaks
+  // from concurrent audio/save sessions and keep local/CI evidence deterministic.
+  workers: 1,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
     baseURL: webBaseUrl,

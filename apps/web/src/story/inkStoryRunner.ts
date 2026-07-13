@@ -15,6 +15,8 @@ export interface ComedyMeters {
 
 export interface InkStorySnapshot {
   readonly sceneId: string | null;
+  /** Stable authored line tags captured at the current choice boundary. */
+  readonly tags: readonly string[];
   readonly text: string;
   readonly choices: readonly InkStoryChoice[];
   readonly isEnded: boolean;
@@ -44,11 +46,16 @@ function readMeters(story: Story): ComedyMeters {
 
 function readSnapshot(story: Story): InkStorySnapshot {
   const textParts: string[] = [];
+  const tags = new Set<string>();
   let sceneId: string | null = null;
 
   while (story.canContinue) {
     const line = story.Continue() ?? "";
-    const taggedSceneId = getSceneIdFromTags(story.currentTags ?? []);
+    const currentTags = story.currentTags ?? [];
+    for (const tag of currentTags) {
+      tags.add(tag);
+    }
+    const taggedSceneId = getSceneIdFromTags(currentTags);
     if (taggedSceneId) {
       sceneId = taggedSceneId;
     }
@@ -60,6 +67,7 @@ function readSnapshot(story: Story): InkStorySnapshot {
 
   return {
     sceneId,
+    tags: [...tags],
     text: textParts.join("\n\n"),
     choices: story.currentChoices.map((choice, index) => ({
       index,

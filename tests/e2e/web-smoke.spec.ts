@@ -150,6 +150,9 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   await expect(page.getByTestId("cutscene-layer")).toHaveCount(0);
 
   await clickIfVisible(page, /^继续$/i);
+  await expect(page.getByTestId("emotion-calibration")).toBeVisible();
+  await page.getByTestId("emotion-calibration-skip").click();
+  await clickIfVisible(page, /^继续$/i);
   await clickIfVisible(page, /^继续$/i);
   await page.getByTestId("story-copy").click();
   // First authored branch: protocol "bones" choice (ignore oracle guess buttons).
