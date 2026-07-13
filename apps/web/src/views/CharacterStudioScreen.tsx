@@ -8,6 +8,7 @@ import {
 } from "@pieai/swimmer-ui-kit";
 import { useMemo, useRef, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
+import { useLocale } from "../i18n";
 import { createCharacterPackClient } from "../characters/characterPackClient";
 import type {
   LockedCharacterBinding,
@@ -18,6 +19,7 @@ export interface CharacterStudioSlot {
   readonly id: string;
   readonly name: string;
   readonly role: string;
+  readonly roleKey?: string;
   readonly kind: "human" | "robot";
   readonly official: string;
 }
@@ -27,6 +29,7 @@ const LEAD_SLOTS: readonly CharacterStudioSlot[] = [
     id: "lead_suming",
     name: "苏明",
     role: "男主角",
+    roleKey: "characterStudio.maleLead",
     kind: "human",
     official: "/assets/portraits/suming-base.png",
   },
@@ -34,6 +37,7 @@ const LEAD_SLOTS: readonly CharacterStudioSlot[] = [
     id: "lead_zhou_lu",
     name: "周鹿",
     role: "女主角",
+    roleKey: "characterStudio.femaleLead",
     kind: "human",
     official: "/assets/portraits/zhou-neutral.png",
   },
@@ -59,6 +63,56 @@ export interface CharacterFileControlPresentation {
   readonly disabled: boolean;
   readonly triggerLabel: string;
   readonly statusText: string;
+}
+
+interface CharacterFileCopy {
+  readonly selectReferences: string;
+  readonly reselectReferences: string;
+  readonly processingReferences: string;
+  readonly noHumanReferences: string;
+  readonly noRobotReferences: string;
+  readonly noReferences: string;
+  readonly unsupportedFiles: string;
+  readonly overLimitFiles: string;
+  readonly selectedFiles: string;
+  readonly filesReady: string;
+  readonly filesIgnored: string;
+  readonly unsupportedOnlyPrefix: string;
+  readonly unsupportedOnlySuffix: string;
+}
+
+const DEFAULT_CHARACTER_FILE_COPY: CharacterFileCopy = {
+  selectReferences: "选择参考照片",
+  reselectReferences: "重新选择照片",
+  processingReferences: "正在处理，暂时无法更改参考照片。",
+  noHumanReferences: "尚未选择照片；真人角色需要 1–3 张参考照片。",
+  noRobotReferences: "尚未选择参考图；机器人角色也可以只填写形象说明。",
+  noReferences: "尚未选择照片。",
+  unsupportedFiles: "个类型不支持",
+  overLimitFiles: "个超出上限",
+  selectedFiles: "已选择",
+  filesReady: "张，可以生成。",
+  filesIgnored: "张；已忽略：",
+  unsupportedOnlyPrefix: "未选择照片：",
+  unsupportedOnlySuffix: "个文件类型不支持。请使用 JPG、PNG、WebP 或 AVIF。",
+};
+
+function formatCharacterFileSelection(
+  selection: Pick<CharacterFileSelectionResult, "files" | "invalidCount" | "trimmedCount">,
+  copy: CharacterFileCopy,
+): string {
+  if (selection.files.length === 0) {
+    return selection.invalidCount > 0
+      ? `${copy.unsupportedOnlyPrefix}${selection.invalidCount} ${copy.unsupportedOnlySuffix}`
+      : copy.noReferences;
+  }
+  const ignoredParts = [
+    selection.invalidCount > 0 ? `${selection.invalidCount} ${copy.unsupportedFiles}` : null,
+    selection.trimmedCount > 0 ? `${selection.trimmedCount} ${copy.overLimitFiles}` : null,
+  ].filter(Boolean);
+  return ignoredParts.length > 0
+    ? `${copy.selectedFiles} ${selection.files.length} ${copy.filesIgnored} ${ignoredParts.join(", ")}`
+    : `${copy.selectedFiles} ${selection.files.length} ${copy.filesReady}`;
 }
 
 export function isAcceptedCharacterReference(file: Pick<File, "name" | "type">): boolean {
@@ -124,17 +178,18 @@ export function getCharacterFileControlPresentation(
   selection: CharacterFileSelectionResult,
   busy: boolean,
   kind: CharacterStudioSlot["kind"],
+  copy: CharacterFileCopy = DEFAULT_CHARACTER_FILE_COPY,
 ): CharacterFileControlPresentation {
   return {
     disabled: busy,
-    triggerLabel: selection.files.length > 0 ? "重新选择照片" : "选择参考照片",
+    triggerLabel: selection.files.length > 0 ? copy.reselectReferences : copy.selectReferences,
     statusText: busy
-      ? "正在处理，暂时无法更改参考照片。"
+      ? copy.processingReferences
       : selection.status === "empty"
         ? kind === "human"
-          ? "尚未选择照片；真人角色需要 1–3 张参考照片。"
-          : "尚未选择参考图；机器人角色也可以只填写形象说明。"
-        : selection.message,
+          ? copy.noHumanReferences
+          : copy.noRobotReferences
+        : formatCharacterFileSelection(selection, copy),
   };
 }
 
@@ -159,6 +214,7 @@ export function CharacterStudioScreen({
   readonly allowCancel?: boolean;
 }) {
   const auth = useAuth();
+  const { t } = useLocale();
   const client = useMemo(
     () => createCharacterPackClient({ getAccessToken: auth.getAccessToken }),
     [auth.getAccessToken],
@@ -168,7 +224,7 @@ export function CharacterStudioScreen({
   const [fileSelection, setFileSelection] = useState<CharacterFileSelectionResult>(() =>
     normalizeCharacterReferenceFiles([]),
   );
-  const [brief, setBrief] = useState("25岁以上，电影感半身肖像，保留本人主要面部特征");
+  const [brief, setBrief] = useState(() => t("characterStudio.defaultBrief"));
   const [works, setWorks] = useState<Record<string, SlotWork>>({});
   const [phase, setPhase] = useState<"idle" | "uploading" | "generating" | "moods">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -176,7 +232,21 @@ export function CharacterStudioScreen({
   const work = works[slot.id] ?? {};
   const busy = phase !== "idle";
   const files = fileSelection.files;
-  const fileControl = getCharacterFileControlPresentation(fileSelection, busy, slot.kind);
+  const fileControl = getCharacterFileControlPresentation(fileSelection, busy, slot.kind, {
+    selectReferences: t("characterStudio.selectReferences"),
+    reselectReferences: t("characterStudio.reselectReferences"),
+    processingReferences: t("characterStudio.processingReferences"),
+    noHumanReferences: t("characterStudio.noHumanReferences"),
+    noRobotReferences: t("characterStudio.noRobotReferences"),
+    noReferences: t("characterStudio.noReferences"),
+    unsupportedFiles: t("characterStudio.unsupportedFiles"),
+    overLimitFiles: t("characterStudio.overLimitFiles"),
+    selectedFiles: t("characterStudio.selectedFiles"),
+    filesReady: t("characterStudio.filesReady"),
+    filesIgnored: t("characterStudio.filesIgnored"),
+    unsupportedOnlyPrefix: t("characterStudio.unsupportedOnlyPrefix"),
+    unsupportedOnlySuffix: t("characterStudio.unsupportedOnlySuffix"),
+  });
   const fileFieldId = `character-files-${slot.id}`;
   const fileLabelId = `${fileFieldId}-label`;
   const fileStatusId = `${fileFieldId}-status`;
@@ -205,15 +275,15 @@ export function CharacterStudioScreen({
     setError(null);
     if (!auth.isSignedIn) {
       if (!auth.configured) {
-        setError("AI 形象服务尚未配置；你仍可使用官方形象开始游戏。");
+        setError(t("characterStudio.serviceUnavailable"));
         return;
       }
       await auth.signInGuest();
-      setError("游客登录已完成，请再点一次“生成基准形象”。");
+      setError(t("characterStudio.guestSignedIn"));
       return;
     }
     if ((slot.kind === "human" && files.length < 1) || files.length > 3) {
-      setError("请选择 1–3 张只包含你本人的清晰成年照片。");
+      setError(t("characterStudio.invalidHumanReferences"));
       return;
     }
     try {
@@ -239,7 +309,7 @@ export function CharacterStudioScreen({
       });
       const asset = result.asset as { id?: unknown; url?: unknown };
       if (typeof asset.id !== "string" || typeof asset.url !== "string") {
-        throw new Error("生成结果缺少可显示图片");
+        throw new Error(t("characterStudio.missingImage"));
       }
       setWorks((current) => ({
         ...current,
@@ -250,7 +320,7 @@ export function CharacterStudioScreen({
         },
       }));
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "生成失败，请重试");
+      setError(caught instanceof Error ? caught.message : t("characterStudio.generationFailed"));
     } finally {
       setPhase("idle");
     }
@@ -265,7 +335,7 @@ export function CharacterStudioScreen({
       const result = await client.generateMoodPack(work.packId, {
         clientActionId: crypto.randomUUID(),
         kind: slot.kind,
-        prompt: "保持身份、年龄、服装和画风一致，只改变表情与轻微姿态。",
+        prompt: t("characterStudio.moodPrompt"),
       });
       const moodUrls: Record<string, string> = {};
       for (const item of result.assets as readonly { moodKey?: unknown; url?: unknown }[]) {
@@ -283,7 +353,9 @@ export function CharacterStudioScreen({
       setWorks(next);
       moveNext(next);
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "情绪形象生成失败，请重试");
+      setError(
+        caught instanceof Error ? caught.message : t("characterStudio.moodGenerationFailed"),
+      );
     } finally {
       setPhase("idle");
     }
@@ -311,18 +383,18 @@ export function CharacterStudioScreen({
       <div className="character-studio-backdrop" aria-hidden="true" />
       <header className="character-studio-header">
         <div>
-          <GameBadge tone="ai">AI CASTING LAB</GameBadge>
-          <h1 id="studio-title">先选演员，再开机</h1>
-          <p>主角形象只在新游戏前确定；本局开始后将锁定，保证故事中的人物始终是同一个人。</p>
+          <GameBadge tone="ai">{t("characterStudio.badge")}</GameBadge>
+          <h1 id="studio-title">{t("characterStudio.title")}</h1>
+          <p>{t("characterStudio.lead")}</p>
         </div>
         {allowCancel ? (
           <GameButton type="button" variant="ghost" onClick={onCancel} disabled={busy}>
-            返回标题
+            {t("characterStudio.back")}
           </GameButton>
         ) : null}
       </header>
 
-      <div className="character-studio-steps" aria-label="角色进度">
+      <div className="character-studio-steps" aria-label={t("characterStudio.progress")}>
         {slots.map((item, index) => (
           <span
             key={item.id}
@@ -339,24 +411,32 @@ export function CharacterStudioScreen({
           tone="strong"
           data-testid="character-studio-preview"
         >
-          <span className="character-studio-role">{slot.role}</span>
-          <img src={work.base?.url ?? slot.official} alt={`${slot.name}当前形象预览`} />
+          <span className="character-studio-role">
+            {slot.roleKey ? t(slot.roleKey, slot.role) : slot.role}
+          </span>
+          <img
+            src={work.base?.url ?? slot.official}
+            alt={`${slot.name} ${t("characterStudio.previewAlt")}`}
+          />
           <strong>{slot.name}</strong>
-          <small>{work.base ? "AI 基准形象 · 等待确认" : "官方默认形象"}</small>
+          <small>
+            {work.base ? t("characterStudio.baseWaiting") : t("characterStudio.officialDefault")}
+          </small>
         </GamePanel>
 
         <GamePanel className="character-studio-controls" tone="strong">
-          <h2>{work.base ? "这张脸可以演十小时吗？" : `定制${slot.name}`}</h2>
+          <h2>
+            {work.base
+              ? t("characterStudio.approvalTitle")
+              : `${t("characterStudio.customize")} ${slot.name}`}
+          </h2>
           <p className="character-studio-scroll-note" data-testid="character-studio-scroll-note">
-            此面板可上下滚动，主要操作固定在底部。
+            {t("characterStudio.scrollNote")}
           </p>
           {work.base ? (
             <>
               <div className="character-studio-control-body">
-                <p>
-                  确认后会继续生成六种常用表情；不满意可以重新生成，已发生的 AI
-                  调用会按现有点数规则记录。
-                </p>
+                <p>{t("characterStudio.approvalBody")}</p>
               </div>
               <div className="character-studio-actions" data-testid="character-studio-actions">
                 <GameButton
@@ -365,7 +445,7 @@ export function CharacterStudioScreen({
                   onClick={() => void approve()}
                   disabled={fileControl.disabled}
                 >
-                  确认并生成表情
+                  {t("characterStudio.approve")}
                 </GameButton>
                 <GameButton
                   type="button"
@@ -373,7 +453,7 @@ export function CharacterStudioScreen({
                   onClick={() => void generate()}
                   disabled={busy}
                 >
-                  重新生成
+                  {t("characterStudio.regenerate")}
                 </GameButton>
               </div>
             </>
@@ -389,8 +469,8 @@ export function CharacterStudioScreen({
                   <div className="character-file-heading">
                     <span id={fileLabelId}>
                       {slot.kind === "human"
-                        ? "真人参考照片（1–3 张）"
-                        : "机器人参考图（可选，最多 3 张）"}
+                        ? t("characterStudio.humanReferences")
+                        : t("characterStudio.robotReferences")}
                     </span>
                     <span className="character-file-count" aria-hidden="true">
                       {files.length} / {MAX_CHARACTER_REFERENCE_FILES}
@@ -451,21 +531,21 @@ export function CharacterStudioScreen({
                     {fileControl.statusText}
                   </p>
                   <small className="character-file-guidance">
-                    每张只放一个清晰成年面孔；原图可删除，180 天未使用自动清理。
+                    {t("characterStudio.fileGuidance")}
                   </small>
                 </div>
                 <label className="character-brief-field">
-                  <span>形象说明</span>
+                  <span>{t("characterStudio.briefLabel")}</span>
                   <GameTextArea
-                    aria-label="形象说明"
+                    aria-label={t("characterStudio.briefLabel")}
                     value={brief}
                     onChange={(event) => setBrief(event.target.value)}
                     rows={4}
                     disabled={busy}
                   />
                 </label>
-                <GameCallout tone="info" heading="内容边界">
-                  仅上传你有权使用的清晰成年人参考图；未成年人、裸体、色情或无法确认成年人的照片不能使用。
+                <GameCallout tone="info" heading={t("characterStudio.boundaryHeading")}>
+                  {t("characterStudio.boundaryBody")}
                 </GameCallout>
               </div>
               <div className="character-studio-actions" data-testid="character-studio-actions">
@@ -475,10 +555,10 @@ export function CharacterStudioScreen({
                   onClick={() => void generate()}
                   disabled={busy}
                 >
-                  生成基准形象
+                  {t("characterStudio.generate")}
                 </GameButton>
                 <GameButton type="button" variant="ghost" onClick={useOfficial} disabled={busy}>
-                  使用官方形象
+                  {t("characterStudio.useOfficial")}
                 </GameButton>
               </div>
             </>
@@ -487,10 +567,10 @@ export function CharacterStudioScreen({
             <GameProgress
               label={
                 phase === "moods"
-                  ? "正在统一生成六种表情"
+                  ? t("characterStudio.progressMoods")
                   : phase === "uploading"
-                    ? "正在安全上传"
-                    : "正在生成基准形象"
+                    ? t("characterStudio.progressUpload")
+                    : t("characterStudio.progressBase")
               }
               value={phase === "moods" ? 72 : phase === "generating" ? 48 : 22}
               tone="accent"

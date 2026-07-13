@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { useAiEndingSession } from "../ai-ending/useAiEndingSession";
 import type { StoryCharacterBindings } from "../characters/characterPackTypes";
+import { useLocale } from "../i18n";
 
 export function AiEndingExperience({
   open,
@@ -20,39 +21,40 @@ export function AiEndingExperience({
   onClose: () => void;
 }) {
   const auth = useAuth();
+  const { t } = useLocale();
   const ending = useAiEndingSession({ getAccessToken: auth.getAccessToken, characterBindings });
   const [freeText, setFreeText] = useState("");
   const busy = ending.status === "loading";
   return (
     <GameModal
       open={open}
-      title="AI 最终章 · 非正史放映"
+      title={t("aiEnding.title")}
       size="lg"
-      closeLabel="返回章节结算"
+      closeLabel={t("aiEnding.close")}
       onClose={onClose}
       closeOnBackdrop={false}
     >
       <div className="ai-ending-experience" data-testid="ai-ending-experience">
         <div className="ai-ending-meta">
-          <GameBadge tone="ai">10–20 分钟 · 最多 8 段</GameBadge>
-          <span>每次 AI 推进按现有点数规则记录；作者正文仍然免费。</span>
+          <GameBadge tone="ai">{t("aiEnding.badge")}</GameBadge>
+          <span>{t("aiEnding.cost")}</span>
         </div>
         {ending.segments.length === 0 ? (
           <div className="ai-ending-start">
-            <p>这不是预写结局。AI 会在作者规定的事实、人物性格和三个结局方向内继续发展。</p>
+            <p>{t("aiEnding.intro")}</p>
             <GameButton
               type="button"
               variant="primary"
               disabled={busy}
               onClick={() => void ending.start()}
             >
-              {busy ? "正在规划结局…" : "开始我的最终章"}
+              {busy ? t("aiEnding.planning") : t("aiEnding.start")}
             </GameButton>
           </div>
         ) : (
           <>
             <GameProgress
-              label={`最终章进度 ${ending.current?.sequence ?? 0}/8`}
+              label={`${t("aiEnding.progress")} ${ending.current?.sequence ?? 0}/8`}
               value={ending.current?.sequence ?? 0}
               max={8}
               tone="accent"
@@ -78,9 +80,9 @@ export function AiEndingExperience({
                   ))}
                 </div>
                 <label>
-                  <span>或者自己行动（最多 1000 字）</span>
+                  <span>{t("aiEnding.freeAction")}</span>
                   <GameTextArea
-                    aria-label="自由行动"
+                    aria-label={t("aiEnding.freeActionAria")}
                     rows={3}
                     maxLength={1000}
                     value={freeText}
@@ -98,13 +100,16 @@ export function AiEndingExperience({
                     void ending.advance({ kind: "free_text", text });
                   }}
                 >
-                  提交自由行动
+                  {t("aiEnding.submit")}
                 </GameButton>
               </div>
             ) : (
               <div className="ai-ending-terminal">
-                <GameBadge tone="success">结局已生成</GameBadge>
-                <p>方向：{ending.current.outcomeAnchor}</p>
+                <GameBadge tone="success">{t("aiEnding.generated")}</GameBadge>
+                <p>
+                  {t("aiEnding.direction")}
+                  {ending.current.outcomeAnchor}
+                </p>
               </div>
             )}
           </>

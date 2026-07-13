@@ -7,6 +7,22 @@ export const GUEST_WAIT_TEXT = "等待房主开始游玩…（在另一标签页
 export const GUEST_WAIT_SPEAKER = "同玩" as const;
 export const GUEST_WAIT_SCENE_TITLE = "同玩围观" as const;
 
+export interface PlaybackLocaleCopy {
+  readonly guestWaitText: string;
+  readonly guestWaitSpeaker: string;
+  readonly guestWaitScene: string;
+  readonly branchScene: string;
+  readonly scene: string;
+}
+
+const DEFAULT_PLAYBACK_COPY: PlaybackLocaleCopy = {
+  guestWaitText: GUEST_WAIT_TEXT,
+  guestWaitSpeaker: GUEST_WAIT_SPEAKER,
+  guestWaitScene: GUEST_WAIT_SCENE_TITLE,
+  branchScene: "旁支",
+  scene: "场景",
+};
+
 export interface RemoteStorySource {
   readonly sceneId: string | null;
   readonly sceneTitle: string;
@@ -42,6 +58,7 @@ export interface PlaybackSourceInput {
     readonly choiceId?: string | null;
   }[];
   readonly aiBeatIndex: number;
+  readonly copy?: PlaybackLocaleCopy;
 }
 
 export interface PlaybackSourceProjection {
@@ -74,11 +91,13 @@ export function resolveRawDialogue(input: {
   readonly activeAiBeat: ActiveAiBeatSource | null;
   readonly snapshotText: string;
   readonly presentationSpeaker: string;
+  readonly copy?: PlaybackLocaleCopy;
 }): { readonly text: string; readonly speaker: string } {
+  const copy = input.copy ?? DEFAULT_PLAYBACK_COPY;
   if (input.isGuestSpectator) {
     return {
-      text: input.remoteStory?.text ?? GUEST_WAIT_TEXT,
-      speaker: input.remoteStory?.speaker ?? GUEST_WAIT_SPEAKER,
+      text: input.remoteStory?.text ?? copy.guestWaitText,
+      speaker: input.remoteStory?.speaker ?? copy.guestWaitSpeaker,
     };
   }
   return {
@@ -92,14 +111,16 @@ export function resolveSceneTitle(input: {
   readonly remoteStory: RemoteStorySource | null;
   readonly aiPlaying: boolean;
   readonly sceneTitle: string | null | undefined;
+  readonly copy?: PlaybackLocaleCopy;
 }): string {
+  const copy = input.copy ?? DEFAULT_PLAYBACK_COPY;
   if (input.isGuestSpectator) {
-    return input.remoteStory?.sceneTitle || GUEST_WAIT_SCENE_TITLE;
+    return input.remoteStory?.sceneTitle || copy.guestWaitScene;
   }
   if (input.aiPlaying) {
-    return `${input.sceneTitle ?? "旁支"} · AI`;
+    return `${input.sceneTitle ?? copy.branchScene} · AI`;
   }
-  return input.sceneTitle ?? "场景";
+  return input.sceneTitle ?? copy.scene;
 }
 
 /**

@@ -7,6 +7,7 @@ import { RpsDuelOverlay } from "../coplay/RpsDuelOverlay";
 import type { CoPlaySessionApi } from "../coplay/useCoPlaySession";
 import { shouldShowRemoteCursors } from "../coplay/pointerPolicy";
 import { useAuth } from "../auth/AuthContext";
+import { useLocale } from "../i18n";
 import { useFullscreen } from "../hooks/useFullscreen";
 import { usePlayInput } from "../hooks/usePlayInput";
 import { usePointerPresenceMode } from "../hooks/usePointerPresenceMode";
@@ -129,6 +130,7 @@ export function VisualNovelPrototype({
   onBedHeard,
 }: VisualNovelPrototypeProps) {
   const auth = useAuth();
+  const { t } = useLocale();
   const recordedPresentationRef = useRef<string>("");
   const currentScene = getStoryScene(storyId, snapshot.sceneId);
   const pendingRobotSlots = (currentScene?.characterSlotLock?.slotIds ?? [])
@@ -139,6 +141,7 @@ export function VisualNovelPrototype({
             id: slotId,
             name: "艾拉",
             role: "女款机器人",
+            roleKey: "characterStudio.femaleRobot",
             kind: "robot",
             official: "/assets/portraits/demo-ui.png",
           }
@@ -146,6 +149,7 @@ export function VisualNovelPrototype({
             id: slotId,
             name: "凯",
             role: "男款机器人",
+            roleKey: "characterStudio.maleRobot",
             kind: "robot",
             official: "/assets/portraits/demo-ui.png",
           },
@@ -608,10 +612,10 @@ export function VisualNovelPrototype({
         ) : (
           <div className="coplay-guest-hud">
             <span>
-              围观中 · {frame.dignity}/{frame.impulse}
+              {t("play.spectator")} · {frame.dignity}/{frame.impulse}
             </span>
             <button type="button" className="coplay-banner-leave" onClick={onOpenTitle}>
-              回标题
+              {t("play.title")}
             </button>
           </div>
         )}

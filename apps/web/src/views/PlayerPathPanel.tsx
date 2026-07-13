@@ -21,6 +21,7 @@ import {
   getPlayerPathRoute,
   type PlayerPathRouteMemory,
 } from "../persistence/pathMemory";
+import { useLocale } from "../i18n";
 import "../styles/player-path.css";
 
 type PlayerPathNodeState = "visited" | "current" | "locked";
@@ -64,9 +65,32 @@ export interface PlayerPathViewModel {
   readonly linear: readonly PlayerPathLinearEntry[];
 }
 
+interface PlayerPathCopy {
+  readonly selectedRoute: string;
+  readonly seenUnselected: string;
+  readonly hiddenRoute: string;
+  readonly visitedScene: string;
+  readonly currentAria: string;
+  readonly visitedAria: string;
+  readonly selectedAria: string;
+  readonly unselectedAria: string;
+}
+
+const DEFAULT_PLAYER_PATH_COPY: PlayerPathCopy = {
+  selectedRoute: "已走路线",
+  seenUnselected: "已见但未选择",
+  hiddenRoute: "未揭示路线",
+  visitedScene: "已访问场景",
+  currentAria: "当前位置：",
+  visitedAria: "已访问：",
+  selectedAria: "实际选择：",
+  unselectedAria: "已见但未选择：",
+};
+
 export function buildPlayerPathViewModel(
   graph: ProjectedPlayerGraph,
   route: PlayerPathRouteMemory,
+  copy: PlayerPathCopy = DEFAULT_PLAYER_PATH_COPY,
 ): PlayerPathViewModel {
   const visibleEdges: PlayerPathViewEdge[] = graph.edges
     .filter(
@@ -77,7 +101,7 @@ export function buildPlayerPathViewModel(
       id: edge.id,
       fromNodeId: edge.fromNodeId,
       toNodeId: edge.toNodeId,
-      label: edge.label ?? (edge.state === "selected" ? "已走路线" : "已见但未选择"),
+      label: edge.label ?? (edge.state === "selected" ? copy.selectedRoute : copy.seenUnselected),
       state: edge.state,
     }));
 
@@ -96,7 +120,7 @@ export function buildPlayerPathViewModel(
     .filter((node) => revealedNodeIds.has(node.id))
     .map((node) => ({
       id: node.id,
-      label: node.state === "hidden" ? "未揭示路线" : (node.label ?? "已访问场景"),
+      label: node.state === "hidden" ? copy.hiddenRoute : (node.label ?? copy.visitedScene),
       state: node.state === "hidden" ? "locked" : node.state,
       storyId: node.storyId,
       chapterId: node.chapterId,
@@ -109,7 +133,7 @@ export function buildPlayerPathViewModel(
         nodeId,
         storyId: scene.storyId,
         sceneId: scene.sceneId,
-        title: scene.title ?? "已访问场景",
+        title: scene.title ?? copy.visitedScene,
         summary: scene.summary,
         firstVisitedAt: scene.firstVisitedAt,
         current:
@@ -136,7 +160,10 @@ const pathScope = { packageId: skeleton.packageId, revision: skeleton.revision }
 const NODE_WIDTH = 184;
 const NODE_HEIGHT = 72;
 
-function layoutGraph(view: PlayerPathViewModel): {
+function layoutGraph(
+  view: PlayerPathViewModel,
+  copy: PlayerPathCopy,
+): {
   nodes: FlowNode<{ label: string }>[];
   edges: FlowEdge[];
 } {
@@ -167,10 +194,10 @@ function layoutGraph(view: PlayerPathViewModel): {
         height: NODE_HEIGHT,
         ariaLabel:
           node.state === "current"
-            ? `当前位置：${node.label}`
+            ? `${copy.currentAria}${node.label}`
             : node.state === "locked"
-              ? "未揭示路线"
-              : `已访问：${node.label}`,
+              ? copy.hiddenRoute
+              : `${copy.visitedAria}${node.label}`,
       };
     }),
     edges: view.edges.map((edge) => ({
@@ -183,7 +210,9 @@ function layoutGraph(view: PlayerPathViewModel): {
       selectable: false,
       markerEnd: { type: MarkerType.ArrowClosed },
       ariaLabel:
-        edge.state === "selected" ? `实际选择：${edge.label}` : `已见但未选择：${edge.label}`,
+        edge.state === "selected"
+          ? `${copy.selectedAria}${edge.label}`
+          : `${copy.unselectedAria}${edge.label}`,
     })),
   };
 }
@@ -194,6 +223,20 @@ interface PlayerPathPanelProps {
 }
 
 export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
+  const { t } = useLocale();
+  const copy = useMemo<PlayerPathCopy>(
+    () => ({
+      selectedRoute: t("playerPath.selectedRoute"),
+      seenUnselected: t("playerPath.seenUnselected"),
+      hiddenRoute: t("playerPath.hiddenRoute"),
+      visitedScene: t("playerPath.visitedScene"),
+      currentAria: t("playerPath.currentAria"),
+      visitedAria: t("playerPath.visitedAria"),
+      selectedAria: t("playerPath.selectedAria"),
+      unselectedAria: t("playerPath.unselectedAria"),
+    }),
+    [t],
+  );
   const [viewMode, setViewMode] = useState<"graph" | "linear">("graph");
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<{ label: string }>, FlowEdge> | null>(
@@ -223,9 +266,9 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
       return { status: routeResult.status, view: null, flow: null } as const;
     }
     const projected = projectPlayerPath(skeleton, getPlayerPathObservation(pathScope));
-    const view = buildPlayerPathViewModel(projected, routeResult.memory);
-    return { status: "ready", view, flow: layoutGraph(view) } as const;
-  }, [isOpen]);
+    const view = buildPlayerPathViewModel(projected, routeResult.memory, copy);
+    return { status: "ready", view, flow: layoutGraph(view, copy) } as const;
+  }, [copy, isOpen]);
 
   if (!isOpen) {
     return null;
@@ -249,33 +292,33 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
       >
         <header className="player-path-header">
           <div>
-            <p className="player-path-eyebrow">你的已知旅程</p>
-            <h2 id="player-path-title">我的路线</h2>
-            <p>只显示你亲自见过的场景与选择。灰色岔路代表当时看见但没有选择。</p>
+            <p className="player-path-eyebrow">{t("playerPath.eyebrow")}</p>
+            <h2 id="player-path-title">{t("playerPath.title")}</h2>
+            <p>{t("playerPath.lead")}</p>
           </div>
           <button type="button" className="player-path-close" onClick={onClose}>
-            关闭
+            {t("common.close")}
           </button>
         </header>
 
         {result?.status === "incompatible" ? (
           <div className="player-path-empty" role="status" data-testid="player-path-incompatible">
-            故事版本已变化，旧路线无法安全对应到当前内容。开始游玩后会记录新的路线。
+            {t("playerPath.incompatible")}
           </div>
         ) : result?.status !== "ready" || result.view.linear.length === 0 ? (
           <div className="player-path-empty" role="status" data-testid="player-path-empty">
-            还没有可回看的路线。进入剧情并看完一个场景后，这里会留下足迹。
+            {t("playerPath.empty")}
           </div>
         ) : (
           <>
-            <div className="player-path-tabs" role="tablist" aria-label="路线查看方式">
+            <div className="player-path-tabs" role="tablist" aria-label={t("playerPath.viewModes")}>
               <button
                 type="button"
                 role="tab"
                 aria-selected={viewMode === "graph"}
                 onClick={() => setViewMode("graph")}
               >
-                图形视图
+                {t("playerPath.graphTab")}
               </button>
               <button
                 type="button"
@@ -283,7 +326,7 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
                 aria-selected={viewMode === "linear"}
                 onClick={() => setViewMode("linear")}
               >
-                线性清单
+                {t("playerPath.linearTab")}
               </button>
             </div>
 
@@ -293,7 +336,7 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
                   viewMode === "graph" ? "player-path-graph" : "player-path-graph is-hidden"
                 }
                 role="tabpanel"
-                aria-label="路线图形视图"
+                aria-label={t("playerPath.graphAria")}
                 hidden={viewMode !== "graph"}
                 data-testid="player-path-graph"
               >
@@ -323,7 +366,7 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
                   viewMode === "linear" ? "player-path-linear" : "player-path-linear is-hidden"
                 }
                 role="tabpanel"
-                aria-label="路线线性清单"
+                aria-label={t("playerPath.linearAria")}
                 hidden={viewMode !== "linear"}
                 data-testid="player-path-linear"
               >
@@ -334,17 +377,20 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
                         <span className="player-path-step">{index + 1}</span>
                         <span>
                           <strong>{entry.title}</strong>
-                          <small>{entry.current ? "当前位置" : "已访问"}</small>
+                          <small>
+                            {entry.current ? t("playerPath.current") : t("playerPath.visited")}
+                          </small>
                         </span>
                       </button>
                       {entry.choices.length > 0 ? (
-                        <ul aria-label={`${entry.title} 的已见选择`}>
+                        <ul aria-label={`${entry.title} ${t("playerPath.choicesAriaSuffix")}`}>
                           {entry.choices.map((choice, choiceIndex) => (
                             <li
                               key={`${choice.choiceId ?? "legacy"}-${choiceIndex}`}
                               className={choice.selected ? "is-selected" : "is-unselected"}
                             >
-                              {choice.selected ? "实际选择" : "已见未选"} · {choice.label}
+                              {choice.selected ? t("playerPath.selected") : t("playerPath.seen")} ·{" "}
+                              {choice.label}
                             </li>
                           ))}
                         </ul>
@@ -359,14 +405,14 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
                 aria-live="polite"
                 data-testid="player-path-detail"
               >
-                <p className="player-path-detail-kicker">路线回顾</p>
+                <p className="player-path-detail-kicker">{t("playerPath.review")}</p>
                 {selected ? (
                   <>
                     <h3>{selected.title}</h3>
                     {selected.summary ? (
                       <p>{selected.summary}</p>
                     ) : (
-                      <p>这个场景没有保存文字回顾。</p>
+                      <p>{t("playerPath.noSummary")}</p>
                     )}
                     {selected.choices.length > 0 ? (
                       <ul>
@@ -375,16 +421,20 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
                             key={`${choice.choiceId ?? "legacy"}-${index}`}
                             className={choice.selected ? "is-selected" : "is-unselected"}
                           >
-                            <span>{choice.selected ? "你选择了" : "当时也看见"}</span>
+                            <span>
+                              {choice.selected
+                                ? t("playerPath.youSelected")
+                                : t("playerPath.alsoSaw")}
+                            </span>
                             <strong>{choice.label}</strong>
                           </li>
                         ))}
                       </ul>
                     ) : null}
-                    <p className="player-path-no-jump">路线图只用于回看，不能从这里跳转剧情。</p>
+                    <p className="player-path-no-jump">{t("playerPath.noJump")}</p>
                   </>
                 ) : (
-                  <p>选择一个已访问节点查看当时保存的短回顾。</p>
+                  <p>{t("playerPath.selectPrompt")}</p>
                 )}
               </section>
             </div>

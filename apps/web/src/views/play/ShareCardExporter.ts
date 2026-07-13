@@ -19,9 +19,29 @@ export interface ShareCardPayload {
   readonly echoLines?: readonly ShareCardEchoLine[];
   /** Optional custom lead names (E19). */
   readonly leadNames?: { readonly male: string; readonly female: string };
+  readonly copy?: {
+    readonly title: string;
+    readonly order: string;
+    readonly dignity: string;
+    readonly impulse: string;
+    readonly leads: string;
+    readonly aiPath: string;
+    readonly echo: string;
+    readonly same: string;
+  };
 }
 
 export async function downloadShareCard(payload: ShareCardPayload): Promise<void> {
+  const copy = payload.copy ?? {
+    title: "超级爱人 · 第 1 章",
+    order: "订单",
+    dignity: "羞耻",
+    impulse: "冲动",
+    leads: "主演",
+    aiPath: "路径：含 AI 旁支 · 已汇合主线",
+    echo: "全球回声",
+    same: "同选",
+  };
   const width = 1280;
   const height = 720;
   const canvas = document.createElement("canvas");
@@ -46,27 +66,35 @@ export async function downloadShareCard(payload: ShareCardPayload): Promise<void
 
   ctx.fillStyle = "#fff6ee";
   ctx.font = "600 42px 'Avenir Next', 'PingFang SC', sans-serif";
-  ctx.fillText("超级爱人 · 第 1 章", 64, 100);
+  ctx.fillText(copy.title, 64, 100);
 
   ctx.fillStyle = "rgba(255, 220, 180, 0.85)";
   ctx.font = "28px 'Avenir Next', 'PingFang SC', sans-serif";
-  ctx.fillText(`订单 ${payload.orderId}`, 64, 160);
+  ctx.fillText(`${copy.order} ${payload.orderId}`, 64, 160);
 
   ctx.fillStyle = "#fff6ee";
   ctx.font = "500 34px 'Avenir Next', 'PingFang SC', sans-serif";
-  ctx.fillText(`羞耻 ${payload.dignity}  ·  冲动 ${payload.impulse}`, 64, 240);
+  ctx.fillText(
+    `${copy.dignity} ${payload.dignity}  ·  ${copy.impulse} ${payload.impulse}`,
+    64,
+    240,
+  );
   ctx.fillText(payload.toneLabel, 64, 300);
 
   if (payload.leadNames) {
     ctx.fillStyle = "rgba(255, 220, 180, 0.75)";
     ctx.font = "24px 'Avenir Next', 'PingFang SC', sans-serif";
-    ctx.fillText(`主演 · ${payload.leadNames.male} / ${payload.leadNames.female}`, 64, 348);
+    ctx.fillText(
+      `${copy.leads} · ${payload.leadNames.male} / ${payload.leadNames.female}`,
+      64,
+      348,
+    );
   }
 
   if (payload.usedAi) {
     ctx.fillStyle = "rgba(140, 190, 255, 0.95)";
     ctx.font = "26px 'Avenir Next', 'PingFang SC', sans-serif";
-    ctx.fillText("路径：含 AI 旁支 · 已汇合主线", 64, payload.leadNames ? 396 : 360);
+    ctx.fillText(copy.aiPath, 64, payload.leadNames ? 396 : 360);
   }
 
   let y = payload.usedAi ? (payload.leadNames ? 450 : 420) : payload.leadNames ? 400 : 380;
@@ -74,12 +102,12 @@ export async function downloadShareCard(payload: ShareCardPayload): Promise<void
   if (payload.echoLines && payload.echoLines.length > 0) {
     ctx.fillStyle = "rgba(232, 160, 106, 0.95)";
     ctx.font = "600 24px 'Avenir Next', 'PingFang SC', sans-serif";
-    ctx.fillText("全球回声", 64, y);
+    ctx.fillText(copy.echo, 64, y);
     y += 40;
     ctx.fillStyle = "rgba(255, 245, 236, 0.9)";
     ctx.font = "24px 'Avenir Next', 'PingFang SC', sans-serif";
     for (const line of payload.echoLines.slice(0, 3)) {
-      const row = `「${line.label}」· ${line.percentSame}% 同选`;
+      const row = `「${line.label}」· ${line.percentSame}% ${copy.same}`;
       ctx.fillText(row.slice(0, 42), 64, y);
       y += 36;
     }

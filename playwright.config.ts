@@ -16,6 +16,9 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     channel: process.env.PLAYWRIGHT_CHANNEL ?? "chrome",
+    // Keep legacy smoke suites deterministic; locale-specific coverage opts
+    // into English explicitly instead of inheriting the host machine locale.
+    locale: "zh-CN",
   },
   webServer: {
     command: `SUPALUV_E2E_WEB_PORT=${webPort} VITE_ENABLE_POSTHOG=false VITE_SWIMMER_CORE_SUPABASE_URL=https://e2e.supabase.co VITE_SWIMMER_CORE_PUBLISHABLE_KEY=e2e-public-key pnpm --filter @supaluv/web dev`,

@@ -12,6 +12,7 @@ import { useAiBranchSlot } from "../../../hooks/useAiBranchSlot";
 import type { DisplayNameMap } from "../../../persistence/displayNames";
 import type { InkStorySnapshot } from "../../../story/inkStoryRunner";
 import type { StoryId } from "../../../story/storyMapAdapter";
+import { useLocale } from "../../../i18n";
 import { mapDialogueForPlayer } from "../stagePresentation";
 import { resolveActiveAiBeat } from "./resolveActiveAiBeat";
 import {
@@ -91,6 +92,7 @@ export function useNarrativeSource(input: {
     readonly batteries: number | null;
   };
 }): NarrativeSource {
+  const { locale, t } = useLocale();
   const { source, viewer, auth } = input;
   const { snapshot } = source;
   const { isGuestSpectator, remoteStory, displayNames } = viewer;
@@ -116,7 +118,7 @@ export function useNarrativeSource(input: {
     config: source.aiBranchConfig,
     authoredChoiceLabels: authoredLabels,
     meters: snapshot.meters,
-    locale: "zh-CN",
+    locale,
   });
 
   const { aiPlaying, activeAiBeat, aiBeatIndex } = resolveActiveAiBeat(aiSlot);
@@ -134,6 +136,13 @@ export function useNarrativeSource(input: {
     snapshotImpulse: snapshot.meters.impulse,
     snapshotChoices: snapshot.choices,
     aiBeatIndex,
+    copy: {
+      guestWaitText: t("play.guestWaitText"),
+      guestWaitSpeaker: t("play.guestWaitSpeaker"),
+      guestWaitScene: t("play.guestWaitScene"),
+      branchScene: t("play.branchScene"),
+      scene: t("play.scene"),
+    },
   });
 
   const { text: displayText, speaker: displaySpeaker } = mapDialogueForPlayer(

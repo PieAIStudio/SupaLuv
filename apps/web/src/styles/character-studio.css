@@ -139,6 +139,14 @@
 .character-studio-controls .game-ui-callout {
   position: static !important;
   width: auto;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.character-studio-controls .game-ui-callout-body {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .character-file-field {
   display: grid;
