@@ -125,6 +125,9 @@ importers:
       '@pieai/swimmer-ai-kit':
         specifier: 0.3.0
         version: 0.3.0
+      '@pieai/swimmer-backend-client':
+        specifier: 0.3.0
+        version: 0.3.0(@supabase/supabase-js@2.110.3)
       '@supabase/supabase-js':
         specifier: 2.110.3
         version: 2.110.3
@@ -1848,6 +1851,12 @@ packages:
   '@pieai/swimmer-ai-kit@0.3.0':
     resolution: {integrity: sha512-SMpyEBO0yLpz1Han6MMRA3kx/GMto4oGlylWdr9QVBijEo9nUBVwUjmdhRvF6yZa6H2yOwljLNDSrnMOUlltbg==}
     engines: {node: '>=24 <25'}
+
+  '@pieai/swimmer-backend-client@0.3.0':
+    resolution: {integrity: sha512-xygpbNHlEuzKmHuF0rVDGo9/zgzJTFOh3hOK1vwamU4qRxNqROM+67pe0yg5pZ+C2KAQd7hHpdgTHvxl6UKKtQ==}
+    engines: {node: '>=24 <25'}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.0.0
 
   '@pieai/swimmer-ui-kit@1.1.0':
     resolution: {integrity: sha512-MsP9fOMdwb8yfFgYSipyXfzv6jr2pbxrDLiKLVWrJ5Cuh2kxefsXMvUvsVo4OK2hWghVaa4gy3FsxcXcd29xng==}
@@ -6720,6 +6729,10 @@ snapshots:
       '@pieai/doc-gov': 0.7.2
 
   '@pieai/swimmer-ai-kit@0.3.0': {}
+
+  '@pieai/swimmer-backend-client@0.3.0(@supabase/supabase-js@2.110.3)':
+    dependencies:
+      '@supabase/supabase-js': 2.110.3
 
   '@pieai/swimmer-ui-kit@1.1.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:

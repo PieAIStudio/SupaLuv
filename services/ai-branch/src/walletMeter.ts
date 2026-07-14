@@ -11,6 +11,7 @@
  */
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { createWalletClient } from "@pieai/swimmer-backend-client/wallet";
 import { randomUUID } from "node:crypto";
 import {
   commercialServerCredentialsConfigured,
@@ -44,38 +45,48 @@ function adminClient(): SupabaseClient | null {
   });
 }
 
+function walletClient(client?: SupabaseClient) {
+  const provider = client ?? adminClient();
+  if (!provider) {
+    return null;
+  }
+  return createWalletClient(provider.schema("public"), appId());
+}
+
+function safePowerUnits(value: string): number | null {
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : null;
+}
+
 export interface WalletBalance {
   readonly batteries: number;
   readonly availablePowerUnits: number;
   readonly reservedPowerUnits: number;
 }
 
-export async function getWalletBalance(userId: string): Promise<WalletBalance | null> {
-  const sb = adminClient();
-  if (!sb) {
+export async function getWalletBalance(
+  userId: string,
+  client?: SupabaseClient,
+): Promise<WalletBalance | null> {
+  const wallet = walletClient(client);
+  if (!wallet) {
     return null;
   }
-  const { data, error } = await sb.rpc("wallet_get_balance", {
-    p_user_id: userId,
-    p_app_id: appId(),
-  });
-  if (error) {
+  try {
+    const balance = await wallet.getBalance(userId);
+    const available = safePowerUnits(balance.availablePowerUnits);
+    const reserved = safePowerUnits(balance.reservedPowerUnits);
+    if (available === null || reserved === null) {
+      return null;
+    }
+    return {
+      availablePowerUnits: available,
+      reservedPowerUnits: reserved,
+      batteries: available / POWER_PER_BATTERY,
+    };
+  } catch {
     return null;
   }
-  const row = Array.isArray(data) ? data[0] : data;
-  if (!row || typeof row !== "object") {
-    return null;
-  }
-  const available = Number((row as { available_power_units?: unknown }).available_power_units);
-  const reserved = Number((row as { reserved_power_units?: unknown }).reserved_power_units ?? 0);
-  if (!Number.isFinite(available)) {
-    return null;
-  }
-  return {
-    availablePowerUnits: available,
-    reservedPowerUnits: Number.isFinite(reserved) ? reserved : 0,
-    batteries: available / POWER_PER_BATTERY,
-  };
 }
 
 export interface ReserveResult {
@@ -95,12 +106,15 @@ export interface ReserveFailure {
  * Reserve batteries before a paid AI action.
  * Cost 0 or optional-mode without secret → skipped (no reservation id).
  */
-export async function reserveBatteries(input: {
-  readonly userId: string;
-  readonly batteries: number;
-  readonly reason: string;
-  readonly idempotencyKey?: string;
-}): Promise<ReserveResult | ReserveFailure> {
+export async function reserveBatteries(
+  input: {
+    readonly userId: string;
+    readonly batteries: number;
+    readonly reason: string;
+    readonly idempotencyKey?: string;
+  },
+  client?: SupabaseClient,
+): Promise<ReserveResult | ReserveFailure> {
   const amount = Math.max(0, Math.round(input.batteries * POWER_PER_BATTERY));
   if (amount <= 0) {
     return { ok: true, reservationId: "", amountPowerUnits: 0, skipped: true };
@@ -117,39 +131,32 @@ export async function reserveBatteries(input: {
     };
   }
 
-  const sb = adminClient()!;
   const idem =
     input.idempotencyKey?.trim() || `supaluv:${input.reason}:${input.userId}:${randomUUID()}`;
 
-  const { data, error } = await sb.rpc("wallet_reserve", {
-    p_user_id: input.userId,
-    p_app_id: appId(),
-    p_idempotency_key: idem,
-    p_amount_power_units: amount,
-    p_metadata: { reason: input.reason, product: "supaluv" },
-  });
-
-  if (error) {
-    return { ok: false, code: "DENIED", message: error.message.slice(0, 160) };
+  try {
+    const reservation = await walletClient(client)!.reserve({
+      userId: input.userId,
+      idempotencyKey: idem,
+      amountPowerUnits: String(amount),
+      metadata: { reason: input.reason, product: "supaluv" },
+    });
+    if (reservation.insufficient || !reservation.allowed) {
+      return { ok: false, code: "INSUFFICIENT", message: "INSUFFICIENT_BATTERIES" };
+    }
+    if (!reservation.reservationId) {
+      return { ok: false, code: "DENIED", message: "No reservation_id" };
+    }
+    return {
+      ok: true,
+      reservationId: reservation.reservationId,
+      amountPowerUnits: amount,
+      skipped: false,
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Wallet reservation denied";
+    return { ok: false, code: "DENIED", message: message.slice(0, 160) };
   }
-
-  const row = Array.isArray(data) ? data[0] : data;
-  if (!row || typeof row !== "object") {
-    return { ok: false, code: "DENIED", message: "wallet_reserve empty response" };
-  }
-  const rec = row as {
-    allowed?: boolean;
-    insufficient?: boolean;
-    reservation_id?: string;
-  };
-  if (rec.insufficient || rec.allowed === false) {
-    return { ok: false, code: "INSUFFICIENT", message: "INSUFFICIENT_BATTERIES" };
-  }
-  const reservationId = typeof rec.reservation_id === "string" ? rec.reservation_id : "";
-  if (!reservationId) {
-    return { ok: false, code: "DENIED", message: "No reservation_id" };
-  }
-  return { ok: true, reservationId, amountPowerUnits: amount, skipped: false };
 }
 
 export async function commitReservation(
@@ -162,14 +169,16 @@ export async function commitReservation(
   if (!input.reservationId || !walletMeterConfigured()) {
     return;
   }
-  const sb = client ?? adminClient()!;
-  const { error } = await sb.rpc("wallet_commit", {
-    p_reservation_id: input.reservationId,
-    p_app_id: appId(),
-    p_idempotency_key: `commit:${input.reservationId}`,
-    p_metadata: { reason: input.reason, product: "supaluv" },
-  });
-  if (error) throw new Error(`wallet commit failed: ${error.message.slice(0, 160)}`);
+  try {
+    await walletClient(client)!.commit({
+      reservationId: input.reservationId,
+      idempotencyKey: `commit:${input.reservationId}`,
+      metadata: { reason: input.reason, product: "supaluv" },
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "unknown wallet error";
+    throw new Error(`wallet commit failed: ${message.slice(0, 160)}`);
+  }
 }
 
 export async function settleReservation(
@@ -216,12 +225,14 @@ export async function refundReservation(
   if (!input.reservationId || !walletMeterConfigured()) {
     return;
   }
-  const sb = client ?? adminClient()!;
-  const { error } = await sb.rpc("wallet_refund", {
-    p_reservation_id: input.reservationId,
-    p_app_id: appId(),
-    p_idempotency_key: `refund:${input.reservationId}`,
-    p_metadata: { reason: input.reason, product: "supaluv" },
-  });
-  if (error) throw new Error(`wallet refund failed: ${error.message.slice(0, 160)}`);
+  try {
+    await walletClient(client)!.refund({
+      reservationId: input.reservationId,
+      idempotencyKey: `refund:${input.reservationId}`,
+      metadata: { reason: input.reason, product: "supaluv" },
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "unknown wallet error";
+    throw new Error(`wallet refund failed: ${message.slice(0, 160)}`);
+  }
 }

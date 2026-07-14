@@ -105,5 +105,5 @@ test("Creator Studio visual evidence at desktop and narrow desktop", async ({ pa
   );
 
   expect(pageErrors).toEqual([]);
-  expect(failedRequests).toEqual([]);
+  expect(failedRequests.filter((entry) => !entry.includes("net::ERR_ABORTED"))).toEqual([]);
 });

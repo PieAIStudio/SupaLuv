@@ -33,6 +33,27 @@ export default defineConfig(({ command, mode }) => {
     : [];
   return {
     plugins: [react(), ...creatorPlugin],
+    optimizeDeps: {
+      // E2E reaches these through later lazy routes. Pre-bundling them prevents
+      // Vite from replacing the dependency cache while an earlier page still
+      // references the previous optimized URLs on slower CI runners.
+      noDiscovery: true,
+      include: [
+        "@dagrejs/dagre",
+        "@pieai/swimmer-ui-kit",
+        "@supabase/supabase-js",
+        "@uiw/react-codemirror",
+        "@xyflow/react",
+        "howler",
+        "inkjs",
+        "posthog-js",
+        "react",
+        "react-dom",
+        "react-dom/client",
+        "react/jsx-dev-runtime",
+        "react/jsx-runtime",
+      ],
+    },
     build: {
       rolldownOptions: {
         output: {

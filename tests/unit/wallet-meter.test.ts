@@ -5,6 +5,7 @@ import {
 } from "../../services/ai-branch/src/commercialServerConfig";
 import {
   commitReservation,
+  getWalletBalance,
   refundReservation,
   reserveBatteries,
   settleReservation,
@@ -12,14 +13,24 @@ import {
   walletOptionalMode,
 } from "../../services/ai-branch/src/walletMeter";
 
-const rpc = vi.fn();
+const rpc =
+  vi.fn<
+    (
+      functionName: string,
+      args: Record<string, unknown>,
+    ) => Promise<{ data: unknown; error: unknown }>
+  >();
+const schema = vi.fn<(name: string) => { rpc: typeof rpc }>(() => ({ rpc }));
 const client = {
   rpc,
-  schema: () => ({ rpc }),
+  schema,
 };
 
 const CANONICAL_URL = "https://wallet.invalid";
 const CANONICAL_KEY = "test-service-key";
+const USER_ID = "11111111-1111-4111-8111-111111111111";
+const RESERVATION_ID = "22222222-2222-4222-8222-222222222222";
+const REFUND_ENTRY_ID = "33333333-3333-4333-8333-333333333333";
 
 /** Isolate commercial-related env via Vitest stubs (restored by unstubAllEnvs). */
 function stubUnconfiguredCommercialEnv(): void {
@@ -37,7 +48,156 @@ describe("wallet settlement errors", () => {
     vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", CANONICAL_URL);
     vi.stubEnv("SWIMMER_CORE_SECRET_KEY", CANONICAL_KEY);
     rpc.mockReset();
+    schema.mockClear();
     rpc.mockResolvedValue({ data: {}, error: null });
+  });
+
+  it("keeps product settlement in the SupaLuv schema", async () => {
+    await settleReservation(
+      {
+        ownerId: "owner-a",
+        reservationId: "reservation-1",
+        actionKind: "ai_side_choice",
+        scopeType: "story_run",
+        amountPowerUnits: 100,
+        metadata: {},
+      },
+      client as never,
+    );
+
+    expect(schema).toHaveBeenCalledWith("supaluv");
+  });
+
+  it("uses the shared public wallet contract for balance", async () => {
+    rpc.mockResolvedValueOnce({
+      data: [
+        {
+          available_power_units: "200",
+          balance_power_units: "250",
+          reserved_power_units: "50",
+        },
+      ],
+      error: null,
+    });
+
+    const balance = await getWalletBalance(USER_ID, client as never);
+
+    expect(schema).toHaveBeenCalledWith("public");
+    expect(rpc).toHaveBeenCalledWith("wallet_get_balance", {
+      p_app_id: "supaluv",
+      p_user_id: USER_ID,
+    });
+    expect(balance).toEqual({
+      availablePowerUnits: 200,
+      reservedPowerUnits: 50,
+      batteries: 2,
+    });
+  });
+
+  it("uses the shared public wallet contract for reserve", async () => {
+    rpc.mockResolvedValueOnce({
+      data: [
+        {
+          allowed: true,
+          amount_power_units: "100",
+          available_power_units: "100",
+          balance_power_units: "200",
+          idempotent: false,
+          insufficient: false,
+          reservation_id: RESERVATION_ID,
+          reserved_power_units: "100",
+          status: "reserved",
+        },
+      ],
+      error: null,
+    });
+
+    const reserved = await reserveBatteries(
+      {
+        userId: USER_ID,
+        batteries: 1,
+        reason: "ai_branch",
+        idempotencyKey: "supaluv:test:reserve",
+      },
+      client as never,
+    );
+
+    expect(schema).toHaveBeenCalledWith("public");
+    expect(rpc).toHaveBeenCalledWith(
+      "wallet_reserve",
+      expect.objectContaining({
+        p_app_id: "supaluv",
+        p_user_id: USER_ID,
+        p_amount_power_units: "100",
+        p_idempotency_key: "supaluv:test:reserve",
+      }),
+    );
+    expect(reserved).toEqual({
+      ok: true,
+      reservationId: RESERVATION_ID,
+      amountPowerUnits: 100,
+      skipped: false,
+    });
+  });
+
+  it("rejects malformed wallet responses instead of accepting partial evidence", async () => {
+    rpc.mockResolvedValueOnce({
+      data: [{ available_power_units: "200" }],
+      error: null,
+    });
+
+    await expect(getWalletBalance(USER_ID, client as never)).resolves.toBeNull();
+  });
+
+  it("uses the shared public wallet contract for commit and refund", async () => {
+    rpc
+      .mockResolvedValueOnce({
+        data: [
+          {
+            allowed: true,
+            amount_power_units: "100",
+            available_power_units: "100",
+            balance_power_units: "100",
+            idempotent: false,
+            reservation_id: RESERVATION_ID,
+            reserved_power_units: "0",
+            status: "committed",
+          },
+        ],
+        error: null,
+      })
+      .mockResolvedValueOnce({
+        data: [
+          {
+            allowed: true,
+            amount_power_units: "100",
+            available_power_units: "200",
+            balance_power_units: "200",
+            idempotent: false,
+            refund_entry_id: REFUND_ENTRY_ID,
+            reservation_id: RESERVATION_ID,
+            reserved_power_units: "0",
+            status: "refunded",
+          },
+        ],
+        error: null,
+      });
+
+    await commitReservation({ reservationId: RESERVATION_ID, reason: "test" }, client as never);
+    await refundReservation({ reservationId: RESERVATION_ID, reason: "test" }, client as never);
+
+    expect(schema).toHaveBeenNthCalledWith(1, "public");
+    expect(schema).toHaveBeenNthCalledWith(2, "public");
+    expect(rpc).toHaveBeenNthCalledWith(
+      1,
+      "wallet_commit",
+      expect.objectContaining({ p_reservation_id: RESERVATION_ID }),
+    );
+    expect(rpc).toHaveBeenNthCalledWith(
+      2,
+      "wallet_refund",
+      expect.objectContaining({ p_reservation_id: RESERVATION_ID }),
+    );
   });
 
   afterEach(() => {
@@ -71,11 +231,11 @@ describe("wallet settlement errors", () => {
   it.each(["commit", "refund"] as const)(
     "does not silently swallow a wallet %s failure",
     async (operation) => {
-      rpc.mockResolvedValueOnce({ data: null, error: { message: "database unavailable" } });
+      rpc.mockResolvedValueOnce({ data: null, error: new Error("database unavailable") });
       const result =
         operation === "commit"
-          ? commitReservation({ reservationId: "reservation-1", reason: "test" }, client as never)
-          : refundReservation({ reservationId: "reservation-1", reason: "test" }, client as never);
+          ? commitReservation({ reservationId: RESERVATION_ID, reason: "test" }, client as never)
+          : refundReservation({ reservationId: RESERVATION_ID, reason: "test" }, client as never);
       await expect(result).rejects.toThrow(/database unavailable/);
     },
   );

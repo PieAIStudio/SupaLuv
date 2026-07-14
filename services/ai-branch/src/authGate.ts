@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { verifyAccessToken, type SwimmerAccessTokenProvider } from "@pieai/swimmer-backend-client";
 
 export interface AuthGateResult {
   readonly ok: true;
@@ -14,10 +15,12 @@ export interface AuthGateFailure {
 
 /**
  * Verify SwimmerCore JWT from Authorization: Bearer …
- * Uses publishable key + getUser(jwt) — no service_role in this path.
+ * Uses the shared SwimmerBackend online verifier with a publishable key — no
+ * service_role in this path. Online verification rejects revoked sessions.
  */
 export async function verifyBearerToken(
   authorizationHeader: string | undefined,
+  provider?: SwimmerAccessTokenProvider,
 ): Promise<AuthGateResult | AuthGateFailure> {
   const raw = authorizationHeader?.trim() ?? "";
   const match = /^Bearer\s+(.+)$/i.exec(raw);
@@ -47,17 +50,24 @@ export async function verifyBearerToken(
     };
   }
 
-  const supabase = createClient(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-  const { data, error } = await supabase.auth.getUser(token);
-  if (error || !data.user) {
+  const supabase =
+    provider ??
+    createClient(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+  let user;
+  try {
+    user = await verifyAccessToken(supabase, token);
+  } catch {
+    user = null;
+  }
+  if (!user) {
     return { ok: false, status: 401, error: "Invalid or expired session" };
   }
 
   return {
     ok: true,
-    userId: data.user.id,
-    isAnonymous: data.user.is_anonymous === true,
+    userId: user.id,
+    isAnonymous: user.is_anonymous === true,
   };
 }

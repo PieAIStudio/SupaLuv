@@ -22,3 +22,4 @@ minimumReleaseAgeExclude:
   - '@supabase/storage-js@2.110.3'
   - '@supabase/supabase-js@2.110.3'
   - '@pieai/swimmer-ai-kit@0.3.0'
+  - '@pieai/swimmer-backend-client@0.3.0'
