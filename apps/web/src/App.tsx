@@ -526,7 +526,7 @@ export function App() {
   }
 
   return (
-    <main className="app-shell" data-screen={screen}>
+    <main className="app-shell" data-screen={screen} data-coplay={coPlayConfig?.role ?? "off"}>
       {!isPlayerPathOpen ? <OrientationGate /> : null}
       {screen === "title" ? (
         titleReady ? (
