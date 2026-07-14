@@ -14,6 +14,32 @@ async function startFreshChapter(page: Page) {
   await expect(page.getByTestId("game-viewport")).toBeVisible();
 }
 
+async function startFreshChapterTwo(page: Page) {
+  await page.goto("/?atomic-loading-fixture=1");
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  });
+  await page.reload();
+  await page.getByTestId("title-new-game").click();
+  const official = page.getByRole("button", { name: "使用官方形象" });
+  await official.click();
+  await official.click();
+  await expect(page.getByTestId("game-viewport")).toBeVisible();
+  await page.evaluate(() => {
+    const fixture = (
+      window as Window & {
+        __SUPALUV_ATOMIC_LOADING_TEST__?: { transitionToChapter2: () => void };
+      }
+    ).__SUPALUV_ATOMIC_LOADING_TEST__;
+    if (!fixture) {
+      throw new Error("atomic loading fixture is unavailable");
+    }
+    fixture.transitionToChapter2();
+  });
+  await expect(page.getByTestId("story-label")).toContainText(/第02章|她不会评判你/);
+}
+
 async function revealAndContinue(page: Page) {
   await page
     .getByTestId("story-copy")
@@ -115,4 +141,108 @@ test("landscape phone keeps all calibration choices inside the 16:9 stage", asyn
   await expect(page.getByTestId("emotion-level-sting")).toBeVisible();
   await expect(page.getByTestId("emotion-level-overload")).toBeVisible();
   await expect(page.getByTestId("emotion-calibration-skip")).toBeVisible();
+});
+
+test("protocol-test completes by keyboard and unlocks archive entry in gallery", async ({
+  page,
+}) => {
+  const pageErrors: string[] = [];
+  page.on("pageerror", (error) => pageErrors.push(error.message));
+  await startFreshChapter(page);
+  await enterCalibration(page);
+  await page.getByTestId("emotion-calibration-skip").click();
+  await expect(page.getByTestId("dialogue-box")).toBeVisible();
+  await revealAndContinue(page);
+  await expect(page.getByTestId("story-copy")).toContainText(/协议贴在门后头/);
+  await revealAndContinue(page);
+
+  await expect(page.getByTestId("protocol-test")).toBeVisible();
+  await expect(page.getByTestId("vn-stage")).toHaveAttribute(
+    "data-story-interaction",
+    "protocol-test-v1",
+  );
+  await page.keyboard.press("1");
+  await expect(page.getByTestId("protocol-test")).toHaveAttribute("data-step", "2");
+  await page.keyboard.press("2");
+  await expect(page.getByTestId("protocol-test")).toHaveAttribute("data-step", "3");
+  await page.keyboard.press("2");
+  await expect(page.getByTestId("dialogue-box")).toBeVisible();
+  await page.getByTestId("story-copy").click();
+  await expect(page.getByText(/条款卡|三张条款/)).toBeVisible();
+  await revealAndContinue(page);
+  await expect(page.getByTestId("story-copy")).toContainText(/骨头留着|您这是懂行/);
+
+  // System menu → gallery (stable unlock should already be on the session)
+  await page.getByTestId("system-menu-toggle").click({ force: true });
+  await expect(page.getByTestId("system-menu")).toBeVisible();
+  await page
+    .getByTestId("system-menu")
+    .getByRole("menuitem", { name: /鉴赏|Gallery|图鉴/ })
+    .click();
+  await expect(page.getByTestId("gallery-screen")).toBeVisible();
+  await expect(page.getByTestId("gallery-archive-lead")).toBeVisible();
+  await expect(page.getByTestId("gallery-archive-protocol-terms")).toHaveAttribute(
+    "data-state",
+    "unlocked",
+  );
+  await expect(page.getByTestId("gallery-archive-barcode-shift")).toHaveAttribute(
+    "data-state",
+    "locked",
+  );
+  expect(pageErrors).toEqual([]);
+});
+
+test("gallery shows locked archive records for empty unlocks", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  });
+  await page.reload();
+  await page.getByTestId("title-gallery").click();
+  await expect(page.getByTestId("gallery-screen")).toBeVisible();
+  await expect(page.getByTestId("gallery-archive-list")).toBeVisible();
+  for (const id of [
+    "protocol-terms",
+    "barcode-shift",
+    "rental-receipt",
+    "application-nda",
+    "approval-sms",
+  ]) {
+    await expect(page.getByTestId(`gallery-archive-${id}`)).toHaveAttribute("data-state", "locked");
+  }
+});
+
+test("barcode sweep completes every segment and returns to authored chapter text", async ({
+  page,
+}) => {
+  const pageErrors: string[] = [];
+  page.on("pageerror", (error) => pageErrors.push(error.message));
+  await startFreshChapterTwo(page);
+
+  for (let index = 0; index < 3; index += 1) {
+    await page.getByTestId("story-copy").click();
+    await page.getByRole("button", { name: /^继续$/ }).click();
+  }
+  await expect(page.getByTestId("barcode-sweep")).toBeVisible();
+  for (let round = 0; round < 3; round += 1) {
+    await page.getByTestId("barcode-segment-a").click();
+    await expect(page.getByTestId("barcode-segment-b")).toBeEnabled();
+    await page.getByTestId("barcode-segment-b").click();
+    await expect(page.getByTestId("barcode-segment-c")).toBeEnabled();
+    await page.getByTestId("barcode-segment-c").click();
+    if (round < 2) {
+      await expect(page.getByTestId("barcode-sweep")).toHaveAttribute(
+        "data-step",
+        String(round + 2),
+      );
+    }
+  }
+  await expect(page.getByTestId("barcode-sweep")).toHaveCount(0, { timeout: 5_000 });
+  await expect(page.getByTestId("story-copy")).toContainText(/三声|系统/);
+  expect(pageErrors).toEqual([]);
+  await page.screenshot({
+    path: ".scratch/director/playtest/round-9-barcode-desktop.png",
+    animations: "disabled",
+  });
 });

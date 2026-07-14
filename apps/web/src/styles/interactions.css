@@ -345,3 +345,388 @@
     transition: none;
   }
 }
+
+/* Shared chrome for story-native interactions (protocol, barcode, housing, mobile). */
+.story-interaction {
+  position: absolute;
+  inset: 13% clamp(0.8rem, 6vw, 6rem) 7%;
+  z-index: 3;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  gap: clamp(0.45rem, 1.2vw, 0.9rem);
+  min-height: 0;
+  padding: clamp(0.75rem, 1.8vw, 1.35rem);
+  overflow: hidden;
+  border: 1px solid rgba(150, 234, 214, 0.48);
+  border-radius: clamp(0.7rem, 1.2vw, 1.1rem);
+  outline: none;
+  background:
+    linear-gradient(135deg, rgba(14, 35, 36, 0.98), rgba(7, 14, 20, 0.97)), rgba(4, 9, 13, 0.96);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.72),
+    0 1.5rem 5rem rgba(0, 0, 0, 0.56),
+    inset 0 0 4rem rgba(80, 220, 190, 0.06);
+  color: #ebfff9;
+  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  animation: emotion-calibration-enter 260ms ease-out both;
+}
+
+.story-interaction:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(191, 255, 235, 0.85),
+    0 1.5rem 5rem rgba(0, 0, 0, 0.56),
+    inset 0 0 4rem rgba(80, 220, 190, 0.06);
+}
+
+.story-interaction-header,
+.story-interaction-footer,
+.story-interaction-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.story-interaction-kicker,
+.story-interaction-progress,
+.story-interaction-instructions,
+.story-interaction-feedback {
+  margin: 0;
+}
+
+.story-interaction-kicker {
+  color: rgba(183, 255, 235, 0.62);
+  font-size: clamp(0.56rem, 0.8vw, 0.7rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.story-interaction h2 {
+  margin: 0.14rem 0 0;
+  font-size: clamp(1.15rem, 2.3vw, 1.8rem);
+  letter-spacing: 0.04em;
+}
+
+.story-interaction-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+  padding: 0.36rem 0.62rem;
+  border: 1px solid rgba(155, 243, 218, 0.25);
+  border-radius: 999px;
+  background: rgba(10, 33, 33, 0.64);
+  color: rgba(224, 255, 247, 0.78);
+  font-size: clamp(0.62rem, 0.9vw, 0.76rem);
+}
+
+.story-interaction-status span {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: #77efc7;
+  box-shadow: 0 0 0.7rem rgba(119, 239, 199, 0.7);
+}
+
+.story-interaction-progress {
+  color: rgba(211, 255, 243, 0.68);
+  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.story-interaction-progress-rail {
+  display: flex;
+  gap: 0.35rem;
+  flex: 1;
+  max-width: 12rem;
+}
+
+.story-interaction-progress-rail i {
+  flex: 1;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: rgba(120, 180, 170, 0.22);
+}
+
+.story-interaction-progress-rail i.is-active {
+  background: linear-gradient(90deg, #5fe0bc, #b7ffe8);
+}
+
+.story-interaction-instructions {
+  color: rgba(210, 255, 242, 0.72);
+  font-size: clamp(0.72rem, 1.1vw, 0.88rem);
+}
+
+.story-interaction-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  margin-right: 0.45rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(160, 245, 220, 0.35);
+  background: rgba(8, 28, 28, 0.8);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.story-interaction-footer {
+  align-items: flex-end;
+}
+
+.story-interaction-feedback {
+  flex: 1;
+  color: rgba(200, 255, 238, 0.82);
+  font-size: clamp(0.72rem, 1.05vw, 0.9rem);
+  min-height: 1.3em;
+}
+
+.story-interaction-skip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(160, 230, 210, 0.35);
+  background: rgba(12, 28, 30, 0.85);
+  color: #e7fff7;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.story-interaction-skip span {
+  opacity: 0.65;
+  font-size: 0.75rem;
+}
+
+.story-interaction-skip:disabled,
+.protocol-test-actions button:disabled,
+.housing-hotspot:disabled,
+.mobile-questionnaire-options button:disabled,
+.barcode-sweep-bars button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.protocol-test-card {
+  min-height: 0;
+  overflow: auto;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(150, 230, 210, 0.28);
+  background: rgba(6, 18, 20, 0.72);
+}
+
+.protocol-test-card-label {
+  margin: 0 0 0.4rem;
+  color: rgba(180, 250, 230, 0.55);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+}
+
+.protocol-test-card blockquote {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+  line-height: 1.45;
+}
+
+.protocol-test-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.protocol-test-actions button,
+.mobile-questionnaire-options button,
+.housing-hotspot {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.15rem;
+  min-height: 3rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(150, 230, 210, 0.32);
+  background: linear-gradient(180deg, rgba(18, 42, 42, 0.95), rgba(8, 18, 22, 0.95));
+  color: #ebfff9;
+  text-align: left;
+  cursor: pointer;
+}
+
+.barcode-sweep-product {
+  min-height: 0;
+  display: grid;
+  align-content: center;
+  gap: 0.65rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(150, 230, 210, 0.28);
+  background: rgba(6, 18, 20, 0.72);
+}
+
+.barcode-sweep-product-name {
+  margin: 0;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 800;
+}
+
+.barcode-sweep-bars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  min-height: 4.2rem;
+}
+
+.barcode-sweep-bars button {
+  border: 1px dashed rgba(160, 240, 220, 0.35);
+  border-radius: 0.55rem;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(230, 255, 248, 0.85) 0,
+      rgba(230, 255, 248, 0.85) 2px,
+      transparent 2px,
+      transparent 5px
+    ),
+    rgba(4, 12, 14, 0.9);
+  cursor: pointer;
+  min-height: 3.6rem;
+}
+
+.barcode-sweep-bars button.is-next {
+  border-style: solid;
+  border-color: #7ef0c8;
+  box-shadow: 0 0 0 1px rgba(126, 240, 200, 0.45);
+}
+
+.barcode-sweep-bars button.is-done {
+  opacity: 0.45;
+  border-style: solid;
+}
+
+.barcode-sweep-hint {
+  margin: 0;
+  color: rgba(190, 245, 230, 0.62);
+  font-size: 0.78rem;
+}
+
+.housing-hotspots-map {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  min-height: 0;
+}
+
+.housing-hotspot {
+  flex-direction: column;
+  min-height: 5.5rem;
+}
+
+.housing-hotspot strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.housing-hotspot small {
+  color: rgba(190, 245, 230, 0.62);
+  font-size: 0.72rem;
+}
+
+.housing-hotspot.is-done {
+  border-color: rgba(120, 230, 190, 0.55);
+  opacity: 0.78;
+}
+
+.housing-hotspot.is-current {
+  border-color: #7ef0c8;
+  box-shadow: 0 0 0 1px rgba(126, 240, 200, 0.35);
+}
+
+.mobile-questionnaire-phone {
+  min-height: 0;
+  overflow: auto;
+  padding: 0.85rem 1rem 1rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(150, 230, 210, 0.32);
+  background: linear-gradient(180deg, rgba(12, 28, 32, 0.98), rgba(6, 14, 18, 0.98));
+  max-width: 28rem;
+  width: min(100%, 28rem);
+  margin: 0 auto;
+}
+
+.mobile-questionnaire-app {
+  margin: 0 0 0.45rem;
+  color: rgba(180, 250, 230, 0.55);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  font-weight: 800;
+}
+
+.mobile-questionnaire-prompt {
+  margin: 0 0 0.7rem;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  line-height: 1.35;
+}
+
+.mobile-questionnaire-options {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.mobile-questionnaire-options button {
+  width: 100%;
+  align-items: center;
+}
+
+@media (max-width: 900px) and (max-height: 560px) {
+  .vn-stage[data-story-interaction="protocol-test-v1"] .meter-rail,
+  .vn-stage[data-story-interaction="protocol-test-v1"] .now-playing-chip,
+  .vn-stage[data-story-interaction="protocol-test-v1"] .player-story-label,
+  .vn-stage[data-story-interaction="barcode-sweep-v1"] .meter-rail,
+  .vn-stage[data-story-interaction="barcode-sweep-v1"] .now-playing-chip,
+  .vn-stage[data-story-interaction="barcode-sweep-v1"] .player-story-label,
+  .vn-stage[data-story-interaction="housing-hotspots-v1"] .meter-rail,
+  .vn-stage[data-story-interaction="housing-hotspots-v1"] .now-playing-chip,
+  .vn-stage[data-story-interaction="housing-hotspots-v1"] .player-story-label,
+  .vn-stage[data-story-interaction="mobile-questionnaire-v1"] .meter-rail,
+  .vn-stage[data-story-interaction="mobile-questionnaire-v1"] .now-playing-chip,
+  .vn-stage[data-story-interaction="mobile-questionnaire-v1"] .player-story-label {
+    display: none;
+  }
+
+  .story-interaction {
+    inset: 17% 0.7rem 3%;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    gap: 0.38rem;
+    padding: 0.62rem 0.72rem;
+  }
+
+  .story-interaction-header {
+    display: none;
+  }
+
+  .housing-hotspots-map {
+    grid-template-columns: 1fr;
+  }
+
+  .housing-hotspot {
+    min-height: 2.6rem;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .protocol-test-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-interaction {
+    animation: none;
+  }
+}

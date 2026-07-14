@@ -154,6 +154,10 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   await expect(page.getByTestId("emotion-calibration")).toBeVisible();
   await page.getByTestId("emotion-calibration-skip").click();
   await clickIfVisible(page, /^继续$/i);
+  // s002 protocol prose → protocol-test interaction → s003 bones branch
+  await clickIfVisible(page, /^继续$/i);
+  await expect(page.getByTestId("protocol-test")).toBeVisible({ timeout: 15_000 });
+  await page.getByTestId("protocol-test-skip").click();
   await clickIfVisible(page, /^继续$/i);
   await page.getByTestId("story-copy").click();
   // First authored branch: protocol "bones" choice (ignore oracle guess buttons).

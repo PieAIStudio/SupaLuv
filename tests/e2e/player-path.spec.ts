@@ -58,7 +58,30 @@ async function selectedChoiceCount(page: Page): Promise<number> {
   }, PATH_MEMORY_KEY);
 }
 
+async function skipActiveStoryInteraction(page: Page): Promise<boolean> {
+  const skips = [
+    "emotion-calibration-skip",
+    "protocol-test-skip",
+    "barcode-sweep-skip",
+    "housing-hotspots-skip",
+    "mobile-questionnaire-skip",
+  ] as const;
+  for (const testId of skips) {
+    const button = page.getByTestId(testId);
+    if (await button.isVisible().catch(() => false)) {
+      await button.click();
+      // Delayed Ink commit inside interaction chrome.
+      await page.waitForTimeout(550);
+      return true;
+    }
+  }
+  return false;
+}
+
 async function revealAndChooseFirst(page: Page): Promise<boolean> {
+  if (await skipActiveStoryInteraction(page)) {
+    return true;
+  }
   await page
     .getByTestId("story-copy")
     .click()
@@ -145,13 +168,17 @@ test("我的路线 records two choices, shows gray alternatives, survives refres
   await revealAndChooseFirst(page);
   await expect(page.getByTestId("emotion-calibration")).toBeVisible();
   await page.getByTestId("emotion-calibration-skip").click();
+  await page.waitForTimeout(550);
 
   for (let step = 0; step < 40 && (await selectedChoiceCount(page)) < 2; step += 1) {
     await revealAndChooseFirst(page);
   }
   expect(await selectedChoiceCount(page)).toBeGreaterThanOrEqual(2);
 
-  for (let step = 0; step < 30; step += 1) {
+  for (let step = 0; step < 40; step += 1) {
+    if (await skipActiveStoryInteraction(page)) {
+      continue;
+    }
     await page
       .getByTestId("story-copy")
       .click()

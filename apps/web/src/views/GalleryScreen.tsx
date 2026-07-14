@@ -2,6 +2,10 @@ import { GameBadge, GameButton, GameEmptyState, GamePanel } from "@pieai/swimmer
 import { bedLabel, bedTitle } from "../audio/bedCatalog";
 import { gameAudio } from "../audio/gameAudio";
 import { useLocale } from "../i18n";
+import {
+  ALGORITHM_SHAME_ARCHIVE,
+  type AlgorithmShameArchiveRecordId,
+} from "../persistence/algorithmShameArchive";
 import type { GalleryUnlocks } from "../persistence/gameSave";
 
 interface GalleryScreenProps {
@@ -11,7 +15,11 @@ interface GalleryScreenProps {
 
 export function GalleryScreen({ unlocks, onBack }: GalleryScreenProps) {
   const { locale, t } = useLocale();
-  const total = unlocks.images.length + unlocks.audio.length;
+  const archiveUnlocked = new Set(unlocks.archive ?? []);
+  const archiveUnlockedCount = ALGORITHM_SHAME_ARCHIVE.filter((record) =>
+    archiveUnlocked.has(record.id),
+  ).length;
+  const total = unlocks.images.length + unlocks.audio.length + archiveUnlockedCount;
 
   return (
     <div className="meta-screen gallery-screen" data-testid="gallery-screen">
@@ -79,6 +87,51 @@ export function GalleryScreen({ unlocks, onBack }: GalleryScreenProps) {
               ))}
             </ul>
           )}
+        </GamePanel>
+
+        <GamePanel title={t("gallery.archive")} tone="strong">
+          <div className="gallery-badges">
+            <GameBadge tone="neutral">
+              {t("gallery.unlockedCount")} {archiveUnlockedCount}/{ALGORITHM_SHAME_ARCHIVE.length}
+            </GameBadge>
+          </div>
+          <p className="gallery-archive-lead" data-testid="gallery-archive-lead">
+            {t("gallery.archiveLead")}
+          </p>
+          <ul
+            className="gallery-list text-only gallery-archive-list"
+            data-testid="gallery-archive-list"
+          >
+            {ALGORITHM_SHAME_ARCHIVE.map((record) => {
+              const unlocked = archiveUnlocked.has(record.id);
+              return (
+                <li
+                  key={record.id}
+                  className={unlocked ? "is-unlocked" : "is-locked"}
+                  data-testid={`gallery-archive-${record.id}`}
+                  data-state={unlocked ? "unlocked" : "locked"}
+                >
+                  <div className="gallery-archive-row">
+                    <span className="gallery-archive-title">
+                      {unlocked
+                        ? t(`gallery.records.${record.id as AlgorithmShameArchiveRecordId}.title`)
+                        : "••••"}
+                    </span>
+                    <GameBadge tone={unlocked ? "success" : "neutral"}>
+                      {unlocked ? t("gallery.archiveUnlocked") : t("gallery.archiveLocked")}
+                    </GameBadge>
+                  </div>
+                  <p className="gallery-archive-desc">
+                    {unlocked
+                      ? t(
+                          `gallery.records.${record.id as AlgorithmShameArchiveRecordId}.description`,
+                        )
+                      : t("gallery.archiveEmptyDescription")}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
         </GamePanel>
       </div>
 

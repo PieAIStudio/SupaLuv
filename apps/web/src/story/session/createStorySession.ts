@@ -59,7 +59,12 @@ export type StorySessionDependencies = Readonly<{
 }>;
 
 function unlockCount(unlocks: GalleryUnlocks): number {
-  return unlocks.images.length + unlocks.videos.length + unlocks.audio.length;
+  return (
+    unlocks.images.length +
+    unlocks.videos.length +
+    unlocks.audio.length +
+    (unlocks.archive?.length ?? 0)
+  );
 }
 
 function defaultPreload(
@@ -416,13 +421,17 @@ export function createStorySession(deps: StorySessionDependencies = {}): StorySe
   function addUnlocks(partial: Partial<GalleryUnlocks>): GalleryUnlocks {
     const prev = state.unlocks;
     const next = announceUnlocks(prev, mergeUnlocks(prev, partial));
+    const prevArchive = prev.archive ?? [];
+    const nextArchive = next.archive ?? [];
     const changed =
       next.images.length !== prev.images.length ||
       next.videos.length !== prev.videos.length ||
       next.audio.length !== prev.audio.length ||
+      nextArchive.length !== prevArchive.length ||
       next.images.some((id, i) => id !== prev.images[i]) ||
       next.videos.some((id, i) => id !== prev.videos[i]) ||
-      next.audio.some((id, i) => id !== prev.audio[i]);
+      next.audio.some((id, i) => id !== prev.audio[i]) ||
+      nextArchive.some((id, i) => id !== prevArchive[i]);
     if (changed) {
       patch({ unlocks: next });
     }
