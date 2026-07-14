@@ -750,7 +750,7 @@
 /* Keep transient unlock feedback below the persistent co-play room strip. */
 .app-shell[data-screen="play"][data-coplay="host"] .global-toast,
 .app-shell[data-screen="play"][data-coplay="guest"] .global-toast {
-  top: 4.25rem;
+  top: 6rem;
 }
 
 @keyframes toast-in {
