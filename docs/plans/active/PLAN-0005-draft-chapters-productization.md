@@ -56,7 +56,7 @@ related:
 - [x] 交付完整 loading composition 与 `vite:preloadError` 恢复。
 - [x] 交付“情绪样本标注”小游戏并接入剧情变量与无障碍输入。
 - [x] 交付中英玩家界面、运行时 toast、分享卡和选角长文案溢出修复。
-- [ ] 统一 co-play 深层 overlay 的中英界面文案与状态反馈。
+- [x] 统一 co-play 深层 overlay 的中英界面文案与状态反馈；中途加入重播当前剧情帧，系统菜单层级与双标签验收补齐。
 - [ ] 交付协议、测试仪表、看房热点和手机问卷等剧情内互动。
 - [ ] 交付算法羞耻档案，并与玩家路径和回看关联。
 
@@ -74,7 +74,7 @@ related:
 - [x] 第一轮技术/视觉 playtest：加载、裁切、地图、选角和卡住点；内容节奏 critic 仍待正式稿。
 - [ ] 修复后独立 critic pass，并保存对应 after evidence。
 - [ ] 第二轮 playtest：选择感、视听、地图、存档与失败恢复。
-- [x] 跑本轮完整 release ladder（格式、lint、资产、类型、368 单测、20 个 E2E、构建和 Vercel 输出）。
+- [x] 跑本轮完整 release ladder（格式、lint、资产、类型、371 单测、21 个 E2E、构建和 Vercel 输出）。
 - [ ] Production 最小试玩（真实 AI、审核、钱包和存储）仍需发布门单独验收。
 - [ ] 更新 SSOT；完成后归档计划/规格并清理所有分支/worktree。
 
@@ -89,6 +89,13 @@ related:
 `f0292fb` 合入中英玩家界面覆盖和运行时 toast 本地化；主线完整 E2E 为 20/20，单测为 368/368。
 英文选角页的长边界提示已通过截图与横向溢出断言复验。co-play 深层 overlay 尚未纳入本轮，
 真实服务验收仍以 Preview/Production 最小链路为准。
+
+## Round 8 evidence
+
+`6587da7` 合入 co-play 深层 overlay 商品化：Banner、光标和 RPS 冲突层统一中英显示，稳定
+`rock/paper/scissors` 协议值与显示文案分离，全球回声旧协议只在显示层翻译；打开系统菜单时
+提升层级，避免对白层挡住菜单；客人中途加入会收到主机最近剧情帧。主线回归为 371/371 单测、
+21/21 E2E，含双标签截图与无横向溢出检查。真实服务仍按发布门单独复验。
 
 ## Release gates
 
