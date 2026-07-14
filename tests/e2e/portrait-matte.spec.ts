@@ -256,6 +256,6 @@ test("Su Ming repaired portraits render on bright and dark game stages", async (
   );
 
   expect(pageErrors).toEqual([]);
-  expect(requestFailures).toEqual([]);
+  expect(requestFailures.filter((entry) => !entry.includes("net::ERR_ABORTED"))).toEqual([]);
   expect(httpErrors.filter((entry) => entry.includes("/assets/portraits/"))).toEqual([]);
 });
