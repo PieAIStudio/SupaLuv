@@ -18,8 +18,8 @@ importers:
         specifier: 0.7.2
         version: 0.7.2
       '@pieai/swimmer-ai-kit':
-        specifier: 0.2.2
-        version: 0.2.2
+        specifier: 0.3.0
+        version: 0.3.0
       '@playwright/test':
         specifier: 1.61.1
         version: 1.61.1
@@ -123,8 +123,8 @@ importers:
         specifier: 1.50.1
         version: 1.50.1(express@5.2.1)(zod@3.25.76)
       '@pieai/swimmer-ai-kit':
-        specifier: 0.2.2
-        version: 0.2.2
+        specifier: 0.3.0
+        version: 0.3.0
       '@supabase/supabase-js':
         specifier: 2.110.3
         version: 2.110.3
@@ -1845,8 +1845,8 @@ packages:
     engines: {node: '>=24 <25'}
     hasBin: true
 
-  '@pieai/swimmer-ai-kit@0.2.2':
-    resolution: {integrity: sha512-IO2+E75gRL0qCznBV7Xdq4XppcF8+rtwrYJVO4q9xQkmbtmumxvXLlJqMHchOl9qSvwL/H1vzx1Fdk2AdA1fCQ==}
+  '@pieai/swimmer-ai-kit@0.3.0':
+    resolution: {integrity: sha512-SMpyEBO0yLpz1Han6MMRA3kx/GMto4oGlylWdr9QVBijEo9nUBVwUjmdhRvF6yZa6H2yOwljLNDSrnMOUlltbg==}
     engines: {node: '>=24 <25'}
 
   '@pieai/swimmer-ui-kit@1.1.0':
@@ -6719,7 +6719,7 @@ snapshots:
     dependencies:
       '@pieai/doc-gov': 0.7.2
 
-  '@pieai/swimmer-ai-kit@0.2.2': {}
+  '@pieai/swimmer-ai-kit@0.3.0': {}
 
   '@pieai/swimmer-ui-kit@1.1.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
