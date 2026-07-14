@@ -219,6 +219,12 @@
   padding: 0.2rem 0.15rem;
 }
 
+/* Keep the open system menu above the dialogue surface so every menu item is
+   actually clickable while the story remains paused underneath. */
+.vn-hud.is-system-open {
+  z-index: 70;
+}
+
 .hud-left,
 .hud-right {
   display: flex;

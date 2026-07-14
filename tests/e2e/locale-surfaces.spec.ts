@@ -63,3 +63,58 @@ test("Chinese title keeps Character Studio primary actions in Chinese", async ({
   await expect(page.getByRole("button", { name: "Use official portrait" })).toHaveCount(0);
   await expectNoHorizontalOverflow(page);
 });
+
+test("English local co-play keeps host and spectator overlays localized", async ({
+  page,
+  context,
+}, testInfo) => {
+  test.setTimeout(60_000);
+  await openTitle(page);
+  await page.getByRole("button", { name: "EN", exact: true }).click();
+  await page.getByTestId("title-coplay").click();
+  await page.getByTestId("title-coplay-alias").fill("Host");
+  await page.getByTestId("title-coplay-host").click();
+
+  const casting = page.getByTestId("character-studio");
+  if (await casting.isVisible().catch(() => false)) {
+    const official = page.getByRole("button", { name: "Use official portrait" });
+    for (let index = 0; index < 2; index += 1) {
+      if (await official.isVisible().catch(() => false)) {
+        await official.click();
+      }
+    }
+  }
+  await expect(page.getByTestId("coplay-banner")).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByTestId("coplay-banner")).toContainText("Co-play · Host");
+  await expect(page.getByTestId("coplay-banner")).toContainText("Local tabs");
+
+  const roomText = await page.getByTestId("coplay-room-code").textContent();
+  const roomCode = roomText?.replace(/^Room\s+/, "").trim() ?? "";
+  expect(roomCode).toMatch(/^[A-Z0-9]{4,6}$/);
+
+  const guest = await context.newPage();
+  await guest.addInitScript(() => {
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  });
+  await guest.goto("/");
+  await expect(guest.getByTestId("title-screen")).toBeVisible();
+  await guest.getByTestId("title-coplay").click();
+  await guest.getByTestId("title-coplay-alias").fill("Friend");
+  await guest.getByTestId("title-coplay-code").fill(roomCode);
+  await guest.getByTestId("title-coplay-join").click();
+
+  await expect(guest.getByTestId("coplay-banner")).toBeVisible({ timeout: 15_000 });
+  await expect(guest.getByTestId("coplay-banner")).toContainText("Co-play · Spectator");
+  await expect(guest.getByTestId("coplay-banner")).toContainText("Local tabs");
+  await expect(guest.getByTestId("coplay-banner")).toContainText("You can vote");
+  await expect(guest.getByTestId("story-copy")).not.toContainText("Waiting for the host to start", {
+    timeout: 10_000,
+  });
+  await expect(page.getByTestId("coplay-banner")).toContainText("friends online", {
+    timeout: 10_000,
+  });
+
+  await page.screenshot({ path: testInfo.outputPath("coplay-host-en.png"), fullPage: false });
+  await guest.screenshot({ path: testInfo.outputPath("coplay-guest-en.png"), fullPage: false });
+  await guest.close();
+});
