@@ -4,16 +4,9 @@
   "placement": "registry",
   "bundleIds": [
     "base-governance",
-    "frontend-app",
-    "mattpocock-skills"
+    "frontend-app"
   ],
   "assets": [
-    {
-      "id": "npx-skills/ask-matt",
-      "sourcePath": "skills/npx-skills/.agents/skills/ask-matt",
-      "contentHash": "sha256:7f8034c8865490a6bf81ce9c058429a3eb14680d2c92260ee575e7851e1cf578",
-      "targetPath": ".agents/skills/ask-matt"
-    },
     {
       "id": "npx-skills/browser-automation",
       "sourcePath": "skills/npx-skills/.agents/skills/browser-automation",
@@ -21,172 +14,10 @@
       "targetPath": ".agents/skills/browser-automation"
     },
     {
-      "id": "npx-skills/claude-handoff",
-      "sourcePath": "skills/npx-skills/.agents/skills/claude-handoff",
-      "contentHash": "sha256:b7580924904f41379ceae851072eef4dd847292ae791f104c70d67bd18e177ca",
-      "targetPath": ".agents/skills/claude-handoff"
-    },
-    {
-      "id": "npx-skills/code-review",
-      "sourcePath": "skills/npx-skills/.agents/skills/code-review",
-      "contentHash": "sha256:a0a6ea333e7fd617515f47613832e1f2decb3abf18ac313d7fd0ea5ddda04365",
-      "targetPath": ".agents/skills/code-review"
-    },
-    {
-      "id": "npx-skills/codebase-design",
-      "sourcePath": "skills/npx-skills/.agents/skills/codebase-design",
-      "contentHash": "sha256:6af47ce35b6d06ce5a06201ab222c29d77fdd0211168526f30035a24e6873c7b",
-      "targetPath": ".agents/skills/codebase-design"
-    },
-    {
-      "id": "npx-skills/diagnosing-bugs",
-      "sourcePath": "skills/npx-skills/.agents/skills/diagnosing-bugs",
-      "contentHash": "sha256:30d504909484072b68fd2662cf1874da1d5f2c57fa02cbfc0750896c269713bb",
-      "targetPath": ".agents/skills/diagnosing-bugs"
-    },
-    {
-      "id": "npx-skills/domain-modeling",
-      "sourcePath": "skills/npx-skills/.agents/skills/domain-modeling",
-      "contentHash": "sha256:9c70797062c1017367293905782a5a3a6b8f3ea85148abc172996a8de3f60071",
-      "targetPath": ".agents/skills/domain-modeling"
-    },
-    {
-      "id": "npx-skills/edit-article",
-      "sourcePath": "skills/npx-skills/.agents/skills/edit-article",
-      "contentHash": "sha256:be02c5ae0b89ca09c4cc4abc5f82e9bb0b739a73ec6ed4c45e01353e3be39274",
-      "targetPath": ".agents/skills/edit-article"
-    },
-    {
       "id": "npx-skills/frontend-design",
       "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
       "contentHash": "sha256:665c585455decbcb02116bc928adf5148b9cd0f67b7eb4908c8c0d647c00f68a",
       "targetPath": ".agents/skills/frontend-design"
-    },
-    {
-      "id": "npx-skills/git-guardrails-claude-code",
-      "sourcePath": "skills/npx-skills/.agents/skills/git-guardrails-claude-code",
-      "contentHash": "sha256:4b1e7a10a097a121c0aa3d311bb3f3ff64215c461ea7b3aa18fa802353349451",
-      "targetPath": ".agents/skills/git-guardrails-claude-code"
-    },
-    {
-      "id": "npx-skills/grill-me",
-      "sourcePath": "skills/npx-skills/.agents/skills/grill-me",
-      "contentHash": "sha256:25b02cbdacb3d7fcf0fdea243cb8358cc5ba1e85800d0974b028f6e8bacac94d",
-      "targetPath": ".agents/skills/grill-me"
-    },
-    {
-      "id": "npx-skills/grill-with-docs",
-      "sourcePath": "skills/npx-skills/.agents/skills/grill-with-docs",
-      "contentHash": "sha256:8683d99a2d347d358662c4d4744affd38212913b85a69158118b1f6735e5da7e",
-      "targetPath": ".agents/skills/grill-with-docs"
-    },
-    {
-      "id": "npx-skills/grilling",
-      "sourcePath": "skills/npx-skills/.agents/skills/grilling",
-      "contentHash": "sha256:41252674dfdbc25b69d56606af807007af1be247a6fa3d7fead75f8f86767e86",
-      "targetPath": ".agents/skills/grilling"
-    },
-    {
-      "id": "npx-skills/handoff",
-      "sourcePath": "skills/npx-skills/.agents/skills/handoff",
-      "contentHash": "sha256:9d467ac388762c34b7fbb1683ba54af1f8918c28e1a1a98bc0f1ca840f94a9cf",
-      "targetPath": ".agents/skills/handoff"
-    },
-    {
-      "id": "npx-skills/implement",
-      "sourcePath": "skills/npx-skills/.agents/skills/implement",
-      "contentHash": "sha256:d5057d8814c3d9051817f5ad6f99c2e5333738c418618126454e9821fa659bea",
-      "targetPath": ".agents/skills/implement"
-    },
-    {
-      "id": "npx-skills/improve-codebase-architecture",
-      "sourcePath": "skills/npx-skills/.agents/skills/improve-codebase-architecture",
-      "contentHash": "sha256:2823acbf7eb6674817713d21f449418c03dc4dbe33661760cff64255d40f8532",
-      "targetPath": ".agents/skills/improve-codebase-architecture"
-    },
-    {
-      "id": "npx-skills/loop-me",
-      "sourcePath": "skills/npx-skills/.agents/skills/loop-me",
-      "contentHash": "sha256:c030957893b40c36fae5e6f3c0a3387567d36bae550b41095649f6cc12284147",
-      "targetPath": ".agents/skills/loop-me"
-    },
-    {
-      "id": "npx-skills/migrate-to-shoehorn",
-      "sourcePath": "skills/npx-skills/.agents/skills/migrate-to-shoehorn",
-      "contentHash": "sha256:b41d9a3748a8bdb90ce3b91de8f56bc2b2354d2dd943571bf5ccecf81b28a762",
-      "targetPath": ".agents/skills/migrate-to-shoehorn"
-    },
-    {
-      "id": "npx-skills/obsidian-vault",
-      "sourcePath": "skills/npx-skills/.agents/skills/obsidian-vault",
-      "contentHash": "sha256:1e34caaa182c3e70be80aad679952bd0850e76c257a3f24bd7118bebfbec6c72",
-      "targetPath": ".agents/skills/obsidian-vault"
-    },
-    {
-      "id": "npx-skills/prototype",
-      "sourcePath": "skills/npx-skills/.agents/skills/prototype",
-      "contentHash": "sha256:ad86139f1bde54fecb03dd6a31db374e59cfe999607a0e16609a43a0fe6564b6",
-      "targetPath": ".agents/skills/prototype"
-    },
-    {
-      "id": "npx-skills/research",
-      "sourcePath": "skills/npx-skills/.agents/skills/research",
-      "contentHash": "sha256:6e70265f3f531ab6f3c77ee5ecbafaed4398cc2094ca04510a0048553f560c5e",
-      "targetPath": ".agents/skills/research"
-    },
-    {
-      "id": "npx-skills/resolving-merge-conflicts",
-      "sourcePath": "skills/npx-skills/.agents/skills/resolving-merge-conflicts",
-      "contentHash": "sha256:0569ceadd02418da6a74ce0b8d549803e46838823f9585f8b169a6cf9da66ffc",
-      "targetPath": ".agents/skills/resolving-merge-conflicts"
-    },
-    {
-      "id": "npx-skills/scaffold-exercises",
-      "sourcePath": "skills/npx-skills/.agents/skills/scaffold-exercises",
-      "contentHash": "sha256:be30d12029fe1dbe2a6144f8542ef87d5bcd7fd68e9f04f5ae09a129387cc0ea",
-      "targetPath": ".agents/skills/scaffold-exercises"
-    },
-    {
-      "id": "npx-skills/setup-matt-pocock-skills",
-      "sourcePath": "skills/npx-skills/.agents/skills/setup-matt-pocock-skills",
-      "contentHash": "sha256:07da6ddc54bf6abce22f0542254dc1fef5ecd0a67acba1d44970721aa5fcd817",
-      "targetPath": ".agents/skills/setup-matt-pocock-skills"
-    },
-    {
-      "id": "npx-skills/setup-pre-commit",
-      "sourcePath": "skills/npx-skills/.agents/skills/setup-pre-commit",
-      "contentHash": "sha256:39df5538137477d3788152ef92ba1264b675157cd038794f82141edcebfddb96",
-      "targetPath": ".agents/skills/setup-pre-commit"
-    },
-    {
-      "id": "npx-skills/tdd",
-      "sourcePath": "skills/npx-skills/.agents/skills/tdd",
-      "contentHash": "sha256:e8ecf2e6373d026ec1926fcfb4bf61510e614754c6a9402cd8f33105f5c0d258",
-      "targetPath": ".agents/skills/tdd"
-    },
-    {
-      "id": "npx-skills/teach",
-      "sourcePath": "skills/npx-skills/.agents/skills/teach",
-      "contentHash": "sha256:63feafa166e24e8b85376accae0af357beb1874c61776acc32c1d39a6fce9bc4",
-      "targetPath": ".agents/skills/teach"
-    },
-    {
-      "id": "npx-skills/to-issues",
-      "sourcePath": "skills/npx-skills/.agents/skills/to-issues",
-      "contentHash": "sha256:6140d82b09999229e8ac00f537caee00e6e74bff7b2d717d34a483f2554d0917",
-      "targetPath": ".agents/skills/to-issues"
-    },
-    {
-      "id": "npx-skills/to-prd",
-      "sourcePath": "skills/npx-skills/.agents/skills/to-prd",
-      "contentHash": "sha256:3bcff1d61bd7999b66f118909822a8e6a0e3f6d583c1f00c2ec0a4a2a49d1b88",
-      "targetPath": ".agents/skills/to-prd"
-    },
-    {
-      "id": "npx-skills/triage",
-      "sourcePath": "skills/npx-skills/.agents/skills/triage",
-      "contentHash": "sha256:ac70de32fe89f8f08941e0baa3659954cb38d2a0de41a4050ded1456b81f5699",
-      "targetPath": ".agents/skills/triage"
     },
     {
       "id": "npx-skills/ui-ux-pro-max",
@@ -201,46 +32,10 @@
       "targetPath": ".agents/skills/vitest-midscene-e2e"
     },
     {
-      "id": "npx-skills/wayfinder",
-      "sourcePath": "skills/npx-skills/.agents/skills/wayfinder",
-      "contentHash": "sha256:6717b242f05957fdab5a55ddbb0ab2be5d1715866c3b52768e79dcfd1bc6e8c9",
-      "targetPath": ".agents/skills/wayfinder"
-    },
-    {
       "id": "npx-skills/web-artifacts-builder",
       "sourcePath": "skills/npx-skills/.agents/skills/web-artifacts-builder",
       "contentHash": "sha256:0f102ba19f13b4deb19f2248a5014952d2af1521129a5a0e4f3d805f74632b75",
       "targetPath": ".agents/skills/web-artifacts-builder"
-    },
-    {
-      "id": "npx-skills/wizard",
-      "sourcePath": "skills/npx-skills/.agents/skills/wizard",
-      "contentHash": "sha256:45ed32a48abb5a9a5baab64c395193c9a543b98f775cc066c18252edaaa60da4",
-      "targetPath": ".agents/skills/wizard"
-    },
-    {
-      "id": "npx-skills/writing-beats",
-      "sourcePath": "skills/npx-skills/.agents/skills/writing-beats",
-      "contentHash": "sha256:4d2dd3de0f84748fa79cd1d108ba7a63ecc8ee80ef272f45a56fbf2be257941f",
-      "targetPath": ".agents/skills/writing-beats"
-    },
-    {
-      "id": "npx-skills/writing-fragments",
-      "sourcePath": "skills/npx-skills/.agents/skills/writing-fragments",
-      "contentHash": "sha256:e9d3ab4617be1fb7b0c5cf8ff4888475e88f4c2b973e6f9cdb326dd117512fc6",
-      "targetPath": ".agents/skills/writing-fragments"
-    },
-    {
-      "id": "npx-skills/writing-great-skills",
-      "sourcePath": "skills/npx-skills/.agents/skills/writing-great-skills",
-      "contentHash": "sha256:e8468b62da9932ca77ff7c247d088727d8eadf626201bb72793f91754b6ecca6",
-      "targetPath": ".agents/skills/writing-great-skills"
-    },
-    {
-      "id": "npx-skills/writing-shape",
-      "sourcePath": "skills/npx-skills/.agents/skills/writing-shape",
-      "contentHash": "sha256:7ccb8c77cb4f53c74f8580b1e49fa451e219525cca672c01a261c5716a1ff00c",
-      "targetPath": ".agents/skills/writing-shape"
     },
     {
       "id": "pie-commands/generate-handoff",
