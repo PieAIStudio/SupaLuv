@@ -79,7 +79,7 @@ export function PlayHud({
         : "Developer mode"
       : t("play.storyMode");
   return (
-    <header className="vn-hud">
+    <header className={`vn-hud${systemOpen ? " is-system-open" : ""}`}>
       <div className="hud-left">
         <span data-testid="prototype-badge">
           <GameBadge tone={playerMode ? "ai" : "warning"}>{modeLabel}</GameBadge>

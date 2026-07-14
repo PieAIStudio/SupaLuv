@@ -36,6 +36,9 @@ describe("i18n catalog", () => {
         "aiSpend.title",
         "aiSpend.actions.character_base",
         "settings.emailSubmit",
+        "coplay.bannerAria",
+        "coplay.rpsTitle",
+        "coplay.rpsRock",
       ]) {
         expect(lookupMessage(messages, key), `${locale}:${key}`).toBeTruthy();
       }

@@ -1,4 +1,6 @@
 import { GameBadge } from "@pieai/swimmer-ui-kit";
+import { useLocale } from "../i18n";
+import { fillTemplate } from "./coplayDisplay";
 import type { CoPlayRole } from "./protocol";
 import type { VotePayloadV1 } from "./protocol";
 import type { CoPlayTransportKind } from "./transportTypes";
@@ -20,35 +22,49 @@ export function CoPlayBanner({
   guestVotes = [],
   onLeave,
 }: CoPlayBannerProps) {
+  const { t } = useLocale();
+  const peerStatus =
+    peerCount > 0
+      ? fillTemplate(t("coplay.peersOnline"), { n: peerCount })
+      : transportKind === "realtime"
+        ? t("coplay.waitRealtime")
+        : t("coplay.waitLocal");
+
   return (
-    <div className="coplay-banner" data-testid="coplay-banner">
+    <div className="coplay-banner" aria-label={t("coplay.bannerAria")} data-testid="coplay-banner">
       <GameBadge tone={role === "host" ? "success" : "ai"}>
-        {role === "host" ? "同玩 · 房主" : "同玩 · 围观"}
+        {role === "host" ? t("coplay.badgeHost") : t("coplay.badgeGuest")}
       </GameBadge>
       <GameBadge tone="neutral">
-        {transportKind === "realtime" ? "跨网 Realtime" : "本机标签页"}
+        {transportKind === "realtime" ? t("coplay.transportRealtime") : t("coplay.transportLocal")}
       </GameBadge>
       <span className="coplay-banner-code" data-testid="coplay-room-code">
-        房间 {roomCode}
+        {t("coplay.roomPrefix")} {roomCode}
       </span>
-      <span className="coplay-banner-peers">
-        {peerCount > 0
-          ? `${peerCount} 位在线好友`
-          : transportKind === "realtime"
-            ? "等待好友加入…"
-            : "等待另一标签页加入…"}
+      <span className="coplay-banner-peers" aria-live="polite">
+        {peerStatus}
       </span>
       {role === "host" && guestVotes.length > 0 ? (
-        <span className="coplay-banner-votes" data-testid="coplay-guest-votes">
-          朋友倾向：{guestVotes.map((v) => `${v.alias}→${v.choiceText}`).join(" · ")}
+        <span
+          className="coplay-banner-votes"
+          aria-label={t("coplay.guestVotesAria")}
+          data-testid="coplay-guest-votes"
+        >
+          {t("coplay.guestVotesPrefix")}
+          {guestVotes.map((v) => `${v.alias}→${v.choiceText}`).join(" · ")}
         </span>
       ) : null}
       {role === "guest" ? (
-        <span className="coplay-banner-hint">你可投票，房主最终点选推进</span>
+        <span className="coplay-banner-hint">{t("coplay.guestHint")}</span>
       ) : null}
       {onLeave ? (
-        <button type="button" className="coplay-banner-leave" onClick={onLeave}>
-          离开同玩
+        <button
+          type="button"
+          className="coplay-banner-leave"
+          aria-label={t("coplay.leaveAria")}
+          onClick={onLeave}
+        >
+          {t("coplay.leave")}
         </button>
       ) : null}
     </div>

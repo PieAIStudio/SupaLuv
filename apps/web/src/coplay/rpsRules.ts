@@ -9,12 +9,7 @@ export type RpsWinner = "host" | "guest" | "draw";
 
 export const RPS_THROWS: readonly RpsThrow[] = ["rock", "paper", "scissors"];
 
-export const RPS_LABELS: Readonly<Record<RpsThrow, string>> = {
-  rock: "石头",
-  paper: "布",
-  scissors: "剪刀",
-};
-
+/** Wire IDs only — display labels come from locale via `coplayDisplay`. */
 export function isRpsThrow(value: unknown): value is RpsThrow {
   return value === "rock" || value === "paper" || value === "scissors";
 }

@@ -75,6 +75,7 @@ export function useCoPlaySession(config: CoPlaySessionConfig | null): CoPlaySess
   const [remoteStates, setRemoteStates] = useState<Map<string, RemoteCursorState>>(() => new Map());
   const [guestVotes, setGuestVotes] = useState<VotePayloadV1[]>([]);
   const [remoteStory, setRemoteStory] = useState<StoryMirrorPayloadV1 | null>(null);
+  const latestStoryRef = useRef<StoryMirrorPayloadV1 | null>(null);
   const [peerCount, setPeerCount] = useState(0);
   const [rpsDuel, setRpsDuel] = useState<ActiveRpsDuel | null>(null);
   const [transportKind, setTransportKind] = useState<CoPlayTransportKind>("broadcast");
@@ -178,6 +179,16 @@ export function useCoPlaySession(config: CoPlaySessionConfig | null): CoPlaySess
         if (payload.kind === "hello") {
           peersRef.current.add(payload.playerId);
           setPeerCount(peersRef.current.size);
+          // BroadcastChannel has no replay buffer. Re-send the latest host
+          // snapshot so a guest who joins mid-scene starts with the current
+          // frame instead of waiting for the next authored beat.
+          if (config.role === "host" && latestStoryRef.current) {
+            transport.post({
+              roomCode: config.roomCode,
+              fromPlayerId: playerId,
+              payload: latestStoryRef.current,
+            });
+          }
           return;
         }
         if (payload.kind === "story" && config.role === "guest") {
@@ -305,6 +316,7 @@ export function useCoPlaySession(config: CoPlaySessionConfig | null): CoPlaySess
       setRemoteStates(new Map());
       setGuestVotes([]);
       setRemoteStory(null);
+      latestStoryRef.current = null;
       setRpsDuel(null);
       lastCursorRef.current = null;
     };
@@ -344,16 +356,18 @@ export function useCoPlaySession(config: CoPlaySessionConfig | null): CoPlaySess
       if (!config || config.role !== "host" || !transportRef.current) {
         return;
       }
+      const payload: StoryMirrorPayloadV1 = {
+        version: 1,
+        kind: "story",
+        ...story,
+        hostAlias: config.alias,
+        updatedAtMs: Date.now(),
+      };
+      latestStoryRef.current = payload;
       transportRef.current.post({
         roomCode: config.roomCode,
         fromPlayerId: playerId,
-        payload: {
-          version: 1,
-          kind: "story",
-          ...story,
-          hostAlias: config.alias,
-          updatedAtMs: Date.now(),
-        },
+        payload,
       });
     },
     [config, playerId],
