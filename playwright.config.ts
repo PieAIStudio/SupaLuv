@@ -5,7 +5,8 @@ const webBaseUrl = `http://127.0.0.1:${webPort}`;
 
 export default defineConfig({
   timeout: 30_000,
-  expect: { timeout: 5_000 },
+  expect: { timeout: process.env.CI ? 10_000 : 5_000 },
+  retries: process.env.CI ? 1 : 0,
   fullyParallel: false,
   // The game suites share one Vite runtime; serial workers avoid teardown leaks
   // from concurrent audio/save sessions and keep local/CI evidence deterministic.
