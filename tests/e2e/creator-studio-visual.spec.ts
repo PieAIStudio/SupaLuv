@@ -60,8 +60,8 @@ test("Creator Studio visual evidence at desktop and narrow desktop", async ({ pa
       edges: unknown[];
     };
   };
-  expect(envelope.graph.nodes).toHaveLength(93);
-  expect(envelope.graph.edges).toHaveLength(119);
+  expect(envelope.graph.nodes).toHaveLength(97);
+  expect(envelope.graph.edges).toHaveLength(157);
   const target = envelope.graph.nodes.find((node) =>
     node.dialogueLines.some((line) => Boolean(line.sourceRange)),
   );

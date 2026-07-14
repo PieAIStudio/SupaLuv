@@ -13,6 +13,21 @@ VAR clue_subsidy_sms = false
 VAR clue_rental_receipt = false
 VAR clue_nda = false
 VAR clue_pass_sms = false
+VAR barcode_sweep_skipped = false
+VAR barcode_sweep_completed_at_version = ""
+VAR barcode_sweep_q1 = "unanswered"
+VAR barcode_sweep_q2 = "unanswered"
+VAR barcode_sweep_q3 = "unanswered"
+VAR housing_hotspots_skipped = false
+VAR housing_hotspots_completed_at_version = ""
+VAR housing_hotspots_q1 = "unanswered"
+VAR housing_hotspots_q2 = "unanswered"
+VAR housing_hotspots_q3 = "unanswered"
+VAR mobile_questionnaire_skipped = false
+VAR mobile_questionnaire_completed_at_version = ""
+VAR mobile_questionnaire_q1 = "unanswered"
+VAR mobile_questionnaire_q2 = "unanswered"
+VAR mobile_questionnaire_q3 = "unanswered"
 
 -> dch02_s001
 
@@ -42,6 +57,63 @@ VAR clue_pass_sms = false
 在这个店里，苏明学会了一件在测试间里用不上的本事：分辨真穷和装穷。真正手头紧的人，专挑临期打折的东西买，眼睛不看人，脸上带着点说不清道不明的躲闪；装穷的人反倒理直气壮，砍价的时候嗓门老高，生怕别人不知道他在讲价。他对前一种人心软，这毛病老板娘骂过他不下八回，愣是没骂改过来。这种小本经营的店子，最怕的就是两件事：一是被大超市抢生意，二是被小孩顺手牵羊。头一件他管不了，天大的本事也拦不住连锁超市开到巷口来；第二件他却较真，较得一丝不苟。
 
 + [继续 # choice:dch02_s003_continue]
+    -> dch02_barcode_sweep
+
+=== dch02_barcode_sweep ===
+{ barcode_sweep_completed_at_version != "":
+    -> result
+- else:
+    -> q1
+}
+
+= q1
+# scene:dch02_barcode_sweep
+# interaction:barcode-sweep-v1
+# interaction-step:1
+收银台练习 1/3 · 临期辣条。
++ [扫过这一单 # choice:barcode_sweep_q1_ok]
+    ~ barcode_sweep_q1 = "ok"
+    -> q2
++ [跳过连扫 # choice:barcode_sweep_q1_skip]
+    -> skipped
+
+= q2
+# scene:dch02_barcode_sweep
+# interaction:barcode-sweep-v1
+# interaction-step:2
+收银台练习 2/3 · 冰红茶。
++ [扫过这一单 # choice:barcode_sweep_q2_ok]
+    ~ barcode_sweep_q2 = "ok"
+    -> q3
++ [跳过连扫 # choice:barcode_sweep_q2_skip]
+    -> skipped
+
+= q3
+# scene:dch02_barcode_sweep
+# interaction:barcode-sweep-v1
+# interaction-step:3
+收银台练习 3/3 · 桶装方便面。
++ [扫过这一单 # choice:barcode_sweep_q3_ok]
+    ~ barcode_sweep_q3 = "ok"
+    ~ barcode_sweep_completed_at_version = "barcode-sweep-v1"
+    -> result
++ [跳过连扫 # choice:barcode_sweep_q3_skip]
+    -> skipped
+
+= skipped
+~ barcode_sweep_skipped = true
+~ barcode_sweep_completed_at_version = "barcode-sweep-v1"
+-> result
+
+= result
+# scene:dch02_barcode_sweep
+{ barcode_sweep_skipped:
+    练习模式关掉。老板娘在后头喊：“别玩系统，货堆着。”
+- else:
+    三声“嘀”叠在一起。苏明手腕还记得节奏：白天扫条码，晚上被 App 扫灵魂。
+}
+
++ [继续 # choice:barcode_sweep_continue]
     -> dch02_s004
 
 === dch02_s004 ===
@@ -169,6 +241,63 @@ VAR clue_pass_sms = false
 楼道的墙皮有些地方鼓起了包，屋里倒是收拾得干干净净，一只橘猫窝在沙发上，摆出一副大爷的做派，看谁进门都是同一副懒洋洋的眼神，跟房东本人如出一辙。雷欧摸了摸墙壁："Cool，Authentic。"
 
 + [继续 # choice:dch02_s016_continue]
+    -> dch02_housing_hotspots
+
+=== dch02_housing_hotspots ===
+{ housing_hotspots_completed_at_version != "":
+    -> result
+- else:
+    -> q1
+}
+
+= q1
+# scene:dch02_housing_hotspots
+# interaction:housing-hotspots-v1
+# interaction-step:1
+看房标注 1/3 · 墙皮。
++ [点开墙皮 # choice:housing_hotspots_q1_wall]
+    ~ housing_hotspots_q1 = "wall"
+    -> q2
++ [跳过看房热点 # choice:housing_hotspots_q1_skip]
+    -> skipped
+
+= q2
+# scene:dch02_housing_hotspots
+# interaction:housing-hotspots-v1
+# interaction-step:2
+看房标注 2/3 · 橘猫。
++ [点开橘猫 # choice:housing_hotspots_q2_cat]
+    ~ housing_hotspots_q2 = "cat"
+    -> q3
++ [跳过看房热点 # choice:housing_hotspots_q2_skip]
+    -> skipped
+
+= q3
+# scene:dch02_housing_hotspots
+# interaction:housing-hotspots-v1
+# interaction-step:3
+看房标注 3/3 · 楼梯口 / 楼规。
++ [点开楼梯口 # choice:housing_hotspots_q3_stairwell]
+    ~ housing_hotspots_q3 = "stairwell"
+    ~ housing_hotspots_completed_at_version = "housing-hotspots-v1"
+    -> result
++ [跳过看房热点 # choice:housing_hotspots_q3_skip]
+    -> skipped
+
+= skipped
+~ housing_hotspots_skipped = true
+~ housing_hotspots_completed_at_version = "housing-hotspots-v1"
+-> result
+
+= result
+# scene:dch02_housing_hotspots
+{ housing_hotspots_skipped:
+    苏明没把每个角都摸一遍。石佩欣当没看见，楼规照旧等着他。
+- else:
+    墙皮、猫、楼梯口——三个点都在日志里亮了一下，像房东随手盖的审核章。
+}
+
++ [继续 # choice:housing_hotspots_continue]
     -> dch02_s017
 
 === dch02_s017 ===
@@ -373,6 +502,86 @@ VAR clue_pass_sms = false
 
 ~ clue_nda = true
 + [继续 # choice:dch02_s037_continue]
+    -> dch02_mobile_questionnaire
+
+=== dch02_mobile_questionnaire ===
+{ mobile_questionnaire_completed_at_version != "":
+    -> result
+- else:
+    -> q1
+}
+
+= q1
+# scene:dch02_mobile_questionnaire
+# interaction:mobile-questionnaire-v1
+# interaction-step:1
+手机问卷 1/3 · 邻居容忍度。
++ [一般 # choice:mobile_questionnaire_q1_average]
+    ~ mobile_questionnaire_q1 = "average"
+    -> q2
++ [良好 # choice:mobile_questionnaire_q1_good]
+    ~ mobile_questionnaire_q1 = "good"
+    -> q2
++ [优秀 # choice:mobile_questionnaire_q1_excellent]
+    ~ mobile_questionnaire_q1 = "excellent"
+    -> q2
++ [不愿评价 # choice:mobile_questionnaire_q1_decline]
+    ~ mobile_questionnaire_q1 = "decline"
+    -> q2
++ [跳过问卷 # choice:mobile_questionnaire_q1_skip]
+    -> skipped
+
+= q2
+# scene:dch02_mobile_questionnaire
+# interaction:mobile-questionnaire-v1
+# interaction-step:2
+手机问卷 2/3 · 是否介意设备高度拟人。
++ [介意 # choice:mobile_questionnaire_q2_mind]
+    ~ mobile_questionnaire_q2 = "mind"
+    -> q3
++ [不介意 # choice:mobile_questionnaire_q2_fine]
+    ~ mobile_questionnaire_q2 = "fine"
+    -> q3
++ [不确定 # choice:mobile_questionnaire_q2_unsure]
+    ~ mobile_questionnaire_q2 = "unsure"
+    -> q3
++ [跳过问卷 # choice:mobile_questionnaire_q2_skip]
+    -> skipped
+
+= q3
+# scene:dch02_mobile_questionnaire
+# interaction:mobile-questionnaire-v1
+# interaction-step:3
+手机问卷 3/3 · 独立房间。
++ [有独立房间 # choice:mobile_questionnaire_q3_yes]
+    ~ mobile_questionnaire_q3 = "yes"
+    ~ mobile_questionnaire_completed_at_version = "mobile-questionnaire-v1"
+    -> result
++ [暂无 # choice:mobile_questionnaire_q3_no]
+    ~ mobile_questionnaire_q3 = "no"
+    ~ mobile_questionnaire_completed_at_version = "mobile-questionnaire-v1"
+    -> result
++ [可改造 # choice:mobile_questionnaire_q3_convertible]
+    ~ mobile_questionnaire_q3 = "convertible"
+    ~ mobile_questionnaire_completed_at_version = "mobile-questionnaire-v1"
+    -> result
++ [跳过问卷 # choice:mobile_questionnaire_q3_skip]
+    -> skipped
+
+= skipped
+~ mobile_questionnaire_skipped = true
+~ mobile_questionnaire_completed_at_version = "mobile-questionnaire-v1"
+-> result
+
+= result
+# scene:dch02_mobile_questionnaire
+{ mobile_questionnaire_skipped:
+    问卷页缩成一条“稍后再填”。保密承诺第七条仍加着粗。
+- else:
+    三道题交完，提交钮还在下一屏等他。苏明把手机屏幕亮度又调暗了一格。
+}
+
++ [继续 # choice:mobile_questionnaire_continue]
     -> dch02_s038
 
 === dch02_s038 ===

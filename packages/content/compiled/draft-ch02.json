@@ -108,13 +108,358 @@
             "c-0": [
               "\n",
               {
-                "->": "dch02_s004"
+                "->": "dch02_barcode_sweep"
               },
               null
             ]
           }
         ],
         null
+      ],
+      "dch02_barcode_sweep": [
+        "ev",
+        {
+          "VAR?": "barcode_sweep_completed_at_version"
+        },
+        "str",
+        "^",
+        "/str",
+        "!=",
+        "/ev",
+        [
+          {
+            "->": ".^.b",
+            "c": true
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.result"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        [
+          {
+            "->": ".^.b"
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.q1"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        "nop",
+        "\n",
+        {
+          "q1": [
+            [
+              "#",
+              "^scene:dch02_barcode_sweep",
+              "/#",
+              "#",
+              "^interaction:barcode-sweep-v1",
+              "/#",
+              "#",
+              "^interaction-step:1",
+              "/#",
+              "^收银台练习 1/3 · 临期辣条。",
+              "\n",
+              "ev",
+              "str",
+              "^扫过这一单 ",
+              "#",
+              "^choice:barcode_sweep_q1_ok",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过连扫 ",
+              "#",
+              "^choice:barcode_sweep_q1_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^ok",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "barcode_sweep_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q2": [
+            [
+              "#",
+              "^scene:dch02_barcode_sweep",
+              "/#",
+              "#",
+              "^interaction:barcode-sweep-v1",
+              "/#",
+              "#",
+              "^interaction-step:2",
+              "/#",
+              "^收银台练习 2/3 · 冰红茶。",
+              "\n",
+              "ev",
+              "str",
+              "^扫过这一单 ",
+              "#",
+              "^choice:barcode_sweep_q2_ok",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过连扫 ",
+              "#",
+              "^choice:barcode_sweep_q2_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^ok",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "barcode_sweep_q2",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q3": [
+            [
+              "#",
+              "^scene:dch02_barcode_sweep",
+              "/#",
+              "#",
+              "^interaction:barcode-sweep-v1",
+              "/#",
+              "#",
+              "^interaction-step:3",
+              "/#",
+              "^收银台练习 3/3 · 桶装方便面。",
+              "\n",
+              "ev",
+              "str",
+              "^扫过这一单 ",
+              "#",
+              "^choice:barcode_sweep_q3_ok",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过连扫 ",
+              "#",
+              "^choice:barcode_sweep_q3_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^ok",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "barcode_sweep_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^barcode-sweep-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "barcode_sweep_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "skipped": [
+            "ev",
+            true,
+            "/ev",
+            {
+              "VAR=": "barcode_sweep_skipped",
+              "re": true
+            },
+            "ev",
+            "str",
+            "^barcode-sweep-v1",
+            "/str",
+            "/ev",
+            {
+              "VAR=": "barcode_sweep_completed_at_version",
+              "re": true
+            },
+            {
+              "->": ".^.^.result"
+            },
+            null
+          ],
+          "result": [
+            [
+              "#",
+              "^scene:dch02_barcode_sweep",
+              "/#",
+              "ev",
+              {
+                "VAR?": "barcode_sweep_skipped"
+              },
+              "/ev",
+              [
+                {
+                  "->": ".^.b",
+                  "c": true
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^练习模式关掉。老板娘在后头喊：“别玩系统，货堆着。”",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              [
+                {
+                  "->": ".^.b"
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^三声“嘀”叠在一起。苏明手腕还记得节奏：白天扫条码，晚上被 App 扫灵魂。",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              "nop",
+              "\n",
+              "ev",
+              "str",
+              "^继续 ",
+              "#",
+              "^choice:barcode_sweep_continue",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  {
+                    "->": "dch02_s004"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ]
+        }
       ],
       "dch02_s004": [
         [
@@ -662,13 +1007,358 @@
             "c-0": [
               "\n",
               {
-                "->": "dch02_s017"
+                "->": "dch02_housing_hotspots"
               },
               null
             ]
           }
         ],
         null
+      ],
+      "dch02_housing_hotspots": [
+        "ev",
+        {
+          "VAR?": "housing_hotspots_completed_at_version"
+        },
+        "str",
+        "^",
+        "/str",
+        "!=",
+        "/ev",
+        [
+          {
+            "->": ".^.b",
+            "c": true
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.result"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        [
+          {
+            "->": ".^.b"
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.q1"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        "nop",
+        "\n",
+        {
+          "q1": [
+            [
+              "#",
+              "^scene:dch02_housing_hotspots",
+              "/#",
+              "#",
+              "^interaction:housing-hotspots-v1",
+              "/#",
+              "#",
+              "^interaction-step:1",
+              "/#",
+              "^看房标注 1/3 · 墙皮。",
+              "\n",
+              "ev",
+              "str",
+              "^点开墙皮 ",
+              "#",
+              "^choice:housing_hotspots_q1_wall",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过看房热点 ",
+              "#",
+              "^choice:housing_hotspots_q1_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^wall",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "housing_hotspots_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q2": [
+            [
+              "#",
+              "^scene:dch02_housing_hotspots",
+              "/#",
+              "#",
+              "^interaction:housing-hotspots-v1",
+              "/#",
+              "#",
+              "^interaction-step:2",
+              "/#",
+              "^看房标注 2/3 · 橘猫。",
+              "\n",
+              "ev",
+              "str",
+              "^点开橘猫 ",
+              "#",
+              "^choice:housing_hotspots_q2_cat",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过看房热点 ",
+              "#",
+              "^choice:housing_hotspots_q2_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^cat",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "housing_hotspots_q2",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q3": [
+            [
+              "#",
+              "^scene:dch02_housing_hotspots",
+              "/#",
+              "#",
+              "^interaction:housing-hotspots-v1",
+              "/#",
+              "#",
+              "^interaction-step:3",
+              "/#",
+              "^看房标注 3/3 · 楼梯口 / 楼规。",
+              "\n",
+              "ev",
+              "str",
+              "^点开楼梯口 ",
+              "#",
+              "^choice:housing_hotspots_q3_stairwell",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过看房热点 ",
+              "#",
+              "^choice:housing_hotspots_q3_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^stairwell",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "housing_hotspots_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^housing-hotspots-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "housing_hotspots_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "skipped": [
+            "ev",
+            true,
+            "/ev",
+            {
+              "VAR=": "housing_hotspots_skipped",
+              "re": true
+            },
+            "ev",
+            "str",
+            "^housing-hotspots-v1",
+            "/str",
+            "/ev",
+            {
+              "VAR=": "housing_hotspots_completed_at_version",
+              "re": true
+            },
+            {
+              "->": ".^.^.result"
+            },
+            null
+          ],
+          "result": [
+            [
+              "#",
+              "^scene:dch02_housing_hotspots",
+              "/#",
+              "ev",
+              {
+                "VAR?": "housing_hotspots_skipped"
+              },
+              "/ev",
+              [
+                {
+                  "->": ".^.b",
+                  "c": true
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^苏明没把每个角都摸一遍。石佩欣当没看见，楼规照旧等着他。",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              [
+                {
+                  "->": ".^.b"
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^墙皮、猫、楼梯口——三个点都在日志里亮了一下，像房东随手盖的审核章。",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              "nop",
+              "\n",
+              "ev",
+              "str",
+              "^继续 ",
+              "#",
+              "^choice:housing_hotspots_continue",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  {
+                    "->": "dch02_s017"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ]
+        }
       ],
       "dch02_s017": [
         [
@@ -1499,13 +2189,572 @@
             "c-0": [
               "\n",
               {
-                "->": "dch02_s038"
+                "->": "dch02_mobile_questionnaire"
               },
               null
             ]
           }
         ],
         null
+      ],
+      "dch02_mobile_questionnaire": [
+        "ev",
+        {
+          "VAR?": "mobile_questionnaire_completed_at_version"
+        },
+        "str",
+        "^",
+        "/str",
+        "!=",
+        "/ev",
+        [
+          {
+            "->": ".^.b",
+            "c": true
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.result"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        [
+          {
+            "->": ".^.b"
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.q1"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        "nop",
+        "\n",
+        {
+          "q1": [
+            [
+              "#",
+              "^scene:dch02_mobile_questionnaire",
+              "/#",
+              "#",
+              "^interaction:mobile-questionnaire-v1",
+              "/#",
+              "#",
+              "^interaction-step:1",
+              "/#",
+              "^手机问卷 1/3 · 邻居容忍度。",
+              "\n",
+              "ev",
+              "str",
+              "^一般 ",
+              "#",
+              "^choice:mobile_questionnaire_q1_average",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^良好 ",
+              "#",
+              "^choice:mobile_questionnaire_q1_good",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^优秀 ",
+              "#",
+              "^choice:mobile_questionnaire_q1_excellent",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^不愿评价 ",
+              "#",
+              "^choice:mobile_questionnaire_q1_decline",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-3",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过问卷 ",
+              "#",
+              "^choice:mobile_questionnaire_q1_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-4",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^average",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^good",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^excellent",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-3": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^decline",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-4": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q2": [
+            [
+              "#",
+              "^scene:dch02_mobile_questionnaire",
+              "/#",
+              "#",
+              "^interaction:mobile-questionnaire-v1",
+              "/#",
+              "#",
+              "^interaction-step:2",
+              "/#",
+              "^手机问卷 2/3 · 是否介意设备高度拟人。",
+              "\n",
+              "ev",
+              "str",
+              "^介意 ",
+              "#",
+              "^choice:mobile_questionnaire_q2_mind",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^不介意 ",
+              "#",
+              "^choice:mobile_questionnaire_q2_fine",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^不确定 ",
+              "#",
+              "^choice:mobile_questionnaire_q2_unsure",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过问卷 ",
+              "#",
+              "^choice:mobile_questionnaire_q2_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-3",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^mind",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q2",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^fine",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q2",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^unsure",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q2",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-3": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q3": [
+            [
+              "#",
+              "^scene:dch02_mobile_questionnaire",
+              "/#",
+              "#",
+              "^interaction:mobile-questionnaire-v1",
+              "/#",
+              "#",
+              "^interaction-step:3",
+              "/#",
+              "^手机问卷 3/3 · 独立房间。",
+              "\n",
+              "ev",
+              "str",
+              "^有独立房间 ",
+              "#",
+              "^choice:mobile_questionnaire_q3_yes",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^暂无 ",
+              "#",
+              "^choice:mobile_questionnaire_q3_no",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^可改造 ",
+              "#",
+              "^choice:mobile_questionnaire_q3_convertible",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过问卷 ",
+              "#",
+              "^choice:mobile_questionnaire_q3_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-3",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^yes",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^mobile-questionnaire-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^no",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^mobile-questionnaire-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^convertible",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^mobile-questionnaire-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-3": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "skipped": [
+            "ev",
+            true,
+            "/ev",
+            {
+              "VAR=": "mobile_questionnaire_skipped",
+              "re": true
+            },
+            "ev",
+            "str",
+            "^mobile-questionnaire-v1",
+            "/str",
+            "/ev",
+            {
+              "VAR=": "mobile_questionnaire_completed_at_version",
+              "re": true
+            },
+            {
+              "->": ".^.^.result"
+            },
+            null
+          ],
+          "result": [
+            [
+              "#",
+              "^scene:dch02_mobile_questionnaire",
+              "/#",
+              "ev",
+              {
+                "VAR?": "mobile_questionnaire_skipped"
+              },
+              "/ev",
+              [
+                {
+                  "->": ".^.b",
+                  "c": true
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^问卷页缩成一条“稍后再填”。保密承诺第七条仍加着粗。",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              [
+                {
+                  "->": ".^.b"
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^三道题交完，提交钮还在下一屏等他。苏明把手机屏幕亮度又调暗了一格。",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              "nop",
+              "\n",
+              "ev",
+              "str",
+              "^继续 ",
+              "#",
+              "^choice:mobile_questionnaire_continue",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  {
+                    "->": "dch02_s038"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ]
+        }
       ],
       "dch02_s038": [
         [
@@ -1689,6 +2938,90 @@
         false,
         {
           "VAR=": "clue_pass_sms"
+        },
+        false,
+        {
+          "VAR=": "barcode_sweep_skipped"
+        },
+        "str",
+        "^",
+        "/str",
+        {
+          "VAR=": "barcode_sweep_completed_at_version"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "barcode_sweep_q1"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "barcode_sweep_q2"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "barcode_sweep_q3"
+        },
+        false,
+        {
+          "VAR=": "housing_hotspots_skipped"
+        },
+        "str",
+        "^",
+        "/str",
+        {
+          "VAR=": "housing_hotspots_completed_at_version"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "housing_hotspots_q1"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "housing_hotspots_q2"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "housing_hotspots_q3"
+        },
+        false,
+        {
+          "VAR=": "mobile_questionnaire_skipped"
+        },
+        "str",
+        "^",
+        "/str",
+        {
+          "VAR=": "mobile_questionnaire_completed_at_version"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "mobile_questionnaire_q1"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "mobile_questionnaire_q2"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "mobile_questionnaire_q3"
         },
         "/ev",
         "end",

@@ -719,13 +719,451 @@
             "c-0": [
               "\n",
               {
-                "->": "dch01_s003"
+                "->": "dch01_protocol_test"
               },
               null
             ]
           }
         ],
         null
+      ],
+      "dch01_protocol_test": [
+        "ev",
+        {
+          "VAR?": "protocol_test_completed_at_version"
+        },
+        "str",
+        "^",
+        "/str",
+        "!=",
+        "/ev",
+        [
+          {
+            "->": ".^.b",
+            "c": true
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.result"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        [
+          {
+            "->": ".^.b"
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.q1"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        "nop",
+        "\n",
+        {
+          "q1": [
+            [
+              "#",
+              "^scene:dch01_protocol_test",
+              "/#",
+              "#",
+              "^interaction:protocol-test-v1",
+              "/#",
+              "#",
+              "^interaction-step:1",
+              "/#",
+              "^条款校对 1/3 · 原始录音自动清除。",
+              "\n",
+              "ev",
+              "str",
+              "^字面接受：清除就是清除 ",
+              "#",
+              "^choice:protocol_test_q1_literal",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^标记隐患：字面没了骨头留着 ",
+              "#",
+              "^choice:protocol_test_q1_model",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过条款 ",
+              "#",
+              "^choice:protocol_test_q1_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^literal",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "protocol_test_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^model",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "protocol_test_q1",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q2": [
+            [
+              "#",
+              "^scene:dch01_protocol_test",
+              "/#",
+              "#",
+              "^interaction:protocol-test-v1",
+              "/#",
+              "#",
+              "^interaction-step:2",
+              "/#",
+              "^条款校对 2/3 · 测试期间数据用于模型迭代。",
+              "\n",
+              "ev",
+              "str",
+              "^字面接受：迭代听起来正常 ",
+              "#",
+              "^choice:protocol_test_q2_literal",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^标记隐患：今天的故事会喂下一批 ",
+              "#",
+              "^choice:protocol_test_q2_model",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过条款 ",
+              "#",
+              "^choice:protocol_test_q2_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^literal",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "protocol_test_q2",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^model",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "protocol_test_q2",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q3": [
+            [
+              "#",
+              "^scene:dch01_protocol_test",
+              "/#",
+              "#",
+              "^interaction:protocol-test-v1",
+              "/#",
+              "#",
+              "^interaction-step:3",
+              "/#",
+              "^条款校对 3/3 · 情感真实度依赖用户真情流露。",
+              "\n",
+              "ev",
+              "str",
+              "^字面接受：真情流露就行 ",
+              "#",
+              "^choice:protocol_test_q3_literal",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^标记隐患：真情也是训练素材 ",
+              "#",
+              "^choice:protocol_test_q3_model",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^跳过条款 ",
+              "#",
+              "^choice:protocol_test_q3_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^literal",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "protocol_test_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^protocol-test-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "protocol_test_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^model",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "protocol_test_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^protocol-test-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "protocol_test_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "skipped": [
+            "ev",
+            true,
+            "/ev",
+            {
+              "VAR=": "protocol_test_skipped",
+              "re": true
+            },
+            "ev",
+            "str",
+            "^protocol-test-v1",
+            "/str",
+            "/ev",
+            {
+              "VAR=": "protocol_test_completed_at_version",
+              "re": true
+            },
+            {
+              "->": ".^.^.result"
+            },
+            null
+          ],
+          "result": [
+            [
+              "#",
+              "^scene:dch01_protocol_test",
+              "/#",
+              "ev",
+              {
+                "VAR?": "protocol_test_skipped"
+              },
+              "/ev",
+              [
+                {
+                  "->": ".^.b",
+                  "c": true
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^平板把未读条款折成“人工略过”。工作人员耸肩：“不抠字也行，骨头那句等会儿再说。”",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              [
+                {
+                  "->": ".^.b"
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^平板把三张条款卡收进日志。苏明拇指还停在“清除”两个粗体字上，像按住一只会逃跑的词。",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              "nop",
+              "\n",
+              "ev",
+              "str",
+              "^继续 ",
+              "#",
+              "^choice:protocol_test_continue",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  {
+                    "->": "dch01_s003"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ]
+        }
       ],
       "dch01_s003": [
         [
@@ -2708,6 +3146,34 @@
         "/str",
         {
           "VAR=": "emotion_calibration_completed_at_version"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "protocol_test_q1"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "protocol_test_q2"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "protocol_test_q3"
+        },
+        false,
+        {
+          "VAR=": "protocol_test_skipped"
+        },
+        "str",
+        "^",
+        "/str",
+        {
+          "VAR=": "protocol_test_completed_at_version"
         },
         "/ev",
         "end",

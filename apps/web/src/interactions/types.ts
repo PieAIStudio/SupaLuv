@@ -1,4 +1,9 @@
-export type StoryInteractionType = "emotion-calibration";
+export type StoryInteractionType =
+  | "emotion-calibration"
+  | "protocol-test"
+  | "barcode-sweep"
+  | "housing-hotspots"
+  | "mobile-questionnaire";
 
 export interface StoryInteractionDefinition {
   readonly id: string;

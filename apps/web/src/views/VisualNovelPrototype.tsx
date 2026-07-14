@@ -11,7 +11,7 @@ import { useLocale } from "../i18n";
 import { useFullscreen } from "../hooks/useFullscreen";
 import { usePlayInput } from "../hooks/usePlayInput";
 import { usePointerPresenceMode } from "../hooks/usePointerPresenceMode";
-import { EmotionCalibrationInteraction } from "../interactions/EmotionCalibrationInteraction";
+import { StoryInteractionHost } from "../interactions/StoryInteractionHost";
 import { resolveStoryInteraction } from "../interactions/storyInteractionRegistry";
 import type { ManualSlotId } from "../persistence/gameSave";
 import { DEFAULT_DISPLAY_NAMES, type DisplayNameMap } from "../persistence/displayNames";
@@ -629,8 +629,7 @@ export function VisualNovelPrototype({
         ) : null}
 
         {activeStoryInteraction ? (
-          <EmotionCalibrationInteraction
-            key={`${activeStoryInteraction.definition.id}-${activeStoryInteraction.stepIndex}`}
+          <StoryInteractionHost
             active={activeStoryInteraction}
             snapshot={snapshot}
             paused={historyOpen || systemOpen || Boolean(activeCutscene)}

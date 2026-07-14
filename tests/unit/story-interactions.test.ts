@@ -4,6 +4,10 @@ import {
   emotionCalibrationSamples,
   isCorrectEmotionCalibrationSelection,
 } from "../../apps/web/src/interactions/emotionCalibration";
+import { protocolTestClauses } from "../../apps/web/src/interactions/protocolTest";
+import { barcodeSweepRounds } from "../../apps/web/src/interactions/barcodeSweep";
+import { housingHotspots } from "../../apps/web/src/interactions/housingHotspots";
+import { mobileQuestionnaireQuestions } from "../../apps/web/src/interactions/mobileQuestionnaire";
 import {
   getStoryInteractionDefinition,
   listRegisteredStoryInteractions,
@@ -11,15 +15,24 @@ import {
 } from "../../apps/web/src/interactions/storyInteractionRegistry";
 
 describe("StoryInteraction registry", () => {
-  it("registers the reusable emotion calibration definition", () => {
-    expect(listRegisteredStoryInteractions()).toEqual([
-      expect.objectContaining({
-        id: "emotion-calibration-v1",
-        type: "emotion-calibration",
-        stepCount: 3,
-      }),
+  it("registers all five story-native interaction definitions", () => {
+    const ids = listRegisteredStoryInteractions()
+      .map((entry) => entry.id)
+      .sort();
+    expect(ids).toEqual([
+      "barcode-sweep-v1",
+      "emotion-calibration-v1",
+      "housing-hotspots-v1",
+      "mobile-questionnaire-v1",
+      "protocol-test-v1",
     ]);
     expect(getStoryInteractionDefinition("emotion-calibration-v1")?.title).toBe("情绪样本校准");
+    expect(getStoryInteractionDefinition("protocol-test-v1")?.stepCount).toBe(3);
+    expect(getStoryInteractionDefinition("barcode-sweep-v1")?.type).toBe("barcode-sweep");
+    expect(getStoryInteractionDefinition("housing-hotspots-v1")?.type).toBe("housing-hotspots");
+    expect(getStoryInteractionDefinition("mobile-questionnaire-v1")?.type).toBe(
+      "mobile-questionnaire",
+    );
   });
 
   it("resolves only stable authored metadata, never dialogue text", () => {
@@ -34,6 +47,15 @@ describe("StoryInteraction registry", () => {
     ).toEqual({
       definition: expect.objectContaining({ id: "emotion-calibration-v1" }),
       stepIndex: 1,
+    });
+
+    expect(
+      resolveStoryInteraction({
+        tags: ["interaction:protocol-test-v1", "interaction-step:3"],
+      }),
+    ).toEqual({
+      definition: expect.objectContaining({ id: "protocol-test-v1" }),
+      stepIndex: 2,
     });
 
     expect(resolveStoryInteraction({ tags: ["scene:dch01_emotion_calibration"] })).toBeNull();
@@ -72,6 +94,35 @@ describe("emotion calibration content contract", () => {
         isCorrectEmotionCalibrationSelection(sample, level.id),
       );
       expect(results.filter(Boolean)).toHaveLength(1);
+    }
+  });
+});
+
+describe("round-9 interaction content contracts", () => {
+  it("keeps unique stable choice IDs for each interaction", () => {
+    const protocolIds = protocolTestClauses.flatMap((clause) => [
+      ...Object.values(clause.choiceIds),
+      clause.skipChoiceId,
+    ]);
+    const barcodeIds = barcodeSweepRounds.flatMap((round) => [
+      round.completeChoiceId,
+      round.skipChoiceId,
+    ]);
+    const housingIds = housingHotspots.map((spot) => spot.inspectChoiceId);
+    const mobileIds = mobileQuestionnaireQuestions.flatMap((question) => [
+      ...question.options.map((option) => option.choiceId),
+      question.skipChoiceId,
+    ]);
+    for (const ids of [protocolIds, barcodeIds, housingIds, mobileIds]) {
+      expect(new Set(ids).size).toBe(ids.length);
+    }
+    expect(protocolTestClauses).toHaveLength(3);
+    expect(barcodeSweepRounds).toHaveLength(3);
+    expect(housingHotspots).toHaveLength(3);
+    expect(mobileQuestionnaireQuestions).toHaveLength(3);
+    for (const question of mobileQuestionnaireQuestions) {
+      expect(question.options.length).toBeGreaterThanOrEqual(2);
+      expect(question.options.length).toBeLessThanOrEqual(4);
     }
   });
 });

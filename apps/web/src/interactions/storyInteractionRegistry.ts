@@ -1,5 +1,9 @@
 import type { InkStoryChoice, InkStorySnapshot } from "../story/inkStoryRunner";
+import { barcodeSweepInteraction } from "./barcodeSweep";
 import { emotionCalibrationInteraction } from "./emotionCalibration";
+import { housingHotspotsInteraction } from "./housingHotspots";
+import { mobileQuestionnaireInteraction } from "./mobileQuestionnaire";
+import { protocolTestInteraction } from "./protocolTest";
 import type { ActiveStoryInteraction, StoryInteractionDefinition } from "./types";
 
 const INTERACTION_TAG_PREFIX = "interaction:";
@@ -15,6 +19,10 @@ export function registerStoryInteraction(definition: StoryInteractionDefinition)
 }
 
 registerStoryInteraction(emotionCalibrationInteraction);
+registerStoryInteraction(protocolTestInteraction);
+registerStoryInteraction(barcodeSweepInteraction);
+registerStoryInteraction(housingHotspotsInteraction);
+registerStoryInteraction(mobileQuestionnaireInteraction);
 
 export function getStoryInteractionDefinition(id: string): StoryInteractionDefinition | null {
   return registry.get(id) ?? null;

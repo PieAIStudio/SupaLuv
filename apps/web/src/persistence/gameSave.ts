@@ -14,6 +14,11 @@ export interface GalleryUnlocks {
   readonly images: readonly string[];
   readonly videos: readonly string[];
   readonly audio: readonly string[];
+  /**
+   * Algorithm shame archive record IDs.
+   * Optional on disk for saves written before archive shipped; treat missing as [].
+   */
+  readonly archive?: readonly string[];
 }
 
 /**
@@ -60,13 +65,29 @@ export const EMPTY_UNLOCKS: GalleryUnlocks = {
   images: [],
   videos: [],
   audio: [],
+  archive: [],
 };
 
 export const DRAFT_CLEAR_REWARDS: GalleryUnlocks = {
   images: ["bg-product-page", "bg-office-night", "bg-rental-room", "bg-lobby-white"],
   videos: [],
   audio: ["title-theme", "soft-piano", "chapter-end", "lonely-pad", "night-ambient"],
+  archive: [],
 };
+
+export type NormalizedGalleryUnlocks = Required<GalleryUnlocks>;
+
+/** Normalize unlock buckets so old saves without `archive` load cleanly. */
+export function normalizeUnlocks(
+  unlocks: Partial<GalleryUnlocks> | null | undefined,
+): NormalizedGalleryUnlocks {
+  return {
+    images: unlocks?.images ?? [],
+    videos: unlocks?.videos ?? [],
+    audio: unlocks?.audio ?? [],
+    archive: unlocks?.archive ?? [],
+  };
+}
 
 /** @deprecated Use DRAFT_CLEAR_REWARDS */
 export const CH01_CLEAR_REWARDS = DRAFT_CLEAR_REWARDS;
@@ -120,7 +141,10 @@ export function loadSave(slotId: string): GameSavePayload | null {
     ) {
       return null;
     }
-    return parsed;
+    return {
+      ...parsed,
+      unlocks: normalizeUnlocks(parsed.unlocks),
+    };
   } catch {
     return null;
   }
@@ -193,11 +217,16 @@ export function collectAllUnlocks(): GalleryUnlocks {
   );
 }
 
-export function mergeUnlocks(base: GalleryUnlocks, next: Partial<GalleryUnlocks>): GalleryUnlocks {
+export function mergeUnlocks(
+  base: GalleryUnlocks,
+  next: Partial<GalleryUnlocks>,
+): NormalizedGalleryUnlocks {
   const uniq = (items: readonly string[]) => [...new Set(items)];
+  const baseNorm = normalizeUnlocks(base);
   return {
-    images: uniq([...base.images, ...(next.images ?? [])]),
-    videos: uniq([...base.videos, ...(next.videos ?? [])]),
-    audio: uniq([...base.audio, ...(next.audio ?? [])]),
+    images: uniq([...baseNorm.images, ...(next.images ?? [])]),
+    videos: uniq([...baseNorm.videos, ...(next.videos ?? [])]),
+    audio: uniq([...baseNorm.audio, ...(next.audio ?? [])]),
+    archive: uniq([...baseNorm.archive, ...(next.archive ?? [])]),
   };
 }

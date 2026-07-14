@@ -119,6 +119,7 @@ describe("gameSave", () => {
       images: ["bg-office-night"],
       videos: ["ch01-cold-open"],
       audio: ["soft-piano"],
+      archive: [],
     });
   });
 

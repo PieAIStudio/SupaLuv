@@ -19,6 +19,11 @@ VAR emotion_calibration_q1 = "unanswered"
 VAR emotion_calibration_q2 = "unanswered"
 VAR emotion_calibration_q3 = "unanswered"
 VAR emotion_calibration_completed_at_version = ""
+VAR protocol_test_q1 = "unanswered"
+VAR protocol_test_q2 = "unanswered"
+VAR protocol_test_q3 = "unanswered"
+VAR protocol_test_skipped = false
+VAR protocol_test_completed_at_version = ""
 
 -> dch01_s001
 
@@ -127,6 +132,73 @@ VAR emotion_calibration_completed_at_version = ""
 "删干净？"苏明没接那茬，反倒摸出手机，翻出一张截图怼了过去，"上回仓库那批货，标签也印着'绝对准时'四个大字。我照样迟到三次，工资一分没少打。你这个'绝对'，是哪一种？"
 
 + [继续 # choice:dch01_s002_continue]
+    -> dch01_protocol_test
+
+=== dch01_protocol_test ===
+{ protocol_test_completed_at_version != "":
+    -> result
+- else:
+    -> q1
+}
+
+= q1
+# scene:dch01_protocol_test
+# interaction:protocol-test-v1
+# interaction-step:1
+条款校对 1/3 · 原始录音自动清除。
++ [字面接受：清除就是清除 # choice:protocol_test_q1_literal]
+    ~ protocol_test_q1 = "literal"
+    -> q2
++ [标记隐患：字面没了骨头留着 # choice:protocol_test_q1_model]
+    ~ protocol_test_q1 = "model"
+    -> q2
++ [跳过条款 # choice:protocol_test_q1_skip]
+    -> skipped
+
+= q2
+# scene:dch01_protocol_test
+# interaction:protocol-test-v1
+# interaction-step:2
+条款校对 2/3 · 测试期间数据用于模型迭代。
++ [字面接受：迭代听起来正常 # choice:protocol_test_q2_literal]
+    ~ protocol_test_q2 = "literal"
+    -> q3
++ [标记隐患：今天的故事会喂下一批 # choice:protocol_test_q2_model]
+    ~ protocol_test_q2 = "model"
+    -> q3
++ [跳过条款 # choice:protocol_test_q2_skip]
+    -> skipped
+
+= q3
+# scene:dch01_protocol_test
+# interaction:protocol-test-v1
+# interaction-step:3
+条款校对 3/3 · 情感真实度依赖用户真情流露。
++ [字面接受：真情流露就行 # choice:protocol_test_q3_literal]
+    ~ protocol_test_q3 = "literal"
+    ~ protocol_test_completed_at_version = "protocol-test-v1"
+    -> result
++ [标记隐患：真情也是训练素材 # choice:protocol_test_q3_model]
+    ~ protocol_test_q3 = "model"
+    ~ protocol_test_completed_at_version = "protocol-test-v1"
+    -> result
++ [跳过条款 # choice:protocol_test_q3_skip]
+    -> skipped
+
+= skipped
+~ protocol_test_skipped = true
+~ protocol_test_completed_at_version = "protocol-test-v1"
+-> result
+
+= result
+# scene:dch01_protocol_test
+{ protocol_test_skipped:
+    平板把未读条款折成“人工略过”。工作人员耸肩：“不抠字也行，骨头那句等会儿再说。”
+- else:
+    平板把三张条款卡收进日志。苏明拇指还停在“清除”两个粗体字上，像按住一只会逃跑的词。
+}
+
++ [继续 # choice:protocol_test_continue]
     -> dch01_s003
 
 === dch01_s003 ===
