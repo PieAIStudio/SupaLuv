@@ -123,8 +123,8 @@ importers:
         specifier: 1.50.1
         version: 1.50.1(express@5.2.1)(zod@3.25.76)
       '@pieai/swimmer-ai-kit':
-        specifier: file:../../vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz
-        version: file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz
+        specifier: 0.2.2
+        version: 0.2.2
       '@supabase/supabase-js':
         specifier: 2.110.3
         version: 2.110.3
@@ -1847,11 +1847,6 @@ packages:
 
   '@pieai/swimmer-ai-kit@0.2.2':
     resolution: {integrity: sha512-IO2+E75gRL0qCznBV7Xdq4XppcF8+rtwrYJVO4q9xQkmbtmumxvXLlJqMHchOl9qSvwL/H1vzx1Fdk2AdA1fCQ==}
-    engines: {node: '>=24 <25'}
-
-  '@pieai/swimmer-ai-kit@file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz':
-    resolution: {integrity: sha512-hF0SAjhRuV0epchFsDfW001QnGlXcYeuha3ooPzvC1EdY2fYcnUVMrxvNgeBRN5m2dmy+rFb25mDurBkofsztA==, tarball: file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz}
-    version: 0.2.2
     engines: {node: '>=24 <25'}
 
   '@pieai/swimmer-ui-kit@1.1.0':
@@ -6726,8 +6721,6 @@ snapshots:
 
   '@pieai/swimmer-ai-kit@0.2.2': {}
 
-  '@pieai/swimmer-ai-kit@file:vendor/pieai-swimmer-ai-kit-0.2.2-25d04d2.tgz': {}
-
   '@pieai/swimmer-ui-kit@1.1.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       react: 19.2.7
@@ -8418,6 +8411,10 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.4):
     optionalDependencies:
       picomatch: 4.0.4
+
+  fdir@6.5.0(picomatch@4.0.5):
+    optionalDependencies:
+      picomatch: 4.0.5
 
   fetch-blob@3.2.0:
     dependencies:
@@ -10324,8 +10321,8 @@ snapshots:
 
   tinyglobby@0.2.17:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.4)
-      picomatch: 4.0.4
+      fdir: 6.5.0(picomatch@4.0.5)
+      picomatch: 4.0.5
 
   tinypool@2.1.0: {}
 
