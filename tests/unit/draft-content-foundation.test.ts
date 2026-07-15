@@ -82,6 +82,75 @@ function readInkSource(relativePath: string): string {
   return readFileSync(resolve(ROOT, relativePath), "utf8");
 }
 
+/** Coverage and adaptation checks must ignore Ink line comments. */
+function stripInkComments(inkSource: string): string {
+  return inkSource
+    .split("\n")
+    .filter((line) => !/^\s*\/\//.test(line))
+    .join("\n");
+}
+
+function isolateSceneKnot(playableInk: string, sceneId: string): string | null {
+  const escaped = sceneId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp(
+    `===\\s+([a-z0-9_]+)\\s+===\\n# scene:${escaped}\\n([\\s\\S]*?)(?=\\n===\\s+|$)`,
+  );
+  const match = playableInk.match(re);
+  return match?.[2] ?? null;
+}
+
+type AdaptationReceipt = {
+  sourceHash?: string;
+  textHash?: string;
+  sceneId: string;
+  targetSnippet: string;
+  retainedFacts: string[];
+  pacingRationale: string;
+};
+
+type CoverageEntry = {
+  id: string;
+  sourceId: string;
+  paragraphIndex: number;
+  textHash: string;
+  chapterId: string;
+  sceneId: string | null;
+  beatId: string | null;
+  status: string;
+  dialogueQuotes: string[];
+  adaptationReceipt?: AdaptationReceipt;
+};
+
+function assertValidAdaptationReceipt(
+  entry: CoverageEntry,
+  playableInk: string,
+): asserts entry is CoverageEntry & { adaptationReceipt: AdaptationReceipt; sceneId: string } {
+  expect(entry.status).toBe("approved-adaptation");
+  expect(entry.sceneId).toBeTruthy();
+  const receipt = entry.adaptationReceipt;
+  expect(receipt).toBeTruthy();
+  if (!receipt) {
+    throw new Error(`missing adaptationReceipt on ${entry.id}`);
+  }
+  const sourceHash = receipt.sourceHash ?? receipt.textHash;
+  expect(sourceHash).toBe(entry.textHash);
+  expect(receipt.sceneId).toBe(entry.sceneId);
+  expect(typeof receipt.targetSnippet).toBe("string");
+  expect(receipt.targetSnippet.trim().length).toBeGreaterThanOrEqual(8);
+  expect(Array.isArray(receipt.retainedFacts)).toBe(true);
+  expect(receipt.retainedFacts.length).toBeGreaterThanOrEqual(1);
+  expect(receipt.retainedFacts.every((fact) => typeof fact === "string" && fact.trim().length > 0)).toBe(
+    true,
+  );
+  expect(typeof receipt.pacingRationale).toBe("string");
+  expect(receipt.pacingRationale.trim().length).toBeGreaterThan(0);
+  const knotBody = isolateSceneKnot(playableInk, receipt.sceneId);
+  expect(knotBody, `${entry.id} mapped scene ${receipt.sceneId} missing`).toBeTruthy();
+  expect(knotBody!.includes(receipt.targetSnippet)).toBe(true);
+  // Snippet must not be satisfied only via comments (playableInk is already stripped).
+  expect(playableInk.includes(receipt.targetSnippet)).toBe(true);
+}
+
 function walkToEnd(
   runner: {
     getSnapshot: () => {
@@ -151,6 +220,10 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     "draft-ch01": readInkSource("packages/content/ink/draft-ch01.ink"),
     "draft-ch02": readInkSource("packages/content/ink/draft-ch02.ink"),
   };
+  const playableByChapter: Record<string, string> = {
+    "draft-ch01": stripInkComments(inkByChapter["draft-ch01"]!),
+    "draft-ch02": stripInkComments(inkByChapter["draft-ch02"]!),
+  };
 
   it("re-parses snapshots to 93 + 76 = 169 body paragraphs and 8 structure blocks", () => {
     const draft01Body = parseBodyParagraphs(readFileSync(draft01Path, "utf8"));
@@ -167,17 +240,7 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
       allowedStatuses: string[];
       structure: Array<{ id: string; textHash: string; sourceId: string }>;
-      entries: Array<{
-        id: string;
-        sourceId: string;
-        paragraphIndex: number;
-        textHash: string;
-        chapterId: string;
-        sceneId: string | null;
-        beatId: string | null;
-        status: string;
-        dialogueQuotes: string[];
-      }>;
+      entries: CoverageEntry[];
     };
 
     expect(ledger.allowedStatuses).toEqual([...ALLOWED_STATUSES]);
@@ -225,20 +288,17 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
       expect(entry.chapterId === "draft-ch01" || entry.chapterId === "draft-ch02").toBe(true);
       expect(entry.sceneId).toBeTruthy();
       expect(entry.beatId).toBeTruthy();
+      if (entry.status === "approved-adaptation") {
+        expect(entry.adaptationReceipt).toBeTruthy();
+      } else {
+        expect(entry.adaptationReceipt).toBeUndefined();
+      }
     }
   });
 
-  it("every body paragraph exact-matches its mapped Ink chapter; dialogue missing=0", () => {
+  it("playable coverage ignores comments; adaptations use receipts; non-adapted stay exact", () => {
     const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
-      entries: Array<{
-        id: string;
-        sourceId: string;
-        paragraphIndex: number;
-        textHash: string;
-        chapterId: string;
-        status: string;
-        dialogueQuotes: string[];
-      }>;
+      entries: CoverageEntry[];
     };
 
     const bodyBySource: Record<string, string[]> = {
@@ -250,21 +310,33 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     let dialogueMissing = 0;
     const paragraphMisses: string[] = [];
     const dialogueMisses: string[] = [];
+    const adaptations: string[] = [];
 
     for (const entry of ledger.entries) {
       const bodies = bodyBySource[entry.sourceId]!;
       const paragraph = bodies[entry.paragraphIndex - 1];
       expect(paragraph).toBeTruthy();
       expect(sha256Text(paragraph!)).toBe(entry.textHash);
-      const ink = inkByChapter[entry.chapterId] ?? "";
-      if (!ink.includes(paragraph!)) {
+      const playable = playableByChapter[entry.chapterId] ?? "";
+
+      if (entry.status === "approved-adaptation") {
+        assertValidAdaptationReceipt(entry, playable);
+        adaptations.push(entry.id);
+        // Adapted entries must NOT rely on full source paragraph in playable ink.
+        // They may still coincidentally match, but coverage is receipt-based.
+        continue;
+      }
+
+      if (!playable.includes(paragraph!)) {
         paragraphMissing += 1;
         paragraphMisses.push(entry.id);
       }
-      for (const quote of entry.dialogueQuotes) {
-        if (!ink.includes(quote)) {
-          dialogueMissing += 1;
-          dialogueMisses.push(`${entry.id}:${quote.slice(0, 24)}`);
+      if (entry.status === "verbatim-dialogue") {
+        for (const quote of entry.dialogueQuotes) {
+          if (!playable.includes(quote)) {
+            dialogueMissing += 1;
+            dialogueMisses.push(`${entry.id}:${quote.slice(0, 24)}`);
+          }
         }
       }
     }
@@ -273,11 +345,66 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     expect(dialogueMisses).toEqual([]);
     expect(paragraphMissing).toBe(0);
     expect(dialogueMissing).toBe(0);
+    expect(adaptations.length).toBe(47);
 
     const dialogueEntries = ledger.entries.filter(
       (entry) => entry.status === "verbatim-dialogue" && entry.dialogueQuotes.length > 0,
     );
     expect(dialogueEntries.length).toBeGreaterThan(50);
+  });
+
+  it("rejects empty/malformed adaptation receipts and forbids source-prose comment dumps", () => {
+    const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
+      entries: CoverageEntry[];
+    };
+    const playable = playableByChapter["draft-ch01"]!;
+
+    const sample = ledger.entries.find((entry) => entry.status === "approved-adaptation");
+    expect(sample?.adaptationReceipt).toBeTruthy();
+    if (!sample?.adaptationReceipt) {
+      throw new Error("expected at least one approved adaptation");
+    }
+
+    const malformed: Array<Partial<AdaptationReceipt> | undefined> = [
+      undefined,
+      { ...sample.adaptationReceipt, sourceHash: "0".repeat(64) },
+      { ...sample.adaptationReceipt, sceneId: "not_a_real_scene" },
+      { ...sample.adaptationReceipt, targetSnippet: "" },
+      { ...sample.adaptationReceipt, targetSnippet: "短" },
+      { ...sample.adaptationReceipt, retainedFacts: [] },
+      { ...sample.adaptationReceipt, retainedFacts: ["", "x"] },
+      { ...sample.adaptationReceipt, pacingRationale: "   " },
+      {
+        ...sample.adaptationReceipt,
+        targetSnippet: "这段文字绝对不会出现在可玩 Ink 里作为覆盖漏洞",
+      },
+    ];
+    for (const receipt of malformed) {
+      expect(() =>
+        assertValidAdaptationReceipt(
+          {
+            ...sample,
+            adaptationReceipt: receipt as AdaptationReceipt | undefined,
+          },
+          playable,
+        ),
+      ).toThrow();
+    }
+
+    for (const chapterId of ["draft-ch01", "draft-ch02"] as const) {
+      const raw = inkByChapter[chapterId]!;
+      expect(raw).not.toMatch(/Player-hidden source trace/i);
+      expect(raw).not.toMatch(/byte-exact for coverage/i);
+      // No multi-line dump of long source prose as // comments after chapter end.
+      const commentLines = raw.split("\n").filter((line) => /^\s*\/\//.test(line));
+      const longCommentProse = commentLines.filter((line) => line.replace(/^\s*\/\//, "").trim().length > 80);
+      expect(longCommentProse).toEqual([]);
+    }
+
+    // Regression: old densified source paragraphs must not be hidden only in comments.
+    const ghost = "工作人员这句话说出口的时候，手指正点在协议签字页上，笑得跟卖保险的一样职业";
+    expect(inkByChapter["draft-ch01"]!).not.toContain(ghost);
+    expect(playableByChapter["draft-ch01"]!).not.toContain(ghost);
   });
 });
 

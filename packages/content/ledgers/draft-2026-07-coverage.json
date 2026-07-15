@@ -102,9 +102,20 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s001",
       "beatId": "dch01_s001",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["沉浸座椅"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "d47dcc2ba422d09f45ae673fec4a80800d6e7ad88df2ddbf7ed69dd41c998861",
+        "sceneId": "dch01_s001",
+        "targetSnippet": "工作人员说这话时，手指正压着协议签字页，笑得像卖保险。苏明扫了一圈：蜂窝隔音棉、鱼眼摄像头、永不熄的红点",
+        "retainedFacts": [
+          "协议签字页与职业假笑",
+          "蜂窝隔音棉、鱼眼摄像头、红点",
+          "网吧椅改名“沉浸座椅”"
+        ],
+        "pacingRationale": "开场房间盘点压成一句机构化笑话，先落到按斤称难堪。"
+      }
     },
     {
       "id": "draft01_p003",
@@ -164,9 +175,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s004",
       "beatId": "dch01_s004",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["绝对删干净", "骨头留着", "绝对"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "64f87dde5be8066ac9965fa50db61e88e57a886e3e61e1f5616991b28c681484",
+        "sceneId": "dch01_s004",
+        "targetSnippet": "苏明信的从来不是“绝对删干净”，是“骨头留着”——后门至少当面指给他看。",
+        "retainedFacts": ["不信绝对删除", "信“骨头留着”", "后门当面指出"],
+        "pacingRationale": "删三次解释性绕弯，保留后门可见的黑色合同笑点。"
+      }
     },
     {
       "id": "draft01_p007",
@@ -178,9 +196,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s004",
       "beatId": "dch01_s004",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["你好呀，今天过得怎么样？"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "f18b5e38941fc90970910f019441694b90036fe151dc3d7c7434235d89fc515d",
+        "sceneId": "dch01_s004",
+        "targetSnippet": "门一关，隔音棉吞掉外头的声音。耳机里响起一个女声，甜得克制，客服和情人各掺一半：\"你好呀，今天过得怎么样？\"",
+        "retainedFacts": ["隔音棉封闭空间", "AI 女声客服/情人混合", "开场问候台词"],
+        "pacingRationale": "气氛描写压成一刀，把入场感交给对白。"
+      }
     },
     {
       "id": "draft01_p008",
@@ -234,9 +259,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s006",
       "beatId": "dch01_s006",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "b4e40a2cd89670627f1517686f29b7ee674691622624239dda6f407cf31c0c03",
+        "sceneId": "dch01_s006",
+        "targetSnippet": "招募说明把这活写得很体面：情感表达、深度参与、人体样本、按场结算。实际只有一条：你痛得越真，公司挣得越多。",
+        "retainedFacts": ["人体样本按场结算", "痛得越真公司越赚", "一场顶超市三天"],
+        "pacingRationale": "招聘官样文案压成唯一真实条款，删掉解释口头禅。"
+      }
     },
     {
       "id": "draft01_p012",
@@ -248,9 +280,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s007",
       "beatId": "dch01_s007",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["职场受气经历", "情绪波动：优"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "9d49ebf6830290710017f13801f06417c20fd277bc073b89ec391fab0afda4ef",
+        "sceneId": "dch01_s007",
+        "targetSnippet": "上个月他编过一场“被甲方骂哭”，讲得眉飞色舞，系统给了“情绪波动：优”。假故事里他是演员；轮到真事，补贴每涨一档，遮羞布就少一块。",
+        "retainedFacts": ["职场受气假戏拿优", "真事更羞耻", "补贴与遮羞布挂钩"],
+        "pacingRationale": "表演/真实对照保留，只留一个遮羞布意象收束羞耻与补贴。"
+      }
     },
     {
       "id": "draft01_p013",
@@ -304,9 +343,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s009",
       "beatId": "dch01_s009",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["心动引擎", "深度体验"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "64367b3c40e123dc945329605a0957b0e0e2f5a927d0100786cddcfb9ca05ac3",
+        "sceneId": "dch01_s009",
+        "targetSnippet": "走廊椅子上坐着个外国小伙，二十出头，书包没卸，英文场排号条快被捏烂了。他叫雷欧，来重庆读语言班，生活费靠给“心动引擎”测出海版。",
+        "retainedFacts": ["雷欧身份", "语言班/生活费", "心动引擎出海英文场", "早到与翻译软件"],
+        "pacingRationale": "人物介绍去掉游记式铺陈，只留功能信息。"
+      }
     },
     {
       "id": "draft01_p017",
@@ -346,9 +392,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s011",
       "beatId": "dch01_s011",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["正常人"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "5d01f53ebb281ee876580c61769210d49f043ed26edc4606ff9cbe60d0eaadfe",
+        "sceneId": "dch01_s011",
+        "targetSnippet": "昨晚吃完饭，两个人抢最后一块排骨，闹着挪进卧室，彼此都乐意。苏明脑子里那个叫“正常人”的开关一向好使——十二岁第一次发现自己跟旁人不太一样后，他摁了十六年",
+        "retainedFacts": ["双方自愿亲密", "“正常人”开关", "十二岁起压抑十六年"],
+        "pacingRationale": "亲密回忆去掉过程啰嗦，保留动机开关。"
+      }
     },
     {
       "id": "draft01_p020",
@@ -402,9 +455,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s013",
       "beatId": "dch01_s013",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "82323a6946c1ffe6a31b11e5a14ce2394c4c5cc82132b4fdc91db45d9ab94b68",
+        "sceneId": "dch01_s013",
+        "targetSnippet": "陈佳没尖叫，只剩扫兴、嫌弃和真没弄懂。骂完还能吵；这种反应连吵架的台阶都不给。",
+        "retainedFacts": ["非尖叫/报警", "扫兴与嫌弃", "连吵的余地都没有"],
+        "pacingRationale": "去掉“不是/是”解释框架，让陈佳的反应直接落在无处可吵。"
+      }
     },
     {
       "id": "draft01_p024",
@@ -416,9 +476,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s013",
       "beatId": "dch01_s013",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["逗你的逗你的。"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "a8a4a745f8e4c69f756cd58f467d3e644947d4aea09e6dd43a535498930c590b",
+        "sceneId": "dch01_s013",
+        "targetSnippet": "苏明伸手补救：\"逗你的逗你的。\"陈佳嘴角松了半秒，又想起那一下不是玩笑，重新绷住。苏明偏把这半秒看成台阶，顺势把自己送进了死胡同。",
+        "retainedFacts": ["“逗你的”补救", "半秒松动误判", "辩解进死胡同"],
+        "pacingRationale": "误判台阶是核心笑话，删掉解释性旁白。"
+      }
     },
     {
       "id": "draft01_p025",
@@ -486,9 +553,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s016",
       "beatId": "dch01_s016",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "2ca81da18179f3d7dbef4cacd79e13fa855e9659111fd9a30d0329eb354b8769",
+        "sceneId": "dch01_s016",
+        "targetSnippet": "苏明那点死要面子的劲儿偏在这时冒头：越站不住理，越要拿嘴硬撑场。",
+        "retainedFacts": ["死要面子", "越没理越嘴硬"],
+        "pacingRationale": "年轻男人通病评论压成角色句。"
+      }
     },
     {
       "id": "draft01_p030",
@@ -556,9 +630,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s018",
       "beatId": "dch01_s018",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "4bbf0f3e6e7b8b96da7bfd6fe130fdf3dd55e43dc958d32b1653fce9eec4fbb7",
+        "sceneId": "dch01_s018",
+        "targetSnippet": "苏明躺在沙发上，把手机划开又锁上七八遍，一条像样的消息也没编出来。想敲门说软话，手伸到一半又缩回去——威风出口免费，收回来按尊严计费。",
+        "retainedFacts": ["反复划手机写不出消息", "想道歉又缩手", "要面子最贵"],
+        "pacingRationale": "用交易式 punchline 收束重复骄傲解释。"
+      }
     },
     {
       "id": "draft01_p035",
@@ -598,9 +679,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s020",
       "beatId": "dch01_s020",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "0baead36bee8941227de1c62d2bf86e1b93a0f43eb1e1df411538ce75eebb654",
+        "sceneId": "dch01_s020",
+        "targetSnippet": "一句轻飘飘的“想清楚了”，一路追进这间按分钟收购痛苦的小屋。",
+        "retainedFacts": ["陈佳冷淡决定", "硬撑到测试间", "测试间收集痛苦"],
+        "pacingRationale": "把三次硬撑压成一句追逐，并强化按分钟交易的制度荒诞。"
+      }
     },
     {
       "id": "draft01_p038",
@@ -657,9 +745,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s022",
       "beatId": "dch01_s022",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "15e8e44b1bbca885e90d415db661073bf8cc045cde4b3ab3a90a15e5351fc433",
+        "sceneId": "dch01_s022",
+        "targetSnippet": "苏明坐直了些。它没听懂他的心，只量了语速、停顿、音高，再按模板出结果：此处应有安慰。",
+        "retainedFacts": ["不是共情是计时", "语速停顿音高", "模板化安慰"],
+        "pacingRationale": "机器感笑点保留，改成测量到模板的单向流程，减少反复否定。"
+      }
     },
     {
       "id": "draft01_p042",
@@ -758,9 +853,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s026",
       "beatId": "dch01_s026",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["行了行了，知道了，下一题。", "痛点真实"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "842c6af3b754024adc3afafcb26a8c29207eb0674cb1c41054526025ba92c0e2",
+        "sceneId": "dch01_s026",
+        "targetSnippet": "耳机又换了套更黏糊的话术，一句句往他耳朵里灌。苏明应付着：\"行了行了，知道了，下一题。\"他没被安慰，只是耳根发热——昨晚的狼狈已经打包成“痛点真实”",
+        "retainedFacts": ["黏糊安慰话术", "下一题应付", "痛点样本打包结算"],
+        "pacingRationale": "感动/臊区分压成结算 punchline。"
+      }
     },
     {
       "id": "draft01_p049",
@@ -884,9 +986,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s031",
       "beatId": "dch01_s031",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["想开点，兄弟。", "我鼻子没出血。", "银发陪伴", "经历过，理解你"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "3672151aae53ecb06310f0558b224fc45732f6fdcd4caf5669c67610cdc852b4",
+        "sceneId": "dch01_s031",
+        "targetSnippet": "有人拍他肩膀：\"想开点，兄弟。\"姑娘递来纸巾，苏明莫名其妙：\"我鼻子没出血。\"角落里测“银发陪伴”的大爷竖拇指；保安低头假装系鞋带——脚上分明是魔术贴。",
+        "retainedFacts": ["想开点", "纸巾误会", "银发陪伴大爷", "魔术贴保安"],
+        "pacingRationale": "走廊围观保留纸巾、银发体验官与魔术贴三连 gag，删除动作复述。"
+      }
     },
     {
       "id": "draft01_p058",
@@ -898,9 +1007,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s032",
       "beatId": "dch01_s032",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["我不是要挽留！我是要他道歉！"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "c18c7dcd42d7be8bfc21bf143da2b71e17cffed0811defe394079b99e30a0b3b",
+        "sceneId": "dch01_s032",
+        "targetSnippet": "休息区那头，一个大姐正对着测试门喊：\"我不是要挽留！我是要他道歉！\"四周安静一拍，又恢复嘈杂。在这里，谁的痛苦都算不上新品。",
+        "retainedFacts": ["不是挽留要道歉", "全场静一拍", "痛苦不新鲜"],
+        "pacingRationale": "公共羞耻桥段压缩，保留口号式 punchline。"
+      }
     },
     {
       "id": "draft01_p059",
@@ -940,9 +1056,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s033",
       "beatId": "dch01_s033",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["哐当"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "9ecebb3e6b5f83daa6286a3ff20aaac45aaabd11d77db9c46b67c43d681531c0",
+        "sceneId": "dch01_s033",
+        "targetSnippet": "走廊尽头，两名灰衣工人正把一只一人高的银色箱子推进货梯。标签写着：样机，勿倒置，硬件部。一个测聊天软件的公司，哪来的硬件部？货梯“哐当”合上，把答案一起运走了。",
+        "retainedFacts": ["银色样机箱", "硬件部标签", "聊天软件公司疑点"],
+        "pacingRationale": "伏笔箱保留，删“他没多想”解释尾巴。"
+      }
     },
     {
       "id": "draft01_p062",
@@ -982,13 +1105,20 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s035",
       "beatId": "dch01_s035",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": [
         "他们听。",
         "Live，实时。不是你说完就没了。我听见他们笑了。",
         "绝对删干净"
       ],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "7043d5a2767fe8102e230a8b4c71c7b491c9abcd159150872f7925ae35c73b93",
+        "sceneId": "dch01_s035",
+        "targetSnippet": "\"他们听。\"雷欧比划着耳朵，中英文夹生地往外蹦，\"Live，实时。不是你说完就没了。我听见他们笑了。\"他测了十来场，今天推错一扇门，才知道“删干净”只管数据库，不管耳朵。",
+        "retainedFacts": ["Live 实时监听", "听见他们笑", "推错门揭穿删除承诺"],
+        "pacingRationale": "保留揭穿，学费/天真讲义压缩成数据库 vs 耳朵。"
+      }
     },
     {
       "id": "draft01_p065",
@@ -1126,9 +1256,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s040",
       "beatId": "dch01_s040",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["不愿意测，随时可以不来。", "双方自愿。"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "320da91cc44926af363e1a2b7d1b64631c4150fd724a51b3f222070af5ee315c",
+        "sceneId": "dch01_s040",
+        "targetSnippet": "\"不愿意测，随时可以不来。\"小组长的语气没起伏，笑意倒添了一分，\"双方自愿。\"",
+        "retainedFacts": ["随时可不来", "双方自愿话术"],
+        "pacingRationale": "微调语气节奏，避免冗词。"
+      }
     },
     {
       "id": "draft01_p075",
@@ -1140,9 +1277,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s040",
       "beatId": "dch01_s040",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "b226c62966a3c97afc61d12f5edc9e9b8dca8f13eb037fff6e02632f4b761777",
+        "sceneId": "dch01_s040",
+        "targetSnippet": "房租、给他爸的钱、超市工资、补贴在脑子里排成一列。火气跟计算器打了一架，输了。",
+        "retainedFacts": ["房租/给爸/超市工资/补贴账", "火气输给计算器"],
+        "pacingRationale": "账本清单保留，删视角赘词，让火气输给计算器直接落锤。"
+      }
     },
     {
       "id": "draft01_p076",
@@ -1238,9 +1382,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s044",
       "beatId": "dch01_s044",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "77f9cb0bc32e13bb7113ce8caf9d26cf0867988bde705afe09cbb9aca83cda4a",
+        "sceneId": "dch01_s044",
+        "targetSnippet": "那条短信他没删。留证据也好，留疤也好，反正都比删掉值钱。",
+        "retainedFacts": ["评分短信未删", "证据/疤两可"],
+        "pacingRationale": "怂与算账解释压成短信物证句。"
+      }
     },
     {
       "id": "draft01_p083",
@@ -1266,9 +1417,16 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s045",
       "beatId": "dch01_s045",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["老重庆"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "7c9de5e84f2abe6035261f4692815621f11e46d82a91975642884aa2c78e6f77",
+        "sceneId": "dch01_s045",
+        "targetSnippet": "雷欧来重庆不到一年，谈起租房却已经摆出“老重庆”的架势。",
+        "retainedFacts": ["雷欧未满一年", "却当“老重庆”带路"],
+        "pacingRationale": "租房背景故事删掉，只留身份反差。"
+      }
     },
     {
       "id": "draft01_p085",
@@ -1420,9 +1578,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s001",
       "beatId": "dch02_s001",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "f72f6f96fbd21320a2d5f495d4b2fddab80022863bd7d0b599a97dcc74dc9bcd",
+        "sceneId": "dch02_s001",
+        "targetSnippet": "看房被推到第二天。石佩欣挑租客比甲方挑图还细；肯重新约时间，已经算初审通过。",
+        "retainedFacts": ["看房改期", "房东挑客严格", "约见即初审"],
+        "pacingRationale": "删除后见解释，把改期直接写成租客初审门槛。"
+      }
     },
     {
       "id": "draft02_p003",
@@ -1448,9 +1613,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s002",
       "beatId": "dch02_s002",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["惠万家"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "89f289d8f66121e126023790e175971098bb73e712f97957ae7578c0b45736fc",
+        "sceneId": "dch02_s002",
+        "targetSnippet": "第二天他照常上日班。超市开在城中村巷口，门脸两米宽，货架挤得人得侧身走。店名叫“惠万家”，服务半径大约三百米。",
+        "retainedFacts": ["惠万家小超市", "城中村巷口", "门脸两米"],
+        "pacingRationale": "日班环境压成空间笑话。"
+      }
     },
     {
       "id": "draft02_p005",
@@ -1462,9 +1634,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s003",
       "beatId": "dch02_s003",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["要手脚麻利的"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "5798794796e2c97f0d8686df68da62dc23568b17c7320ff12c8f2aa028388355",
+        "sceneId": "dch02_s003",
+        "targetSnippet": "这份工是他靠一分钟扫四十件抢来的。老板娘姓周，说话难听，心不算硬；工资不高，时间够弹，正好接上晚上的测试班——白天扫条码，晚上被 App 扫灵魂。",
+        "retainedFacts": ["一分钟扫四十件", "老板娘周", "日夜双工"],
+        "pacingRationale": "招工传记压缩，保留双工节奏。"
+      }
     },
     {
       "id": "draft02_p006",
@@ -1476,9 +1655,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s003",
       "beatId": "dch02_s003",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "b8b6436d8229f1819f1eadc742df437272badc5fa1483e87d792b96ef6a0214b",
+        "sceneId": "dch02_s003",
+        "targetSnippet": "在店里，他会分真穷和装穷：前者只拿临期货，眼睛躲人；后者砍价嗓门最大。他对前一种人心软，老板娘骂了八回也没改。大超市管不了，小偷他一定管。",
+        "retainedFacts": ["真穷/装穷雷达", "心软被骂八回", "怕大超市与小偷"],
+        "pacingRationale": "人物能力与心软保留，结尾改成短句对撞，立即把冲突推向小偷。"
+      }
     },
     {
       "id": "draft02_p007",
@@ -1630,9 +1816,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s010",
       "beatId": "dch02_s010",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["我出。"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "18048939c05a91e7d70c30da843ed47f595671c7269b3491ba59848340781c70",
+        "sceneId": "dch02_s010",
+        "targetSnippet": "\"我出。\"他说第二遍时，脸绷得像在替两包辣条签担保。",
+        "retainedFacts": ["“我出”再说一遍", "硬邦邦付钱"],
+        "pacingRationale": "把重复解释换成辣条担保笑点。"
+      }
     },
     {
       "id": "draft02_p018",
@@ -1644,9 +1837,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s010",
       "beatId": "dch02_s010",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["小伙子，你这样迟早吃亏。", "不过我看你顺眼。", "顺眼"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "b18eede9f0a12ef61dcd7cae63543d094a428e17e579c07b0d0976131659fe78",
+        "sceneId": "dch02_s010",
+        "targetSnippet": "常来买烟的张师傅看完全程，走时拍他肩膀：\"小伙子，你这样迟早吃亏。\"顿了顿，又补一句，\"不过我看你顺眼。\"拎着烟走了，没解释顺在哪儿。",
+        "retainedFacts": ["张师傅旁观", "迟早吃亏", "顺眼"],
+        "pacingRationale": "旁观者评语保留，删蹲姿细节。"
+      }
     },
     {
       "id": "draft02_p019",
@@ -1686,9 +1886,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s012",
       "beatId": "dch02_s012",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "1bd89e6271931facf8d3b3bd50063346f7251666a000eb3798c2a3cf51afccff",
+        "sceneId": "dch02_s012",
+        "targetSnippet": "门开了。石佩欣穿着皮卡丘家居服，身后电脑上的图被她一键缩进任务栏，手速像销毁证据。苏明只瞥见一片肉色，没敢问。",
+        "retainedFacts": ["皮卡丘家居服", "未完成图缩进任务栏", "肉色一瞥"],
+        "pacingRationale": "房东出场保留尴尬，删手速形容词堆叠。"
+      }
     },
     {
       "id": "draft02_p022",
@@ -1812,9 +2019,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s016",
       "beatId": "dch02_s016",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["Cool，Authentic。"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "9b4d0efa0d8c03e2af68ce56de45c38cfafb0992d717722550df5ad40281c2ba",
+        "sceneId": "dch02_s016",
+        "targetSnippet": "楼道墙皮鼓包，屋里倒收拾得干净。一只橘猫窝在沙发上，跟房东本人一样，看谁都像在审核。雷欧摸了摸墙：\"Cool，Authentic。\"",
+        "retainedFacts": ["墙皮鼓包", "橘猫", "Cool Authentic"],
+        "pacingRationale": "环境与猫审核感压缩。"
+      }
     },
     {
       "id": "draft02_p031",
@@ -1840,9 +2054,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s017",
       "beatId": "dch02_s017",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "bde544b637391b7aa733d9d198d67b31c25864a0c4022928b2f2c3ba0cdd8a68",
+        "sceneId": "dch02_s017",
+        "targetSnippet": "楼是远房亲戚的，石佩欣代收房租，也代补墙。她既是租客又是管家，墙皮靠一茬茬租客按月喂。九百块，五号前交，备注栏禁止发表情包。",
+        "retainedFacts": ["远房亲戚产权", "租客兼管家", "九百/五号/禁表情包"],
+        "pacingRationale": "楼史继续收短，保留喂墙皮与付款备注两记制度笑点。"
+      }
     },
     {
       "id": "draft02_p033",
@@ -1896,14 +2117,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s020",
       "beatId": "dch02_s020",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": [
         "假设也不行。",
         "我这楼的规矩比你那超市严多了。",
         "没人跟我反馈过",
         "那就是打"
       ],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "442b1f9adb60f38ca3c907af5e90cfbfd258a9f22e01480a6c5f0814a5c758c3",
+        "sceneId": "dch02_s020",
+        "targetSnippet": "\"假设也不行。\"她挥手，\"我这楼的规矩比你那超市严。\"打呼噜自己处理，锅铲不许拿来试隔音。猫跳下沙发，顺脚在苏明裤腿上补盖一道灰爪审核章。",
+        "retainedFacts": ["假设不行", "呼噜/锅铲规矩", "猫盖审核章"],
+        "pacingRationale": "条款连珠炮压成两条代表规矩 + 猫章。"
+      }
     },
     {
       "id": "draft02_p037",
@@ -1915,9 +2143,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s020",
       "beatId": "dch02_s020",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["九百", "你兼职测什么的我不管，别把奇怪的人往楼里带，出事你自己扛。"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "534085cb38e869c3fa95491a6abda7a318a069f5625655fc7a9690ab2ef8d4b6",
+        "sceneId": "dch02_s020",
+        "targetSnippet": "扫完定金，石佩欣手写收条，字迹像医院处方。苏明只认出“九百”，其余选择信任。她最后补一刀：\"你兼职测什么的我不管，别把奇怪的人往楼里带，出事你自己扛。\"",
+        "retainedFacts": ["手写收条九百", "禁带奇怪的人", "出事自扛"],
+        "pacingRationale": "收条与禁令保留，删字迹过度描写。"
+      }
     },
     {
       "id": "draft02_p038",
@@ -1957,9 +2192,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s022",
       "beatId": "dch02_s022",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "98785bbea8eece3a7eb529ac395c85faa379a9ab399404c02b0ae567c3f05c73",
+        "sceneId": "dch02_s022",
+        "targetSnippet": "当夜，苏明搬了进来。行李是几个垃圾袋的升级版。",
+        "retainedFacts": ["当夜入住", "垃圾袋行李"],
+        "pacingRationale": "入住句去冗余。"
+      }
     },
     {
       "id": "draft02_p041",
@@ -1985,9 +2227,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s023",
       "beatId": "dch02_s023",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["咯噔"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "4d006910de47589a865bd799f08fdfe1b687c257a5c98621be6efcded039fe52",
+        "sceneId": "dch02_s023",
+        "targetSnippet": "苏明以为石佩欣反悔，手忙脚乱把东西塞回袋子才开门。门外只是隔壁抱保温杯的大爷：\"娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？\"",
+        "retainedFacts": ["误以为反悔", "水表箱钥匙", "保温杯大爷"],
+        "pacingRationale": "虚惊开场与钥匙问句并段，去掉重复心虚。"
+      }
     },
     {
       "id": "draft02_p043",
@@ -1999,9 +2248,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s023",
       "beatId": "dch02_s023",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "472805cc66cb2099b4c75637a96180d90b915452d9f89be72d07a881954471c8",
+        "sceneId": "dch02_s023",
+        "targetSnippet": "门外只是隔壁抱保温杯的大爷：\"娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？\"",
+        "retainedFacts": ["大爷问水表钥匙"],
+        "pacingRationale": "与 p042 并段后仍可定位到同一可玩句。"
+      }
     },
     {
       "id": "draft02_p044",
@@ -2013,9 +2269,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s024",
       "beatId": "dch02_s024",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["不晓得"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "ec0ef5aded99266c9f5e8c76c9a074e459fd78f53531237465ca37a71cef2308",
+        "sceneId": "dch02_s024",
+        "targetSnippet": "\"不晓得。我今天刚来。\"大爷骂骂咧咧下楼找别人。苏明关门时才发现后背出了汗：租客身份没坐稳，先演练了一遍东窗事发。",
+        "retainedFacts": ["不晓得", "今天刚来", "东窗事发演练"],
+        "pacingRationale": "两段虚惊收束成一句。"
+      }
     },
     {
       "id": "draft02_p045",
@@ -2027,9 +2290,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s024",
       "beatId": "dch02_s024",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["东窗事发"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "31f45d1baa9ccfbb1c5a680d2485d60979dbe7bd3af14fa41dacade909178987",
+        "sceneId": "dch02_s024",
+        "targetSnippet": "租客身份没坐稳，先演练了一遍东窗事发。",
+        "retainedFacts": ["心虚像东窗事发"],
+        "pacingRationale": "与 p044 共享压缩后的可玩句。"
+      }
     },
     {
       "id": "draft02_p046",
@@ -2097,13 +2367,20 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s027",
       "beatId": "dch02_s027",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": [
         "两份工，you crazy。",
         "对了，你知道公司最近发疯吗？",
         "天天轰炸我——招'实体设备全天候居家测试员'。补贴是咱们场次的五倍。条件是独立房间，签超级保密协议。"
       ],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "144bd774a1c583757cbe6ca5ef9f09547228f8987d8034af9ee236b21d1b1215",
+        "sceneId": "dch02_s027",
+        "targetSnippet": "雷欧比划两根手指：\"两份工，you crazy。\"他掏出公司短信：招“实体设备全天候居家测试员”，补贴五倍，条件是独立房间和超级保密协议。",
+        "retainedFacts": ["两份工 crazy", "五倍补贴", "独立房间", "超级保密协议"],
+        "pacingRationale": "机器人招聘条件去重复巡游。"
+      }
     },
     {
       "id": "draft02_p051",
@@ -2157,14 +2434,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s029",
       "beatId": "dch02_s029",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": [
         "我？",
         "宿舍住不下。而且机器人晚上睁眼怎么办？我会死。",
         "你看条件——独立房间，photo要拍，还要签这个——",
         "Super保密协议。违约金后面五个零。测个东西，比我签证材料还多。"
       ],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "eb8124e4e50dd69ca39f5c01f40540d29429f00388910e9ff24c6820496427d8",
+        "sceneId": "dch02_s029",
+        "targetSnippet": "\"我？\"雷欧往后一缩，\"宿舍住不下。机器人晚上睁眼怎么办？我会死。\"他把短信凑近：房间要拍，Super 保密协议要签，违约金后面五个零，材料比他的签证还多。",
+        "retainedFacts": ["宿舍装不下", "机器人睁眼恐惧", "五零违约金", "比签证材料多"],
+        "pacingRationale": "NDA 条件改成平行短句，签证笑点落在雷欧本人而非泛指。"
+      }
     },
     {
       "id": "draft02_p055",
@@ -2236,9 +2520,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s031",
       "beatId": "dch02_s031",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["一样一样"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "3fc5c1bfc2fa5047d875e73cc131e298482a06b53f0916383dbb82a4b5b00bde",
+        "sceneId": "dch02_s031",
+        "targetSnippet": "苏明被噎住，索性把他轰出去。门一关，雷欧那句“一样一样”还卡在屋里。",
+        "retainedFacts": ["轰走雷欧", "“一样一样”刺痛"],
+        "pacingRationale": "刺痛感保留，删愣几秒复述。"
+      }
     },
     {
       "id": "draft02_p060",
@@ -2250,9 +2541,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s032",
       "beatId": "dch02_s032",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "f32e1328326a1353aed528eb71eecccba373da82f4929815e57279a946c135a4",
+        "sceneId": "dch02_s032",
+        "targetSnippet": "躺上新床板，巷子里有人称重、讨价，隔壁回锅肉的油烟钻进来，说不上香还是呛。",
+        "retainedFacts": ["新床板", "巷子讨价", "回锅肉油烟"],
+        "pacingRationale": "夜景感官一句到位。"
+      }
     },
     {
       "id": "draft02_p061",
@@ -2278,9 +2576,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s033",
       "beatId": "dch02_s033",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "a99dba1190a0b5f90e7ecc249341ce3fc791d535b98ace206de69f2c6195e602",
+        "sceneId": "dch02_s033",
+        "targetSnippet": "他点开大学室友的对话框，最后一条是三个月前的婚礼请柬。输入半句，又删掉。",
+        "retainedFacts": ["室友婚礼请柬", "打了又删"],
+        "pacingRationale": "找人说话桥段压缩。"
+      }
     },
     {
       "id": "draft02_p063",
@@ -2292,9 +2597,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s033",
       "beatId": "dch02_s033",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["我不评判你", "分就分"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "399bba6429a8740e4f1b0cebb63df1620285f71da36f6031b2e7bd2c91e01b05",
+        "sceneId": "dch02_s033",
+        "targetSnippet": "他不是想谈恋爱，只想屋里有个东西在场：不追问，不评判，到点还能关机。可楼里不许带人；测场那句“我不评判你”，背后又站着一屋子边听边嗑瓜子的耳朵。真人太贵，尊严也没库存。",
+        "retainedFacts": ["要在场不要恋爱叙事", "楼禁带人", "“不评判”背后有人听", "可关机的陪伴"],
+        "pacingRationale": "直接拒绝恋爱叙事，把欲望明确落到可关机的交易式在场。"
+      }
     },
     {
       "id": "draft02_p064",
@@ -2348,9 +2660,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s035",
       "beatId": "dch02_s035",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "71ec2c726aee30ad63dc05a068a7a6192cb598f60781ce56f17f57b24d909ea7",
+        "sceneId": "dch02_s035",
+        "targetSnippet": "苏明认得这句话，也认得字体。同一家公司，同一套话术，每个字都标过价；手指却继续下滑。至少这次，报价里可能附送一具能搬回家的机器。",
+        "retainedFacts": ["认出公司话术字体", "明知套路仍下滑", "实体机器诱饵"],
+        "pacingRationale": "把抽象“能报价”改成已经标价的事实，让诱饵更像商品页。"
+      }
     },
     {
       "id": "draft02_p068",
@@ -2362,9 +2681,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s036",
       "beatId": "dch02_s036",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["自从有了她，我再也不用假装很好。", "有用"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "df25f2b7cff9d1ee79f10ab0aeef939b483f8066e4510b505b0e6893144f0111",
+        "sceneId": "dch02_s036",
+        "targetSnippet": "评价区五星第一条写着：\"自从有了她，我再也不用假装很好。\"八百多个赞。苏明点了“有用”，点完才发现，这比报名更丢脸。",
+        "retainedFacts": ["五星评价句", "八百赞", "点“有用”更丢脸"],
+        "pacingRationale": "评价区动作压缩，保留羞耻 punchline。"
+      }
     },
     {
       "id": "draft02_p069",
@@ -2390,9 +2716,16 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s037",
       "beatId": "dch02_s037",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["一般", "良好", "您是否介意设备高度拟人"],
-      "notes": ""
+      "notes": "",
+      "adaptationReceipt": {
+        "sourceHash": "5fa79c8607a70ecd96a6f77ca63906fc217ea31f96447325e5002b8c95e5d95f",
+        "sceneId": "dch02_s037",
+        "targetSnippet": "问卷正经得过分：居住环境只拍没掉墙皮的死角；邻居容忍度从“一般”改成“良好”；“是否介意设备高度拟人”，他想了半天，介意的反义词到底是什么？",
+        "retainedFacts": ["墙皮死角照片", "邻居容忍度造假", "高度拟人犹豫"],
+        "pacingRationale": "问卷三题并段，删除上传动作复述，让造假与欲望犹豫连着发生。"
+      }
     },
     {
       "id": "draft02_p071",
