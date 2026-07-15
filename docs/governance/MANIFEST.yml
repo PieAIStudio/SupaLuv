@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-15T20:41:26.596Z
+generated_at: 2026-07-15T20:46:25.896Z
 generator_version: doc-gov@0.7.2
-docs_count: 31
+docs_count: 32
 docs:
   - id: PLAN-0001
     path: docs/archive/2026-q3-plan/PLAN-0001-react-inkjs-pixivn-spike.md
@@ -199,6 +199,13 @@ docs:
     status: stable
     canonical: true
     last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-LEARNING-WORKFLOW-ISSUES-SCOPE-PLAYWRIGHT-API-MOCKS-TO-THE-API-NAMESPACE
+    path: docs/reference/learnings/workflow-issues/scope-playwright-api-mocks-to-the-api-namespace.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-15
     pinned: false
   - id: SPEC-0003
     path: docs/specs/active/SPEC-0003-draft-chapters-story-graph-and-game-feel.md
