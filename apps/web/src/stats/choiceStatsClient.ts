@@ -64,7 +64,7 @@ export async function loadChoiceEchoRows(
   // Trusted durable aggregates must stand alone. Demo-only sources may merge
   // local records solely for the chapter-end sample display.
   const counts = authoritative
-    ? remote?.counts ?? {}
+    ? (remote?.counts ?? {})
     : remote
       ? mergeCountMaps(local, remote.counts)
       : mergeCountMaps(CHOICE_STATS_SEED, local);

@@ -559,7 +559,9 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     ].join("\n");
 
     const projected = extractInkPlayerText(
-      adversarialInk.slice(adversarialInk.indexOf("# scene:scene_adv") + "# scene:scene_adv\n".length),
+      adversarialInk.slice(
+        adversarialInk.indexOf("# scene:scene_adv") + "# scene:scene_adv\n".length,
+      ),
     );
     expect(projected.split("\n")).toEqual([visibleDirect, visibleDirect, visibleDirect]);
     expect(projected).not.toContain("隐藏注释");

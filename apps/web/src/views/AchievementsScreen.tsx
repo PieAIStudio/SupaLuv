@@ -1,9 +1,6 @@
 import { GameBadge, GameButton, GameEmptyState, GamePanel } from "@pieai/swimmer-ui-kit";
 import { useLocale } from "../i18n";
-import {
-  listPlayerVisibleAchievementDefs,
-  loadAchievements,
-} from "../persistence/achievements";
+import { listPlayerVisibleAchievementDefs, loadAchievements } from "../persistence/achievements";
 
 interface AchievementsScreenProps {
   readonly onBack: () => void;

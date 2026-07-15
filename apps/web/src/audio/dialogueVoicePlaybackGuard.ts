@@ -9,10 +9,7 @@
 export type DialogueVoiceLineState = "open" | "suppressed" | "claimed";
 
 export interface DialogueVoicePlaybackGuardApi {
-  syncVolume(input: {
-    readonly runKey: string;
-    readonly voiceEnabled: boolean;
-  }): void;
+  syncVolume(input: { readonly runKey: string; readonly voiceEnabled: boolean }): void;
 
   claimLine(input: {
     readonly runKey: string;

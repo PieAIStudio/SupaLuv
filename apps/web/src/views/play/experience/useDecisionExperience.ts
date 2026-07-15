@@ -179,9 +179,10 @@ export function useDecisionExperience(input: DecisionExperienceInput): DecisionE
     !isGuestSpectator && snapshot.sceneId ? findDecision(storyId, snapshot.sceneId) : null;
   const oracleOptions = useMemo(() => resolveOracleOptions(oracleDecision), [oracleDecision]);
   // oracleTick forces re-read after setOracleGuess (module memory, not React state).
-  const oracleGuessLabel = oracleDecision && oracleOptions.length > 0
-    ? (getOracleGuess(oracleDecision.decisionId)?.predictedLabel ?? null)
-    : null;
+  const oracleGuessLabel =
+    oracleDecision && oracleOptions.length > 0
+      ? (getOracleGuess(oracleDecision.decisionId)?.predictedLabel ?? null)
+      : null;
   void oracleTick;
 
   const onOracleGuess = useCallback(

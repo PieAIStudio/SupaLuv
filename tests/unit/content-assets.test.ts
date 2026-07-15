@@ -11,14 +11,8 @@ const workspaceRoot = path.resolve(import.meta.dirname, "../..");
 const auditScript = path.join(workspaceRoot, "tools/asset-audit.mjs");
 const intakePath = path.join(workspaceRoot, "packages/content/assets/VISUAL-ASSET-INTAKE.json");
 const scratchRoot = path.join(workspaceRoot, ".scratch/content-assets-tests");
-const rightsEvidenceRoot = path.join(
-  workspaceRoot,
-  "packages/content/assets/rights-evidence",
-);
-const releaseEvidenceRoot = path.join(
-  workspaceRoot,
-  "packages/content/assets/release-evidence",
-);
+const rightsEvidenceRoot = path.join(workspaceRoot, "packages/content/assets/rights-evidence");
+const releaseEvidenceRoot = path.join(workspaceRoot, "packages/content/assets/release-evidence");
 const temporaryDirectories: string[] = [];
 const temporaryFiles: string[] = [];
 
