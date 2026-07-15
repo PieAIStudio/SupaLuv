@@ -1,16 +1,31 @@
 /**
- * Whitelist of stats-visible chapter decisions.
- * Continue-only beats are intentionally omitted.
- * Match uses substrings of choice labels; choiceId is the stable analytics key.
+ * Browser presentation catalog for stats-visible chapter decisions.
+ * Production storyId → decisionId/choiceId relationships come only from
+ * `@supaluv/shared/choice-stats-catalog`. This file adds scene match labels.
  */
 
+import {
+  PRODUCTION_CHOICE_STATS_CATALOG,
+  isPermittedChoiceOnStory,
+} from "@supaluv/shared/choice-stats-catalog";
 import type { StatsDecisionDef, StatsOptionDef } from "./choiceStatsTypes";
 
-export const CHOICE_STATS_CATALOG: readonly StatsDecisionDef[] = [
-  {
-    storyId: "draft-ch01",
+interface PresentationOption {
+  readonly choiceId: string;
+  readonly match: string;
+  readonly shortLabel: string;
+}
+
+interface PresentationDecision {
+  readonly sceneId: string;
+  readonly prompt: string;
+  readonly options: readonly PresentationOption[];
+}
+
+/** Presentation overlay keyed by `${storyId}:${decisionId}`. */
+const PRESENTATION_BY_DECISION: Readonly<Record<string, PresentationDecision>> = {
+  "draft-ch01:d1_bones": {
     sceneId: "dch01_s003",
-    decisionId: "d1_bones",
     prompt: "协议：字面与骨头",
     options: [
       {
@@ -25,10 +40,8 @@ export const CHOICE_STATS_CATALOG: readonly StatsDecisionDef[] = [
       },
     ],
   },
-  {
-    storyId: "draft-ch01",
+  "draft-ch01:d1_tell_breakup": {
     sceneId: "dch01_s005",
-    decisionId: "d1_tell_breakup",
     prompt: "AI 要真实倾诉",
     options: [
       {
@@ -43,10 +56,8 @@ export const CHOICE_STATS_CATALOG: readonly StatsDecisionDef[] = [
       },
     ],
   },
-  {
-    storyId: "draft-ch02",
+  "draft-ch02:d2_snack": {
     sceneId: "dch02_s005",
-    decisionId: "d2_snack",
     prompt: "惠万家 · 偷辣条",
     options: [
       {
@@ -61,10 +72,8 @@ export const CHOICE_STATS_CATALOG: readonly StatsDecisionDef[] = [
       },
     ],
   },
-  {
-    storyId: "draft-ch02",
+  "draft-ch02:d2_admit": {
     sceneId: "dch02_s013",
-    decisionId: "d2_admit",
     prompt: "石佩欣问谁提的分手",
     options: [
       {
@@ -79,7 +88,42 @@ export const CHOICE_STATS_CATALOG: readonly StatsDecisionDef[] = [
       },
     ],
   },
-];
+};
+
+function buildCatalog(): readonly StatsDecisionDef[] {
+  const out: StatsDecisionDef[] = [];
+  for (const entry of PRODUCTION_CHOICE_STATS_CATALOG) {
+    const key = `${entry.storyId}:${entry.decisionId}`;
+    const presentation = PRESENTATION_BY_DECISION[key];
+    if (!presentation) {
+      throw new Error(`Missing choice-stats presentation for ${key}`);
+    }
+    const options: StatsOptionDef[] = entry.choiceIds.map((choiceId) => {
+      if (!isPermittedChoiceOnStory(entry.storyId, choiceId)) {
+        throw new Error(`Catalog drift: ${entry.storyId}/${choiceId} not permitted`);
+      }
+      const option = presentation.options.find((item) => item.choiceId === choiceId);
+      if (!option) {
+        throw new Error(`Missing presentation option for ${key}/${choiceId}`);
+      }
+      return {
+        choiceId,
+        match: option.match,
+        shortLabel: option.shortLabel,
+      };
+    });
+    out.push({
+      storyId: entry.storyId,
+      sceneId: presentation.sceneId,
+      decisionId: entry.decisionId,
+      prompt: presentation.prompt,
+      options,
+    });
+  }
+  return out;
+}
+
+export const CHOICE_STATS_CATALOG: readonly StatsDecisionDef[] = buildCatalog();
 
 export function decisionsForStory(storyId: string): readonly StatsDecisionDef[] {
   return CHOICE_STATS_CATALOG.filter((d) => d.storyId === storyId);
@@ -120,6 +164,9 @@ export function resolveStatsPick(
   }
   const option = matchOption(decision, choiceLabel);
   if (!option) {
+    return null;
+  }
+  if (!isPermittedChoiceOnStory(storyId, option.choiceId)) {
     return null;
   }
   return { decision, option };

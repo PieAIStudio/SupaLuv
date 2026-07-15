@@ -8,7 +8,8 @@
     "./story-map": "./src/story-map.ts",
     "./narrative-graph": "./src/narrative-graph.ts",
     "./character-pack": "./src/character-pack.ts",
-    "./ai-ending": "./src/ai-ending.ts"
+    "./ai-ending": "./src/ai-ending.ts",
+    "./choice-stats-catalog": "./src/choice-stats-catalog.ts"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json --noEmit",

@@ -8,7 +8,7 @@ import {
   type ChoiceEchoRow,
   type SessionChoicePick,
 } from "../stats/choiceStatsClient";
-import { majorityOptionForDecision, loadMergedCounts } from "../stats/choiceStatsLean";
+import { majorityOptionForDecision, loadAuthoritativeCounts } from "../stats/choiceStatsLean";
 import { listOracleGuesses, scoreOracleVerdicts, type OracleVerdict } from "../stats/oracleMemory";
 import { downloadShareCard } from "./play/ShareCardExporter";
 import { AiEndingExperience } from "./AiEndingExperience";
@@ -118,7 +118,9 @@ export function ChapterEndCard({
     setEchoLoading(true);
     void (async () => {
       const rows = await loadChoiceEchoRows(storyId, sessionStatsPicks);
-      const counts = await loadMergedCounts(storyId);
+      // Oracle scoring uses only authoritative durable aggregates (none today).
+      // Process-memory display samples must not score predictions.
+      const authorityCounts = await loadAuthoritativeCounts(storyId);
       if (cancelled) {
         return;
       }
@@ -136,7 +138,7 @@ export function ChapterEndCard({
 
       const majorityMap = new Map<string, { choiceId: string; shortLabel: string }>();
       for (const guess of listOracleGuesses()) {
-        const maj = majorityOptionForDecision(storyId, guess.decisionId, counts);
+        const maj = majorityOptionForDecision(storyId, guess.decisionId, authorityCounts);
         if (maj) {
           majorityMap.set(guess.decisionId, {
             choiceId: maj.choiceId,

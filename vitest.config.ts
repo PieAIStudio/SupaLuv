@@ -44,6 +44,10 @@ export default defineConfig({
       ).pathname,
       "@supaluv/shared/ai-ending": new URL("./packages/shared/src/ai-ending.ts", import.meta.url)
         .pathname,
+      "@supaluv/shared/choice-stats-catalog": new URL(
+        "./packages/shared/src/choice-stats-catalog.ts",
+        import.meta.url,
+      ).pathname,
       "@supaluv/shared": new URL("./packages/shared/src/index.ts", import.meta.url).pathname,
     },
   },

@@ -2,16 +2,28 @@
  * Product-facing API for chapter-end global choice echo.
  */
 
+import type { ChoiceStatsAggregateSource } from "@supaluv/shared/choice-stats-catalog";
 import { resolveStatsPick } from "./choiceStatsCatalog";
 import { incrementLocalChoice, getLocalChoiceCounts } from "./choiceStatsLocal";
 import { buildEchoRows, mergeCountMaps } from "./choiceStatsMath";
-import { fetchRemoteChoiceCounts, postRemoteChoice } from "./choiceStatsRemote";
+import { fetchRemoteChoiceStats, postRemoteChoice } from "./choiceStatsRemote";
 import { CHOICE_STATS_SEED } from "./choiceStatsSeed";
 import type { ChoiceEchoRow, SessionChoicePick } from "./choiceStatsTypes";
 
 export type { ChoiceEchoRow, SessionChoicePick } from "./choiceStatsTypes";
 
-/** Record a stats-visible choice (local always; remote best-effort). */
+/**
+ * Quiet, honest source notes. Process-memory aggregate is never framed as
+ * community / global people truth.
+ */
+export function choiceStatsSourceNote(remoteSource: ChoiceStatsAggregateSource | null): string {
+  if (remoteSource === "anonymous-memory-aggregate") {
+    return "本机记录 + 本地演示样本（进程内存聚合，非社区/全球人数）";
+  }
+  return "本地样本（演示构造数据，非全球人数）+ 本机记录；在线聚合暂不可用";
+}
+
+/** Record a stats-visible choice (local immediately; remote fire-and-forget). */
 export function recordStatsChoice(
   storyId: string,
   sceneId: string | null | undefined,
@@ -23,6 +35,8 @@ export function recordStatsChoice(
   }
   const { decision, option } = resolved;
   incrementLocalChoice(option.choiceId);
+  // The remote client always resolves to a boolean and owns timeout/backoff.
+  // Do not await: authored Ink must advance independently of this enhancement.
   void postRemoteChoice(option.choiceId, storyId);
   return {
     decisionId: decision.decisionId,
@@ -42,9 +56,13 @@ export async function loadChoiceEchoRows(
   }
 
   const local = getLocalChoiceCounts();
-  const remote = await fetchRemoteChoiceCounts(storyId);
-  const counts = mergeCountMaps(CHOICE_STATS_SEED, local, remote ?? {});
-  const sourceNote = remote ? "含演示基线 · 本机 · 在线池" : "含演示基线 · 本机（在线池未连上）";
+  const remote = await fetchRemoteChoiceStats(storyId);
+  // Process-memory may still enrich chapter-end display when labelled as a
+  // local demo sample. Seed is used only when no remote snapshot is available.
+  const counts = remote
+    ? mergeCountMaps(local, remote.counts)
+    : mergeCountMaps(CHOICE_STATS_SEED, local);
+  const sourceNote = choiceStatsSourceNote(remote?.source ?? null);
 
   return buildEchoRows({
     storyId,

@@ -1,5 +1,13 @@
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
-import { resolveStatsPick } from "../../apps/web/src/stats/choiceStatsCatalog";
+import {
+  PRODUCTION_CHOICE_STATS_CATALOG,
+  isPermittedChoiceOnStory,
+} from "@supaluv/shared/choice-stats-catalog";
+import {
+  CHOICE_STATS_CATALOG,
+  resolveStatsPick,
+} from "../../apps/web/src/stats/choiceStatsCatalog";
+import { choiceStatsSourceNote } from "../../apps/web/src/stats/choiceStatsClient";
 import {
   buildEchoRows,
   cohortFromPercent,
@@ -53,9 +61,56 @@ describe("choice stats catalog", () => {
   it("ignores continue-only / unlisted scenes", () => {
     expect(resolveStatsPick("draft-ch01", "dch01_s001", "继续")).toBeNull();
   });
+
+  it("derives presentation catalog IDs from the shared production contract", () => {
+    const productionKeys = new Set(
+      PRODUCTION_CHOICE_STATS_CATALOG.flatMap((decision) =>
+        decision.choiceIds.map(
+          (choiceId) => `${decision.storyId}:${decision.decisionId}:${choiceId}`,
+        ),
+      ),
+    );
+    const browserKeys = new Set(
+      CHOICE_STATS_CATALOG.flatMap((decision) =>
+        decision.options.map(
+          (option) => `${decision.storyId}:${decision.decisionId}:${option.choiceId}`,
+        ),
+      ),
+    );
+    expect(browserKeys).toEqual(productionKeys);
+
+    for (const decision of CHOICE_STATS_CATALOG) {
+      for (const option of decision.options) {
+        expect(isPermittedChoiceOnStory(decision.storyId, option.choiceId)).toBe(true);
+      }
+    }
+
+    for (const [choiceId] of Object.entries(CHOICE_STATS_SEED)) {
+      const permittedSomewhere = CHOICE_STATS_CATALOG.some((decision) =>
+        decision.options.some((option) => option.choiceId === choiceId),
+      );
+      expect(permittedSomewhere).toBe(true);
+    }
+  });
 });
 
 describe("choice stats math", () => {
+  it("labels offline and process-memory sources as local samples, never global people", () => {
+    const offline = choiceStatsSourceNote(null);
+    expect(offline).toContain("本地样本");
+    expect(offline).toContain("非全球人数");
+    expect(offline).not.toContain("社区真相");
+    // Must negate population claims; bare "全球人数" without 非 is disallowed.
+    expect(offline.includes("全球人数") && !offline.includes("非全球人数")).toBe(false);
+
+    const processMemory = choiceStatsSourceNote("anonymous-memory-aggregate");
+    expect(processMemory).toContain("本地演示样本");
+    expect(processMemory).toContain("非社区");
+    expect(processMemory).toContain("非社区/全球人数");
+    expect(processMemory).not.toContain("在线匿名聚合");
+    expect(processMemory).not.toContain("社区真相");
+  });
+
   it("merges seed and local counts", () => {
     const merged = mergeCountMaps(CHOICE_STATS_SEED, {
       d1_bones_accept: 10,
