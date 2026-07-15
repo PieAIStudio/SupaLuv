@@ -132,7 +132,7 @@ export function extractInkPlayerText(knotBody) {
       continue;
     }
     // Choices (* / +), gathers (-), glue.
-    if (/^[+*\-]/.test(trimmed)) {
+    if (/^[+*-]/.test(trimmed)) {
       continue;
     }
     if (/^<>/.test(trimmed)) {
@@ -146,7 +146,7 @@ export function extractInkPlayerText(knotBody) {
     if (/^(?:#|~|->|===|=|VAR\b|CONST\b|INCLUDE\b|EXTERNAL\b)/.test(cleaned)) {
       continue;
     }
-    if (/^[+*\-]/.test(cleaned)) {
+    if (/^[+*-]/.test(cleaned)) {
       continue;
     }
 
