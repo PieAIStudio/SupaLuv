@@ -36,10 +36,9 @@ type ScriptLane = "han" | "latin" | null;
 const HAN_CHARACTER = /\p{Script=Han}/u;
 const LATIN_CHARACTER = /\p{Script=Latin}/u;
 const SENTENCE_PATTERN = /[^。！？!?；;.\n]+[。！？!?；;.]?/gu;
-/** AI / App / OK / OpenAI-class borrowings embedded in Chinese prose. */
-const SHORT_TECH_TOKEN = /^[A-Za-z0-9]{1,8}$/;
+/** Explicit, case-insensitive borrowings allowed to stay in the Chinese lane. */
+const CHINESE_LANE_BORROWED_TOKENS = new Set(["ai", "app", "ok", "openai"]);
 const LATIN_ALPHANUMERIC_TOKEN = /[A-Za-z0-9]+/gu;
-const MAX_BORROWED_TECH_TOKENS = 2;
 
 // Provider voice IDs are server-only catalog data. Core characters without a
 // final casting asset intentionally share a safe provisional lane voice.
@@ -202,37 +201,30 @@ function splitByScript(text: string): Array<{ text: string; lane: ScriptLane }> 
 }
 
 /**
- * Per-sentence freeze rule (must stay parity-identical with browser planner):
- * when Han is present and Latin is only up to two short technical tokens
- * (≤8 ASCII alphanumerics each, single-token fragments), those tokens inherit
- * the Chinese lane. Full English and multi-word Western fragments stay Western.
+ * Per-fragment freeze rule (must stay parity-identical with browser planner):
+ * when Han is present, each Latin fragment inherits the Chinese lane only when
+ * every token in *that* fragment belongs to the explicit AI/App/OK/OpenAI
+ * allowlist. Other Latin fragments stay Western and do not poison neighbors.
  */
 function reclassifyBorrowedTechTokens(
   fragments: Array<{ text: string; lane: ScriptLane }>,
 ): Array<{ text: string; lane: ScriptLane }> {
-  const hasHan = fragments.some((fragment) => fragment.lane === "han");
-  const latinFragments = fragments.filter((fragment) => fragment.lane === "latin");
-  if (!hasHan || latinFragments.length === 0) {
-    return fragments;
-  }
-  if (!latinFragments.every((fragment) => isShortTechnicalLatinFragment(fragment.text))) {
-    return fragments;
-  }
-  const tokenCount = latinFragments.reduce(
-    (count, fragment) => count + latinAlphanumericTokens(fragment.text).length,
-    0,
-  );
-  if (tokenCount === 0 || tokenCount > MAX_BORROWED_TECH_TOKENS) {
+  if (!fragments.some((fragment) => fragment.lane === "han")) {
     return fragments;
   }
   return fragments.map((fragment) =>
-    fragment.lane === "latin" ? { text: fragment.text, lane: "han" } : fragment,
+    fragment.lane === "latin" && isAllowedChineseLaneBorrowing(fragment.text)
+      ? { text: fragment.text, lane: "han" }
+      : fragment,
   );
 }
 
-function isShortTechnicalLatinFragment(text: string): boolean {
+function isAllowedChineseLaneBorrowing(text: string): boolean {
   const tokens = latinAlphanumericTokens(text);
-  return tokens.length === 1 && SHORT_TECH_TOKEN.test(tokens[0] ?? "");
+  return (
+    tokens.length > 0 &&
+    tokens.every((token) => CHINESE_LANE_BORROWED_TOKENS.has(token.toLowerCase()))
+  );
 }
 
 function latinAlphanumericTokens(text: string): string[] {

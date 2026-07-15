@@ -10,6 +10,7 @@ import {
 } from "react";
 import { trackEvent } from "./analytics/productAnalytics";
 import { bedLabel } from "./audio/bedCatalog";
+import { DialogueVoicePlaybackGuard } from "./audio/dialogueVoicePlaybackGuard";
 import { gameAudio } from "./audio/gameAudio";
 import { syncGameAudioFromSettings } from "./audio/syncGameAudioFromSettings";
 import { useCoPlaySession } from "./coplay/useCoPlaySession";
@@ -217,6 +218,21 @@ export function App() {
     revision: storyRevision,
     continueBlockedMessage,
   } = story;
+
+  const dialogueVoiceGuardRef = useRef<DialogueVoicePlaybackGuard | null>(null);
+  dialogueVoiceGuardRef.current ??= new DialogueVoicePlaybackGuard();
+  const dialogueVoiceGuard = dialogueVoiceGuardRef.current;
+  const dialogueVoiceRunKey = `${storyRevision}:${storyId}`;
+  const voiceEnabled = settings.voiceVolume > 0;
+
+  useEffect(() => {
+    // Required while Settings is mounted (player unmounted): zero still suppresses
+    // the last observed line so remount cannot restart it.
+    dialogueVoiceGuard.syncVolume({
+      runKey: dialogueVoiceRunKey,
+      voiceEnabled,
+    });
+  }, [dialogueVoiceGuard, dialogueVoiceRunKey, voiceEnabled]);
 
   useEffect(() => {
     syncGameAudioFromSettings(settings);
@@ -624,6 +640,9 @@ export function App() {
               textSpeed={settings.textSpeed}
               autoPlay={settings.autoPlay}
               masterMuted={settings.masterMuted}
+              voiceVolume={settings.voiceVolume}
+              dialogueVoiceGuard={dialogueVoiceGuard}
+              dialogueVoiceRunKey={dialogueVoiceRunKey}
               activeSaveSlot={activeManualSlot}
               displayNames={displayNames}
               portraitPack={portraitPack}

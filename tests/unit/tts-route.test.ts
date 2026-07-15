@@ -34,8 +34,8 @@ describe("dual TTS route", () => {
     expect(segments.map(({ text, language, route }) => ({ text, language, route }))).toEqual([
       { text: "你们在听？", language: "zh-CN", route: "chinese" },
       { text: "This is wrong.", language: "en", route: "western" },
-      // single short Latin token inside Han prose inherits Chinese lane
-      { text: "Live， 实时。", language: "zh-CN", route: "chinese" },
+      { text: "Live，", language: "en", route: "western" },
+      { text: "实时。", language: "zh-CN", route: "chinese" },
       { text: "我听见他们笑了。", language: "zh-CN", route: "chinese" },
     ]);
   });
@@ -48,10 +48,7 @@ describe("dual TTS route", () => {
     expect(new Set(aiLine.map((segment) => segment.route))).toEqual(new Set(["chinese"]));
     expect(aiLine.some((segment) => segment.text.includes("AI"))).toBe(true);
 
-    const okLine = planDialogueTtsSegments(
-      '雷欧对着听筒喊："九百？OK……地址发我，现在。"',
-      "zh-CN",
-    );
+    const okLine = planDialogueTtsSegments('雷欧对着听筒喊："九百？OK……地址发我，现在。"', "zh-CN");
     expect(new Set(okLine.map((segment) => segment.route))).toEqual(new Set(["chinese"]));
 
     const appAiLine = planDialogueTtsSegments(
@@ -60,10 +57,7 @@ describe("dual TTS route", () => {
     );
     expect(new Set(appAiLine.map((segment) => segment.route))).toEqual(new Set(["chinese"]));
 
-    const appSoul = planDialogueTtsSegments(
-      "白天扫条码，晚上被 App 扫灵魂。",
-      "zh-CN",
-    );
+    const appSoul = planDialogueTtsSegments("白天扫条码，晚上被 App 扫灵魂。", "zh-CN");
     expect(new Set(appSoul.map((segment) => segment.route))).toEqual(new Set(["chinese"]));
   });
 
