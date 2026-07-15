@@ -56,10 +56,11 @@ async function reachPrototypeAiEnd(page: import("@playwright/test").Page) {
     sessionStorage.setItem("supaluv.boot.seen.v1", "1");
   });
   await page.reload();
-  const boot = page.getByTestId("boot-splash");
-  if (await boot.isVisible().catch(() => false)) {
-    await boot.click();
+  const interactiveBoot = page.locator('[data-testid="boot-splash"][role="button"]');
+  if (await interactiveBoot.isVisible().catch(() => false)) {
+    await interactiveBoot.click();
   }
+  await expect(page.getByTestId("title-screen")).toBeVisible({ timeout: 10_000 });
   await page.getByRole("button", { name: "中文", exact: true }).click();
   await page.getByTestId("title-new-game").click();
   await page.getByRole("button", { name: "使用官方形象" }).click();
