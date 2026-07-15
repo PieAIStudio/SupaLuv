@@ -1,5 +1,5 @@
 /**
- * Typed PostHog adapter (PieHQ: PostHog-only product analytics).
+ * Typed PostHog adapter (HQ: PostHog-only product analytics).
  * Never put story text, prompts, keys, or PII in properties.
  */
 

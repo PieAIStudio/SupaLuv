@@ -1,1 +1,1 @@
-../../../../PieHQ/docs/canon/pie-product-technology-stack.md
+../../../../HQ/docs/canon/pie-product-technology-stack.md
