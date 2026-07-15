@@ -126,8 +126,8 @@ importers:
         specifier: 0.3.0
         version: 0.3.0
       '@pieai/swimmer-backend-client':
-        specifier: 0.3.0
-        version: 0.3.0(@supabase/supabase-js@2.110.3)
+        specifier: 0.4.0
+        version: 0.4.0(@supabase/supabase-js@2.110.3)
       '@supabase/supabase-js':
         specifier: 2.110.3
         version: 2.110.3
@@ -1852,8 +1852,8 @@ packages:
     resolution: {integrity: sha512-SMpyEBO0yLpz1Han6MMRA3kx/GMto4oGlylWdr9QVBijEo9nUBVwUjmdhRvF6yZa6H2yOwljLNDSrnMOUlltbg==}
     engines: {node: '>=24 <25'}
 
-  '@pieai/swimmer-backend-client@0.3.0':
-    resolution: {integrity: sha512-xygpbNHlEuzKmHuF0rVDGo9/zgzJTFOh3hOK1vwamU4qRxNqROM+67pe0yg5pZ+C2KAQd7hHpdgTHvxl6UKKtQ==}
+  '@pieai/swimmer-backend-client@0.4.0':
+    resolution: {integrity: sha512-7Hb8DvlFAFxK2ISGhAy8KCt5/PPr/0P1KQUTOm9qY2v7UPcSSPjy1xpo7YHmzxAeEKo4iSvOllwXRwUy7rlP+w==}
     engines: {node: '>=24 <25'}
     peerDependencies:
       '@supabase/supabase-js': ^2.0.0
@@ -6730,7 +6730,7 @@ snapshots:
 
   '@pieai/swimmer-ai-kit@0.3.0': {}
 
-  '@pieai/swimmer-backend-client@0.3.0(@supabase/supabase-js@2.110.3)':
+  '@pieai/swimmer-backend-client@0.4.0(@supabase/supabase-js@2.110.3)':
     dependencies:
       '@supabase/supabase-js': 2.110.3
 
