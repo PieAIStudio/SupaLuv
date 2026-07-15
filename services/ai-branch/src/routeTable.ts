@@ -4,6 +4,7 @@
  */
 
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { isPermittedStoryId } from "@supaluv/shared/choice-stats-catalog";
 import { verifyBearerToken } from "./authGate.js";
 import { characterProviderHealthSnapshot } from "./characterProviderConfig.js";
 import { handleCharacterAssetRoute } from "./characterAssetService.js";
@@ -338,11 +339,15 @@ export async function handleAiBranchRequest(
   }
 
   if (req.method === "GET" && url.pathname === "/choice-stats") {
-    const storyId = (url.searchParams.get("storyId") ?? "ch01").trim() || "ch01";
+    const storyId = (url.searchParams.get("storyId") ?? "").trim();
+    if (!isPermittedStoryId(storyId)) {
+      sendJson(res, 400, { error: "Invalid storyId" });
+      return true;
+    }
     sendJson(res, 200, {
       storyId,
       counts: getCountsForStory(storyId),
-      source: "memory",
+      source: "anonymous-memory-aggregate",
     });
     return true;
   }
@@ -352,12 +357,16 @@ export async function handleAiBranchRequest(
       const raw = await readBody(req);
       const body = JSON.parse(raw) as { storyId?: string; choiceId?: string };
       const choiceId = body.choiceId?.trim() ?? "";
-      const storyId = body.storyId?.trim() || "ch01";
-      if (!choiceId || !choiceId.startsWith(storyId)) {
-        sendJson(res, 400, { error: "Need choiceId scoped to storyId" });
+      const storyId = body.storyId?.trim() ?? "";
+      if (!choiceId || !storyId) {
+        sendJson(res, 400, { error: "Need storyId and choiceId" });
         return true;
       }
-      const count = recordChoice(choiceId);
+      const count = recordChoice(storyId, choiceId);
+      if (!count) {
+        sendJson(res, 400, { error: "Invalid storyId or choiceId" });
+        return true;
+      }
       sendJson(res, 200, { ok: true, choiceId, count });
     } catch {
       sendJson(res, 400, { error: "Invalid JSON body" });

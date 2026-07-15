@@ -1,4 +1,10 @@
-import type { ChoiceCountMap, ChoiceEchoRow, SessionChoicePick } from "./choiceStatsTypes";
+import type {
+  ChoiceCountMap,
+  ChoiceEchoRow,
+  ChoiceStatsAuthority,
+  ChoiceStatsProvenance,
+  SessionChoicePick,
+} from "./choiceStatsTypes";
 import { decisionsForStory } from "./choiceStatsCatalog";
 
 /** Below this, hide percent (seed usually keeps us above). */
@@ -53,7 +59,8 @@ export function buildEchoRows(args: {
   readonly storyId: string;
   readonly picks: readonly SessionChoicePick[];
   readonly counts: ChoiceCountMap;
-  readonly sourceNote: string;
+  readonly authority: ChoiceStatsAuthority;
+  readonly provenance: ChoiceStatsProvenance;
 }): ChoiceEchoRow[] {
   const decisions = decisionsForStory(args.storyId);
   const byDecision = new Map(decisions.map((d) => [d.decisionId, d]));
@@ -78,9 +85,27 @@ export function buildEchoRows(args: {
       totalSamples: total,
       cohortKind: cohort.kind,
       cohortLabel: cohort.label,
-      sourceNote: args.sourceNote,
+      authority: args.authority,
+      provenance: args.provenance,
     });
   }
 
   return rows;
+}
+
+/**
+ * Reward projection must consume explicit authority, never infer trust from
+ * percentages, labels, sample size, or provenance copy.
+ */
+export function rewardSignalsForEchoRows(rows: readonly ChoiceEchoRow[]): {
+  readonly hasRareEcho: boolean;
+  readonly hasReverseCurrent: boolean;
+} {
+  const authoritativeMinorityCount = rows.filter(
+    (row) => row.authority === "authoritative" && row.cohortKind === "minority",
+  ).length;
+  return {
+    hasRareEcho: authoritativeMinorityCount >= 1,
+    hasReverseCurrent: authoritativeMinorityCount >= 3,
+  };
 }

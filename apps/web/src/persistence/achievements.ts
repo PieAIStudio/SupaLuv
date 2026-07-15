@@ -1,3 +1,5 @@
+import { hasAuthoritativeChoiceStatsCapability } from "@supaluv/shared/choice-stats-catalog";
+
 const STORAGE_KEY = "supaluv.achievements.v1";
 
 export type AchievementId =
@@ -19,6 +21,7 @@ export interface AchievementDef {
   readonly id: AchievementId;
   readonly title: string;
   readonly description: string;
+  readonly requiresAuthoritativeChoiceStats?: boolean;
 }
 
 export const ACHIEVEMENT_DEFS: readonly AchievementDef[] = [
@@ -61,6 +64,7 @@ export const ACHIEVEMENT_DEFS: readonly AchievementDef[] = [
     id: "rare_echo_path",
     title: "少数派回声",
     description: "章末全球回声里，至少有一次选择属于少数派（≤32%）。",
+    requiresAuthoritativeChoiceStats: true,
   },
   {
     id: "first_coplay",
@@ -81,13 +85,23 @@ export const ACHIEVEMENT_DEFS: readonly AchievementDef[] = [
     id: "reverse_current",
     title: "逆流订单",
     description: "一局里至少 3 次全球回声少数派。",
+    requiresAuthoritativeChoiceStats: true,
   },
   {
     id: "oracle_hit",
     title: "预言命中",
     description: "预言家猜中至少一次社区多数选。",
+    requiresAuthoritativeChoiceStats: true,
   },
 ] as const;
+
+export function isAchievementAvailable(def: AchievementDef): boolean {
+  return !def.requiresAuthoritativeChoiceStats || hasAuthoritativeChoiceStatsCapability();
+}
+
+export function listPlayerVisibleAchievementDefs(): readonly AchievementDef[] {
+  return ACHIEVEMENT_DEFS.filter(isAchievementAvailable);
+}
 
 export type AchievementMap = Partial<Record<AchievementId, string>>;
 
@@ -116,7 +130,7 @@ export function unlockAchievement(id: AchievementId): AchievementDef | null {
     return null;
   }
   const def = ACHIEVEMENT_DEFS.find((item) => item.id === id) ?? null;
-  if (!def) {
+  if (!def || !isAchievementAvailable(def)) {
     return null;
   }
   const next: AchievementMap = {
@@ -129,5 +143,5 @@ export function unlockAchievement(id: AchievementId): AchievementDef | null {
 
 export function listUnlocked(): readonly AchievementDef[] {
   const map = loadAchievements();
-  return ACHIEVEMENT_DEFS.filter((def) => Boolean(map[def.id]));
+  return ACHIEVEMENT_DEFS.filter((def) => isAchievementAvailable(def) && Boolean(map[def.id]));
 }

@@ -1,4 +1,8 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  CHOICE_STATS_REMOTE_TIMEOUT_MS,
+  resetChoiceStatsRemoteForTesting,
+} from "../../apps/web/src/stats/choiceStatsRemote";
 import { commitHostChoice } from "../../apps/web/src/views/play/commitHostChoice";
 import type { InkStorySnapshot } from "../../apps/web/src/story/inkStoryRunner";
 import { getPlayerPathObservation } from "../../apps/web/src/persistence/pathMemory";
@@ -22,6 +26,12 @@ Object.defineProperty(globalThis, "localStorage", {
 
 beforeEach(() => {
   memory.clear();
+  resetChoiceStatsRemoteForTesting();
+});
+
+afterEach(() => {
+  vi.useRealTimers();
+  vi.unstubAllGlobals();
 });
 
 function snapshot(partial: Partial<InkStorySnapshot> = {}): InkStorySnapshot {
@@ -41,9 +51,9 @@ function snapshot(partial: Partial<InkStorySnapshot> = {}): InkStorySnapshot {
 
 describe("commitHostChoice", () => {
   it("records player choice via narrative command then advances Ink", () => {
-    const recordPlayerChoice = vi.fn();
-    const onChoose = vi.fn();
-    const clearVotes = vi.fn();
+    const recordPlayerChoice = vi.fn<(text: string) => void>();
+    const onChoose = vi.fn<(index: number) => void>();
+    const clearVotes = vi.fn<() => void>();
 
     const result = commitHostChoice({
       storyId: "draft-ch01",
@@ -66,8 +76,8 @@ describe("commitHostChoice", () => {
   });
 
   it("still advances when choice index is missing without recording history", () => {
-    const recordPlayerChoice = vi.fn();
-    const onChoose = vi.fn();
+    const recordPlayerChoice = vi.fn<(text: string) => void>();
+    const onChoose = vi.fn<(index: number) => void>();
 
     commitHostChoice({
       storyId: "draft-ch01",
@@ -81,5 +91,47 @@ describe("commitHostChoice", () => {
 
     expect(recordPlayerChoice).not.toHaveBeenCalled();
     expect(onChoose).toHaveBeenCalledWith(0);
+  });
+
+  it("advances an authored tracked choice immediately while remote stats hang", async () => {
+    vi.useFakeTimers();
+    const fetchMock = vi.fn<(input: RequestInfo | URL, init?: RequestInit) => Promise<Response>>(
+      () => new Promise<Response>(() => undefined),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const unhandled = vi.fn<(reason: unknown, promise: Promise<unknown>) => void>();
+    process.on("unhandledRejection", unhandled);
+
+    try {
+      const onChoose = vi.fn<(index: number) => void>();
+      const result = commitHostChoice({
+        storyId: "draft-ch01",
+        pathScope,
+        snapshot: snapshot({
+          sceneId: "dch01_s003",
+          choices: [
+            {
+              index: 0,
+              text: "冷笑：后门也算诚实",
+              choiceId: "d1_bones_cold",
+            },
+          ],
+        }),
+        choiceIndex: 0,
+        sessionPicks: [],
+        recordPlayerChoice: vi.fn<(text: string) => void>(),
+        onChoose,
+      });
+
+      expect(onChoose).toHaveBeenCalledWith(0);
+      expect(result.sessionPicks).toHaveLength(1);
+      expect(fetchMock).toHaveBeenCalledOnce();
+
+      await vi.advanceTimersByTimeAsync(CHOICE_STATS_REMOTE_TIMEOUT_MS);
+      await Promise.resolve();
+      expect(unhandled).not.toHaveBeenCalled();
+    } finally {
+      process.off("unhandledRejection", unhandled);
+    }
   });
 });

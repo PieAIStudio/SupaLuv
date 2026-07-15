@@ -1,10 +1,19 @@
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
-import { resolveStatsPick } from "../../apps/web/src/stats/choiceStatsCatalog";
+import {
+  PRODUCTION_CHOICE_STATS_CATALOG,
+  isPermittedChoiceOnStory,
+} from "@supaluv/shared/choice-stats-catalog";
+import {
+  CHOICE_STATS_CATALOG,
+  resolveStatsPick,
+} from "../../apps/web/src/stats/choiceStatsCatalog";
+import { choiceStatsSourceNote } from "../../apps/web/src/stats/choiceStatsClient";
 import {
   buildEchoRows,
   cohortFromPercent,
   mergeCountMaps,
   percentForChoice,
+  rewardSignalsForEchoRows,
 } from "../../apps/web/src/stats/choiceStatsMath";
 import {
   getLocalChoiceCounts,
@@ -53,9 +62,53 @@ describe("choice stats catalog", () => {
   it("ignores continue-only / unlisted scenes", () => {
     expect(resolveStatsPick("draft-ch01", "dch01_s001", "继续")).toBeNull();
   });
+
+  it("derives presentation catalog IDs from the shared production contract", () => {
+    const productionKeys = new Set(
+      PRODUCTION_CHOICE_STATS_CATALOG.flatMap((decision) =>
+        decision.choiceIds.map(
+          (choiceId) => `${decision.storyId}:${decision.decisionId}:${choiceId}`,
+        ),
+      ),
+    );
+    const browserKeys = new Set(
+      CHOICE_STATS_CATALOG.flatMap((decision) =>
+        decision.options.map(
+          (option) => `${decision.storyId}:${decision.decisionId}:${option.choiceId}`,
+        ),
+      ),
+    );
+    expect(browserKeys).toEqual(productionKeys);
+
+    for (const decision of CHOICE_STATS_CATALOG) {
+      for (const option of decision.options) {
+        expect(isPermittedChoiceOnStory(decision.storyId, option.choiceId)).toBe(true);
+      }
+    }
+
+    for (const [choiceId] of Object.entries(CHOICE_STATS_SEED)) {
+      const permittedSomewhere = CHOICE_STATS_CATALOG.some((decision) =>
+        decision.options.some((option) => option.choiceId === choiceId),
+      );
+      expect(permittedSomewhere).toBe(true);
+    }
+  });
 });
 
 describe("choice stats math", () => {
+  it("labels offline and process-memory sources as local samples, never global people", () => {
+    const offline = choiceStatsSourceNote(null);
+    expect(offline).toContain("本地演示样本");
+    expect(offline).toContain("不用于奖励或裁判");
+    expect(offline).not.toMatch(/全球|社区|玩家人数/);
+
+    const processMemory = choiceStatsSourceNote("anonymous-memory-aggregate");
+    expect(processMemory).toContain("本地演示样本");
+    expect(processMemory).toContain("可清空的进程内存");
+    expect(processMemory).toContain("不用于奖励或裁判");
+    expect(processMemory).not.toMatch(/全球|社区|玩家人数/);
+  });
+
   it("merges seed and local counts", () => {
     const merged = mergeCountMaps(CHOICE_STATS_SEED, {
       d1_bones_accept: 10,
@@ -93,11 +146,46 @@ describe("choice stats math", () => {
       storyId: "draft-ch01",
       picks,
       counts: { d1_bones_accept: 40, d1_bones_cold: 60 },
-      sourceNote: "test",
+      authority: "demo-only",
+      provenance: "local-demo-seed",
     });
     expect(rows).toHaveLength(1);
     expect(rows[0]?.percentSame).toBeTypeOf("number");
     expect(rows[0]?.yourLabel).toContain("后门");
+    expect(rows[0]?.authority).toBe("demo-only");
+    expect(rewardSignalsForEchoRows(rows)).toEqual({
+      hasRareEcho: false,
+      hasReverseCurrent: false,
+    });
+  });
+
+  it("requires explicit authority before minority rows can drive rewards", () => {
+    const base = {
+      decisionId: "d1_bones",
+      prompt: "prompt",
+      yourLabel: "choice",
+      yourChoiceId: "d1_bones_accept",
+      percentSame: 20,
+      totalSamples: 100,
+      cohortKind: "minority" as const,
+      cohortLabel: "minority",
+      provenance: "local-demo-process-memory" as const,
+    };
+    expect(
+      rewardSignalsForEchoRows([
+        { ...base, authority: "demo-only" },
+        { ...base, decisionId: "d2", authority: "demo-only" },
+        { ...base, decisionId: "d3", authority: "demo-only" },
+      ]),
+    ).toEqual({ hasRareEcho: false, hasReverseCurrent: false });
+
+    expect(
+      rewardSignalsForEchoRows([
+        { ...base, authority: "authoritative" },
+        { ...base, decisionId: "d2", authority: "authoritative" },
+        { ...base, decisionId: "d3", authority: "authoritative" },
+      ]),
+    ).toEqual({ hasRareEcho: true, hasReverseCurrent: true });
   });
 });
 

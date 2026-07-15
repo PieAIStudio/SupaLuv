@@ -15,7 +15,7 @@ export interface ShareCardPayload {
   readonly toneLabel: string;
   readonly usedAi: boolean;
   readonly flavor: string;
-  /** Optional global-echo highlights for the share PNG. */
+  /** Optional local demo-sample highlights for the share PNG. */
   readonly echoLines?: readonly ShareCardEchoLine[];
   /** Optional custom lead names (E19). */
   readonly leadNames?: { readonly male: string; readonly female: string };
@@ -31,17 +31,19 @@ export interface ShareCardPayload {
   };
 }
 
+export const DEFAULT_SHARE_CARD_COPY = {
+  title: "超级爱人 · 第 1 章",
+  order: "订单",
+  dignity: "羞耻",
+  impulse: "冲动",
+  leads: "主演",
+  aiPath: "路径：含 AI 旁支 · 已汇合主线",
+  echo: "本地演示样本",
+  same: "本地演示样本同选",
+} as const;
+
 export async function downloadShareCard(payload: ShareCardPayload): Promise<void> {
-  const copy = payload.copy ?? {
-    title: "超级爱人 · 第 1 章",
-    order: "订单",
-    dignity: "羞耻",
-    impulse: "冲动",
-    leads: "主演",
-    aiPath: "路径：含 AI 旁支 · 已汇合主线",
-    echo: "全球回声",
-    same: "同选",
-  };
+  const copy = payload.copy ?? DEFAULT_SHARE_CARD_COPY;
   const width = 1280;
   const height = 720;
   const canvas = document.createElement("canvas");

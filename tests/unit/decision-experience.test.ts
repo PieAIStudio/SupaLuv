@@ -173,7 +173,8 @@ describe("resolveOracleOptions", () => {
         },
       ],
     };
-    expect(resolveOracleOptions(decision)).toEqual([
+    expect(resolveOracleOptions(decision)).toEqual([]);
+    expect(resolveOracleOptions(decision, true)).toEqual([
       {
         choiceId: "d1_bones_accept",
         shortLabel: "点头：至少说人话了",

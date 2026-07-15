@@ -5,6 +5,7 @@
  */
 
 import type { ChapterCheckpointKind } from "@supaluv/shared";
+import { hasAuthoritativeChoiceStatsCapability } from "@supaluv/shared/choice-stats-catalog";
 import type { EndingPathMeta } from "../../ChapterEndCard";
 import type { OracleOptionView } from "../DialoguePanel";
 import type { StatsDecisionDef } from "../../../stats/choiceStatsTypes";
@@ -80,8 +81,9 @@ export function resolveDialogueYieldsToEnding(input: {
 
 export function resolveOracleOptions(
   decision: StatsDecisionDef | null,
+  authorityAvailable = hasAuthoritativeChoiceStatsCapability(),
 ): readonly OracleOptionView[] {
-  if (!decision) {
+  if (!decision || !authorityAvailable) {
     return [];
   }
   return decision.options.map((o) => ({

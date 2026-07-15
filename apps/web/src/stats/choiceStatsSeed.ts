@@ -1,26 +1,23 @@
 /**
- * Bootstrap community weights so the first players still see Telltale-like %.
- * Replaced/overpowered by real local + remote counts over time.
- * Not secret truth — demo hospitality only.
+ * Local presentation sample so an offline demo can still exercise percentage
+ * rendering. These numbers are not remote users, global population, or product
+ * truth. Any UI that includes them must label the result as a local sample.
+ *
+ * Keys must stay within the shared production catalog choice IDs.
  */
 
 import type { ChoiceCountMap } from "./choiceStatsTypes";
 
 export const CHOICE_STATS_SEED: ChoiceCountMap = {
-  "ch01_delete_or_shot.delete": 420,
-  "ch01_delete_or_shot.screenshot": 580,
+  d1_bones_accept: 420,
+  d1_bones_cold: 580,
 
-  "ch01_property_timing.go": 610,
-  "ch01_property_timing.delay": 390,
+  d1_tell_flat: 610,
+  d1_tell_hard: 390,
 
-  "ch01_product_approach.demo": 340,
-  "ch01_product_approach.pay": 210,
-  "ch01_product_approach.privacy": 280,
-  "ch01_product_approach.retreat": 170,
+  d2_catch_firm: 340,
+  d2_catch_soft: 660,
 
-  "ch01_demo_react.proceed": 640,
-  "ch01_demo_react.close": 360,
-
-  "ch01_checkout_nerve.confirm": 530,
-  "ch01_checkout_nerve.price": 470,
+  d2_admit_me: 530,
+  d2_admit_me_hard: 470,
 };

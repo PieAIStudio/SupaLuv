@@ -32,6 +32,13 @@ export interface SessionChoicePick {
 
 export type ChoiceCountMap = Readonly<Record<string, number>>;
 
+export type ChoiceStatsAuthority = "demo-only" | "authoritative";
+
+export type ChoiceStatsProvenance =
+  | "local-demo-seed"
+  | "local-demo-process-memory"
+  | "trusted-durable-aggregate";
+
 export interface ChoiceEchoRow {
   readonly decisionId: string;
   readonly prompt: string;
@@ -42,7 +49,8 @@ export interface ChoiceEchoRow {
   readonly totalSamples: number;
   readonly cohortKind: "majority" | "mid" | "minority" | "thin";
   readonly cohortLabel: string;
-  readonly sourceNote: string;
+  readonly authority: ChoiceStatsAuthority;
+  readonly provenance: ChoiceStatsProvenance;
 }
 
 export interface ChoiceStatsSnapshot {

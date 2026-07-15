@@ -33,7 +33,8 @@
       "@supaluv/shared/story-map": ["./packages/shared/src/story-map.ts"],
       "@supaluv/shared/narrative-graph": ["./packages/shared/src/narrative-graph.ts"],
       "@supaluv/shared/character-pack": ["./packages/shared/src/character-pack.ts"],
-      "@supaluv/shared/ai-ending": ["./packages/shared/src/ai-ending.ts"]
+      "@supaluv/shared/ai-ending": ["./packages/shared/src/ai-ending.ts"],
+      "@supaluv/shared/choice-stats-catalog": ["./packages/shared/src/choice-stats-catalog.ts"]
     },
     "jsx": "react-jsx"
   }

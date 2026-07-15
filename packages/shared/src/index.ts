@@ -31,3 +31,4 @@ export * from "./story-map";
 export * from "./narrative-graph";
 export * from "./character-pack";
 export * from "./ai-ending";
+export * from "./choice-stats-catalog";

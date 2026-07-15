@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import { hasAuthoritativeChoiceStatsCapability } from "@supaluv/shared/choice-stats-catalog";
 import type { GlobalLeanHint } from "../coplay/RpsDuelOverlay";
 import {
   leanForChoiceLabel,
-  loadMergedCounts,
+  loadAuthoritativeCounts,
   preferCommunityChoiceIndex,
 } from "../stats/choiceStatsLean";
 
 /**
- * Load community lean for the two conflicting co-play choices.
- * Used by RPS overlay "听全球的" referee.
+ * Load lean for the two conflicting co-play choices.
+ * Referee majority authority only uses trusted durable aggregate sources.
+ * Process-memory / demo samples fail closed (no referee pick).
  */
 export function useRpsGlobalLean(input: {
   readonly enabled: boolean;
@@ -26,14 +28,14 @@ export function useRpsGlobalLean(input: {
   const [refereePick, setRefereePick] = useState<{ index: number; note: string } | null>(null);
 
   useEffect(() => {
-    if (!input.enabled) {
+    if (!input.enabled || !hasAuthoritativeChoiceStatsCapability()) {
       setLean(null);
       setRefereePick(null);
       return;
     }
     let cancelled = false;
     setLean({ hostPercent: null, guestPercent: null, canReferee: false, loading: true });
-    void loadMergedCounts(input.storyId).then((counts) => {
+    void loadAuthoritativeCounts(input.storyId).then((counts) => {
       if (cancelled) {
         return;
       }
