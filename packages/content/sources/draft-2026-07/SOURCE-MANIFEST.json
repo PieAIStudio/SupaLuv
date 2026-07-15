@@ -2,6 +2,11 @@
   "id": "draft-2026-07",
   "importedAt": "2026-07-13",
   "note": "Body files under this directory are byte-identical to the original drafts. Metadata lives only in this manifest so source SHA-256 stays pure.",
+  "coverageMappingDigest": {
+    "algorithm": "sha256",
+    "entryCount": 169,
+    "value": "2aa51095ad83011f390f0876040f44933b1af5d7bed45834e0661c40346dca03"
+  },
   "sources": [
     {
       "id": "draft01",
