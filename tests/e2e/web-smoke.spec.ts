@@ -40,7 +40,7 @@ async function installSignedInSession(page: import("@playwright/test").Page) {
       body: '{"error":"disabled_in_e2e"}',
     }),
   );
-  await page.route("**/choice-stats**", (route) =>
+  await page.route("**/api/choice-stats**", (route) =>
     route.fulfill({ status: 200, contentType: "application/json", body: '{"counts":{}}' }),
   );
 }
