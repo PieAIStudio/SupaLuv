@@ -187,7 +187,7 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   const firstAuthored = page.locator(".authored-choice-group .choice-button").first();
   const oracleAria = await firstOracle.getAttribute("aria-label");
   const authoredAria = await firstAuthored.getAttribute("aria-label");
-  expect(oracleAria).toMatch(/^预言预测:/);
+  expect(oracleAria).toMatch(/^预言家预测:/);
   expect(authoredAria).toMatch(/^剧情选择:/);
   expect(oracleAria).not.toBe(authoredAria);
   // Same visible wording must still be distinguishable by accessible name.
