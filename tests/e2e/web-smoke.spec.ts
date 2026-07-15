@@ -100,6 +100,8 @@ async function reachPrototypeAiEnd(page: import("@playwright/test").Page) {
 }
 
 async function clickIfVisible(page: import("@playwright/test").Page, name: RegExp) {
+  // Authored choices expose a localized semantic aria-label prefix
+  // (e.g. "剧情选择: 继续"), so exact text-only names no longer match alone.
   const button = page.getByRole("button", { name });
   await page
     .getByTestId("story-copy")
@@ -108,6 +110,9 @@ async function clickIfVisible(page: import("@playwright/test").Page, name: RegEx
   await expect(button.first()).toBeVisible({ timeout: 10_000 });
   await button.first().click();
 }
+
+/** Matches visible "继续" and accessible name "剧情选择: 继续" / "Story choice: Continue". */
+const CONTINUE_CHOICE = /(?:剧情选择|Story choice):\s*继续$|^继续$/i;
 
 test("commercial shell: cinematic title, play, system save", async ({ page }) => {
   const pageErrors: string[] = [];
@@ -151,20 +156,67 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   await expect(page.getByTestId("vn-stage")).toHaveAttribute("data-motion", "slow_push");
   await expect(page.getByTestId("cutscene-layer")).toHaveCount(0);
 
-  await clickIfVisible(page, /^继续$/i);
+  await clickIfVisible(page, CONTINUE_CHOICE);
   await expect(page.getByTestId("emotion-calibration")).toBeVisible();
   await page.getByTestId("emotion-calibration-skip").click();
-  await clickIfVisible(page, /^继续$/i);
+  await clickIfVisible(page, CONTINUE_CHOICE);
   // s002 protocol prose → protocol-test interaction → s003 bones branch
-  await clickIfVisible(page, /^继续$/i);
+  await clickIfVisible(page, CONTINUE_CHOICE);
   await expect(page.getByTestId("protocol-test")).toBeVisible({ timeout: 15_000 });
   await page.getByTestId("protocol-test-skip").click();
-  await clickIfVisible(page, /^继续$/i);
+  await clickIfVisible(page, CONTINUE_CHOICE);
   await page.getByTestId("story-copy").click();
   // First authored branch: protocol "bones" choice (ignore oracle guess buttons).
   await expect(
     page.locator(".choice-button", { hasText: /说人话了|后门也算诚实/ }).first(),
   ).toBeVisible({ timeout: 15_000 });
+
+  await expect(page.getByTestId("oracle-instruction")).toHaveText(
+    "预测不会推进剧情，请在下方作出选择。",
+  );
+  await expect(page.getByTestId("authored-choice-lead")).toContainText("剧情选择");
+
+  const oracleGroup = page.getByTestId("oracle-row");
+  const authoredGroup = page.getByTestId("authored-choice-group");
+  await expect(oracleGroup).toHaveAttribute("role", "group");
+  await expect(oracleGroup).toHaveAttribute("aria-labelledby", "oracle-choices-label");
+  await expect(authoredGroup).toHaveAttribute("role", "group");
+  await expect(authoredGroup).toHaveAttribute("aria-labelledby", "authored-choices-label");
+
+  const firstOracle = page.locator(".oracle-buttons button").first();
+  const firstAuthored = page.locator(".authored-choice-group .choice-button").first();
+  const oracleAria = await firstOracle.getAttribute("aria-label");
+  const authoredAria = await firstAuthored.getAttribute("aria-label");
+  expect(oracleAria).toMatch(/^预言预测:/);
+  expect(authoredAria).toMatch(/^剧情选择:/);
+  expect(oracleAria).not.toBe(authoredAria);
+  // Same visible wording must still be distinguishable by accessible name.
+  const oracleVisible = (await firstOracle.innerText()).trim();
+  if (oracleVisible.length > 0) {
+    const matchingAuthored = page.locator(".authored-choice-group .choice-button", {
+      hasText: oracleVisible,
+    });
+    if ((await matchingAuthored.count()) > 0) {
+      const twinAria = await matchingAuthored.first().getAttribute("aria-label");
+      expect(twinAria).toMatch(/^剧情选择:/);
+      expect(twinAria).not.toBe(await firstOracle.getAttribute("aria-label"));
+    }
+  }
+
+  const storyBeforePrediction = await page.getByTestId("story-copy").textContent();
+  const authoredChoicesBeforePrediction = await page.locator(".choice-button").count();
+  await firstOracle.click();
+  await expect(page.getByTestId("oracle-instruction")).toBeVisible();
+  await expect(page.getByTestId("oracle-row")).toContainText("你猜多数：");
+  expect(await page.getByTestId("story-copy").textContent()).toBe(storyBeforePrediction);
+  expect(await page.locator(".choice-button").count()).toBe(authoredChoicesBeforePrediction);
+
+  await page.setViewportSize({ width: 844, height: 390 });
+  await expect(page.locator(".choice-button:not(.ai-choice-button)").first()).toBeInViewport();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(
+    false,
+  );
+  await page.setViewportSize({ width: 1280, height: 720 });
 
   const dialogue = page.getByTestId("dialogue-box");
   const box = await dialogue.boundingBox();
@@ -187,6 +239,40 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("system-menu")).toHaveCount(0);
   expect(pageErrors).toEqual([]);
+});
+
+test("settings expose only player-ready controls and copy", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  });
+  await page.reload();
+
+  await page.getByRole("button", { name: "中文", exact: true }).click();
+  await page.getByTestId("title-settings").click();
+  await expect(page.getByTestId("settings-screen")).toBeVisible();
+  await expect(page.getByTestId("settings-lang-zh-CN")).toBeVisible();
+  await expect(page.getByTestId("settings-lang-en")).toBeVisible();
+  await expect(page.locator('button[data-testid^="settings-lang-"]')).toHaveCount(2);
+  await expect(page.getByRole("heading", { name: "账号", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "游戏说明", exact: true })).toBeVisible();
+  await expect(page.getByTestId("settings-tts-preview")).toHaveText("登录后可试听人物语音");
+
+  const settingsText = (await page.getByTestId("settings-screen").innerText()).toLowerCase();
+  for (const forbidden of [
+    "provider",
+    "webaudio",
+    "minimax",
+    "elevenlabs",
+    "ink",
+    "wip",
+    "骨架",
+    "后续接线",
+    "swimmercore",
+  ]) {
+    expect(settingsText).not.toContain(forbidden);
+  }
 });
 
 test("AI spend analysis explains that authored story is free", async ({ page }) => {

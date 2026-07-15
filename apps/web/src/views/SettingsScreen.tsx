@@ -55,6 +55,7 @@ export function SettingsScreen({
         onChange={onChange}
         displayNames={displayNames}
         onDisplayNamesChange={onDisplayNamesChange}
+        previewError={previewError}
         onPreviewError={setPreviewError}
       />
 
@@ -63,7 +64,6 @@ export function SettingsScreen({
           <SettingsLabSection
             portraitPack={portraitPack}
             onPortraitPackChange={onPortraitPackChange}
-            previewError={previewError}
           />
         </Suspense>
       ) : null}

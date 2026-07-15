@@ -18,11 +18,9 @@ import {
 export function SettingsLabSection({
   portraitPack,
   onPortraitPackChange,
-  previewError,
 }: {
   readonly portraitPack: PortraitPackState;
   readonly onPortraitPackChange: (next: PortraitPackState) => void;
-  readonly previewError: string | null;
 }) {
   const { t } = useLocale();
   const [packBusy, setPackBusy] = useState<LeadSlotId | null>(null);
@@ -46,7 +44,7 @@ export function SettingsLabSection({
 
   return (
     <details className="settings-lab" data-testid="settings-lab">
-      <summary>Developer Lab（生产可藏）</summary>
+      <summary>Developer Lab</summary>
 
       <GamePanel title={t("settings.pack")} className="settings-panel">
         <p className="meta-lead">
@@ -86,9 +84,7 @@ export function SettingsLabSection({
             ) : null}
           </label>
         ))}
-        {packError || previewError ? (
-          <p className="meta-lead settings-pack-error">{packError ?? previewError}</p>
-        ) : null}
+        {packError ? <p className="meta-lead settings-pack-error">{packError}</p> : null}
         {packBusy ? <p className="meta-lead">处理中…</p> : null}
         <GameButton
           type="button"

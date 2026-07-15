@@ -2,6 +2,12 @@ import { GameButton, GameCallout, GamePanel } from "@pieai/swimmer-ui-kit";
 import type { AiChoiceSlotState } from "../../ai/aiBranchTypes";
 import { useLocale } from "../../i18n";
 import type { InkStorySnapshot } from "../../story/inkStoryRunner";
+import {
+  AUTHORED_CHOICES_LABEL_ID,
+  formatAuthoredChoiceAccessibleName,
+  formatOracleChoiceAccessibleName,
+  ORACLE_CHOICES_LABEL_ID,
+} from "./choiceAccessibility";
 
 export interface OracleOptionView {
   readonly choiceId: string;
@@ -51,9 +57,11 @@ export function DialoguePanel({
   onRequestAuth,
 }: DialoguePanelProps) {
   const { t } = useLocale();
+  const hasOracleChoices =
+    isComplete && !aiMode && oracleOptions.length > 0 && onOracleGuess !== undefined;
   return (
     <GamePanel
-      className="dialogue-box"
+      className={`dialogue-box${hasOracleChoices ? " has-oracle" : ""}`}
       aria-labelledby="prototype-title"
       data-testid="dialogue-box"
     >
@@ -106,15 +114,29 @@ export function DialoguePanel({
       </div>
 
       {isComplete && !aiMode ? (
-        <div className="choice-stack" aria-label={t("play.choices")}>
+        <div
+          className={`choice-stack${hasOracleChoices ? " has-oracle" : ""}`}
+          aria-label={t("play.choices")}
+        >
           {oracleOptions.length > 0 && onOracleGuess ? (
-            <div className="oracle-row" data-testid="oracle-row">
-              <p className="oracle-lead">
-                {t("play.oracle")}
-                {oracleGuessLabel
-                  ? ` · ${t("play.oraclePicked")}${oracleGuessLabel}`
-                  : ` · ${t("play.oracleGuess")}`}
-              </p>
+            <div
+              className="oracle-row"
+              role="group"
+              aria-labelledby={ORACLE_CHOICES_LABEL_ID}
+              data-testid="oracle-row"
+              data-choice-group="oracle"
+            >
+              <div className="oracle-copy">
+                <p id={ORACLE_CHOICES_LABEL_ID} className="oracle-lead" data-testid="oracle-choices-label">
+                  {t("play.oracle")}
+                  {oracleGuessLabel
+                    ? ` · ${t("play.oraclePicked")}${oracleGuessLabel}`
+                    : ` · ${t("play.oracleGuess")}`}
+                </p>
+                <p className="oracle-instruction" data-testid="oracle-instruction">
+                  {t("play.oracleDoesNotAdvance")}
+                </p>
+              </div>
               <div className="oracle-buttons">
                 {oracleOptions.map((option) => (
                   <GameButton
@@ -123,6 +145,10 @@ export function DialoguePanel({
                     variant={oracleGuessLabel === option.shortLabel ? "primary" : "ghost"}
                     onClick={() => onOracleGuess(option)}
                     data-testid={`oracle-${option.choiceId}`}
+                    aria-label={formatOracleChoiceAccessibleName(
+                      t("play.oracleChoiceAria"),
+                      option.shortLabel,
+                    )}
                   >
                     {option.shortLabel}
                   </GameButton>
@@ -131,28 +157,51 @@ export function DialoguePanel({
             </div>
           ) : null}
 
-          {choices.map((choice, index) => {
-            const choiceId =
-              "choiceId" in choice && typeof choice.choiceId === "string" ? choice.choiceId : null;
-            const seen =
-              seenChoiceLabels.includes(choice.text) ||
-              (choiceId ? seenChoiceLabels.includes(`id:${choiceId}`) : false) ||
-              seenChoiceLabels.includes(`label:${choice.text}`);
-            return (
-              <GameButton
-                key={`${sceneId ?? "unknown"}-${choice.index}-${choice.choiceId ?? choice.text}`}
-                type="button"
-                className={`choice-button${seen ? " is-seen-path" : ""}`}
-                variant={index === 0 ? "primary" : "secondary"}
-                onClick={() => onChoose(choice.index)}
+          {choices.length > 0 ? (
+            <div
+              className="authored-choice-group"
+              role="group"
+              aria-labelledby={AUTHORED_CHOICES_LABEL_ID}
+              data-testid="authored-choice-group"
+              data-choice-group="authored"
+            >
+              <p
+                id={AUTHORED_CHOICES_LABEL_ID}
+                className="authored-choice-lead"
+                data-testid="authored-choice-lead"
               >
-                <span className="choice-label">
-                  {seen ? <span className="seen-path-tag">{t("play.seenChoice")}</span> : null}
-                  {choice.text}
-                </span>
-              </GameButton>
-            );
-          })}
+                {t("play.authoredChoices")}
+              </p>
+              {choices.map((choice, index) => {
+                const choiceId =
+                  "choiceId" in choice && typeof choice.choiceId === "string"
+                    ? choice.choiceId
+                    : null;
+                const seen =
+                  seenChoiceLabels.includes(choice.text) ||
+                  (choiceId ? seenChoiceLabels.includes(`id:${choiceId}`) : false) ||
+                  seenChoiceLabels.includes(`label:${choice.text}`);
+                return (
+                  <GameButton
+                    key={`${sceneId ?? "unknown"}-${choice.index}-${choice.choiceId ?? choice.text}`}
+                    type="button"
+                    className={`choice-button${seen ? " is-seen-path" : ""}`}
+                    variant={index === 0 ? "primary" : "secondary"}
+                    onClick={() => onChoose(choice.index)}
+                    aria-label={formatAuthoredChoiceAccessibleName(
+                      t("play.authoredChoiceAria"),
+                      choice.text,
+                    )}
+                  >
+                    <span className="choice-label">
+                      {seen ? <span className="seen-path-tag">{t("play.seenChoice")}</span> : null}
+                      {choice.text}
+                    </span>
+                  </GameButton>
+                );
+              })}
+            </div>
+          ) : null}
 
           {aiSlot?.status === "loading" ? (
             <GameButton

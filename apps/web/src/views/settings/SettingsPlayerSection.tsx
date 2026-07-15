@@ -22,31 +22,34 @@ import {
 import type { GameSettings } from "../../persistence/settings";
 import { VolumeRow } from "./VolumeRow";
 
+const PLAYER_LOCALES = LOCALE_META.filter((meta) => meta.ready);
+
 export function SettingsPlayerSection({
   settings,
   onChange,
   displayNames,
   onDisplayNamesChange,
+  previewError,
   onPreviewError,
 }: {
   readonly settings: GameSettings;
   readonly onChange: (next: GameSettings) => void;
   readonly displayNames: DisplayNameMap;
   readonly onDisplayNamesChange: (next: DisplayNameMap) => void;
+  readonly previewError: string | null;
   readonly onPreviewError: (message: string | null) => void;
 }) {
   const auth = useAuth();
   const { t, locale, setLocale } = useLocale();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [reverb, setReverb] = useState(() => gameAudio.getReverbAmount());
 
   return (
     <>
       <GamePanel title={t("settings.language")} className="settings-panel">
         <p className="meta-lead">{t("settings.languageHint")}</p>
         <div className="settings-lang-grid" data-testid="settings-lang-grid">
-          {LOCALE_META.map((meta) => (
+          {PLAYER_LOCALES.map((meta) => (
             <button
               key={meta.id}
               type="button"
@@ -55,7 +58,6 @@ export function SettingsPlayerSection({
               onClick={() => setLocale(meta.id as AppLocale)}
             >
               <span>{meta.nativeLabel}</span>
-              {!meta.ready ? <span className="settings-lang-tag">WIP</span> : null}
             </button>
           ))}
         </div>
@@ -206,7 +208,7 @@ export function SettingsPlayerSection({
         />
         <VolumeRow
           label={t("settings.music")}
-          hint="title-theme / soft-piano / chapter-end / scene beds"
+          hint={t("settings.musicHint")}
           value={settings.musicVolume}
           testId="settings-music-volume"
           disabled={settings.masterMuted}
@@ -219,7 +221,7 @@ export function SettingsPlayerSection({
         />
         <VolumeRow
           label={t("settings.ambient")}
-          hint="reserved pad channel"
+          hint={t("settings.ambientHint")}
           value={settings.ambientVolume}
           testId="settings-ambient-volume"
           disabled={settings.masterMuted}
@@ -244,25 +246,13 @@ export function SettingsPlayerSection({
         />
         <VolumeRow
           label={t("settings.voice")}
-          hint="MiniMax · ElevenLabs"
+          hint={t("settings.voiceHint")}
           value={settings.voiceVolume}
           testId="settings-voice-volume"
           disabled={settings.masterMuted}
           onChange={(voiceVolume) => {
             gameAudio.setVoiceVolume(voiceVolume);
             onChange({ ...settings, voiceVolume });
-          }}
-        />
-        <VolumeRow
-          label={t("settings.reverb")}
-          hint={t("settings.reverbHint")}
-          value={reverb}
-          testId="settings-reverb"
-          disabled={settings.masterMuted}
-          onChange={(next) => {
-            gameAudio.unlock();
-            setReverb(next);
-            gameAudio.setReverbAmount(next);
           }}
         />
         <GameButton
@@ -277,8 +267,13 @@ export function SettingsPlayerSection({
                 return;
               }
               onPreviewError(null);
+              const {
+                categorizeTtsPreviewError,
+                requestTtsPreview,
+                ttsPreviewErrorI18nKey,
+                TtsClientError,
+              } = await import("../../audio/ttsClient");
               try {
-                const { requestTtsPreview } = await import("../../audio/ttsClient");
                 gameAudio.unlock();
                 const result = await requestTtsPreview({
                   previewId: locale === "en" ? "en_preview" : "zh_preview",
@@ -289,18 +284,29 @@ export function SettingsPlayerSection({
                   speaker: "苏明",
                 });
               } catch (error) {
-                const message = error instanceof Error ? error.message : "TTS failed";
-                onPreviewError(
-                  message.includes("Failed to fetch") || message.includes("Network")
-                    ? t("settings.ttsOffline")
-                    : `${t("settings.ttsFailed")}: ${message.slice(0, 120)}`,
-                );
+                const category = categorizeTtsPreviewError(error);
+                // DEV-only diagnostic path — never surface debugDetail in player UI.
+                if (import.meta.env.DEV) {
+                  const detail =
+                    error instanceof TtsClientError
+                      ? error.debugDetail
+                      : error instanceof Error
+                        ? error.message
+                        : String(error);
+                  console.debug("[tts-preview]", category, detail);
+                }
+                onPreviewError(t(ttsPreviewErrorI18nKey(category)));
               }
             })();
           }}
         >
           {auth.isSignedIn ? t("settings.ttsPreview") : t("settings.ttsNeedLogin")}
         </GameButton>
+        {previewError ? (
+          <p className="meta-lead settings-pack-error" data-testid="settings-tts-preview-error">
+            {previewError}
+          </p>
+        ) : null}
       </GamePanel>
 
       <GamePanel title={t("settings.textSpeed")} className="settings-panel">
@@ -330,16 +336,10 @@ export function SettingsPlayerSection({
         <p className="meta-lead">{t("settings.autoHint")}</p>
       </GamePanel>
 
-      <GamePanel title={t("settings.commercial")} className="settings-panel">
+      <GamePanel title={t("settings.gameInfo")} className="settings-panel">
         <GameCallout tone="warning" heading={t("settings.wallet")}>
           {t("settings.walletHint")}
         </GameCallout>
-        <p className="meta-lead">
-          <strong>{t("settings.a11y")}</strong> — {t("settings.a11yHint")}
-        </p>
-        <p className="meta-lead">
-          <strong>{t("settings.legal")}</strong> — {t("settings.legalHint")}
-        </p>
         <p className="meta-lead">
           <strong>{t("settings.age")}</strong> — {t("settings.ageHint")}
         </p>

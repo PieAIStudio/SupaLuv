@@ -27,12 +27,28 @@ export const DEFAULT_SETTINGS: GameSettings = {
   autoPlay: false,
 };
 
-function clampVolume(value: unknown, fallback: number): number {
-  const n = typeof value === "number" ? value : Number(value);
-  if (!Number.isFinite(n)) {
+type SettingsRecord = Record<string, unknown>;
+
+function isSettingsRecord(value: unknown): value is SettingsRecord {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function readVolume(value: unknown, fallback: number): number {
+  if (typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 1) {
     return fallback;
   }
-  return Math.max(0, Math.min(1, n));
+  return value;
+}
+
+function readBoolean(value: unknown, fallback: boolean): boolean {
+  return typeof value === "boolean" ? value : fallback;
+}
+
+function readTextSpeed(
+  value: unknown,
+  fallback: GameSettings["textSpeed"],
+): GameSettings["textSpeed"] {
+  return value === "slow" || value === "normal" || value === "fast" ? value : fallback;
 }
 
 export function loadSettings(): GameSettings {
@@ -41,43 +57,35 @@ export function loadSettings(): GameSettings {
     if (!raw) {
       return DEFAULT_SETTINGS;
     }
-    const parsed = JSON.parse(raw) as Partial<GameSettings> & {
-      masterVolume?: number;
-      bgmVolume?: number;
-    };
+    const candidate: unknown = JSON.parse(raw);
+    if (!isSettingsRecord(candidate)) {
+      return DEFAULT_SETTINGS;
+    }
 
     // Migrations: masterVolume → all; bgmVolume → music + ambient split.
-    const legacyMaster = parsed.masterVolume;
-    const legacyBgm = parsed.bgmVolume;
+    const legacyMaster = readVolume(candidate.masterVolume, Number.NaN);
+    const legacyBgm = readVolume(candidate.bgmVolume, Number.NaN);
 
-    const musicFallback =
-      typeof legacyBgm === "number"
-        ? legacyBgm
-        : typeof legacyMaster === "number"
-          ? legacyMaster
-          : DEFAULT_SETTINGS.musicVolume;
-    const ambientFallback =
-      typeof legacyBgm === "number"
-        ? Math.min(1, legacyBgm * 0.85)
-        : typeof legacyMaster === "number"
-          ? legacyMaster
-          : DEFAULT_SETTINGS.ambientVolume;
-    const sfxFallback =
-      typeof legacyMaster === "number" ? legacyMaster : DEFAULT_SETTINGS.sfxVolume;
+    const musicFallback = Number.isFinite(legacyBgm)
+      ? legacyBgm
+      : Number.isFinite(legacyMaster)
+        ? legacyMaster
+        : DEFAULT_SETTINGS.musicVolume;
+    const ambientFallback = Number.isFinite(legacyBgm)
+      ? Math.min(1, legacyBgm * 0.85)
+      : Number.isFinite(legacyMaster)
+        ? legacyMaster
+        : DEFAULT_SETTINGS.ambientVolume;
+    const sfxFallback = Number.isFinite(legacyMaster) ? legacyMaster : DEFAULT_SETTINGS.sfxVolume;
 
     return {
-      ...DEFAULT_SETTINGS,
-      ...parsed,
-      musicVolume: clampVolume(parsed.musicVolume ?? musicFallback, DEFAULT_SETTINGS.musicVolume),
-      ambientVolume: clampVolume(
-        parsed.ambientVolume ?? ambientFallback,
-        DEFAULT_SETTINGS.ambientVolume,
-      ),
-      sfxVolume: clampVolume(parsed.sfxVolume ?? sfxFallback, DEFAULT_SETTINGS.sfxVolume),
-      voiceVolume: clampVolume(
-        parsed.voiceVolume ?? DEFAULT_SETTINGS.voiceVolume,
-        DEFAULT_SETTINGS.voiceVolume,
-      ),
+      masterMuted: readBoolean(candidate.masterMuted, DEFAULT_SETTINGS.masterMuted),
+      musicVolume: readVolume(candidate.musicVolume, musicFallback),
+      ambientVolume: readVolume(candidate.ambientVolume, ambientFallback),
+      sfxVolume: readVolume(candidate.sfxVolume, sfxFallback),
+      voiceVolume: readVolume(candidate.voiceVolume, DEFAULT_SETTINGS.voiceVolume),
+      textSpeed: readTextSpeed(candidate.textSpeed, DEFAULT_SETTINGS.textSpeed),
+      autoPlay: readBoolean(candidate.autoPlay, DEFAULT_SETTINGS.autoPlay),
     };
   } catch {
     return DEFAULT_SETTINGS;

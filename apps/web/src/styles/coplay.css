@@ -200,23 +200,89 @@
 }
 
 .oracle-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
   margin-bottom: 0.55rem;
-  padding: 0.55rem 0.65rem;
+  padding: 0.65rem 0.75rem;
   border-radius: 0.75rem;
-  border: 1px dashed rgba(140, 190, 255, 0.35);
+  border: 1px solid rgba(140, 190, 255, 0.35);
   background: rgba(20, 32, 48, 0.45);
 }
 
+.oracle-copy {
+  min-width: 0;
+}
+
 .oracle-lead {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.2rem;
   font-size: 0.78rem;
+  font-weight: 700;
   color: rgba(190, 220, 255, 0.9);
+}
+
+.oracle-instruction {
+  margin: 0;
+  max-width: 42rem;
+  color: rgba(255, 245, 236, 0.82);
+  font-size: 0.76rem;
+  line-height: 1.45;
 }
 
 .oracle-buttons {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 0.35rem;
+  flex: 0 0 auto;
+}
+
+.authored-choice-lead {
+  margin: 0.15rem 0 0;
+  color: rgba(255, 245, 236, 0.88);
+  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.authored-choice-group {
+  display: grid;
+  gap: 0.35rem;
+}
+
+@media (max-width: 42rem) {
+  .oracle-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .oracle-buttons {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-height: 35rem) {
+  .vn-stage .game-ui-panel.dialogue-box.has-oracle {
+    min-height: 15.5rem;
+    max-height: min(88%, 22rem);
+  }
+
+  .vn-stage .choice-stack.has-oracle {
+    min-height: 8rem;
+    max-height: min(62%, 13rem);
+  }
+
+  .choice-stack.has-oracle .oracle-row {
+    gap: 0.45rem;
+    margin-bottom: 0.25rem;
+    padding: 0.45rem 0.55rem;
+  }
+
+  .choice-stack.has-oracle .oracle-instruction {
+    font-size: 0.7rem;
+    line-height: 1.3;
+  }
 }
 
 .oracle-hit {
