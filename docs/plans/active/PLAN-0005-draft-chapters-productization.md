@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: ai-assisted
 created: 2026-07-12
-last_reviewed: 2026-07-14
+last_reviewed: 2026-07-16
 domain: execution
 tags:
   - narrative
@@ -62,6 +62,7 @@ related:
 
 ### Stage 3 · Art, audio, and content polish
 
+- [x] 冻结 Round 15 演出圣经：13 个 sequence、8 个回响槽、视觉 shot/mood/prop 表、分层音频与正文语音经济。
 - [ ] 为两章制作并登记背景、道具 UI、NPC/主角情绪立绘和授权/hash。
 - [x] 修复苏明 6 张残留洋红底的立绘，并增加透明蒙版像素门禁与舞台截图回归。
 - [ ] 配置核心角色 TTS，完成雷欧中英路由、取消、跳过和混音 ducking。
@@ -74,7 +75,7 @@ related:
 - [x] 第一轮技术/视觉 playtest：加载、裁切、地图、选角和卡住点；内容节奏 critic 仍待正式稿。
 - [ ] 修复后独立 critic pass，并保存对应 after evidence。
 - [ ] 第二轮 playtest：选择感、视听、地图、存档与失败恢复。
-- [x] 跑本轮完整 release ladder（格式、lint、资产、类型、384 个单测、24 个 E2E、构建和 Vercel 输出）。
+- [x] 截至 Round 14 的最新组合态 release ladder：格式、lint、资产 intake、类型、514 个单测、29 个 E2E、构建、Vercel Services 输出和治理检查通过。
 - [ ] Production 最小试玩（真实 AI、审核、钱包和存储）仍需发布门单独验收。
 - [ ] 更新 SSOT；完成后归档计划/规格并清理所有分支/worktree。
 
@@ -104,6 +105,15 @@ related:
 主线；画廊档案使用可选存档字段兼容旧版本。验收中特别补充了三轮条码连扫浏览器实玩，并修复中间反馈状态导致的
 点击锁死。验证结果为 384/384 单测、24/24 E2E、lint、格式检查和 `git diff --check` 通过；本轮未触碰共享库、密钥、
 部署或支付。
+
+## Round 14 evidence
+
+四个候选经独立对抗审计与定向返工后合入：内容 adaptation receipt 防注释/控制语句/重叠切片
+伪造；选择统计只展示诚实的本地演示数据；对白语音守卫阻止设置往返和音量变化重复合成；
+正式资产门从运行时/角色/档案真源反推 41 个生产 blocker，并要求本地哈希 evidence，不能靠
+manifest 自证 `resolved`。组合态额外修复两处 lint、六个格式问题和过宽 E2E route mock。
+最终证据：83 个测试文件、514 个单测、29/29 E2E、普通构建、Vercel Services 输出合同、
+`docs:check` 与 `git diff --check` 全部通过；正式资产仍按设计阻断，不等于 Stage 3 完成。
 
 ## Release gates
 

@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-15T05:34:38.730Z
+generated_at: 2026-07-15T20:41:26.596Z
 generator_version: doc-gov@0.7.2
 docs_count: 31
 docs:
@@ -128,7 +128,7 @@ docs:
     type: plan
     status: active
     canonical: true
-    last_reviewed: 2026-07-14
+    last_reviewed: 2026-07-16
     pinned: true
   - id: PLAN-0003
     path: docs/plans/completed/PLAN-0003-ch01-polish-loops.md
@@ -205,7 +205,7 @@ docs:
     type: spec
     status: active
     canonical: true
-    last_reviewed: 2026-07-12
+    last_reviewed: 2026-07-16
     pinned: true
   - id: SPEC-0001
     path: docs/specs/completed/SPEC-0001-chapter-01-trial-pipeline.md
