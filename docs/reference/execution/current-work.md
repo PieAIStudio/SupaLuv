@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-07-14
+last_reviewed: 2026-07-15
 domain: meta
 tags:
   - current-work
@@ -20,64 +20,55 @@ related:
 
 # SupaLuv Current Work
 
-这是项目当前唯一执行状态入口。代码决定实际行为；本文件解释当前阶段、边界和下一步。
+这是项目当前唯一执行状态入口。代码决定实际行为；本文件只记录当前阶段、边界和发布门。
 
-## 当前结论
+## 当前状态
 
-- **生产官网**：<https://supaluv.pieaistudio.com>
-- **产品阶段**：核心商业与技术闭环已齐，两章草稿已在官网可玩；Creator Studio、玩家路线图、
-  选角移动端体验、立绘透明蒙版、中英玩家界面和四个剧情互动已完成首轮商品化。正式内容、视听资产、
-  内容节奏和发行验收仍未完成。
-- **当前主线工作**：`PLAN-0005` Stage 1 与 Stage 2 的地图/加载/剧情互动/选角/立绘/中英界面与
-  co-play 深层界面工作已完成；下一步集中在正式视听、内容节奏，再做两轮发行级试玩。
-- **内容边界**：官网默认内容已经是 `draft-ch01`、`draft-ch02`；两章仍是 noncanonical 草稿，
-  不是作者已经冻结的最终小说。旧短篇 Demo 仅保留为开发 fixture，不再是玩家默认故事。
-- **开发原则**：小说与技术可以并行推进。正式内容到位后，应填入现有内容管线，
-  不为每一章重做引擎。
-- **重构裁决**：六个证据驱动的结构回合已经收口故事会话、播放/决策、商业持久化与服务组合；
-  停止按文件大小继续拆分，后续只在真实功能改动碰到具体边界时做窄修复。
-
-“技术闭环完成”表示关键能力可以首尾连通，不表示所有章节、美术、文案、平台包装和
-运营细节已经达到正式发行标准。就像影棚、摄影机、剪辑和放映系统已经能拍完一支样片，
-但整部长片仍需要正式剧本、镜头和精修。
-
-## 已上线能力
-
-| 能力 | 当前真相 |
+| 项目 | 当前真相 |
 | --- | --- |
-| 游戏外壳 | 标题、新游戏、继续、存档、设置、画廊、成就、帮助、结局页 |
-| 剧情运行 | Ink/InkJS 作者主线，场景清单驱动立绘、背景、音频和演出 |
-| 剧情互动 | 情绪校准、协议测试、条码连扫、看房热点、手机问卷；均可跳过并回到作者主线 |
-| 算法羞耻档案 | 由已访问场景解锁的回看记录；旧存档兼容，不做金币背包 |
-| 视听 | 16:9 横屏、静态电影化镜头、BGM、环境声、SFX、双路 TTS |
-| AI 支线 | 预设选择旁提供受约束 AI 选择；短分支后回到作者主线 |
-| 角色定制 | 新游戏锁定男女主形象；剧情指定节点锁定机器人形象；章节中不可反复更换 |
-| 真人照片 | 仅允许成年人；输入审核、私有存储、生成资产与删除流程已接通 |
-| 剧情地图 | DEV-only Creator Studio 可搜索/编辑/编译/安全保存；玩家路线图只读、剧透裁剪 |
-| AI 最终章 | 2–4 个选择或自由输入，最多 8 段，约 10–20 分钟，受作者方向约束 |
-| 商业闭环 | 作者预制剧情免费；AI 行为扣电池；成功交付才计费；消费分析可追溯 |
-| 协同试玩 | 本地双标签/可选 Realtime 同玩、投票、冲突处理、章节末全局选择统计；中英覆盖层、无障碍状态和中途加入剧情帧重播已接通 |
-| 线上部署 | Vercel Web + `ai-branch` 服务；SwimmerCore 提供账号、钱包与持久化边界 |
+| 配置的生产入口 | <https://supaluv.pieaistudio.com> |
+| 默认内容 | `draft-ch01` → `draft-ch02`；两章仍是 noncanonical 草稿，不是冻结终稿 |
+| active work | 只有 `SPEC-0003` 与 `PLAN-0005`；不要创建竞争规格，也不要把 completed/archive 改回 active |
+| 阶段判断 | 产品骨架与关键技术链路已存在，但正式内容、完整视听和发行验收尚未完成 |
 
-历史发布记录包含真人成年照片审核、角色基础图和 6 种表情生成、剧情绑定、AI 最终章、
-钱包扣费/明细、失败退款和测试资产删除的端到端验收；每次服务或部署变更仍必须重新做
-Preview/Production 最小实测，自动化 mock 不能替代真实服务证据。
+正式内容到位后应填入现有 Ink / scene manifest / asset 管线，不为每一章重做应用外壳。
 
-## 当前优先级
+## 已完成能力
 
-1. **正式视听与内容**：背景/道具/NPC 资产、TTS、BGM、ambient、SFX，以及长文本节奏。
-2. **发行级试玩**：内容 critic、选择感、地图、存档、失败恢复和真实 Preview/Production 验收。
-3. **发布门**：真实 AI、审核、钱包和存储的 Preview/Production 最小端到端证据。
+| 能力 | 可验证入口 |
+| --- | --- |
+| 两章剧情运行与跨章会话 | `packages/content/src/index.ts`, `apps/web/src/story/session/` |
+| 游戏外壳、舞台、存档、设置、画廊与帮助 | `apps/web/src/App.tsx`, `apps/web/src/views/`, `apps/web/src/persistence/` |
+| 剧情内可跳过互动、玩家路线图与本地 Creator Studio | `apps/web/src/views/play/`, `apps/web/src/views/PlayerPathPanel.tsx`, `apps/web/src/creator/`, `PLAN-0005` 已完成项 |
+| 受约束 AI 支线与 AI 最终章 | `apps/web/src/ai/`, `apps/web/src/ai-ending/`, `services/ai-branch/src/` |
+| 成年真人照片输入、私有角色资产与删除流程 | `apps/web/src/characters/`, `services/ai-branch/src/character*` |
+| 电池计量、消费提交/退款与产品消费记录 | `services/ai-branch/src/walletMeter.ts`, `services/ai-branch/src/persistence/` |
+| 中英玩家界面与可选 co-play | `apps/web/src/i18n/`, `apps/web/src/coplay/` |
 
-已完成的两章内容基线包括 169 个正文段落的来源覆盖、跨章存档、完整 Ink/manifest、
-旧 Demo 退休和 Production 最小试玩。游戏式加载现已等待关键图片解码后原子换幕，生产入口
-chunk 从约 521 KB 降到约 65 KB；第一章已接入可跳过、可存档恢复的情绪样本校准互动。
-共享 NarrativeGraph 现从真实 Ink 路径生成 97 个场景节点、157 条边，并分别输出本地创作全图与
-不携带剧情语义的玩家安全骨架。当前主要缺口已转为正式内容/视听和发行验收，
-而不是基础加载、图数据、选角控件、立绘透明度或剧情互动骨架。
+这些能力表示代码路径和既有验证证据已经存在，不等于当前版本已经通过新的发行验收。
 
-当前 active work 只有 `SPEC-0003` 与 `PLAN-0005`。不要并行创建竞争规格或把 completed 文档
-重新改成 active。
+## 共享能力边界
+
+| 边界 | 当前责任 |
+| --- | --- |
+| SwimmerBackend | 共享身份令牌校验与钱包客户端；承载 SupaLuv 产品 schema、RLS、私有存储桶与迁移 |
+| SupaLuv | 浏览器账号适配、AI / 角色业务编排，以及调用共享数据基础设施的服务适配器 |
+| SwimmerAIKit | AI 模型 / 供应商接入的共享适配层 |
+| SwimmerUIKit | 共享组件、API 与 design token；页面组合、局部主题和游戏内容留在本项目 |
+
+账号、钱包、产品服务适配器与数据基础设施必须按上表分别归属；客户端 package 不等于
+整个 SwimmerBackend，也不拥有 SupaLuv 的业务编排。
+
+## 当前未完成发布门
+
+| 发布门 | 状态与证据 |
+| --- | --- |
+| 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、TTS、BGM/ambient/SFX 和长文本节奏任务 |
+| 发行级试玩 | 未完成；独立 critic pass 与第二轮选择感/视听/地图/存档/失败恢复试玩仍未关闭 |
+| 真实服务验收 | 未完成；当前版本仍需取得真实 AI、审核、钱包和私有存储的 Preview/Production 最小端到端证据 |
+
+当前优先级只保留三项：**正式内容 / 视听** → **发行级试玩** → **真实 Preview/Production 发布门**。
+不新增下一阶段 roadmap。
 
 ## 运行时地图
 
@@ -90,7 +81,7 @@ chunk 从约 521 KB 降到约 65 KB；第一章已接入可跳过、可存档恢
 | 角色生成与剧情绑定 | `apps/web/src/characters/`, `services/ai-branch/src/character*` |
 | AI 选项与最终章 | `apps/web/src/ai/`, `services/ai-branch/src/` |
 | 玩家界面语言 | `apps/web/src/i18n/`, `apps/web/src/views/` |
-| 音频与 TTS | `apps/web/src/audio/`, `services/ai-branch/src/ttsCatalog.ts`, `ttsRoute.ts` |
+| 音频与 TTS | `apps/web/src/audio/`, `services/ai-branch/src/ttsCatalog.ts`, `services/ai-branch/src/ttsRoute.ts` |
 | 存档与设置 | `apps/web/src/persistence/` |
 | 产品分析 | `apps/web/src/analytics/` |
 
@@ -102,9 +93,11 @@ chunk 从约 521 KB 降到约 65 KB；第一章已接入可跳过、可存档恢
 - 不是 Supa 卡牌模式；不引入 Boss Race 或多人权威服务器。
 - 语气是成人黑色幽默 / 性喜剧 + 机器人 + AI 结局，不改写成甜宠爱情故事。
 - 不做色情生成器、裸露内容或未成年人真人生成；真人身份规则以 ADR-0005 为准。
+- 成年真人照片仍在产品范围内；未成年人和明确违规输入仍拒绝。
 - 主要人物不使用固定面孔的预渲染视频；以可定制立绘和静态电影化演出为主。
 - 作者主线仍由 Ink 控制；AI 支线必须短且回归主线；最终章可以在受约束范围内成为终点。
 - 浏览器不持有模型、审核或服务密钥；所有付费 AI 调用走服务端。
+- 真实货币充值 / 购买入口当前保持关闭；电池计量已存在，不代表真实支付已经上线。
 - SwimmerUIKit 只承载共享组件/API/token；本项目保留页面组合、局部主题和游戏内容。
 
 ## 验证门
@@ -126,27 +119,10 @@ git diff --check
 
 ## 历史证据
 
+- 当前执行与各轮证据：`docs/plans/active/PLAN-0005-draft-chapters-productization.md`
 - 已完成产品打磨计划：`docs/plans/completed/PLAN-0003-ch01-polish-loops.md`
 - 已完成 AI 角色与最终章计划：`docs/plans/completed/PLAN-0004-generative-character-packs-and-ai-endings.md`
 - 已完成规格：`docs/specs/completed/`
 - 已退休讨论和旧路线图：`docs/archive/`
 
-## Round 7 evidence
-
-- 中英玩家界面已覆盖标题、选角、设置、画廊、帮助、成就、AI 消费、播放 HUD、历史、结算和分享卡；
-  运行时解锁 toast 也跟随语言切换。
-- 修复英文选角长文案横向溢出；测试环境固定 `zh-CN`，英文场景显式切换，避免机器区域设置造成假失败。
-- 主线 `f0292fb`：格式、lint、资产、类型、368 单测、20 个 E2E、构建和 Vercel 输出契约均通过。
-- Round 8 已完成 co-play 深层 overlay：中英文案、RPS 显示映射、无障碍状态、系统菜单层级、客人中途加入重播；
-  并修复同玩状态条与 `Gallery +3` 短提示的遮挡。双标签截图证据与 21 个 E2E 通过；真实 AI、审核、钱包和存储服务的
-  Preview/Production 证据仍按发布门单独复验。
-
-## Round 9 evidence
-
-- 四个剧情互动已通过 Ink/manifest/图生成管线接入：协议测试、条码连扫、看房热点、手机问卷；每个互动都有稳定
-  ID、键盘/触摸输入、跳过路径和回到作者主线的结果节点。
-- “算法羞耻档案”已接入画廊与存档兼容层；旧存档缺少 `archive` 字段时按空数组读取，不改变既有图片/音频解锁。
-- 条码连扫追加了三轮完整浏览器实玩，修复了中间反馈状态阻止下一段的问题；本轮验收为 384 个单测、24 个 E2E，
-  并通过 lint、格式和差异检查。正式视听与真实 Preview/Production 服务验收仍未完成。
-
-这些材料用于追溯，不是默认启动阅读。
+历史材料用于追溯，不是默认启动阅读；不要把 completed/archive 文档重新激活。

@@ -6,7 +6,7 @@ status: stable
 canonical: true
 owner: project
 created: 2026-05-13
-last_reviewed: 2026-07-12
+last_reviewed: 2026-07-15
 domain: project-policy
 tags:
   - project-policy
@@ -30,6 +30,7 @@ System 上游修改，不在这里另造一套。
 - SupaLuv 是基于《超级爱人》的独立 AI 互动电影 / 视觉小说游戏。
 - 它不是 Supa 卡牌模式，不继承卡牌、Boss Race 或多人对战循环。
 - 作者预制故事免费；产生真实模型成本的 AI 功能使用电池，且不提供免费 AI 配额。
+- 真实货币充值 / 购买入口当前保持关闭；上线真实支付前必须另做发布决策和真实支付验收。
 - 小说创作与技术开发可以并行；正式章节应复用现有内容管线。
 - 当前 Web Demo 验证的是完整产品骨架，不把非正式短篇第一章冒充完整商品。
 
@@ -64,7 +65,10 @@ System 上游修改，不在这里另造一套。
 ## 技术边界
 
 - React + Vite + TypeScript 负责应用外壳；Ink/InkJS 负责作者剧情。
-- AI 请求走 `services/ai-branch`；账号、钱包、存储依赖 SwimmerCore/SwimmerClient。
+- AI 请求走 `services/ai-branch`；共享后端边界称为 **SwimmerBackend**。服务端通过
+  `@pieai/swimmer-backend-client` 复用身份令牌校验与钱包能力。
+- 浏览器账号适配、AI / 角色业务编排和服务适配器留在本项目；SupaLuv 产品 schema、RLS、
+  私有存储桶与迁移由 SwimmerBackend 承载，不把数据基础设施误写成产品仓库能力。
 - 共享组件、API 和设计 token 的通用修改进入 SwimmerUIKit；产品页面组合、局部主题和内容留在本项目。
 - 不为视觉小说基础能力自造引擎；只有现有 React 表现层出现可测量瓶颈时，才重新评估 Pixi、Unity、Godot 或其他引擎。
 - 故事与场景元数据保持可移植，但“未来可能迁移”不能拖慢当前 Web 商品化。

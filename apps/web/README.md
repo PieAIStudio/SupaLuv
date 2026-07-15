@@ -30,7 +30,7 @@ checkpoint advances into chapter 2 without AI final ending.
 | `src/coplay/*`                       | Protocol, presence, RPS, transports, pointer policy                               | no Supabase in DialoguePanel          |
 | `src/persistence/*`                  | save schema / settings / unlocks / achievements                                   | stable contracts                      |
 | `src/audio/*`                        | Howler façade + reverb engine                                                     | only Howler import in howlerEngine    |
-| `src/auth/*`                         | SwimmerCore browser auth; wallet **read via edge**                                | never service_role                    |
+| `src/auth/*`                         | Browser auth adapter for shared backend; wallet **read via edge**                    | never service_role                    |
 | `src/commerce/*`                     | Battery pitch copy                                                                | pure strings                          |
 | `src/ai/*`                           | AI branch client providers                                                        | mock only if FORCE_MOCK               |
 | `src/hooks/*`                        | Cross-view hooks (AI slot, typewriter, fullscreen…)                               | no JSX                                |
@@ -97,6 +97,14 @@ checkpoint advances into chapter 2 without AI final ending.
 | `authGate.ts`                    | JWT verify (publishable key)                                                 |
 | `handler.ts` / `mastraBranch.ts` | constrained AI generation                                                    |
 
+## Shared backend boundary
+
+`@pieai/swimmer-backend-client` `0.4.0` is a server-side dependency of
+`services/ai-branch`. SupaLuv uses it for shared bearer-token verification and
+wallet operations. Browser auth adaptation, product orchestration, and service
+adapters remain here; SupaLuv schema, RLS, private bucket, and migrations live
+in SwimmerBackend.
+
 ## Stability
 
 | Area                           | Stability                      |
@@ -105,7 +113,7 @@ checkpoint advances into chapter 2 without AI final ending.
 | Constrained AI side branch     | stable (auth + optional meter) |
 | Local co-play BroadcastChannel | experimental                   |
 | Cloud Realtime co-play         | experimental                   |
-| Live battery debit             | requires Core secret + app id  |
+| Live battery debit             | requires SwimmerBackend server credentials + app id |
 
 ## Verify
 
@@ -116,4 +124,4 @@ pnpm test:e2e
 pnpm build
 ```
 
-Last reviewed: 2026-07-13
+Last reviewed: 2026-07-15

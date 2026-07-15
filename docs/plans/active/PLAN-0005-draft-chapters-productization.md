@@ -108,7 +108,7 @@ related:
 ## Release gates
 
 - 每个并行工作包独占 worktree、文件集和验证路径；失败不得污染 `main`。
-- 共享库改动必须有目标仓库证据；本阶段无证据时保持 SwimmerAIKit、SwimmerCore、
+- 共享库改动必须有目标仓库证据；本阶段无证据时保持 SwimmerAIKit、`@pieai/swimmer-backend-client`、
   SwimmerUIKit 现状，不顺手升级。
 - 部署、secret、云数据库、钱包和 package 发布由总监保留，不下放给执行者。
 - 每个合并批次先读完整 diff，再亲自重跑对应验证；报告不是验收证据。
