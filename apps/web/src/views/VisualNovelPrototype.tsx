@@ -228,6 +228,7 @@ export function VisualNovelPrototype({
       autoPlay: localAutoPlay,
       activeCutscene: Boolean(activeCutscene),
       hasStoryInteraction: Boolean(activeStoryInteraction),
+      masterMuted,
     },
     host: {
       coPlay,

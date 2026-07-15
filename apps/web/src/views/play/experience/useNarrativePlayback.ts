@@ -72,6 +72,8 @@ export function useNarrativePlayback(input: {
     /** Real stage-media cutscene truth for this render (not a lagged mirror). */
     readonly activeCutscene: boolean;
     readonly hasStoryInteraction: boolean;
+    /** Product master mute — cancels in-flight dialogue TTS when flipped on. */
+    readonly masterMuted?: boolean;
   };
   readonly host: {
     readonly coPlay: CoPlaySessionApi | null;
@@ -125,6 +127,7 @@ export function useNarrativePlayback(input: {
       !playback.activeCutscene &&
       !playback.hasStoryInteraction &&
       Boolean(dialogue.rawText.trim()),
+    masterMuted: Boolean(playback.masterMuted),
     isSignedIn: auth.isSignedIn,
     accessToken: auth.accessToken,
     text: isGuestSpectator ? "" : dialogue.rawText,

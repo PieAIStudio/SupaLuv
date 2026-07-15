@@ -44,13 +44,13 @@ export const BED_CATALOG: readonly BedCatalogEntry[] = [
     id: "night-ambient",
     title: "Behind the Glass",
     role: "办公室/公共",
-    kind: "music",
+    kind: "ambient",
   },
   {
     id: "lonely-pad",
     title: "Half Empty Teacups",
     role: "公寓/私密",
-    kind: "music",
+    kind: "ambient",
   },
 ] as const;
 

@@ -1,27 +1,74 @@
 import {
   createDualTtsFromEnv,
   describeTtsEnv,
+  resolveTtsRoute,
+  type TtsLocaleRoute,
   type TtsSynthesizeResult,
 } from "@pieai/swimmer-ai-kit/tts";
 
+export type CoreTtsCharacterId =
+  | "suming"
+  | "leo"
+  | "chen_jia"
+  | "shi_peixin"
+  | "staff_worker"
+  | "staff_lead"
+  | "shop_owner"
+  | "test_ai"
+  | "narrator"
+  | "lin_xiaotang"
+  | "zhou_lu";
+
+export interface TtsDialogueSegment {
+  readonly index: number;
+  readonly text: string;
+  readonly language: "zh-CN" | "en";
+  readonly route: TtsLocaleRoute;
+}
+
+export interface SafeTtsSynthesizeResult {
+  readonly audioBase64: string;
+  readonly mimeType: string;
+}
+
+type ScriptLane = "han" | "latin" | null;
+
+const HAN_CHARACTER = /\p{Script=Han}/u;
+const LATIN_CHARACTER = /\p{Script=Latin}/u;
+const SENTENCE_PATTERN = /[^。！？!?；;.\n]+[。！？!?；;.]?/gu;
+/** AI / App / OK / OpenAI-class borrowings embedded in Chinese prose. */
+const SHORT_TECH_TOKEN = /^[A-Za-z0-9]{1,8}$/;
+const LATIN_ALPHANUMERIC_TOKEN = /[A-Za-z0-9]+/gu;
+const MAX_BORROWED_TECH_TOKENS = 2;
+
+// Provider voice IDs are server-only catalog data. Core characters without a
+// final casting asset intentionally share a safe provisional lane voice.
 const router = createDualTtsFromEnv({
   westernVoiceMap: {
-    // ElevenLabs premade Roger (free-tier API OK in 2026-07 smoke)
     suming: "CwhRBWXzGAHq8TQ4Fs17",
-    苏明: "CwhRBWXzGAHq8TQ4Fs17",
+    leo: "CwhRBWXzGAHq8TQ4Fs17",
     narrator: "CwhRBWXzGAHq8TQ4Fs17",
-    旁白: "CwhRBWXzGAHq8TQ4Fs17",
+    staff_worker: "CwhRBWXzGAHq8TQ4Fs17",
+    staff_lead: "CwhRBWXzGAHq8TQ4Fs17",
+    test_ai: "EXAVITQu4vr4xnSDxMaL",
+    chen_jia: "EXAVITQu4vr4xnSDxMaL",
+    shi_peixin: "EXAVITQu4vr4xnSDxMaL",
+    shop_owner: "EXAVITQu4vr4xnSDxMaL",
     lin_xiaotang: "EXAVITQu4vr4xnSDxMaL",
-    林晓棠: "EXAVITQu4vr4xnSDxMaL",
+    zhou_lu: "EXAVITQu4vr4xnSDxMaL",
   },
   chineseVoiceMap: {
-    // CN platform system voices (api.minimaxi.com)
     suming: "male-qn-qingse",
-    苏明: "male-qn-qingse",
-    lin_xiaotang: "female-shaonv",
-    林晓棠: "female-shaonv",
+    leo: "male-qn-qingse",
     narrator: "male-qn-qingse",
-    旁白: "male-qn-qingse",
+    staff_worker: "male-qn-qingse",
+    staff_lead: "male-qn-qingse",
+    test_ai: "female-shaonv",
+    chen_jia: "female-shaonv",
+    shi_peixin: "female-shaonv",
+    shop_owner: "female-shaonv",
+    lin_xiaotang: "female-shaonv",
+    zhou_lu: "female-shaonv",
   },
 });
 
@@ -29,7 +76,64 @@ export function ttsHealthSnapshot() {
   return {
     ...describeTtsEnv(),
     defaultLang: process.env.SUPALUV_TTS_DEFAULT_LANG?.trim() || "zh-CN",
+    routingCatalog: "supaluv-core-v1",
+    mixedLanguageMode: "segmented-catalog-required",
   };
+}
+
+export function resolveTtsCharacterId(value: string | undefined): CoreTtsCharacterId {
+  const normalized = normalizeCharacter(value ?? "");
+  const aliases: Readonly<Record<string, CoreTtsCharacterId>> = {
+    苏明: "suming",
+    suming: "suming",
+    雷欧: "leo",
+    leo: "leo",
+    陈佳: "chen_jia",
+    chenjia: "chen_jia",
+    石佩欣: "shi_peixin",
+    shipeixin: "shi_peixin",
+    工作人员: "staff_worker",
+    staffworker: "staff_worker",
+    小组长: "staff_lead",
+    stafflead: "staff_lead",
+    老板娘: "shop_owner",
+    shopowner: "shop_owner",
+    ai: "test_ai",
+    testai: "test_ai",
+    旁白: "narrator",
+    narrator: "narrator",
+    林晓棠: "lin_xiaotang",
+    linxiaotang: "lin_xiaotang",
+    周鹿: "zhou_lu",
+    zhoulu: "zhou_lu",
+  };
+  return aliases[normalized] ?? "narrator";
+}
+
+export function planDialogueTtsSegments(
+  text: string,
+  fallbackLanguage = "zh-CN",
+): readonly TtsDialogueSegment[] {
+  const normalized = text.trim().replace(/\s+/gu, " ");
+  if (!normalized) {
+    return [];
+  }
+  const sentenceChunks = normalized.match(SENTENCE_PATTERN) ?? [normalized];
+  const fragments = sentenceChunks.flatMap((sentence) => splitByScript(sentence.trim()));
+  const fallback: "zh-CN" | "en" = fallbackLanguage.toLowerCase().startsWith("zh") ? "zh-CN" : "en";
+
+  return fragments
+    .filter((fragment) => fragment.text.length > 0)
+    .map((fragment, index) => {
+      const language =
+        fragment.lane === "han" ? "zh-CN" : fragment.lane === "latin" ? "en" : fallback;
+      return {
+        index,
+        text: fragment.text,
+        language,
+        route: resolveTtsRoute(language),
+      };
+    });
 }
 
 export async function synthesizeDialogue(input: {
@@ -38,14 +142,135 @@ export async function synthesizeDialogue(input: {
   characterId?: string;
   emotion?: string;
   signal?: AbortSignal;
-}): Promise<TtsSynthesizeResult> {
-  const language =
+}): Promise<SafeTtsSynthesizeResult> {
+  const fallbackLanguage =
     input.language?.trim() || process.env.SUPALUV_TTS_DEFAULT_LANG?.trim() || "zh-CN";
-  return router.synthesize({
-    text: input.text,
+  const segments = planDialogueTtsSegments(input.text, fallbackLanguage);
+  if (segments.length === 0) {
+    throw new Error("TTS_TEXT_REQUIRED");
+  }
+  const routes = new Set(segments.map((segment) => segment.route));
+  if (routes.size > 1) {
+    throw new Error("TTS_MIXED_LANGUAGE_REQUIRES_SEGMENTED_CATALOG");
+  }
+  const language = segments[0]?.language ?? fallbackLanguage;
+  const result = await router.synthesize({
+    text: segments.map((segment) => segment.text).join(" "),
     language,
-    characterId: input.characterId?.trim() || "narrator",
+    characterId: resolveTtsCharacterId(input.characterId),
     emotion: input.emotion,
     signal: input.signal,
   });
+  return toSafeTtsSynthesizeResult(result);
+}
+
+export function toSafeTtsSynthesizeResult(result: TtsSynthesizeResult): SafeTtsSynthesizeResult {
+  return {
+    audioBase64: result.audioBase64,
+    mimeType: result.mimeType,
+  };
+}
+
+function normalizeCharacter(value: string): string {
+  return value
+    .trim()
+    .normalize("NFKD")
+    .replace(/\p{Mark}/gu, "")
+    .toLowerCase()
+    .replace(/[\s_\-.'’]/gu, "");
+}
+
+function splitByScript(text: string): Array<{ text: string; lane: ScriptLane }> {
+  const fragments: Array<{ text: string; lane: ScriptLane }> = [];
+  let lane: ScriptLane = null;
+  let buffer = "";
+  for (const character of text) {
+    const nextLane = classifyCharacter(character);
+    if (nextLane && lane && nextLane !== lane) {
+      pushFragment(fragments, buffer, lane);
+      buffer = character;
+      lane = nextLane;
+      continue;
+    }
+    buffer += character;
+    if (nextLane) {
+      lane = nextLane;
+    }
+  }
+  pushFragment(fragments, buffer, lane);
+  return mergeAdjacentLanes(reclassifyBorrowedTechTokens(fragments));
+}
+
+/**
+ * Per-sentence freeze rule (must stay parity-identical with browser planner):
+ * when Han is present and Latin is only up to two short technical tokens
+ * (≤8 ASCII alphanumerics each, single-token fragments), those tokens inherit
+ * the Chinese lane. Full English and multi-word Western fragments stay Western.
+ */
+function reclassifyBorrowedTechTokens(
+  fragments: Array<{ text: string; lane: ScriptLane }>,
+): Array<{ text: string; lane: ScriptLane }> {
+  const hasHan = fragments.some((fragment) => fragment.lane === "han");
+  const latinFragments = fragments.filter((fragment) => fragment.lane === "latin");
+  if (!hasHan || latinFragments.length === 0) {
+    return fragments;
+  }
+  if (!latinFragments.every((fragment) => isShortTechnicalLatinFragment(fragment.text))) {
+    return fragments;
+  }
+  const tokenCount = latinFragments.reduce(
+    (count, fragment) => count + latinAlphanumericTokens(fragment.text).length,
+    0,
+  );
+  if (tokenCount === 0 || tokenCount > MAX_BORROWED_TECH_TOKENS) {
+    return fragments;
+  }
+  return fragments.map((fragment) =>
+    fragment.lane === "latin" ? { text: fragment.text, lane: "han" } : fragment,
+  );
+}
+
+function isShortTechnicalLatinFragment(text: string): boolean {
+  const tokens = latinAlphanumericTokens(text);
+  return tokens.length === 1 && SHORT_TECH_TOKEN.test(tokens[0] ?? "");
+}
+
+function latinAlphanumericTokens(text: string): string[] {
+  return text.match(LATIN_ALPHANUMERIC_TOKEN) ?? [];
+}
+
+function mergeAdjacentLanes(
+  fragments: Array<{ text: string; lane: ScriptLane }>,
+): Array<{ text: string; lane: ScriptLane }> {
+  const merged: Array<{ text: string; lane: ScriptLane }> = [];
+  for (const fragment of fragments) {
+    const previous = merged[merged.length - 1];
+    if (previous && previous.lane === fragment.lane) {
+      previous.text = `${previous.text} ${fragment.text}`.replace(/\s+/gu, " ").trim();
+      continue;
+    }
+    merged.push({ text: fragment.text, lane: fragment.lane });
+  }
+  return merged;
+}
+
+function classifyCharacter(character: string): ScriptLane {
+  if (HAN_CHARACTER.test(character)) {
+    return "han";
+  }
+  if (LATIN_CHARACTER.test(character)) {
+    return "latin";
+  }
+  return null;
+}
+
+function pushFragment(
+  fragments: Array<{ text: string; lane: ScriptLane }>,
+  text: string,
+  lane: ScriptLane,
+): void {
+  const trimmed = text.trim();
+  if (trimmed) {
+    fragments.push({ text: trimmed, lane });
+  }
 }
