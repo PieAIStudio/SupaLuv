@@ -1,5 +1,7 @@
 type ModuleLoader<T> = () => Promise<T>;
 
+export const ATOMIC_LOADING_DELAY_MS = 400;
+
 export function createModulePreloader<T>(loader: ModuleLoader<T>) {
   let promise: Promise<T> | null = null;
 
@@ -25,6 +27,7 @@ export function preloadDecodedImage(src: string): Promise<void> {
   const promise = new Promise<void>((resolve, reject) => {
     const image = new Image();
     image.decoding = "async";
+    image.fetchPriority = "high";
     image.onload = () => {
       if (typeof image.decode === "function") {
         void image.decode().then(resolve, reject);
@@ -45,6 +48,13 @@ export function preloadDecodedImage(src: string): Promise<void> {
 
 export async function preloadDecodedImages(sources: readonly string[]): Promise<void> {
   await Promise.all(sources.map((src) => preloadDecodedImage(src)));
+}
+
+export async function waitForDocumentFonts(): Promise<void> {
+  if (typeof document === "undefined" || !document.fonts) {
+    return;
+  }
+  await document.fonts.ready;
 }
 
 export const TITLE_CRITICAL_ASSETS = ["/assets/scenes/bg-office-night.jpg"] as const;

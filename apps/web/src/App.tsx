@@ -1,4 +1,13 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  lazy,
+  startTransition,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { trackEvent } from "./analytics/productAnalytics";
 import { bedLabel } from "./audio/bedCatalog";
 import { gameAudio } from "./audio/gameAudio";
@@ -36,6 +45,7 @@ import {
   preloadDecodedImage,
   preloadDecodedImages,
   TITLE_CRITICAL_ASSETS,
+  waitForDocumentFonts,
 } from "./loading/atomicLoading";
 import { BootSplash } from "./views/BootSplash";
 import type { EndingPathMeta } from "./views/ChapterEndCard";
@@ -101,7 +111,11 @@ type AppScreen =
 const BOOT_SEEN_KEY = "supaluv.boot.seen.v1";
 
 async function preloadTitlePresentation(): Promise<void> {
-  await Promise.all([loadTitleScreenModule(), preloadDecodedImages(TITLE_CRITICAL_ASSETS)]);
+  await Promise.all([
+    loadTitleScreenModule(),
+    preloadDecodedImages(TITLE_CRITICAL_ASSETS),
+    waitForDocumentFonts(),
+  ]);
 }
 
 async function preloadStoryPresentation(
@@ -118,6 +132,7 @@ async function preloadStoryPresentation(
     loadStoryMapPreviewModule(),
     loadPlayerPathPanelModule(),
     artPromise,
+    waitForDocumentFonts(),
   ]);
 }
 
@@ -149,6 +164,7 @@ export function App() {
     kind: AtomicLoadingKind;
     error?: string | null;
     retry?: () => void;
+    refresh?: () => void;
   } | null>(null);
   const unlockToastTimer = useRef<number | null>(null);
   const storyActionInFlight = useRef(false);
@@ -217,7 +233,7 @@ export function App() {
       setLoadingTransition({
         kind: "retry",
         error: t("common.codeUpdateError"),
-        retry: () => window.location.reload(),
+        refresh: () => window.location.reload(),
       });
     };
     window.addEventListener("vite:preloadError", onPreloadError);
@@ -249,6 +265,7 @@ export function App() {
               setLoadingTransition(null);
               setTitleLoadAttempt((value) => value + 1);
             },
+            refresh: () => window.location.reload(),
           });
         });
       return () => {
@@ -308,6 +325,7 @@ export function App() {
             kind: "retry",
             error: t("common.transitionError"),
             retry,
+            refresh: () => window.location.reload(),
           });
         } else {
           showUnlockToast(t("common.storyLoadError"));
@@ -337,6 +355,7 @@ export function App() {
       await Promise.all([
         loadCharacterStudioModule(),
         preloadDecodedImages(CASTING_CRITICAL_ASSETS),
+        waitForDocumentFonts(),
       ]);
       setScreen("character-studio");
     }, "casting");
@@ -350,9 +369,14 @@ export function App() {
       return;
     }
     const testWindow = window as Window & {
-      __SUPALUV_ATOMIC_LOADING_TEST__?: { transitionToChapter2: () => void };
+      __SUPALUV_ATOMIC_LOADING_TEST__?: {
+        transitionToChapter1: () => void;
+        transitionToChapter2: () => void;
+      };
     };
     testWindow.__SUPALUV_ATOMIC_LOADING_TEST__ = {
+      transitionToChapter1: () =>
+        runStoryAction(() => session.loadChapter("draft-ch01" as StoryId), "chapter"),
       transitionToChapter2: () =>
         runStoryAction(() => session.loadChapter("draft-ch02" as StoryId), "chapter"),
     };
@@ -374,12 +398,12 @@ export function App() {
       tryAchievement("gallery_start");
       trackEvent({ name: "gallery_open" });
     }
-    setScreen(next);
+    startTransition(() => setScreen(next));
   }
 
   function backFromMeta() {
     const target = metaReturnScreen.current === "play" && runner ? "play" : "title";
-    setScreen(target);
+    startTransition(() => setScreen(target));
   }
 
   async function startNewGame(bindings: StoryCharacterBindings = {}) {
@@ -510,16 +534,23 @@ export function App() {
     session.addUnlocks(DRAFT_CLEAR_REWARDS);
   }
 
-  if (!bootDone) {
+  if (!bootDone || !titleReady) {
     return (
       <main className="app-shell" data-screen="boot">
-        <BootSplash onEnter={enterTitle} />
+        <BootSplash
+          onEnter={bootDone ? undefined : enterTitle}
+          busy={bootDone || Boolean(loadingTransition)}
+        />
         {loadingTransition ? (
           <AtomicLoadingOverlay
             kind={loadingTransition.kind}
             error={loadingTransition.error}
             onRetry={loadingTransition.retry}
+            onRefresh={loadingTransition.refresh}
+            archiveIds={unlocks.archive}
           />
+        ) : bootDone ? (
+          <AtomicLoadingOverlay kind="title" archiveIds={unlocks.archive} />
         ) : null}
       </main>
     );
@@ -530,7 +561,7 @@ export function App() {
       {!isPlayerPathOpen ? <OrientationGate /> : null}
       {screen === "title" ? (
         titleReady ? (
-          <Suspense fallback={<AtomicLoadingOverlay kind="title" />}>
+          <Suspense fallback={<AtomicLoadingOverlay kind="title" archiveIds={unlocks.archive} />}>
             <TitleScreen
               onNewGame={openCharacterStudio}
               onContinue={(slotId) => runStoryAction(() => continueGame(slotId), "story")}
@@ -550,11 +581,11 @@ export function App() {
             />
           </Suspense>
         ) : (
-          <AtomicLoadingOverlay kind="title" />
+          <AtomicLoadingOverlay kind="title" archiveIds={unlocks.archive} />
         )
       ) : null}
 
-      <Suspense fallback={<AtomicLoadingOverlay kind="casting" />}>
+      <Suspense fallback={<AtomicLoadingOverlay kind="casting" archiveIds={unlocks.archive} />}>
         {screen === "character-studio" ? (
           <CharacterStudioScreen
             onCancel={() => setScreen("title")}
@@ -583,7 +614,7 @@ export function App() {
         {screen === "ai-spend" ? <AiSpendAnalysisScreen onBack={backFromMeta} /> : null}
       </Suspense>
 
-      <Suspense fallback={<AtomicLoadingOverlay kind="story" />}>
+      <Suspense fallback={<AtomicLoadingOverlay kind="story" archiveIds={unlocks.archive} />}>
         {screen === "play" && runner && snapshot ? (
           <>
             <VisualNovelPrototype
@@ -659,6 +690,8 @@ export function App() {
           kind={loadingTransition.kind}
           error={loadingTransition.error}
           onRetry={loadingTransition.retry}
+          onRefresh={loadingTransition.refresh}
+          archiveIds={unlocks.archive}
         />
       ) : null}
     </main>
