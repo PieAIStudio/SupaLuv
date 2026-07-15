@@ -1,9 +1,22 @@
-# Media Attribution (Chapter 01 demo)
+# Media Attribution (draft chapters)
 
 Exact runtime paths, byte sizes, and SHA-256 fingerprints live in
 [`RUNTIME-ASSET-LEDGER.csv`](./RUNTIME-ASSET-LEDGER.csv). A file is not a
 commercial-release asset merely because it is present in the demo: the ledger's
 `release_status` column is the release gate.
+
+The machine-readable visual production intake lives in
+[`VISUAL-ASSET-INTAKE.json`](./VISUAL-ASSET-INTAKE.json). It adds stable IDs,
+chapter/use references, delivery contracts, dimensions, decoded MIME,
+transparency rules, source/owner evidence, file status, quality status, rights
+status, and explicit missing-asset records. `RUNTIME-ASSET-LEDGER.csv` remains
+the fingerprint ledger for every runtime media file, including audio; the visual
+intake does not replace it.
+
+Status fields are independent. `fileStatus=present` means only that the exact
+bytes exist. It does not imply `qualityStatus=production_ready` or
+`rightsStatus=cleared`. Production audit mode blocks until every required visual
+asset satisfies all three and every production gap is resolved.
 
 ## Generated in-house (AI image tools)
 
@@ -12,6 +25,11 @@ commercial-release asset merely because it is present in the demo: the ledger's
 - Boot splash still: `apps/web/public/assets/ui/boot-splash.jpg` (click-to-start gate)
 
 These are project-owned generation outputs for SupaLuv prototype use.
+
+The four current scene backgrounds and the boot splash are recorded as
+`prototype_only` with release-rights evidence pending. They keep the two
+noncanonical draft chapters playable, but they do not close the formal
+background shot list or release-rights review.
 
 ### Recorded 2026-07-11 mood repairs
 
@@ -80,3 +98,52 @@ matched to exact item URLs plus a license snapshot before a paid build.
 
 If a Mixkit URL is later unavailable, replace the file in place and update both
 this table and the runtime ledger hash.
+
+## Recorded visual production gaps
+
+No binary is fabricated for these entries. Each missing item has a stable ID,
+an expected delivery contract, a production-blocking status, and a note about
+the current draft fallback in `VISUAL-ASSET-INTAKE.json`.
+
+### Named character portraits and references
+
+| Character / role | Required portrait ID   | Required reference ID   | Current playable fallback |
+| ---------------- | ---------------------- | ----------------------- | ------------------------- |
+| 陈佳             | `chen-jia-neutral`     | `chen-jia-ref-base`     | `lin-neutral` (legacy)    |
+| 雷欧             | `leo-neutral`          | `leo-ref-base`          | `zhou-neutral` (legacy)   |
+| 石佩欣           | `shi-peixin-neutral`   | `shi-peixin-ref-base`   | `lin-neutral` (legacy)    |
+| 工作人员         | `staff-worker-neutral` | `staff-worker-ref-base` | `demo-ui` (placeholder)   |
+| 小组长           | `staff-lead-neutral`   | `staff-lead-ref-base`   | `demo-ui` (placeholder)   |
+| 老板娘           | `shop-owner-neutral`   | `shop-owner-ref-base`   | `zhou-neutral` (legacy)   |
+
+The fallback files are intentionally marked `legacy_only`; they cannot satisfy
+the named characters' production records. Additional NPC emotions are not
+invented here because the author/art-direction mood matrix is not frozen.
+
+### Prop and interface stills
+
+| Stable asset ID        | Draft use                              | Current fallback               |
+| ---------------------- | -------------------------------------- | ------------------------------ |
+| `prop-protocol-terms`  | Chapter 1 protocol archive/interaction | Accessible authored text + CSS |
+| `prop-barcode-shift`   | Chapter 2 barcode archive/interaction  | Accessible authored text + CSS |
+| `prop-rental-receipt`  | Chapter 2 rental-receipt archive       | Accessible gallery text record |
+| `prop-application-nda` | Chapter 2 NDA/mobile questionnaire     | Accessible authored text + CSS |
+| `prop-approval-sms`    | Chapter 2 approval-message archive     | Accessible gallery text record |
+
+These gaps do not block the current technical mainline: the authored Ink path,
+scene manifests, text/CSS interactions, and accessible gallery copy already
+carry the story. They do block a formal visual-production release gate.
+
+## Unresolved production evidence
+
+- The two-chapter production background shot list is not yet frozen; the four
+  coarse draft backgrounds must not be mistaken for a complete shot package.
+- A per-character NPC mood matrix is not yet approved; only the minimum neutral
+  IDs are reserved.
+- Existing owner-generated image files still need the applicable generation
+  account/session evidence and any relevant adult-likeness permissions recorded
+  before `rightsStatus` can become `cleared`.
+
+This intake pass did not call image or cloud services and did not inspect secret
+or account files. The external policy links above are prior attribution notes,
+not newly captured release receipts.

@@ -1,0 +1,879 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "draft-2026-07-visual-intake",
+  "chapters": ["draft-ch01", "draft-ch02"],
+  "contracts": {
+    "background-web-16x9": {
+      "allowedExtensions": [".jpg", ".jpeg", ".webp"],
+      "allowedMimeTypes": ["image/jpeg", "image/webp"],
+      "dimensions": {
+        "minWidth": 1280,
+        "maxWidth": 1920,
+        "minHeight": 720,
+        "maxHeight": 1080,
+        "aspectRatio": 1.777778,
+        "aspectTolerance": 0.002
+      },
+      "alpha": "forbidden",
+      "maxBytes": 1572864,
+      "magentaCheck": false
+    },
+    "ui-still-web-16x9": {
+      "allowedExtensions": [".jpg", ".jpeg", ".webp"],
+      "allowedMimeTypes": ["image/jpeg", "image/webp"],
+      "dimensions": {
+        "minWidth": 1280,
+        "maxWidth": 1920,
+        "minHeight": 720,
+        "maxHeight": 1080,
+        "aspectRatio": 1.777778,
+        "aspectTolerance": 0.002
+      },
+      "alpha": "forbidden",
+      "maxBytes": 1572864,
+      "magentaCheck": false
+    },
+    "portrait-runtime-2x3": {
+      "allowedExtensions": [".png", ".webp"],
+      "allowedMimeTypes": ["image/png", "image/webp"],
+      "dimensions": {
+        "minWidth": 832,
+        "maxWidth": 832,
+        "minHeight": 1248,
+        "maxHeight": 1248,
+        "aspectRatio": 0.666667,
+        "aspectTolerance": 0.002
+      },
+      "alpha": "required",
+      "maxBytes": 2097152,
+      "magentaCheck": true,
+      "maxVisibleMagentaRatio": 0.0005
+    },
+    "portrait-placeholder-2x3": {
+      "allowedExtensions": [".png", ".webp"],
+      "allowedMimeTypes": ["image/png", "image/webp"],
+      "dimensions": {
+        "minWidth": 640,
+        "maxWidth": 640,
+        "minHeight": 960,
+        "maxHeight": 960,
+        "aspectRatio": 0.666667,
+        "aspectTolerance": 0.002
+      },
+      "alpha": "required",
+      "maxBytes": 1048576,
+      "magentaCheck": true,
+      "maxVisibleMagentaRatio": 0.0005
+    },
+    "character-reference-2x3": {
+      "allowedExtensions": [".jpg", ".jpeg", ".png", ".webp"],
+      "allowedMimeTypes": ["image/jpeg", "image/png", "image/webp"],
+      "dimensions": {
+        "minWidth": 832,
+        "maxWidth": 832,
+        "minHeight": 1248,
+        "maxHeight": 1248,
+        "aspectRatio": 0.666667,
+        "aspectTolerance": 0.002
+      },
+      "alpha": "optional",
+      "maxBytes": 2097152,
+      "magentaCheck": false
+    },
+    "prop-ui-web-16x9": {
+      "allowedExtensions": [".png", ".webp"],
+      "allowedMimeTypes": ["image/png", "image/webp"],
+      "dimensions": {
+        "minWidth": 1280,
+        "maxWidth": 1920,
+        "minHeight": 720,
+        "maxHeight": 1080,
+        "aspectRatio": 1.777778,
+        "aspectTolerance": 0.002
+      },
+      "alpha": "optional",
+      "maxBytes": 2097152,
+      "magentaCheck": false
+    }
+  },
+  "assets": [
+    {
+      "id": "bg-office-night",
+      "kind": "background",
+      "contract": "background-web-16x9",
+      "usage": ["draft-ch01 backgroundKey=office-night"],
+      "path": "apps/web/public/assets/scenes/bg-office-night.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "prototype_only",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "02da550edc2b312b99f132b161aef4826b1a3d49c5173c0721920f0e50acb2bc",
+      "bytes": 198466,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
+      },
+      "notes": "Playable draft background; formal art and release-rights evidence remain open."
+    },
+    {
+      "id": "bg-lobby-white",
+      "kind": "background",
+      "contract": "background-web-16x9",
+      "usage": ["draft-ch01 backgroundKey=lobby-white", "draft-ch02 backgroundKey=lobby-white"],
+      "path": "apps/web/public/assets/scenes/bg-lobby-white.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "prototype_only",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "11eaa3facebc2b0975d3695b1e5155fd4f4c688ce23df6b09624d953592b815f",
+      "bytes": 190564,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
+      },
+      "notes": "Playable draft background; formal art and release-rights evidence remain open."
+    },
+    {
+      "id": "bg-product-page",
+      "kind": "background",
+      "contract": "background-web-16x9",
+      "usage": ["draft-ch01 backgroundKey=product-page", "draft-ch02 backgroundKey=product-page"],
+      "path": "apps/web/public/assets/scenes/bg-product-page.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "prototype_only",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "247f33096fabb918fc793185ad158f8c7430942defb0ada857b3dff29fac09d8",
+      "bytes": 124002,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
+      },
+      "notes": "Playable draft background; formal art and release-rights evidence remain open."
+    },
+    {
+      "id": "bg-rental-room",
+      "kind": "background",
+      "contract": "background-web-16x9",
+      "usage": ["draft-ch01 backgroundKey=rental-room", "draft-ch02 backgroundKey=rental-room"],
+      "path": "apps/web/public/assets/scenes/bg-rental-room.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "prototype_only",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "3678332e53e31606a035f91075acdd015bdec1421baf0f65820954b3cbe9b122",
+      "bytes": 247942,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
+      },
+      "notes": "Playable draft background; formal art and release-rights evidence remain open."
+    },
+    {
+      "id": "boot-splash",
+      "kind": "ui_still",
+      "contract": "ui-still-web-16x9",
+      "usage": ["shared click-to-start and audio-unlock gate"],
+      "path": "apps/web/public/assets/ui/boot-splash.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "prototype_only",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "a745fee1e054392bfb01cda46c939e25b6fe5688f2bc181190d99ca1c39b3a86",
+      "bytes": 325399,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
+      },
+      "notes": "Current functional still; production art and rights evidence are not frozen."
+    },
+    {
+      "id": "demo-ui",
+      "kind": "portrait",
+      "contract": "portrait-placeholder-2x3",
+      "usage": ["draft-ch01 placeholder for staff and AI speakers"],
+      "path": "apps/web/public/assets/portraits/demo-ui.png",
+      "fileStatus": "present",
+      "qualityStatus": "legacy_only",
+      "rightsStatus": "not_required",
+      "requiredForProduction": false,
+      "sha256": "f9ad0a6ed0cc739e014974131659cec4e188dc781ec5aaab0d74b61947cfd664",
+      "bytes": 4918,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
+      },
+      "notes": "Explicit placeholder; must not satisfy a named NPC production asset."
+    },
+    {
+      "id": "lin-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft placeholder for 陈佳 and 石佩欣", "legacy character 林晓棠"],
+      "path": "apps/web/public/assets/portraits/lin-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "legacy_only",
+      "rightsStatus": "not_required",
+      "requiredForProduction": false,
+      "sha256": "3e71875e63d8ccfd972bd29ad3a19752bf51a0c055be807f721ea7ad051542ae",
+      "bytes": 809819,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
+      },
+      "notes": "Legacy face reused only so the draft remains playable; not a current-character deliverable."
+    },
+    {
+      "id": "zhou-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft placeholder for 雷欧 and 老板娘", "legacy character 周鹿"],
+      "path": "apps/web/public/assets/portraits/zhou-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "legacy_only",
+      "rightsStatus": "not_required",
+      "requiredForProduction": false,
+      "sha256": "2a3bbd930e794baf3aa529cd21fe499f0059d688cd8c3ebc3c965b9737bd1f2a",
+      "bytes": 822278,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
+      },
+      "notes": "Legacy face reused only so the draft remains playable; not a current-character deliverable."
+    },
+    {
+      "id": "suming-base",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["main-character base portrait and fallback"],
+      "path": "apps/web/public/assets/portraits/suming-base.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "c48196af84be96162940e86ef9ae6224880f1d82c70f0860fae48c851bbc13cd",
+      "bytes": 1084487,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+    },
+    {
+      "id": "suming-committed",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": [
+        "draft-ch01 portraitKey=suming-committed",
+        "draft-ch02 portraitKey=suming-committed"
+      ],
+      "path": "apps/web/public/assets/portraits/suming-committed.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "c794b507cff71022a6fd55d4e7ed48021f203c34faea1f104679d3d9cd8d4ffd",
+      "bytes": 985422,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md#recorded-2026-07-11-mood-repairs"
+      },
+      "notes": "Distinct mood regeneration recorded; terms and input-chain review remain pending."
+    },
+    {
+      "id": "suming-lonely",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["main-character mood library"],
+      "path": "apps/web/public/assets/portraits/suming-lonely.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "d6f7d6ab48a5d51b4274357389854c9f43590e840ca614ae3c8185181252b69f",
+      "bytes": 1044940,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+    },
+    {
+      "id": "suming-panic",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["main-character mood library"],
+      "path": "apps/web/public/assets/portraits/suming-panic.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "44a9a10645b8396dda443e366aa0a7225f658a3b6ca81e44c97a00edf6d99eb8",
+      "bytes": 1070715,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+    },
+    {
+      "id": "suming-restless",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["main-character mood library"],
+      "path": "apps/web/public/assets/portraits/suming-restless.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "2fd48b58fcba60e912647a820f71f22b42047f37bbc5ccc305683e068e59ea2b",
+      "bytes": 987856,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md#recorded-2026-07-11-mood-repairs"
+      },
+      "notes": "Distinct mood regeneration recorded; terms and input-chain review remain pending."
+    },
+    {
+      "id": "suming-shame",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch01 portraitKey=suming-shame", "draft-ch02 portraitKey=suming-shame"],
+      "path": "apps/web/public/assets/portraits/suming-shame.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "175a51a0071944dd167cc26fa9b40059eed25400f0a1fa2e041d1945803b6983",
+      "bytes": 1061077,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+    },
+    {
+      "id": "suming-tempted",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["main-character mood library"],
+      "path": "apps/web/public/assets/portraits/suming-tempted.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "67e8dd317513263af6eaab8f1e3f43fc64303174bca223d6a6059c01fab696c8",
+      "bytes": 1097285,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+    },
+    {
+      "id": "suming-uncanny",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["main-character mood library"],
+      "path": "apps/web/public/assets/portraits/suming-uncanny.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "7a841a46f05e5b6f99e2566d0156279d937f8fcb6df77bb9c3d00a2691210899",
+      "bytes": 1063918,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+    },
+    {
+      "id": "suming-ref-base",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["character=suming identity reference"],
+      "path": "packages/content/characters/suming/refs/base.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "af2c979d7ce263aa4ef81368afe50ff7add10f7c8ff17029bdeeeb87a675c97d",
+      "bytes": 243853,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Identity source is present; account terms and input-chain evidence remain pending."
+    },
+    {
+      "id": "suming-ref-committed",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["source reference for suming-committed"],
+      "path": "packages/content/characters/suming/refs/committed-raw.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "605e91defd0c12a542dc11d91bfff8c81b9b08d86183d1b59a0a66316435efe0",
+      "bytes": 223154,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md#recorded-2026-07-11-mood-repairs"
+      },
+      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+    },
+    {
+      "id": "suming-ref-lonely",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["source reference for suming-lonely"],
+      "path": "packages/content/characters/suming/refs/lonely-raw.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "88a011275c23fc95ce3aecdbc235518f35610b65e34a60b4a4c2b66bd88e4059",
+      "bytes": 200235,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+    },
+    {
+      "id": "suming-ref-panic",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["source reference for suming-panic"],
+      "path": "packages/content/characters/suming/refs/panic-raw.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "f30c976cc59cd8ccf2fab495f57b4062cc71c0ee568cea59699e1a8d05a50759",
+      "bytes": 201352,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+    },
+    {
+      "id": "suming-ref-restless",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["source reference for suming-restless"],
+      "path": "packages/content/characters/suming/refs/restless-raw.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "b654ac6bbe2cb346d84d0d6319a1edea546e3a398eae5da00bf7d88f47ba0089",
+      "bytes": 241928,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md#recorded-2026-07-11-mood-repairs"
+      },
+      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+    },
+    {
+      "id": "suming-ref-shame",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["source reference for suming-shame"],
+      "path": "packages/content/characters/suming/refs/shame-raw.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "52d197cdc85165ea333f7c07a52bc7e95c6b2dcb80cf9b374847cb82419a15e1",
+      "bytes": 208288,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+    },
+    {
+      "id": "suming-ref-tempted",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["source reference for suming-tempted"],
+      "path": "packages/content/characters/suming/refs/tempted-raw.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "c155ba6f2ad88d6373b21fc79cdb70683c3bded0ac61ef5541041c3995c39897",
+      "bytes": 207379,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+    },
+    {
+      "id": "suming-ref-uncanny",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["source reference for suming-uncanny"],
+      "path": "packages/content/characters/suming/refs/uncanny-raw.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "086c5bfdc8bbe8900f9b2bda7a75d74d3e916a51162db5471657dbb47afb1406",
+      "bytes": 206004,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "packages/content/characters/suming/prompts.md"
+      },
+      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+    },
+    {
+      "id": "lin-xiaotang-ref-base",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["legacy character 林晓棠 identity reference"],
+      "path": "packages/content/characters/lin_xiaotang/refs/base.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "legacy_only",
+      "rightsStatus": "not_required",
+      "requiredForProduction": false,
+      "sha256": "f9c422b384f9134c60b9c5cd1013e3f21a3d8ddc91ec2d0fcd9a889458dd46b9",
+      "bytes": 194792,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "legacy character pack; not a draft-2026-07 production source"
+      },
+      "notes": "Inventoried because the binary exists; excluded from current two-chapter production."
+    },
+    {
+      "id": "zhou-lu-ref-base",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["legacy character 周鹿 identity reference"],
+      "path": "packages/content/characters/zhou_lu/refs/base.jpg",
+      "fileStatus": "present",
+      "qualityStatus": "legacy_only",
+      "rightsStatus": "not_required",
+      "requiredForProduction": false,
+      "sha256": "884b9d3c786efcd9a8fb64cd87795a7565e021029cdfdda9cb7f7b94247841ba",
+      "bytes": 187985,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "legacy character pack; not a draft-2026-07 production source"
+      },
+      "notes": "Inventoried because the binary exists; excluded from current two-chapter production."
+    },
+    {
+      "id": "chen-jia-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch01 speaker=陈佳"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Runtime currently falls back to lin-neutral; do not treat that legacy face as completion."
+    },
+    {
+      "id": "leo-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch01 speaker=雷欧", "draft-ch02 speaker=雷欧"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Runtime currently falls back to zhou-neutral; do not treat that legacy face as completion."
+    },
+    {
+      "id": "shi-peixin-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch02 speaker=石佩欣"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Runtime currently falls back to lin-neutral; do not treat that legacy face as completion."
+    },
+    {
+      "id": "staff-worker-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch01 speaker=工作人员"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Runtime currently falls back to demo-ui; named NPC art is still required."
+    },
+    {
+      "id": "staff-lead-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch01 speaker=小组长"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Runtime currently falls back to demo-ui; named NPC art is still required."
+    },
+    {
+      "id": "shop-owner-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch02 speaker=老板娘"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Runtime currently falls back to zhou-neutral; named NPC art is still required."
+    },
+    {
+      "id": "chen-jia-ref-base",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["character=chen_jia identity reference"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "No approved adult identity/reference source is present."
+    },
+    {
+      "id": "leo-ref-base",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["character=leo identity reference"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "No approved identity/reference source is present."
+    },
+    {
+      "id": "shi-peixin-ref-base",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["character=shi_peixin identity reference"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "No approved adult identity/reference source is present."
+    },
+    {
+      "id": "staff-worker-ref-base",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["character=staff_worker identity reference"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "No approved identity/reference source is present."
+    },
+    {
+      "id": "staff-lead-ref-base",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["character=staff_lead identity reference"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "No approved identity/reference source is present."
+    },
+    {
+      "id": "shop-owner-ref-base",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["character=shop_owner identity reference"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "No approved identity/reference source is present."
+    },
+    {
+      "id": "prop-protocol-terms",
+      "kind": "prop_ui",
+      "contract": "prop-ui-web-16x9",
+      "usage": ["draft-ch01 archive=protocol-terms and protocol interaction"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Text/CSS fallback keeps the authored interaction playable; formal prop art is absent."
+    },
+    {
+      "id": "prop-barcode-shift",
+      "kind": "prop_ui",
+      "contract": "prop-ui-web-16x9",
+      "usage": ["draft-ch02 archive=barcode-shift and barcode interaction"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Text/CSS fallback keeps the authored interaction playable; formal prop art is absent."
+    },
+    {
+      "id": "prop-rental-receipt",
+      "kind": "prop_ui",
+      "contract": "prop-ui-web-16x9",
+      "usage": ["draft-ch02 archive=rental-receipt"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Gallery text record exists; formal receipt art is absent."
+    },
+    {
+      "id": "prop-application-nda",
+      "kind": "prop_ui",
+      "contract": "prop-ui-web-16x9",
+      "usage": ["draft-ch02 archive=application-nda and mobile questionnaire"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Gallery/text fallback exists; formal NDA/phone prop art is absent."
+    },
+    {
+      "id": "prop-approval-sms",
+      "kind": "prop_ui",
+      "contract": "prop-ui-web-16x9",
+      "usage": ["draft-ch02 archive=approval-sms"],
+      "path": null,
+      "fileStatus": "missing",
+      "qualityStatus": "missing",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": null,
+      "bytes": null,
+      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "notes": "Gallery text record exists; formal approval-message art is absent."
+    }
+  ],
+  "gaps": [
+    {
+      "id": "gap-background-shot-list",
+      "status": "open",
+      "requiredForProduction": true,
+      "reason": "The two chapters currently reuse four coarse prototype backgrounds; an author/art-director-approved production shot list is not frozen.",
+      "currentFallback": "Existing scene manifest background keys keep both draft chapters playable without changing story topology.",
+      "resolution": "Freeze the production shot list, then add one stable asset record per approved background without editing authored prose in this intake pass."
+    },
+    {
+      "id": "gap-npc-mood-matrix",
+      "status": "open",
+      "requiredForProduction": true,
+      "reason": "Only minimum neutral portrait IDs are safe to register for current NPCs; additional emotion variants have not been approved by the author or art direction.",
+      "currentFallback": "Legacy neutral/demo portraits and text staging keep the draft readable, but are explicitly non-production.",
+      "resolution": "Approve a per-character mood matrix, then add stable portrait IDs and files under the same audited contracts."
+    },
+    {
+      "id": "gap-commercial-rights-evidence",
+      "status": "open",
+      "requiredForProduction": true,
+      "reason": "Existing owner-generated visual files do not yet have complete release-rights/session/likeness evidence recorded locally.",
+      "currentFallback": "The assets remain usable for the noncanonical playable draft with rightsStatus=pending and cannot pass production mode.",
+      "resolution": "Record the applicable generation account terms, source-chain evidence, and any adult-likeness permissions, then set rightsStatus=cleared only after owner review."
+    }
+  ]
+}
