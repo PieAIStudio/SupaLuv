@@ -2,11 +2,14 @@ import { beforeEach, describe, expect, it } from "vitest";
 import {
   PATH_MEMORY_KEY,
   PATH_MEMORY_V1_KEY,
+  aiBranchChoiceId,
   getPlayerPathObservation,
   getPlayerPathRoute,
   getScenePathMemory,
+  recordAiBranchSelection,
   recordChoiceSelected,
   recordScenePresented,
+  resolveChoiceSource,
   wasChoiceTaken,
   type PlayerPathScope,
 } from "../../apps/web/src/persistence/pathMemory";
@@ -239,5 +242,105 @@ describe("path memory v2", () => {
     expect(serialized).toContain("已见摘要");
     expect(serialized).toContain("已见选择");
     expect(serialized).not.toContain(futureSentinel);
+  });
+
+  it("defaults omitted choice source to authored and resolves explicit ai source", () => {
+    expect(resolveChoiceSource(undefined)).toBe("authored");
+    expect(resolveChoiceSource(null)).toBe("authored");
+    expect(resolveChoiceSource("authored")).toBe("authored");
+    expect(resolveChoiceSource("ai")).toBe("ai");
+
+    recordChoiceSelected(scope, {
+      storyId: "draft-ch01",
+      sceneId: "scene-a",
+      choiceId: "choice-a",
+      label: "作者选择",
+    });
+    const authored = getPlayerPathRoute(scope).memory?.scenes["draft-ch01:scene-a"]?.choices[0];
+    expect(authored).toMatchObject({
+      choiceId: "choice-a",
+      source: "authored",
+    });
+  });
+
+  it("records ready AI branch selection via the shared runtime helper before playback", () => {
+    // Same helper VisualNovelPrototype.handleChooseAi calls before chooseAi(run marker).
+    recordAiBranchSelection(scope, {
+      storyId: "draft-ch02",
+      sceneId: "dch02_s019",
+      label: "AI 旁支",
+      selectedAt: "2026-07-15T04:00:00.000Z",
+    });
+
+    const choiceId = aiBranchChoiceId("draft-ch02", "dch02_s019");
+    expect(choiceId).toBe("ai-branch:draft-ch02:dch02_s019");
+
+    const scene = getPlayerPathRoute(scope).memory?.scenes["draft-ch02:dch02_s019"];
+    expect(scene?.choices).toEqual([
+      expect.objectContaining({
+        choiceId,
+        label: "AI 旁支",
+        selectedAt: "2026-07-15T04:00:00.000Z",
+        source: "ai",
+      }),
+    ]);
+    expect(getPlayerPathObservation(scope).selectedChoiceIds).toEqual([
+      { storyId: "draft-ch02", choiceId },
+    ]);
+
+    // Prefix alone is not the source of truth: an authored id that happens to look
+    // like a legacy fixture stays authored unless source is written.
+    recordChoiceSelected(scope, {
+      storyId: "draft-ch01",
+      sceneId: "scene-b",
+      choiceId: "ai:legacy-looking-id",
+      label: "看起来像 AI",
+      source: "authored",
+    });
+    expect(
+      getPlayerPathRoute(scope).memory?.scenes["draft-ch01:scene-b"]?.choices[0],
+    ).toMatchObject({
+      choiceId: "ai:legacy-looking-id",
+      source: "authored",
+    });
+  });
+
+  it("treats historical facts without source as authored (no synthetic ai:* inference)", () => {
+    storage.set(
+      PATH_MEMORY_KEY,
+      JSON.stringify({
+        version: 2,
+        routes: {
+          "draft-2026-07@revision-a": {
+            packageId: "draft-2026-07",
+            revision: "revision-a",
+            current: null,
+            scenes: {
+              "draft-ch01:scene-a": {
+                storyId: "draft-ch01",
+                sceneId: "scene-a",
+                title: "旧场景",
+                summary: null,
+                firstVisitedAt: "2026-07-01T00:00:00.000Z",
+                lastVisitedAt: "2026-07-01T00:00:00.000Z",
+                choices: [
+                  {
+                    choiceId: "ai:old-fixture",
+                    label: "历史数据",
+                    observedAt: "2026-07-01T00:00:00.000Z",
+                    selectedAt: "2026-07-01T00:00:00.000Z",
+                    // source intentionally omitted — legacy row
+                  },
+                ],
+              },
+            },
+          },
+        },
+      }),
+    );
+
+    const choice = getPlayerPathRoute(scope).memory?.scenes["draft-ch01:scene-a"]?.choices[0];
+    expect(choice?.source).toBeUndefined();
+    expect(resolveChoiceSource(choice?.source)).toBe("authored");
   });
 });

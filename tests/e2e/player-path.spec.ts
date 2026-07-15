@@ -95,12 +95,161 @@ async function revealAndChooseFirst(page: Page): Promise<boolean> {
 }
 
 async function openPlayerPath(page: Page): Promise<void> {
-  await page.getByTestId("system-menu-toggle").click({ force: true });
-  await expect(page.getByTestId("system-menu")).toBeVisible();
+  const systemMenu = page.getByTestId("system-menu");
+  // Toggle is a binary open/close control — only click when the menu is closed.
+  if (!(await systemMenu.isVisible().catch(() => false))) {
+    await page.getByTestId("system-menu-toggle").click({ force: true });
+  }
+  await expect(systemMenu).toBeVisible();
   await expect(page.getByTestId("player-path-menu-button")).toBeVisible();
   await expect(page.getByTestId("creator-map-menu-button")).toHaveCount(0);
   await page.getByTestId("player-path-menu-button").click({ force: true });
   await expect(page.getByTestId("player-path-panel")).toBeVisible();
+}
+
+async function assertPlayerPathKeyboardContract(page: Page): Promise<void> {
+  const panel = page.getByTestId("player-path-panel");
+  const close = page.getByRole("button", { name: "关闭" });
+  await expect(close).toBeFocused();
+
+  // Genuine modal: showModal() lifecycle — not open+aria-modal alone.
+  await expect(panel).toHaveAttribute("data-modal-lifecycle", "showModal");
+  const modalState = await panel.evaluate((element) => {
+    const dialog = element as HTMLDialogElement;
+    return {
+      tagName: dialog.tagName,
+      open: dialog.open,
+      // HTMLDialogElement.matches(":modal") is true only for showModal() top-layer.
+      isModal: dialog.matches(":modal"),
+      hasOpenAttribute: dialog.hasAttribute("open"),
+    };
+  });
+  expect(modalState).toMatchObject({
+    tagName: "DIALOG",
+    open: true,
+    isModal: true,
+  });
+
+  // Background controls must not be keyboard-focusable while the modal is open.
+  const backgroundFocusProof = await page.evaluate(() => {
+    const toggle = document.querySelector<HTMLElement>('[data-testid="system-menu-toggle"]');
+    const dialog = document.querySelector<HTMLDialogElement>('[data-testid="player-path-panel"]');
+    if (!toggle || !dialog) {
+      return { ok: false, reason: "missing-controls" };
+    }
+    toggle.focus();
+    return {
+      ok: true,
+      activeIsInsideDialog: dialog.contains(document.activeElement),
+      activeTestId: (document.activeElement as HTMLElement | null)?.dataset?.testid ?? null,
+      dialogIsModal: dialog.matches(":modal"),
+    };
+  });
+  expect(backgroundFocusProof.ok).toBe(true);
+  expect(backgroundFocusProof.dialogIsModal).toBe(true);
+  // showModal() inert-ifies the rest of the document; focus stays in the dialog.
+  expect(backgroundFocusProof.activeIsInsideDialog).toBe(true);
+
+  // WAI-ARIA Tabs: ArrowLeft/Right (wrap), Home, End, roving tabindex, selected state.
+  const journeyTab = page.getByRole("tab", { name: "路线回顾" });
+  const graphTab = page.getByRole("tab", { name: "图形视图" });
+  await journeyTab.focus();
+  await expect(journeyTab).toBeFocused();
+  await expect(journeyTab).toHaveAttribute("aria-selected", "true");
+  await expect(journeyTab).toHaveAttribute("tabindex", "0");
+  await expect(graphTab).toHaveAttribute("tabindex", "-1");
+
+  await page.keyboard.press("ArrowRight");
+  await expect(graphTab).toBeFocused();
+  await expect(graphTab).toHaveAttribute("aria-selected", "true");
+  await expect(graphTab).toHaveAttribute("tabindex", "0");
+  await expect(journeyTab).toHaveAttribute("aria-selected", "false");
+  await expect(journeyTab).toHaveAttribute("tabindex", "-1");
+  await expect(page.getByTestId("player-path-graph")).toBeVisible();
+  await expect(page.getByTestId("player-path-journey")).toBeHidden();
+
+  await page.keyboard.press("ArrowRight"); // wrap to journey
+  await expect(journeyTab).toBeFocused();
+  await expect(journeyTab).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByTestId("player-path-journey")).toBeVisible();
+
+  await page.keyboard.press("End");
+  await expect(graphTab).toBeFocused();
+  await expect(graphTab).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("Home");
+  await expect(journeyTab).toBeFocused();
+  await expect(journeyTab).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("ArrowLeft"); // wrap to graph
+  await expect(graphTab).toBeFocused();
+  await expect(graphTab).toHaveAttribute("aria-selected", "true");
+
+  // tabpanel relationship
+  await expect(graphTab).toHaveAttribute("aria-controls", "player-path-graph-panel");
+  await expect(page.getByTestId("player-path-graph")).toHaveAttribute(
+    "aria-labelledby",
+    "player-path-graph-tab",
+  );
+
+  await page.keyboard.press("Escape");
+  await expect(panel).toBeHidden();
+  await expect(page.getByTestId("system-menu-toggle")).toBeFocused();
+}
+
+async function assertPlayerPathViewportContract(page: Page): Promise<void> {
+  const geometry = await page.getByTestId("player-path-panel").evaluate((panel) => {
+    const content = panel.querySelector<HTMLElement>(".player-path-content");
+    const journey = panel.querySelector<HTMLElement>(".player-path-journey:not(.is-hidden)");
+    const detail = panel.querySelector<HTMLElement>(".player-path-detail");
+    const close = panel.querySelector<HTMLElement>(".player-path-close");
+    if (!content || !journey || !detail || !close) {
+      throw new Error("Player Path geometry targets missing");
+    }
+    const rect = (element: Element) => {
+      const value = element.getBoundingClientRect();
+      return {
+        top: value.top,
+        right: value.right,
+        bottom: value.bottom,
+        left: value.left,
+        width: value.width,
+        height: value.height,
+      };
+    };
+    return {
+      viewport: { width: window.innerWidth, height: window.innerHeight },
+      panel: rect(panel),
+      content: rect(content),
+      journey: rect(journey),
+      detail: rect(detail),
+      close: rect(close),
+      contentScrollWidth: content.scrollWidth,
+      contentClientWidth: content.clientWidth,
+      contentScrollHeight: content.scrollHeight,
+      contentClientHeight: content.clientHeight,
+      contentOverflowY: getComputedStyle(content).overflowY,
+      contentDisplay: getComputedStyle(content).display,
+    };
+  });
+
+  expect(geometry.panel.left).toBeGreaterThanOrEqual(-1);
+  expect(geometry.panel.top).toBeGreaterThanOrEqual(-1);
+  expect(geometry.panel.right).toBeLessThanOrEqual(geometry.viewport.width + 1);
+  expect(geometry.panel.bottom).toBeLessThanOrEqual(geometry.viewport.height + 1);
+  expect(geometry.close.left).toBeGreaterThanOrEqual(0);
+  expect(geometry.close.top).toBeGreaterThanOrEqual(0);
+  expect(geometry.close.right).toBeLessThanOrEqual(geometry.viewport.width);
+  expect(geometry.close.bottom).toBeLessThanOrEqual(geometry.viewport.height);
+  expect(geometry.contentScrollWidth).toBeLessThanOrEqual(geometry.contentClientWidth + 1);
+  expect(geometry.journey.width).toBeGreaterThan(0);
+  expect(geometry.detail.width).toBeGreaterThan(0);
+
+  if (geometry.contentDisplay === "block") {
+    expect(geometry.contentOverflowY).toBe("auto");
+    expect(geometry.detail.top).toBeGreaterThanOrEqual(geometry.journey.bottom - 1);
+    expect(geometry.contentScrollHeight).toBeGreaterThanOrEqual(geometry.contentClientHeight);
+  } else {
+    expect(geometry.journey.right).toBeLessThanOrEqual(geometry.detail.left + 1);
+  }
 }
 
 async function assertSentinelAbsent(page: Page, capturedConsole: readonly string[]): Promise<void> {
@@ -205,9 +354,32 @@ test("我的路线 records two choices, shows gray alternatives, survives refres
   }
 
   await openPlayerPath(page);
+  await assertPlayerPathKeyboardContract(page);
+  await openPlayerPath(page);
+  await expect(page.getByTestId("player-path-journey")).toBeVisible();
+
+  const accessibleLongText = await page
+    .locator(".player-path-journey button")
+    .first()
+    .evaluate((button) => ({
+      aria: button.getAttribute("aria-label") ?? "",
+      clamped: Array.from(button.querySelectorAll<HTMLElement>(".player-path-clamped")).map(
+        (element) => ({ text: element.textContent?.trim() ?? "", title: element.title }),
+      ),
+    }));
+  expect(accessibleLongText.aria.length).toBeGreaterThan(0);
+  expect(accessibleLongText.clamped.length).toBeGreaterThan(0);
+  expect(
+    accessibleLongText.clamped.every(({ text, title }) => title.length > 0 && title === text),
+  ).toBe(true);
+
+  await page.getByRole("tab", { name: "图形视图" }).click();
   await expect(page.locator(".player-path-edge--selected").first()).toBeVisible();
   await expect(page.locator(".player-path-edge--available_unselected").first()).toBeVisible();
   await assertSentinelAbsent(page, consoleErrors);
+  await page.getByRole("tab", { name: "路线回顾" }).click();
+  await expect(page.getByTestId("player-path-journey")).toBeVisible();
+  await assertPlayerPathViewportContract(page);
 
   await page.screenshot({
     path: ".devspace-visual/player-path/desktop-1440x900.png",
@@ -215,19 +387,20 @@ test("我的路线 records two choices, shows gray alternatives, survives refres
   });
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.getByTestId("player-path-panel")).toBeVisible();
+  await assertPlayerPathViewportContract(page);
   await page.screenshot({
     path: ".devspace-visual/player-path/mobile-portrait-390x844.png",
     animations: "disabled",
   });
   await page.setViewportSize({ width: 844, height: 390 });
   await expect(page.getByTestId("player-path-panel")).toBeVisible();
+  await assertPlayerPathViewportContract(page);
   await page.screenshot({
     path: ".devspace-visual/player-path/mobile-landscape-844x390.png",
     animations: "disabled",
   });
 
-  await page.getByRole("tab", { name: "线性清单" }).click();
-  await expect(page.getByTestId("player-path-linear")).toBeVisible();
+  await expect(page.getByTestId("player-path-journey")).toBeVisible();
   await expect(page.getByText(/实际选择/).first()).toBeVisible();
   await expect(page.getByText(/已见未选/).first()).toBeVisible();
 
@@ -244,6 +417,7 @@ test("我的路线 records two choices, shows gray alternatives, survives refres
   await page.getByTestId("title-continue").click();
   await expect(page.getByTestId("game-viewport")).toBeVisible();
   await openPlayerPath(page);
+  await page.getByRole("tab", { name: "图形视图" }).click();
   await expect(page.locator(".player-path-edge--selected").first()).toBeVisible();
   await expect(page.locator(".player-path-edge--available_unselected").first()).toBeVisible();
   await assertSentinelAbsent(page, consoleErrors);

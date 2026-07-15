@@ -10,11 +10,19 @@ export interface PlayerPathScope {
   readonly revision: string;
 }
 
+/** Origin of a path-memory choice fact. Missing/legacy values default to authored. */
+export type PlayerPathChoiceSource = "authored" | "ai";
+
 export interface PlayerPathChoiceFact {
   readonly choiceId: string | null;
   readonly label: string | null;
   readonly observedAt: string;
   readonly selectedAt: string | null;
+  /**
+   * Explicit choice origin. Omitted on pre-source historical data — treat as
+   * `authored` unless a narrowly documented legacy migration proves otherwise.
+   */
+  readonly source?: PlayerPathChoiceSource;
 }
 
 export interface PlayerPathSceneFact {
@@ -49,6 +57,7 @@ export interface ScenePresentedFact {
   readonly choices?: readonly {
     readonly choiceId: string | null;
     readonly label: string;
+    readonly source?: PlayerPathChoiceSource;
   }[];
   readonly observedAt?: string;
 }
@@ -59,6 +68,27 @@ export interface ChoiceSelectedFact {
   readonly choiceId: string | null;
   readonly label: string;
   readonly selectedAt?: string;
+  /** Defaults to `authored` when omitted (backward-compatible). */
+  readonly source?: PlayerPathChoiceSource;
+}
+
+export interface AiBranchSelectionFact {
+  readonly storyId: string;
+  readonly sceneId: string;
+  /** Localized AI-branch copy (e.g. `play.aiBranch`), not free-form model prose. */
+  readonly label: string;
+  readonly selectedAt?: string;
+}
+
+/** Stable path-memory id for a ready AI branch taken at a scene. */
+export function aiBranchChoiceId(storyId: string, sceneId: string): string {
+  return `ai-branch:${storyId}:${sceneId}`;
+}
+
+export function resolveChoiceSource(
+  source: PlayerPathChoiceSource | undefined | null,
+): PlayerPathChoiceSource {
+  return source === "ai" ? "ai" : "authored";
 }
 
 export type PlayerPathRouteResult =
@@ -235,6 +265,7 @@ export function recordScenePresented(scope: PlayerPathScope, fact: ScenePresente
         label: choice.label,
         observedAt,
         selectedAt: null,
+        source: resolveChoiceSource(choice.source),
       });
     }
     const scene: PlayerPathSceneFact = {
@@ -259,6 +290,7 @@ export function recordChoiceSelected(scope: PlayerPathScope, fact: ChoiceSelecte
     return;
   }
   const selectedAt = timestamp(fact.selectedAt);
+  const source = resolveChoiceSource(fact.source);
   updateRoute(scope, (route) => {
     const key = sceneKey(fact.storyId, fact.sceneId);
     const previous = route.scenes[key];
@@ -266,8 +298,15 @@ export function recordChoiceSelected(scope: PlayerPathScope, fact: ChoiceSelecte
     const choiceIndex = choices.findIndex((choice) => choice.choiceId === fact.choiceId);
     if (choiceIndex >= 0) {
       const choice = choices[choiceIndex]!;
+      const nextChoice: PlayerPathChoiceFact = {
+        ...choice,
+        // Prefer explicit selection source; keep prior source if selection omits one.
+        source: fact.source ? source : resolveChoiceSource(choice.source),
+      };
       if (!choice.selectedAt) {
-        choices[choiceIndex] = { ...choice, selectedAt };
+        choices[choiceIndex] = { ...nextChoice, selectedAt };
+      } else {
+        choices[choiceIndex] = nextChoice;
       }
     } else {
       choices.push({
@@ -275,6 +314,7 @@ export function recordChoiceSelected(scope: PlayerPathScope, fact: ChoiceSelecte
         label: fact.label,
         observedAt: selectedAt,
         selectedAt,
+        source,
       });
     }
     const scene: PlayerPathSceneFact = previous ?? {
@@ -290,6 +330,28 @@ export function recordChoiceSelected(scope: PlayerPathScope, fact: ChoiceSelecte
       ...route,
       scenes: { ...route.scenes, [key]: { ...scene, choices } },
     };
+  });
+}
+
+/**
+ * Runtime helper for ready AI-branch selection in VisualNovelPrototype.
+ * Writes a deterministic AI fact (`source: "ai"`) for the current story/scene
+ * before playback begins. Call path must be shared with tests.
+ */
+export function recordAiBranchSelection(
+  scope: PlayerPathScope,
+  fact: AiBranchSelectionFact,
+): void {
+  if (!fact.storyId || !fact.sceneId || !fact.label) {
+    return;
+  }
+  recordChoiceSelected(scope, {
+    storyId: fact.storyId,
+    sceneId: fact.sceneId,
+    choiceId: aiBranchChoiceId(fact.storyId, fact.sceneId),
+    label: fact.label,
+    selectedAt: fact.selectedAt,
+    source: "ai",
   });
 }
 

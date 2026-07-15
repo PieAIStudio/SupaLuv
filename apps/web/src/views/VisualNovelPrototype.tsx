@@ -17,7 +17,7 @@ import type { ManualSlotId } from "../persistence/gameSave";
 import { DEFAULT_DISPLAY_NAMES, type DisplayNameMap } from "../persistence/displayNames";
 import { EMPTY_PORTRAIT_PACK, type PortraitPackState } from "../persistence/portraitPack";
 import type { GameSettings } from "../persistence/settings";
-import { recordScenePresented } from "../persistence/pathMemory";
+import { recordAiBranchSelection, recordScenePresented } from "../persistence/pathMemory";
 import type { InkStorySnapshot } from "../story/inkStoryRunner";
 import {
   getStoryDefinition,
@@ -351,6 +351,22 @@ export function VisualNovelPrototype({
   const { handleChoose, seenLabels, sessionStatsPicks } = decisionChoice;
   const { notifyAiBranchUsed, clearOracleForReset, replayFromEndCard } = decisionCommands;
 
+  /**
+   * Ready AI branch selection: write a deterministic path-memory AI fact for the
+   * current story/scene, then keep the existing run-marker + playback path.
+   * Uses the shared `recordAiBranchSelection` helper (same call path as unit tests).
+   */
+  const handleChooseAi = useCallback(() => {
+    if (snapshot.sceneId) {
+      recordAiBranchSelection(playerPathScope, {
+        storyId,
+        sceneId: snapshot.sceneId,
+        label: t("play.aiBranch"),
+      });
+    }
+    chooseAi(notifyAiBranchUsed);
+  }, [chooseAi, notifyAiBranchUsed, snapshot.sceneId, storyId, t]);
+
   const showComedyMeters = storyHasComedyMeters(storyId);
   const activeAiBeat = frame.activeAiBeat;
 
@@ -661,7 +677,7 @@ export function VisualNovelPrototype({
             onOracleGuess={decisionOracle.onGuess}
             onDialogueActivate={isGuestSpectator ? () => undefined : handleDialogueActivate}
             onChoose={handleChoose}
-            onChooseAi={isGuestSpectator ? undefined : () => chooseAi(notifyAiBranchUsed)}
+            onChooseAi={isGuestSpectator ? undefined : handleChooseAi}
             onAdvanceAi={isGuestSpectator ? undefined : advanceAi}
             onRequestAuth={isGuestSpectator ? undefined : requestAiAuth}
           />
