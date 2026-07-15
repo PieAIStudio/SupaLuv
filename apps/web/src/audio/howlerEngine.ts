@@ -8,6 +8,8 @@
 import { Howl, Howler } from "howler";
 
 export type StereoPan = number; // -1 left … 1 right
+export type EngineHowl = Howl;
+export type CancelEngineFade = () => void;
 
 export interface EngineHowlOptions {
   readonly src: string | string[];
@@ -20,6 +22,8 @@ export interface EngineHowlOptions {
   /** Required for blob: URLs (Howler cannot sniff format from object URLs). */
   readonly format?: string | string[];
   readonly onend?: () => void;
+  readonly onloaderror?: () => void;
+  readonly onplayerror?: () => void;
 }
 
 let reverbReady = false;
@@ -69,10 +73,14 @@ function makeImpulseResponse(ctx: AudioContext, durationSec: number, decay: numb
   return impulse;
 }
 
+/**
+ * Unlock the Web Audio context after a user gesture.
+ * Does NOT clear product mute — `GameAudioController.setMuted` is the only mute owner.
+ */
 export function unlockHowler(): void {
   try {
-    Howler.mute(false);
-    // Resume audio context on user gesture.
+    // Resume audio context on user gesture. Never call Howler.mute(false) here:
+    // audio-context unlock and product master mute are independent.
     if (Howler.ctx && Howler.ctx.state !== "closed") {
       void Howler.ctx.resume().catch(() => undefined);
     }
@@ -96,6 +104,8 @@ export function createEngineHowl(options: EngineHowlOptions): Howl {
     format: options.format,
     // stereo requires webaudio path
     onend: options.onend,
+    onloaderror: options.onloaderror,
+    onplayerror: options.onplayerror,
   });
 
   if (typeof options.pan === "number" && Number.isFinite(options.pan)) {
@@ -127,11 +137,18 @@ export function fadeHowl(
   to: number,
   durationMs: number,
   onDone?: () => void,
-): void {
+): CancelEngineFade {
   howl.fade(from, to, durationMs);
+  let timer: ReturnType<typeof globalThis.setTimeout> | null = null;
   if (onDone) {
-    window.setTimeout(onDone, durationMs + 16);
+    timer = globalThis.setTimeout(onDone, durationMs + 16);
   }
+  return () => {
+    if (timer !== null) {
+      globalThis.clearTimeout(timer);
+      timer = null;
+    }
+  };
 }
 
 export function stopAndUnload(howl: Howl | null | undefined): void {

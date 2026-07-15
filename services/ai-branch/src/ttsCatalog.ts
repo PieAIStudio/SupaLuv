@@ -1,28 +1,41 @@
 /**
- * Trusted TTS phrases — settings preview never accepts free-form client text.
- * Authored dialogue line VO can be added later via lineId map.
+ * Trusted TTS preview catalog. The two stable IDs form one reproducible Leo
+ * bilingual audition: each sentence is monolingual and therefore reaches the
+ * intended provider lane without hiding code-switching behind an accent.
  */
 
 export type TtsPreviewId = "zh_preview" | "en_preview";
+export type TtsPreviewSequenceId = "leo_bilingual";
 
-const PREVIEWS: Record<TtsPreviewId, { language: string; text: string; characterId: string }> = {
+export interface TtsPreviewPhrase {
+  readonly id: TtsPreviewId;
+  readonly sequenceId: TtsPreviewSequenceId;
+  readonly sequenceIndex: number;
+  readonly language: "zh-CN" | "en";
+  readonly text: string;
+  readonly characterId: "leo";
+}
+
+const PREVIEWS: Readonly<Record<TtsPreviewId, TtsPreviewPhrase>> = {
   zh_preview: {
+    id: "zh_preview",
+    sequenceId: "leo_bilingual",
+    sequenceIndex: 0,
     language: "zh-CN",
-    text: "测试语音：你好，我是超级爱人双路配音试听。",
-    characterId: "苏明",
+    text: "雷欧压低声音说：他们在实时偷听，我听见他们笑了。",
+    characterId: "leo",
   },
   en_preview: {
+    id: "en_preview",
+    sequenceId: "leo_bilingual",
+    sequenceIndex: 1,
     language: "en",
-    text: "TTS test: Hello from SupaLuv dual-route voice preview.",
-    characterId: "苏明",
+    text: "Leo lowered his voice. They were listening live, and I heard them laugh.",
+    characterId: "leo",
   },
 };
 
-export function resolvePreviewPhrase(previewId: string | undefined): {
-  language: string;
-  text: string;
-  characterId: string;
-} | null {
+export function resolvePreviewPhrase(previewId: string | undefined): TtsPreviewPhrase | null {
   if (!previewId || !(previewId in PREVIEWS)) {
     return null;
   }
@@ -30,5 +43,12 @@ export function resolvePreviewPhrase(previewId: string | undefined): {
 }
 
 export function listPreviewIds(): readonly TtsPreviewId[] {
-  return Object.keys(PREVIEWS) as TtsPreviewId[];
+  return ["zh_preview", "en_preview"];
+}
+
+export function listPreviewSequence(sequenceId: TtsPreviewSequenceId): readonly TtsPreviewPhrase[] {
+  return listPreviewIds()
+    .map((id) => PREVIEWS[id])
+    .filter((entry) => entry.sequenceId === sequenceId)
+    .sort((left, right) => left.sequenceIndex - right.sequenceIndex);
 }

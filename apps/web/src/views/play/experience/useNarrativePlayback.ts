@@ -8,6 +8,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import type { GameUiHistoryEntry } from "@pieai/swimmer-ui-kit";
 import type { AiBranchBeat, AiChoiceSlotState } from "../../../ai/aiBranchTypes";
+import type { DialogueVoicePlaybackGuardApi } from "../../../audio/dialogueVoicePlaybackGuard";
 import { gameAudio } from "../../../audio/gameAudio";
 import type { CoPlaySessionApi } from "../../../coplay/useCoPlaySession";
 import { useDialogueLog } from "../../../hooks/useDialogueLog";
@@ -72,6 +73,14 @@ export function useNarrativePlayback(input: {
     /** Real stage-media cutscene truth for this render (not a lagged mirror). */
     readonly activeCutscene: boolean;
     readonly hasStoryInteraction: boolean;
+    /** Product master mute — cancels in-flight dialogue TTS when flipped on. */
+    readonly masterMuted?: boolean;
+    /** Reactive voice setting — zero cancels without replaying on restore. */
+    readonly voiceVolume: GameSettings["voiceVolume"];
+    /** App-owned opportunity memory that survives Settings remounts. */
+    readonly dialogueVoiceGuard: DialogueVoicePlaybackGuardApi;
+    /** `${storyRevision}:${storyId}` — resets opportunity memory on new run. */
+    readonly dialogueVoiceRunKey: string;
   };
   readonly host: {
     readonly coPlay: CoPlaySessionApi | null;
@@ -125,6 +134,10 @@ export function useNarrativePlayback(input: {
       !playback.activeCutscene &&
       !playback.hasStoryInteraction &&
       Boolean(dialogue.rawText.trim()),
+    masterMuted: Boolean(playback.masterMuted),
+    voiceVolume: playback.voiceVolume,
+    dialogueVoiceGuard: playback.dialogueVoiceGuard,
+    dialogueVoiceRunKey: playback.dialogueVoiceRunKey,
     isSignedIn: auth.isSignedIn,
     accessToken: auth.accessToken,
     text: isGuestSpectator ? "" : dialogue.rawText,

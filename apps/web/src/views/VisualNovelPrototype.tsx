@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getNarrativeGraphPlayerSkeleton } from "@supaluv/content";
+import type { DialogueVoicePlaybackGuardApi } from "../audio/dialogueVoicePlaybackGuard";
 import { gameAudio } from "../audio/gameAudio";
 import { CoPlayBanner } from "../coplay/CoPlayBanner";
 import { CursorOverlay } from "../coplay/CursorOverlay";
@@ -61,6 +62,9 @@ interface VisualNovelPrototypeProps {
   readonly textSpeed: GameSettings["textSpeed"];
   readonly autoPlay: boolean;
   readonly masterMuted: boolean;
+  readonly voiceVolume: GameSettings["voiceVolume"];
+  readonly dialogueVoiceGuard: DialogueVoicePlaybackGuardApi;
+  readonly dialogueVoiceRunKey: string;
   readonly activeSaveSlot: ManualSlotId;
   readonly displayNames?: DisplayNameMap;
   readonly portraitPack?: PortraitPackState;
@@ -99,6 +103,9 @@ export function VisualNovelPrototype({
   textSpeed,
   autoPlay,
   masterMuted,
+  voiceVolume,
+  dialogueVoiceGuard,
+  dialogueVoiceRunKey,
   activeSaveSlot,
   displayNames = DEFAULT_DISPLAY_NAMES,
   portraitPack = EMPTY_PORTRAIT_PACK,
@@ -228,6 +235,10 @@ export function VisualNovelPrototype({
       autoPlay: localAutoPlay,
       activeCutscene: Boolean(activeCutscene),
       hasStoryInteraction: Boolean(activeStoryInteraction),
+      masterMuted,
+      voiceVolume,
+      dialogueVoiceGuard,
+      dialogueVoiceRunKey,
     },
     host: {
       coPlay,
