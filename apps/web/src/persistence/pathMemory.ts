@@ -338,10 +338,7 @@ export function recordChoiceSelected(scope: PlayerPathScope, fact: ChoiceSelecte
  * Writes a deterministic AI fact (`source: "ai"`) for the current story/scene
  * before playback begins. Call path must be shared with tests.
  */
-export function recordAiBranchSelection(
-  scope: PlayerPathScope,
-  fact: AiBranchSelectionFact,
-): void {
+export function recordAiBranchSelection(scope: PlayerPathScope, fact: AiBranchSelectionFact): void {
   if (!fact.storyId || !fact.sceneId || !fact.label) {
     return;
   }

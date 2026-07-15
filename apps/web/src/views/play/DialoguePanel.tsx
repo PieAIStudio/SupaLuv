@@ -127,7 +127,11 @@ export function DialoguePanel({
               data-choice-group="oracle"
             >
               <div className="oracle-copy">
-                <p id={ORACLE_CHOICES_LABEL_ID} className="oracle-lead" data-testid="oracle-choices-label">
+                <p
+                  id={ORACLE_CHOICES_LABEL_ID}
+                  className="oracle-lead"
+                  data-testid="oracle-choices-label"
+                >
                   {t("play.oracle")}
                   {oracleGuessLabel
                     ? ` · ${t("play.oraclePicked")}${oracleGuessLabel}`

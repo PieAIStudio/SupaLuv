@@ -30,7 +30,7 @@ checkpoint advances into chapter 2 without AI final ending.
 | `src/coplay/*`                       | Protocol, presence, RPS, transports, pointer policy                               | no Supabase in DialoguePanel          |
 | `src/persistence/*`                  | save schema / settings / unlocks / achievements                                   | stable contracts                      |
 | `src/audio/*`                        | Howler façade + reverb engine                                                     | only Howler import in howlerEngine    |
-| `src/auth/*`                         | Browser auth adapter for shared backend; wallet **read via edge**                    | never service_role                    |
+| `src/auth/*`                         | Browser auth adapter for shared backend; wallet **read via edge**                 | never service_role                    |
 | `src/commerce/*`                     | Battery pitch copy                                                                | pure strings                          |
 | `src/ai/*`                           | AI branch client providers                                                        | mock only if FORCE_MOCK               |
 | `src/hooks/*`                        | Cross-view hooks (AI slot, typewriter, fullscreen…)                               | no JSX                                |
@@ -107,12 +107,12 @@ in SwimmerBackend.
 
 ## Stability
 
-| Area                           | Stability                      |
-| ------------------------------ | ------------------------------ |
-| Solo play + save/settings      | stable                         |
-| Constrained AI side branch     | stable (auth + optional meter) |
-| Local co-play BroadcastChannel | experimental                   |
-| Cloud Realtime co-play         | experimental                   |
+| Area                           | Stability                                           |
+| ------------------------------ | --------------------------------------------------- |
+| Solo play + save/settings      | stable                                              |
+| Constrained AI side branch     | stable (auth + optional meter)                      |
+| Local co-play BroadcastChannel | experimental                                        |
+| Cloud Realtime co-play         | experimental                                        |
 | Live battery debit             | requires SwimmerBackend server credentials + app id |
 
 ## Verify

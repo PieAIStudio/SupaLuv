@@ -579,248 +579,241 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
       data-testid="player-path-panel"
       data-modal-lifecycle="showModal"
     >
-        <header className="player-path-header">
-          <div>
-            <p className="player-path-eyebrow">{t("playerPath.eyebrow")}</p>
-            <h2 id="player-path-title">{t("playerPath.title")}</h2>
-            <p>{t("playerPath.lead")}</p>
+      <header className="player-path-header">
+        <div>
+          <p className="player-path-eyebrow">{t("playerPath.eyebrow")}</p>
+          <h2 id="player-path-title">{t("playerPath.title")}</h2>
+          <p>{t("playerPath.lead")}</p>
+        </div>
+        <button ref={closeButtonRef} type="button" className="player-path-close" onClick={onClose}>
+          {t("common.close")}
+        </button>
+      </header>
+
+      {result?.status === "incompatible" ? (
+        <output className="player-path-empty" data-testid="player-path-incompatible">
+          {t("playerPath.incompatible")}
+        </output>
+      ) : result?.status !== "ready" || result.view.linear.length === 0 ? (
+        <output className="player-path-empty" data-testid="player-path-empty">
+          {t("playerPath.empty")}
+        </output>
+      ) : (
+        <>
+          <div className="player-path-tabs" role="tablist" aria-label={t("playerPath.viewModes")}>
+            <button
+              ref={(element) => {
+                tabRefs.current[0] = element;
+              }}
+              id="player-path-journey-tab"
+              type="button"
+              role="tab"
+              aria-selected={viewMode === "journey"}
+              aria-controls="player-path-journey-panel"
+              tabIndex={viewMode === "journey" ? 0 : -1}
+              onClick={() => selectViewMode("journey")}
+              onKeyDown={(event) => handleTabKeyDown(event, 0)}
+            >
+              {t("playerPath.review")}
+            </button>
+            <button
+              ref={(element) => {
+                tabRefs.current[1] = element;
+              }}
+              id="player-path-graph-tab"
+              type="button"
+              role="tab"
+              aria-selected={viewMode === "graph"}
+              aria-controls="player-path-graph-panel"
+              tabIndex={viewMode === "graph" ? 0 : -1}
+              onClick={() => selectViewMode("graph")}
+              onKeyDown={(event) => handleTabKeyDown(event, 1)}
+            >
+              {t("playerPath.graphTab")}
+            </button>
           </div>
-          <button
-            ref={closeButtonRef}
-            type="button"
-            className="player-path-close"
-            onClick={onClose}
-          >
-            {t("common.close")}
-          </button>
-        </header>
 
-        {result?.status === "incompatible" ? (
-          <output className="player-path-empty" data-testid="player-path-incompatible">
-            {t("playerPath.incompatible")}
-          </output>
-        ) : result?.status !== "ready" || result.view.linear.length === 0 ? (
-          <output className="player-path-empty" data-testid="player-path-empty">
-            {t("playerPath.empty")}
-          </output>
-        ) : (
-          <>
-            <div className="player-path-tabs" role="tablist" aria-label={t("playerPath.viewModes")}>
-              <button
-                ref={(element) => {
-                  tabRefs.current[0] = element;
-                }}
-                id="player-path-journey-tab"
-                type="button"
-                role="tab"
-                aria-selected={viewMode === "journey"}
-                aria-controls="player-path-journey-panel"
-                tabIndex={viewMode === "journey" ? 0 : -1}
-                onClick={() => selectViewMode("journey")}
-                onKeyDown={(event) => handleTabKeyDown(event, 0)}
-              >
-                {t("playerPath.review")}
-              </button>
-              <button
-                ref={(element) => {
-                  tabRefs.current[1] = element;
-                }}
-                id="player-path-graph-tab"
-                type="button"
-                role="tab"
-                aria-selected={viewMode === "graph"}
-                aria-controls="player-path-graph-panel"
-                tabIndex={viewMode === "graph" ? 0 : -1}
-                onClick={() => selectViewMode("graph")}
-                onKeyDown={(event) => handleTabKeyDown(event, 1)}
-              >
-                {t("playerPath.graphTab")}
-              </button>
-            </div>
-
-            <div className="player-path-content">
-              <section
-                id="player-path-journey-panel"
-                className={
-                  viewMode === "journey" ? "player-path-journey" : "player-path-journey is-hidden"
-                }
-                role="tabpanel"
-                aria-labelledby="player-path-journey-tab"
-                hidden={viewMode !== "journey"}
-                data-testid="player-path-journey"
-              >
-                <ol>
-                  {result.view.journey.map((item, index) => {
-                    const first = item.entries[0]!;
-                    const last = item.entries.at(-1)!;
-                    const title = itemTitle(item);
-                    const preview = first.summary ?? last.summary;
-                    const isSelected = selected?.id === item.id;
-                    return (
-                      <li
-                        key={item.id}
-                        className={[
-                          item.kind === "segment" ? "is-segment" : "is-milestone",
-                          item.current ? "is-current" : "",
-                          item.hasAi ? "has-ai" : "",
-                        ]
-                          .filter(Boolean)
-                          .join(" ")}
+          <div className="player-path-content">
+            <section
+              id="player-path-journey-panel"
+              className={
+                viewMode === "journey" ? "player-path-journey" : "player-path-journey is-hidden"
+              }
+              role="tabpanel"
+              aria-labelledby="player-path-journey-tab"
+              hidden={viewMode !== "journey"}
+              data-testid="player-path-journey"
+            >
+              <ol>
+                {result.view.journey.map((item, index) => {
+                  const first = item.entries[0]!;
+                  const last = item.entries.at(-1)!;
+                  const title = itemTitle(item);
+                  const preview = first.summary ?? last.summary;
+                  const isSelected = selected?.id === item.id;
+                  return (
+                    <li
+                      key={item.id}
+                      className={[
+                        item.kind === "segment" ? "is-segment" : "is-milestone",
+                        item.current ? "is-current" : "",
+                        item.hasAi ? "has-ai" : "",
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                    >
+                      {item.chapterStart ? (
+                        <p className="player-path-chapter-marker">
+                          <span>{String(item.chapterOrder).padStart(2, "0")}</span>
+                          <strong>{item.chapterId}</strong>
+                        </p>
+                      ) : null}
+                      <button
+                        type="button"
+                        aria-pressed={isSelected}
+                        aria-label={itemAriaLabel(item)}
+                        onClick={() => setSelectedItemId(item.id)}
                       >
-                        {item.chapterStart ? (
-                          <p className="player-path-chapter-marker">
-                            <span>{String(item.chapterOrder).padStart(2, "0")}</span>
-                            <strong>{item.chapterId}</strong>
-                          </p>
-                        ) : null}
-                        <button
-                          type="button"
-                          aria-pressed={isSelected}
-                          aria-label={itemAriaLabel(item)}
-                          onClick={() => setSelectedItemId(item.id)}
-                        >
-                          <span className="player-path-step">{index + 1}</span>
-                          <span className="player-path-journey-copy">
-                            <span className="player-path-badges" aria-hidden="true">
-                              {item.kind === "segment" ? (
-                                <span>{`${t("playerPath.visited")} · ${item.entries.length}`}</span>
-                              ) : null}
-                              {item.current ? <span>{t("playerPath.current")}</span> : null}
-                              {item.hasAi ? (
-                                <span className="is-ai">{t("play.aiBranch")}</span>
-                              ) : null}
-                              {item.choices.some((choice) => choice.selected) ? (
-                                <span>{t("playerPath.selected")}</span>
-                              ) : null}
-                            </span>
-                            <strong className="player-path-clamped" title={title}>
-                              {title}
-                            </strong>
-                            {preview ? (
-                              <small className="player-path-clamped" title={preview}>
-                                {preview}
-                              </small>
+                        <span className="player-path-step">{index + 1}</span>
+                        <span className="player-path-journey-copy">
+                          <span className="player-path-badges" aria-hidden="true">
+                            {item.kind === "segment" ? (
+                              <span>{`${t("playerPath.visited")} · ${item.entries.length}`}</span>
+                            ) : null}
+                            {item.current ? <span>{t("playerPath.current")}</span> : null}
+                            {item.hasAi ? (
+                              <span className="is-ai">{t("play.aiBranch")}</span>
+                            ) : null}
+                            {item.choices.some((choice) => choice.selected) ? (
+                              <span>{t("playerPath.selected")}</span>
                             ) : null}
                           </span>
-                        </button>
-                        {item.choices.length > 0 ? (
-                          <ul aria-label={`${title} ${t("playerPath.choicesAriaSuffix")}`}>
-                            {item.choices.map((choice, choiceIndex) => (
-                              <li
-                                key={`${choice.choiceId ?? "legacy"}-${choiceIndex}`}
-                                className={[
-                                  choice.selected ? "is-selected" : "is-unselected",
-                                  choice.source === "ai" ? "is-ai" : "",
-                                ]
-                                  .filter(Boolean)
-                                  .join(" ")}
-                                title={choice.label}
-                              >
-                                <span className="player-path-clamped">
-                                  {choice.source === "ai" ? `${t("play.aiBranch")} · ` : ""}
-                                  {choice.selected
-                                    ? t("playerPath.selected")
-                                    : t("playerPath.seen")}{" "}
-                                  · {choice.label}
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
-                        ) : null}
+                          <strong className="player-path-clamped" title={title}>
+                            {title}
+                          </strong>
+                          {preview ? (
+                            <small className="player-path-clamped" title={preview}>
+                              {preview}
+                            </small>
+                          ) : null}
+                        </span>
+                      </button>
+                      {item.choices.length > 0 ? (
+                        <ul aria-label={`${title} ${t("playerPath.choicesAriaSuffix")}`}>
+                          {item.choices.map((choice, choiceIndex) => (
+                            <li
+                              key={`${choice.choiceId ?? "legacy"}-${choiceIndex}`}
+                              className={[
+                                choice.selected ? "is-selected" : "is-unselected",
+                                choice.source === "ai" ? "is-ai" : "",
+                              ]
+                                .filter(Boolean)
+                                .join(" ")}
+                              title={choice.label}
+                            >
+                              <span className="player-path-clamped">
+                                {choice.source === "ai" ? `${t("play.aiBranch")} · ` : ""}
+                                {choice.selected
+                                  ? t("playerPath.selected")
+                                  : t("playerPath.seen")}{" "}
+                                · {choice.label}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </ol>
+            </section>
+
+            <section
+              id="player-path-graph-panel"
+              className={viewMode === "graph" ? "player-path-graph" : "player-path-graph is-hidden"}
+              role="tabpanel"
+              aria-labelledby="player-path-graph-tab"
+              hidden={viewMode !== "graph"}
+              data-testid="player-path-graph"
+            >
+              <ReactFlow
+                nodes={result.flow.nodes}
+                edges={result.flow.edges}
+                fitView
+                fitViewOptions={{ padding: 0.2 }}
+                minZoom={0.35}
+                maxZoom={1.6}
+                nodesDraggable={false}
+                nodesConnectable={false}
+                edgesFocusable={false}
+                onInit={(instance) => {
+                  flowInstanceRef.current = instance;
+                }}
+                onNodeClick={(_, node) => {
+                  const item = result.view.journey.find((candidate) =>
+                    candidate.entries.some((entry) => entry.nodeId === node.id),
+                  );
+                  if (item) {
+                    setSelectedItemId(item.id);
+                  }
+                }}
+                proOptions={{ hideAttribution: true }}
+              >
+                <Background gap={24} size={1} />
+                <Controls showInteractive={false} />
+              </ReactFlow>
+            </section>
+
+            <section
+              className="player-path-detail"
+              aria-live="polite"
+              data-testid="player-path-detail"
+            >
+              <p className="player-path-detail-kicker">{t("playerPath.review")}</p>
+              {selected ? (
+                <>
+                  <h3>{itemTitle(selected)}</h3>
+                  <ol className="player-path-detail-scenes">
+                    {selected.entries.map((entry) => (
+                      <li key={entry.nodeId}>
+                        {selected.entries.length > 1 ? <strong>{entry.title}</strong> : null}
+                        <p>{entry.summary ?? t("playerPath.noSummary")}</p>
                       </li>
-                    );
-                  })}
-                </ol>
-              </section>
-
-              <section
-                id="player-path-graph-panel"
-                className={
-                  viewMode === "graph" ? "player-path-graph" : "player-path-graph is-hidden"
-                }
-                role="tabpanel"
-                aria-labelledby="player-path-graph-tab"
-                hidden={viewMode !== "graph"}
-                data-testid="player-path-graph"
-              >
-                <ReactFlow
-                  nodes={result.flow.nodes}
-                  edges={result.flow.edges}
-                  fitView
-                  fitViewOptions={{ padding: 0.2 }}
-                  minZoom={0.35}
-                  maxZoom={1.6}
-                  nodesDraggable={false}
-                  nodesConnectable={false}
-                  edgesFocusable={false}
-                  onInit={(instance) => {
-                    flowInstanceRef.current = instance;
-                  }}
-                  onNodeClick={(_, node) => {
-                    const item = result.view.journey.find((candidate) =>
-                      candidate.entries.some((entry) => entry.nodeId === node.id),
-                    );
-                    if (item) {
-                      setSelectedItemId(item.id);
-                    }
-                  }}
-                  proOptions={{ hideAttribution: true }}
-                >
-                  <Background gap={24} size={1} />
-                  <Controls showInteractive={false} />
-                </ReactFlow>
-              </section>
-
-              <section
-                className="player-path-detail"
-                aria-live="polite"
-                data-testid="player-path-detail"
-              >
-                <p className="player-path-detail-kicker">{t("playerPath.review")}</p>
-                {selected ? (
-                  <>
-                    <h3>{itemTitle(selected)}</h3>
-                    <ol className="player-path-detail-scenes">
-                      {selected.entries.map((entry) => (
-                        <li key={entry.nodeId}>
-                          {selected.entries.length > 1 ? <strong>{entry.title}</strong> : null}
-                          <p>{entry.summary ?? t("playerPath.noSummary")}</p>
+                    ))}
+                  </ol>
+                  {selected.choices.length > 0 ? (
+                    <ul className="player-path-detail-choices">
+                      {selected.choices.map((choice, index) => (
+                        <li
+                          key={`${choice.choiceId ?? "legacy"}-${index}`}
+                          className={[
+                            choice.selected ? "is-selected" : "is-unselected",
+                            choice.source === "ai" ? "is-ai" : "",
+                          ]
+                            .filter(Boolean)
+                            .join(" ")}
+                        >
+                          <span>
+                            {choice.source === "ai"
+                              ? t("play.aiBranch")
+                              : choice.selected
+                                ? t("playerPath.youSelected")
+                                : t("playerPath.alsoSaw")}
+                          </span>
+                          <strong>{choice.label}</strong>
                         </li>
                       ))}
-                    </ol>
-                    {selected.choices.length > 0 ? (
-                      <ul className="player-path-detail-choices">
-                        {selected.choices.map((choice, index) => (
-                          <li
-                            key={`${choice.choiceId ?? "legacy"}-${index}`}
-                            className={[
-                              choice.selected ? "is-selected" : "is-unselected",
-                              choice.source === "ai" ? "is-ai" : "",
-                            ]
-                              .filter(Boolean)
-                              .join(" ")}
-                          >
-                            <span>
-                              {choice.source === "ai"
-                                ? t("play.aiBranch")
-                                : choice.selected
-                                  ? t("playerPath.youSelected")
-                                  : t("playerPath.alsoSaw")}
-                            </span>
-                            <strong>{choice.label}</strong>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                    <p className="player-path-no-jump">{t("playerPath.noJump")}</p>
-                  </>
-                ) : (
-                  <p>{t("playerPath.selectPrompt")}</p>
-                )}
-              </section>
-            </div>
-          </>
-        )}
+                    </ul>
+                  ) : null}
+                  <p className="player-path-no-jump">{t("playerPath.noJump")}</p>
+                </>
+              ) : (
+                <p>{t("playerPath.selectPrompt")}</p>
+              )}
+            </section>
+          </div>
+        </>
+      )}
     </dialog>
   );
 }

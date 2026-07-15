@@ -160,18 +160,6 @@ async function addFrameSampler(page: import("@playwright/test").Page) {
   });
 }
 
-async function startSampling(page: import("@playwright/test").Page, origin?: number) {
-  return page.evaluate((sampleOrigin) => {
-    const testWindow = window as Window & {
-      __SUPALUV_START_SAMPLING__?: (origin?: number) => number;
-    };
-    if (!testWindow.__SUPALUV_START_SAMPLING__) {
-      throw new Error("frame sampler is not installed");
-    }
-    return testWindow.__SUPALUV_START_SAMPLING__(sampleOrigin);
-  }, origin);
-}
-
 async function stopSampling(page: import("@playwright/test").Page): Promise<FrameSample[]> {
   return page.evaluate(() => {
     const testWindow = window as Window & {
@@ -302,9 +290,14 @@ test("returning session waits for a decoded title composition", async ({ page })
     route.fulfill({ status: 200, contentType: "text/javascript", body: "" }),
   );
   const titleAssetHits: string[] = [];
-  await delayAssetRoute(page, "**/assets/scenes/bg-office-night.jpg", TITLE_ASSET_DELAY_MS, (url) => {
-    titleAssetHits.push(url);
-  });
+  await delayAssetRoute(
+    page,
+    "**/assets/scenes/bg-office-night.jpg",
+    TITLE_ASSET_DELAY_MS,
+    (url) => {
+      titleAssetHits.push(url);
+    },
+  );
   await page.addInitScript(() => {
     localStorage.clear();
     sessionStorage.setItem("supaluv.boot.seen.v1", "1");
@@ -795,10 +788,7 @@ test("dynamic chunk preload failure offers refresh recovery", async ({ page }) =
   const abortsBeforeRefresh = abortedRequests.length;
   failedRequests.length = 0;
   const refreshedAt = Date.now();
-  await Promise.all([
-    page.waitForNavigation({ waitUntil: "domcontentloaded" }),
-    refresh.click(),
-  ]);
+  await Promise.all([page.waitForNavigation({ waitUntil: "domcontentloaded" }), refresh.click()]);
   // Returning session: boot seen may still be set; wait for a fully ready title.
   await expect(page.getByTestId("title-screen")).toBeVisible({ timeout: 10_000 });
   await expect(page.getByTestId("atomic-loading-retry")).toHaveCount(0);

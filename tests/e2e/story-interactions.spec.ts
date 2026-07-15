@@ -224,9 +224,7 @@ test("barcode sweep completes every segment and returns to authored chapter text
 
   for (let index = 0; index < 3; index += 1) {
     await page.getByTestId("story-copy").click();
-    await page
-      .getByRole("button", { name: /(?:剧情选择|Story choice):\s*继续$|^继续$/ })
-      .click();
+    await page.getByRole("button", { name: /(?:剧情选择|Story choice):\s*继续$|^继续$/ }).click();
   }
   await expect(page.getByTestId("barcode-sweep")).toBeVisible();
   for (let round = 0; round < 3; round += 1) {

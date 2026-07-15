@@ -50,7 +50,7 @@ describe("oracle vs authored choice accessibility", () => {
     expect(source).toContain("formatAuthoredChoiceAccessibleName");
     expect(source).toContain('data-choice-group="oracle"');
     expect(source).toContain('data-choice-group="authored"');
-    expect(source).toContain('id={ORACLE_CHOICES_LABEL_ID}');
+    expect(source).toContain("id={ORACLE_CHOICES_LABEL_ID}");
     expect(source).toContain("id={AUTHORED_CHOICES_LABEL_ID}");
   });
 

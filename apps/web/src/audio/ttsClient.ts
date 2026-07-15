@@ -85,8 +85,7 @@ export async function requestTtsPreview(input: TtsPreviewRequest): Promise<TtsCl
     if (error instanceof TtsClientError) {
       throw error;
     }
-    const detail =
-      error instanceof Error ? error.message.slice(0, 500) : "network_failure";
+    const detail = error instanceof Error ? error.message.slice(0, 500) : "network_failure";
     throw new TtsClientError("network", { debugDetail: detail, cause: error });
   }
 
@@ -129,8 +128,7 @@ export async function requestDialogueTts(input: TtsClientRequest): Promise<TtsCl
     if (error instanceof TtsClientError) {
       throw error;
     }
-    const detail =
-      error instanceof Error ? error.message.slice(0, 500) : "network_failure";
+    const detail = error instanceof Error ? error.message.slice(0, 500) : "network_failure";
     throw new TtsClientError("network", { debugDetail: detail, cause: error });
   }
 
