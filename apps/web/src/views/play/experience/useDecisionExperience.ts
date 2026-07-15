@@ -179,14 +179,14 @@ export function useDecisionExperience(input: DecisionExperienceInput): DecisionE
     !isGuestSpectator && snapshot.sceneId ? findDecision(storyId, snapshot.sceneId) : null;
   const oracleOptions = useMemo(() => resolveOracleOptions(oracleDecision), [oracleDecision]);
   // oracleTick forces re-read after setOracleGuess (module memory, not React state).
-  const oracleGuessLabel = oracleDecision
+  const oracleGuessLabel = oracleDecision && oracleOptions.length > 0
     ? (getOracleGuess(oracleDecision.decisionId)?.predictedLabel ?? null)
     : null;
   void oracleTick;
 
   const onOracleGuess = useCallback(
     (option: OracleOptionView) => {
-      if (!oracleDecision) {
+      if (!oracleDecision || oracleOptions.length === 0) {
         return;
       }
       setOracleGuess({
@@ -198,7 +198,7 @@ export function useDecisionExperience(input: DecisionExperienceInput): DecisionE
       setOracleTick((n) => n + 1);
       gameAudio.playSfx("ui-click", 0.35);
     },
-    [oracleDecision],
+    [oracleDecision, oracleOptions.length],
   );
 
   // Path memory is module I/O — read here, not in pure resolvers.
@@ -261,7 +261,10 @@ export function useDecisionExperience(input: DecisionExperienceInput): DecisionE
     oracle: {
       options: isGuestSpectator ? [] : oracleOptions,
       guessLabel: isGuestSpectator ? null : oracleGuessLabel,
-      onGuess: isGuestSpectator || !oracleDecision ? undefined : onOracleGuess,
+      onGuess:
+        isGuestSpectator || !oracleDecision || oracleOptions.length === 0
+          ? undefined
+          : onOracleGuess,
     },
     rps: {
       globalLean: coPlay?.role === "host" ? rpsGlobalLean : null,

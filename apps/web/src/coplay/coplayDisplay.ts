@@ -106,9 +106,8 @@ export function formatGlobalEchoNote(args: {
 }
 
 /**
- * Translate the legacy human-readable global-echo note without changing the
- * wire payload. Older rooms send this Chinese string, so unknown/future notes
- * deliberately pass through instead of being guessed at.
+ * Legacy stats notes are entirely peer supplied. Without an authoritative
+ * aggregate, never parse their percentage, side, or label into player copy.
  */
 export function localizeGlobalEchoNote(args: {
   readonly note: string;
@@ -116,18 +115,5 @@ export function localizeGlobalEchoNote(args: {
   readonly hostTemplate: string;
   readonly guestTemplate: string;
 }): string {
-  if (args.note === "全球回声裁判") {
-    return args.appliedCopy;
-  }
-  const match = /^全球回声：(\d+(?:\.\d+)?)% 站(房主|客人) · 「(.*)」$/.exec(args.note);
-  if (!match) {
-    return args.note;
-  }
-  return formatGlobalEchoNote({
-    side: match[2] === "房主" ? "host" : "guest",
-    percent: Number(match[1]),
-    shortLabel: match[3] ?? "",
-    hostTemplate: args.hostTemplate,
-    guestTemplate: args.guestTemplate,
-  });
+  return args.appliedCopy;
 }

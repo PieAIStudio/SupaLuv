@@ -2,7 +2,10 @@
  * Product-facing API for chapter-end global choice echo.
  */
 
-import type { ChoiceStatsAggregateSource } from "@supaluv/shared/choice-stats-catalog";
+import {
+  isAuthoritativeChoiceStatsSource,
+  type ChoiceStatsAggregateSource,
+} from "@supaluv/shared/choice-stats-catalog";
 import { resolveStatsPick } from "./choiceStatsCatalog";
 import { incrementLocalChoice, getLocalChoiceCounts } from "./choiceStatsLocal";
 import { buildEchoRows, mergeCountMaps } from "./choiceStatsMath";
@@ -18,9 +21,9 @@ export type { ChoiceEchoRow, SessionChoicePick } from "./choiceStatsTypes";
  */
 export function choiceStatsSourceNote(remoteSource: ChoiceStatsAggregateSource | null): string {
   if (remoteSource === "anonymous-memory-aggregate") {
-    return "本机记录 + 本地演示样本（进程内存聚合，非社区/全球人数）";
+    return "本地演示样本：本机记录与可清空的进程内存计数；不用于奖励或裁判。";
   }
-  return "本地样本（演示构造数据，非全球人数）+ 本机记录；在线聚合暂不可用";
+  return "本地演示样本：预设演示数据与本机记录；不用于奖励或裁判。";
 }
 
 /** Record a stats-visible choice (local immediately; remote fire-and-forget). */
@@ -57,17 +60,24 @@ export async function loadChoiceEchoRows(
 
   const local = getLocalChoiceCounts();
   const remote = await fetchRemoteChoiceStats(storyId);
-  // Process-memory may still enrich chapter-end display when labelled as a
-  // local demo sample. Seed is used only when no remote snapshot is available.
-  const counts = remote
-    ? mergeCountMaps(local, remote.counts)
-    : mergeCountMaps(CHOICE_STATS_SEED, local);
-  const sourceNote = choiceStatsSourceNote(remote?.source ?? null);
+  const authoritative = Boolean(remote && isAuthoritativeChoiceStatsSource(remote.source));
+  // Trusted durable aggregates must stand alone. Demo-only sources may merge
+  // local records solely for the chapter-end sample display.
+  const counts = authoritative
+    ? remote?.counts ?? {}
+    : remote
+      ? mergeCountMaps(local, remote.counts)
+      : mergeCountMaps(CHOICE_STATS_SEED, local);
 
   return buildEchoRows({
     storyId,
     picks,
     counts,
-    sourceNote,
+    authority: authoritative ? "authoritative" : "demo-only",
+    provenance: authoritative
+      ? "trusted-durable-aggregate"
+      : remote
+        ? "local-demo-process-memory"
+        : "local-demo-seed",
   });
 }

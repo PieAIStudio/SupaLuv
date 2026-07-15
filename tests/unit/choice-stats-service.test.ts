@@ -93,6 +93,11 @@ describe("choice stats anonymous aggregate service", () => {
     expect(getCountsForStory("totally-unknown-story")).toEqual({});
 
     const baseUrl = await startService();
+    const unknownStoryGet = await fetch(`${baseUrl}?storyId=ghost-story`);
+    expect(unknownStoryGet.status).toBe(400);
+    const missingStoryGet = await fetch(baseUrl);
+    expect(missingStoryGet.status).toBe(400);
+
     const unknownStory = await fetch(`${baseUrl}/record`, {
       method: "POST",
       headers: { "content-type": "application/json" },

@@ -1,6 +1,9 @@
 import { GameBadge, GameButton, GameEmptyState, GamePanel } from "@pieai/swimmer-ui-kit";
 import { useLocale } from "../i18n";
-import { ACHIEVEMENT_DEFS, loadAchievements } from "../persistence/achievements";
+import {
+  listPlayerVisibleAchievementDefs,
+  loadAchievements,
+} from "../persistence/achievements";
 
 interface AchievementsScreenProps {
   readonly onBack: () => void;
@@ -9,7 +12,8 @@ interface AchievementsScreenProps {
 export function AchievementsScreen({ onBack }: AchievementsScreenProps) {
   const { t, locale } = useLocale();
   const unlocked = loadAchievements();
-  const unlockedCount = Object.keys(unlocked).length;
+  const visibleDefs = listPlayerVisibleAchievementDefs();
+  const unlockedCount = visibleDefs.filter((def) => Boolean(unlocked[def.id])).length;
 
   return (
     <div className="meta-screen achievements-screen" data-testid="achievements-screen">
@@ -21,12 +25,12 @@ export function AchievementsScreen({ onBack }: AchievementsScreenProps) {
       </header>
 
       <p className="meta-lead">
-        {t("achievements.progress")} {unlockedCount} / {ACHIEVEMENT_DEFS.length}
+        {t("achievements.progress")} {unlockedCount} / {visibleDefs.length}
         <GameBadge tone="ai"> {t("achievements.localRecord")}</GameBadge>
       </p>
 
       <div className="gallery-grid">
-        {ACHIEVEMENT_DEFS.map((def) => {
+        {visibleDefs.map((def) => {
           const at = unlocked[def.id];
           return (
             <GamePanel

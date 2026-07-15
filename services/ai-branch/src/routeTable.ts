@@ -4,6 +4,7 @@
  */
 
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { isPermittedStoryId } from "@supaluv/shared/choice-stats-catalog";
 import { verifyBearerToken } from "./authGate.js";
 import { characterProviderHealthSnapshot } from "./characterProviderConfig.js";
 import { handleCharacterAssetRoute } from "./characterAssetService.js";
@@ -338,7 +339,11 @@ export async function handleAiBranchRequest(
   }
 
   if (req.method === "GET" && url.pathname === "/choice-stats") {
-    const storyId = (url.searchParams.get("storyId") ?? "ch01").trim() || "ch01";
+    const storyId = (url.searchParams.get("storyId") ?? "").trim();
+    if (!isPermittedStoryId(storyId)) {
+      sendJson(res, 400, { error: "Invalid storyId" });
+      return true;
+    }
     sendJson(res, 200, {
       storyId,
       counts: getCountsForStory(storyId),

@@ -13,6 +13,8 @@
 
 import {
   isAuthoritativeChoiceStatsSource,
+  isPermittedChoiceOnStory,
+  isPermittedStoryId,
   parseChoiceStatsAggregateSource,
   type ChoiceStatsAggregateSource,
 } from "@supaluv/shared/choice-stats-catalog";
@@ -49,15 +51,19 @@ interface CachedSnapshot {
   readonly snapshot: ChoiceStatsRemoteSnapshot;
 }
 
-function sanitizeCounts(value: unknown): ChoiceCountMap | null {
+function sanitizeCounts(value: unknown, storyId: string): ChoiceCountMap | null {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return null;
   }
   const out: Record<string, number> = {};
   for (const [key, count] of Object.entries(value)) {
-    if (typeof count === "number" && Number.isFinite(count) && count > 0) {
-      out[key] = Math.floor(count);
+    if (!isPermittedChoiceOnStory(storyId, key)) {
+      return null;
     }
+    if (typeof count !== "number" || !Number.isFinite(count) || count <= 0) {
+      return null;
+    }
+    out[key] = Math.floor(count);
   }
   return out;
 }
@@ -74,15 +80,18 @@ export function parseChoiceStatsRemotePayload(
   if (!source) {
     return null;
   }
-  const counts = sanitizeCounts(record.counts);
+  const expectedStoryId = fallbackStoryId.trim();
+  if (!isPermittedStoryId(expectedStoryId)) {
+    return null;
+  }
+  if (typeof record.storyId !== "string" || record.storyId.trim() !== expectedStoryId) {
+    return null;
+  }
+  const counts = sanitizeCounts(record.counts, expectedStoryId);
   if (!counts) {
     return null;
   }
-  const storyId =
-    typeof record.storyId === "string" && record.storyId.trim()
-      ? record.storyId.trim()
-      : fallbackStoryId;
-  return { storyId, counts, source };
+  return { storyId: expectedStoryId, counts, source };
 }
 
 export class ChoiceStatsRemoteClient {

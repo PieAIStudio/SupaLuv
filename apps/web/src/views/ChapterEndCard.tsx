@@ -8,6 +8,7 @@ import {
   type ChoiceEchoRow,
   type SessionChoicePick,
 } from "../stats/choiceStatsClient";
+import { rewardSignalsForEchoRows } from "../stats/choiceStatsMath";
 import { majorityOptionForDecision, loadAuthoritativeCounts } from "../stats/choiceStatsLean";
 import { listOracleGuesses, scoreOracleVerdicts, type OracleVerdict } from "../stats/oracleMemory";
 import { downloadShareCard } from "./play/ShareCardExporter";
@@ -126,12 +127,12 @@ export function ChapterEndCard({
       }
       setEchoRows(rows);
       setEchoLoading(false);
-      if (!rareFiredRef.current && rows.some((r) => r.cohortKind === "minority")) {
+      const rewardSignals = rewardSignalsForEchoRows(rows);
+      if (!rareFiredRef.current && rewardSignals.hasRareEcho) {
         rareFiredRef.current = true;
         onRareEcho?.();
       }
-      const minorityCount = rows.filter((r) => r.cohortKind === "minority").length;
-      if (!reverseFiredRef.current && minorityCount >= 3) {
+      if (!reverseFiredRef.current && rewardSignals.hasReverseCurrent) {
         reverseFiredRef.current = true;
         onReverseCurrent?.();
       }
@@ -470,15 +471,21 @@ export function ChapterEndCard({
                         </span>
                       )}
                       <span className={`chapter-end-echo-tag is-${row.cohortKind}`}>
-                        {row.cohortLabel}
+                        {t(`chapterEnd.cohort.${row.cohortKind}`, row.cohortLabel)}
                       </span>
                     </div>
                   </li>
                 ))}
               </ul>
             )}
-            {echoRows[0]?.sourceNote ? (
-              <p className="chapter-end-echo-source">{echoRows[0].sourceNote}</p>
+            {echoRows[0] ? (
+              <p className="chapter-end-echo-source">
+                {echoRows[0].provenance === "local-demo-process-memory"
+                  ? t("chapterEnd.echoSourceMemory")
+                  : echoRows[0].provenance === "local-demo-seed"
+                    ? t("chapterEnd.echoSourceSeed")
+                    : t("chapterEnd.echoSourceTrusted")}
+              </p>
             ) : null}
           </section>
 

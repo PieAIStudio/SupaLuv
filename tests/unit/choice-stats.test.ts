@@ -13,6 +13,7 @@ import {
   cohortFromPercent,
   mergeCountMaps,
   percentForChoice,
+  rewardSignalsForEchoRows,
 } from "../../apps/web/src/stats/choiceStatsMath";
 import {
   getLocalChoiceCounts,
@@ -97,18 +98,15 @@ describe("choice stats catalog", () => {
 describe("choice stats math", () => {
   it("labels offline and process-memory sources as local samples, never global people", () => {
     const offline = choiceStatsSourceNote(null);
-    expect(offline).toContain("本地样本");
-    expect(offline).toContain("非全球人数");
-    expect(offline).not.toContain("社区真相");
-    // Must negate population claims; bare "全球人数" without 非 is disallowed.
-    expect(offline.includes("全球人数") && !offline.includes("非全球人数")).toBe(false);
+    expect(offline).toContain("本地演示样本");
+    expect(offline).toContain("不用于奖励或裁判");
+    expect(offline).not.toMatch(/全球|社区|玩家人数/);
 
     const processMemory = choiceStatsSourceNote("anonymous-memory-aggregate");
     expect(processMemory).toContain("本地演示样本");
-    expect(processMemory).toContain("非社区");
-    expect(processMemory).toContain("非社区/全球人数");
-    expect(processMemory).not.toContain("在线匿名聚合");
-    expect(processMemory).not.toContain("社区真相");
+    expect(processMemory).toContain("可清空的进程内存");
+    expect(processMemory).toContain("不用于奖励或裁判");
+    expect(processMemory).not.toMatch(/全球|社区|玩家人数/);
   });
 
   it("merges seed and local counts", () => {
@@ -148,11 +146,46 @@ describe("choice stats math", () => {
       storyId: "draft-ch01",
       picks,
       counts: { d1_bones_accept: 40, d1_bones_cold: 60 },
-      sourceNote: "test",
+      authority: "demo-only",
+      provenance: "local-demo-seed",
     });
     expect(rows).toHaveLength(1);
     expect(rows[0]?.percentSame).toBeTypeOf("number");
     expect(rows[0]?.yourLabel).toContain("后门");
+    expect(rows[0]?.authority).toBe("demo-only");
+    expect(rewardSignalsForEchoRows(rows)).toEqual({
+      hasRareEcho: false,
+      hasReverseCurrent: false,
+    });
+  });
+
+  it("requires explicit authority before minority rows can drive rewards", () => {
+    const base = {
+      decisionId: "d1_bones",
+      prompt: "prompt",
+      yourLabel: "choice",
+      yourChoiceId: "d1_bones_accept",
+      percentSame: 20,
+      totalSamples: 100,
+      cohortKind: "minority" as const,
+      cohortLabel: "minority",
+      provenance: "local-demo-process-memory" as const,
+    };
+    expect(
+      rewardSignalsForEchoRows([
+        { ...base, authority: "demo-only" },
+        { ...base, decisionId: "d2", authority: "demo-only" },
+        { ...base, decisionId: "d3", authority: "demo-only" },
+      ]),
+    ).toEqual({ hasRareEcho: false, hasReverseCurrent: false });
+
+    expect(
+      rewardSignalsForEchoRows([
+        { ...base, authority: "authoritative" },
+        { ...base, decisionId: "d2", authority: "authoritative" },
+        { ...base, decisionId: "d3", authority: "authoritative" },
+      ]),
+    ).toEqual({ hasRareEcho: true, hasReverseCurrent: true });
   });
 });
 

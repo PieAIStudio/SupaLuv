@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { hasAuthoritativeChoiceStatsCapability } from "@supaluv/shared/choice-stats-catalog";
 import type { GlobalLeanHint } from "../coplay/RpsDuelOverlay";
 import {
   leanForChoiceLabel,
@@ -27,7 +28,7 @@ export function useRpsGlobalLean(input: {
   const [refereePick, setRefereePick] = useState<{ index: number; note: string } | null>(null);
 
   useEffect(() => {
-    if (!input.enabled) {
+    if (!input.enabled || !hasAuthoritativeChoiceStatsCapability()) {
       setLean(null);
       setRefereePick(null);
       return;

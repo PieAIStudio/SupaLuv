@@ -139,3 +139,12 @@ export function isAuthoritativeChoiceStatsSource(
   }
   return CHOICE_STATS_AUTHORITATIVE_SOURCES.has(parsed);
 }
+
+/**
+ * Product capability seam for UI/reward code. Intentionally false today.
+ * Future trusted durable sources can be added to the allow-list without
+ * teaching player surfaces about transport or storage details.
+ */
+export function hasAuthoritativeChoiceStatsCapability(): boolean {
+  return CHOICE_STATS_AUTHORITATIVE_SOURCES.size > 0;
+}

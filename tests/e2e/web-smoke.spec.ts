@@ -89,10 +89,10 @@ async function reachPrototypeAiEnd(page: import("@playwright/test").Page) {
         .catch(() => false)
     )
       return;
-    await page
-      .getByTestId("story-copy")
-      .click()
-      .catch(() => undefined);
+    const storyCopy = page.getByTestId("story-copy");
+    if (await storyCopy.isVisible().catch(() => false)) {
+      await storyCopy.click();
+    }
     const choice = page.locator(".choice-button:not(.ai-choice-button)").first();
     if (await choice.isVisible().catch(() => false)) await choice.click();
   }
@@ -109,6 +109,90 @@ async function clickIfVisible(page: import("@playwright/test").Page, name: RegEx
     .catch(() => undefined);
   await expect(button.first()).toBeVisible({ timeout: 10_000 });
   await button.first().click();
+}
+
+async function startDebugStory(
+  page: import("@playwright/test").Page,
+  storyId: "draft-ch02" | "prototype-act1",
+) {
+  await page.goto("/?debug=1");
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  });
+  await page.reload();
+  const interactiveBoot = page.locator('[data-testid="boot-splash"][role="button"]');
+  if (await interactiveBoot.isVisible().catch(() => false)) {
+    await interactiveBoot.click();
+  }
+  await expect(page.getByTestId("title-screen")).toBeVisible({ timeout: 10_000 });
+  await page.getByRole("button", { name: "中文", exact: true }).click();
+  await page.getByTestId("title-new-game").click();
+  await page.getByRole("button", { name: "使用官方形象" }).click();
+  await page.getByRole("button", { name: "使用官方形象" }).click();
+  await expect(page.getByTestId("game-viewport")).toBeVisible();
+  await page.getByTestId("system-menu-toggle").click({ force: true });
+  const devToggle = page.getByTestId("dev-tools-toggle");
+  if (await devToggle.isVisible().catch(() => false)) {
+    const label = (await devToggle.textContent()) ?? "";
+    if (label.includes("开发工具") && !label.includes("隐藏")) {
+      await devToggle.click({ force: true });
+    }
+  }
+  await page.keyboard.press("Escape").catch(() => undefined);
+  const selector = page.locator('select[aria-label="Story selector"]');
+  await expect(selector).toBeVisible({ timeout: 10_000 });
+  await selector.selectOption(storyId);
+}
+
+async function reachDraftChapterEnd(page: import("@playwright/test").Page) {
+  await startDebugStory(page, "draft-ch02");
+  const skipTestIds = [
+    "barcode-sweep-skip",
+    "housing-hotspots-skip",
+    "mobile-questionnaire-skip",
+  ] as const;
+
+  for (let step = 0; step < 220; step += 1) {
+    if (
+      await page
+        .getByTestId("ending-global-echo")
+        .isVisible()
+        .catch(() => false)
+    ) {
+      return;
+    }
+
+    let skipped = false;
+    for (const testId of skipTestIds) {
+      const skip = page.getByTestId(testId);
+      if (await skip.isVisible().catch(() => false)) {
+        skipped = true;
+        if (await skip.isEnabled().catch(() => false)) {
+          await skip.click();
+        } else {
+          await page.waitForTimeout(25);
+        }
+        break;
+      }
+    }
+    if (skipped) {
+      continue;
+    }
+
+    const storyCopy = page.getByTestId("story-copy");
+    if (await storyCopy.isVisible().catch(() => false)) {
+      await storyCopy.click({ force: true });
+    }
+
+    const authoredChoice = page.locator(".authored-choice-group .choice-button").first();
+    if (await authoredChoice.isVisible().catch(() => false)) {
+      await authoredChoice.click();
+      continue;
+    }
+    await page.waitForTimeout(15);
+  }
+  throw new Error("Draft chapter end was not reached within 220 authored actions");
 }
 
 /** Matches visible "继续" and accessible name "剧情选择: 继续" / "Story choice: Continue". */
@@ -171,48 +255,23 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
     page.locator(".choice-button", { hasText: /说人话了|后门也算诚实/ }).first(),
   ).toBeVisible({ timeout: 15_000 });
 
-  await expect(page.getByTestId("oracle-instruction")).toHaveText(
-    "预测不会推进剧情，请在下方作出选择。",
-  );
+  await expect(page.getByTestId("oracle-instruction")).toHaveCount(0);
+  await expect(page.getByTestId("oracle-row")).toHaveCount(0);
   await expect(page.getByTestId("authored-choice-lead")).toContainText("剧情选择");
 
-  const oracleGroup = page.getByTestId("oracle-row");
   const authoredGroup = page.getByTestId("authored-choice-group");
-  await expect(oracleGroup).toHaveAttribute("role", "group");
-  await expect(oracleGroup).toHaveAttribute("aria-labelledby", "oracle-choices-label");
   await expect(authoredGroup).toHaveAttribute("role", "group");
   await expect(authoredGroup).toHaveAttribute("aria-labelledby", "authored-choices-label");
 
-  const firstOracle = page.locator(".oracle-buttons button").first();
   const firstAuthored = page.locator(".authored-choice-group .choice-button").first();
-  const oracleAria = await firstOracle.getAttribute("aria-label");
   const authoredAria = await firstAuthored.getAttribute("aria-label");
-  expect(oracleAria).toMatch(/^预言家预测:/);
   expect(authoredAria).toMatch(/^剧情选择:/);
-  expect(oracleAria).not.toBe(authoredAria);
-  // Same visible wording must still be distinguishable by accessible name.
-  const oracleVisible = (await firstOracle.innerText()).trim();
-  if (oracleVisible.length > 0) {
-    const matchingAuthored = page.locator(".authored-choice-group .choice-button", {
-      hasText: oracleVisible,
-    });
-    if ((await matchingAuthored.count()) > 0) {
-      const twinAria = await matchingAuthored.first().getAttribute("aria-label");
-      expect(twinAria).toMatch(/^剧情选择:/);
-      expect(twinAria).not.toBe(await firstOracle.getAttribute("aria-label"));
-    }
-  }
-
-  const storyBeforePrediction = await page.getByTestId("story-copy").textContent();
-  const authoredChoicesBeforePrediction = await page.locator(".choice-button").count();
-  await firstOracle.click();
-  await expect(page.getByTestId("oracle-instruction")).toBeVisible();
-  await expect(page.getByTestId("oracle-row")).toContainText("你猜多数：");
-  expect(await page.getByTestId("story-copy").textContent()).toBe(storyBeforePrediction);
-  expect(await page.locator(".choice-button").count()).toBe(authoredChoicesBeforePrediction);
+  await expect(page.locator(".oracle-buttons button")).toHaveCount(0);
 
   await page.setViewportSize({ width: 844, height: 390 });
-  await expect(page.locator(".choice-button:not(.ai-choice-button)").first()).toBeInViewport();
+  const narrowAuthoredChoice = page.locator(".choice-button:not(.ai-choice-button)").first();
+  await narrowAuthoredChoice.scrollIntoViewIfNeeded();
+  await expect(narrowAuthoredChoice).toBeInViewport();
   expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(
     false,
   );
@@ -239,6 +298,78 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("system-menu")).toHaveCount(0);
   expect(pageErrors).toEqual([]);
+});
+
+test("choice stats surfaces stay local-demo-only without authority", async ({ page }) => {
+  test.setTimeout(90_000);
+  await page.route("**/api/choice-stats**", async (route) => {
+    const request = route.request();
+    if (request.method() === "POST") {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: '{"ok":true}',
+      });
+      return;
+    }
+    const storyId = new URL(request.url()).searchParams.get("storyId") ?? "";
+    const counts =
+      storyId === "draft-ch02"
+        ? {
+            d2_catch_firm: 80,
+            d2_catch_soft: 20,
+            d2_admit_me: 65,
+            d2_admit_me_hard: 35,
+          }
+        : {};
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        storyId,
+        counts,
+        source: "anonymous-memory-aggregate",
+      }),
+    });
+  });
+
+  await page.goto("/");
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.setItem("supaluv.boot.seen.v1", "1");
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "中文", exact: true }).click();
+
+  await page.getByTestId("title-help").click();
+  await expect(page.getByTestId("help-screen")).toBeVisible();
+  await expect(page.getByText("本地演示样本与分享", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("当前没有可信聚合，预言入口与统计裁判保持不可用。", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("本地演示样本里的多数/少数标签只用于看版式，不触发奖励。", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "返回", exact: true }).click();
+
+  await page.getByTestId("title-achievements").click();
+  await expect(page.getByTestId("achievements-screen")).toBeVisible();
+  const achievementText = await page.getByTestId("achievements-screen").innerText();
+  expect(achievementText).toContain("0 / 10");
+  expect(achievementText).not.toMatch(/少数派回声|逆流订单|预言命中/);
+  await page.getByRole("button", { name: "返回", exact: true }).click();
+
+  await reachDraftChapterEnd(page);
+  const echo = page.getByTestId("ending-global-echo");
+  await expect(echo).toBeVisible();
+  await expect(echo.getByRole("heading", { name: "本地演示样本" })).toBeVisible();
+  await expect(echo).toContainText("本地演示样本：本机记录与可清空进程内存计数");
+  const echoText = await echo.innerText();
+  expect(echoText).not.toMatch(/全球|社区|玩家/);
+  await expect(page.getByTestId("ending-oracle")).toHaveCount(0);
+  await expect(page.getByTestId("unlock-toast")).toHaveCount(0);
 });
 
 test("settings expose only player-ready controls and copy", async ({ page }) => {

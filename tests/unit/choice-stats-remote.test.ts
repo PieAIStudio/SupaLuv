@@ -246,6 +246,61 @@ describe("choice stats provenance parsing", () => {
     });
     await expect(client.fetchSnapshot("draft-ch01")).resolves.toBeNull();
   });
+
+  it("requires the response storyId to exactly match the requested permitted story", () => {
+    expect(
+      parseChoiceStatsRemotePayload(
+        {
+          counts: { d1_bones_cold: 3 },
+          source: "anonymous-memory-aggregate",
+        },
+        "draft-ch01",
+      ),
+    ).toBeNull();
+    expect(
+      parseChoiceStatsRemotePayload(
+        {
+          storyId: "draft-ch02",
+          counts: { d2_catch_firm: 3 },
+          source: "anonymous-memory-aggregate",
+        },
+        "draft-ch01",
+      ),
+    ).toBeNull();
+    expect(
+      parseChoiceStatsRemotePayload(
+        {
+          storyId: "ghost-story",
+          counts: {},
+          source: "anonymous-memory-aggregate",
+        },
+        "ghost-story",
+      ),
+    ).toBeNull();
+  });
+
+  it("rejects unknown and cross-story count keys instead of filtering them", () => {
+    expect(
+      parseChoiceStatsRemotePayload(
+        {
+          storyId: "draft-ch01",
+          counts: { d1_bones_cold: 3, fabricated_choice: 999 },
+          source: "anonymous-memory-aggregate",
+        },
+        "draft-ch01",
+      ),
+    ).toBeNull();
+    expect(
+      parseChoiceStatsRemotePayload(
+        {
+          storyId: "draft-ch01",
+          counts: { d2_catch_firm: 999 },
+          source: "anonymous-memory-aggregate",
+        },
+        "draft-ch01",
+      ),
+    ).toBeNull();
+  });
 });
 
 describe("process-memory cannot authorize Oracle/referee", () => {
