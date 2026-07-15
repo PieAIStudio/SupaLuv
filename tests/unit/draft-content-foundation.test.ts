@@ -1,7 +1,26 @@
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import {
+  computeCoverageMappingDigest,
+  extractInkPlayerText,
+  isPlaceholderText,
+  normalizeSubstantiveText,
+  validateAdaptationReceipt,
+  validateCoverageMappingDigest,
+} from "../../packages/content/scripts/coverage-contract.mjs";
 
 const ROOT = resolve(import.meta.dirname, "../..");
 
@@ -82,6 +101,101 @@ function readInkSource(relativePath: string): string {
   return readFileSync(resolve(ROOT, relativePath), "utf8");
 }
 
+/** Coverage and adaptation checks must ignore Ink line comments. */
+function stripInkComments(inkSource: string): string {
+  return inkSource
+    .split("\n")
+    .filter((line) => !/^\s*\/\//.test(line))
+    .join("\n");
+}
+
+type FactMapping = {
+  fact?: string;
+  sourceSnippet: string;
+  targetSnippet: string;
+};
+
+type AdaptationReceipt = {
+  sourceHash?: string;
+  textHash?: string;
+  sceneId: string;
+  factMappings: FactMapping[];
+  pacingRationale: string;
+};
+
+type CoverageEntry = {
+  id: string;
+  sourceId: string;
+  paragraphIndex: number;
+  textHash: string;
+  chapterId: string;
+  sceneId: string | null;
+  beatId: string | null;
+  status: string;
+  dialogueQuotes: string[];
+  adaptationReceipt?: AdaptationReceipt;
+};
+
+function assertValidAdaptationReceipt(
+  entry: CoverageEntry,
+  sourceParagraph: string,
+  inkSource: string,
+): asserts entry is CoverageEntry & { adaptationReceipt: AdaptationReceipt; sceneId: string } {
+  expect(entry.status).toBe("approved-adaptation");
+  expect(entry.sceneId).toBeTruthy();
+  const receipt = entry.adaptationReceipt;
+  expect(receipt).toBeTruthy();
+  if (!receipt) {
+    throw new Error(`missing adaptationReceipt on ${entry.id}`);
+  }
+  const validation = validateAdaptationReceipt({
+    receipt,
+    entry,
+    sourceParagraph,
+    inkSource,
+  });
+  expect(validation.errors, `${entry.id} adaptation receipt errors`).toEqual([]);
+  expect(validation.ok).toBe(true);
+}
+
+function runGeneratorFixture(
+  mutate: (fixture: {
+    ledger: { entries: CoverageEntry[] };
+    manifest: Record<string, unknown>;
+  }) => void,
+) {
+  const fixtureRoot = mkdtempSync(join(tmpdir(), "supaluv-content-contract-"));
+  const contentRoot = resolve(fixtureRoot, "packages/content");
+  try {
+    mkdirSync(contentRoot, { recursive: true });
+    for (const directory of ["scripts", "sources", "ink", "ledgers"] as const) {
+      cpSync(resolve(ROOT, `packages/content/${directory}`), resolve(contentRoot, directory), {
+        recursive: true,
+      });
+    }
+    const ledgerPath = resolve(contentRoot, "ledgers/draft-2026-07-coverage.json");
+    const manifestPath = resolve(contentRoot, "sources/draft-2026-07/SOURCE-MANIFEST.json");
+    const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as { entries: CoverageEntry[] };
+    const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as Record<string, unknown>;
+    mutate({ ledger, manifest });
+    writeFileSync(ledgerPath, `${JSON.stringify(ledger, null, 2)}\n`, "utf8");
+    writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+    const before = readFileSync(ledgerPath);
+    const result = spawnSync(
+      process.execPath,
+      [resolve(contentRoot, "scripts/generate-coverage.mjs")],
+      {
+        cwd: fixtureRoot,
+        encoding: "utf8",
+      },
+    );
+    const after = readFileSync(ledgerPath);
+    return { result, unchanged: Buffer.compare(before, after) === 0 };
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+}
+
 function walkToEnd(
   runner: {
     getSnapshot: () => {
@@ -122,6 +236,7 @@ describe("draft-2026-07 source snapshots", () => {
 
   it("keeps body bytes identical to manifest hashes (snapshot is CI SSOT)", () => {
     const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
+      coverageMappingDigest: { algorithm: "sha256"; entryCount: number; value: string };
       sources: Array<{ relativePath: string; sha256: string; originalAbsolutePath: string }>;
     };
     for (const source of manifest.sources) {
@@ -140,6 +255,12 @@ describe("draft-2026-07 source snapshots", () => {
       expect(sha256Buffer(readFileSync(draft01Path))).toBe(sha256Buffer(readFileSync(original01)));
       expect(sha256Buffer(readFileSync(draft02Path))).toBe(sha256Buffer(readFileSync(original02)));
     }
+    const ledger = JSON.parse(
+      readFileSync(resolve(ROOT, "packages/content/ledgers/draft-2026-07-coverage.json"), "utf8"),
+    ) as { entries: CoverageEntry[] };
+    expect(manifest.coverageMappingDigest.algorithm).toBe("sha256");
+    expect(manifest.coverageMappingDigest.entryCount).toBe(169);
+    expect(manifest.coverageMappingDigest.value).toBe(computeCoverageMappingDigest(ledger.entries));
   });
 });
 
@@ -150,6 +271,10 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
   const inkByChapter: Record<string, string> = {
     "draft-ch01": readInkSource("packages/content/ink/draft-ch01.ink"),
     "draft-ch02": readInkSource("packages/content/ink/draft-ch02.ink"),
+  };
+  const playableByChapter: Record<string, string> = {
+    "draft-ch01": stripInkComments(inkByChapter["draft-ch01"]!),
+    "draft-ch02": stripInkComments(inkByChapter["draft-ch02"]!),
   };
 
   it("re-parses snapshots to 93 + 76 = 169 body paragraphs and 8 structure blocks", () => {
@@ -167,17 +292,7 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
       allowedStatuses: string[];
       structure: Array<{ id: string; textHash: string; sourceId: string }>;
-      entries: Array<{
-        id: string;
-        sourceId: string;
-        paragraphIndex: number;
-        textHash: string;
-        chapterId: string;
-        sceneId: string | null;
-        beatId: string | null;
-        status: string;
-        dialogueQuotes: string[];
-      }>;
+      entries: CoverageEntry[];
     };
 
     expect(ledger.allowedStatuses).toEqual([...ALLOWED_STATUSES]);
@@ -225,20 +340,17 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
       expect(entry.chapterId === "draft-ch01" || entry.chapterId === "draft-ch02").toBe(true);
       expect(entry.sceneId).toBeTruthy();
       expect(entry.beatId).toBeTruthy();
+      if (entry.status === "approved-adaptation") {
+        expect(entry.adaptationReceipt).toBeTruthy();
+      } else {
+        expect(entry.adaptationReceipt).toBeUndefined();
+      }
     }
   });
 
-  it("every body paragraph exact-matches its mapped Ink chapter; dialogue missing=0", () => {
+  it("playable coverage ignores comments; adaptations use receipts; non-adapted stay exact", () => {
     const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
-      entries: Array<{
-        id: string;
-        sourceId: string;
-        paragraphIndex: number;
-        textHash: string;
-        chapterId: string;
-        status: string;
-        dialogueQuotes: string[];
-      }>;
+      entries: CoverageEntry[];
     };
 
     const bodyBySource: Record<string, string[]> = {
@@ -250,21 +362,33 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     let dialogueMissing = 0;
     const paragraphMisses: string[] = [];
     const dialogueMisses: string[] = [];
+    const adaptations: string[] = [];
 
     for (const entry of ledger.entries) {
       const bodies = bodyBySource[entry.sourceId]!;
       const paragraph = bodies[entry.paragraphIndex - 1];
       expect(paragraph).toBeTruthy();
       expect(sha256Text(paragraph!)).toBe(entry.textHash);
-      const ink = inkByChapter[entry.chapterId] ?? "";
-      if (!ink.includes(paragraph!)) {
+      const playable = playableByChapter[entry.chapterId] ?? "";
+
+      if (entry.status === "approved-adaptation") {
+        assertValidAdaptationReceipt(entry, paragraph!, inkByChapter[entry.chapterId]!);
+        adaptations.push(entry.id);
+        // Adapted entries must NOT rely on full source paragraph in playable ink.
+        // They may still coincidentally match, but coverage is receipt-based.
+        continue;
+      }
+
+      if (!playable.includes(paragraph!)) {
         paragraphMissing += 1;
         paragraphMisses.push(entry.id);
       }
-      for (const quote of entry.dialogueQuotes) {
-        if (!ink.includes(quote)) {
-          dialogueMissing += 1;
-          dialogueMisses.push(`${entry.id}:${quote.slice(0, 24)}`);
+      if (entry.status === "verbatim-dialogue") {
+        for (const quote of entry.dialogueQuotes) {
+          if (!playable.includes(quote)) {
+            dialogueMissing += 1;
+            dialogueMisses.push(`${entry.id}:${quote.slice(0, 24)}`);
+          }
         }
       }
     }
@@ -273,11 +397,318 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     expect(dialogueMisses).toEqual([]);
     expect(paragraphMissing).toBe(0);
     expect(dialogueMissing).toBe(0);
+    expect(adaptations.length).toBe(47);
 
     const dialogueEntries = ledger.entries.filter(
       (entry) => entry.status === "verbatim-dialogue" && entry.dialogueQuotes.length > 0,
     );
     expect(dialogueEntries.length).toBeGreaterThan(50);
+  });
+
+  it("rejects empty/malformed adaptation receipts and forbids source-prose comment dumps", () => {
+    const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
+      entries: CoverageEntry[];
+    };
+    const inkSource = inkByChapter["draft-ch01"]!;
+    const sourceParagraph = parseBodyParagraphs(readFileSync(draft01Path, "utf8"))[
+      (ledger.entries.find((entry) => entry.status === "approved-adaptation")?.paragraphIndex ??
+        1) - 1
+    ]!;
+
+    const sample = ledger.entries.find((entry) => entry.status === "approved-adaptation");
+    expect(sample?.adaptationReceipt).toBeTruthy();
+    if (!sample?.adaptationReceipt) {
+      throw new Error("expected at least one approved adaptation");
+    }
+
+    const validMapping = sample.adaptationReceipt.factMappings?.[0] ?? {
+      sourceSnippet: sourceParagraph.slice(0, 16),
+      targetSnippet: "这段文字不会通过真实验证",
+    };
+    const malformed: Array<Partial<AdaptationReceipt> | undefined> = [
+      undefined,
+      {
+        ...sample.adaptationReceipt,
+        factMappings: undefined,
+        retainedFacts: ["x"],
+        pacingRationale: "x",
+      } as unknown as AdaptationReceipt,
+      { ...sample.adaptationReceipt, sourceHash: "0".repeat(64) },
+      { ...sample.adaptationReceipt, sceneId: "not_a_real_scene" },
+      {
+        ...sample.adaptationReceipt,
+        factMappings: [],
+      },
+      {
+        ...sample.adaptationReceipt,
+        factMappings: [{ ...validMapping, sourceSnippet: "x" }],
+      },
+      {
+        ...sample.adaptationReceipt,
+        factMappings: [{ ...validMapping, sourceSnippet: "这段源文不存在" }],
+      },
+      {
+        ...sample.adaptationReceipt,
+        factMappings: [{ ...validMapping, targetSnippet: "dch01_s001_continue" }],
+      },
+      {
+        ...sample.adaptationReceipt,
+        pacingRationale: "x",
+      },
+    ];
+    for (const receipt of malformed) {
+      const validation = validateAdaptationReceipt({
+        receipt: receipt as AdaptationReceipt | undefined,
+        entry: sample,
+        sourceParagraph,
+        inkSource,
+      });
+      expect(validation.errors).not.toEqual([]);
+      expect(validation.ok).toBe(false);
+    }
+
+    const manifest = JSON.parse(
+      readFileSync(
+        resolve(ROOT, "packages/content/sources/draft-2026-07/SOURCE-MANIFEST.json"),
+        "utf8",
+      ),
+    ) as { coverageMappingDigest: { value: string } };
+    const tampered = structuredClone(ledger.entries);
+    const tamperedEntry = tampered.find((entry) => entry.id === sample.id)!;
+    const otherScene = tampered.find(
+      (entry) =>
+        entry.chapterId === sample.chapterId &&
+        entry.sceneId !== sample.sceneId &&
+        entry.status === "approved-adaptation" &&
+        (entry.adaptationReceipt?.factMappings.length ?? 0) >=
+          sample.adaptationReceipt!.factMappings.length,
+    )!;
+    tamperedEntry.sceneId = otherScene.sceneId;
+    tamperedEntry.beatId = otherScene.sceneId;
+    tamperedEntry.adaptationReceipt = {
+      ...sample.adaptationReceipt,
+      sceneId: otherScene.sceneId!,
+      factMappings: sample.adaptationReceipt.factMappings.map((mapping, index) => ({
+        ...mapping,
+        targetSnippet: otherScene.adaptationReceipt!.factMappings[index]!.targetSnippet,
+      })),
+    };
+    const tamperedReceiptValidation = validateAdaptationReceipt({
+      receipt: tamperedEntry.adaptationReceipt,
+      entry: tamperedEntry,
+      sourceParagraph,
+      inkSource,
+    });
+    expect(tamperedReceiptValidation.errors).toEqual([]);
+    expect(tamperedReceiptValidation.ok).toBe(true);
+    const digestValidation = validateCoverageMappingDigest(
+      tampered,
+      manifest.coverageMappingDigest as {
+        algorithm: "sha256";
+        entryCount: number;
+        value: string;
+      },
+    );
+    expect(digestValidation.ok).toBe(false);
+    expect(digestValidation.errors.join(" ")).toContain("digest mismatch");
+
+    const driftValidation = validateCoverageMappingDigest(ledger.entries, {
+      algorithm: "sha256",
+      entryCount: 169,
+      value: "0".repeat(64),
+    });
+    expect(driftValidation.ok).toBe(false);
+    expect(driftValidation.errors.join(" ")).toContain("digest mismatch");
+
+    for (const chapterId of ["draft-ch01", "draft-ch02"] as const) {
+      const raw = inkByChapter[chapterId]!;
+      expect(raw).not.toMatch(/Player-hidden source trace/i);
+      expect(raw).not.toMatch(/byte-exact for coverage/i);
+      // No multi-line dump of long source prose as // comments after chapter end.
+      const commentLines = raw.split("\n").filter((line) => /^\s*\/\//.test(line));
+      const longCommentProse = commentLines.filter(
+        (line) => line.replace(/^\s*\/\//, "").trim().length > 80,
+      );
+      expect(longCommentProse).toEqual([]);
+    }
+
+    // Regression: old densified source paragraphs must not be hidden only in comments.
+    const ghost = "工作人员这句话说出口的时候，手指正点在协议签字页上，笑得跟卖保险的一样职业";
+    expect(inkByChapter["draft-ch01"]!).not.toContain(ghost);
+    expect(playableByChapter["draft-ch01"]!).not.toContain(ghost);
+  });
+
+  it("rejects non-player Ink text, placeholder rationales, and overlapping long-paragraph mappings", () => {
+    const visibleDirect = "直接可见的玩家文本足够长度通过验证";
+    const adversarialInk = [
+      "=== knot_adv ===",
+      "# scene:scene_adv",
+      `${visibleDirect} // 这是隐藏注释中的目标事实足够长`,
+      `${visibleDirect} # 这是隐藏标签中的目标事实足够长`,
+      "{ 这是条件控制中的目标事实足够长:",
+      "- choice",
+      "}",
+      "{ false:",
+      "这是不可达条件分支中的目标事实足够长",
+      "}",
+      visibleDirect,
+      "- 这是 gather 控制行中的目标事实足够长",
+      "+ [这是 choice 控制行中的目标事实足够长]",
+      "* [另一 choice 控制行中的目标事实足够长]",
+      "",
+    ].join("\n");
+
+    const projected = extractInkPlayerText(
+      adversarialInk.slice(adversarialInk.indexOf("# scene:scene_adv") + "# scene:scene_adv\n".length),
+    );
+    expect(projected.split("\n")).toEqual([visibleDirect, visibleDirect, visibleDirect]);
+    expect(projected).not.toContain("隐藏注释");
+    expect(projected).not.toContain("隐藏标签");
+    expect(projected).not.toContain("条件控制");
+    expect(projected).not.toContain("不可达条件");
+    expect(projected).not.toContain("gather");
+    expect(extractInkPlayerText("{ open:\n可见但括号不平衡的文本足够长\n")).toBe("");
+
+    const baseReceipt = {
+      sourceHash: "a".repeat(64),
+      sceneId: "scene_adv",
+      factMappings: [
+        {
+          fact: "visible",
+          sourceSnippet: "源文里足够长度的可见事实内容片段",
+          targetSnippet: visibleDirect,
+        },
+      ],
+      pacingRationale: "这是一条足够长且真实的编辑节奏说明文字",
+    };
+    const baseEntry = { textHash: "a".repeat(64), sceneId: "scene_adv" };
+    const sourceParagraph = "源文里足够长度的可见事实内容片段用于校验映射";
+
+    const visibleOk = validateAdaptationReceipt({
+      receipt: baseReceipt,
+      entry: baseEntry,
+      sourceParagraph,
+      inkSource: adversarialInk,
+    });
+    expect(visibleOk.ok).toBe(true);
+    expect(visibleOk.errors).toEqual([]);
+
+    const hiddenTargets = [
+      "这是隐藏注释中的目标事实足够长",
+      "这是隐藏标签中的目标事实足够长",
+      "这是条件控制中的目标事实足够长",
+      "这是不可达条件分支中的目标事实足够长",
+      "这是 gather 控制行中的目标事实足够长",
+      "这是 choice 控制行中的目标事实足够长",
+    ];
+    for (const targetSnippet of hiddenTargets) {
+      const validation = validateAdaptationReceipt({
+        receipt: {
+          ...baseReceipt,
+          factMappings: [{ ...baseReceipt.factMappings[0]!, targetSnippet }],
+        },
+        entry: baseEntry,
+        sourceParagraph,
+        inkSource: adversarialInk,
+      });
+      expect(validation.ok, targetSnippet).toBe(false);
+      expect(validation.errors.join(" ")).toContain("target snippet is not present in player text");
+    }
+
+    for (const pacingRationale of ["xxxxxxxxxxxx", "todo todo todo", "pendingpending"]) {
+      expect(isPlaceholderText(pacingRationale)).toBe(true);
+      const validation = validateAdaptationReceipt({
+        receipt: { ...baseReceipt, pacingRationale },
+        entry: baseEntry,
+        sourceParagraph,
+        inkSource: adversarialInk,
+      });
+      expect(validation.ok, pacingRationale).toBe(false);
+      expect(validation.errors.join(" ")).toContain("placeholder");
+    }
+
+    const longSource = `${"甲".repeat(48)}${"乙".repeat(48)}${"丙".repeat(48)}`;
+    expect(normalizeSubstantiveText(longSource).length).toBeGreaterThanOrEqual(120);
+    const overlappingSourceA = longSource.slice(0, 40);
+    const overlappingSourceB = longSource.slice(10, 50);
+    const targetLine = `${longSource.slice(0, 60)}额外可见承接文字`;
+    const longInk = ["=== knot_long ===", "# scene:scene_long", targetLine, ""].join("\n");
+    const overlapping = validateAdaptationReceipt({
+      receipt: {
+        sourceHash: "b".repeat(64),
+        sceneId: "scene_long",
+        factMappings: [
+          {
+            fact: "slice-a",
+            sourceSnippet: overlappingSourceA,
+            targetSnippet: targetLine.slice(0, 36),
+          },
+          {
+            fact: "slice-b",
+            sourceSnippet: overlappingSourceB,
+            targetSnippet: targetLine.slice(12, 48),
+          },
+        ],
+        pacingRationale: "这是一条足够长且真实的编辑节奏说明文字",
+      },
+      entry: { textHash: "b".repeat(64), sceneId: "scene_long" },
+      sourceParagraph: longSource,
+      inkSource: longInk,
+    });
+    expect(overlapping.ok).toBe(false);
+    expect(overlapping.errors.join(" ")).toMatch(/overlap after normalization/);
+
+    const independent = validateAdaptationReceipt({
+      receipt: {
+        sourceHash: "b".repeat(64),
+        sceneId: "scene_long",
+        factMappings: [
+          {
+            fact: "head",
+            sourceSnippet: longSource.slice(0, 40),
+            targetSnippet: targetLine.slice(0, 36),
+          },
+          {
+            fact: "tail",
+            sourceSnippet: longSource.slice(96, 136),
+            targetSnippet: targetLine.slice(48, 84),
+          },
+        ],
+        pacingRationale: "这是一条足够长且真实的编辑节奏说明文字",
+      },
+      entry: { textHash: "b".repeat(64), sceneId: "scene_long" },
+      sourceParagraph: longSource,
+      inkSource: longInk,
+    });
+    expect(independent.errors).toEqual([]);
+    expect(independent.ok).toBe(true);
+  });
+
+  it("generator fails closed without rewriting the ledger for bad receipts or digest drift", () => {
+    const badReceipt = runGeneratorFixture(({ ledger }) => {
+      const entry = ledger.entries.find((candidate) => candidate.status === "approved-adaptation")!;
+      entry.adaptationReceipt = {
+        ...(entry.adaptationReceipt as AdaptationReceipt),
+        factMappings: undefined,
+        retainedFacts: ["x"],
+        pacingRationale: "x",
+      } as unknown as AdaptationReceipt;
+    });
+    expect(badReceipt.result.status).not.toBe(0);
+    expect(`${badReceipt.result.stdout}${badReceipt.result.stderr}`).toContain(
+      "Invalid approved-adaptation receipts",
+    );
+    expect(badReceipt.unchanged).toBe(true);
+
+    const digestDrift = runGeneratorFixture(({ manifest }) => {
+      const anchor = manifest.coverageMappingDigest as { value: string };
+      anchor.value = "0".repeat(64);
+    });
+    expect(digestDrift.result.status).not.toBe(0);
+    expect(`${digestDrift.result.stdout}${digestDrift.result.stderr}`).toContain(
+      "coverage mapping digest mismatch",
+    );
+    expect(digestDrift.unchanged).toBe(true);
   });
 });
 

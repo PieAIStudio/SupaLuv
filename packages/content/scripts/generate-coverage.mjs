@@ -2,6 +2,7 @@
 /**
  * Rebuild draft-2026-07 coverage ledger from source snapshots.
  * Body paragraphs only (exclude Markdown titles and standalone —— separators).
+ * Preserves approved-adaptation status + adaptationReceipt when still valid.
  * Writes oxfmt-stable pretty JSON.
  */
 import { execFileSync } from "node:child_process";
@@ -9,12 +10,19 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  computeCoverageMappingDigest,
+  validateAdaptationReceipt,
+  validateCoverageMappingDigest,
+} from "./coverage-contract.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, "..");
 const repoRoot = resolve(packageRoot, "../..");
 const sourcesDir = join(packageRoot, "sources", "draft-2026-07");
+const sourceManifestPath = join(sourcesDir, "SOURCE-MANIFEST.json");
 const ledgerPath = join(packageRoot, "ledgers", "draft-2026-07-coverage.json");
+const inkDir = join(packageRoot, "ink");
 
 function formatWithOxfmt(filePath) {
   const oxfmtBin = resolve(repoRoot, "node_modules/.bin/oxfmt");
@@ -33,8 +41,8 @@ const ALLOWED_STATUSES = [
 ];
 
 const SOURCE_CHAPTERS = [
-  { sourceId: "draft01", file: "draft01.md", chapterId: "draft-ch01" },
-  { sourceId: "draft02", file: "draft02.md", chapterId: "draft-ch02" },
+  { sourceId: "draft01", file: "draft01.md", chapterId: "draft-ch01", inkFile: "draft-ch01.ink" },
+  { sourceId: "draft02", file: "draft02.md", chapterId: "draft-ch02", inkFile: "draft-ch02.ink" },
 ];
 
 function sha256Text(text) {
@@ -94,14 +102,35 @@ function loadPreviousMapping() {
 }
 
 const previousByHash = loadPreviousMapping();
+const sourceManifest = JSON.parse(readFileSync(sourceManifestPath, "utf8"));
+const previousLedger = JSON.parse(readFileSync(ledgerPath, "utf8"));
+const previousDigestCheck = validateCoverageMappingDigest(
+  previousLedger.entries ?? [],
+  sourceManifest.coverageMappingDigest,
+);
+if (!previousDigestCheck.ok) {
+  console.error(previousDigestCheck.errors.join("\n"));
+  process.exit(1);
+}
+
+const inkByChapter = new Map();
+for (const source of SOURCE_CHAPTERS) {
+  const inkPath = join(inkDir, source.inkFile);
+  inkByChapter.set(source.chapterId, readFileSync(inkPath, "utf8"));
+}
+
 const entries = [];
 const structure = [];
+let preservedAdaptations = 0;
+let droppedInvalidAdaptations = 0;
+const invalidAdaptations = [];
 
 for (const source of SOURCE_CHAPTERS) {
   const raw = readFileSync(join(sourcesDir, source.file), "utf8");
   const blocks = parseBlocks(raw);
   let bodyIndex = 0;
   let structureIndex = 0;
+  const inkSource = inkByChapter.get(source.chapterId) ?? "";
 
   blocks.forEach((paragraph, offset) => {
     const blockIndex = offset + 1;
@@ -123,22 +152,55 @@ for (const source of SOURCE_CHAPTERS) {
     bodyIndex += 1;
     const previous = previousByHash.get(textHash) ?? {};
     const dialogueQuotes = extractQuotes(paragraph);
-    const status =
-      previous.status === "verbatim-dialogue" ||
-      previous.status === "covered_dialogue_verbatim" ||
-      dialogueQuotes.length > 0
-        ? "verbatim-dialogue"
-        : previous.status === "narrated" ||
-            previous.status === "covered_verbatim" ||
-            previous.status === "visualized" ||
-            previous.status === "interactive" ||
-            previous.status === "approved-adaptation"
-          ? previous.status === "covered_verbatim"
-            ? "narrated"
-            : previous.status
-          : "narrated";
+    const sceneId = previous.sceneId ?? null;
+    const beatId = previous.beatId ?? previous.sceneId ?? null;
 
-    entries.push({
+    let status;
+    let adaptationReceipt;
+
+    const validation =
+      previous.status === "approved-adaptation"
+        ? validateAdaptationReceipt({
+            receipt: previous.adaptationReceipt,
+            entry: { textHash, sceneId: previous.sceneId },
+            sourceParagraph: paragraph,
+            inkSource,
+          })
+        : { ok: false, errors: [] };
+    const previousIsValidAdaptation = previous.status === "approved-adaptation" && validation.ok;
+
+    if (previousIsValidAdaptation) {
+      status = "approved-adaptation";
+      adaptationReceipt = {
+        sourceHash: previous.adaptationReceipt.sourceHash ?? previous.adaptationReceipt.textHash,
+        sceneId: previous.adaptationReceipt.sceneId,
+        factMappings: previous.adaptationReceipt.factMappings.map((mapping) => ({ ...mapping })),
+        pacingRationale: previous.adaptationReceipt.pacingRationale,
+      };
+      preservedAdaptations += 1;
+    } else {
+      if (previous.status === "approved-adaptation") {
+        droppedInvalidAdaptations += 1;
+        invalidAdaptations.push(`${previous.id}: ${validation.errors.join("; ")}`);
+      }
+      status =
+        previous.status === "verbatim-dialogue" ||
+        previous.status === "covered_dialogue_verbatim" ||
+        dialogueQuotes.length > 0
+          ? "verbatim-dialogue"
+          : previous.status === "narrated" ||
+              previous.status === "covered_verbatim" ||
+              previous.status === "visualized" ||
+              previous.status === "interactive"
+            ? previous.status === "covered_verbatim"
+              ? "narrated"
+              : previous.status
+            : "narrated";
+      // Never silently keep a broken receipt; never invent approved-adaptation.
+      adaptationReceipt = undefined;
+    }
+
+    const entry = {
       id: `${source.sourceId}_p${String(bodyIndex).padStart(3, "0")}`,
       sourceId: source.sourceId,
       paragraphIndex: bodyIndex,
@@ -146,12 +208,16 @@ for (const source of SOURCE_CHAPTERS) {
       textHash,
       textPreview: paragraph.slice(0, 120),
       chapterId: source.chapterId,
-      sceneId: previous.sceneId ?? null,
-      beatId: previous.beatId ?? previous.sceneId ?? null,
+      sceneId,
+      beatId,
       status,
       dialogueQuotes: dialogueQuotes.length > 0 ? dialogueQuotes : (previous.dialogueQuotes ?? []),
       notes: previous.notes ?? "",
-    });
+    };
+    if (adaptationReceipt) {
+      entry.adaptationReceipt = adaptationReceipt;
+    }
+    entries.push(entry);
   });
 }
 
@@ -172,6 +238,19 @@ if (missingScene.length > 0) {
   process.exit(1);
 }
 
+if (invalidAdaptations.length > 0) {
+  console.error(`Invalid approved-adaptation receipts:\n${invalidAdaptations.join("\n")}`);
+  process.exit(1);
+}
+
+const generatedDigest = computeCoverageMappingDigest(entries);
+if (generatedDigest !== sourceManifest.coverageMappingDigest.value) {
+  console.error(
+    `Generated coverage mapping digest mismatch: manifest=${sourceManifest.coverageMappingDigest.value} generated=${generatedDigest}`,
+  );
+  process.exit(1);
+}
+
 const ledger = {
   id: "draft-2026-07-coverage",
   packageId: "draft-2026-07",
@@ -184,5 +263,5 @@ const ledger = {
 writeFileSync(ledgerPath, `${JSON.stringify(ledger, null, 2)}\n`, "utf8");
 formatWithOxfmt(ledgerPath);
 console.log(
-  `coverage ledger -> ${ledgerPath} (entries=${entries.length}, structure=${structure.length})`,
+  `coverage ledger -> ${ledgerPath} (entries=${entries.length}, structure=${structure.length}, preservedAdaptations=${preservedAdaptations}, droppedInvalidAdaptations=${droppedInvalidAdaptations})`,
 );
