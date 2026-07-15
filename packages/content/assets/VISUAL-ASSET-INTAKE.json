@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "catalogId": "draft-2026-07-visual-intake",
   "chapters": ["draft-ch01", "draft-ch02"],
   "contracts": {
@@ -96,6 +96,8 @@
       "magentaCheck": false
     }
   },
+  "rightsEvidence": [],
+  "gapResolutions": [],
   "assets": [
     {
       "id": "bg-office-night",

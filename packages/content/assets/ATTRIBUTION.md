@@ -5,18 +5,49 @@ Exact runtime paths, byte sizes, and SHA-256 fingerprints live in
 commercial-release asset merely because it is present in the demo: the ledger's
 `release_status` column is the release gate.
 
-The machine-readable visual production intake lives in
+The machine-readable visual intake lives in
 [`VISUAL-ASSET-INTAKE.json`](./VISUAL-ASSET-INTAKE.json). It adds stable IDs,
 chapter/use references, delivery contracts, dimensions, decoded MIME,
-transparency rules, source/owner evidence, file status, quality status, rights
-status, and explicit missing-asset records. `RUNTIME-ASSET-LEDGER.csv` remains
+transparency rules, provenance, file status, quality status, rights status,
+structured rights-review records, and explicit missing-asset records.
+`RUNTIME-ASSET-LEDGER.csv` remains
 the fingerprint ledger for every runtime media file, including audio; the visual
 intake does not replace it.
 
 Status fields are independent. `fileStatus=present` means only that the exact
 bytes exist. It does not imply `qualityStatus=production_ready` or
-`rightsStatus=cleared`. Production audit mode blocks until every required visual
-asset satisfies all three and every production gap is resolved.
+`rightsStatus=cleared`. Production necessity is independently derived from scene
+manifests, the current-character registry/frozen ID contract, archive record IDs,
+the formal Su Ming portrait allowlist, the boot runtime source, and the runtime
+ledger. The intake's `requiredForProduction` field is only a readable mirror and
+cannot turn those requirements off. Production audit mode blocks until every
+truth-required visual satisfies all three gates and every formal production gap
+is resolved.
+
+## Rights review contract
+
+The per-asset `source` object records provenance; a path, prompt note, attribution
+section, public HTTPS policy URL, or arbitrary non-empty string is not rights
+clearance. A cleared asset must have a structured `rightsEvidence` record with:
+
+- evidence `kind` and identified `ownerOrLicensor` / `reviewer` (substantive text;
+  placeholders and filler such as all-x are rejected);
+- `reference` to an existing non-symlink regular file under
+  `packages/content/assets/rights-evidence/`;
+- lowercase `sha256` matching those exact bytes;
+- `reviewedAt` as a real UTC `YYYY-MM-DD` not later than the audit day.
+
+HTTPS URL shape is provenance only and cannot clear `rightsStatus`. Local
+references are realpath-checked against this attribution file, the intake,
+README, the audit implementation, and its tests; symlinks are rejected.
+
+The current intake deliberately contains empty `rightsEvidence` and
+`gapResolutions` arrays. No commercial receipt, generation-session record,
+license, assignment, likeness release, or formal gap closeout has been supplied
+and reviewed for these visual files. Existing assets therefore remain `pending`
+and formal gaps remain production blockers; this migration does not invent or
+infer clearance. Machine acceptance of structured evidence is not legal
+authenticity — human review remains required.
 
 ## Generated in-house (AI image tools)
 
@@ -40,9 +71,8 @@ invariants, processing steps and source references are recorded in
 those two outputs only; it does not retroactively clear the older generated
 image set.
 
-Current OpenAI service terms say customers own output to the extent permitted by
-law, while visual-capability users remain responsible for having necessary
-input and likeness rights. Keep the two repaired assets at
+The external policy links below are attribution notes, not reviewed evidence for
+an individual asset. Keep the two repaired assets at
 `terms_review_pending` until the product's release-rights review records the
 applicable account agreement and confirms the fictional-character input chain:
 
@@ -102,7 +132,8 @@ this table and the runtime ledger hash.
 ## Recorded visual production gaps
 
 No binary is fabricated for these entries. Each missing item has a stable ID,
-an expected delivery contract, a production-blocking status, and a note about
+an expected delivery contract, an independently enforced production requirement,
+and a note about
 the current draft fallback in `VISUAL-ASSET-INTAKE.json`.
 
 ### Named character portraits and references

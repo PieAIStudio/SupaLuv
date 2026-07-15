@@ -5,6 +5,7 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
+import { ALL_RUNTIME_PORTRAITS } from "./portrait-matte/config.mjs";
 import { evaluateGate, inspectPortrait } from "./portrait-matte/matte.mjs";
 
 const DEFAULT_MANIFEST_PATH = "packages/content/assets/VISUAL-ASSET-INTAKE.json";
@@ -15,6 +16,8 @@ const SCENE_MANIFEST_SOURCES = Object.freeze([
   "packages/content/manifests/draft-ch02-scenes.ts",
 ]);
 const ARCHIVE_RECORD_SOURCE = "apps/web/src/persistence/algorithmShameArchive.ts";
+const CHARACTER_REGISTRY_SOURCE = "packages/content/characters/registry.ts";
+const BOOT_SPLASH_SOURCE = "apps/web/src/views/BootSplash.tsx";
 const VISUAL_SCAN_ROOTS = Object.freeze([
   "apps/web/public/assets/scenes",
   "apps/web/public/assets/portraits",
@@ -30,25 +33,47 @@ const VISUAL_FILE_EXTENSIONS = new Set([
   ".webp",
 ]);
 
-/** Frozen minimum production deliveries that must stay explicit in intake. */
-export const FROZEN_REQUIRED_MISSING_IDS = Object.freeze([
-  "chen-jia-neutral",
-  "leo-neutral",
-  "shi-peixin-neutral",
-  "staff-worker-neutral",
-  "staff-lead-neutral",
-  "shop-owner-neutral",
-  "chen-jia-ref-base",
-  "leo-ref-base",
-  "shi-peixin-ref-base",
-  "staff-worker-ref-base",
-  "staff-lead-ref-base",
-  "shop-owner-ref-base",
+const FROZEN_PRODUCTION_CHARACTER_ASSETS = Object.freeze([
+  { registryId: "chen_jia", portraitId: "chen-jia-neutral", referenceId: "chen-jia-ref-base" },
+  { registryId: "leo", portraitId: "leo-neutral", referenceId: "leo-ref-base" },
+  {
+    registryId: "shi_peixin",
+    portraitId: "shi-peixin-neutral",
+    referenceId: "shi-peixin-ref-base",
+  },
+  {
+    registryId: "staff_worker",
+    portraitId: "staff-worker-neutral",
+    referenceId: "staff-worker-ref-base",
+  },
+  {
+    registryId: "staff_lead",
+    portraitId: "staff-lead-neutral",
+    referenceId: "staff-lead-ref-base",
+  },
+  {
+    registryId: "shop_owner",
+    portraitId: "shop-owner-neutral",
+    referenceId: "shop-owner-ref-base",
+  },
+]);
+const FROZEN_ARCHIVE_PROP_IDS = Object.freeze([
   "prop-protocol-terms",
   "prop-barcode-shift",
   "prop-rental-receipt",
   "prop-application-nda",
   "prop-approval-sms",
+]);
+/** Frozen minimum missing deliveries; production truth is cross-checked elsewhere too. */
+export const FROZEN_REQUIRED_MISSING_IDS = Object.freeze([
+  ...FROZEN_PRODUCTION_CHARACTER_ASSETS.map(({ portraitId }) => portraitId),
+  ...FROZEN_PRODUCTION_CHARACTER_ASSETS.map(({ referenceId }) => referenceId),
+  ...FROZEN_ARCHIVE_PROP_IDS,
+]);
+const FROZEN_REQUIRED_PRODUCTION_GAP_IDS = new Set([
+  "gap-background-shot-list",
+  "gap-npc-mood-matrix",
+  "gap-commercial-rights-evidence",
 ]);
 
 const VALID_FILE_STATUSES = new Set(["present", "missing"]);
@@ -59,6 +84,14 @@ const VALID_QUALITY_STATUSES = new Set([
   "missing",
 ]);
 const VALID_RIGHTS_STATUSES = new Set(["cleared", "pending", "not_required"]);
+const VALID_RIGHTS_EVIDENCE_KINDS = new Set([
+  "project_ownership",
+  "commercial_license",
+  "commission_assignment",
+  "generation_terms",
+  "likeness_release",
+  "public_domain",
+]);
 const VALID_GAP_STATUSES = new Set(["open", "resolved"]);
 const VALID_ALPHA_RULES = new Set(["required", "forbidden", "optional"]);
 const ASSET_ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/;
@@ -66,8 +99,36 @@ const SHA256_PATTERN = /^[a-f0-9]{64}$/;
 const CLEARED_FORBIDDEN_SOURCE = Object.freeze({
   type: new Set(["pending"]),
   owner: new Set(["unassigned"]),
-  evidence: new Set(["not_yet_supplied", "pending", "n/a", "none", "todo", "tbd"]),
 });
+const RIGHTS_EVIDENCE_PLACEHOLDERS = new Set([
+  "",
+  "ok",
+  "self",
+  "pending",
+  "placeholder",
+  "unassigned",
+  "unknown",
+  "not_yet_supplied",
+  "n/a",
+  "none",
+  "todo",
+  "tbd",
+]);
+/** Forbidden evidence targets — string form and final realpath identity. */
+const EVIDENCE_SELF_REFERENCES = Object.freeze([
+  DEFAULT_MANIFEST_PATH,
+  "packages/content/assets/ATTRIBUTION.md",
+  "packages/content/assets/README.md",
+  "tools/asset-audit.mjs",
+  "tests/unit/content-assets.test.ts",
+]);
+const RIGHTS_EVIDENCE_LOCAL_PREFIX = "packages/content/assets/rights-evidence/";
+const GAP_RESOLUTION_LOCAL_PREFIX = "packages/content/assets/release-evidence/";
+
+/** UTC calendar date `YYYY-MM-DD` for the given Date (default: now). */
+export function utcDateString(date = new Date()) {
+  return date.toISOString().slice(0, 10);
+}
 
 const MIME_BY_SHARP_FORMAT = Object.freeze({
   avif: "image/avif",
@@ -116,32 +177,39 @@ export async function resolveWorkspacePath(workspaceRoot, inputPath, { mustExist
   }
 
   const resolvedRoot = path.resolve(workspaceRoot);
-  let rootReal;
-  try {
-    rootReal = await fs.realpath(resolvedRoot);
-  } catch {
-    rootReal = resolvedRoot;
-  }
+  const rootReal = await fs.realpath(resolvedRoot);
   const rootPrefix = rootReal.endsWith(path.sep) ? rootReal : `${rootReal}${path.sep}`;
-  const candidate = path.resolve(rootReal, normalizedInput);
+  const segments = normalizedInput.split("/").filter((segment) => segment && segment !== ".");
+  const candidate = path.resolve(rootReal, ...segments);
 
   if (candidate !== rootReal && !candidate.startsWith(rootPrefix)) {
     throw new Error("path must stay inside the workspace");
   }
 
-  try {
-    const realPath = await fs.realpath(candidate);
+  let current = rootReal;
+  for (let index = 0; index < segments.length; index += 1) {
+    const next = path.join(current, segments[index]);
+    try {
+      await fs.lstat(next);
+    } catch (error) {
+      if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
+        if (mustExist) throw error;
+        const unresolved = path.resolve(current, ...segments.slice(index));
+        if (unresolved !== rootReal && !unresolved.startsWith(rootPrefix)) {
+          throw new Error("unresolved path escapes the workspace");
+        }
+        return unresolved;
+      }
+      throw error;
+    }
+
+    const realPath = await fs.realpath(next);
     if (realPath !== rootReal && !realPath.startsWith(rootPrefix)) {
       throw new Error("resolved path escapes the workspace");
     }
-    return realPath;
-  } catch (error) {
-    if (mustExist) throw error;
-    if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
-      return candidate;
-    }
-    throw error;
+    current = realPath;
   }
+  return current;
 }
 
 function parseCsvLine(line) {
@@ -280,11 +348,293 @@ async function inspectImage(buffer, contract) {
   return metrics;
 }
 
-function isPlaceholderEvidence(value) {
+/**
+ * Reject empty/placeholder identity text and low-effort filler (all-x, token
+ * concatenation). Does not prove legal authenticity — human review remains required.
+ */
+export function isPlaceholderIdentity(value) {
   if (typeof value !== "string") return true;
   const trimmed = value.trim();
-  if (trimmed.length === 0) return true;
-  return CLEARED_FORBIDDEN_SOURCE.evidence.has(trimmed.toLowerCase());
+  if (trimmed.length < 2) return true;
+  const lower = trimmed.toLowerCase();
+  if (RIGHTS_EVIDENCE_PLACEHOLDERS.has(lower)) return true;
+
+  const compact = lower.replace(/[\s_\-./\\|,;:]+/gu, "");
+  if (compact.length === 0) return true;
+  // Repeated single character filler: "xxx", "XXXX", "......"
+  if (/^(.)\1{2,}$/u.test(compact)) return true;
+  // All-x family even with mixed length noise around pure x runs
+  if (/^x+$/u.test(compact)) return true;
+
+  const tokens = lower.split(/[\s,;|/_\-.]+/u).filter((token) => token.length > 0);
+  if (
+    tokens.length > 0 &&
+    tokens.every(
+      (token) =>
+        RIGHTS_EVIDENCE_PLACEHOLDERS.has(token) ||
+        /^(.)\1{2,}$/u.test(token) ||
+        /^x{1,}$/u.test(token),
+    )
+  ) {
+    return true;
+  }
+
+  // Concatenated placeholder tokens without separators: "placeholderpending", "okself"
+  const sortedPlaceholders = [...RIGHTS_EVIDENCE_PLACEHOLDERS]
+    .filter((entry) => entry.length >= 2)
+    .sort((left, right) => right.length - left.length);
+  let remainder = compact;
+  let matchedAny = false;
+  while (remainder.length > 0) {
+    let matched = false;
+    for (const placeholder of sortedPlaceholders) {
+      if (remainder.startsWith(placeholder)) {
+        remainder = remainder.slice(placeholder.length);
+        matched = true;
+        matchedAny = true;
+        break;
+      }
+    }
+    if (!matched) break;
+  }
+  if (matchedAny && remainder.length === 0) return true;
+
+  return false;
+}
+
+/** Real UTC calendar date not later than utcToday (YYYY-MM-DD). */
+export function isValidReviewedDate(value, utcToday) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/u.test(value)) return false;
+  if (typeof utcToday !== "string" || !/^\d{4}-\d{2}-\d{2}$/u.test(utcToday)) return false;
+  const date = new Date(`${value}T00:00:00.000Z`);
+  if (Number.isNaN(date.valueOf()) || date.toISOString().slice(0, 10) !== value) return false;
+  return value <= utcToday;
+}
+
+async function collectForbiddenEvidenceRealPaths(workspaceRoot) {
+  const forbidden = new Set();
+  for (const relativePath of EVIDENCE_SELF_REFERENCES) {
+    try {
+      const absolute = await resolveWorkspacePath(workspaceRoot, relativePath, {
+        mustExist: true,
+      });
+      forbidden.add(absolute);
+    } catch {
+      // Missing forbidden targets cannot be self-referenced by realpath.
+    }
+  }
+  return forbidden;
+}
+
+/**
+ * Immutable local evidence: non-symlink regular file under allowedPrefix,
+ * workspace-contained after realpath, not a forbidden self-reference, SHA match.
+ */
+async function validateImmutableLocalEvidenceFile({
+  workspaceRoot,
+  reference,
+  expectedSha256,
+  allowedPrefix,
+  forbiddenRealPaths,
+  reject,
+  checks,
+  label,
+}) {
+  const cleaned = typeof reference === "string" ? reference.trim() : "";
+  if (isPlaceholderIdentity(cleaned)) {
+    reject(`${label} reference must be an existing checked-in evidence file, not a placeholder`);
+    return false;
+  }
+  if (/^https?:\/\//iu.test(cleaned)) {
+    reject(
+      `${label} reference must be a local file under ${allowedPrefix}; HTTPS URLs are provenance only and cannot clear this gate`,
+    );
+    return false;
+  }
+
+  const localPath = cleaned.split("#", 1)[0];
+  if (EVIDENCE_SELF_REFERENCES.includes(localPath)) {
+    reject(
+      `${label} reference cannot point back to intake, attribution, README, audit, or its tests`,
+    );
+    return false;
+  }
+  if (!localPath.startsWith(allowedPrefix) || localPath === allowedPrefix) {
+    reject(`${label} reference must be a file under ${allowedPrefix}`);
+    return false;
+  }
+  if (!SHA256_PATTERN.test(expectedSha256 ?? "")) {
+    reject(`${label} sha256 must be a lowercase 64-char hex digest`);
+    return false;
+  }
+
+  const parentRelative = path.posix.dirname(localPath);
+  const baseName = path.posix.basename(localPath);
+  if (!baseName || baseName === "." || baseName === "..") {
+    reject(`${label} reference must name a file under ${allowedPrefix}`);
+    return false;
+  }
+
+  let parentAbsolute;
+  try {
+    parentAbsolute = await resolveWorkspacePath(workspaceRoot, parentRelative, {
+      mustExist: true,
+    });
+  } catch (error) {
+    reject(`${label} local reference is unsafe or unreadable: ${error.message}`);
+    return false;
+  }
+
+  const candidate = path.join(parentAbsolute, baseName);
+  let linkStat;
+  try {
+    linkStat = await fs.lstat(candidate);
+  } catch (error) {
+    reject(`${label} local reference is missing or unreadable: ${error.message}`);
+    return false;
+  }
+  if (linkStat.isSymbolicLink()) {
+    reject(`${label} local reference must not be a symlink`);
+    return false;
+  }
+  if (!linkStat.isFile()) {
+    reject(`${label} local reference must be a non-symlink regular file`);
+    return false;
+  }
+
+  let realFile;
+  try {
+    realFile = await fs.realpath(candidate);
+  } catch (error) {
+    reject(`${label} local reference realpath failed: ${error.message}`);
+    return false;
+  }
+
+  const rootReal = await fs.realpath(path.resolve(workspaceRoot));
+  const rootPrefix = rootReal.endsWith(path.sep) ? rootReal : `${rootReal}${path.sep}`;
+  if (realFile !== rootReal && !realFile.startsWith(rootPrefix)) {
+    reject(`${label} local reference escapes the workspace after realpath`);
+    return false;
+  }
+  if (forbiddenRealPaths.has(realFile)) {
+    reject(
+      `${label} reference cannot resolve to intake, attribution, README, audit, or its tests`,
+    );
+    return false;
+  }
+
+  let buffer;
+  try {
+    buffer = await fs.readFile(candidate);
+  } catch (error) {
+    reject(`${label} local reference cannot be read: ${error.message}`);
+    return false;
+  }
+  const actualHash = crypto.createHash("sha256").update(buffer).digest("hex");
+  if (actualHash !== expectedSha256) {
+    reject(`${label} sha256 mismatch: got ${actualHash}`);
+    return false;
+  }
+
+  checks.pathSafety += 1;
+  return true;
+}
+
+async function validateRightsEvidenceRecord(
+  record,
+  workspaceRoot,
+  errors,
+  checks,
+  utcToday,
+  forbiddenRealPaths,
+) {
+  const assetId =
+    typeof record?.assetId === "string" && record.assetId.length > 0
+      ? record.assetId
+      : "rights-evidence";
+  let valid = true;
+  const reject = (message) => {
+    valid = false;
+    addIssue(errors, assetId, null, message);
+  };
+
+  if (!ASSET_ID_PATTERN.test(assetId)) reject("rights evidence assetId must use stable-id syntax");
+  if (!VALID_RIGHTS_EVIDENCE_KINDS.has(record?.kind)) {
+    reject(`rights evidence kind must be one of ${[...VALID_RIGHTS_EVIDENCE_KINDS].join(", ")}`);
+  }
+  if (isPlaceholderIdentity(record?.ownerOrLicensor)) {
+    reject("rights evidence ownerOrLicensor must identify the rights holder or licensor");
+  }
+  if (!isValidReviewedDate(record?.reviewedAt, utcToday)) {
+    reject(
+      "rights evidence reviewedAt must be a real UTC YYYY-MM-DD date not later than today",
+    );
+  }
+  if (isPlaceholderIdentity(record?.reviewer)) {
+    reject("rights evidence reviewer must identify the human reviewer");
+  }
+
+  const fileOk = await validateImmutableLocalEvidenceFile({
+    workspaceRoot,
+    reference: record?.reference,
+    expectedSha256: record?.sha256,
+    allowedPrefix: RIGHTS_EVIDENCE_LOCAL_PREFIX,
+    forbiddenRealPaths,
+    reject,
+    checks,
+    label: "rights evidence",
+  });
+  if (!fileOk) valid = false;
+
+  return valid;
+}
+
+async function validateGapResolutionRecord(
+  record,
+  workspaceRoot,
+  errors,
+  checks,
+  utcToday,
+  forbiddenRealPaths,
+  knownGapIds,
+) {
+  const gapId =
+    typeof record?.gapId === "string" && record.gapId.length > 0
+      ? record.gapId
+      : "gap-resolution";
+  let valid = true;
+  const reject = (message) => {
+    valid = false;
+    addIssue(errors, gapId, null, message);
+  };
+
+  if (!ASSET_ID_PATTERN.test(gapId)) {
+    reject("gap resolution gapId must use stable-id syntax");
+  } else if (!knownGapIds.has(gapId)) {
+    reject("gap resolution references an unknown gap ID");
+  }
+  if (isPlaceholderIdentity(record?.approvedBy)) {
+    reject("gap resolution approvedBy must identify the human approver");
+  }
+  if (!isValidReviewedDate(record?.reviewedAt, utcToday)) {
+    reject(
+      "gap resolution reviewedAt must be a real UTC YYYY-MM-DD date not later than today",
+    );
+  }
+
+  const fileOk = await validateImmutableLocalEvidenceFile({
+    workspaceRoot,
+    reference: record?.reference,
+    expectedSha256: record?.sha256,
+    allowedPrefix: GAP_RESOLUTION_LOCAL_PREFIX,
+    forbiddenRealPaths,
+    reject,
+    checks,
+    label: "gap resolution",
+  });
+  if (!fileOk) valid = false;
+
+  return valid;
 }
 
 function validateAssetRecord(asset, contracts, errors) {
@@ -327,7 +677,6 @@ function validateAssetRecord(asset, contracts, errors) {
     if (asset.rightsStatus === "cleared") {
       const sourceType = String(asset.source.type ?? "").trim().toLowerCase();
       const sourceOwner = String(asset.source.owner ?? "").trim().toLowerCase();
-      const sourceEvidence = String(asset.source.evidence ?? "").trim();
       if (CLEARED_FORBIDDEN_SOURCE.type.has(sourceType)) {
         addIssue(
           errors,
@@ -342,14 +691,6 @@ function validateAssetRecord(asset, contracts, errors) {
           assetId,
           assetPath,
           "rightsStatus=cleared forbids source.owner=unassigned",
-        );
-      }
-      if (isPlaceholderEvidence(sourceEvidence)) {
-        addIssue(
-          errors,
-          assetId,
-          assetPath,
-          "rightsStatus=cleared requires non-placeholder source.evidence",
         );
       }
     }
@@ -387,10 +728,10 @@ function productionReasons(asset) {
   return reasons;
 }
 
-function requiresStrictPortraitMatte(asset) {
+function requiresStrictPortraitMatte(asset, truthRequired) {
   return (
     asset?.contract === "portrait-runtime-2x3" &&
-    asset?.requiredForProduction === true &&
+    truthRequired === true &&
     asset?.fileStatus === "present"
   );
 }
@@ -427,6 +768,14 @@ export function extractAlgorithmShameArchiveRecordIds(sourceText) {
     );
   }
   return ids;
+}
+
+export function extractPublicVisualAssetIds(sourceText) {
+  return [
+    ...sourceText.matchAll(
+      /["'`]\/assets\/(?:scenes|portraits|ui)\/([a-z0-9]+(?:[.-][a-z0-9]+)*)\.(?:avif|gif|jpe?g|png|webp)["'`]/giu,
+    ),
+  ].map((match) => match[1]);
 }
 
 async function collectVisualFilesUnder(workspaceRoot, relativeRoot) {
@@ -474,17 +823,28 @@ async function collectVisualFilesUnder(workspaceRoot, relativeRoot) {
   return collected;
 }
 
-async function collectReverseCoverageRequirements(workspaceRoot, errors) {
-  const requiredIds = new Map(); // id -> source label
-  const requiredPaths = new Map(); // path -> source label
+function addRequirement(target, key, sourceLabel) {
+  const sources = target.get(key) ?? new Set();
+  sources.add(sourceLabel);
+  target.set(key, sources);
+}
 
-  function requireId(assetId, sourceLabel) {
-    if (!requiredIds.has(assetId)) requiredIds.set(assetId, sourceLabel);
+function formatRequirementSources(sources) {
+  return [...sources].sort();
+}
+
+async function collectTruthRequirements(workspaceRoot, errors) {
+  const requiredIds = new Map(); // id -> source labels
+  const requiredPaths = new Map(); // path -> source labels
+  const productionAssetIds = new Map(); // id -> independent production truth labels
+
+  function requireId(assetId, sourceLabel, { production = false } = {}) {
+    addRequirement(requiredIds, assetId, sourceLabel);
+    if (production) addRequirement(productionAssetIds, assetId, sourceLabel);
   }
 
   function requirePath(assetPath, sourceLabel) {
-    const normalized = assetPath.replaceAll("\\", "/");
-    if (!requiredPaths.has(normalized)) requiredPaths.set(normalized, sourceLabel);
+    addRequirement(requiredPaths, assetPath.replaceAll("\\", "/"), sourceLabel);
   }
 
   for (const sceneSource of SCENE_MANIFEST_SOURCES) {
@@ -505,9 +865,43 @@ async function collectReverseCoverageRequirements(workspaceRoot, errors) {
     }
     for (const field of ["artKey", "portraitKey", "companionPortraitKey"]) {
       for (const value of extractStringFieldValues(text, field)) {
-        requireId(value, `${sceneSource}:${field}`);
+        requireId(value, `${sceneSource}:${field}`, { production: true });
       }
     }
+  }
+
+  try {
+    const absoluteRegistry = await resolveWorkspacePath(workspaceRoot, CHARACTER_REGISTRY_SOURCE, {
+      mustExist: true,
+    });
+    const registryText = await fs.readFile(absoluteRegistry, "utf8");
+    const registryIds = extractStringFieldValues(registryText, "id");
+    for (const requirement of FROZEN_PRODUCTION_CHARACTER_ASSETS) {
+      if (!registryIds.has(requirement.registryId)) {
+        addIssue(
+          errors,
+          requirement.portraitId,
+          CHARACTER_REGISTRY_SOURCE,
+          `frozen production character ${requirement.registryId} is missing from registry truth source`,
+        );
+      }
+      const label = `${CHARACTER_REGISTRY_SOURCE}:id=${requirement.registryId} + frozen production IDs`;
+      requireId(requirement.portraitId, label, { production: true });
+      requireId(requirement.referenceId, label, { production: true });
+    }
+  } catch (error) {
+    addIssue(
+      errors,
+      "production-truth",
+      CHARACTER_REGISTRY_SOURCE,
+      `cannot read character registry truth source: ${error.message}`,
+    );
+  }
+
+  for (const portrait of ALL_RUNTIME_PORTRAITS) {
+    const label = "tools/portrait-matte/config.mjs:ALL_RUNTIME_PORTRAITS";
+    requireId(portrait.id, label, { production: true });
+    requireId(portrait.id.replace(/^suming-/u, "suming-ref-"), label, { production: true });
   }
 
   try {
@@ -517,7 +911,9 @@ async function collectReverseCoverageRequirements(workspaceRoot, errors) {
     const archiveText = await fs.readFile(absoluteArchive, "utf8");
     const archiveIds = extractAlgorithmShameArchiveRecordIds(archiveText);
     for (const archiveId of archiveIds) {
-      requireId(`prop-${archiveId}`, `${ARCHIVE_RECORD_SOURCE}:ALGORITHM_SHAME_ARCHIVE_RECORD_IDS`);
+      requireId(`prop-${archiveId}`, `${ARCHIVE_RECORD_SOURCE}:ALGORITHM_SHAME_ARCHIVE_RECORD_IDS`, {
+        production: true,
+      });
     }
   } catch (error) {
     addIssue(
@@ -529,7 +925,35 @@ async function collectReverseCoverageRequirements(workspaceRoot, errors) {
   }
 
   for (const frozenId of FROZEN_REQUIRED_MISSING_IDS) {
-    requireId(frozenId, "FROZEN_REQUIRED_MISSING_IDS");
+    requireId(frozenId, "tools/asset-audit.mjs:FROZEN_REQUIRED_MISSING_IDS", {
+      production: true,
+    });
+  }
+
+  try {
+    const absoluteBootSource = await resolveWorkspacePath(workspaceRoot, BOOT_SPLASH_SOURCE, {
+      mustExist: true,
+    });
+    const bootText = await fs.readFile(absoluteBootSource, "utf8");
+    const bootAssetIds = new Set(extractPublicVisualAssetIds(bootText));
+    if (!bootAssetIds.has("boot-splash")) {
+      addIssue(
+        errors,
+        "boot-splash",
+        BOOT_SPLASH_SOURCE,
+        "BootSplash runtime source does not reference the frozen boot-splash visual",
+      );
+    }
+    for (const assetId of bootAssetIds) {
+      requireId(assetId, `${BOOT_SPLASH_SOURCE}:runtime visual URL`, { production: true });
+    }
+  } catch (error) {
+    addIssue(
+      errors,
+      "production-truth",
+      BOOT_SPLASH_SOURCE,
+      `cannot read boot visual truth source: ${error.message}`,
+    );
   }
 
   for (const scanRoot of VISUAL_SCAN_ROOTS) {
@@ -548,7 +972,7 @@ async function collectReverseCoverageRequirements(workspaceRoot, errors) {
     }
   }
 
-  return { requiredIds, requiredPaths };
+  return { requiredIds, requiredPaths, productionAssetIds };
 }
 
 export async function auditAssetIntake({
@@ -556,6 +980,8 @@ export async function auditAssetIntake({
   manifestPath = DEFAULT_MANIFEST_PATH,
   runtimeLedgerPath = DEFAULT_RUNTIME_LEDGER_PATH,
   mode = "intake",
+  /** Injectable UTC calendar date `YYYY-MM-DD` for deterministic reviewedAt checks. */
+  utcToday = utcDateString(),
 } = {}) {
   const errors = [];
   const warnings = [];
@@ -572,8 +998,10 @@ export async function auditAssetIntake({
     sha256: 0,
     attribution: 0,
     rightsEvidence: 0,
+    gapResolutions: 0,
     runtimeLedgerRows: 0,
     reverseCoverage: 0,
+    productionTruth: 0,
     pathSafety: 0,
   };
 
@@ -640,8 +1068,8 @@ export async function auditAssetIntake({
     };
   }
 
-  if (manifest.schemaVersion !== 1) {
-    addIssue(errors, "manifest", manifestPath, "schemaVersion must be 1");
+  if (manifest.schemaVersion !== 2) {
+    addIssue(errors, "manifest", manifestPath, "schemaVersion must be 2");
   }
   if (!manifest.contracts || typeof manifest.contracts !== "object") {
     addIssue(errors, "manifest", manifestPath, "contracts object is required");
@@ -656,9 +1084,84 @@ export async function auditAssetIntake({
   if (!Array.isArray(manifest.gaps)) {
     addIssue(errors, "manifest", manifestPath, "gaps array is required");
   }
+  if (!Array.isArray(manifest.rightsEvidence)) {
+    addIssue(errors, "manifest", manifestPath, "rightsEvidence array is required");
+  }
+  if (!Array.isArray(manifest.gapResolutions)) {
+    addIssue(errors, "manifest", manifestPath, "gapResolutions array is required");
+  }
 
   const assets = Array.isArray(manifest.assets) ? manifest.assets : [];
   const gaps = Array.isArray(manifest.gaps) ? manifest.gaps : [];
+  const rightsEvidence = Array.isArray(manifest.rightsEvidence) ? manifest.rightsEvidence : [];
+  const gapResolutions = Array.isArray(manifest.gapResolutions) ? manifest.gapResolutions : [];
+  const knownGapIds = new Set(
+    gaps
+      .map((gap) => (typeof gap?.id === "string" ? gap.id : null))
+      .filter((gapId) => typeof gapId === "string" && gapId.length > 0),
+  );
+  const forbiddenEvidenceRealPaths = await collectForbiddenEvidenceRealPaths(workspaceRoot);
+
+  const rightsEvidenceByAssetId = new Map();
+  const seenRightsEvidence = new Set();
+  for (const record of rightsEvidence) {
+    const assetId = typeof record?.assetId === "string" ? record.assetId : "rights-evidence";
+    const signature = `${assetId}:${String(record?.kind)}:${String(record?.reference)}:${String(record?.sha256)}`;
+    if (seenRightsEvidence.has(signature)) {
+      addIssue(errors, assetId, null, "duplicate structured rights evidence record");
+      continue;
+    }
+    seenRightsEvidence.add(signature);
+    const valid = await validateRightsEvidenceRecord(
+      record,
+      workspaceRoot,
+      errors,
+      checks,
+      utcToday,
+      forbiddenEvidenceRealPaths,
+    );
+    const records = rightsEvidenceByAssetId.get(assetId) ?? [];
+    records.push({ record, valid });
+    rightsEvidenceByAssetId.set(assetId, records);
+    if (valid) checks.rightsEvidence += 1;
+  }
+
+  const validGapResolutionById = new Map();
+  const seenGapResolutionIds = new Set();
+  const seenGapResolutionSignatures = new Set();
+  for (const record of gapResolutions) {
+    const gapId = typeof record?.gapId === "string" ? record.gapId : "gap-resolution";
+    const signature = `${gapId}:${String(record?.reference)}:${String(record?.sha256)}`;
+    if (seenGapResolutionSignatures.has(signature)) {
+      addIssue(errors, gapId, null, "duplicate structured gap resolution evidence record");
+      continue;
+    }
+    seenGapResolutionSignatures.add(signature);
+    if (seenGapResolutionIds.has(gapId)) {
+      addIssue(errors, gapId, null, "duplicate gap resolution for the same gap ID");
+      continue;
+    }
+    seenGapResolutionIds.add(gapId);
+    const valid = await validateGapResolutionRecord(
+      record,
+      workspaceRoot,
+      errors,
+      checks,
+      utcToday,
+      forbiddenEvidenceRealPaths,
+      knownGapIds,
+    );
+    if (valid) {
+      validGapResolutionById.set(gapId, record);
+      checks.gapResolutions += 1;
+    }
+  }
+
+  const { requiredIds, requiredPaths, productionAssetIds } = await collectTruthRequirements(
+    workspaceRoot,
+    errors,
+  );
+  checks.productionTruth = productionAssetIds.size + FROZEN_REQUIRED_PRODUCTION_GAP_IDS.size;
   const seenIds = new Map();
   const seenPaths = new Map();
   const intakeById = new Map();
@@ -668,9 +1171,20 @@ export async function auditAssetIntake({
     const assetId =
       typeof asset?.id === "string" && asset.id.length > 0 ? asset.id : "unknown-asset";
     const assetPath = typeof asset?.path === "string" ? asset.path : null;
+    const assetRightsEvidence = rightsEvidenceByAssetId.get(assetId) ?? [];
+    const validAssetRightsEvidence = assetRightsEvidence.filter(({ valid }) => valid);
+    const productionSources = productionAssetIds.get(assetId);
+    const truthRequired = Boolean(productionSources);
     checks.stableIds += 1;
     checks.attribution += 1;
-    if (asset.rightsStatus === "cleared") checks.rightsEvidence += 1;
+    if (asset.rightsStatus === "cleared" && validAssetRightsEvidence.length === 0) {
+      addIssue(
+        errors,
+        assetId,
+        assetPath,
+        "rightsStatus=cleared requires at least one valid structured rightsEvidence record",
+      );
+    }
     if (seenIds.has(assetId)) {
       addIssue(
         errors,
@@ -695,10 +1209,23 @@ export async function auditAssetIntake({
       }
     }
 
-    if (asset.requiredForProduction) {
+    if (asset.requiredForProduction !== truthRequired) {
+      addIssue(
+        warnings,
+        assetId,
+        assetPath,
+        `requiredForProduction=${String(asset.requiredForProduction)} is non-authoritative; independent production truth says ${truthRequired}${productionSources ? ` (${formatRequirementSources(productionSources).join("; ")})` : ""}`,
+      );
+    }
+    if (truthRequired) {
       const reasons = productionReasons(asset);
       if (reasons.length > 0) {
-        releaseBlockers.push({ assetId, path: assetPath, reasons });
+        releaseBlockers.push({
+          assetId,
+          path: assetPath,
+          reasons,
+          truthSources: formatRequirementSources(productionSources),
+        });
       }
     }
     if (asset.fileStatus === "missing") {
@@ -814,7 +1341,7 @@ export async function auditAssetIntake({
       );
     }
 
-    if (requiresStrictPortraitMatte(asset)) {
+    if (requiresStrictPortraitMatte(asset, truthRequired)) {
       try {
         const portraitMetrics = await inspectPortrait(absoluteAssetPath, assetId);
         const gate = evaluateGate(portraitMetrics);
@@ -917,8 +1444,50 @@ export async function auditAssetIntake({
         addIssue(errors, gapId, null, `${key} must be a non-empty string`);
       }
     }
-    if (gap.status === "open" && gap.requiredForProduction) {
-      releaseBlockers.push({ assetId: gapId, path: null, reasons: ["open production gap"] });
+    const truthRequired = FROZEN_REQUIRED_PRODUCTION_GAP_IDS.has(gapId);
+    if (gap.requiredForProduction !== truthRequired) {
+      addIssue(
+        warnings,
+        gapId,
+        null,
+        `requiredForProduction=${String(gap.requiredForProduction)} is non-authoritative; formal production gap contract says ${truthRequired}`,
+      );
+    }
+    // gap.status is non-authoritative for release. Only a valid gapResolutions
+    // record can suppress a formal production gap blocker.
+    const hasValidResolution = validGapResolutionById.has(gapId);
+    if (gap.status === "resolved" && !hasValidResolution) {
+      addIssue(
+        errors,
+        gapId,
+        null,
+        "gap.status=resolved is non-authoritative without a matching valid gapResolutions evidence record",
+      );
+    }
+    if (truthRequired && !hasValidResolution) {
+      const reasons = [];
+      if (gap.status === "open") reasons.push("open production gap");
+      else if (gap.status === "resolved") {
+        reasons.push("production gap lacks valid structured gapResolutions evidence");
+      } else {
+        reasons.push("production gap is not resolved with structured evidence");
+      }
+      releaseBlockers.push({
+        assetId: gapId,
+        path: null,
+        reasons,
+        truthSources: ["tools/asset-audit.mjs:FROZEN_REQUIRED_PRODUCTION_GAP_IDS"],
+      });
+    }
+  }
+  for (const requiredGapId of FROZEN_REQUIRED_PRODUCTION_GAP_IDS) {
+    if (!seenGapIds.has(requiredGapId)) {
+      addIssue(
+        errors,
+        requiredGapId,
+        null,
+        "formal production gap is missing from intake",
+      );
     }
   }
 
@@ -1063,30 +1632,32 @@ export async function auditAssetIntake({
   }
 
   // Reverse coverage: truth sources must not be self-certified only by intake.
-  const { requiredIds, requiredPaths } = await collectReverseCoverageRequirements(
-    workspaceRoot,
-    errors,
-  );
-  for (const [requiredId, sourceLabel] of requiredIds) {
+  for (const [requiredId, sourceLabels] of requiredIds) {
     checks.reverseCoverage += 1;
     if (!intakeById.has(requiredId)) {
       addIssue(
         errors,
         requiredId,
         null,
-        `reverse coverage missing intake record (truth source: ${sourceLabel})`,
+        `reverse coverage missing intake record (truth source: ${formatRequirementSources(sourceLabels).join("; ")})`,
       );
     }
   }
-  for (const [requiredPath, sourceLabel] of requiredPaths) {
+  for (const [requiredPath, sourceLabels] of requiredPaths) {
     checks.reverseCoverage += 1;
     if (!seenPaths.has(requiredPath)) {
       addIssue(
         errors,
         "filesystem-asset",
         requiredPath,
-        `reverse coverage missing intake path (truth source: ${sourceLabel})`,
+        `reverse coverage missing intake path (truth source: ${formatRequirementSources(sourceLabels).join("; ")})`,
       );
+    }
+  }
+
+  for (const assetId of rightsEvidenceByAssetId.keys()) {
+    if (!intakeById.has(assetId)) {
+      addIssue(errors, assetId, null, "structured rights evidence references an unknown asset ID");
     }
   }
 

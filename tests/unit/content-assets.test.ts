@@ -1,6 +1,8 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { spawn } from "node:child_process";
 import sharp from "sharp";
 import { afterEach, describe, expect, it } from "vitest";
@@ -9,7 +11,16 @@ const workspaceRoot = path.resolve(import.meta.dirname, "../..");
 const auditScript = path.join(workspaceRoot, "tools/asset-audit.mjs");
 const intakePath = path.join(workspaceRoot, "packages/content/assets/VISUAL-ASSET-INTAKE.json");
 const scratchRoot = path.join(workspaceRoot, ".scratch/content-assets-tests");
+const rightsEvidenceRoot = path.join(
+  workspaceRoot,
+  "packages/content/assets/rights-evidence",
+);
+const releaseEvidenceRoot = path.join(
+  workspaceRoot,
+  "packages/content/assets/release-evidence",
+);
 const temporaryDirectories: string[] = [];
+const temporaryFiles: string[] = [];
 
 /** Must stay aligned with tools/asset-audit.mjs FROZEN_REQUIRED_MISSING_IDS. */
 const FROZEN_PORTRAIT_AND_REF_IDS = [
@@ -35,10 +46,7 @@ const FROZEN_PROP_IDS = [
   "prop-approval-sms",
 ] as const;
 
-const FROZEN_REQUIRED_MISSING_IDS = [
-  ...FROZEN_PORTRAIT_AND_REF_IDS,
-  ...FROZEN_PROP_IDS,
-] as const;
+const FROZEN_REQUIRED_MISSING_IDS = [...FROZEN_PORTRAIT_AND_REF_IDS, ...FROZEN_PROP_IDS] as const;
 
 interface AuditIssue {
   readonly assetId: string;
@@ -50,6 +58,7 @@ interface ReleaseBlocker {
   readonly assetId: string;
   readonly path: string | null;
   readonly reasons: readonly string[];
+  readonly truthSources: readonly string[];
 }
 
 interface AuditReport {
@@ -74,8 +83,10 @@ interface AuditReport {
     readonly sha256: number;
     readonly attribution: number;
     readonly rightsEvidence: number;
+    readonly gapResolutions: number;
     readonly runtimeLedgerRows: number;
     readonly reverseCoverage: number;
+    readonly productionTruth: number;
     readonly pathSafety: number;
   };
   readonly errors: readonly AuditIssue[];
@@ -93,10 +104,10 @@ interface AuditReport {
   }[];
 }
 
-async function runAudit(args: readonly string[]): Promise<{
+async function runAuditProcess(args: readonly string[]): Promise<{
   readonly exitCode: number;
+  readonly stdout: string;
   readonly stderr: string;
-  readonly report: AuditReport;
 }> {
   return await new Promise((resolve, reject) => {
     const child = spawn(process.execPath, [auditScript, ...args, "--json"], {
@@ -119,17 +130,28 @@ async function runAudit(args: readonly string[]): Promise<{
         reject(new Error(`asset audit terminated without an exit code: ${stderr}`));
         return;
       }
-      try {
-        resolve({ exitCode: code, stderr, report: JSON.parse(stdout) as AuditReport });
-      } catch (error) {
-        reject(
-          new Error(
-            `asset audit did not return JSON (exit=${code}): ${String(error)}\nstdout=${stdout}\nstderr=${stderr}`,
-          ),
-        );
-      }
+      resolve({ exitCode: code, stdout, stderr });
     });
   });
+}
+
+async function runAudit(args: readonly string[]): Promise<{
+  readonly exitCode: number;
+  readonly stderr: string;
+  readonly report: AuditReport;
+}> {
+  const result = await runAuditProcess(args);
+  try {
+    return {
+      exitCode: result.exitCode,
+      stderr: result.stderr,
+      report: JSON.parse(result.stdout) as AuditReport,
+    };
+  } catch (error) {
+    throw new Error(
+      `asset audit did not return JSON (exit=${result.exitCode}): ${String(error)}\nstdout=${result.stdout}\nstderr=${result.stderr}`,
+    );
+  }
 }
 
 async function createScratchDir(label: string): Promise<string> {
@@ -160,7 +182,9 @@ async function writeOpaquePortraitWithOneTransparentPixel(filePath: string): Pro
   }
   // …except a single transparent corner pixel — weak alpha gate would pass.
   raw[3] = 0;
-  const buffer = await sharp(raw, { raw: { width, height, channels: 4 } }).png().toBuffer();
+  const buffer = await sharp(raw, { raw: { width, height, channels: 4 } })
+    .png()
+    .toBuffer();
   await fs.mkdir(path.dirname(filePath), { recursive: true });
   await fs.writeFile(filePath, buffer);
   return {
@@ -172,9 +196,52 @@ async function writeOpaquePortraitWithOneTransparentPixel(filePath: string): Pro
 
 afterEach(async () => {
   await Promise.all(
+    temporaryFiles.splice(0).map(async (filePath) => {
+      try {
+        await fs.rm(filePath, { force: true, recursive: true });
+      } catch {
+        // best-effort cleanup
+      }
+    }),
+  );
+  await Promise.all(
     temporaryDirectories.splice(0).map((directory) => fs.rm(directory, { recursive: true })),
   );
+  // Remove empty evidence dirs created only for tests (never leave fabricated claims).
+  for (const evidenceRoot of [rightsEvidenceRoot, releaseEvidenceRoot]) {
+    try {
+      const entries = await fs.readdir(evidenceRoot);
+      if (entries.length === 0) await fs.rmdir(evidenceRoot);
+    } catch {
+      // absent is fine
+    }
+  }
 });
+
+async function writeTemporaryEvidenceFile(
+  directory: string,
+  fileName: string,
+  contents: string,
+): Promise<{ relativePath: string; sha256: string; absolutePath: string }> {
+  await fs.mkdir(directory, { recursive: true });
+  const absolutePath = path.join(directory, fileName);
+  const buffer = Buffer.from(contents, "utf8");
+  await fs.writeFile(absolutePath, buffer);
+  temporaryFiles.push(absolutePath);
+  return {
+    absolutePath,
+    relativePath: path.relative(workspaceRoot, absolutePath).split(path.sep).join("/"),
+    sha256: crypto.createHash("sha256").update(buffer).digest("hex"),
+  };
+}
+
+async function loadAuditModule(): Promise<{
+  auditAssetIntake: (options?: Record<string, unknown>) => Promise<AuditReport>;
+}> {
+  return (await import(pathToFileURL(auditScript).href)) as {
+    auditAssetIntake: (options?: Record<string, unknown>) => Promise<AuditReport>;
+  };
+}
 
 describe("two-chapter visual asset intake", () => {
   it("validates every present visual and keeps real missing deliveries explicit", async () => {
@@ -199,6 +266,9 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.checks.sha256).toBe(26);
     expect(result.report.checks.attribution).toBe(43);
     expect(result.report.checks.runtimeLedgerRows).toBe(25);
+    expect(result.report.checks.rightsEvidence).toBe(0);
+    expect(result.report.checks.gapResolutions).toBe(0);
+    expect(result.report.checks.productionTruth).toBe(41);
     // Eight formal suming portraits reuse the calibrated matte gate.
     expect(result.report.checks.portraitMatte).toBe(8);
     expect(result.report.checks.reverseCoverage).toBeGreaterThan(0);
@@ -250,7 +320,7 @@ describe("two-chapter visual asset intake", () => {
     const missingPortrait = result.report.releaseBlockers.find(
       (blocker) => blocker.assetId === "chen-jia-neutral",
     );
-    expect(missingPortrait).toEqual({
+    expect(missingPortrait).toMatchObject({
       assetId: "chen-jia-neutral",
       path: null,
       reasons: ["file missing", "qualityStatus=missing", "rightsStatus=pending"],
@@ -287,29 +357,76 @@ describe("two-chapter visual asset intake", () => {
     expect(archiveIds.map((archiveId) => `prop-${archiveId}`)).toEqual([...FROZEN_PROP_IDS]);
 
     // Audit module export must stay aligned with this frozen contract.
-    const exportCheck = await new Promise<{ exitCode: number; stdout: string }>((resolve, reject) => {
-      const child = spawn(
-        process.execPath,
-        [
-          "--input-type=module",
-          "-e",
-          `import { FROZEN_REQUIRED_MISSING_IDS } from ${JSON.stringify(auditScript)}; process.stdout.write(JSON.stringify(FROZEN_REQUIRED_MISSING_IDS));`,
-        ],
-        { cwd: workspaceRoot, stdio: ["ignore", "pipe", "pipe"] },
-      );
-      let stdout = "";
-      child.stdout.setEncoding("utf8");
-      child.stdout.on("data", (chunk: string) => {
-        stdout += chunk;
-      });
-      child.once("error", reject);
-      child.once("close", (code) => {
-        resolve({ exitCode: code ?? 1, stdout });
-      });
-    });
+    const exportCheck = await new Promise<{ exitCode: number; stdout: string }>(
+      (resolve, reject) => {
+        const child = spawn(
+          process.execPath,
+          [
+            "--input-type=module",
+            "-e",
+            `import { FROZEN_REQUIRED_MISSING_IDS } from ${JSON.stringify(auditScript)}; process.stdout.write(JSON.stringify(FROZEN_REQUIRED_MISSING_IDS));`,
+          ],
+          { cwd: workspaceRoot, stdio: ["ignore", "pipe", "pipe"] },
+        );
+        let stdout = "";
+        child.stdout.setEncoding("utf8");
+        child.stdout.on("data", (chunk: string) => {
+          stdout += chunk;
+        });
+        child.once("error", reject);
+        child.once("close", (code) => {
+          resolve({ exitCode: code ?? 1, stdout });
+        });
+      },
+    );
     expect(exportCheck.exitCode).toBe(0);
     expect(JSON.parse(exportCheck.stdout)).toEqual([...FROZEN_REQUIRED_MISSING_IDS]);
   });
+
+  it("ignores intake false for truth-required assets and formal production gaps", async () => {
+    const temporaryDirectory = await createScratchDir("truth-required-false");
+    const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
+      assets: Array<{ id: string; requiredForProduction: boolean }>;
+      gaps: Array<{ id: string; requiredForProduction: boolean }>;
+    };
+    for (const assetId of ["suming-shame", "chen-jia-neutral"]) {
+      const asset = intake.assets.find((candidate) => candidate.id === assetId);
+      expect(asset).toBeDefined();
+      asset!.requiredForProduction = false;
+    }
+    const rightsGap = intake.gaps.find((gap) => gap.id === "gap-commercial-rights-evidence");
+    expect(rightsGap).toBeDefined();
+    rightsGap!.requiredForProduction = false;
+    const malformedPath = path.join(temporaryDirectory, "VISUAL-ASSET-INTAKE.json");
+    await fs.writeFile(malformedPath, `${JSON.stringify(intake, null, 2)}\n`, "utf8");
+
+    const result = await runAudit([
+      "--mode=production",
+      "--manifest",
+      toWorkspaceRelative(malformedPath),
+    ]);
+
+    expect(result.exitCode).toBe(1);
+    expect(result.report.decision).toBe("blocked");
+    expect(result.report.errors).toEqual([]);
+    expect(result.report.summary.releaseBlockers).toBe(41);
+    expect(result.report.checks.portraitMatte).toBe(8);
+    for (const requiredId of [
+      "suming-shame",
+      "chen-jia-neutral",
+      "gap-commercial-rights-evidence",
+    ]) {
+      const blocker = result.report.releaseBlockers.find((entry) => entry.assetId === requiredId);
+      expect(blocker, `${requiredId} must remain blocked by independent truth`).toBeDefined();
+      expect(blocker?.truthSources.length).toBeGreaterThan(0);
+      expect(
+        result.report.warnings.some(
+          (warning) =>
+            warning.assetId === requiredId && warning.message.includes("non-authoritative"),
+        ),
+      ).toBe(true);
+    }
+  }, 60_000);
 
   it("locates duplicate IDs and paths in a malformed intake under workspace scratch", async () => {
     const temporaryDirectory = await createScratchDir("duplicate");
@@ -346,29 +463,18 @@ describe("two-chapter visual asset intake", () => {
     const temporaryDirectory = await createScratchDir("weak-alpha");
     const portraitPath = path.join(temporaryDirectory, "fake-production-portrait.png");
     const image = await writeOpaquePortraitWithOneTransparentPixel(portraitPath);
-    // Full intake keeps reverse-coverage truth; append a production portrait that
-    // would pass a weak "any transparent pixel" check but must fail matte.
+    // Replace a truth-required production portrait. Setting the intake boolean
+    // false must not disable the independent portrait-matte production contract.
     const fullIntake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
       assets: Record<string, unknown>[];
     };
-    fullIntake.assets.push({
-      id: "fake-production-portrait",
-      kind: "portrait",
-      contract: "portrait-runtime-2x3",
-      usage: ["negative-test bypass of weak alpha gate"],
+    const target = fullIntake.assets.find((asset) => asset.id === "suming-shame");
+    expect(target).toBeDefined();
+    Object.assign(target!, {
       path: toWorkspaceRelative(portraitPath),
-      fileStatus: "present",
-      qualityStatus: "production_ready",
-      rightsStatus: "pending",
-      requiredForProduction: true,
+      requiredForProduction: false,
       sha256: image.sha256,
       bytes: image.bytes,
-      source: {
-        type: "owner_generated_ai",
-        owner: "project",
-        evidence: "tests/unit/content-assets.test.ts",
-      },
-      notes: "Must fail strict portrait matte gate.",
     });
 
     const malformedPath = path.join(temporaryDirectory, "VISUAL-ASSET-INTAKE.json");
@@ -388,26 +494,49 @@ describe("two-chapter visual asset intake", () => {
       error.message.includes("portrait matte gate"),
     );
     expect(matteErrors.length).toBeGreaterThan(0);
-    expect(matteErrors.every((error) => error.assetId === "fake-production-portrait")).toBe(true);
+    expect(matteErrors.every((error) => error.assetId === "suming-shame")).toBe(true);
     // Weak "any transparent pixel" gate would have accepted this fixture.
     expect(matteErrors.map((error) => error.message).join("\n")).toMatch(
       /transparent coverage|background corner probes|subject coverage|top-band/i,
     );
   }, 60_000);
 
-  it("rejects rightsStatus=cleared with pending/unassigned/placeholder provenance", async () => {
+  it("rejects cleared rights with arbitrary source text and malformed structured evidence", async () => {
     const temporaryDirectory = await createScratchDir("cleared-rights");
     const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
       assets: Array<Record<string, unknown>>;
+      rightsEvidence: Array<Record<string, unknown>>;
+      gapResolutions: Array<Record<string, unknown>>;
     };
     const target = intake.assets.find((asset) => asset.id === "suming-base");
     expect(target).toBeDefined();
     target!.rightsStatus = "cleared";
     target!.source = {
-      type: "pending",
-      owner: "unassigned",
-      evidence: "not_yet_supplied",
+      type: "owner_generated_ai",
+      owner: "project",
+      evidence: "ok",
     };
+    intake.rightsEvidence = [
+      {
+        assetId: "suming-base",
+        kind: "pending",
+        ownerOrLicensor: "unassigned",
+        reference: "ok",
+        reviewedAt: "tbd",
+        reviewer: "self",
+        sha256: "not-a-hash",
+      },
+      {
+        assetId: "suming-base",
+        kind: "commercial_license",
+        ownerOrLicensor: "Project owner",
+        reference:
+          "https://example.com/repository/packages/content/assets/VISUAL-ASSET-INTAKE.json",
+        reviewedAt: "2026-07-15",
+        reviewer: "rights-reviewer",
+        sha256: "a".repeat(64),
+      },
+    ];
     const malformedPath = path.join(temporaryDirectory, "VISUAL-ASSET-INTAKE.json");
     await fs.writeFile(malformedPath, `${JSON.stringify(intake, null, 2)}\n`, "utf8");
 
@@ -423,11 +552,276 @@ describe("two-chapter visual asset intake", () => {
     const messages = result.report.errors.map((error) => error.message);
     expect(messages).toEqual(
       expect.arrayContaining([
-        expect.stringContaining("rightsStatus=cleared forbids source.type=pending"),
-        expect.stringContaining("rightsStatus=cleared forbids source.owner=unassigned"),
-        expect.stringContaining("rightsStatus=cleared requires non-placeholder source.evidence"),
+        expect.stringContaining("rights evidence kind must be one of"),
+        expect.stringContaining("ownerOrLicensor must identify"),
+        expect.stringContaining("not a placeholder"),
+        expect.stringContaining("reviewedAt must be a real UTC YYYY-MM-DD date"),
+        expect.stringContaining("reviewer must identify the human reviewer"),
+        expect.stringContaining("HTTPS URLs are provenance only"),
+        expect.stringContaining("requires at least one valid structured rightsEvidence record"),
       ]),
     );
+  }, 60_000);
+
+  it("keeps all three formal gaps blocked when status is flipped to resolved without evidence", async () => {
+    const temporaryDirectory = await createScratchDir("gap-self-resolved");
+    const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
+      gaps: Array<{ id: string; status: string }>;
+      gapResolutions: unknown[];
+    };
+    expect(intake.gapResolutions).toEqual([]);
+    for (const gapId of [
+      "gap-background-shot-list",
+      "gap-npc-mood-matrix",
+      "gap-commercial-rights-evidence",
+    ]) {
+      const gap = intake.gaps.find((candidate) => candidate.id === gapId);
+      expect(gap).toBeDefined();
+      gap!.status = "resolved";
+    }
+    const malformedPath = path.join(temporaryDirectory, "VISUAL-ASSET-INTAKE.json");
+    await fs.writeFile(malformedPath, `${JSON.stringify(intake, null, 2)}\n`, "utf8");
+
+    const result = await runAudit([
+      "--mode=production",
+      "--manifest",
+      toWorkspaceRelative(malformedPath),
+    ]);
+
+    expect(result.exitCode).toBe(1);
+    expect(result.report.summary.releaseBlockers).toBe(41);
+    expect(result.report.checks.productionTruth).toBe(41);
+    for (const gapId of [
+      "gap-background-shot-list",
+      "gap-npc-mood-matrix",
+      "gap-commercial-rights-evidence",
+    ]) {
+      const blocker = result.report.releaseBlockers.find((entry) => entry.assetId === gapId);
+      expect(blocker, `${gapId} must remain a production blocker`).toBeDefined();
+      expect(blocker?.reasons.join(" ")).toMatch(/gapResolutions|structured/i);
+      expect(
+        result.report.errors.some(
+          (error) =>
+            error.assetId === gapId &&
+            error.message.includes("non-authoritative without a matching valid gapResolutions"),
+        ),
+      ).toBe(true);
+    }
+  }, 60_000);
+
+  it("rejects future-dated rights evidence and direct HTTPS rights references", async () => {
+    const temporaryDirectory = await createScratchDir("future-https-rights");
+    const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
+      assets: Array<Record<string, unknown>>;
+      rightsEvidence: Array<Record<string, unknown>>;
+    };
+    const target = intake.assets.find((asset) => asset.id === "suming-base");
+    expect(target).toBeDefined();
+    target!.rightsStatus = "cleared";
+    target!.source = {
+      type: "owner_generated_ai",
+      owner: "project owner",
+      evidence: "session notes on file",
+    };
+    intake.rightsEvidence = [
+      {
+        assetId: "suming-base",
+        kind: "commercial_license",
+        ownerOrLicensor: "Any String LLC",
+        reference: "https://example.com/ok",
+        reviewedAt: "2099-12-31",
+        reviewer: "Any String Reviewer",
+        sha256: "b".repeat(64),
+      },
+    ];
+    const malformedPath = path.join(temporaryDirectory, "VISUAL-ASSET-INTAKE.json");
+    await fs.writeFile(malformedPath, `${JSON.stringify(intake, null, 2)}\n`, "utf8");
+
+    const result = await runAudit([
+      "--mode=intake",
+      "--manifest",
+      toWorkspaceRelative(malformedPath),
+      "--runtime-ledger",
+      "none",
+    ]);
+
+    expect(result.exitCode).toBe(1);
+    const messages = result.report.errors.map((error) => error.message).join("\n");
+    expect(messages).toMatch(/reviewedAt must be a real UTC YYYY-MM-DD date not later than today/i);
+    expect(messages).toMatch(/HTTPS URLs are provenance only/i);
+    expect(messages).toMatch(/requires at least one valid structured rightsEvidence record/i);
+  }, 60_000);
+
+  it("rejects rights-evidence symlinks that resolve to the intake", async () => {
+    const temporaryDirectory = await createScratchDir("rights-symlink");
+    await fs.mkdir(rightsEvidenceRoot, { recursive: true });
+    const symlinkPath = path.join(rightsEvidenceRoot, "audit-self-ref.json");
+    await fs.symlink(
+      path.join(workspaceRoot, "packages/content/assets/VISUAL-ASSET-INTAKE.json"),
+      symlinkPath,
+    );
+    temporaryFiles.push(symlinkPath);
+
+    const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
+      assets: Array<Record<string, unknown>>;
+      rightsEvidence: Array<Record<string, unknown>>;
+    };
+    const target = intake.assets.find((asset) => asset.id === "suming-base");
+    expect(target).toBeDefined();
+    target!.rightsStatus = "cleared";
+    target!.source = {
+      type: "owner_generated_ai",
+      owner: "project owner",
+      evidence: "session notes on file",
+    };
+    intake.rightsEvidence = [
+      {
+        assetId: "suming-base",
+        kind: "project_ownership",
+        ownerOrLicensor: "Project owner",
+        reference: "packages/content/assets/rights-evidence/audit-self-ref.json",
+        reviewedAt: "2026-07-15",
+        reviewer: "rights-reviewer",
+        sha256: "c".repeat(64),
+      },
+    ];
+    const malformedPath = path.join(temporaryDirectory, "VISUAL-ASSET-INTAKE.json");
+    await fs.writeFile(malformedPath, `${JSON.stringify(intake, null, 2)}\n`, "utf8");
+
+    const result = await runAudit([
+      "--mode=intake",
+      "--manifest",
+      toWorkspaceRelative(malformedPath),
+      "--runtime-ledger",
+      "none",
+    ]);
+
+    expect(result.exitCode).toBe(1);
+    expect(result.report.errors.map((error) => error.message).join("\n")).toMatch(
+      /must not be a symlink/i,
+    );
+    expect(result.report.checks.rightsEvidence).toBe(0);
+  }, 60_000);
+
+  it("rejects missing, non-regular, and SHA-mismatched local rights evidence", async () => {
+    const temporaryDirectory = await createScratchDir("rights-file-failures");
+    await fs.mkdir(rightsEvidenceRoot, { recursive: true });
+    const evidence = await writeTemporaryEvidenceFile(
+      rightsEvidenceRoot,
+      "temp-mismatch.txt",
+      "actual-bytes-for-mismatch-test\n",
+    );
+    const directoryAsReference = path.join(rightsEvidenceRoot, "not-a-file-dir");
+    await fs.mkdir(directoryAsReference, { recursive: true });
+    temporaryFiles.push(directoryAsReference);
+
+    const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
+      assets: Array<Record<string, unknown>>;
+      rightsEvidence: Array<Record<string, unknown>>;
+    };
+    const target = intake.assets.find((asset) => asset.id === "suming-base");
+    expect(target).toBeDefined();
+    target!.rightsStatus = "cleared";
+    target!.source = {
+      type: "owner_generated_ai",
+      owner: "project owner",
+      evidence: "session notes on file",
+    };
+    intake.rightsEvidence = [
+      {
+        assetId: "suming-base",
+        kind: "project_ownership",
+        ownerOrLicensor: "Project owner",
+        reference: "packages/content/assets/rights-evidence/does-not-exist.txt",
+        reviewedAt: "2026-07-15",
+        reviewer: "rights-reviewer",
+        sha256: "d".repeat(64),
+      },
+      {
+        assetId: "suming-base",
+        kind: "commercial_license",
+        ownerOrLicensor: "Project owner",
+        reference: "packages/content/assets/rights-evidence/not-a-file-dir",
+        reviewedAt: "2026-07-15",
+        reviewer: "rights-reviewer",
+        sha256: "e".repeat(64),
+      },
+      {
+        assetId: "suming-base",
+        kind: "generation_terms",
+        ownerOrLicensor: "Project owner",
+        reference: evidence.relativePath,
+        reviewedAt: "2026-07-15",
+        reviewer: "rights-reviewer",
+        sha256: "f".repeat(64),
+      },
+    ];
+    const malformedPath = path.join(temporaryDirectory, "VISUAL-ASSET-INTAKE.json");
+    await fs.writeFile(malformedPath, `${JSON.stringify(intake, null, 2)}\n`, "utf8");
+
+    const result = await runAudit([
+      "--mode=intake",
+      "--manifest",
+      toWorkspaceRelative(malformedPath),
+      "--runtime-ledger",
+      "none",
+    ]);
+
+    expect(result.exitCode).toBe(1);
+    const messages = result.report.errors.map((error) => error.message).join("\n");
+    expect(messages).toMatch(/missing or unreadable|unsafe or unreadable/i);
+    expect(messages).toMatch(/non-symlink regular file/i);
+    expect(messages).toMatch(/sha256 mismatch/i);
+    expect(result.report.checks.rightsEvidence).toBe(0);
+  }, 60_000);
+
+  it("accepts temporary local rights evidence with matching hash and injected valid date", async () => {
+    const temporaryDirectory = await createScratchDir("rights-positive");
+    const evidence = await writeTemporaryEvidenceFile(
+      rightsEvidenceRoot,
+      "temp-positive-clearance.txt",
+      "temporary local rights evidence for gate contract only\n",
+    );
+    const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
+      assets: Array<Record<string, unknown>>;
+      rightsEvidence: Array<Record<string, unknown>>;
+      gapResolutions: Array<Record<string, unknown>>;
+    };
+    const target = intake.assets.find((asset) => asset.id === "suming-base");
+    expect(target).toBeDefined();
+    target!.rightsStatus = "cleared";
+    target!.source = {
+      type: "owner_generated_ai",
+      owner: "project owner",
+      evidence: "reviewed local evidence file",
+    };
+    intake.rightsEvidence = [
+      {
+        assetId: "suming-base",
+        kind: "project_ownership",
+        ownerOrLicensor: "SupaLuv project owner",
+        reference: evidence.relativePath,
+        reviewedAt: "2026-07-15",
+        reviewer: "Release rights reviewer",
+        sha256: evidence.sha256,
+      },
+    ];
+    const malformedPath = path.join(temporaryDirectory, "VISUAL-ASSET-INTAKE.json");
+    await fs.writeFile(malformedPath, `${JSON.stringify(intake, null, 2)}\n`, "utf8");
+
+    const { auditAssetIntake } = await loadAuditModule();
+    const report = await auditAssetIntake({
+      workspaceRoot,
+      manifestPath: toWorkspaceRelative(malformedPath),
+      runtimeLedgerPath: null,
+      mode: "intake",
+      utcToday: "2026-07-16",
+    });
+
+    expect(report.pass).toBe(true);
+    expect(report.errors).toEqual([]);
+    expect(report.checks.rightsEvidence).toBe(1);
+    expect(report.checks.pathSafety).toBeGreaterThan(0);
   }, 60_000);
 
   it("rejects absolute and .. path traversal for ledger/asset paths", async () => {
@@ -470,6 +864,40 @@ describe("two-chapter visual asset intake", () => {
     );
   }, 60_000);
 
+  it("fails closed when a nonexistent nested report path crosses a symlink", async () => {
+    const temporaryDirectory = await createScratchDir("report-symlink");
+    const outsideDirectory = await fs.mkdtemp(path.join(os.tmpdir(), "supaluv-report-escape-"));
+    temporaryDirectories.push(outsideDirectory);
+    const escapeLink = path.join(temporaryDirectory, "escape");
+    await fs.symlink(outsideDirectory, escapeLink, "dir");
+    const reportPath = toWorkspaceRelative(path.join(escapeLink, "nested", "report.json"));
+
+    const result = await runAuditProcess(["--mode=intake", "--report", reportPath]);
+
+    expect(result.exitCode).toBe(1);
+    expect(result.stderr).toMatch(/asset audit crashed|resolved path escapes the workspace/i);
+    await expect(fs.access(path.join(outsideDirectory, "nested", "report.json"))).rejects.toThrow(
+      /ENOENT/,
+    );
+  }, 60_000);
+
+  it("safely creates a nonexistent nested report path inside the workspace", async () => {
+    const temporaryDirectory = await createScratchDir("report-contained");
+    const reportPath = path.join(temporaryDirectory, "nested", "deeper", "report.json");
+
+    const result = await runAuditProcess([
+      "--mode=intake",
+      "--report",
+      toWorkspaceRelative(reportPath),
+    ]);
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stderr).not.toMatch(/asset audit crashed|Error:/i);
+    const report = JSON.parse(await fs.readFile(reportPath, "utf8")) as AuditReport;
+    expect(report.pass).toBe(true);
+    expect(report.summary.releaseBlockers).toBe(41);
+  }, 60_000);
+
   it("fails reverse coverage when a frozen missing delivery is deleted from intake", async () => {
     const temporaryDirectory = await createScratchDir("drop-frozen");
     const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
@@ -491,7 +919,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.errors.map((error) => error.message)).toEqual(
       expect.arrayContaining([
         expect.stringContaining(
-          "[chen-jia-neutral] <no-path>: reverse coverage missing intake record (truth source: FROZEN_REQUIRED_MISSING_IDS)",
+          "[chen-jia-neutral] <no-path>: reverse coverage missing intake record",
         ),
       ]),
     );
