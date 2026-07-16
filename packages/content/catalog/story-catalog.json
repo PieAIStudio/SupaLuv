@@ -3,9 +3,9 @@
   "packages": [
     {
       "packageId": "draft-2026-07",
-      "label": "草稿两章 · 2026-07",
+      "label": "草稿三章 · 2026-07",
       "startChapterId": "draft-ch01",
-      "chapterIds": ["draft-ch01", "draft-ch02"]
+      "chapterIds": ["draft-ch01", "draft-ch02", "draft-ch03"]
     }
   ],
   "productionChapters": [
@@ -48,7 +48,8 @@
       "chapterIndex": 2,
       "role": "production",
       "checkpoint": {
-        "kind": "draft_end"
+        "kind": "next_chapter",
+        "nextChapterId": "draft-ch03"
       },
       "inheritVariableNames": [
         "dignity",
@@ -71,6 +72,37 @@
       ],
       "inkFile": "draft-ch02.ink",
       "manifestFile": "draft-ch02-scenes.ts"
+    },
+    {
+      "id": "draft-ch03",
+      "label": "第03章 · 长按七秒",
+      "packageId": "draft-2026-07",
+      "chapterIndex": 3,
+      "role": "production",
+      "checkpoint": {
+        "kind": "draft_end"
+      },
+      "inheritVariableNames": [
+        "dignity",
+        "impulse",
+        "told_breakup_flat",
+        "closed_membership",
+        "budget_900",
+        "paid_snack",
+        "admitted_breakup",
+        "asked_guest",
+        "applied_robot",
+        "clue_subsidy_sms",
+        "clue_rental_receipt",
+        "clue_nda",
+        "clue_pass_sms",
+        "breakup_delivery",
+        "memory_posture",
+        "frontdesk_response",
+        "budget_stance"
+      ],
+      "inkFile": "draft-ch03.ink",
+      "manifestFile": "draft-ch03-scenes.ts"
     }
   ],
   "devChapters": [

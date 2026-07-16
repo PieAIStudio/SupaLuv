@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "packageId": "draft-2026-07",
-  "revision": "640900cb15d51ddd",
+  "revision": "e9ac0f45db481032",
   "nodes": [
     {
       "id": "draft-ch01#scene:d1_chapter_end",
@@ -2253,6 +2253,854 @@
           }
         }
       ]
+    },
+    {
+      "id": "draft-ch03#scene:d3_chapter_end",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "terminal",
+      "stableSceneId": "d3_chapter_end",
+      "title": "屋子里就剩他们两个，一个人，一台机器，和一盏灯。",
+      "excerpt": "屋子里就剩他们两个，一个人，一台机器，和一盏灯。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 357,
+        "endLine": 362
+      },
+      "dialogueLines": [
+        {
+          "text": "屋子里就剩他们两个，一个人，一台机器，和一盏灯。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 359,
+            "endLine": 359
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_mobile_questionnaire",
+      "title": "手机问卷 1/3 · 邻居容忍度。",
+      "excerpt": "手机问卷 1/3 · 邻居容忍度。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 60,
+        "endLine": 139
+      },
+      "dialogueLines": [
+        {
+          "text": "手机问卷 1/3 · 邻居容忍度。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 71,
+            "endLine": 71
+          }
+        },
+        {
+          "text": "手机问卷 2/3 · 是否介意设备高度拟人。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 91,
+            "endLine": 91
+          }
+        },
+        {
+          "text": "手机问卷 3/3 · 独立房间。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 108,
+            "endLine": 108
+          }
+        },
+        {
+          "text": "问卷页缩成一条“稍后再填”。保密承诺第七条仍加着粗。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 132,
+            "endLine": 132
+          }
+        },
+        {
+          "text": "三道题交完，提交钮还在下一屏等他。苏明把手机屏幕亮度又调暗了一格。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 134,
+            "endLine": 134
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s001",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "entry",
+      "stableSceneId": "dch03_s001",
+      "title": "匹配问卷来的时候，苏明正在超市收银台后头扫二维码。手机屏幕点",
+      "excerpt": "匹配问卷来的时候，苏明正在超市收银台后头扫二维码。手机屏幕点亮，推送通知一行字：“您的个性化匹配问卷已生成，请于72小时内完成填写。”旁边一个大姐脸型那一页，可以上传照片让系统自动生成，也可以在基础模板上手动微调。苏明的手指在相册图标上停了好几秒。相册里有几张没删干净的合照——跟陈佳的，手机换过一次，同步回来了，当时没注意，后来删了大部分，剩",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 33,
+        "endLine": 39
+      },
+      "dialogueLines": [
+        {
+          "text": "匹配问卷来的时候，苏明正在超市收银台后头扫二维码。手机屏幕点亮，推送通知一行字：“您的个性化匹配问卷已生成，请于72小时内完成填写。”旁边一个大姐脸型那一页，可以上传照片让系统自动生成，也可以在基础模板上手动微调。苏明的手指在相册图标上停了好几秒。相册里有几张没删干净的合照——跟陈佳的，手机换过一次，同步回来了，当时没注意，后来删了大部分，剩",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 35,
+            "endLine": 35
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s002",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s002",
+      "title": "他最终没有点开相册图标。选了基础脸17号，用手指一点一点往下",
+      "excerpt": "他最终没有点开相册图标。选了基础脸17号，用手指一点一点往下调：鼻梁调低了那么一点，眼睛调成上挑，调完了盯着预览图看了好就在这时，手机震了一下。陈佳。“我有件外套放那边了，什么时候方便我过来拿一下。”",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 40,
+        "endLine": 46
+      },
+      "dialogueLines": [
+        {
+          "text": "他最终没有点开相册图标。选了基础脸17号，用手指一点一点往下调：鼻梁调低了那么一点，眼睛调成上挑，调完了盯着预览图看了好就在这时，手机震了一下。陈佳。“我有件外套放那边了，什么时候方便我过来拿一下。”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 42,
+            "endLine": 42
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s003",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s003",
+      "title": "苏明看了看屏幕上那张还在预览中的脸，又看了看微信里这个名字，",
+      "excerpt": "苏明看了看屏幕上那张还在预览中的脸，又看了看微信里这个名字，想了一会儿，打了三个字：“明天吧。”发完继续调鼻梁。性格页全是密密麻麻的滑块，顺从度、依恋度、洁癖、控制欲、争吵频率，一条一条排开。每个滑块下面都挂苏明盯着这条评价看了好一会儿。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 47,
+        "endLine": 59
+      },
+      "dialogueLines": [
+        {
+          "text": "苏明看了看屏幕上那张还在预览中的脸，又看了看微信里这个名字，想了一会儿，打了三个字：“明天吧。”发完继续调鼻梁。性格页全是密密麻麻的滑块，顺从度、依恋度、洁癖、控制欲、争吵频率，一条一条排开。每个滑块下面都挂苏明盯着这条评价看了好一会儿。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 49,
+            "endLine": 49
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s004",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s004",
+      "title": "他把“记仇时长”的滑块往永久拖了一下，又默默拖了回来，停在零",
+      "excerpt": "他把“记仇时长”的滑块往永久拖了一下，又默默拖了回来，停在零秒。顺从度拉满，控制欲清零。预览生成感官偏好那一页，才真正让他手心冒起了汗。足弓高度、脚趾形态、皮肤纹理、反馈灵敏度——这些他从来不敢跟任何一个活人提起的东西，在这张表格里手机这时候又震了一下。陈佳：“能不能今天？那件外套比较急。”",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 140,
+        "endLine": 146
+      },
+      "dialogueLines": [
+        {
+          "text": "他把“记仇时长”的滑块往永久拖了一下，又默默拖了回来，停在零秒。顺从度拉满，控制欲清零。预览生成感官偏好那一页，才真正让他手心冒起了汗。足弓高度、脚趾形态、皮肤纹理、反馈灵敏度——这些他从来不敢跟任何一个活人提起的东西，在这张表格里手机这时候又震了一下。陈佳：“能不能今天？那件外套比较急。”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 142,
+            "endLine": 142
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s005",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s005",
+      "title": "苏明把感官偏好那页提交了，然后回陈佳：“行，傍晚。”陈佳来的",
+      "excerpt": "苏明把感官偏好那页提交了，然后回陈佳：“行，傍晚。”陈佳来的时候是下午六点多，苏明还没下班，请了半小时早退，老板娘嘴里念叨着让他改天多还一个钟，目送两个人在石家小楼门口碰上，陈佳从包里把那件外套递给苏明，苏明这才想起来，是她几个月前落在他原来那“谢谢你保管。”“没事。”苏明把外套还给她。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 147,
+        "endLine": 153
+      },
+      "dialogueLines": [
+        {
+          "text": "苏明把感官偏好那页提交了，然后回陈佳：“行，傍晚。”陈佳来的时候是下午六点多，苏明还没下班，请了半小时早退，老板娘嘴里念叨着让他改天多还一个钟，目送两个人在石家小楼门口碰上，陈佳从包里把那件外套递给苏明，苏明这才想起来，是她几个月前落在他原来那“谢谢你保管。”“没事。”苏明把外套还给她。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 149,
+            "endLine": 149
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s006",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s006",
+      "title": "两个人都没先走，都在等对方先走。巷子里这个时间有点吵，有人推",
+      "excerpt": "两个人都没先走，都在等对方先走。巷子里这个时间有点吵，有人推着三轮车过来，两人各往一边让了让，三还是陈佳先开口：“你住这边了？”“对。”“挺好的。”她说完转身走了，苏明站在门口目送，没看她走进巷子，转身进楼，上了3F，打开房间门——签约培训的页",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 154,
+        "endLine": 165
+      },
+      "dialogueLines": [
+        {
+          "text": "两个人都没先走，都在等对方先走。巷子里这个时间有点吵，有人推着三轮车过来，两人各往一边让了让，三还是陈佳先开口：“你住这边了？”“对。”“挺好的。”她说完转身走了，苏明站在门口目送，没看她走进巷子，转身进楼，上了3F，打开房间门——签约培训的页",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 156,
+            "endLine": 156
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s007",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s007",
+      "title": "《对外统一口径建议话术》，三选一：美术用品、健身假人、医疗康",
+      "excerpt": "《对外统一口径建议话术》，三选一：美术用品、健身假人、医疗康复道具。他把屏幕往旁边扫了一眼，视线结业考试错了两道，重考才过。这家公司连怎么撒谎都替人想好了标准答案，诚实这个东西，在这里是不及格等货的两周，物流页面被他刷出了包浆。“排产中”看了四天，“质检中”又看了三天，第三件货在中途卡在“安检查验中”，这一卡就是两天。苏明底下有群友补充：他那件当年被开箱验过，安检小哥检查完了，重新给封好，淡淡说了一句：“胶带我给你缠",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 166,
+        "endLine": 172
+      },
+      "dialogueLines": [
+        {
+          "text": "《对外统一口径建议话术》，三选一：美术用品、健身假人、医疗康复道具。他把屏幕往旁边扫了一眼，视线结业考试错了两道，重考才过。这家公司连怎么撒谎都替人想好了标准答案，诚实这个东西，在这里是不及格等货的两周，物流页面被他刷出了包浆。“排产中”看了四天，“质检中”又看了三天，第三件货在中途卡在“安检查验中”，这一卡就是两天。苏明底下有群友补充：他那件当年被开箱验过，安检小哥检查完了，重新给封好，淡淡说了一句：“胶带我给你缠",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 168,
+            "endLine": 168
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s008",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s008",
+      "title": "三天后货物恢复派送。到货那天，苏明跟老板娘谎称亲戚来，请了半",
+      "excerpt": "三天后货物恢复派送。到货那天，苏明跟老板娘谎称亲戚来，请了半小时假。“你哪来那么多亲戚，三天两头——去吧去吧，多一秒扣钱。”她一边说一边把他往门外推。半小时刚过没几分钟，老板娘短信追来：“我这边缺人。”苏明捏着手机回了个“马上”，眼睛一直盯着巷口快递员卸下三个大箱子，累得只吐一个字：“重。”撕回执的时候顺嘴调侃：“兄弟，这假人比真人金贵吧，",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 173,
+        "endLine": 179
+      },
+      "dialogueLines": [
+        {
+          "text": "三天后货物恢复派送。到货那天，苏明跟老板娘谎称亲戚来，请了半小时假。“你哪来那么多亲戚，三天两头——去吧去吧，多一秒扣钱。”她一边说一边把他往门外推。半小时刚过没几分钟，老板娘短信追来：“我这边缺人。”苏明捏着手机回了个“马上”，眼睛一直盯着巷口快递员卸下三个大箱子，累得只吐一个字：“重。”撕回执的时候顺嘴调侃：“兄弟，这假人比真人金贵吧，",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 175,
+            "endLine": 175
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s009",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s009",
+      "title": "纸箱上印着“健身假人 / 模特道具”，字大得生怕别人看不见—",
+      "excerpt": "纸箱上印着“健身假人 / 模特道具”，字大得生怕别人看不见——这是这行的门道：与其藏着掖着，不如就在这时，三个初中女生放学路过，背着书包，看见三个大箱子堆在巷口，其中一个往前走了两步：“要帮忙吗？”苏明刚想说不用，雷欧从他旁边闪出来，已经把最轻的那只箱子叫她们帮着扶稳了：“谢谢，上楼，小心点！楼梯窄，拐角紧，三箱往上搬，卡了两回。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 180,
+        "endLine": 186
+      },
+      "dialogueLines": [
+        {
+          "text": "纸箱上印着“健身假人 / 模特道具”，字大得生怕别人看不见——这是这行的门道：与其藏着掖着，不如就在这时，三个初中女生放学路过，背着书包，看见三个大箱子堆在巷口，其中一个往前走了两步：“要帮忙吗？”苏明刚想说不用，雷欧从他旁边闪出来，已经把最轻的那只箱子叫她们帮着扶稳了：“谢谢，上楼，小心点！楼梯窄，拐角紧，三箱往上搬，卡了两回。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 182,
+            "endLine": 182
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s010",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s010",
+      "title": "初中女生三个人扶着中间那只箱子，配合着往上挪，苏明踩在她们前",
+      "excerpt": "初中女生三个人扶着中间那只箱子，配合着往上挪，苏明踩在她们前面。转到二楼和三楼之间那个弯角，空间侧面的纸板豁开了。一只手从豁口弹了出来，手指张开，仰着，停在空中。三个女生愣了两秒，尖叫还没来得及喊出来——箱子没稳住，又往下错了一截，豁口扩大，躯干上半段跟着滑尖叫这次真的来了，而且是三个人同时的。三人踩着彼此往楼梯下冲，有人踩了另一个人的脚，有人撞了一下",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 187,
+        "endLine": 193
+      },
+      "dialogueLines": [
+        {
+          "text": "初中女生三个人扶着中间那只箱子，配合着往上挪，苏明踩在她们前面。转到二楼和三楼之间那个弯角，空间侧面的纸板豁开了。一只手从豁口弹了出来，手指张开，仰着，停在空中。三个女生愣了两秒，尖叫还没来得及喊出来——箱子没稳住，又往下错了一截，豁口扩大，躯干上半段跟着滑尖叫这次真的来了，而且是三个人同时的。三人踩着彼此往楼梯下冲，有人踩了另一个人的脚，有人撞了一下",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 189,
+            "endLine": 189
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s011",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s011",
+      "title": "苏明站在半截楼梯上，一手扶着箱子，一手把那只手往里按，来不及",
+      "excerpt": "苏明站在半截楼梯上，一手扶着箱子，一手把那只手往里按，来不及解释，来不及做任何事。他把头压低，盯“有个手！”“还有胸！是真的！”“打110！”楼道里顿了一下。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 194,
+        "endLine": 200
+      },
+      "dialogueLines": [
+        {
+          "text": "苏明站在半截楼梯上，一手扶着箱子，一手把那只手往里按，来不及解释，来不及做任何事。他把头压低，盯“有个手！”“还有胸！是真的！”“打110！”楼道里顿了一下。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 196,
+            "endLine": 196
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s012",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s012",
+      "title": "雷欧从苏明身边往楼梯口慢慢挪了一步，眼神往巷口方向瞄了一下，",
+      "excerpt": "雷欧从苏明身边往楼梯口慢慢挪了一步，眼神往巷口方向瞄了一下，低声说：“……我学生签证，警察那边我苏明没说话，雷欧又往楼梯口退了一步。“我在楼道口等你。”“你去吧。”雷欧下楼了，脚步很轻。苏明一个人扛着箱子，把那只手使劲往里按进去。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 201,
+        "endLine": 207
+      },
+      "dialogueLines": [
+        {
+          "text": "雷欧从苏明身边往楼梯口慢慢挪了一步，眼神往巷口方向瞄了一下，低声说：“……我学生签证，警察那边我苏明没说话，雷欧又往楼梯口退了一步。“我在楼道口等你。”“你去吧。”雷欧下楼了，脚步很轻。苏明一个人扛着箱子，把那只手使劲往里按进去。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 203,
+            "endLine": 203
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s013",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s013",
+      "title": "不到五分钟，黄老太循声从巷口走过来了，手机已经打出去了，是网",
+      "excerpt": "不到五分钟，黄老太循声从巷口走过来了，手机已经打出去了，是网格员小袁的号。巷子里围过来六七个邻居两个便衣警察到了，一个年轻一个老的。老的在外面维持秩序，年轻的跟着苏明上楼。苏明进了房间，把箱子搁下，掏出手机，把心动引擎的测试合同页面给警察看——协议编号、签署时间、“实警察低头看了两眼，抬起头，对着苏明慢慢扬了扬眉毛。意思很明显。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 208,
+        "endLine": 214
+      },
+      "dialogueLines": [
+        {
+          "text": "不到五分钟，黄老太循声从巷口走过来了，手机已经打出去了，是网格员小袁的号。巷子里围过来六七个邻居两个便衣警察到了，一个年轻一个老的。老的在外面维持秩序，年轻的跟着苏明上楼。苏明进了房间，把箱子搁下，掏出手机，把心动引擎的测试合同页面给警察看——协议编号、签署时间、“实警察低头看了两眼，抬起头，对着苏明慢慢扬了扬眉毛。意思很明显。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 210,
+            "endLine": 210
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s014",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s014",
+      "title": "苏明点了点头。警察又扬了扬眉毛。意思还是很明显。苏明又点了点",
+      "excerpt": "苏明点了点头。警察又扬了扬眉毛。意思还是很明显。苏明又点了点头。警察叹了口气：“你是看不懂眼神吗。”",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 215,
+        "endLine": 221
+      },
+      "dialogueLines": [
+        {
+          "text": "苏明点了点头。警察又扬了扬眉毛。意思还是很明显。苏明又点了点头。警察叹了口气：“你是看不懂眼神吗。”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 217,
+            "endLine": 217
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s015",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s015",
+      "title": "苏明：“警官，我能看懂。但我需要你明说，我才有合理的解释给你",
+      "excerpt": "苏明：“警官，我能看懂。但我需要你明说，我才有合理的解释给你。”警察盯着他看了两秒，没接这话，换了个方向：“箱子得开一下。我来核实。”苏明把那只豁开的箱子推过去。警察蹲下来，把豁口撑开，往里看了看，然后伸手捏了一下里头滑出来的手腕他什么都没说。又走到另一只箱子旁边，把顶部划开，翻出里头的腿——大腿、小腿、关节都有包装编号。他拿起来看了一眼",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 222,
+        "endLine": 228
+      },
+      "dialogueLines": [
+        {
+          "text": "苏明：“警官，我能看懂。但我需要你明说，我才有合理的解释给你。”警察盯着他看了两秒，没接这话，换了个方向：“箱子得开一下。我来核实。”苏明把那只豁开的箱子推过去。警察蹲下来，把豁口撑开，往里看了看，然后伸手捏了一下里头滑出来的手腕他什么都没说。又走到另一只箱子旁边，把顶部划开，翻出里头的腿——大腿、小腿、关节都有包装编号。他拿起来看了一眼",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 224,
+            "endLine": 224
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s016",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s016",
+      "title": "第三只箱子他只扫了一眼人头的部分，低头在本子上记了什么，然后",
+      "excerpt": "第三只箱子他只扫了一眼人头的部分，低头在本子上记了什么，然后把本子合上了。“属于合法私人测试设备，我们处理完就撤。”他伸出手，示意苏明先走。走到楼道门口，年轻警察正要往下走——门口挤进来了网格员小袁，黄老太跟在后面，那三个初中女生堵在楼警察被堵住了，叹了口气，转头看向苏明：“你要不跟我去走个过场？”苏明：“我有正规合同，有平台资质，我凭什么做笔录？”",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 229,
+        "endLine": 235
+      },
+      "dialogueLines": [
+        {
+          "text": "第三只箱子他只扫了一眼人头的部分，低头在本子上记了什么，然后把本子合上了。“属于合法私人测试设备，我们处理完就撤。”他伸出手，示意苏明先走。走到楼道门口，年轻警察正要往下走——门口挤进来了网格员小袁，黄老太跟在后面，那三个初中女生堵在楼警察被堵住了，叹了口气，转头看向苏明：“你要不跟我去走个过场？”苏明：“我有正规合同，有平台资质，我凭什么做笔录？”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 231,
+            "endLine": 231
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s017",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s017",
+      "title": "僵住了，谁都没先动。石佩欣从楼上走下来。她在楼道里看了一圈，",
+      "excerpt": "僵住了，谁都没先动。石佩欣从楼上走下来。她在楼道里看了一圈，没说废话，直接开口：“人体模特你们没见过吗？”黄老太：“模特要装电？”石佩欣转头看着她，语气平静：“你去商场，橱窗里那些会走动的模特，里头有没有电机？你举报过商场吗？",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 236,
+        "endLine": 242
+      },
+      "dialogueLines": [
+        {
+          "text": "僵住了，谁都没先动。石佩欣从楼上走下来。她在楼道里看了一圈，没说废话，直接开口：“人体模特你们没见过吗？”黄老太：“模特要装电？”石佩欣转头看着她，语气平静：“你去商场，橱窗里那些会走动的模特，里头有没有电机？你举报过商场吗？",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 238,
+            "endLine": 238
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s018",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s018",
+      "title": "网格员小袁耳根发红，往后退了半步。三个初中女生对视了一眼，悄",
+      "excerpt": "网格员小袁耳根发红，往后退了半步。三个初中女生对视了一眼，悄悄放开了苏明的袖子——她们什么时候抓上去的苏明都不知道。年轻警察把本子插回口袋，朝苏明点了个头，带着老警察下楼走了。人散了。箱子还在楼道里，三部分散着。楼梯口走上来一个人——雷欧，一脸若无其事，好像刚从外面买了瓶水回来，手里确实攥着一罐矿泉水。他看",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 243,
+        "endLine": 249
+      },
+      "dialogueLines": [
+        {
+          "text": "网格员小袁耳根发红，往后退了半步。三个初中女生对视了一眼，悄悄放开了苏明的袖子——她们什么时候抓上去的苏明都不知道。年轻警察把本子插回口袋，朝苏明点了个头，带着老警察下楼走了。人散了。箱子还在楼道里，三部分散着。楼梯口走上来一个人——雷欧，一脸若无其事，好像刚从外面买了瓶水回来，手里确实攥着一罐矿泉水。他看",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 245,
+            "endLine": 245
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s019",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s019",
+      "title": "石佩欣抱着头，在楼道灯下端详了两秒：“做工不错，挺像真人的。",
+      "excerpt": "石佩欣抱着头，在楼道灯下端详了两秒：“做工不错，挺像真人的。”苏明两手抱着胸和腰，用自己的外套裹着，低着头走在最后。三个人踩着旧楼梯上楼，脚步声咯吱咯吱的，谁都没说话。把所有东西放到3F-A门口，当天晚上三个人还是一起吃了饭。饭桌上，石佩欣拿筷子敲了敲碗沿：“人体模特多少钱一个？”",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 250,
+        "endLine": 260
+      },
+      "dialogueLines": [
+        {
+          "text": "石佩欣抱着头，在楼道灯下端详了两秒：“做工不错，挺像真人的。”苏明两手抱着胸和腰，用自己的外套裹着，低着头走在最后。三个人踩着旧楼梯上楼，脚步声咯吱咯吱的，谁都没说话。把所有东西放到3F-A门口，当天晚上三个人还是一起吃了饭。饭桌上，石佩欣拿筷子敲了敲碗沿：“人体模特多少钱一个？”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 252,
+            "endLine": 252
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s020",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s020",
+      "title": "苏明：“……不清楚，代收的，亲戚公司的。”“代收还分三箱。”",
+      "excerpt": "苏明：“……不清楚，代收的，亲戚公司的。”“代收还分三箱。”石佩欣盯着他，“给个能写进亲戚聊天框的说法。”“美术用品，你画画要用。”“我画男的。”她瞥了他一眼，语气里带着点警告，“你那箱子最好别长得像真人。”雷欧举手：“如果长得像真人，我搬走。”",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 261,
+        "endLine": 267
+      },
+      "dialogueLines": [
+        {
+          "text": "苏明：“……不清楚，代收的，亲戚公司的。”“代收还分三箱。”石佩欣盯着他，“给个能写进亲戚聊天框的说法。”“美术用品，你画画要用。”“我画男的。”她瞥了他一眼，语气里带着点警告，“你那箱子最好别长得像真人。”雷欧举手：“如果长得像真人，我搬走。”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 263,
+            "endLine": 263
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s021",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s021",
+      "title": "你敢。房租预付了。”窗外恰好飘进来黄老太的一句话，隔着好几户",
+      "excerpt": "“你敢。房租预付了。”窗外恰好飘进来黄老太的一句话，隔着好几户都听得清清楚楚：“说是模特，哪个模特要装电哟？”三双筷子同时停住了。石佩欣起身把电视音量调大了两格，权当那句话从来没有飘进来过。一桌人各怀鬼胎地把这顿饭吃完了。把所有东西搬进3F-A，雷欧还想凑热闹。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 268,
+        "endLine": 274
+      },
+      "dialogueLines": [
+        {
+          "text": "“你敢。房租预付了。”窗外恰好飘进来黄老太的一句话，隔着好几户都听得清清楚楚：“说是模特，哪个模特要装电哟？”三双筷子同时停住了。石佩欣起身把电视音量调大了两格，权当那句话从来没有飘进来过。一桌人各怀鬼胎地把这顿饭吃完了。把所有东西搬进3F-A，雷欧还想凑热闹。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 270,
+            "endLine": 270
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s022",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s022",
+      "title": "我能帮开箱吗？”“不用，出去。”“万一是炸——”“不是炸弹。",
+      "excerpt": "“我能帮开箱吗？”“不用，出去。”“万一是炸——”“不是炸弹。出去。”门在他脸前锁上了。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 275,
+        "endLine": 281
+      },
+      "dialogueLines": [
+        {
+          "text": "“我能帮开箱吗？”“不用，出去。”“万一是炸——”“不是炸弹。出去。”门在他脸前锁上了。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 277,
+            "endLine": 277
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s023",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s023",
+      "title": "苏明对着说明书准备自己拼，石佩欣站在门口看了一会儿，说她朋友",
+      "excerpt": "苏明对着说明书准备自己拼，石佩欣站在门口看了一会儿，说她朋友让她帮组过美术人台，逻辑一样，她可以两个人对着拼了一个小时。装左臂关节的时候“嘎嘣”一声，苏明吓得手缩回去，脊背一阵发麻，以为弄坏了什么。石佩欣翻了一下说明苏明的心跳才慢慢回来。最后一步：说明书最后一页，加粗：“长按后颈七秒，首次绑定需语音命名。”",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 282,
+        "endLine": 288
+      },
+      "dialogueLines": [
+        {
+          "text": "苏明对着说明书准备自己拼，石佩欣站在门口看了一会儿，说她朋友让她帮组过美术人台，逻辑一样，她可以两个人对着拼了一个小时。装左臂关节的时候“嘎嘣”一声，苏明吓得手缩回去，脊背一阵发麻，以为弄坏了什么。石佩欣翻了一下说明苏明的心跳才慢慢回来。最后一步：说明书最后一页，加粗：“长按后颈七秒，首次绑定需语音命名。”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 284,
+            "endLine": 284
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s024",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s024",
+      "title": "苏明的手指找到后颈那个位置，指腹压上去，在心里开始数：一，二",
+      "excerpt": "苏明的手指找到后颈那个位置，指腹压上去，在心里开始数：一，二，三——数到三，手缩了回来。石佩欣看了一眼机器人，又看了一眼苏明，从门边走进来，蹲下来看了看机器人的领口。“等一下。”她起身然后才是那最后一步。苏明的手指重新压上去，在心里开始数：一，二，三——",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 289,
+        "endLine": 295
+      },
+      "dialogueLines": [
+        {
+          "text": "苏明的手指找到后颈那个位置，指腹压上去，在心里开始数：一，二，三——数到三，手缩了回来。石佩欣看了一眼机器人，又看了一眼苏明，从门边走进来，蹲下来看了看机器人的领口。“等一下。”她起身然后才是那最后一步。苏明的手指重新压上去，在心里开始数：一，二，三——",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 291,
+            "endLine": 291
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s025",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s025",
+      "title": "数到三，手又缩了回来。石佩欣看着他，没说话。苏明深吸一口气，",
+      "excerpt": "数到三，手又缩了回来。石佩欣看着他，没说话。苏明深吸一口气，又把手指压上去，这次没停，一二三四五六七——机器人缓缓睁眼。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 296,
+        "endLine": 302
+      },
+      "dialogueLines": [
+        {
+          "text": "数到三，手又缩了回来。石佩欣看着他，没说话。苏明深吸一口气，又把手指压上去，这次没停，一二三四五六七——机器人缓缓睁眼。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 298,
+            "endLine": 298
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s026",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s026",
+      "title": "睫毛先动，然后是眼睑，然后是瞳孔在灯光下对好焦。停了大约两秒",
+      "excerpt": "睫毛先动，然后是眼睑，然后是瞳孔在灯光下对好焦。停了大约两秒，它开口了，声音比苏明预想的更低一点“你好。”苏明回了一声“你好”，嗓子有点哑。“我的名字是——”",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 303,
+        "endLine": 309
+      },
+      "dialogueLines": [
+        {
+          "text": "睫毛先动，然后是眼睑，然后是瞳孔在灯光下对好焦。停了大约两秒，它开口了，声音比苏明预想的更低一点“你好。”苏明回了一声“你好”，嗓子有点哑。“我的名字是——”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 305,
+            "endLine": 305
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s027",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s027",
+      "title": "它说出了那个名字。陈佳。两个字，被一台机器的嘴说出来，停在屋",
+      "excerpt": "它说出了那个名字。陈佳。两个字，被一台机器的嘴说出来，停在屋子里，苏明愣了好几秒没动。石佩欣抬起头看了一眼苏明，然后问机器人：“这名字……是什么意思？”机器人朱珠的眼睛在石佩欣身上停了一秒，然后把视线移回到苏明脸上。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 310,
+        "endLine": 322
+      },
+      "dialogueLines": [
+        {
+          "text": "它说出了那个名字。陈佳。两个字，被一台机器的嘴说出来，停在屋子里，苏明愣了好几秒没动。石佩欣抬起头看了一眼苏明，然后问机器人：“这名字……是什么意思？”机器人朱珠的眼睛在石佩欣身上停了一秒，然后把视线移回到苏明脸上。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 312,
+            "endLine": 312
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s028",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s028",
+      "title": "苏明：“……就随便取的。”机器人朱珠看着他，专注得不像机器的",
+      "excerpt": "苏明：“……就随便取的。”机器人朱珠看着他，专注得不像机器的眼神，停了一下，才开口：“不是随便取的。这是你前女友的名字。你把我的样子也调成了她。”“我没有。”",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 323,
+        "endLine": 329
+      },
+      "dialogueLines": [
+        {
+          "text": "苏明：“……就随便取的。”机器人朱珠看着他，专注得不像机器的眼神，停了一下，才开口：“不是随便取的。这是你前女友的名字。你把我的样子也调成了她。”“我没有。”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 325,
+            "endLine": 325
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s029",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s029",
+      "title": "你能不能不把我当替代品，而是当成真正一个人？”她盯着他，等他",
+      "excerpt": "“你能不能不把我当替代品，而是当成真正一个人？”她盯着他，等他回答。石佩欣从地上站了起来，往门口走，手指勾住门把手，没有回头。苏明望着那双眼睛，想说什么，嘴张了两下，最后说出来的是：“……好。好好好好好。”\n\n他记得自己没点相册——可机器还是把名字和轮廓认了出来。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 330,
+        "endLine": 349
+      },
+      "dialogueLines": [
+        {
+          "text": "“你能不能不把我当替代品，而是当成真正一个人？”她盯着他，等他回答。石佩欣从地上站了起来，往门口走，手指勾住门把手，没有回头。苏明望着那双眼睛，想说什么，嘴张了两下，最后说出来的是：“……好。好好好好好。”",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 332,
+            "endLine": 332
+          }
+        },
+        {
+          "text": "他记得自己没点相册——可机器还是把名字和轮廓认了出来。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 335,
+            "endLine": 335
+          }
+        },
+        {
+          "text": "相册图标上停过的那几秒，像已经替他勾过答案。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 338,
+            "endLine": 338
+          }
+        }
+      ]
+    },
+    {
+      "id": "draft-ch03#scene:dch03_s030",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene",
+      "stableSceneId": "dch03_s030",
+      "title": "机器人朱珠看着他，嘴角动了一下，像是满意。“好。那今天，我会",
+      "excerpt": "机器人朱珠看着他，嘴角动了一下，像是满意。“好。那今天，我会好好伺候你的。”门带上了，石佩欣走了。屋子里就剩他们两个，一个人，一台机器，和一盏灯。",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 350,
+        "endLine": 356
+      },
+      "dialogueLines": [
+        {
+          "text": "机器人朱珠看着他，嘴角动了一下，像是满意。“好。那今天，我会好好伺候你的。”门带上了，石佩欣走了。屋子里就剩他们两个，一个人，一台机器，和一盏灯。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch03.ink",
+            "startLine": 352,
+            "endLine": 352
+          }
+        }
+      ]
     }
   ],
   "edges": [
@@ -2261,6 +3109,15 @@
       "kind": "chapter_transition",
       "fromNodeId": "draft-ch01#scene:d1_chapter_end",
       "toNodeId": "draft-ch02#scene:dch02_s001",
+      "stableChoiceId": null,
+      "label": null,
+      "sourceRange": null
+    },
+    {
+      "id": "draft-2026-07#chapter_transition:draft-ch02->draft-ch03",
+      "kind": "chapter_transition",
+      "fromNodeId": "draft-ch02#scene:d2_chapter_end",
+      "toNodeId": "draft-ch03#scene:dch03_s001",
       "stableChoiceId": null,
       "label": null,
       "sourceRange": null
@@ -4060,8 +4917,667 @@
         "startLine": 479,
         "endLine": 479
       }
+    },
+    {
+      "id": "draft-ch03#choice:d3_coat_today",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s006",
+      "toNodeId": "draft-ch03#scene:dch03_s007",
+      "stableChoiceId": "d3_coat_today",
+      "label": "回陈佳：行，傍晚",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 161,
+        "endLine": 161
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_coat_tomorrow",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s006",
+      "toNodeId": "draft-ch03#scene:dch03_s007",
+      "stableChoiceId": "d3_coat_tomorrow",
+      "label": "回陈佳：明天吧",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 158,
+        "endLine": 158
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_end_look",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:d3_chapter_end",
+      "toNodeId": "draft-ch03#scene:d3_chapter_end",
+      "stableChoiceId": "d3_end_look",
+      "endsChapter": true,
+      "label": "关灯前再看一眼",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 360,
+        "endLine": 360
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_face_album",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s003",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "d3_face_album",
+      "label": "手指在相册上停太久",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 55,
+        "endLine": 55
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_face_template",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s003",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "d3_face_template",
+      "label": "选基础脸，别开相册",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 51,
+        "endLine": 51
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_leo_go",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s019",
+      "toNodeId": "draft-ch03#scene:dch03_s020",
+      "stableChoiceId": "d3_leo_go",
+      "label": "让雷欧先走，签证要紧",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 254,
+        "endLine": 254
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_leo_stay",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s019",
+      "toNodeId": "draft-ch03#scene:dch03_s020",
+      "stableChoiceId": "d3_leo_stay",
+      "label": "想留他一起扛箱子",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 257,
+        "endLine": 257
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_name_accept",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s029",
+      "toNodeId": "draft-ch03#scene:dch03_s030",
+      "stableChoiceId": "d3_name_accept",
+      "label": "好。好好好好好",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 345,
+        "endLine": 345
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_name_casual",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s029",
+      "toNodeId": "draft-ch03#scene:dch03_s030",
+      "stableChoiceId": "d3_name_casual",
+      "label": "……就随便取的",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 341,
+        "endLine": 341
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_press_commit",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s027",
+      "toNodeId": "draft-ch03#scene:dch03_s028",
+      "stableChoiceId": "d3_press_commit",
+      "label": "一口气数满七秒",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 318,
+        "endLine": 318
+      }
+    },
+    {
+      "id": "draft-ch03#choice:d3_press_hesitate",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_s027",
+      "toNodeId": "draft-ch03#scene:dch03_s028",
+      "stableChoiceId": "d3_press_hesitate",
+      "label": "数到三就缩手",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 314,
+        "endLine": 314
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s001_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s001",
+      "toNodeId": "draft-ch03#scene:dch03_s002",
+      "stableChoiceId": "dch03_s001_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 37,
+        "endLine": 37
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s002_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s002",
+      "toNodeId": "draft-ch03#scene:dch03_s003",
+      "stableChoiceId": "dch03_s002_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 44,
+        "endLine": 44
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s004_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s004",
+      "toNodeId": "draft-ch03#scene:dch03_s005",
+      "stableChoiceId": "dch03_s004_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 144,
+        "endLine": 144
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s005_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s005",
+      "toNodeId": "draft-ch03#scene:dch03_s006",
+      "stableChoiceId": "dch03_s005_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 151,
+        "endLine": 151
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s007_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s007",
+      "toNodeId": "draft-ch03#scene:dch03_s008",
+      "stableChoiceId": "dch03_s007_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 170,
+        "endLine": 170
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s008_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s008",
+      "toNodeId": "draft-ch03#scene:dch03_s009",
+      "stableChoiceId": "dch03_s008_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 177,
+        "endLine": 177
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s009_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s009",
+      "toNodeId": "draft-ch03#scene:dch03_s010",
+      "stableChoiceId": "dch03_s009_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 184,
+        "endLine": 184
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s010_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s010",
+      "toNodeId": "draft-ch03#scene:dch03_s011",
+      "stableChoiceId": "dch03_s010_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 191,
+        "endLine": 191
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s011_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s011",
+      "toNodeId": "draft-ch03#scene:dch03_s012",
+      "stableChoiceId": "dch03_s011_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 198,
+        "endLine": 198
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s012_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s012",
+      "toNodeId": "draft-ch03#scene:dch03_s013",
+      "stableChoiceId": "dch03_s012_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 205,
+        "endLine": 205
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s013_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s013",
+      "toNodeId": "draft-ch03#scene:dch03_s014",
+      "stableChoiceId": "dch03_s013_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 212,
+        "endLine": 212
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s014_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s014",
+      "toNodeId": "draft-ch03#scene:dch03_s015",
+      "stableChoiceId": "dch03_s014_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 219,
+        "endLine": 219
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s015_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s015",
+      "toNodeId": "draft-ch03#scene:dch03_s016",
+      "stableChoiceId": "dch03_s015_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 226,
+        "endLine": 226
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s016_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s016",
+      "toNodeId": "draft-ch03#scene:dch03_s017",
+      "stableChoiceId": "dch03_s016_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 233,
+        "endLine": 233
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s017_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s017",
+      "toNodeId": "draft-ch03#scene:dch03_s018",
+      "stableChoiceId": "dch03_s017_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 240,
+        "endLine": 240
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s018_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s018",
+      "toNodeId": "draft-ch03#scene:dch03_s019",
+      "stableChoiceId": "dch03_s018_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 247,
+        "endLine": 247
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s020_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s020",
+      "toNodeId": "draft-ch03#scene:dch03_s021",
+      "stableChoiceId": "dch03_s020_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 265,
+        "endLine": 265
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s021_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s021",
+      "toNodeId": "draft-ch03#scene:dch03_s022",
+      "stableChoiceId": "dch03_s021_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 272,
+        "endLine": 272
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s022_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s022",
+      "toNodeId": "draft-ch03#scene:dch03_s023",
+      "stableChoiceId": "dch03_s022_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 279,
+        "endLine": 279
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s023_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s023",
+      "toNodeId": "draft-ch03#scene:dch03_s024",
+      "stableChoiceId": "dch03_s023_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 286,
+        "endLine": 286
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s024_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s024",
+      "toNodeId": "draft-ch03#scene:dch03_s025",
+      "stableChoiceId": "dch03_s024_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 293,
+        "endLine": 293
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s025_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s025",
+      "toNodeId": "draft-ch03#scene:dch03_s026",
+      "stableChoiceId": "dch03_s025_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 300,
+        "endLine": 300
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s026_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s026",
+      "toNodeId": "draft-ch03#scene:dch03_s027",
+      "stableChoiceId": "dch03_s026_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 307,
+        "endLine": 307
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s028_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s028",
+      "toNodeId": "draft-ch03#scene:dch03_s029",
+      "stableChoiceId": "dch03_s028_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 327,
+        "endLine": 327
+      }
+    },
+    {
+      "id": "draft-ch03#choice:dch03_s030_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_s030",
+      "toNodeId": "draft-ch03#scene:d3_chapter_end",
+      "stableChoiceId": "dch03_s030_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 354,
+        "endLine": 354
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_s004",
+      "stableChoiceId": "mobile_questionnaire_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 137,
+        "endLine": 137
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q1_average",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q1_average",
+      "label": "一般",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 72,
+        "endLine": 72
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q1_decline",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q1_decline",
+      "label": "不愿评价",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 81,
+        "endLine": 81
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q1_excellent",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q1_excellent",
+      "label": "优秀",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 78,
+        "endLine": 78
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q1_good",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q1_good",
+      "label": "良好",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 75,
+        "endLine": 75
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q1_skip",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q1_skip",
+      "label": "跳过问卷",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 84,
+        "endLine": 84
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q2_fine",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q2_fine",
+      "label": "不介意",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 95,
+        "endLine": 95
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q2_mind",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q2_mind",
+      "label": "介意",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 92,
+        "endLine": 92
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q2_skip",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q2_skip",
+      "label": "跳过问卷",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 101,
+        "endLine": 101
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q2_unsure",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q2_unsure",
+      "label": "不确定",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 98,
+        "endLine": 98
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q3_convertible",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q3_convertible",
+      "label": "可改造",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 117,
+        "endLine": 117
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q3_no",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q3_no",
+      "label": "暂无",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 113,
+        "endLine": 113
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q3_skip",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q3_skip",
+      "label": "跳过问卷",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 121,
+        "endLine": 121
+      }
+    },
+    {
+      "id": "draft-ch03#choice:mobile_questionnaire_q3_yes",
+      "kind": "choice",
+      "fromNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "toNodeId": "draft-ch03#scene:dch03_mobile_questionnaire",
+      "stableChoiceId": "mobile_questionnaire_q3_yes",
+      "label": "有独立房间",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch03.ink",
+        "startLine": 109,
+        "endLine": 109
+      }
     }
   ],
-  "entryNodeIds": ["draft-ch01#scene:dch01_s001", "draft-ch02#scene:dch02_s001"],
-  "terminalNodeIds": ["draft-ch01#scene:d1_chapter_end", "draft-ch02#scene:d2_chapter_end"]
+  "entryNodeIds": [
+    "draft-ch01#scene:dch01_s001",
+    "draft-ch02#scene:dch02_s001",
+    "draft-ch03#scene:dch03_s001"
+  ],
+  "terminalNodeIds": [
+    "draft-ch01#scene:d1_chapter_end",
+    "draft-ch02#scene:d2_chapter_end",
+    "draft-ch03#scene:d3_chapter_end"
+  ]
 }

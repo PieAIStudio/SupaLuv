@@ -21,6 +21,7 @@ const { Compiler } = require("inkjs/full");
 const DEFAULT_INK = [
   "draft-ch01.ink",
   "draft-ch02.ink",
+  "draft-ch03.ink",
   "prototype-act1.ink",
   "chapter-01-trial.ink",
 ];

@@ -11,7 +11,8 @@
     "./draft-ch02-scenes": "./manifests/draft-ch02-scenes.ts",
     "./prototype-scenes": "./manifests/prototype-scenes.ts",
     "./chapter-01-trial-scenes": "./manifests/chapter-01-trial-scenes.ts",
-    "./ch01-scenes": "./manifests/legacy/ch01-scenes.ts"
+    "./ch01-scenes": "./manifests/legacy/ch01-scenes.ts",
+    "./draft-ch03-scenes": "./manifests/draft-ch03-scenes.ts"
   },
   "scripts": {
     "compile-ink": "node ./scripts/compile-ink.mjs",

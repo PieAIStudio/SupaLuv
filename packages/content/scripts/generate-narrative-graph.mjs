@@ -604,10 +604,13 @@ function buildPackageGraph(options = {}) {
   const sortedNodes = sortById(creatorNodes);
   const sortedEdges = sortById(creatorEdges);
 
-  // Cross-chapter choice id uniqueness for package edge ids.
-  const choiceEdgeKeys = sortedEdges.filter((e) => e.stableChoiceId).map((e) => e.stableChoiceId);
+  // Choice edge id uniqueness is package-scoped via narrativeChoiceEdgeId(storyId, choiceId).
+  // The same stableChoiceId may legitimately repeat across chapters (shared interaction kits).
+  const choiceEdgeKeys = sortedEdges
+    .filter((e) => e.stableChoiceId)
+    .map((e) => `${e.fromNodeId.split("#")[0] ?? ""}:${e.stableChoiceId}`);
   if (new Set(choiceEdgeKeys).size !== choiceEdgeKeys.length) {
-    throw new Error("Duplicate stableChoiceId across package edges");
+    throw new Error("Duplicate stableChoiceId within the same story");
   }
 
   const creator = {

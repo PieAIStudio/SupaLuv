@@ -26,7 +26,12 @@ export const superLoverSeedManifest = {
 } satisfies StorySeedManifest;
 
 /** Production + dev selectable story ids. Legacy ch01 is intentionally excluded. */
-export type StoryCatalogId = "draft-ch01" | "draft-ch02" | "prototype-act1" | "chapter-01-trial";
+export type StoryCatalogId =
+  | "draft-ch01"
+  | "draft-ch02"
+  | "draft-ch03"
+  | "prototype-act1"
+  | "chapter-01-trial";
 
 /** Retired production demo id — kept for save incompatibility detection only. */
 export type RetiredStoryId = "ch01";
@@ -140,6 +145,7 @@ type ChapterModule = {
 const chapterLoaders: Record<StoryCatalogId, () => Promise<ChapterModule>> = {
   "draft-ch01": () => import("./chapters/draft-ch01"),
   "draft-ch02": () => import("./chapters/draft-ch02"),
+  "draft-ch03": () => import("./chapters/draft-ch03"),
   "prototype-act1": () => import("./chapters/prototype-act1"),
   "chapter-01-trial": () => import("./chapters/chapter-01-trial"),
 };

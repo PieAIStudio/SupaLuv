@@ -17,7 +17,12 @@ export type CoreTtsCharacterId =
   | "test_ai"
   | "narrator"
   | "lin_xiaotang"
-  | "zhou_lu";
+  | "zhou_lu"
+  | "zhu_zhu"
+  | "huang_laotai"
+  | "grid_worker"
+  | "police_officer"
+  | "courier";
 
 export interface TtsDialogueSegment {
   readonly index: number;
@@ -65,6 +70,11 @@ const buildRouter = () =>
       shop_owner: "EXAVITQu4vr4xnSDxMaL",
       lin_xiaotang: "EXAVITQu4vr4xnSDxMaL",
       zhou_lu: "EXAVITQu4vr4xnSDxMaL",
+      zhu_zhu: "EXAVITQu4vr4xnSDxMaL",
+      huang_laotai: "EXAVITQu4vr4xnSDxMaL",
+      grid_worker: "CwhRBWXzGAHq8TQ4Fs17",
+      police_officer: "CwhRBWXzGAHq8TQ4Fs17",
+      courier: "CwhRBWXzGAHq8TQ4Fs17",
     },
     chineseVoiceMap: {
       suming: "male-qn-qingse",
@@ -78,6 +88,11 @@ const buildRouter = () =>
       shop_owner: "female-shaonv",
       lin_xiaotang: "female-shaonv",
       zhou_lu: "female-shaonv",
+      zhu_zhu: "female-shaonv",
+      huang_laotai: "female-shaonv",
+      grid_worker: "male-qn-qingse",
+      police_officer: "male-qn-qingse",
+      courier: "male-qn-qingse",
     },
   });
 
@@ -115,6 +130,16 @@ export function resolveTtsCharacterId(value: string | undefined): CoreTtsCharact
     linxiaotang: "lin_xiaotang",
     周鹿: "zhou_lu",
     zhoulu: "zhou_lu",
+    朱珠: "zhu_zhu",
+    zhuzhu: "zhu_zhu",
+    黄老太: "huang_laotai",
+    huanglaotai: "huang_laotai",
+    网格员: "grid_worker",
+    gridworker: "grid_worker",
+    警察: "police_officer",
+    policeofficer: "police_officer",
+    快递员: "courier",
+    courier: "courier",
   };
   return aliases[normalized] ?? "narrator";
 }

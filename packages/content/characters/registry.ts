@@ -68,6 +68,37 @@ export const CHARACTER_BY_NAME: Readonly<Record<string, CharacterDef>> = {
     side: "right",
     defaultPortrait: "demo-ui",
   },
+  朱珠: {
+    id: "zhu_zhu",
+    name: "朱珠",
+    side: "right",
+    // Robot companion; honest placeholder until dedicated art (no shared human faces).
+    defaultPortrait: "demo-ui",
+  },
+  黄老太: {
+    id: "huang_laotai",
+    name: "黄老太",
+    side: "right",
+    defaultPortrait: "demo-ui",
+  },
+  网格员: {
+    id: "grid_worker",
+    name: "网格员",
+    side: "right",
+    defaultPortrait: "demo-ui",
+  },
+  警察: {
+    id: "police_officer",
+    name: "警察",
+    side: "right",
+    defaultPortrait: "demo-ui",
+  },
+  快递员: {
+    id: "courier",
+    name: "快递员",
+    side: "right",
+    defaultPortrait: "demo-ui",
+  },
   旁白: {
     id: "narrator",
     name: "旁白",

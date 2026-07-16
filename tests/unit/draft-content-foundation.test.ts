@@ -264,10 +264,12 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
   const inkByChapter: Record<string, string> = {
     "draft-ch01": readInkSource("packages/content/ink/draft-ch01.ink"),
     "draft-ch02": readInkSource("packages/content/ink/draft-ch02.ink"),
+    "draft-ch03": readInkSource("packages/content/ink/draft-ch03.ink"),
   };
   const playableByChapter: Record<string, string> = {
     "draft-ch01": stripInkComments(inkByChapter["draft-ch01"]!),
     "draft-ch02": stripInkComments(inkByChapter["draft-ch02"]!),
+    "draft-ch03": stripInkComments(inkByChapter["draft-ch03"]!),
   };
 
   it("re-parses snapshots to 142 + 148 = 290 body paragraphs and 21 structure blocks", () => {
@@ -513,7 +515,7 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     expect(driftValidation.ok).toBe(false);
     expect(driftValidation.errors.join(" ")).toContain("digest mismatch");
 
-    for (const chapterId of ["draft-ch01", "draft-ch02"] as const) {
+    for (const chapterId of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
       const raw = inkByChapter[chapterId]!;
       expect(raw).not.toMatch(/Player-hidden source trace/i);
       expect(raw).not.toMatch(/byte-exact for coverage/i);
@@ -711,7 +713,11 @@ describe("draft catalog and legacy retirement", () => {
   it("defaults to draft-ch01 and does not expose retired ch01 in production catalog", async () => {
     const content = await import("@supaluv/content");
     expect(content.DEFAULT_STORY_ID).toBe("draft-ch01");
-    expect(content.productionStoryCatalog.map((s) => s.id)).toEqual(["draft-ch01", "draft-ch02"]);
+    expect(content.productionStoryCatalog.map((s) => s.id)).toEqual([
+      "draft-ch01",
+      "draft-ch02",
+      "draft-ch03",
+    ]);
     expect(content.storyCatalog.map((s) => s.id).includes("ch01" as never)).toBe(false);
     expect(content.isRetiredStoryId("ch01")).toBe(true);
     expect(content.isProductionStoryId("ch01")).toBe(false);
@@ -731,7 +737,7 @@ describe("draft catalog and legacy retirement", () => {
       expect("compiledStoryJson" in entry).toBe(false);
       expect("inkSource" in entry).toBe(false);
       expect("scenes" in entry).toBe(false);
-      expect(entry.id).toMatch(/^draft-ch0[12]$/);
+      expect(entry.id).toMatch(/^draft-ch0[123]$/);
     }
   });
 });
@@ -739,7 +745,7 @@ describe("draft catalog and legacy retirement", () => {
 describe("draft ink / scene alignment and topology", () => {
   it("aligns scene manifests 1:1 with Ink knots and omits hand-authored edges", async () => {
     const content = await import("@supaluv/content");
-    for (const storyId of ["draft-ch01", "draft-ch02"] as const) {
+    for (const storyId of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
       const chapter = await content.loadStoryChapter(storyId);
       const source = readInkSource(`packages/content/ink/${storyId}.ink`);
       const knots = getInkKnotIds(source).sort();
@@ -754,7 +760,7 @@ describe("draft ink / scene alignment and topology", () => {
   });
 
   it("only diverts to existing knots", () => {
-    for (const storyId of ["draft-ch01", "draft-ch02"] as const) {
+    for (const storyId of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
       const source = readInkSource(`packages/content/ink/${storyId}.ink`);
       const knots = new Set(getInkPathIds(source));
       for (const target of getInkDivertTargets(source)) {
@@ -934,7 +940,7 @@ describe("production graph excludes raw draft source and inkjs/full", () => {
   });
 
   it("production chapter modules ship compiled JSON only (no raw ink)", () => {
-    for (const chapter of ["draft-ch01", "draft-ch02"] as const) {
+    for (const chapter of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
       const mod = readFileSync(
         resolve(ROOT, `packages/content/src/chapters/${chapter}.ts`),
         "utf8",
