@@ -13,6 +13,12 @@ VAR clue_subsidy_sms = false
 VAR clue_rental_receipt = false
 VAR clue_nda = false
 VAR clue_pass_sms = false
+VAR bones_answer = "unanswered"
+VAR breakup_delivery = "unanswered"
+VAR memory_posture = "unanswered"
+VAR leo_response = "unanswered"
+VAR frontdesk_response = "unanswered"
+VAR budget_stance = "unanswered"
 VAR emotion_calibration_correct_count = 0
 VAR emotion_calibration_skipped = false
 VAR emotion_calibration_q1 = "unanswered"
@@ -206,9 +212,11 @@ VAR protocol_test_completed_at_version = ""
 工作人员愣了半秒，随即笑意深了一层，像是遇上了识货的："您这是懂行的。"她也不绕弯子，"这么说吧——录音字面上是真删。可您今天讲的这段，会被拿去喂给下一批模型，教它以后怎么接话。字面没了，骨头留着。"
 
 + [点头：至少说人话了 # choice:d1_bones_accept]
+    ~ bones_answer = "accept"
     ~ dignity = dignity + 2
     -> dch01_s004
 + [冷笑：后门也算诚实 # choice:d1_bones_cold]
+    ~ bones_answer = "cold"
     ~ impulse = impulse + 3
     -> dch01_s004
 
@@ -228,9 +236,11 @@ VAR protocol_test_completed_at_version = ""
 耳机那头顿了顿，那停顿掐得极准，心疼来得恰到好处："愿意跟我说说吗？我不会评判你。"
 
 + [平平地说：分手了。昨天。 # choice:d1_tell_flat]
+    ~ breakup_delivery = "flat"
     ~ told_breakup_flat = true
     -> dch01_s006
 + [更硬一点：真实的你们要吗 # choice:d1_tell_hard]
+    ~ breakup_delivery = "hard"
     ~ dignity = dignity + 2
     ~ told_breakup_flat = false
     -> dch01_s006
@@ -269,7 +279,7 @@ VAR protocol_test_completed_at_version = ""
 
 测试间里，苏明还在往下说。
 
-+ [继续 # choice:dch01_s009_continue]
++ [看一眼走廊上的排号条 # choice:dch01_s009_continue]
     -> dch01_s010
 
 === dch01_s010 ===
@@ -313,9 +323,11 @@ VAR protocol_test_completed_at_version = ""
 "正经的不好好搞，弄这个？"她扯过被子把自己裹起来，像是在防一个突然闯进来的陌生人，眼神里全是他没见过的那种冷，"你有病吧？"
 
 + [（回想时）把脸埋进掌心 # choice:d1_memory_shame]
+    ~ memory_posture = "shame"
     ~ dignity = dignity - 3
     -> dch01_s015
 + [（回想时）咬牙把后文讲完 # choice:d1_memory_hard]
+    ~ memory_posture = "hard"
     ~ impulse = impulse + 2
     -> dch01_s015
 
@@ -361,7 +373,7 @@ VAR protocol_test_completed_at_version = ""
 
 今早他进卧室拿充电器，陈佳脸上没什么表情，只丢下一句："钥匙放桌上，我想清楚了。"
 
-+ [继续 # choice:dch01_s019_continue]
++ [听清那声反锁 # choice:dch01_s019_continue]
     -> dch01_s020
 
 === dch01_s020 ===
@@ -460,8 +472,10 @@ VAR protocol_test_completed_at_version = ""
 雷欧中文说得不利索，可这股火气不需要语法撑腰："你们，听？偷听？This is shit."
 
 + [先听雷欧说完 # choice:d1_watch_leo]
+    ~ leo_response = "watch"
     -> dch01_s031
 + [已经想冲前台 # choice:d1_rush_front]
+    ~ leo_response = "rush"
     ~ impulse = impulse + 4
     -> dch01_s031
 
@@ -489,7 +503,7 @@ VAR protocol_test_completed_at_version = ""
 
 走廊尽头，两名灰衣工人正把一只一人高的银色箱子推进货梯。标签写着：样机，勿倒置，硬件部。一个测聊天软件的公司，哪来的硬件部？货梯“哐当”合上，把答案一起运走了。
 
-+ [继续 # choice:dch01_s033_continue]
++ [目送样机箱进货梯 # choice:dch01_s033_continue]
     -> dch01_s034
 
 === dch01_s034 ===
@@ -532,6 +546,13 @@ VAR protocol_test_completed_at_version = ""
 # scene:dch01_s038
 "合规质检流程，协议第三页写得明白。"对方把平板转过来，指着一行小字，语气平稳得跟念说明书似的，"高价值补贴照发，您今天表现很好。"
 
+{ bones_answer == "accept":
+    苏明听见“第三页”，胃里发凉：他们倒是从头到尾没撒谎，只把诚实印成了蚂蚁。
+}
+{ bones_answer == "cold":
+    苏明盯着那行小字：“写明了不等于我同意。抢劫前贴告示，也不叫双方自愿。”
+}
+
 "我表现个屁。"
 
 + [继续 # choice:dch01_s038_continue]
@@ -544,9 +565,11 @@ VAR protocol_test_completed_at_version = ""
 "电话是外包的，"小组长语气比刚才还平，一点波澜都没有，"投诉受理时限十五个工作日，您可以试试。"
 
 + [在心里算房租和补贴 # choice:d1_calc_money]
+    ~ frontdesk_response = "calculate"
     ~ dignity = dignity - 2
     -> dch01_s040
 + [再顶一句，再算账 # choice:d1_still_angry]
+    ~ frontdesk_response = "angry"
     ~ impulse = impulse + 2
     -> dch01_s040
 
@@ -562,6 +585,13 @@ VAR protocol_test_completed_at_version = ""
 === dch01_s041 ===
 # scene:dch01_s041
 雷欧站在他侧后方，下巴一抬，替他撑场："他要谈，我也谈。你们也听我说。"
+
+{ leo_response == "watch":
+    苏明记得自己先前真把雷欧那句夹生中文听完了；现在这老外又替他撑场，语法还是烂，账倒算得清。
+}
+{ leo_response == "rush":
+    苏明记得自己先前已经要冲前台；雷欧这会儿追上来，像给他的火气临时办了个双人套餐。
+}
 
 小组长看看雷欧，又看看苏明，笑意收了一半，只是重复："随时可以不来。"
 
@@ -619,9 +649,11 @@ VAR protocol_test_completed_at_version = ""
 "九百，顶天了。"
 
 + [九百，顶天了 # choice:d1_confirm_900]
+    ~ budget_stance = "firm_900"
     ~ budget_900 = true
     -> dch01_s048
 + [……能不能再少点（他没敢说出口） # choice:d1_whisper_less]
+    ~ budget_stance = "unspoken_less"
     ~ budget_900 = true
     ~ dignity = dignity - 1
     -> dch01_s048

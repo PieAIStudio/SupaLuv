@@ -630,7 +630,13 @@ describe("StorySession", () => {
 
   it("chapter transition exports inherited variables and autosaves chapter 2", async () => {
     runtime = makeRuntime({
-      inheritVariableNames: ["dignity", "clue_subsidy_sms"],
+      inheritVariableNames: [
+        "dignity",
+        "clue_subsidy_sms",
+        "breakup_delivery",
+        "memory_posture",
+        "frontdesk_response",
+      ],
       nextChapterId: "draft-ch02",
     });
     session = createStorySession({
@@ -639,7 +645,13 @@ describe("StorySession", () => {
       preloadPresentation: async () => undefined,
     });
     await session.startNew();
-    session.getState().runner?.applyVariables({ dignity: 61, clue_subsidy_sms: true });
+    session.getState().runner?.applyVariables({
+      dignity: 61,
+      clue_subsidy_sms: true,
+      breakup_delivery: "hard",
+      memory_posture: "shame",
+      frontdesk_response: "calculate",
+    });
 
     expect(session.canAdvanceToNextChapter()).toBe(true);
     const advanced = await session.advanceToNextChapter();
@@ -648,12 +660,18 @@ describe("StorySession", () => {
     expect(session.getState().snapshot?.sceneId).toBe("dch02_s001");
     expect(session.getState().runner?.getVariable("dignity")).toBe(61);
     expect(session.getState().runner?.getVariable("clue_subsidy_sms")).toBe(true);
+    expect(session.getState().runner?.getVariable("breakup_delivery")).toBe("hard");
+    expect(session.getState().runner?.getVariable("memory_posture")).toBe("shame");
+    expect(session.getState().runner?.getVariable("frontdesk_response")).toBe("calculate");
 
     const autosave = loadSave(AUTOSAVE_SLOT);
     expect(autosave?.storyId).toBe("draft-ch02");
     expect(autosave?.inheritedVariables).toEqual({
       dignity: 61,
       clue_subsidy_sms: true,
+      breakup_delivery: "hard",
+      memory_posture: "shame",
+      frontdesk_response: "calculate",
     });
   });
 
