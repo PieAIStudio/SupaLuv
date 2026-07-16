@@ -44,9 +44,12 @@ test("Creator Studio visual evidence at desktop and narrow desktop", async ({ pa
 
   await page.setViewportSize({ width: 1440, height: 900 });
   await openCreatorStudio(page);
+  // Viewport culling settles asynchronously after fitView; poll instead of sampling once.
+  await expect
+    .poll(() => page.locator(".react-flow__node").count(), { timeout: 15_000 })
+    .toBeLessThan(93);
   const renderedNodeCount = await page.locator(".react-flow__node").count();
   expect(renderedNodeCount).toBeGreaterThan(0);
-  expect(renderedNodeCount).toBeLessThan(93);
   await page.screenshot({ path: `${evidenceDir}/desktop-1440x900.png` });
 
   const graphResponse = await request.get("/__creator-studio/graph");

@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@supaluv/web", "dev"],
+      "port": 5173
+    },
+    {
+      "name": "full",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev:full"],
+      "port": 5173
+    }
+  ]
+}

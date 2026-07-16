@@ -58,6 +58,16 @@ async function selectedChoiceCount(page: Page): Promise<number> {
   }, PATH_MEMORY_KEY);
 }
 
+async function dismissPropCutInIfVisible(page: Page): Promise<boolean> {
+  const close = page.getByTestId("prop-cutin-close");
+  if (await close.isVisible().catch(() => false)) {
+    await close.click();
+    await expect(page.getByTestId("prop-cutin-dialog")).toHaveCount(0);
+    return true;
+  }
+  return false;
+}
+
 async function skipActiveStoryInteraction(page: Page): Promise<boolean> {
   const skips = [
     "emotion-calibration-skip",
@@ -79,6 +89,10 @@ async function skipActiveStoryInteraction(page: Page): Promise<boolean> {
 }
 
 async function revealAndChooseFirst(page: Page): Promise<boolean> {
+  // A first-visit prop cut-in pauses playback until the player closes it.
+  if (await dismissPropCutInIfVisible(page)) {
+    return true;
+  }
   if (await skipActiveStoryInteraction(page)) {
     return true;
   }
@@ -95,6 +109,7 @@ async function revealAndChooseFirst(page: Page): Promise<boolean> {
 }
 
 async function openPlayerPath(page: Page): Promise<void> {
+  await dismissPropCutInIfVisible(page);
   const systemMenu = page.getByTestId("system-menu");
   // Toggle is a binary open/close control — only click when the menu is closed.
   if (!(await systemMenu.isVisible().catch(() => false))) {
@@ -325,6 +340,9 @@ test("我的路线 records two choices, shows gray alternatives, survives refres
   expect(await selectedChoiceCount(page)).toBeGreaterThanOrEqual(2);
 
   for (let step = 0; step < 40; step += 1) {
+    if (await dismissPropCutInIfVisible(page)) {
+      continue;
+    }
     if (await skipActiveStoryInteraction(page)) {
       continue;
     }

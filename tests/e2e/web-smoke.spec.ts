@@ -145,6 +145,16 @@ async function startDebugStory(
   await selector.selectOption(storyId);
 }
 
+async function dismissPropCutInIfVisible(page: import("@playwright/test").Page) {
+  const close = page.getByTestId("prop-cutin-close");
+  if (await close.isVisible().catch(() => false)) {
+    await close.click();
+    await expect(page.getByTestId("prop-cutin-dialog")).toHaveCount(0);
+    return true;
+  }
+  return false;
+}
+
 async function reachDraftChapterEnd(page: import("@playwright/test").Page) {
   await startDebugStory(page, "draft-ch02");
   const skipTestIds = [
@@ -161,6 +171,11 @@ async function reachDraftChapterEnd(page: import("@playwright/test").Page) {
         .catch(() => false)
     ) {
       return;
+    }
+
+    // A first-visit prop cut-in pauses playback until the player closes it.
+    if (await dismissPropCutInIfVisible(page)) {
+      continue;
     }
 
     let skipped = false;
@@ -244,8 +259,11 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   await expect(page.getByTestId("emotion-calibration")).toBeVisible();
   await page.getByTestId("emotion-calibration-skip").click();
   await clickIfVisible(page, CONTINUE_CHOICE);
-  // s002 protocol prose → protocol-test interaction → s003 bones branch
+  // s002 protocol prose → first-visit prop cut-in → protocol-test interaction → s003 bones branch
   await clickIfVisible(page, CONTINUE_CHOICE);
+  await expect(page.getByTestId("prop-cutin-dialog")).toBeVisible({ timeout: 15_000 });
+  await page.getByTestId("prop-cutin-close").click();
+  await expect(page.getByTestId("prop-cutin-dialog")).toHaveCount(0);
   await expect(page.getByTestId("protocol-test")).toBeVisible({ timeout: 15_000 });
   await page.getByTestId("protocol-test-skip").click();
   await clickIfVisible(page, CONTINUE_CHOICE);
