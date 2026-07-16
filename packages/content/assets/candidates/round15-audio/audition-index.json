@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "packageId": "round15-audio",
+  "candidate_only": true,
+  "humanListeningReview": false,
+  "instructions": "Open audition.html directly from disk. Music and ambience are loop candidates; SFX are sparse one-shot cues. Stop other beds before judging a new pairing.",
+  "sequences": [
+    { "sequenceId": "SQ01", "label": "测试舱：企业温柔压迫", "music": ["music-corporate-soft-pressure"], "ambience": ["test-booth-hvac"], "sfx": [] },
+    { "sequenceId": "SQ02", "label": "走廊与质检：私人裂缝开始", "music": ["music-private-shame-fracture"], "ambience": ["office-corridor", "test-booth-hvac"], "sfx": [] },
+    { "sequenceId": "SQ03", "label": "分手余波：锁门与指标", "music": ["music-private-shame-fracture"], "ambience": ["test-booth-hvac"], "sfx": ["door-lock"] },
+    { "sequenceId": "SQ04", "label": "会员弹窗与质检门口", "music": ["music-public-spectacle-payment"], "ambience": ["office-corridor"], "sfx": ["chip-bag"] },
+    { "sequenceId": "SQ05", "label": "公开围观到货梯同盟", "music": ["music-public-spectacle-payment"], "ambience": ["office-corridor"], "sfx": ["freight-elevator"] },
+    { "sequenceId": "SQ06", "label": "前台冲突与到账", "music": ["music-public-spectacle-payment"], "ambience": ["office-corridor"], "sfx": ["phone-buzz"] },
+    { "sequenceId": "SQ07", "label": "夜街与旧巷笨拙同盟", "music": ["music-night-alley-alliance"], "ambience": ["night-alley"], "sfx": [] },
+    { "sequenceId": "SQ08", "label": "快捷酒店与便利店补给", "music": ["music-budget-settling"], "ambience": ["budget-hotel", "convenience-store"], "sfx": ["scanner", "payment-receipt"] },
+    { "sequenceId": "SQ09", "label": "夜巷到租房入口", "music": ["music-night-alley-alliance"], "ambience": ["night-alley", "rental-room"], "sfx": [] },
+    { "sequenceId": "SQ10", "label": "搬入、房规与橘猫", "music": ["music-budget-settling"], "ambience": ["rental-room"], "sfx": ["cat-step"] },
+    { "sequenceId": "SQ11", "label": "敲门与机器人招募", "music": ["music-robot-temptation"], "ambience": ["rental-room"], "sfx": ["door-knock"] },
+    { "sequenceId": "SQ12", "label": "孤独房间、落地页与问卷", "music": ["music-robot-temptation"], "ambience": ["rental-room"], "sfx": ["phone-buzz"] },
+    { "sequenceId": "SQ13", "label": "提交、批准与章节终点", "music": ["music-chapter-endpoint"], "ambience": ["rental-room"], "sfx": [] }
+  ]
+}
