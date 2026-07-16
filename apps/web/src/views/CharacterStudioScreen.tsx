@@ -24,7 +24,7 @@ export interface CharacterStudioSlot {
   readonly official: string;
 }
 
-const LEAD_SLOTS: readonly CharacterStudioSlot[] = [
+export const LEAD_SLOTS: readonly CharacterStudioSlot[] = [
   {
     id: "lead_suming",
     name: "苏明",
@@ -35,7 +35,9 @@ const LEAD_SLOTS: readonly CharacterStudioSlot[] = [
   },
   {
     id: "lead_zhou_lu",
-    name: "周鹿",
+    // Keep in sync with packages/content/characters/slots.ts displayName
+    // (contract test: tests/unit/character-slot-names.test.ts).
+    name: "石佩欣",
     role: "女主角",
     roleKey: "characterStudio.femaleLead",
     kind: "human",

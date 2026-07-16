@@ -1370,3 +1370,57 @@
   font-size: clamp(0.95rem, 1.35vw, 1.08rem);
   line-height: 1.55;
 }
+
+/*
+ * SW-006 — short landscape phones: the default HUD wraps to two rows and
+ * eats nearly half the 16:9 stage. Compact everything onto one thin row;
+ * the music chip is nonessential chrome and yields first.
+ */
+@media (max-height: 430px) and (orientation: landscape) {
+  .vn-hud {
+    gap: 0.3rem;
+    padding: 0.1rem 0.1rem;
+  }
+
+  .hud-left,
+  .hud-right {
+    gap: 0.3rem;
+    flex-wrap: nowrap;
+    min-width: 0;
+  }
+
+  /* Decorative chrome yields first so every functional button stays inside
+     the stage clip: music chip, mode badge, chapter label. */
+  .now-playing-chip,
+  .vn-hud [data-testid="prototype-badge"],
+  .vn-hud .hud-select-label.player-story-label {
+    display: none;
+  }
+
+  .meter-rail {
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+
+  .meter-block {
+    min-width: 5.6rem;
+    padding: 0.14rem 0.4rem;
+    gap: 0.12rem;
+  }
+
+  .meter-label {
+    font-size: 0.62rem;
+  }
+
+  .vn-hud .game-ui-button {
+    min-height: 1.7rem;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+  }
+
+  .vn-hud .hud-select-label,
+  .vn-hud .player-story-label {
+    padding: 0.2rem 0.45rem;
+    font-size: 0.7rem;
+  }
+}

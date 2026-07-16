@@ -36,7 +36,7 @@ const COPY: Record<AtomicLoadingKind, LoadingCopy> = {
   casting: {
     eyebrow: "角色协议 · 载入中",
     title: "正在打开选角工作台",
-    body: "先确认苏明和周鹿的形象；同一局里不会反复换脸。",
+    body: "先确认苏明和石佩欣的形象；同一局里不会反复换脸。",
     tip: "真人照片仅限成年人，官方形象可直接开局。",
   },
   story: {
