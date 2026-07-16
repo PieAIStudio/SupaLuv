@@ -111,7 +111,10 @@ export async function generateAiBranchWithMastra(
     {
       modelSettings: {
         temperature: 0.85,
-        maxOutputTokens: 900,
+        // Reasoning effort shares this budget on OpenRouter/Gemini; 900 let
+        // high-effort thinking truncate the JSON tail and fail every parse,
+        // silently double-billing via the fallback path.
+        maxOutputTokens: 2048,
         ...(providerOptions ? { providerOptions } : {}),
       },
       maxSteps: 1,
