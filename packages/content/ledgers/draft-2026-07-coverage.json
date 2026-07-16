@@ -215,13 +215,13 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "工作人员这句话说出口的时",
-            "targetSnippet": "工作人员这句话说出口的时"
+            "sourceSnippet": "工作人员这句话说出口的时候，手指正点在协议签字页",
+            "targetSnippet": "工作人员这句话说出口的时候，手指正点在协议签字页"
           },
           {
             "fact": "a2",
-            "sourceSnippet": "候，手指正点在协议签字页",
-            "targetSnippet": "候，手指正点在协议签字页"
+            "sourceSnippet": "上，笑得跟卖保险的一样职业，那种笑法练了不知道多",
+            "targetSnippet": "上，笑得跟卖保险的一样职业，那种笑法练了不知道多"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -246,8 +246,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "协议贴在门后头，字号小得",
-            "targetSnippet": "协议贴在门后头，字号小得"
+            "sourceSnippet": "：本产品情感真实度依赖用户真情流露，测试期间数据",
+            "targetSnippet": "：本产品情感真实度依赖用户真情流露，测试期间数据"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -275,8 +275,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“删干净？”苏明没接那茬",
-            "targetSnippet": "“删干净？”苏明没接那茬"
+            "sourceSnippet": "“删干净？”苏明没接那茬，反倒摸出手机，翻出一张",
+            "targetSnippet": "“删干净？”苏明没接那茬，反倒摸出手机，翻出一张"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -292,24 +292,12 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s003",
       "beatId": "dch01_s003",
-      "status": "approved-adaptation",
+      "status": "verbatim-dialogue",
       "dialogueQuotes": [
         "您这是懂行的。",
         "这么说吧——录音字面上是真删。可您今天讲的这段，会被拿去喂给下一批模型，教它以后怎么接话。字面没了，骨头留着。"
       ],
-      "notes": "novel-v2 densified adaptation",
-      "adaptationReceipt": {
-        "sourceHash": "615b75aaa70c7121b50a3b72e78d0857b0f739ebd11eb8d495fa931a4d3c783c",
-        "sceneId": "dch01_s003",
-        "factMappings": [
-          {
-            "fact": "a1",
-            "sourceSnippet": "工作人员愣了半秒，随即笑",
-            "targetSnippet": "工作人员愣了半秒，随即笑"
-          }
-        ],
-        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
-      }
+      "notes": ""
     },
     {
       "id": "draft01_p006",
@@ -330,8 +318,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "这话苏明听完，心里那点疑",
-            "targetSnippet": "这话苏明听完，心里那点疑"
+            "sourceSnippet": "信的从来不是“绝对删干净”",
+            "targetSnippet": "信的从来不是“绝对删干净”"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -356,8 +344,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "门关上，隔音棉把外头的声",
-            "targetSnippet": "门关上，隔音棉把外头的声"
+            "sourceSnippet": "门关上，隔音棉把外头的声音都吸走了，耳机里响起一",
+            "targetSnippet": "门关上，隔音棉把外头的声音都吸走了，耳机里响起一"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -396,13 +384,13 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "这也不是他头一回测。上个",
-            "targetSnippet": "这也不是他头一回测。上个"
+            "sourceSnippet": "：情绪要有起伏，细节要够具体，开场不能太顺。这回",
+            "targetSnippet": "：情绪要有起伏，细节要够具体，开场不能太顺。这回"
           },
           {
             "fact": "a2",
-            "sourceSnippet": "月他刚测过一场“职场受气",
-            "targetSnippet": "月他刚测过一场“职场受气"
+            "sourceSnippet": "这也不是他头一回测。上个月他",
+            "targetSnippet": "这也不是他头一回测。上个月他"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -431,8 +419,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“挺好的，”他往椅背上一",
-            "targetSnippet": "“挺好的，”他往椅背上一"
+            "sourceSnippet": "回忆的从容，“上周末带我女朋友出去吃饭，她喜欢往",
+            "targetSnippet": "回忆的从容，“上周末带我女朋友出去吃饭，她喜欢往"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -485,8 +473,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“根据您上次的记录，”A",
-            "targetSnippet": "“根据您上次的记录，”A"
+            "sourceSnippet": "“根据您上次的记录，”AI 说，语气还是那副甜的",
+            "targetSnippet": "“根据您上次的记录，”AI 说，语气还是那副甜的"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -542,8 +530,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“您今天的情绪指标存在矛",
-            "targetSnippet": "“您今天的情绪指标存在矛"
+            "sourceSnippet": "“您今天的情绪指标存在矛盾。”AI 停了一拍，像",
+            "targetSnippet": "“您今天的情绪指标存在矛盾。”AI 停了一拍，像"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -610,8 +598,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明的手在膝盖上按了按。",
-            "targetSnippet": "苏明的手在膝盖上按了按。"
+            "sourceSnippet": "苏明的手在膝盖上按了按。他心里过了一遍账，算得很",
+            "targetSnippet": "苏明的手在膝盖上按了按。他心里过了一遍账，算得很"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -636,8 +624,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“请放心，”AI 的声音",
-            "targetSnippet": "“请放心，”AI 的声音"
+            "sourceSnippet": "“请放心，”AI 的声音重新变得温柔，带了点专门",
+            "targetSnippet": "“请放心，”AI 的声音重新变得温柔，带了点专门"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -667,9 +655,21 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s010",
       "beatId": "dch01_s010",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["这AI还挺会套的。"],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "712ed6d4472277bba5aeb6ba1579aef2e4865b67539ecec542ce3b2ea0e9f158",
+        "sceneId": "dch01_s010",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "同事对了个眼神，小声：“这",
+            "targetSnippet": "同事对了个眼神，小声：“这"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p024",
@@ -718,8 +718,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "测试间里，苏明往椅背上靠",
-            "targetSnippet": "测试间里，苏明往椅背上靠"
+            "sourceSnippet": "测试间里，苏明往椅背上靠，耳机里那句“全程保密”",
+            "targetSnippet": "测试间里，苏明往椅背上靠，耳机里那句“全程保密”"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -733,23 +733,11 @@
       "textHash": "af802675407ed864b96f2ac6b3fe9587d4c955af3ddb137db531919278389bd5",
       "textPreview": "“……行，我说。”他开口，语气比刚才随意了一些，像是随便聊聊的口吻，“但这是我一个朋友的事——他昨天分手了。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s011",
-      "beatId": "dch01_s011",
-      "status": "approved-adaptation",
+      "sceneId": "dch01_s012",
+      "beatId": "dch01_s012",
+      "status": "verbatim-dialogue",
       "dialogueQuotes": ["……行，我说。", "但这是我一个朋友的事——他昨天分手了。"],
-      "notes": "novel-v2 densified adaptation",
-      "adaptationReceipt": {
-        "sourceHash": "af802675407ed864b96f2ac6b3fe9587d4c955af3ddb137db531919278389bd5",
-        "sceneId": "dch01_s011",
-        "factMappings": [
-          {
-            "fact": "a1",
-            "sourceSnippet": "行，我说。”他开口，语气",
-            "targetSnippet": "行，我说。”他开口，语气"
-          }
-        ],
-        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
-      }
+      "notes": ""
     },
     {
       "id": "draft01_p028",
@@ -759,8 +747,8 @@
       "textHash": "1f141677f22f124aa752572ca5992e008b7249aad2e1b0bb0e974082a32290eb",
       "textPreview": "“请继续。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s011",
-      "beatId": "dch01_s011",
+      "sceneId": "dch01_s012",
+      "beatId": "dch01_s012",
       "status": "verbatim-dialogue",
       "dialogueQuotes": ["请继续。"],
       "notes": ""
@@ -784,13 +772,13 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "这份兼职的招募说明写得挺",
-            "targetSnippet": "这份兼职的招募说明写得挺"
+            "sourceSnippet": "就一句：你痛得越真，公司挣得越多。",
+            "targetSnippet": "就一句：你痛得越真，公司挣得越多。"
           },
           {
             "fact": "a2",
-            "sourceSnippet": "客气，客气得让人挑不出理",
-            "targetSnippet": "客气，客气得让人挑不出理"
+            "sourceSnippet": "按场次结算。翻译成大白话",
+            "targetSnippet": "按场次结算。翻译成大白话"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -815,13 +803,13 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "走廊椅子上坐着个外国小伙",
-            "targetSnippet": "走廊椅子上坐着个外国小伙"
+            "sourceSnippet": "走廊椅子上坐着个外国小伙，二十出头，书包还没卸下",
+            "targetSnippet": "走廊椅子上坐着个外国小伙，二十出头，书包还没卸下"
           },
           {
             "fact": "a2",
-            "sourceSnippet": "，二十出头，书包还没卸下",
-            "targetSnippet": "，二十出头，书包还没卸下"
+            "sourceSnippet": "来，手里攥着张英文场次的排号条，捏得都有点皱了。",
+            "targetSnippet": "来，手里攥着张英文场次的排号条，捏得都有点皱了。"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -874,8 +862,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "昨晚吃完饭，陈佳先抢到最",
-            "targetSnippet": "昨晚吃完饭，陈佳先抢到最"
+            "sourceSnippet": "昨晚吃完饭，陈佳先抢到最后一块排骨，拿筷子夹起来",
+            "targetSnippet": "昨晚吃完饭，陈佳先抢到最后一块排骨，拿筷子夹起来"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -914,8 +902,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "陈佳靠在他肩上刷手机，他",
-            "targetSnippet": "陈佳靠在他肩上刷手机，他"
+            "sourceSnippet": "陈佳靠在他肩上刷手机，他低头看了一眼她屏幕，“你",
+            "targetSnippet": "陈佳靠在他肩上刷手机，他低头看了一眼她屏幕，“你"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -954,8 +942,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "两个人就着这点收尾的温度",
-            "targetSnippet": "两个人就着这点收尾的温度"
+            "sourceSnippet": "两个人就着这点收尾的温度往里走。灯没关，也没人去",
+            "targetSnippet": "两个人就着这点收尾的温度往里走。灯没关，也没人去"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -980,13 +968,13 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "这种时候苏明脑子里通常有",
-            "targetSnippet": "这种时候苏明脑子里通常有"
+            "sourceSnippet": "这种时候苏明脑子里通常有个开关，他心里管它叫“正",
+            "targetSnippet": "这种时候苏明脑子里通常有个开关，他心里管它叫“正"
           },
           {
             "fact": "a2",
-            "sourceSnippet": "个开关，他心里管它叫“正",
-            "targetSnippet": "个开关，他心里管它叫“正"
+            "sourceSnippet": "常人”，摁一下能管大半天——十二岁那年他第一次发",
+            "targetSnippet": "常人”，摁一下能管大半天——十二岁那年他第一次发"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1039,8 +1027,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "他自己也说不清楚是怎么回",
-            "targetSnippet": "他自己也说不清楚是怎么回"
+            "sourceSnippet": "他自己也说不清楚是怎么回事，视线落到陈佳的脚，然",
+            "targetSnippet": "他自己也说不清楚是怎么回事，视线落到陈佳的脚，然"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1093,8 +1081,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "灯还亮着，房间里没有别的",
-            "targetSnippet": "灯还亮着，房间里没有别的"
+            "sourceSnippet": "灯还亮着，房间里没有别的声音。苏明能清楚看见陈佳",
+            "targetSnippet": "灯还亮着，房间里没有别的声音。苏明能清楚看见陈佳"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1147,8 +1135,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "她说话了，声音是那种很轻",
-            "targetSnippet": "她说话了，声音是那种很轻"
+            "sourceSnippet": "她说话了，声音是那种很轻、很慢的调子，好像怕问急",
+            "targetSnippet": "她说话了，声音是那种很轻、很慢的调子，好像怕问急"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1248,9 +1236,21 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s018",
       "beatId": "dch01_s018",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["不是吧——", "你生气了？"],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "991a05f617671446b9e31826f40c481e5a3686b74c742f7b1bd02d9b174da517",
+        "sceneId": "dch01_s018",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明松了手。“不是吧——",
+            "targetSnippet": "苏明松了手。“不是吧——"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p055",
@@ -1262,9 +1262,21 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s018",
       "beatId": "dch01_s018",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "9d68ecdf7dd742358616dc2dcb619cea9f0ab69e5a4164af9a091f2e7870cab7",
+        "sceneId": "dch01_s018",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "陈佳没回答。她把脚缓缓收回去，拽了",
+            "targetSnippet": "陈佳没回答。她把脚缓缓收回去，拽了"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p056",
@@ -1299,8 +1311,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明坐着，没说话。不是想好了不说，是什么都还没想好，话梗在喉咙里，每一句都是错的",
-            "targetSnippet": "苏明坐着，没说话。不是想好了不说，是什么都还没想好，话梗在喉咙里，每一句都是错的"
+            "sourceSnippet": "不是想好了不说，是什么都还没想好，话梗在喉咙里，",
+            "targetSnippet": "不是想好了不说，是什么都还没想好，话梗在喉咙里，"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1325,13 +1337,13 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "当晚就这么收了。陈佳进卧",
-            "targetSnippet": "当晚就这么收了。陈佳进卧"
+            "sourceSnippet": "——甩门是气话，锁门是想清楚了的决定",
+            "targetSnippet": "——甩门是气话，锁门是想清楚了的决定"
           },
           {
             "fact": "a2",
-            "sourceSnippet": "室，门关上，反锁的声音清",
-            "targetSnippet": "室，门关上，反锁的声音清"
+            "sourceSnippet": "七八遍，一条消息也没编出来。",
+            "targetSnippet": "七八遍，一条消息也没编出来。"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1485,8 +1497,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "话越说越多，说着说着陈佳",
-            "targetSnippet": "话越说越多，说着说着陈佳"
+            "sourceSnippet": "话越说越多，说着说着陈佳带出了昨晚——“而且你昨",
+            "targetSnippet": "话越说越多，说着说着陈佳带出了昨晚——“而且你昨"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1623,8 +1635,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "两个人吵开了，从性癖吵到",
-            "targetSnippet": "两个人吵开了，从性癖吵到"
+            "sourceSnippet": "从性癖吵到兼职，从兼职吵到他不上进，从不上进吵到",
+            "targetSnippet": "从性癖吵到兼职，从兼职吵到他不上进，从不上进吵到"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1654,9 +1666,21 @@
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s021",
       "beatId": "dch01_s021",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "38d533f3bf0d6f6737a7602e8705a6d75bec4385a68cb01d2658638b74f2f154",
+        "sceneId": "dch01_s021",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "一口气，像是把什么东西放下了。",
+            "targetSnippet": "一口气，像是把什么东西放下了。"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p080",
@@ -1719,8 +1743,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "一个字。不是气话，也不是",
-            "targetSnippet": "一个字。不是气话，也不是"
+            "sourceSnippet": "是结果。苏明张了张嘴，十六年攒下来的解释，真到了",
+            "targetSnippet": "是结果。苏明张了张嘴，十六年攒下来的解释，真到了"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1759,8 +1783,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "没有当众处刑，也没有闪送",
-            "targetSnippet": "没有当众处刑，也没有闪送"
+            "sourceSnippet": "就这么淡淡一句，反倒够他硬撑一整天",
+            "targetSnippet": "就这么淡淡一句，反倒够他硬撑一整天"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1816,8 +1840,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "嗯。”AI 停了一下，这",
-            "targetSnippet": "嗯。”AI 停了一下，这"
+            "sourceSnippet": "“嗯。”AI 停了一下，这次没有急着接话，像是在",
+            "targetSnippet": "“嗯。”AI 停了一下，这次没有急着接话，像是在"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1859,8 +1883,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“但我觉得他们的事可能不",
-            "targetSnippet": "“但我觉得他们的事可能不"
+            "sourceSnippet": "“但我觉得他们的事可能不只是这一件。”AI 继续",
+            "targetSnippet": "“但我觉得他们的事可能不只是这一件。”AI 继续"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1941,8 +1965,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "他心里想了一下——这倒是",
-            "targetSnippet": "他心里想了一下——这倒是"
+            "sourceSnippet": "他心里想了一下——这倒是头一次，耳机里出来的话让",
+            "targetSnippet": "他心里想了一下——这倒是头一次，耳机里出来的话让"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -1981,8 +2005,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "工作人员把苏明带到一个小",
-            "targetSnippet": "工作人员把苏明带到一个小"
+            "sourceSnippet": "闭眼，谁都不说话，像在候诊室等叫号。",
+            "targetSnippet": "闭眼，谁都不说话，像在候诊室等叫号。"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2007,8 +2031,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "工作人员站在前面，开始汇",
-            "targetSnippet": "工作人员站在前面，开始汇"
+            "sourceSnippet": "，语气跟念报表一样平：某某场次情绪真实度偏低，某",
+            "targetSnippet": "，语气跟念报表一样平：某某场次情绪真实度偏低，某"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2036,8 +2060,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“苏明先生，”她念到这一",
-            "targetSnippet": "“苏明先生，”她念到这一"
+            "sourceSnippet": "“苏明先生，”她念到这一条，语气没什么变化，“今",
+            "targetSnippet": "“苏明先生，”她念到这一条，语气没什么变化，“今"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2090,8 +2114,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“等一下。”他站起来，声",
-            "targetSnippet": "“等一下。”他站起来，声"
+            "sourceSnippet": "“等一下。”他站起来，声音不算大，但小结区里登时",
+            "targetSnippet": "“等一下。”他站起来，声音不算大，但小结区里登时"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2130,8 +2154,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明没听她念完。他转头扫",
-            "targetSnippet": "苏明没听她念完。他转头扫"
+            "sourceSnippet": "苏明没听她念完。他转头扫了一圈周围那十几个人：几",
+            "targetSnippet": "苏明没听她念完。他转头扫了一圈周围那十几个人：几"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2226,8 +2250,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "走廊的椅子是那种硬塑料的",
-            "targetSnippet": "走廊的椅子是那种硬塑料的"
+            "sourceSnippet": "走廊的椅子是那种硬塑料的，坐久了腰酸。他坐着看手",
+            "targetSnippet": "走廊的椅子是那种硬塑料的，坐久了腰酸。他坐着看手"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2252,8 +2276,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "走廊另一头，两个穿灰色工",
-            "targetSnippet": "走廊另一头，两个穿灰色工"
+            "sourceSnippet": "走廊另一头，两个穿灰色工装的人正推着一只一人高的",
+            "targetSnippet": "走廊另一头，两个穿灰色工装的人正推着一只一人高的"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2292,8 +2316,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "他身边站着个外国小伙——",
-            "targetSnippet": "他身边站着个外国小伙——"
+            "sourceSnippet": "身边站着个外国小伙——书包还背着，身上还挂着今天",
+            "targetSnippet": "身边站着个外国小伙——书包还背着，身上还挂着今天"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2335,8 +2359,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "负责人听得很耐心，等他说",
-            "targetSnippet": "负责人听得很耐心，等他说"
+            "sourceSnippet": "负责人听得很耐心，等他说完，把平板拿出来，把条款",
+            "targetSnippet": "负责人听得很耐心，等他说完，把平板拿出来，把条款"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2501,8 +2525,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "那个外国小伙从旁边走过来",
-            "targetSnippet": "那个外国小伙从旁边走过来"
+            "sourceSnippet": "那个外国小伙从旁边走过来，中文说得很慢，但字很清",
+            "targetSnippet": "那个外国小伙从旁边走过来，中文说得很慢，但字很清"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2545,8 +2569,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“我今天在小结的地方，”",
-            "targetSnippet": "“我今天在小结的地方，”"
+            "sourceSnippet": "“我今天在小结的地方，”雷欧比画了一下，“听见了",
+            "targetSnippet": "“我今天在小结的地方，”雷欧比画了一下，“听见了"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2618,8 +2642,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "不是。”雷欧摇头，“我跟",
-            "targetSnippet": "不是。”雷欧摇头，“我跟"
+            "sourceSnippet": "“不是。”雷欧摇头，“我跟你一样，测试的。但是，",
+            "targetSnippet": "“不是。”雷欧摇头，“我跟你一样，测试的。但是，"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2647,8 +2671,8 @@
       "textHash": "8a08114a4c8ad1b78f008f47436e23c54de9af9d01af2b31aa483bd05a36855c",
       "textPreview": "“对。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s034",
-      "beatId": "dch01_s034",
+      "sceneId": "dch01_s021",
+      "beatId": "dch01_s021",
       "status": "verbatim-dialogue",
       "dialogueQuotes": ["对。"],
       "notes": ""
@@ -2672,8 +2696,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明想了一下，然后笑了，",
-            "targetSnippet": "苏明想了一下，然后笑了，"
+            "sourceSnippet": "苏明想了一下，然后笑了，那是今天第一次真的笑，有",
+            "targetSnippet": "苏明想了一下，然后笑了，那是今天第一次真的笑，有"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2810,8 +2834,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "她在辣条货架前假装比口味",
-            "targetSnippet": "她在辣条货架前假装比口味"
+            "sourceSnippet": "她在辣条货架前假装比口味——翻一包看看背面，再拿",
+            "targetSnippet": "她在辣条货架前假装比口味——翻一包看看背面，再拿"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2850,13 +2874,13 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "他在这家叫“惠万家”的小",
-            "targetSnippet": "他在这家叫“惠万家”的小"
+            "sourceSnippet": "他在这家叫“惠万家”的小超市干了快半年了——门脸",
+            "targetSnippet": "他在这家叫“惠万家”的小超市干了快半年了——门脸"
           },
           {
             "fact": "a2",
-            "sourceSnippet": "超市干了快半年了——门脸",
-            "targetSnippet": "超市干了快半年了——门脸"
+            "sourceSnippet": "两米宽，货架挤得侧身才能过，店名听着气派，实际能",
+            "targetSnippet": "两米宽，货架挤得侧身才能过，店名听着气派，实际能"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -2909,8 +2933,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "小女孩先不说话。她抬起头",
-            "targetSnippet": "小女孩先不说话。她抬起头"
+            "sourceSnippet": "小女孩先不说话。她抬起头看他，神情平静得不像这个",
+            "targetSnippet": "小女孩先不说话。她抬起头看他，神情平静得不像这个"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3008,19 +3032,19 @@
       "textHash": "db8c4545543bebf49066b11b3e878f683c900c4246894e2ce0ea5ee41c6319c5",
       "textPreview": "那颗心回来以后，苏明做了个决定：叫老板娘出来处理，他一个收银的，管到这份上已经到头了。他掏出手机，拨老板娘的号。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s003",
-      "beatId": "dch02_s003",
+      "sceneId": "dch02_s004",
+      "beatId": "dch02_s004",
       "status": "approved-adaptation",
       "dialogueQuotes": [],
       "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
         "sourceHash": "db8c4545543bebf49066b11b3e878f683c900c4246894e2ce0ea5ee41c6319c5",
-        "sceneId": "dch02_s003",
+        "sceneId": "dch02_s004",
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "那颗心回来以后，苏明做了",
-            "targetSnippet": "那颗心回来以后，苏明做了"
+            "sourceSnippet": "做了个决定：叫老板娘出来处理",
+            "targetSnippet": "做了个决定：叫老板娘出来处理"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3034,14 +3058,14 @@
       "textHash": "654b1b6635f97827bc91635e8f004ee9f3101e280e49939a9010e753185ca916",
       "textPreview": "电话接通，“喂”字刚出口，小女孩从他旁边走过来，站到他手边——没抢手机，只是把他握手机的那只手，两只小手捂住了，就这么摁着，不让他动。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s003",
-      "beatId": "dch02_s003",
+      "sceneId": "dch02_s004",
+      "beatId": "dch02_s004",
       "status": "approved-adaptation",
       "dialogueQuotes": ["喂"],
       "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
         "sourceHash": "654b1b6635f97827bc91635e8f004ee9f3101e280e49939a9010e753185ca916",
-        "sceneId": "dch02_s003",
+        "sceneId": "dch02_s004",
         "factMappings": [
           {
             "fact": "a1",
@@ -3062,9 +3086,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s004",
       "beatId": "dch02_s004",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "573a50eb104c9f95643022a34e8f1b4e93a6a0eba9f7f6e297712f92c188c487",
+        "sceneId": "dch02_s004",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "她回看他，眼神又变回了那种平静的。",
+            "targetSnippet": "她回看他，眼神又变回了那种平静的。"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p017",
@@ -3076,9 +3112,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s004",
       "beatId": "dch02_s004",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "47a1d8896bb61043c69b2343ea431a7fe7220d013edce06a4be86b6671256c2f",
+        "sceneId": "dch02_s004",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "，小女孩已经松手开跑了。",
+            "targetSnippet": "，小女孩已经松手开跑了。"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p018",
@@ -3090,9 +3138,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s004",
       "beatId": "dch02_s004",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["喂喂喂"],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "2736db7e717cf59ba454b5878837a2ee633931cf6d8d28f44dcdffc00367c267",
+        "sceneId": "dch02_s004",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明追出去，手里还攥着电话，老板娘那头还在“喂喂",
+            "targetSnippet": "苏明追出去，手里还攥着电话，老板娘那头还在“喂喂"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p019",
@@ -3113,8 +3173,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "出了门是巷子，巷子穿出去",
-            "targetSnippet": "出了门是巷子，巷子穿出去"
+            "sourceSnippet": "出了门是巷子，巷子穿出去是菜市场，再出去是老居民",
+            "targetSnippet": "出了门是巷子，巷子穿出去是菜市场，再出去是老居民"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3172,9 +3232,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s005",
       "beatId": "dch02_s005",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "543d44fdea5718a235001bd46fca0ea07af1f19299eda12b6d646fbfdaaa612b",
+        "sceneId": "dch02_s005",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "摊贩、大妈、路过的两个外卖员，一圈人从四面合了过",
+            "targetSnippet": "摊贩、大妈、路过的两个外卖员，一圈人从四面合了过"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p024",
@@ -3209,8 +3281,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "话音刚落，旁边一个卖牛肉",
-            "targetSnippet": "话音刚落，旁边一个卖牛肉"
+            "sourceSnippet": "话音刚落，旁边一个卖牛肉的大胖子从摊位后头绕出来",
+            "targetSnippet": "话音刚落，旁边一个卖牛肉的大胖子从摊位后头绕出来"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3235,8 +3307,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明往旁边跳，折叠椅擦着",
-            "targetSnippet": "苏明往旁边跳，折叠椅擦着"
+            "sourceSnippet": "苏明往旁边跳，折叠椅擦着他耳边过去，带起一阵风。",
+            "targetSnippet": "苏明往旁边跳，折叠椅擦着他耳边过去，带起一阵风。"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3252,9 +3324,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s006",
       "beatId": "dch02_s006",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "1bb17ec3c3440f93f0a9b1924a1138247cd8450e6272eb0769347aa04bca5668",
+        "sceneId": "dch02_s006",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "人群挪了挪位置，有人探头看了一眼他手机屏幕，",
+            "targetSnippet": "人群挪了挪位置，有人探头看了一眼他手机屏幕，"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p028",
@@ -3266,9 +3350,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s006",
       "beatId": "dch02_s006",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["他说的……好像也挺对……"],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "77e588971b3e362b96c9586c0646078a57baf6c13f104b4b548116650286ec82",
+        "sceneId": "dch02_s006",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“他说的……好像也挺对……”有人小声说",
+            "targetSnippet": "“他说的……好像也挺对……”有人小声说"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p029",
@@ -3303,8 +3399,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "小女孩这时候嚎哭得更大声",
-            "targetSnippet": "小女孩这时候嚎哭得更大声"
+            "sourceSnippet": "大妈身边蹭：“大妈大妈，他追我好久了，我好怕……",
+            "targetSnippet": "大妈身边蹭：“大妈大妈，他追我好久了，我好怕……"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3343,8 +3439,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "大胖子把折叠椅放下来，转",
-            "targetSnippet": "大胖子把折叠椅放下来，转"
+            "sourceSnippet": "大胖子把折叠椅放下来，转身往苏明走过去，一把薅住",
+            "targetSnippet": "大胖子把折叠椅放下来，转身往苏明走过去，一把薅住"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3371,8 +3467,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明没挣扎，他也知道这会",
-            "targetSnippet": "苏明没挣扎，他也知道这会"
+            "sourceSnippet": "苏明没挣扎，他也知道这会儿挣扎只有死路一条，就那",
+            "targetSnippet": "苏明没挣扎，他也知道这会儿挣扎只有死路一条，就那"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3439,8 +3535,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "小女孩被这么多双眼睛盯着",
-            "targetSnippet": "小女孩被这么多双眼睛盯着"
+            "sourceSnippet": "小女孩被这么多双眼睛盯着，哭声慢慢停了。她抽了抽",
+            "targetSnippet": "小女孩被这么多双眼睛盯着，哭声慢慢停了。她抽了抽"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3456,9 +3552,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s008",
       "beatId": "dch02_s008",
-      "status": "narrated",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "951100493ca4c16d0e9fc54244d54205ec7e1669b0e2a809ceadb1168c3836ad",
+        "sceneId": "dch02_s008",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "缓缓开口，像是在陈述事实：",
+            "targetSnippet": "缓缓开口，像是在陈述事实："
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p039",
@@ -3493,8 +3601,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "说完，她低头从校服口袋里",
-            "targetSnippet": "说完，她低头从校服口袋里"
+            "sourceSnippet": "说完，她低头从校服口袋里掏出苏明的手机——不知道",
+            "targetSnippet": "说完，她低头从校服口袋里掏出苏明的手机——不知道"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3533,8 +3641,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "他没注意脚下。大胖子刚才",
-            "targetSnippet": "他没注意脚下。大胖子刚才"
+            "sourceSnippet": "他没注意脚下。大胖子刚才放下的折叠椅就搁在他跟前",
+            "targetSnippet": "他没注意脚下。大胖子刚才放下的折叠椅就搁在他跟前"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3573,8 +3681,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "鼻血滴在水泥上，脑袋嗡嗡",
-            "targetSnippet": "鼻血滴在水泥上，脑袋嗡嗡"
+            "sourceSnippet": "鼻血滴在水泥上，脑袋嗡嗡的，视线糊了一下，他咬着",
+            "targetSnippet": "鼻血滴在水泥上，脑袋嗡嗡的，视线糊了一下，他咬着"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3627,8 +3735,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "大胖子收起折叠椅，一脸说",
-            "targetSnippet": "大胖子收起折叠椅，一脸说"
+            "sourceSnippet": "大胖子收起折叠椅，一脸说不清是服气还是不服气的表",
+            "targetSnippet": "大胖子收起折叠椅，一脸说不清是服气还是不服气的表"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3681,8 +3789,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "常来买烟的张师傅蹲在门口",
-            "targetSnippet": "常来买烟的张师傅蹲在门口"
+            "sourceSnippet": "常来买烟的张师傅蹲在门口，把这一出全看在了眼里，",
+            "targetSnippet": "常来买烟的张师傅蹲在门口，把这一出全看在了眼里，"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3777,8 +3885,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "雷欧骑的是一辆蓝色小电驴",
-            "targetSnippet": "雷欧骑的是一辆蓝色小电驴"
+            "sourceSnippet": "雷欧骑的是一辆蓝色小电驴，车把手上绑着一圈快递贴",
+            "targetSnippet": "雷欧骑的是一辆蓝色小电驴，车把手上绑着一圈快递贴"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3821,8 +3929,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“语言学校宿舍去年到期，",
-            "targetSnippet": "“语言学校宿舍去年到期，"
+            "sourceSnippet": "“语言学校宿舍去年到期，”雷欧踩着车，嗓音随引擎",
+            "targetSnippet": "“语言学校宿舍去年到期，”雷欧踩着车，嗓音随引擎"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3903,8 +4011,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "石家小楼在一条旧巷子里，",
-            "targetSnippet": "石家小楼在一条旧巷子里，"
+            "sourceSnippet": "石家小楼在一条旧巷子里，三层，外皮有些年头了，走",
+            "targetSnippet": "石家小楼在一条旧巷子里，三层，外皮有些年头了，走"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -3985,8 +4093,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "等了大概十分钟，雷欧从背",
-            "targetSnippet": "等了大概十分钟，雷欧从背"
+            "sourceSnippet": "等了大概十分钟，雷欧从背包侧袋摸出两罐啤酒，递给",
+            "targetSnippet": "等了大概十分钟，雷欧从背包侧袋摸出两罐啤酒，递给"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4039,8 +4147,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "石佩欣出来——睡衣，头发",
-            "targetSnippet": "石佩欣出来——睡衣，头发"
+            "sourceSnippet": "石佩欣出来——睡衣，头发随手扎着，发卡还没拔，露",
+            "targetSnippet": "石佩欣出来——睡衣，头发随手扎着，发卡还没拔，露"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4149,8 +4257,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "问到“谁提的分手”这一句",
-            "targetSnippet": "问到“谁提的分手”这一句"
+            "sourceSnippet": "问到“谁提的分手”这一句，雷欧从旁边凑过来，热心",
+            "targetSnippet": "问到“谁提的分手”这一句，雷欧从旁边凑过来，热心"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4217,8 +4325,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "“自己提的更稳。过。”她",
-            "targetSnippet": "“自己提的更稳。过。”她"
+            "sourceSnippet": "“自己提的更稳。过。”她说完，挥了挥手接着往下—",
+            "targetSnippet": "“自己提的更稳。过。”她说完，挥了挥手接着往下—"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4299,8 +4407,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "猫这时候从屋里踱出来，跳",
-            "targetSnippet": "猫这时候从屋里踱出来，跳"
+            "sourceSnippet": "猫这时候从屋里踱出来，跳下门槛，顺道踩了苏明一脚",
+            "targetSnippet": "猫这时候从屋里踱出来，跳下门槛，顺道踩了苏明一脚"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4395,8 +4503,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "当晚苏明就搬进了3F-A",
-            "targetSnippet": "当晚苏明就搬进了3F-A"
+            "sourceSnippet": "当晚苏明就搬进了3F-A。行李是几个垃圾袋，抱进",
+            "targetSnippet": "当晚苏明就搬进了3F-A。行李是几个垃圾袋，抱进"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4435,8 +4543,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明心里咯噔了一下。第一",
-            "targetSnippet": "苏明心里咯噔了一下。第一"
+            "sourceSnippet": "第一反应是石佩欣反悔了，或者哪条规矩他没听清楚就",
+            "targetSnippet": "第一反应是石佩欣反悔了，或者哪条规矩他没听清楚就"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4452,21 +4560,9 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s020",
       "beatId": "dch02_s020",
-      "status": "approved-adaptation",
+      "status": "verbatim-dialogue",
       "dialogueQuotes": ["娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？"],
-      "notes": "novel-v2 densified adaptation",
-      "adaptationReceipt": {
-        "sourceHash": "2960dbe452a646ad49e08efa5a88366f043ad9625ff783455000ea8612da6d95",
-        "sceneId": "dch02_s020",
-        "factMappings": [
-          {
-            "fact": "a1",
-            "sourceSnippet": "门外站着个抱保温杯的大爷，一脸急切：“娃儿，你是不是新搬来的？楼下水表箱钥匙你晓",
-            "targetSnippet": "门外站着个抱保温杯的大爷，一脸急切：“娃儿，你是不是新搬来的？楼下水表箱钥匙你晓"
-          }
-        ],
-        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
-      }
+      "notes": ""
     },
     {
       "id": "draft02_p097",
@@ -4487,8 +4583,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明愣了两秒，才想起自己",
-            "targetSnippet": "苏明愣了两秒，才想起自己"
+            "sourceSnippet": "苏明愣了两秒，才想起自己确实不知道，也确实不该知",
+            "targetSnippet": "苏明愣了两秒，才想起自己确实不知道，也确实不该知"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4513,8 +4609,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "虚惊一场。苏明关上门，后",
-            "targetSnippet": "虚惊一场。苏明关上门，后"
+            "sourceSnippet": "虚惊一场。苏明关上门，后背的汗才慢慢干下去——租",
+            "targetSnippet": "虚惊一场。苏明关上门，后背的汗才慢慢干下去——租"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4567,8 +4663,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "石佩欣天天憋在2F，外卖",
-            "targetSnippet": "石佩欣天天憋在2F，外卖"
+            "sourceSnippet": "石佩欣天天憋在2F，外卖吃了三个月，公共区出没时",
+            "targetSnippet": "石佩欣天天憋在2F，外卖吃了三个月，公共区出没时"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4593,8 +4689,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "某天他从超市回来，走到3",
-            "targetSnippet": "某天他从超市回来，走到3"
+            "sourceSnippet": "某天他从超市回来，走到3F-B门口，里面响着法语",
+            "targetSnippet": "某天他从超市回来，走到3F-B门口，里面响着法语"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4675,8 +4771,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "隔了两天，两人都在心动引",
-            "targetSnippet": "隔了两天，两人都在心动引"
+            "sourceSnippet": "隔了两天，两人都在心动引擎测试楼的等候区等场次。",
+            "targetSnippet": "隔了两天，两人都在心动引擎测试楼的等候区等场次。"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4715,8 +4811,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明以为是那种钢铁感的、",
-            "targetSnippet": "苏明以为是那种钢铁感的、"
+            "sourceSnippet": "苏明以为是那种钢铁感的、关节明显的那种，看了一眼",
+            "targetSnippet": "苏明以为是那种钢铁感的、关节明显的那种，看了一眼"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4744,8 +4840,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "公司新的，”雷欧说，“实",
-            "targetSnippet": "公司新的，”雷欧说，“实"
+            "sourceSnippet": "“公司新的，”雷欧说，“实体的。抱回家那种。补贴",
+            "targetSnippet": "“公司新的，”雷欧说，“实体的。抱回家那种。补贴"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4870,8 +4966,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "雷欧说，他其实想报名，但",
-            "targetSnippet": "雷欧说，他其实想报名，但"
+            "sourceSnippet": "雷欧说，他其实想报名，但女友觉得这是他想用机器人",
+            "targetSnippet": "雷欧说，他其实想报名，但女友觉得这是他想用机器人"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4929,21 +5025,9 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s026",
       "beatId": "dch02_s026",
-      "status": "approved-adaptation",
+      "status": "narrated",
       "dialogueQuotes": [],
-      "notes": "novel-v2 densified adaptation",
-      "adaptationReceipt": {
-        "sourceHash": "2af34064f183d58e4f3fcac36609494015d74f8f5fb37f3467379d939aeb9f93",
-        "sceneId": "dch02_s026",
-        "factMappings": [
-          {
-            "fact": "a1",
-            "sourceSnippet": "当天晚上，苏明一个人坐在",
-            "targetSnippet": "当天晚上，苏明一个人坐在"
-          }
-        ],
-        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
-      }
+      "notes": ""
     },
     {
       "id": "draft02_p123",
@@ -4964,8 +5048,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明回了“到了，最近忙”",
-            "targetSnippet": "苏明回了“到了，最近忙”"
+            "sourceSnippet": "其实还没转，得先紧着房租周转。他把这条消息看了两",
+            "targetSnippet": "其实还没转，得先紧着房租周转。他把这条消息看了两"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -4990,8 +5074,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "又点开大学室友的对话框，",
-            "targetSnippet": "又点开大学室友的对话框，"
+            "sourceSnippet": "又点开大学室友的对话框，想找个人说说话。最后一条",
+            "targetSnippet": "又点开大学室友的对话框，想找个人说说话。最后一条"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -5016,8 +5100,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "他划开手机上的交友软件消",
-            "targetSnippet": "他划开手机上的交友软件消"
+            "sourceSnippet": "他划开手机上的交友软件消磨时间：一个简介写着“社",
+            "targetSnippet": "他划开手机上的交友软件消磨时间：一个简介写着“社"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -5070,8 +5154,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明一眼就认出了这句话。",
-            "targetSnippet": "苏明一眼就认出了这句话。"
+            "sourceSnippet": "AI，开口没两句就是这一句。同一家公司，同一套话",
+            "targetSnippet": "AI，开口没两句就是这一句。同一家公司，同一套话"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -5096,8 +5180,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "页面再往下滑，是体验官评",
-            "targetSnippet": "页面再往下滑，是体验官评"
+            "sourceSnippet": "页面再往下滑，是体验官评价区。五星那条底下写着：",
+            "targetSnippet": "页面再往下滑，是体验官评价区。五星那条底下写着："
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -5127,9 +5211,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s028",
       "beatId": "dch02_s028",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["照片内不得出现他人面孔"],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "560b4f987ee53073d3e3441a00a1c00cec1033ccf361b2eee1df48d9798a3873",
+        "sceneId": "dch02_s028",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "报名问卷要上传居住环境照片，要求包含公共区域，要",
+            "targetSnippet": "报名问卷要上传居住环境照片，要求包含公共区域，要"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p132",
@@ -5150,8 +5246,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "苏明架好手机，对着3F的",
-            "targetSnippet": "苏明架好手机，对着3F的"
+            "sourceSnippet": "苏明架好手机，对着3F的走廊和公共区域准备拍，举",
+            "targetSnippet": "苏明架好手机，对着3F的走廊和公共区域准备拍，举"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -5237,21 +5333,9 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s030",
       "beatId": "dch02_s030",
-      "status": "approved-adaptation",
+      "status": "narrated",
       "dialogueQuotes": [],
-      "notes": "novel-v2 densified adaptation",
-      "adaptationReceipt": {
-        "sourceHash": "c0e32bbdd269a27088ad6840a11a2ebbb7ad2e5c70b52fbb37aa53709747ce27",
-        "sceneId": "dch02_s030",
-        "factMappings": [
-          {
-            "fact": "a1",
-            "sourceSnippet": "石佩欣又上来了——路由器",
-            "targetSnippet": "石佩欣又上来了——路由器"
-          }
-        ],
-        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
-      }
+      "notes": ""
     },
     {
       "id": "draft02_p139",
@@ -5286,8 +5370,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "这来来回回折腾了三次，到",
-            "targetSnippet": "这来来回回折腾了三次，到"
+            "sourceSnippet": "到最后苏明只找到房间那个唯一不掉墙皮的角落，拍了",
+            "targetSnippet": "到最后苏明只找到房间那个唯一不掉墙皮的角落，拍了"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -5301,8 +5385,8 @@
       "textHash": "7ca948764cca72ac6687b6c491233f454de1d8679558de33c99d954dd6777ea5",
       "textPreview": "他想了想，上传了。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s031",
-      "beatId": "dch02_s031",
+      "sceneId": "dch02_s030",
+      "beatId": "dch02_s030",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -5326,8 +5410,8 @@
         "factMappings": [
           {
             "fact": "a1",
-            "sourceSnippet": "问卷：邻居容忍度自评——",
-            "targetSnippet": "问卷：邻居容忍度自评——"
+            "sourceSnippet": "问卷：邻居容忍度自评——他先填了“一般”，盯着屏",
+            "targetSnippet": "问卷：邻居容忍度自评——他先填了“一般”，盯着屏"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
@@ -5341,11 +5425,23 @@
       "textHash": "a0eafb42e5445c81af6ab5e5be6817e7f4f132c65f01140ed9a65dc93b2b9547",
       "textPreview": "提交前弹出一份保密承诺，第七条加了粗：**设备之存在，不得让任何非签约人知晓，包括同住人。**",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s031",
-      "beatId": "dch02_s031",
-      "status": "narrated",
+      "sceneId": "dch02_s028",
+      "beatId": "dch02_s028",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "a0eafb42e5445c81af6ab5e5be6817e7f4f132c65f01140ed9a65dc93b2b9547",
+        "sceneId": "dch02_s028",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "设备之存在，不得让任何非签约人知晓，包括同住人。",
+            "targetSnippet": "设备之存在，不得让任何非签约人知晓，包括同住人。"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p144",
@@ -5357,9 +5453,21 @@
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s031",
       "beatId": "dch02_s031",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["已阅读并同意"],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "ef20cf3b0de2f86f643be05f2e506df9f9589ac1c9aa8ef267048c8008b4f86d",
+        "sceneId": "dch02_s031",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明想起这楼里住着三个活人，还有一只猫，手指在屏",
+            "targetSnippet": "苏明想起这楼里住着三个活人，还有一只猫，手指在屏"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p145",
