@@ -2,7 +2,7 @@ import { Agent } from "@mastra/core/agent";
 import { createOpenRouterModel } from "@pieai/swimmer-ai-kit";
 import { z } from "zod";
 import { buildAiBranchMessages } from "./prompts.js";
-import type { AiBranchRequestBody, AiBranchResponseBody } from "./handler.js";
+import type { AiBranchRequestBody, AiBranchResponseBody } from "./branchTypes.js";
 
 const beatSchema = z.object({
   speaker: z.string().min(1),
