@@ -228,6 +228,10 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   const boot = page.getByTestId("boot-splash");
   if (await boot.isVisible().catch(() => false)) {
     await boot.click();
+    const ageConfirm = page.getByTestId("age-gate-confirm");
+    if (await ageConfirm.isVisible().catch(() => false)) {
+      await ageConfirm.click();
+    }
   }
 
   await expect(page.getByTestId("title-screen")).toBeVisible();

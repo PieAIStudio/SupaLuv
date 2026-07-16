@@ -30,6 +30,10 @@ async function startNewGame(page: Page) {
   const boot = page.locator('[data-testid="boot-splash"][role="button"]');
   if (await boot.isVisible().catch(() => false)) {
     await boot.click();
+    const ageConfirm = page.getByTestId("age-gate-confirm");
+    if (await ageConfirm.isVisible().catch(() => false)) {
+      await ageConfirm.click();
+    }
   }
   await expect(page.getByTestId("title-screen")).toBeVisible({ timeout: 10_000 });
   await page.getByRole("button", { name: "中文", exact: true }).click();

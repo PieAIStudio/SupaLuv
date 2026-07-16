@@ -29,6 +29,12 @@ export const en: MessageTree = {
     cta: "Click anywhere to start",
     hint: "Enables audio & title",
   },
+  ageGate: {
+    title: "18+ Adult Content",
+    body: "This game contains adult black humor, sex-comedy themes, and robot-ethics jokes (no explicit content). Confirm you are 18 or older — the robots don't check IDs, but we do.",
+    confirm: "I am 18 or older — enter",
+    minorHint: "If you are under 18, please close this page.",
+  },
   title: {
     badge: "SupaLuv · Two-Chapter Draft Playtest",
     eyebrow: "INTERACTIVE CINEMA",

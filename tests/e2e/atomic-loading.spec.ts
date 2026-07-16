@@ -24,6 +24,10 @@ async function resetToTitle(page: import("@playwright/test").Page, query = "") {
   });
   await page.reload({ waitUntil: "domcontentloaded" });
   await page.getByTestId("boot-splash").click();
+  const ageConfirm = page.getByTestId("age-gate-confirm");
+  if (await ageConfirm.isVisible().catch(() => false)) {
+    await ageConfirm.click();
+  }
   await expect(page.getByTestId("title-screen")).toBeVisible();
 }
 

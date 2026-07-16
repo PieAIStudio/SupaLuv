@@ -216,3 +216,58 @@
   font-size: 0.65rem;
   opacity: 0.7;
 }
+
+/* 18+ age gate: overlays the boot splash before first entry. */
+.age-gate-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgb(3 4 7 / 78%);
+  backdrop-filter: blur(6px);
+}
+
+.age-gate-card {
+  max-width: 30rem;
+  padding: 1.6rem 1.8rem;
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 1rem;
+  background: rgb(14 16 24 / 96%);
+  color: #f4ede4;
+  text-align: center;
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 55%);
+}
+
+.age-gate-card h2 {
+  margin-bottom: 0.7rem;
+  color: #ffb98a;
+}
+
+.age-gate-body {
+  margin-bottom: 1.1rem;
+  color: #d9cfc2;
+  line-height: 1.6;
+}
+
+.age-gate-confirm {
+  padding: 0.7rem 1.4rem;
+  border: 1px solid rgb(240 164 106 / 60%);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e98a4e, #c9633a);
+  color: #1c110a;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.age-gate-confirm:hover {
+  filter: brightness(1.08);
+}
+
+.age-gate-minor-hint {
+  margin-top: 0.85rem;
+  margin-bottom: 0;
+  color: #9d9184;
+  font-size: 0.85rem;
+}

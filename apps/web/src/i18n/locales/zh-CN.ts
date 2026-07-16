@@ -27,6 +27,12 @@ export const zhCN: MessageTree = {
     cta: "点击任意处开始",
     hint: "开启声音与标题",
   },
+  ageGate: {
+    title: "18+ 成人内容确认",
+    body: "本作包含成人黑色幽默、性喜剧题材与机器人伦理笑话（不含露骨内容）。确认你已年满 18 岁再进来——机器人不查身份证，但我们查。",
+    confirm: "我已年满 18 岁，进入",
+    minorHint: "未满 18 岁请关闭本页面。",
+  },
   title: {
     badge: "SupaLuv · 双章草稿试玩",
     eyebrow: "互动影游",

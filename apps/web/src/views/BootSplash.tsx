@@ -12,18 +12,49 @@ interface BootSplashProps {
  * First surface: click-to-unlock audio (browser autoplay policy).
  * Not a full publisher logo reel — one cinematic still + prompt.
  */
+const AGE_GATE_KEY = "supaluv.ageGate.v1";
+
+function ageConfirmed(): boolean {
+  try {
+    return localStorage.getItem(AGE_GATE_KEY) === "confirmed";
+  } catch {
+    return false;
+  }
+}
+
 export function BootSplash({ onEnter, busy = false }: BootSplashProps) {
   const { t } = useLocale();
   const [artReady, setArtReady] = useState(false);
-  const enter = useCallback(() => {
-    if (busy || !onEnter) {
+  const [showAgeGate, setShowAgeGate] = useState(false);
+  const proceed = useCallback(() => {
+    if (!onEnter) {
       return;
     }
     gameAudio.unlock();
     gameAudio.stopAmbient();
     gameAudio.playExclusiveBed("title-theme");
     onEnter();
-  }, [busy, onEnter]);
+  }, [onEnter]);
+  const enter = useCallback(() => {
+    if (busy || !onEnter) {
+      return;
+    }
+    // Adult-content gate: confirm once per device before the first entry.
+    if (!ageConfirmed()) {
+      setShowAgeGate(true);
+      return;
+    }
+    proceed();
+  }, [busy, onEnter, proceed]);
+  const confirmAge = useCallback(() => {
+    try {
+      localStorage.setItem(AGE_GATE_KEY, "confirmed");
+    } catch {
+      // Private-mode storage failure: still let this session through.
+    }
+    setShowAgeGate(false);
+    proceed();
+  }, [proceed]);
 
   useEffect(() => {
     let active = true;
@@ -85,6 +116,30 @@ export function BootSplash({ onEnter, busy = false }: BootSplashProps) {
         </p>
         <p className="boot-splash-hint">{busy ? t("common.loading") : t("boot.hint")}</p>
       </div>
+      {showAgeGate ? (
+        <div
+          className="age-gate-layer"
+          data-testid="age-gate"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="age-gate-title"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div className="age-gate-card">
+            <h2 id="age-gate-title">{t("ageGate.title")}</h2>
+            <p className="age-gate-body">{t("ageGate.body")}</p>
+            <button
+              type="button"
+              className="age-gate-confirm"
+              data-testid="age-gate-confirm"
+              onClick={confirmAge}
+            >
+              {t("ageGate.confirm")}
+            </button>
+            <p className="age-gate-minor-hint">{t("ageGate.minorHint")}</p>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
