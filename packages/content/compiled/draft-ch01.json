@@ -1200,6 +1200,15 @@
             "c-0": [
               "\n",
               "ev",
+              "str",
+              "^accept",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "bones_answer",
+                "re": true
+              },
+              "ev",
               {
                 "VAR?": "dignity"
               },
@@ -1217,6 +1226,15 @@
             ],
             "c-1": [
               "\n",
+              "ev",
+              "str",
+              "^cold",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "bones_answer",
+                "re": true
+              },
               "ev",
               {
                 "VAR?": "impulse"
@@ -1307,6 +1325,15 @@
             "c-0": [
               "\n",
               "ev",
+              "str",
+              "^flat",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "breakup_delivery",
+                "re": true
+              },
+              "ev",
               true,
               "/ev",
               {
@@ -1320,6 +1347,15 @@
             ],
             "c-1": [
               "\n",
+              "ev",
+              "str",
+              "^hard",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "breakup_delivery",
+                "re": true
+              },
               "ev",
               {
                 "VAR?": "dignity"
@@ -1464,7 +1500,7 @@
           "\n",
           "ev",
           "str",
-          "^继续 ",
+          "^看一眼走廊上的排号条 ",
           "#",
           "^choice:dch01_s009_continue",
           "/#",
@@ -1653,6 +1689,15 @@
             "c-0": [
               "\n",
               "ev",
+              "str",
+              "^shame",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "memory_posture",
+                "re": true
+              },
+              "ev",
               {
                 "VAR?": "dignity"
               },
@@ -1670,6 +1715,15 @@
             ],
             "c-1": [
               "\n",
+              "ev",
+              "str",
+              "^hard",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "memory_posture",
+                "re": true
+              },
               "ev",
               {
                 "VAR?": "impulse"
@@ -1833,7 +1887,7 @@
           "\n",
           "ev",
           "str",
-          "^继续 ",
+          "^听清那声反锁 ",
           "#",
           "^choice:dch01_s019_continue",
           "/#",
@@ -2259,6 +2313,15 @@
           {
             "c-0": [
               "\n",
+              "ev",
+              "str",
+              "^watch",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "leo_response",
+                "re": true
+              },
               {
                 "->": "dch01_s031"
               },
@@ -2266,6 +2329,15 @@
             ],
             "c-1": [
               "\n",
+              "ev",
+              "str",
+              "^rush",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "leo_response",
+                "re": true
+              },
               "ev",
               {
                 "VAR?": "impulse"
@@ -2363,7 +2435,7 @@
           "\n",
           "ev",
           "str",
-          "^继续 ",
+          "^目送样机箱进货梯 ",
           "#",
           "^choice:dch01_s033_continue",
           "/#",
@@ -2524,6 +2596,62 @@
           "/#",
           "^\"合规质检流程，协议第三页写得明白。\"对方把平板转过来，指着一行小字，语气平稳得跟念说明书似的，\"高价值补贴照发，您今天表现很好。\"",
           "\n",
+          "ev",
+          {
+            "VAR?": "bones_answer"
+          },
+          "str",
+          "^accept",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^苏明听见“第三页”，胃里发凉：他们倒是从头到尾没撒谎，只把诚实印成了蚂蚁。",
+                "\n",
+                {
+                  "->": ".^.^.^.13"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "bones_answer"
+          },
+          "str",
+          "^cold",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^苏明盯着那行小字：“写明了不等于我同意。抢劫前贴告示，也不叫双方自愿。”",
+                "\n",
+                {
+                  "->": ".^.^.^.23"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
           "^\"我表现个屁。\"",
           "\n",
           "ev",
@@ -2587,6 +2715,15 @@
             "c-0": [
               "\n",
               "ev",
+              "str",
+              "^calculate",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "frontdesk_response",
+                "re": true
+              },
+              "ev",
               {
                 "VAR?": "dignity"
               },
@@ -2604,6 +2741,15 @@
             ],
             "c-1": [
               "\n",
+              "ev",
+              "str",
+              "^angry",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "frontdesk_response",
+                "re": true
+              },
               "ev",
               {
                 "VAR?": "impulse"
@@ -2663,6 +2809,62 @@
           "^scene:dch01_s041",
           "/#",
           "^雷欧站在他侧后方，下巴一抬，替他撑场：\"他要谈，我也谈。你们也听我说。\"",
+          "\n",
+          "ev",
+          {
+            "VAR?": "leo_response"
+          },
+          "str",
+          "^watch",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^苏明记得自己先前真把雷欧那句夹生中文听完了；现在这老外又替他撑场，语法还是烂，账倒算得清。",
+                "\n",
+                {
+                  "->": ".^.^.^.13"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "leo_response"
+          },
+          "str",
+          "^rush",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^苏明记得自己先前已经要冲前台；雷欧这会儿追上来，像给他的火气临时办了个双人套餐。",
+                "\n",
+                {
+                  "->": ".^.^.^.23"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
           "\n",
           "^小组长看看雷欧，又看看苏明，笑意收了一半，只是重复：\"随时可以不来。\"",
           "\n",
@@ -2897,6 +3099,15 @@
             "c-0": [
               "\n",
               "ev",
+              "str",
+              "^firm_900",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "budget_stance",
+                "re": true
+              },
+              "ev",
               true,
               "/ev",
               {
@@ -2910,6 +3121,15 @@
             ],
             "c-1": [
               "\n",
+              "ev",
+              "str",
+              "^unspoken_less",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "budget_stance",
+                "re": true
+              },
               "ev",
               true,
               "/ev",
@@ -3112,6 +3332,42 @@
         false,
         {
           "VAR=": "clue_pass_sms"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "bones_answer"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "breakup_delivery"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "memory_posture"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "leo_response"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "frontdesk_response"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "budget_stance"
         },
         0,
         {

@@ -32,7 +32,11 @@
         "clue_subsidy_sms",
         "clue_rental_receipt",
         "clue_nda",
-        "clue_pass_sms"
+        "clue_pass_sms",
+        "breakup_delivery",
+        "memory_posture",
+        "frontdesk_response",
+        "budget_stance"
       ],
       "inkFile": "draft-ch01.ink",
       "manifestFile": "draft-ch01-scenes.ts"
@@ -59,7 +63,11 @@
         "clue_subsidy_sms",
         "clue_rental_receipt",
         "clue_nda",
-        "clue_pass_sms"
+        "clue_pass_sms",
+        "breakup_delivery",
+        "memory_posture",
+        "frontdesk_response",
+        "budget_stance"
       ],
       "inkFile": "draft-ch02.ink",
       "manifestFile": "draft-ch02-scenes.ts"

@@ -13,6 +13,12 @@ VAR clue_subsidy_sms = false
 VAR clue_rental_receipt = false
 VAR clue_nda = false
 VAR clue_pass_sms = false
+VAR breakup_delivery = "unanswered"
+VAR memory_posture = "unanswered"
+VAR frontdesk_response = "unanswered"
+VAR budget_stance = "unanswered"
+VAR child_response = "unanswered"
+VAR robot_interest = "unanswered"
 VAR barcode_sweep_skipped = false
 VAR barcode_sweep_completed_at_version = ""
 VAR barcode_sweep_q1 = "unanswered"
@@ -53,6 +59,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 === dch02_s003 ===
 # scene:dch02_s003
 这份工是他靠一分钟扫四十件抢来的。老板娘姓周，说话难听，心不算硬；工资不高，时间够弹，正好接上晚上的测试班——白天扫条码，晚上被 App 扫灵魂。
+
+{ frontdesk_response == "calculate":
+    白天工资、晚上补贴、酒店一百六又在脑子里排队；前台那次火气输给计算器，现在计算器成了排班表。
+}
+{ frontdesk_response == "angry":
+    他手腕扫得更快，像还在跟那张前台笑脸顶嘴；可两份工一班没少，火气照样得打卡。
+}
 
 在店里，他会分真穷和装穷：前者只拿临期货，眼睛躲人；后者砍价嗓门最大。他对前一种人心软，老板娘骂了八回也没改。大超市管不了，小偷他一定管。
 
@@ -130,14 +143,23 @@ VAR mobile_questionnaire_q3 = "unanswered"
 苏明从收银台后头绕出来，一把按住那孩子的手腕："拿出来。"
 
 + [按住手腕：拿出来 # choice:d2_catch_firm]
+    ~ child_response = "firm"
     ~ dignity = dignity + 2
     -> dch02_s006
 + [声音放轻一点，还是要拿出来 # choice:d2_catch_soft]
+    ~ child_response = "soft"
     ~ dignity = dignity + 1
     -> dch02_s006
 
 === dch02_s006 ===
 # scene:dch02_s006
+{ child_response == "firm":
+    苏明松开手时，掌心还留着按下去的力道；规矩办完了，围观的人才刚进场。
+}
+{ child_response == "soft":
+    苏明先松开手，声音却没退：“拿出来。”克制不是撤单，只是不给围观的人加戏。
+}
+
 小孩"哇"地一声就哭了出来——这哭声比动作还快，明显是训练有素，一套流程走得炉火纯青。母亲从货架后头杀出来，两只手在围裙上蹭了蹭——那双手粗糙得不像是闲人的手，一把把儿子护在身后，嗓门先拔高了三度："你干嘛吓孩子？血口喷人！"
 
 "监控在那儿。"苏明抬手指了指天花板一角。
@@ -156,6 +178,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 === dch02_s008 ===
 # scene:dch02_s008
+{ budget_stance == "firm_900":
+    九百块房租像一道硬杠横在账本上；他守住了数字，别的钱就得自己割。
+}
+{ budget_stance == "unspoken_less":
+    那句“能不能再少点”没敢出口，九百照样落了地；没说出的还价，现在从辣条钱里找零。
+}
+
 "辣条钱我扫了。"苏明没搭理老板娘的劝，转身回到收银台，自己给那包辣条刷了单，小票"啪"地拍在柜台上，"下次别带他来偷。"
 
 + [辣条钱我扫了 # choice:d2_pay_self]
@@ -325,6 +354,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 # scene:dch02_s019
 "你不是刚分？"
 
+{ breakup_delivery == "flat":
+    苏明又把那句报快递单似的“分手了。昨天。”搬出来，平得像只要不抖就不算丢人。
+}
+{ breakup_delivery == "hard":
+    苏明下巴一硬：“真实的你要吗？我提的。”嘴还是那把临时搭的架子。
+}
+
 "……假设。"
 
 + [继续 # choice:dch02_s019_continue]
@@ -378,7 +414,7 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 "去。钱没攒够。"
 
-+ [继续 # choice:dch02_s025_continue]
++ [让雷欧把行李抬进门 # choice:dch02_s025_continue]
     -> dch02_s026
 
 === dch02_s026 ===
@@ -417,8 +453,10 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 ~ clue_nda = true
 + [嗤一声：测那玩意儿的都有病 # choice:d2_dismiss_robot]
+    ~ robot_interest = "dismiss"
     -> dch02_s030
 + [嘴上骂，耳朵却竖起来 # choice:d2_curious_robot]
+    ~ robot_interest = "curious"
     ~ impulse = impulse + 3
     -> dch02_s030
 
@@ -460,6 +498,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 === dch02_s034 ===
 # scene:dch02_s034
+{ memory_posture == "shame":
+    交友软件刚亮，他的掌心先贴上脸，像昨晚那段记忆又来收一次遮羞费。
+}
+{ memory_posture == "hard":
+    交友软件刚亮，他把下巴咬紧，继续往下划；硬撑这门手艺，平台之间倒是通用。
+}
+
 他划开手机上的交友软件消磨时间：一个简介写着"社恐找懂我的人"，全程用表情包代替说话；一个直接甩过来收款码，附言"验证真心"；再划一个，简介写着"不聊你死了都不知道"，配图是一只暹罗猫，瞪着两只圆眼睛。
 
 划掉这些软件的时候，他的手指鬼使神差地点开了雷欧转发的那条招募链接。
@@ -470,6 +515,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 === dch02_s035 ===
 # scene:dch02_s035
 落地页第一行字迎面撞过来："她不会评判你，只会理解你。"
+
+{ robot_interest == "dismiss":
+    他嘴里那句“都有病”还没过保质期，拇指已经替它办理了退货。
+}
+{ robot_interest == "curious":
+    耳朵先前竖起来的那一下没白费；落地页刚开，他就知道自己会看到底。
+}
 
 苏明认得这句话，也认得字体。同一家公司，同一套话术，每个字都标过价；手指却继续下滑。至少这次，报价里可能附送一具能搬回家的机器。
 
@@ -601,6 +653,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 === dch02_s040 ===
 # scene:dch02_s040
+{ robot_interest == "dismiss":
+    嘴硬的账终于对上了：先骂体验官有病，再把自己送进初审。流程闭环。
+}
+{ robot_interest == "curious":
+    他早把好奇藏在骂声后头；短信一亮，那个藏法正式失效。
+}
+
 苏明盯着这条短信看了半分钟，喃喃说了句："就当我有病。"
 
 + [继续 # choice:dch02_s040_continue]
