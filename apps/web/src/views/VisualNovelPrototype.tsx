@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef } from "react";
-import { getNarrativeGraphPlayerSkeleton } from "@supaluv/content";
 import type { DialogueVoicePlaybackGuardApi } from "../audio/dialogueVoicePlaybackGuard";
 import { gameAudio } from "../audio/gameAudio";
 import { CoPlayBanner } from "../coplay/CoPlayBanner";
@@ -18,7 +17,6 @@ import type { ManualSlotId } from "../persistence/gameSave";
 import { DEFAULT_DISPLAY_NAMES, type DisplayNameMap } from "../persistence/displayNames";
 import { EMPTY_PORTRAIT_PACK, type PortraitPackState } from "../persistence/portraitPack";
 import type { GameSettings } from "../persistence/settings";
-import { recordAiBranchSelection, recordScenePresented } from "../persistence/pathMemory";
 import type { InkStorySnapshot } from "../story/inkStoryRunner";
 import {
   getStoryDefinition,
@@ -41,25 +39,12 @@ import { useCoPlayPointers } from "./play/hooks/useCoPlayPointers";
 import { useDecisionExperience } from "./play/experience/useDecisionExperience";
 import { useNarrativePlayback } from "./play/experience/useNarrativePlayback";
 import { useNarrativeSource } from "./play/experience/useNarrativeSource";
+import { usePlayPathTelemetry } from "./play/experience/usePlayPathTelemetry";
 import { usePlaySurfaceAudio } from "./play/experience/usePlaySurfaceAudio";
 import { usePlaySurfaceChrome } from "./play/experience/usePlaySurfaceChrome";
 import { usePropCutIn } from "./play/hooks/usePropCutIn";
 import { useStageMedia } from "./play/hooks/useStageMedia";
 import { isContinueOnly, storyHasComedyMeters } from "./play/lib/vnHelpers";
-
-const playerGraph = getNarrativeGraphPlayerSkeleton();
-const playerPathScope = {
-  packageId: playerGraph.packageId,
-  revision: playerGraph.revision,
-} as const;
-
-function observedSummary(text: string): string | null {
-  const normalized = text.replace(/\s+/g, " ").trim();
-  if (!normalized) {
-    return null;
-  }
-  return normalized.length > 180 ? `${normalized.slice(0, 177)}…` : normalized;
-}
 
 interface VisualNovelPrototypeProps {
   readonly storyId: StoryId;
@@ -143,7 +128,6 @@ export function VisualNovelPrototype({
 }: VisualNovelPrototypeProps) {
   const auth = useAuth();
   const { t } = useLocale();
-  const recordedPresentationRef = useRef<string>("");
   const currentScene = getStoryScene(storyId, snapshot.sceneId);
   const pendingRobotSlots = (currentScene?.characterSlotLock?.slotIds ?? [])
     .filter((slotId) => !characterBindings[slotId])
@@ -290,54 +274,6 @@ export function VisualNovelPrototype({
   });
 
   const { frame, history, commands: narrativeCommands } = narrative;
-
-  useEffect(() => {
-    if (isGuestSpectator || !snapshot.sceneId) {
-      return;
-    }
-    const dialoguePresented = !activeStoryInteraction && frame.dialogueComplete;
-    const interactionPresented = Boolean(activeStoryInteraction);
-    if (!dialoguePresented && !interactionPresented) {
-      return;
-    }
-    const choices =
-      dialoguePresented || interactionPresented
-        ? snapshot.choices.map((choice) => ({
-            choiceId: choice.choiceId ?? null,
-            label: choice.text,
-          }))
-        : [];
-    const signature = JSON.stringify({
-      storyId,
-      sceneId: snapshot.sceneId,
-      dialoguePresented,
-      interaction: activeStoryInteraction?.definition.id ?? null,
-      interactionStep: activeStoryInteraction?.stepIndex ?? null,
-      title: dialoguePresented ? frame.sceneTitle : null,
-      summary: dialoguePresented ? snapshot.text : null,
-      choices,
-    });
-    if (recordedPresentationRef.current === signature) {
-      return;
-    }
-    recordedPresentationRef.current = signature;
-    recordScenePresented(playerPathScope, {
-      storyId,
-      sceneId: snapshot.sceneId,
-      title: dialoguePresented ? frame.sceneTitle : null,
-      summary: dialoguePresented ? observedSummary(snapshot.text) : null,
-      choices,
-    });
-  }, [
-    activeStoryInteraction,
-    frame.dialogueComplete,
-    frame.sceneTitle,
-    isGuestSpectator,
-    snapshot.choices,
-    snapshot.sceneId,
-    snapshot.text,
-    storyId,
-  ]);
   const historyEntries = history.entries;
   const {
     reveal: revealDialogue,
@@ -402,6 +338,16 @@ export function VisualNovelPrototype({
   } = decision;
   const { handleChoose, seenLabels, sessionStatsPicks } = decisionChoice;
   const { notifyAiBranchUsed, clearOracleForReset, replayFromEndCard } = decisionCommands;
+  const { handleChooseAi } = usePlayPathTelemetry({
+    storyId,
+    snapshot,
+    isGuestSpectator,
+    activeStoryInteraction,
+    dialogueComplete: frame.dialogueComplete,
+    sceneTitle: frame.sceneTitle,
+    chooseAi,
+    notifyAiBranchUsed,
+  });
   const higherPriorityPropSurfaceOpen =
     Boolean(activeCutscene) ||
     systemOpen ||
@@ -412,22 +358,6 @@ export function VisualNovelPrototype({
     requested: propCutIn.requested,
     higherPrioritySurfaceOpen: higherPriorityPropSurfaceOpen,
   });
-
-  /**
-   * Ready AI branch selection: write a deterministic path-memory AI fact for the
-   * current story/scene, then keep the existing run-marker + playback path.
-   * Uses the shared `recordAiBranchSelection` helper (same call path as unit tests).
-   */
-  const handleChooseAi = useCallback(() => {
-    if (snapshot.sceneId) {
-      recordAiBranchSelection(playerPathScope, {
-        storyId,
-        sceneId: snapshot.sceneId,
-        label: t("play.aiBranch"),
-      });
-    }
-    chooseAi(notifyAiBranchUsed);
-  }, [chooseAi, notifyAiBranchUsed, snapshot.sceneId, storyId, t]);
 
   const showComedyMeters = storyHasComedyMeters(storyId);
   const activeAiBeat = frame.activeAiBeat;
