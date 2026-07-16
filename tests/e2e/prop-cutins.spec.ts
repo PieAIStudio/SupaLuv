@@ -171,9 +171,12 @@ test("image failure immediately falls back to complete text and closing still pe
 
   await page.getByTestId("prop-cutin-close").click();
   await page.getByTestId("story-copy").click();
-  const continueButton = page.getByRole("button", { name: /剧情选择: 继续/ });
-  await expect(continueButton).toBeVisible();
-  await continueButton.click();
+  // novel-v2 densify: NDA beat exits via apply branch choices, not pure「继续」.
+  const applyButton = page.getByRole("button", {
+    name: /剧情选择:\s*(点下申请成为体验官|骂自己一句再点申请)/,
+  });
+  await expect(applyButton.first()).toBeVisible();
+  await applyButton.first().click();
   await expect(page.getByTestId("prop-cutin-reopen")).toHaveCount(0);
   await expect(page.getByTestId("mobile-questionnaire")).toBeVisible();
 });
