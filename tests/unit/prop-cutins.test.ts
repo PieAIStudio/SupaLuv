@@ -125,6 +125,10 @@ describe("Round 16 prop cut-in catalog and runtime boundary", () => {
       path.join(workspaceRoot, "apps/web/src/views/VisualNovelPrototype.tsx"),
       "utf8",
     );
+    const runtimeSource = await fs.readFile(
+      path.join(workspaceRoot, "apps/web/src/views/play/experience/usePlayStageRuntime.ts"),
+      "utf8",
+    );
     expect(componentSource).toContain('role="dialog"');
     expect(componentSource).toContain('aria-modal="true"');
     expect(componentSource).toContain("dialog.showModal()");
@@ -132,9 +136,11 @@ describe("Round 16 prop cut-in catalog and runtime boundary", () => {
     expect(componentSource).toContain('event.key !== "Escape"');
     expect(componentSource).toContain("onError={() => setImageFailed(true)}");
     expect(componentSource).toContain("definition.accessibleText");
-    expect(stageSource).toContain("activeCutscene: Boolean(activeCutscene) || propCutIn.requested");
-    expect(stageSource).toContain("activeStoryInteraction && !propCutIn.requested");
-    expect(stageSource).toContain("!isGuestSpectator &&");
-    expect(stageSource).toContain("!propCutIn.requested &&");
+    expect(runtimeSource).toContain(
+      "activeCutscene: Boolean(activeCutscene) || propCutIn.requested",
+    );
+    expect(stageSource).toContain("r.activeStoryInteraction && !r.propCutIn.requested");
+    expect(stageSource).toContain("!r.isGuestSpectator &&");
+    expect(stageSource).toContain("!r.propCutIn.requested &&");
   });
 });
