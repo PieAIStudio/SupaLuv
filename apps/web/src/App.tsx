@@ -37,17 +37,23 @@ import { loadSettings, saveSettings, type GameSettings } from "./persistence/set
 import { resolveStatsPick } from "./stats/choiceStatsCatalog";
 import type { StoryId } from "./story/storyMapAdapter";
 import { createStorySession } from "./story/session/createStorySession";
-import { loadStoryRuntime, type StoryRuntime } from "./story/session/storyRuntime";
+import { loadStoryRuntime } from "./story/session/storyRuntime";
 import { useStorySession } from "./story/session/useStorySession";
 import { AtomicLoadingOverlay, type AtomicLoadingKind } from "./loading/AtomicLoadingOverlay";
 import {
   CASTING_CRITICAL_ASSETS,
-  createModulePreloader,
-  preloadDecodedImage,
   preloadDecodedImages,
-  TITLE_CRITICAL_ASSETS,
   waitForDocumentFonts,
 } from "./loading/atomicLoading";
+import {
+  loadCharacterStudioModule,
+  loadPlayerPathPanelModule,
+  loadStoryMapPreviewModule,
+  loadTitleScreenModule,
+  loadVisualNovelModule,
+  preloadStoryPresentation,
+  preloadTitlePresentation,
+} from "./app/preloadPresentation";
 import {
   captureMetaReturnScreen,
   resolveBackFromMeta,
@@ -58,7 +64,6 @@ import { BootSplash } from "./views/BootSplash";
 import type { EndingPathMeta } from "./views/ChapterEndCard";
 import { OrientationGate } from "./views/OrientationGate";
 
-const loadTitleScreenModule = createModulePreloader(() => import("./views/TitleScreen"));
 const TitleScreen = lazy(() =>
   loadTitleScreenModule().then(({ TitleScreen }) => ({ default: TitleScreen })),
 );
@@ -77,22 +82,16 @@ const HelpScreen = lazy(() =>
 const SettingsScreen = lazy(() =>
   import("./views/SettingsScreen").then(({ SettingsScreen }) => ({ default: SettingsScreen })),
 );
-const loadStoryMapPreviewModule = createModulePreloader(() => import("./views/StoryMapPreview"));
 const StoryMapPreview = lazy(() =>
   loadStoryMapPreviewModule().then(({ StoryMapPreview }) => ({ default: StoryMapPreview })),
 );
-const loadPlayerPathPanelModule = createModulePreloader(() => import("./views/PlayerPathPanel"));
 const PlayerPathPanel = lazy(() =>
   loadPlayerPathPanelModule().then(({ PlayerPathPanel }) => ({ default: PlayerPathPanel })),
 );
-const loadVisualNovelModule = createModulePreloader(() => import("./views/VisualNovelPrototype"));
 const VisualNovelPrototype = lazy(() =>
   loadVisualNovelModule().then(({ VisualNovelPrototype }) => ({
     default: VisualNovelPrototype,
   })),
-);
-const loadCharacterStudioModule = createModulePreloader(
-  () => import("./views/CharacterStudioScreen"),
 );
 const CharacterStudioScreen = lazy(() =>
   loadCharacterStudioModule().then(({ CharacterStudioScreen }) => ({
@@ -106,32 +105,6 @@ const AiSpendAnalysisScreen = lazy(() =>
 );
 
 const BOOT_SEEN_KEY = "supaluv.boot.seen.v1";
-
-async function preloadTitlePresentation(): Promise<void> {
-  await Promise.all([
-    loadTitleScreenModule(),
-    preloadDecodedImages(TITLE_CRITICAL_ASSETS),
-    waitForDocumentFonts(),
-  ]);
-}
-
-async function preloadStoryPresentation(
-  runtime: StoryRuntime,
-  nextStoryId: StoryId,
-  sceneId: string | null,
-): Promise<void> {
-  const scene = runtime.getStoryScene(nextStoryId, sceneId);
-  const artPromise = scene?.artKey
-    ? preloadDecodedImage(`/assets/scenes/${scene.artKey}.jpg`)
-    : Promise.resolve();
-  await Promise.all([
-    loadVisualNovelModule(),
-    loadStoryMapPreviewModule(),
-    loadPlayerPathPanelModule(),
-    artPromise,
-    waitForDocumentFonts(),
-  ]);
-}
 
 export function App() {
   const auth = useAuth();
