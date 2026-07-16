@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { getNarrativeGraphPlayerSkeleton } from "@supaluv/content";
 import type { DialogueVoicePlaybackGuardApi } from "../audio/dialogueVoicePlaybackGuard";
 import { gameAudio } from "../audio/gameAudio";
@@ -41,6 +41,7 @@ import { useCoPlayPointers } from "./play/hooks/useCoPlayPointers";
 import { useDecisionExperience } from "./play/experience/useDecisionExperience";
 import { useNarrativePlayback } from "./play/experience/useNarrativePlayback";
 import { useNarrativeSource } from "./play/experience/useNarrativeSource";
+import { usePlaySurfaceAudio } from "./play/experience/usePlaySurfaceAudio";
 import { usePlaySurfaceChrome } from "./play/experience/usePlaySurfaceChrome";
 import { usePropCutIn } from "./play/hooks/usePropCutIn";
 import { useStageMedia } from "./play/hooks/useStageMedia";
@@ -190,15 +191,16 @@ export function VisualNovelPrototype({
     handleSave,
     closeChromeForReset,
   } = chrome;
-  const [localAutoPlay, setLocalAutoPlay] = useState(autoPlay);
+  const { nowPlayingBedId, localAutoPlay, ensureAudioUnlocked, toggleAutoPlay, handleMuteToggle } =
+    usePlaySurfaceAudio({
+      autoPlay,
+      masterMuted,
+      onAutoPlayChange,
+      onMasterMutedChange,
+    });
   const stageRootRef = useRef<HTMLDivElement | null>(null);
   const propReopenRef = useRef<HTMLButtonElement | null>(null);
   const { isFullscreen, toggleFullscreen } = useFullscreen(stageRootRef);
-  const [nowPlayingBedId, setNowPlayingBedId] = useState<string | null>(() =>
-    gameAudio.getNowPlayingKey(),
-  );
-
-  useEffect(() => gameAudio.onNowPlayingChange(setNowPlayingBedId), []);
 
   const isGuestSpectator = coPlay?.role === "guest";
   const remoteStory = coPlay?.remoteStory ?? null;
@@ -208,10 +210,6 @@ export function VisualNovelPrototype({
     sceneId: snapshot.sceneId,
     isGuestSpectator,
   });
-
-  const ensureAudioUnlocked = useCallback(() => {
-    gameAudio.unlock();
-  }, []);
 
   const restorePropCutInFocus = useCallback((previousFocus: HTMLElement | null) => {
     if (propReopenRef.current?.isConnected) {
@@ -457,10 +455,6 @@ export function VisualNovelPrototype({
   );
 
   useEffect(() => {
-    setLocalAutoPlay(autoPlay);
-  }, [autoPlay]);
-
-  useEffect(() => {
     if (
       !import.meta.env.DEV ||
       !new URLSearchParams(window.location.search).has("prop-stage-fixture")
@@ -498,23 +492,10 @@ export function VisualNovelPrototype({
     pointerMode,
   });
 
-  const handleMuteToggle = useCallback(() => {
-    const next = !masterMuted;
-    gameAudio.setMuted(next);
-    onMasterMutedChange?.(next);
-    ensureAudioUnlocked();
-  }, [ensureAudioUnlocked, masterMuted, onMasterMutedChange]);
-
   const handleReset = useCallback(() => {
     clearOracleForReset();
     performPlaySurfaceReset();
   }, [clearOracleForReset, performPlaySurfaceReset]);
-
-  const toggleAutoPlay = useCallback(() => {
-    const next = !localAutoPlay;
-    setLocalAutoPlay(next);
-    onAutoPlayChange?.(next);
-  }, [localAutoPlay, onAutoPlayChange]);
 
   const handleKeyboardContinue = useCallback(() => {
     if (activeCutscene) {
