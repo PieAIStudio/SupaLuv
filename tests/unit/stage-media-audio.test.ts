@@ -11,7 +11,7 @@ vi.mock("../../apps/web/src/audio/gameAudio", () => ({
   isSceneCueSfx: vi.fn(() => false),
 }));
 
-import { playStagePresentationBeds } from "../../apps/web/src/views/play/useStageMedia";
+import { playStagePresentationBeds } from "../../apps/web/src/views/play/hooks/useStageMedia";
 
 describe("stage media bed orchestration", () => {
   beforeEach(() => {

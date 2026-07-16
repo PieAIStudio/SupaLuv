@@ -23,7 +23,7 @@ import type { InkStorySnapshot } from "../../../story/inkStoryRunner";
 import { getChapterCheckpoint, type StoryId } from "../../../story/storyMapAdapter";
 import type { EndingPathMeta } from "../../ChapterEndCard";
 import type { OracleOptionView } from "../DialoguePanel";
-import { usePlayChoiceFlow } from "../usePlayChoiceFlow";
+import { usePlayChoiceFlow } from "../hooks/usePlayChoiceFlow";
 import {
   resolveChapterEnded,
   resolveCheckpointFlags,

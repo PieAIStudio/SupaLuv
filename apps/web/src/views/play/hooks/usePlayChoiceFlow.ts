@@ -6,13 +6,13 @@
 
 import { useCallback, useEffect } from "react";
 import { getNarrativeGraphPlayerSkeleton } from "@supaluv/content";
-import { gameAudio } from "../../audio/gameAudio";
-import { shouldOpenRpsDuel } from "../../coplay/rpsRules";
-import type { CoPlaySessionApi } from "../../coplay/useCoPlaySession";
-import type { InkStorySnapshot } from "../../story/inkStoryRunner";
-import type { StoryId } from "../../story/storyMapAdapter";
-import type { SessionChoicePick } from "../../stats/choiceStatsClient";
-import { commitHostChoice as applyHostChoice } from "./commitHostChoice";
+import { gameAudio } from "../../../audio/gameAudio";
+import { shouldOpenRpsDuel } from "../../../coplay/rpsRules";
+import type { CoPlaySessionApi } from "../../../coplay/useCoPlaySession";
+import type { InkStorySnapshot } from "../../../story/inkStoryRunner";
+import type { StoryId } from "../../../story/storyMapAdapter";
+import type { SessionChoicePick } from "../../../stats/choiceStatsClient";
+import { commitHostChoice as applyHostChoice } from "../lib/commitHostChoice";
 
 const playerGraph = getNarrativeGraphPlayerSkeleton();
 const pathScope = {

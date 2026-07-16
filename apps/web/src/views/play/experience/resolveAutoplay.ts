@@ -4,7 +4,7 @@
  */
 
 import type { InkStorySnapshot } from "../../../story/inkStoryRunner";
-import { isContinueOnly } from "../vnHelpers";
+import { isContinueOnly } from "../lib/vnHelpers";
 
 export type TextSpeed = "slow" | "normal" | "fast";
 

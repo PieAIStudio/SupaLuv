@@ -3,7 +3,7 @@ import {
   mapDialogueForPlayer,
   mapPortraitsForPlayer,
   resolveStageMotion,
-} from "../../apps/web/src/views/play/stagePresentation";
+} from "../../apps/web/src/views/play/lib/stagePresentation";
 
 describe("stagePresentation", () => {
   it("rewrites lead speaker and body names", () => {

@@ -7,7 +7,7 @@ import {
   formatAuthoredChoiceAccessibleName,
   formatOracleChoiceAccessibleName,
   ORACLE_CHOICES_LABEL_ID,
-} from "./choiceAccessibility";
+} from "./lib/choiceAccessibility";
 
 export interface OracleOptionView {
   readonly choiceId: string;

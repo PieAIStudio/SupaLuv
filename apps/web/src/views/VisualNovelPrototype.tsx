@@ -35,15 +35,15 @@ import { PortraitStage } from "./play/PortraitStage";
 import { PropCutIn } from "./play/PropCutIn";
 import type { StoryCharacterBindings } from "../characters/characterPackTypes";
 import { CharacterStudioScreen, type CharacterStudioSlot } from "./CharacterStudioScreen";
-import { mapPortraitsForPlayer } from "./play/stagePresentation";
-import { shouldShowPropCutIn } from "./play/propCutInState";
-import { useCoPlayPointers } from "./play/useCoPlayPointers";
+import { mapPortraitsForPlayer } from "./play/lib/stagePresentation";
+import { shouldShowPropCutIn } from "./play/lib/propCutInState";
+import { useCoPlayPointers } from "./play/hooks/useCoPlayPointers";
 import { useDecisionExperience } from "./play/experience/useDecisionExperience";
 import { useNarrativePlayback } from "./play/experience/useNarrativePlayback";
 import { useNarrativeSource } from "./play/experience/useNarrativeSource";
-import { usePropCutIn } from "./play/usePropCutIn";
-import { useStageMedia } from "./play/useStageMedia";
-import { isContinueOnly, storyHasComedyMeters } from "./play/vnHelpers";
+import { usePropCutIn } from "./play/hooks/usePropCutIn";
+import { useStageMedia } from "./play/hooks/useStageMedia";
+import { isContinueOnly, storyHasComedyMeters } from "./play/lib/vnHelpers";
 
 const playerGraph = getNarrativeGraphPlayerSkeleton();
 const playerPathScope = {
