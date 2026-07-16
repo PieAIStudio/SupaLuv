@@ -318,6 +318,8 @@ describe("NarrativeGraph generated package", () => {
     expect(readJson<NarrativeGraphCreator>(CREATOR_PATH).revision).toBe(revision);
   }, 15_000);
 
+  // Runs the generator once; needs the same headroom as its sibling above
+  // when the machine is busy (default 5s flaked under parallel e2e load).
   it("opaque mapping remains stable across two generations", () => {
     const before = {
       node: opaqueNarrativeNodeId("draft-ch01", "dch01_s001"),
@@ -335,7 +337,7 @@ describe("NarrativeGraph generated package", () => {
     expect(playerAfter.entryNodeIds).toEqual(playerBefore.entryNodeIds);
     expect(playerAfter.nodes.map((n) => n.id)).toEqual(playerBefore.nodes.map((n) => n.id));
     expect(playerAfter.edges.map((e) => e.id)).toEqual(playerBefore.edges.map((e) => e.id));
-  });
+  }, 15_000);
 
   it("player skeleton recursively contains no creator-only spoilers or semantic ids", () => {
     const player = readJson<NarrativeGraphPlayerSkeleton>(PLAYER_PATH);
