@@ -35,13 +35,21 @@ afterEach(() => {
 });
 
 describe("displayNames", () => {
-  it("defaults to 苏明 / 林晓棠", () => {
+  it("defaults to 苏明 / 石佩欣", () => {
     expect(loadDisplayNames()).toEqual(DEFAULT_DISPLAY_NAMES);
   });
 
   it("persists custom lead names", () => {
     saveDisplayNames({ suming: "阿飞", lin_xiaotang: "小棠" });
     expect(loadDisplayNames()).toEqual({ suming: "阿飞", lin_xiaotang: "小棠" });
+  });
+
+  it("migrates stored legacy female defaults to the current default", () => {
+    localStorage.setItem(
+      "supaluv.displayNames.v1",
+      JSON.stringify({ suming: "苏明", lin_xiaotang: "林晓棠" }),
+    );
+    expect(loadDisplayNames().lin_xiaotang).toBe("石佩欣");
   });
 
   it("sanitizes empty and overlong names", () => {
@@ -54,13 +62,13 @@ describe("displayNames", () => {
   it("resolves speakers and leaves NPC alone", () => {
     const names = { suming: "阿飞", lin_xiaotang: "室友" };
     expect(resolveDisplaySpeaker("苏明", names)).toBe("阿飞");
-    expect(resolveDisplaySpeaker("林晓棠", names)).toBe("室友");
+    expect(resolveDisplaySpeaker("石佩欣", names)).toBe("室友");
     expect(resolveDisplaySpeaker("周鹿", names)).toBe("周鹿");
     expect(resolveDisplaySpeaker("旁白", names)).toBe("旁白");
   });
 
   it("rewrites canonical names in body text", () => {
     const names = { suming: "阿飞", lin_xiaotang: "小棠" };
-    expect(applyDisplayNamesInText("苏明看着林晓棠。", names)).toBe("阿飞看着小棠。");
+    expect(applyDisplayNamesInText("苏明看着石佩欣。", names)).toBe("阿飞看着小棠。");
   });
 });

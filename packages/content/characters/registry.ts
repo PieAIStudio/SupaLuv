@@ -26,19 +26,22 @@ export const CHARACTER_BY_NAME: Readonly<Record<string, CharacterDef>> = {
     id: "chen_jia",
     name: "陈佳",
     side: "right",
+    // Distinct static face; must never share the female lead's (cast) face.
     defaultPortrait: "lin-neutral",
   },
   雷欧: {
     id: "leo",
     name: "雷欧",
     side: "right",
-    defaultPortrait: "zhou-neutral",
+    // Male NPC; honest wireframe placeholder until real art lands (task: NPC portraits).
+    defaultPortrait: "demo-ui",
   },
   石佩欣: {
     id: "shi_peixin",
     name: "石佩欣",
     side: "right",
-    defaultPortrait: "lin-neutral",
+    // Female lead in draft-2026-07 chapters; matches the studio's official casting art.
+    defaultPortrait: "zhou-neutral",
   },
   工作人员: {
     id: "staff_worker",
@@ -56,7 +59,8 @@ export const CHARACTER_BY_NAME: Readonly<Record<string, CharacterDef>> = {
     id: "shop_owner",
     name: "老板娘",
     side: "right",
-    defaultPortrait: "zhou-neutral",
+    // Honest wireframe placeholder until real art lands (task: NPC portraits).
+    defaultPortrait: "demo-ui",
   },
   AI: {
     id: "test_ai",

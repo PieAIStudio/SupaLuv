@@ -16,7 +16,8 @@ export const CHARACTER_SLOTS = [
   {
     id: "lead_zhou_lu",
     officialCharacterId: "zhou_lu",
-    displayName: "周鹿",
+    // Slot/character ids stay stable; the draft-2026-07 chapters cast her as 石佩欣.
+    displayName: "石佩欣",
     displayRole: "女主角",
     kind: "human",
     allowedInputModes: ["image_references"],

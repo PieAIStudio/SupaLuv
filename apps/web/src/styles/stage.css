@@ -431,9 +431,10 @@
 }
 
 .portrait-slot.is-dim {
-  opacity: 0.42;
+  /* Non-speakers stay clearly visible; active speaker pops via scale/z-index. */
+  opacity: 0.72;
   transform: translateY(0.4rem) scale(0.96);
-  filter: grayscale(0.25) brightness(0.85);
+  filter: grayscale(0.1) brightness(0.94);
   z-index: 1;
 }
 

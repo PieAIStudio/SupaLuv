@@ -471,7 +471,12 @@
   gap: 0.35rem;
   flex-shrink: 0;
   min-height: 0;
-  max-height: min(46%, 15rem);
+  /*
+   * Cap against the viewport, never against the auto-sized grid row:
+   * a percentage here resolves circularly and collapses to ~2rem,
+   * clipping the choice buttons to a sliver.
+   */
+  max-height: min(38vh, 15rem);
   overflow-x: hidden;
   overflow-y: auto;
   padding-top: 0.15rem;

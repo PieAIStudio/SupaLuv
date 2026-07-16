@@ -120,7 +120,7 @@ export const zhCN: MessageTree = {
     password: "密码",
     emailSubmit: "邮箱登录 / 注册",
     maleDisplayName: "男主显示名（默认 苏明）",
-    femaleDisplayName: "女主显示名（默认 林晓棠）",
+    femaleDisplayName: "女主显示名（默认 石佩欣）",
     resetNames: "恢复默认名字",
     namesHint: "只改名牌与对白里的称呼显示，不改剧本逻辑 ID；配角暂不可改。",
     previewLoginRequired: "请先登录（游客账号也可以）。",

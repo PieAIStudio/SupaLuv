@@ -118,3 +118,21 @@ h3 {
   gap: 1rem;
   grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
 }
+
+/*
+ * Dark meta surfaces: SwimmerUIKit ghost/badge defaults assume light panels,
+ * so their dark-on-dark text reads as disabled/invisible.
+ * Override per component variant — never per surface-wide token, because
+ * light pills (secondary buttons, badges on light cards) share those tokens
+ * and would invert into light-on-light.
+ */
+.title-screen .game-ui-button--ghost,
+.meta-screen .game-ui-button--ghost,
+.character-studio-header .game-ui-button--ghost {
+  color: #cfc3b2;
+  border-color: rgb(255 255 255 / 24%);
+}
+
+.character-studio-header .game-ui-badge {
+  color: #f4ede4;
+}

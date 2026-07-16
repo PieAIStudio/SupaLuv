@@ -126,7 +126,7 @@ export const en: MessageTree = {
     password: "Password",
     emailSubmit: "Sign in / register with email",
     maleDisplayName: "Male lead display name (default: Su Ming)",
-    femaleDisplayName: "Female lead display name (default: Lin Xiaotang)",
+    femaleDisplayName: "Female lead display name (default: Shi Peixin)",
     resetNames: "Reset default names",
     namesHint:
       "Changes nameplates and displayed dialogue names only. Story logic IDs stay unchanged; supporting characters cannot be renamed.",

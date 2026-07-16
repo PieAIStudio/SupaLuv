@@ -1,6 +1,7 @@
 /**
  * E19 — player display names for the two lead slots only.
- * Logical IDs stay suming / lin_xiaotang; Ink still uses 苏明 / 林晓棠.
+ * Logical IDs stay suming / lin_xiaotang; the draft-2026-07 Ink chapters
+ * author the female lead as 石佩欣 (林晓棠/周鹿 are legacy-archive names).
  * UI nameplates, history, share cards resolve through this map.
  */
 
@@ -15,14 +16,17 @@ export interface DisplayNameMap {
 
 export const DEFAULT_DISPLAY_NAMES: DisplayNameMap = {
   suming: "苏明",
-  lin_xiaotang: "林晓棠",
+  lin_xiaotang: "石佩欣",
 };
 
 /** Canonical authored names (Ink / registry). */
 const CANONICAL: Readonly<Record<LeadSlotId, string>> = {
   suming: "苏明",
-  lin_xiaotang: "林晓棠",
+  lin_xiaotang: "石佩欣",
 };
+
+/** Prior defaults stored by older builds; treat as "player never renamed". */
+const LEGACY_FEMALE_DEFAULTS = new Set(["林晓棠", "周鹿"]);
 
 const MAX_LEN = 12;
 
@@ -57,9 +61,13 @@ export function loadDisplayNames(): DisplayNameMap {
       return DEFAULT_DISPLAY_NAMES;
     }
     const parsed = JSON.parse(raw) as Partial<DisplayNameMap>;
+    const storedFemale =
+      typeof parsed.lin_xiaotang === "string" && LEGACY_FEMALE_DEFAULTS.has(parsed.lin_xiaotang)
+        ? undefined
+        : parsed.lin_xiaotang;
     return {
       suming: sanitizeDisplayName(parsed.suming, DEFAULT_DISPLAY_NAMES.suming),
-      lin_xiaotang: sanitizeDisplayName(parsed.lin_xiaotang, DEFAULT_DISPLAY_NAMES.lin_xiaotang),
+      lin_xiaotang: sanitizeDisplayName(storedFemale, DEFAULT_DISPLAY_NAMES.lin_xiaotang),
     };
   } catch {
     return DEFAULT_DISPLAY_NAMES;

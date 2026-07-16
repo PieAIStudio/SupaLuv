@@ -42,17 +42,18 @@ function resolveBoundPortrait(
   fallback: string,
 ): string {
   const stem = /\/([^/]+)\.png(?:[?#].*)?$/.exec(portrait.url)?.[1] ?? "";
+  // Bind the player's cast actor by canonical character NAME only. File-stem
+  // matching over-reached: NPCs (雷欧/老板娘/陈佳) reusing zhou*/lin* placeholder
+  // art inherited the female lead's face — with real-person uploads that leaks
+  // the player's photo onto unrelated characters.
   const slotId =
-    portrait.name === "苏明" || stem.startsWith("suming")
+    portrait.name === "苏明"
       ? "lead_suming"
-      : portrait.name === "周鹿" ||
-          portrait.name === "林晓棠" ||
-          stem.startsWith("zhou") ||
-          stem.startsWith("lin")
+      : portrait.name === "石佩欣" || portrait.name === "周鹿" || portrait.name === "林晓棠"
         ? "lead_zhou_lu"
-        : portrait.name === "艾拉" || stem.startsWith("aila")
+        : portrait.name === "艾拉"
           ? "robot_aila"
-          : portrait.name === "凯" || stem.startsWith("kai")
+          : portrait.name === "凯"
             ? "robot_kai"
             : null;
   if (!slotId) return fallback;
