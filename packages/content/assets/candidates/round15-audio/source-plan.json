@@ -1,0 +1,467 @@
+{
+  "schemaVersion": 1,
+  "candidateRoot": "packages/content/assets/candidates/round15-audio",
+  "retrievedOn": "2026-07-16",
+  "defaults": {
+    "music": {
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitrate": "128k",
+      "targetIntegratedLufs": -22,
+      "targetTruePeakDbtp": -2,
+      "loopCrossfadeSeconds": 1
+    },
+    "ambience": {
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitrate": "112k",
+      "targetIntegratedLufs": -26,
+      "targetTruePeakDbtp": -3,
+      "loopCrossfadeSeconds": 1
+    },
+    "sfx": {
+      "sampleRate": 44100,
+      "channels": 1,
+      "bitrate": "96k",
+      "targetIntegratedLufs": -18,
+      "targetTruePeakDbtp": -3
+    }
+  },
+  "candidates": [
+    {
+      "id": "music-corporate-soft-pressure",
+      "kind": "music",
+      "dramaticFunction": "企业温柔压迫",
+      "sequences": ["SQ01"],
+      "source": {
+        "provider": "Incompetech",
+        "title": "Local Forecast - Elevator",
+        "author": "Kevin MacLeod",
+        "sourcePath": "Local Forecast - Elevator.mp3",
+        "itemUrl": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300012",
+        "downloadUrl": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast%20-%20Elevator.mp3",
+        "claimedLicense": "Creative Commons Attribution 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "licenseEvidenceUrl": "https://incompetech.com/music/royalty-free/licenses/",
+        "isrc": "USUAN1300012"
+      },
+      "transform": { "startSeconds": 15, "sourceWindowSeconds": 46 }
+    },
+    {
+      "id": "music-private-shame-fracture",
+      "kind": "music",
+      "dramaticFunction": "私人羞耻裂缝",
+      "sequences": ["SQ02", "SQ03"],
+      "source": {
+        "provider": "Incompetech",
+        "title": "SCP-x5x (Outer Thoughts)",
+        "author": "Kevin MacLeod",
+        "sourcePath": "SCP-x5x.mp3",
+        "itemUrl": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN2000011",
+        "downloadUrl": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/SCP-x5x.mp3",
+        "claimedLicense": "Creative Commons Attribution 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "licenseEvidenceUrl": "https://incompetech.com/music/royalty-free/licenses/",
+        "isrc": "USUAN2000011"
+      },
+      "transform": { "startSeconds": 20, "sourceWindowSeconds": 46 }
+    },
+    {
+      "id": "music-public-spectacle-payment",
+      "kind": "music",
+      "dramaticFunction": "公开围观与到账",
+      "sequences": ["SQ04", "SQ05", "SQ06"],
+      "source": {
+        "provider": "Incompetech",
+        "title": "Half Mystery",
+        "author": "Kevin MacLeod",
+        "sourcePath": "Half Mystery.mp3",
+        "itemUrl": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1900009",
+        "downloadUrl": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Half%20Mystery.mp3",
+        "claimedLicense": "Creative Commons Attribution 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "licenseEvidenceUrl": "https://incompetech.com/music/royalty-free/licenses/",
+        "isrc": "USUAN1900009"
+      },
+      "transform": { "startSeconds": 30, "sourceWindowSeconds": 46 }
+    },
+    {
+      "id": "music-night-alley-alliance",
+      "kind": "music",
+      "dramaticFunction": "夜巷笨拙同盟",
+      "sequences": ["SQ07", "SQ09"],
+      "source": {
+        "provider": "Incompetech",
+        "title": "Ethernight Club",
+        "author": "Kevin MacLeod",
+        "sourcePath": "Ethernight Club.mp3",
+        "itemUrl": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN2100002",
+        "downloadUrl": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ethernight%20Club.mp3",
+        "claimedLicense": "Creative Commons Attribution 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "licenseEvidenceUrl": "https://incompetech.com/music/royalty-free/licenses/",
+        "isrc": "USUAN2100002"
+      },
+      "transform": { "startSeconds": 24, "sourceWindowSeconds": 46 }
+    },
+    {
+      "id": "music-budget-settling",
+      "kind": "music",
+      "dramaticFunction": "廉价安顿",
+      "sequences": ["SQ08", "SQ10"],
+      "source": {
+        "provider": "Incompetech",
+        "title": "Ossuary 5 - Rest",
+        "author": "Kevin MacLeod",
+        "sourcePath": "Ossuary 5 - Rest.mp3",
+        "itemUrl": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500047",
+        "downloadUrl": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ossuary%205%20-%20Rest.mp3",
+        "claimedLicense": "Creative Commons Attribution 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "licenseEvidenceUrl": "https://incompetech.com/music/royalty-free/licenses/",
+        "isrc": "USUAN1500047"
+      },
+      "transform": { "startSeconds": 15, "sourceWindowSeconds": 46 }
+    },
+    {
+      "id": "music-robot-temptation",
+      "kind": "music",
+      "dramaticFunction": "机器人诱惑",
+      "sequences": ["SQ11", "SQ12"],
+      "source": {
+        "provider": "Incompetech",
+        "title": "Crypto",
+        "author": "Kevin MacLeod",
+        "sourcePath": "Crypto.mp3",
+        "itemUrl": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600013",
+        "downloadUrl": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Crypto.mp3",
+        "claimedLicense": "Creative Commons Attribution 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "licenseEvidenceUrl": "https://incompetech.com/music/royalty-free/licenses/",
+        "isrc": "USUAN1600013"
+      },
+      "transform": { "startSeconds": 20, "sourceWindowSeconds": 46 }
+    },
+    {
+      "id": "music-chapter-endpoint",
+      "kind": "music",
+      "dramaticFunction": "章节终点",
+      "sequences": ["SQ13"],
+      "source": {
+        "provider": "Incompetech",
+        "title": "Ossuary 7 - Resolve",
+        "author": "Kevin MacLeod",
+        "sourcePath": "Ossuary 7 - Resolve.mp3",
+        "itemUrl": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500049",
+        "downloadUrl": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ossuary%207%20-%20Resolve.mp3",
+        "claimedLicense": "Creative Commons Attribution 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "licenseEvidenceUrl": "https://incompetech.com/music/royalty-free/licenses/",
+        "isrc": "USUAN1500049"
+      },
+      "transform": { "startSeconds": 20, "sourceWindowSeconds": 46 }
+    },
+    {
+      "id": "test-booth-hvac",
+      "kind": "ambience",
+      "dramaticFunction": "测试间空调与近场房间底噪",
+      "sequences": ["SQ01", "SQ02", "SQ03", "SQ04"],
+      "source": {
+        "provider": "Freesound",
+        "soundId": "273627",
+        "title": "Air Conditioner A/C Vent Hum - Room Tone",
+        "author": "Sauron974",
+        "sourcePath": "previews/273/273627_152878-lq.mp3",
+        "itemUrl": "https://freesound.org/people/Sauron974/sounds/273627/",
+        "downloadUrl": "https://cdn.freesound.org/previews/273/273627_152878-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 334.254,
+        "sourceSampleRate": 44100,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 10, "sourceWindowSeconds": 31 }
+    },
+    {
+      "id": "office-corridor",
+      "kind": "ambience",
+      "dramaticFunction": "办公走廊空场与通风底噪",
+      "sequences": ["SQ02", "SQ04", "SQ05", "SQ06"],
+      "source": {
+        "provider": "Freesound",
+        "soundId": "570015",
+        "title": "Ambience Empty Office Hallway (Stereo)",
+        "author": "Sheyvan",
+        "sourcePath": "previews/570/570015_3248005-lq.mp3",
+        "itemUrl": "https://freesound.org/people/Sheyvan/sounds/570015/",
+        "downloadUrl": "https://cdn.freesound.org/previews/570/570015_3248005-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 50.8959,
+        "sourceSampleRate": 48000,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 5, "sourceWindowSeconds": 31 }
+    },
+    {
+      "id": "night-alley",
+      "kind": "ambience",
+      "dramaticFunction": "旧巷夜间稀疏车流与城市底噪",
+      "sequences": ["SQ07", "SQ09"],
+      "source": {
+        "provider": "Freesound",
+        "soundId": "584048",
+        "title": "alley at night.wav",
+        "author": "Eigeus",
+        "sourcePath": "previews/584/584048_5793734-lq.mp3",
+        "itemUrl": "https://freesound.org/people/Eigeus/sounds/584048/",
+        "downloadUrl": "https://cdn.freesound.org/previews/584/584048_5793734-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 56.125,
+        "sourceSampleRate": 48000,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 5, "sourceWindowSeconds": 31 }
+    },
+    {
+      "id": "convenience-store",
+      "kind": "ambience",
+      "dramaticFunction": "便利店冷柜与公共空间底噪",
+      "sequences": ["SQ08"],
+      "source": {
+        "provider": "Freesound",
+        "soundId": "244309",
+        "title": "Convenience Store Interior Ambiance",
+        "author": "JohnsonBrandEditing",
+        "sourcePath": "previews/244/244309_3229685-lq.mp3",
+        "itemUrl": "https://freesound.org/people/JohnsonBrandEditing/sounds/244309/",
+        "downloadUrl": "https://cdn.freesound.org/previews/244/244309_3229685-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 40.2467,
+        "sourceSampleRate": 48000,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 4, "sourceWindowSeconds": 31 }
+    },
+    {
+      "id": "budget-hotel",
+      "kind": "ambience",
+      "dramaticFunction": "快捷酒店通风与陌生房间底噪",
+      "sequences": ["SQ08"],
+      "source": {
+        "provider": "Freesound",
+        "soundId": "741439",
+        "title": "room-tone Ibis Hotel",
+        "author": "bruno.auzet",
+        "sourcePath": "previews/741/741439_11519060-lq.mp3",
+        "itemUrl": "https://freesound.org/people/bruno.auzet/sounds/741439/",
+        "downloadUrl": "https://cdn.freesound.org/previews/741/741439_11519060-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 132.482,
+        "sourceSampleRate": 96000,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 10, "sourceWindowSeconds": 31 }
+    },
+    {
+      "id": "rental-room",
+      "kind": "ambience",
+      "dramaticFunction": "廉租房间与远处生活噪声",
+      "sequences": ["SQ09", "SQ10", "SQ11", "SQ12", "SQ13"],
+      "source": {
+        "provider": "Freesound",
+        "soundId": "565536",
+        "title": "Room tone Medium living room Apartment suburbia wood floor edlarez vsnr.wav",
+        "author": "visionear",
+        "sourcePath": "previews/565/565536_10869493-lq.mp3",
+        "itemUrl": "https://freesound.org/people/visionear/sounds/565536/",
+        "downloadUrl": "https://cdn.freesound.org/previews/565/565536_10869493-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 32.6886,
+        "sourceSampleRate": 48000,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 1, "sourceWindowSeconds": 31 }
+    },
+    {
+      "id": "door-lock",
+      "kind": "sfx",
+      "dramaticFunction": "卧室门反锁",
+      "sequences": ["SQ03"],
+      "cue": "dch01_s018",
+      "source": {
+        "provider": "Freesound",
+        "soundId": "494129",
+        "title": "Hotel room door locking",
+        "author": "wlabarron",
+        "sourcePath": "previews/494/494129_3782735-lq.mp3",
+        "itemUrl": "https://freesound.org/people/wlabarron/sounds/494129/",
+        "downloadUrl": "https://cdn.freesound.org/previews/494/494129_3782735-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 0.973646,
+        "sourceSampleRate": 48000,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 0, "sourceWindowSeconds": 0.973646 }
+    },
+    {
+      "id": "chip-bag",
+      "kind": "sfx",
+      "dramaticFunction": "质检员薯片袋轻响",
+      "sequences": ["SQ04"],
+      "cue": "dch01_s027",
+      "source": {
+        "provider": "Freesound",
+        "soundId": "550405",
+        "title": "Snack chip bag crinkle sounds.wav",
+        "author": "DrDufus",
+        "sourcePath": "previews/550/550405_4474247-lq.mp3",
+        "itemUrl": "https://freesound.org/people/DrDufus/sounds/550405/",
+        "downloadUrl": "https://cdn.freesound.org/previews/550/550405_4474247-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 15.0472,
+        "sourceSampleRate": 48000,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 0.35, "sourceWindowSeconds": 1.8 }
+    },
+    {
+      "id": "phone-buzz",
+      "kind": "sfx",
+      "dramaticFunction": "到账与私人消息的手机震动",
+      "sequences": ["SQ06", "SQ12"],
+      "cue": "dch01_s042,dch02_s032",
+      "source": {
+        "provider": "Freesound",
+        "soundId": "688629",
+        "title": "Cell Notification Vibrate",
+        "author": "CoryCoolguy",
+        "sourcePath": "previews/688/688629_14998729-lq.mp3",
+        "itemUrl": "https://freesound.org/people/CoryCoolguy/sounds/688629/",
+        "downloadUrl": "https://cdn.freesound.org/previews/688/688629_14998729-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 0.917188,
+        "sourceSampleRate": 44100,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 0, "sourceWindowSeconds": 0.917188 }
+    },
+    {
+      "id": "freight-elevator",
+      "kind": "sfx",
+      "dramaticFunction": "货梯机械运行与门体顿挫",
+      "sequences": ["SQ05"],
+      "cue": "dch01_s033",
+      "source": {
+        "provider": "Freesound",
+        "soundId": "203392",
+        "title": "080223-002-freight-elevator.wav",
+        "author": "joshs",
+        "sourcePath": "previews/203/203392_435608-lq.mp3",
+        "itemUrl": "https://freesound.org/people/joshs/sounds/203392/",
+        "downloadUrl": "https://cdn.freesound.org/previews/203/203392_435608-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 34.704,
+        "sourceSampleRate": 48000,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 0, "sourceWindowSeconds": 3 }
+    },
+    {
+      "id": "scanner",
+      "kind": "sfx",
+      "dramaticFunction": "便利店条码扫描",
+      "sequences": ["SQ08"],
+      "cue": "dch02_barcode_sweep",
+      "source": {
+        "provider": "Freesound",
+        "soundId": "144418",
+        "title": "Store Scanner Beep",
+        "author": "zerolagtime",
+        "sourcePath": "previews/144/144418_62484-lq.mp3",
+        "itemUrl": "https://freesound.org/people/zerolagtime/sounds/144418/",
+        "downloadUrl": "https://cdn.freesound.org/previews/144/144418_62484-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 1.22361,
+        "sourceSampleRate": 44100,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 0, "sourceWindowSeconds": 1.22361 }
+    },
+    {
+      "id": "door-knock",
+      "kind": "sfx",
+      "dramaticFunction": "搬入当夜的急促敲门",
+      "sequences": ["SQ11"],
+      "cue": "dch02_s022",
+      "source": {
+        "provider": "Freesound",
+        "soundId": "629987",
+        "title": "Knocking on Wood Door (1)",
+        "author": "Flem0527",
+        "sourcePath": "previews/629/629987_12715066-lq.mp3",
+        "itemUrl": "https://freesound.org/people/Flem0527/sounds/629987/",
+        "downloadUrl": "https://cdn.freesound.org/previews/629/629987_12715066-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 0.704422,
+        "sourceSampleRate": 44100,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 0, "sourceWindowSeconds": 0.704422 }
+    },
+    {
+      "id": "cat-step",
+      "kind": "sfx",
+      "dramaticFunction": "橘猫短促脚步与爪声",
+      "sequences": ["SQ10"],
+      "cue": "dch02_s020",
+      "source": {
+        "provider": "Freesound",
+        "soundId": "338352",
+        "title": "Cat Running Stairs",
+        "author": "PhilllChabbb",
+        "sourcePath": "previews/338/338352_4205952-lq.mp3",
+        "itemUrl": "https://freesound.org/people/PhilllChabbb/sounds/338352/",
+        "downloadUrl": "https://cdn.freesound.org/previews/338/338352_4205952-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 3.5,
+        "sourceSampleRate": 96000,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 0, "sourceWindowSeconds": 2.6 }
+    },
+    {
+      "id": "payment-receipt",
+      "kind": "sfx",
+      "dramaticFunction": "收银小票与付款完成",
+      "sequences": ["SQ08"],
+      "cue": "dch02_s008",
+      "source": {
+        "provider": "Freesound",
+        "soundId": "210094",
+        "title": "20131119_Receipt printer at checkout_ZoomH6YX.wav",
+        "author": "Soundscape_Leuphana",
+        "sourcePath": "previews/210/210094_3844637-lq.mp3",
+        "itemUrl": "https://freesound.org/people/Soundscape_Leuphana/sounds/210094/",
+        "downloadUrl": "https://cdn.freesound.org/previews/210/210094_3844637-lq.mp3",
+        "claimedLicense": "Creative Commons 0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceDurationSeconds": 4.8217,
+        "sourceSampleRate": 44100,
+        "previewOnly": true
+      },
+      "transform": { "startSeconds": 0, "sourceWindowSeconds": 3.8 }
+    }
+  ]
+}
