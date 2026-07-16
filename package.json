@@ -37,8 +37,8 @@
     "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
   },
   "devDependencies": {
-    "@pieai/doc-gov": "0.7.2",
-    "@pieai/pro-gov": "0.7.2",
+    "@pieai/doc-gov": "0.7.3",
+    "@pieai/pro-gov": "0.7.3",
     "@pieai/swimmer-ai-kit": "0.3.0",
     "@playwright/test": "1.61.1",
     "@types/node": "24.13.2",

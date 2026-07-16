@@ -6,7 +6,7 @@ status: stable
 canonical: true
 owner: human
 created: 2026-07-13
-last_reviewed: 2026-07-13
+last_reviewed: 2026-07-16
 domain: agents-routing
 tags:
   - agents-routing
@@ -40,6 +40,24 @@ flowchart TD
 ## Keep It Small
 
 Use this router only to pick depth and workflow. Do not use it as a project roadmap.
+
+## Local-First Verification And Release Boundary
+
+- Before pushing, run the smallest project-local verification ladder that fully
+  covers the changed surface. Do not use hosted CI as a remote debugging loop.
+- If a relevant local gate fails, fix it locally before pushing. If it cannot run
+  locally, record the exact blocker and do not push repeated guesses.
+- Automatic hosted CI is a short independent smoke check. Keep it path-scoped,
+  cached, least-privileged, time-bounded, and configured to cancel stale runs.
+- Expensive browser, performance, packaging, staging, publishing, and deployment
+  lanes are local or manually triggered release evidence unless a project records
+  a specific exception.
+- Implementation and release are separate phases. The same solo developer or AI
+  may perform both, but a product task does not silently authorize publishing a
+  shared package or mutating staging/production.
+
+This is a behavior contract, not a requirement to add another hook, CI service,
+or local tool. Reuse the project's existing scripts and verification ladder.
 
 ## Project-Local Lane Profile
 
