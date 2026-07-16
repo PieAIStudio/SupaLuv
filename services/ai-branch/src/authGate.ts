@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { firstDefinedEnv } from "@pieai/swimmer-ai-kit/env";
 import { verifyAccessToken, type SwimmerAccessTokenProvider } from "@pieai/swimmer-backend-client";
 
 export interface AuthGateResult {
@@ -29,18 +30,18 @@ export async function verifyBearerToken(
     return { ok: false, status: 401, error: "Missing Authorization Bearer token" };
   }
 
-  const url = (
-    process.env.SWIMMER_CORE_SUPABASE_URL ||
-    process.env.VITE_SWIMMER_CORE_SUPABASE_URL ||
-    process.env.VITE_SUPABASE_URL ||
-    ""
-  ).trim();
-  const key = (
-    process.env.SWIMMER_CORE_PUBLISHABLE_KEY ||
-    process.env.VITE_SWIMMER_CORE_PUBLISHABLE_KEY ||
-    process.env.VITE_SUPABASE_ANON_KEY ||
-    ""
-  ).trim();
+  const url =
+    firstDefinedEnv(process.env, [
+      "SWIMMER_CORE_SUPABASE_URL",
+      "VITE_SWIMMER_CORE_SUPABASE_URL",
+      "VITE_SUPABASE_URL",
+    ]) ?? "";
+  const key =
+    firstDefinedEnv(process.env, [
+      "SWIMMER_CORE_PUBLISHABLE_KEY",
+      "VITE_SWIMMER_CORE_PUBLISHABLE_KEY",
+      "VITE_SUPABASE_ANON_KEY",
+    ]) ?? "";
 
   if (!url || !key) {
     return {

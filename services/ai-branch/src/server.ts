@@ -6,6 +6,7 @@
 import { createServer } from "node:http";
 import { homedir } from "node:os";
 import { join } from "node:path";
+import { firstDefinedEnv } from "@pieai/swimmer-ai-kit/env";
 import { hasOpenRouterKey, sendJson } from "./httpUtils.js";
 import { loadPublicEnvFileForServer, loadServerEnvFile } from "./localServerEnv.js";
 import { handleAiBranchRequest } from "./routeTable.js";
@@ -35,7 +36,7 @@ function loadSecrets(): void {
 
 loadSecrets();
 
-const PORT = Number(process.env.PORT ?? process.env.SUPALUV_AI_BRANCH_PORT ?? 8787);
+const PORT = Number(firstDefinedEnv(process.env, ["PORT", "SUPALUV_AI_BRANCH_PORT"]) ?? 8787);
 const HOST = process.env.SUPALUV_AI_BRANCH_HOST ?? "127.0.0.1";
 
 const server = createServer(async (req, res) => {
