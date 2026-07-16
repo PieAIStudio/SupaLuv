@@ -53,6 +53,9 @@ importers:
       '@dagrejs/dagre':
         specifier: 3.0.0
         version: 3.0.0
+      '@pieai/swimmer-backend-client':
+        specifier: 0.4.0
+        version: 0.4.0(@supabase/supabase-js@2.110.3)
       '@pieai/swimmer-ui-kit':
         specifier: 1.1.0
         version: 1.1.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)

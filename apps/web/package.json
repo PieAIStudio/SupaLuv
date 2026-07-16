@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@dagrejs/dagre": "3.0.0",
+    "@pieai/swimmer-backend-client": "0.4.0",
     "@pieai/swimmer-ui-kit": "1.1.0",
     "@supabase/supabase-js": "2.110.3",
     "@supaluv/content": "workspace:*",
