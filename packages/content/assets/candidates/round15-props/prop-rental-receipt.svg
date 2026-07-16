@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <filter id="paperShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#000000" flood-opacity="0.58"/>
+    </filter>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" seed="23" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="wood" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b2a20"/>
+      <stop offset="0.45" stop-color="#1f1714"/>
+      <stop offset="1" stop-color="#4c3325"/>
+    </linearGradient>
+    <linearGradient id="thermal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4edd4"/>
+      <stop offset="0.72" stop-color="#eee3c4"/>
+      <stop offset="1" stop-color="#d8cba9"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#wood)"/>
+  <g opacity="0.19" stroke="#caa67f" fill="none">
+    <path d="M0 136 C260 74 420 190 720 126 S1270 92 1600 164"/>
+    <path d="M0 346 C280 278 550 418 890 330 S1330 330 1600 286"/>
+    <path d="M0 646 C290 566 600 722 980 620 S1320 598 1600 664"/>
+  </g>
+  <rect x="103" y="86" width="1394" height="728" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-dasharray="8 12"/>
+
+  <g transform="rotate(1.8 800 450)" filter="url(#paperShadow)">
+    <path d="M350 72 L1242 64 L1252 809 L1194 796 L1147 813 L1094 798 L1042 816 L991 800 L934 813 L882 798 L827 814 L770 797 L715 815 L660 799 L603 815 L551 798 L498 814 L443 797 L391 810 Z" fill="url(#thermal)" stroke="#d6c8a5" stroke-width="3"/>
+    <path d="M350 72 L1242 64 L1252 809 L1194 796 L1147 813 L1094 798 L1042 816 L991 800 L934 813 L882 798 L827 814 L770 797 L715 815 L660 799 L603 815 L551 798 L498 814 L443 797 L391 810 Z" fill="none" stroke="#4a392b" stroke-opacity="0.14" stroke-width="2" filter="url(#rough)"/>
+
+    <text x="801" y="144" text-anchor="middle" font-family="KaiTi, STKaiti, serif" font-size="66" font-weight="800" letter-spacing="24" fill="#1c2830">收 条</text>
+    <text x="801" y="183" text-anchor="middle" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="19" letter-spacing="4" fill="#5f5a4e">房租 / 定金</text>
+    <line x1="415" y1="209" x2="1181" y2="209" stroke="#6d6657" stroke-width="2" stroke-dasharray="8 8" opacity="0.55"/>
+
+    <text x="424" y="269" font-family="KaiTi, STKaiti, serif" font-size="27" fill="#21313b">今收到</text>
+    <line x1="540" y1="273" x2="1149" y2="273" stroke="#504b43" stroke-width="2"/>
+    <path d="M562 259 C684 235 793 281 908 255 S1072 265 1130 248" fill="none" stroke="#244b73" stroke-width="4" opacity="0.88"/>
+    <text x="796" y="258" text-anchor="middle" font-family="KaiTi, STKaiti, serif" font-size="31" fill="#244b73">九百块房租定金</text>
+
+    <rect x="423" y="310" width="727" height="128" rx="5" fill="#e8ddbd" stroke="#776e5b" stroke-opacity="0.45"/>
+    <text x="454" y="356" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#625d52">金额</text>
+    <text x="1110" y="402" text-anchor="end" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="82" font-weight="900" fill="#1d282f">￥900</text>
+    <text x="458" y="409" font-family="KaiTi, STKaiti, serif" font-size="38" font-weight="700" fill="#244b73">九百</text>
+
+    <text x="424" y="494" font-family="KaiTi, STKaiti, serif" font-size="27" fill="#21313b">入住条件</text>
+    <line x1="548" y1="499" x2="1149" y2="499" stroke="#504b43" stroke-width="2"/>
+
+    <g font-family="KaiTi, STKaiti, serif" font-size="31" fill="#244b73">
+      <text x="458" y="552" transform="rotate(-1 458 552)">① 九百块，五号前交。</text>
+      <text x="458" y="606" transform="rotate(0.7 458 606)">② 备注栏禁止发表情包。</text>
+      <text x="458" y="660" transform="rotate(-0.8 458 660)">③ 奇怪的人别往楼里带，出事自己扛。</text>
+    </g>
+    <path d="M453 670 C735 686 917 642 1154 664" fill="none" stroke="#244b73" stroke-width="3" opacity="0.72"/>
+
+    <text x="423" y="733" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" letter-spacing="2" fill="#6d675b">代收人签字</text>
+    <path d="M618 732 C684 689 728 774 778 720 C810 687 854 751 897 713" fill="none" stroke="#244b73" stroke-width="5" stroke-linecap="round"/>
+    <text x="1150" y="733" text-anchor="end" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" fill="#6d675b">字迹像医院处方</text>
+
+    <g transform="translate(1053 532) rotate(-14)" opacity="0.62" fill="#6b6a60">
+      <ellipse cx="44" cy="56" rx="24" ry="31"/>
+      <ellipse cx="14" cy="20" rx="12" ry="17"/>
+      <ellipse cx="40" cy="10" rx="12" ry="17"/>
+      <ellipse cx="68" cy="18" rx="12" ry="17"/>
+      <ellipse cx="86" cy="40" rx="12" ry="17"/>
+    </g>
+  </g>
+
+  <g transform="translate(124 660) rotate(-8)" opacity="0.7">
+    <rect x="0" y="0" width="196" height="92" rx="7" fill="#e8ddbd"/>
+    <text x="98" y="39" text-anchor="middle" font-family="KaiTi, STKaiti, serif" font-size="24" font-weight="700" fill="#244b73">其余选择信任</text>
+    <text x="98" y="69" text-anchor="middle" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#5c574d">只认出“九百”</text>
+  </g>
+  <text x="88" y="856" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="17" letter-spacing="2" fill="#ffffff" opacity="0.38">PROP / RENTAL RECEIPT / CANDIDATE</text>
+</svg>
