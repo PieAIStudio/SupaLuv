@@ -1,18 +1,8 @@
-import {
-  lazy,
-  startTransition,
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { lazy, startTransition, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "./analytics/productAnalytics";
 import { bedLabel } from "./audio/bedCatalog";
 import { DialogueVoicePlaybackGuard } from "./audio/dialogueVoicePlaybackGuard";
 import { gameAudio } from "./audio/gameAudio";
-import { syncGameAudioFromSettings } from "./audio/syncGameAudioFromSettings";
 import { useCoPlaySession } from "./coplay/useCoPlaySession";
 import type { CoPlayRole } from "./coplay/protocol";
 import type { StoryCharacterBindings } from "./characters/characterPackTypes";
@@ -20,26 +10,16 @@ import { createCharacterPackClient } from "./characters/characterPackClient";
 import { refreshCharacterBindingUrls } from "./characters/storyRunBindings";
 import { useAuth } from "./auth/AuthContext";
 import { useLocale } from "./i18n";
-import { unlockAchievement, type AchievementDef } from "./persistence/achievements";
-import {
-  loadDisplayNames,
-  saveDisplayNames,
-  type DisplayNameMap,
-} from "./persistence/displayNames";
-import {
-  hasCustomPortraitPack,
-  loadPortraitPack,
-  savePortraitPack,
-  type PortraitPackState,
-} from "./persistence/portraitPack";
+import { loadDisplayNames, type DisplayNameMap } from "./persistence/displayNames";
+import { loadPortraitPack, type PortraitPackState } from "./persistence/portraitPack";
 import { DRAFT_CLEAR_REWARDS, type ManualSlotId } from "./persistence/gameSave";
-import { loadSettings, saveSettings, type GameSettings } from "./persistence/settings";
+import { loadSettings, type GameSettings } from "./persistence/settings";
 import { resolveStatsPick } from "./stats/choiceStatsCatalog";
 import type { StoryId } from "./story/storyMapAdapter";
 import { createStorySession } from "./story/session/createStorySession";
 import { loadStoryRuntime } from "./story/session/storyRuntime";
 import { useStorySession } from "./story/session/useStorySession";
-import { AtomicLoadingOverlay, type AtomicLoadingKind } from "./loading/AtomicLoadingOverlay";
+import { AtomicLoadingOverlay } from "./loading/AtomicLoadingOverlay";
 import {
   CASTING_CRITICAL_ASSETS,
   preloadDecodedImages,
@@ -60,6 +40,9 @@ import {
   type AppScreen,
   type MetaScreen,
 } from "./app/screenRouting";
+import { useAtomicStoryAction } from "./app/useAtomicStoryAction";
+import { useShellPersistence } from "./app/useShellPersistence";
+import { useUnlockFeedback } from "./app/useUnlockFeedback";
 import { BootSplash } from "./views/BootSplash";
 import type { EndingPathMeta } from "./views/ChapterEndCard";
 import { OrientationGate } from "./views/OrientationGate";
@@ -129,15 +112,6 @@ export function App() {
   const [portraitPack, setPortraitPack] = useState<PortraitPackState>(() => loadPortraitPack());
   const [isCreatorMapOpen, setCreatorMapOpen] = useState(false);
   const [isPlayerPathOpen, setPlayerPathOpen] = useState(false);
-  const [unlockToast, setUnlockToast] = useState<string | null>(null);
-  const [loadingTransition, setLoadingTransition] = useState<{
-    kind: AtomicLoadingKind;
-    error?: string | null;
-    retry?: () => void;
-    refresh?: () => void;
-  } | null>(null);
-  const unlockToastTimer = useRef<number | null>(null);
-  const storyActionInFlight = useRef(false);
   const metaReturnScreen = useRef<AppScreen>("title");
   const [coPlayConfig, setCoPlayConfig] = useState<{
     roomCode: string;
@@ -146,14 +120,10 @@ export function App() {
   } | null>(null);
 
   const coPlay = useCoPlaySession(coPlayConfig);
-
-  const showUnlockToast = useCallback((message: string) => {
-    setUnlockToast(message);
-    if (unlockToastTimer.current !== null) {
-      window.clearTimeout(unlockToastTimer.current);
-    }
-    unlockToastTimer.current = window.setTimeout(() => setUnlockToast(null), 2400);
-  }, []);
+  const { unlockToast, showUnlockToast, tryAchievement } = useUnlockFeedback();
+  const { loadingTransition, setLoadingTransition, runStoryAction } = useAtomicStoryAction({
+    showUnlockToast,
+  });
 
   const showUnlockToastRef = useRef(showUnlockToast);
   showUnlockToastRef.current = showUnlockToast;
@@ -192,25 +162,15 @@ export function App() {
   dialogueVoiceGuardRef.current ??= new DialogueVoicePlaybackGuard();
   const dialogueVoiceGuard = dialogueVoiceGuardRef.current;
   const dialogueVoiceRunKey = `${storyRevision}:${storyId}`;
-  const voiceEnabled = settings.voiceVolume > 0;
 
-  useEffect(() => {
-    // Required while Settings is mounted (player unmounted): zero still suppresses
-    // the last observed line so remount cannot restart it.
-    dialogueVoiceGuard.syncVolume({
-      runKey: dialogueVoiceRunKey,
-      voiceEnabled,
-    });
-  }, [dialogueVoiceGuard, dialogueVoiceRunKey, voiceEnabled]);
-
-  useEffect(() => {
-    syncGameAudioFromSettings(settings);
-    saveSettings(settings);
-  }, [settings]);
-
-  useEffect(() => {
-    saveDisplayNames(displayNames);
-  }, [displayNames]);
+  useShellPersistence({
+    settings,
+    displayNames,
+    portraitPack,
+    dialogueVoiceGuard,
+    dialogueVoiceRunKey,
+    tryAchievement,
+  });
 
   useEffect(() => {
     const onPreloadError = (event: Event) => {
@@ -223,7 +183,7 @@ export function App() {
     };
     window.addEventListener("vite:preloadError", onPreloadError);
     return () => window.removeEventListener("vite:preloadError", onPreloadError);
-  }, [t]);
+  }, [t, setLoadingTransition]);
 
   useEffect(() => {
     if (!bootDone) {
@@ -263,7 +223,7 @@ export function App() {
       void loadStoryRuntime().catch(() => undefined);
     }, 450);
     return () => window.clearTimeout(timer);
-  }, [bootDone, t, titleLoadAttempt, titleReady]);
+  }, [bootDone, t, titleLoadAttempt, titleReady, setLoadingTransition]);
 
   /** Meta screens share document scroll — reset so Help/Achievements never open mid-page. */
   useEffect(() => {
@@ -271,55 +231,6 @@ export function App() {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
   }, [screen, bootDone]);
-
-  const tryAchievement = useCallback(
-    (id: Parameters<typeof unlockAchievement>[0]) => {
-      const def: AchievementDef | null = unlockAchievement(id);
-      if (def) {
-        showUnlockToast(
-          `${t("common.achievement")} · ${t(`achievements.items.${id}.title`, def.title)}`,
-        );
-        gameAudio.playSfx("notify-soft", 0.4);
-      }
-    },
-    [showUnlockToast, t],
-  );
-
-  function runStoryAction(action: () => Promise<void>, kind?: AtomicLoadingKind) {
-    if (storyActionInFlight.current) {
-      return;
-    }
-    storyActionInFlight.current = true;
-    if (kind) {
-      setLoadingTransition({ kind });
-    }
-    void action()
-      .then(() => {
-        if (kind) {
-          setLoadingTransition(null);
-        }
-      })
-      .catch(() => {
-        const retry = () => {
-          setLoadingTransition(null);
-          storyActionInFlight.current = false;
-          runStoryAction(action, kind);
-        };
-        if (kind) {
-          setLoadingTransition({
-            kind: "retry",
-            error: t("common.transitionError"),
-            retry,
-            refresh: () => window.location.reload(),
-          });
-        } else {
-          showUnlockToast(t("common.storyLoadError"));
-        }
-      })
-      .finally(() => {
-        storyActionInFlight.current = false;
-      });
-  }
 
   function enterTitle() {
     runStoryAction(async () => {
@@ -369,13 +280,6 @@ export function App() {
       delete testWindow.__SUPALUV_ATOMIC_LOADING_TEST__;
     };
   });
-
-  useEffect(() => {
-    savePortraitPack(portraitPack);
-    if (hasCustomPortraitPack(portraitPack)) {
-      tryAchievement("custom_pack_active");
-    }
-  }, [portraitPack, tryAchievement]);
 
   function openMeta(next: MetaScreen) {
     metaReturnScreen.current = captureMetaReturnScreen(screen);
