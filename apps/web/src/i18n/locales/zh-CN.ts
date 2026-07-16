@@ -452,6 +452,13 @@ export const zhCN: MessageTree = {
     retry: "重试播放",
     skip: "跳过 CG · 继续",
   },
+  propCutIn: {
+    badge: "剧情道具 · 静态镜头",
+    close: "关闭道具 · 继续剧情",
+    reopen: "查看道具",
+    fullText: "完整可读内容",
+    loadFailed: "道具图片未能载入，以下文字仍可完整阅读。",
+  },
   chapterEnd: {
     draftTitle: "草稿两章 · 当前终点",
     title: "章节完成",

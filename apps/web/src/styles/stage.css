@@ -574,6 +574,212 @@
   margin-top: 0.2rem;
 }
 
+/* Round 16 — still-first cinematic prop insert. Native dialog supplies modal focus/inertness. */
+.prop-cutin-dialog {
+  width: min(100%, calc((100dvh - 1rem) * 16 / 9));
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 1rem);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: clamp(0.5rem, 1vw, 0.9rem);
+  color: rgba(255, 255, 255, 0.94);
+  background: #050609;
+  box-shadow: 0 2rem 7rem rgba(0, 0, 0, 0.72);
+  animation: prop-cutin-enter 220ms ease-out both;
+}
+
+.prop-cutin-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(0.18rem);
+}
+
+.prop-cutin-frame {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: calc(100dvh - 1rem);
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 18%), #050609;
+}
+
+.prop-cutin-chrome {
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.45rem, 1.2vw, 0.9rem);
+  min-height: clamp(2.5rem, 7vh, 3.6rem);
+  padding: clamp(0.4rem, 1vw, 0.7rem) clamp(0.5rem, 1.2vw, 0.9rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(5, 6, 9, 0.94);
+}
+
+.prop-cutin-chrome h2 {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: clamp(0.78rem, 1.8vw, 1.15rem);
+  font-weight: 650;
+  letter-spacing: 0.035em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prop-cutin-badge {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: clamp(0.62rem, 1.25vw, 0.76rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.prop-cutin-close,
+.prop-cutin-reopen {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  color: #fff;
+  background: rgba(7, 8, 12, 0.86);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.prop-cutin-close {
+  min-height: 2.15rem;
+  padding: 0.42rem 0.75rem;
+  border-radius: 999px;
+  font-size: clamp(0.68rem, 1.35vw, 0.82rem);
+}
+
+.prop-cutin-close:hover,
+.prop-cutin-close:focus-visible,
+.prop-cutin-reopen:hover,
+.prop-cutin-reopen:focus-visible {
+  border-color: rgba(255, 255, 255, 0.82);
+  outline: 2px solid rgba(255, 255, 255, 0.92);
+  outline-offset: 2px;
+}
+
+.prop-cutin-visual {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background: #08090d;
+}
+
+.prop-cutin-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.prop-cutin-fallback {
+  display: grid;
+  place-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  height: 100%;
+  min-height: 8rem;
+  padding: 1rem;
+  text-align: center;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.025) 0,
+      rgba(255, 255, 255, 0.025) 0.5rem,
+      transparent 0.5rem,
+      transparent 1rem
+    ),
+    #090a0e;
+}
+
+.prop-cutin-fallback strong {
+  font-size: clamp(0.86rem, 2vw, 1.2rem);
+}
+
+.prop-cutin-fallback span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.prop-cutin-transcript {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.65rem;
+  max-height: clamp(4.2rem, 19vh, 7.5rem);
+  padding: clamp(0.42rem, 1vw, 0.7rem) clamp(0.55rem, 1.3vw, 0.95rem);
+  overflow: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(5, 6, 9, 0.97);
+  scrollbar-width: thin;
+}
+
+.prop-cutin-transcript > span {
+  color: rgba(255, 255, 255, 0.54);
+  font-size: clamp(0.62rem, 1.2vw, 0.74rem);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.prop-cutin-transcript p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(0.68rem, 1.35vw, 0.86rem);
+  line-height: 1.55;
+}
+
+.prop-cutin-reopen {
+  position: absolute;
+  right: clamp(0.35rem, 1vw, 0.75rem);
+  top: 50%;
+  z-index: 8;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.5rem 0 0 0.5rem;
+  font-size: clamp(0.68rem, 1.25vw, 0.78rem);
+  letter-spacing: 0.04em;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%);
+}
+
+@keyframes prop-cutin-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.992);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-height: 430px) and (orientation: landscape) {
+  .prop-cutin-dialog,
+  .prop-cutin-frame {
+    width: min(100%, calc(100dvh * 16 / 9));
+    max-height: 100dvh;
+  }
+
+  .prop-cutin-transcript {
+    max-height: 5.2rem;
+  }
+
+  .prop-cutin-chrome {
+    min-height: 2.35rem;
+    padding-block: 0.28rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prop-cutin-dialog {
+    animation: none;
+  }
+}
+
 .scene-art-caption {
   display: inline-flex;
   gap: 0.65rem;

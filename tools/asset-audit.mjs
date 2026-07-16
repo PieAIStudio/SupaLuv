@@ -21,6 +21,7 @@ const BOOT_SPLASH_SOURCE = "apps/web/src/views/BootSplash.tsx";
 const VISUAL_SCAN_ROOTS = Object.freeze([
   "apps/web/public/assets/scenes",
   "apps/web/public/assets/portraits",
+  "apps/web/public/assets/props",
   "apps/web/public/assets/ui",
   "packages/content/characters",
 ]);
@@ -64,11 +65,11 @@ const FROZEN_ARCHIVE_PROP_IDS = Object.freeze([
   "prop-application-nda",
   "prop-approval-sms",
 ]);
-/** Frozen minimum missing deliveries; production truth is cross-checked elsewhere too. */
+export const FROZEN_REQUIRED_PROP_IDS = FROZEN_ARCHIVE_PROP_IDS;
+/** Frozen minimum deliveries that are still genuinely missing. */
 export const FROZEN_REQUIRED_MISSING_IDS = Object.freeze([
   ...FROZEN_PRODUCTION_CHARACTER_ASSETS.map(({ portraitId }) => portraitId),
   ...FROZEN_PRODUCTION_CHARACTER_ASSETS.map(({ referenceId }) => referenceId),
-  ...FROZEN_ARCHIVE_PROP_IDS,
 ]);
 const FROZEN_REQUIRED_PRODUCTION_GAP_IDS = new Set([
   "gap-background-shot-list",
