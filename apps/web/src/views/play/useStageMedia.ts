@@ -1,10 +1,10 @@
 /**
- * Cutscene trigger + exclusive beds + one-shot scene SFX for the play stage.
+ * Cutscene trigger + independent stage beds + one-shot scene SFX for the play stage.
  * Preserves prior VisualNovelPrototype side-effect order (behavior-preserving extract).
  */
 
 import { useEffect, useRef, useState } from "react";
-import { gameAudio, isSceneCueSfx } from "../../audio/gameAudio";
+import { gameAudio, isSceneCueSfx, type StageBedPlaybackResult } from "../../audio/gameAudio";
 import { hasCustomPortraitPack, type PortraitPackState } from "../../persistence/portraitPack";
 
 export interface StageMediaPresentation {
@@ -14,6 +14,22 @@ export interface StageMediaPresentation {
   readonly ambientKey?: string | null;
   readonly bgmKey?: string | null;
   readonly sfxKey?: string | null;
+}
+
+export function playStagePresentationBeds(
+  presentation: Pick<StageMediaPresentation, "musicKey" | "ambientKey" | "bgmKey">,
+  onBedHeard?: (bedId: string) => void,
+): StageBedPlaybackResult {
+  const result = gameAudio.playStageBeds({
+    musicKey: presentation.musicKey,
+    ambientKey: presentation.ambientKey,
+    bgmKey: presentation.bgmKey,
+    fallbackKey: "soft-piano",
+  });
+  for (const bedId of result.heardBedIds) {
+    onBedHeard?.(bedId);
+  }
+  return result;
 }
 
 export function useStageMedia(input: {
@@ -51,6 +67,11 @@ export function useStageMedia(input: {
   } | null>(null);
   const playedCutscenesRef = useRef(new Set<string>());
   const lastSfxSceneRef = useRef<string | null>(null);
+  const onBedHeardRef = useRef(onBedHeard);
+
+  useEffect(() => {
+    onBedHeardRef.current = onBedHeard;
+  }, [onBedHeard]);
 
   useEffect(() => {
     setSceneFlash(true);
@@ -86,15 +107,17 @@ export function useStageMedia(input: {
     videoKey,
   ]);
 
-  // Exclusive bed: Lyria tracks are full mixes — never stack two scores.
+  // Stage beds: dedicated music + ambience, with legacy bgm fallback in the controller.
   useEffect(() => {
-    const exclusive =
-      presentation.musicKey ?? presentation.ambientKey ?? presentation.bgmKey ?? "soft-piano";
-    gameAudio.playExclusiveBed(exclusive);
-    if (exclusive) {
-      onBedHeard?.(exclusive);
-    }
-  }, [onBedHeard, presentation.ambientKey, presentation.bgmKey, presentation.musicKey]);
+    playStagePresentationBeds(
+      {
+        musicKey: presentation.musicKey,
+        ambientKey: presentation.ambientKey,
+        bgmKey: presentation.bgmKey,
+      },
+      (bedId) => onBedHeardRef.current?.(bedId),
+    );
+  }, [presentation.ambientKey, presentation.bgmKey, presentation.musicKey]);
 
   useEffect(() => {
     if (activeCutscene) {

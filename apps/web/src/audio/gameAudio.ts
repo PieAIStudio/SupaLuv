@@ -1,12 +1,12 @@
 /**
- * Four-layer release audio façade.
+ * Four-layer release audio façade with independent stage music and ambience.
  *
  * Priority and mixing contract:
  * 1. master mute and cutscene pause stop bed playback;
  * 2. voice is the only duck owner and lowers music + ambient while active;
  * 3. SFX never become a second duck owner;
- * 4. sequence playback uses one exclusive authored bed, while the controller
- *    still keeps independent music and ambient buses for previews/future cues.
+ * 4. stage playback selects music and location ambience independently, with a
+ *    legacy exclusive fallback only when neither dedicated key is authored.
  */
 
 import {
@@ -56,6 +56,18 @@ export type GameSfxKey = AudioSfxId | string;
 export type GameBedKey = AudioBedId | string;
 export type GameBgmKey = GameBedKey;
 export type { AudioBedKind };
+
+export interface StageBedSelectionInput {
+  readonly musicKey?: GameBedKey | null;
+  readonly ambientKey?: GameBedKey | null;
+  readonly bgmKey?: GameBedKey | null;
+  readonly fallbackKey?: GameBedKey | null;
+}
+
+export interface StageBedPlaybackResult {
+  readonly mode: "dedicated" | "legacy";
+  readonly heardBedIds: readonly string[];
+}
 
 export interface AudioPlaybackSnapshot {
   readonly muted: boolean;
@@ -185,6 +197,9 @@ export class GameAudioController {
   }
 
   setMuted(next: boolean): void {
+    if (this.muted === next) {
+      return;
+    }
     this.muted = next;
     setHowlerMasterMute(next);
     if (next) {
@@ -199,6 +214,9 @@ export class GameAudioController {
   }
 
   unlock(): void {
+    if (this.unlocked) {
+      return;
+    }
     this.unlocked = true;
     unlockHowler();
     // Re-assert product mute after context unlock; unlock must never unmute.
@@ -341,6 +359,51 @@ export class GameAudioController {
       this.playAmbientEntry(entry);
     }
     this.emitNowPlaying();
+  }
+
+  playStageBeds(input: StageBedSelectionInput): StageBedPlaybackResult {
+    const dedicated = hasDedicatedKey(input.musicKey) || hasDedicatedKey(input.ambientKey);
+    if (!dedicated) {
+      const legacyKey = input.bgmKey ?? input.fallbackKey ?? "soft-piano";
+      const entry = resolveBedCatalogEntry(legacyKey);
+      const wasAlreadyActive = entry ? this.isBedEntryActive(entry) : false;
+      this.playExclusiveBed(legacyKey);
+      return {
+        mode: "legacy",
+        heardBedIds: entry && !wasAlreadyActive && this.isBedEntryActive(entry) ? [entry.id] : [],
+      };
+    }
+
+    const previousNowPlaying = this.getNowPlayingKey();
+    const previousMusicKey = this.musicKey;
+    const previousAmbientKey = this.ambientKey;
+    const heardBedIds: string[] = [];
+    const musicEntry = resolveBedCatalogEntry(input.musicKey);
+    if (musicEntry?.kind === "music") {
+      this.playMusicEntry(musicEntry);
+      if (previousMusicKey !== musicEntry.id && this.musicHowl && this.musicKey === musicEntry.id) {
+        heardBedIds.push(musicEntry.id);
+      }
+    } else {
+      this.fadeStopMusic(false);
+    }
+
+    const ambientEntry = resolveBedCatalogEntry(input.ambientKey);
+    if (ambientEntry?.kind === "ambient") {
+      this.playAmbientEntry(ambientEntry);
+      if (
+        previousAmbientKey !== ambientEntry.id &&
+        this.ambientHowl &&
+        this.ambientKey === ambientEntry.id
+      ) {
+        heardBedIds.push(ambientEntry.id);
+      }
+    } else {
+      this.fadeStopAmbient(false);
+    }
+
+    this.emitNowPlayingIfChanged(previousNowPlaying);
+    return { mode: "dedicated", heardBedIds };
   }
 
   playBed(key: GameBedKey | null | undefined): void {
@@ -538,7 +601,9 @@ export class GameAudioController {
     this.clearMusicFadingOut();
     const previous = this.musicHowl;
     let next: EngineHowl | null = null;
+    let failedSynchronously = false;
     const releaseFailed = () => {
+      failedSynchronously = next === null;
       // Only clear if this instance is still the music owner (never clobber a newer Howl).
       if (next && this.musicHowl === next && this.musicKey === entry.id) {
         stopAndUnload(next);
@@ -555,6 +620,15 @@ export class GameAudioController {
       onloaderror: releaseFailed,
       onplayerror: releaseFailed,
     });
+    if (failedSynchronously) {
+      stopAndUnload(next);
+      this.musicHowl = null;
+      this.musicKey = null;
+      if (previous) {
+        this.fadeOutMusicHowl(previous, entry.fadeOutMs);
+      }
+      return;
+    }
     this.musicHowl = next;
     this.musicKey = entry.id;
     const mix = this.resolveMix();
@@ -578,7 +652,9 @@ export class GameAudioController {
     this.clearAmbientFadingOut();
     const previous = this.ambientHowl;
     let next: EngineHowl | null = null;
+    let failedSynchronously = false;
     const releaseFailed = () => {
+      failedSynchronously = next === null;
       if (next && this.ambientHowl === next && this.ambientKey === entry.id) {
         stopAndUnload(next);
         this.ambientHowl = null;
@@ -594,6 +670,15 @@ export class GameAudioController {
       onloaderror: releaseFailed,
       onplayerror: releaseFailed,
     });
+    if (failedSynchronously) {
+      stopAndUnload(next);
+      this.ambientHowl = null;
+      this.ambientKey = null;
+      if (previous) {
+        this.fadeOutAmbientHowl(previous, entry.fadeOutMs);
+      }
+      return;
+    }
     this.ambientHowl = next;
     this.ambientKey = entry.id;
     const mix = this.resolveMix();
@@ -693,6 +778,22 @@ export class GameAudioController {
       listener(key);
     }
   }
+
+  private emitNowPlayingIfChanged(previous: string | null): void {
+    if (this.getNowPlayingKey() !== previous) {
+      this.emitNowPlaying();
+    }
+  }
+
+  private isBedEntryActive(entry: AudioBedCatalogEntry): boolean {
+    return entry.kind === "music"
+      ? this.musicKey === entry.id && Boolean(this.musicHowl)
+      : this.ambientKey === entry.id && Boolean(this.ambientHowl);
+  }
 }
 
 export const gameAudio = new GameAudioController();
+
+function hasDedicatedKey(key: GameBedKey | null | undefined): boolean {
+  return typeof key === "string" && key.length > 0;
+}
