@@ -8,12 +8,6 @@
   ],
   "assets": [
     {
-      "id": "npx-skills/browser-automation",
-      "sourcePath": "skills/npx-skills/.agents/skills/browser-automation",
-      "contentHash": "sha256:4699d42b7dbf4e90c59e3b23091e965b243567532caa83e9689d291106e663e1",
-      "targetPath": ".agents/skills/browser-automation"
-    },
-    {
       "id": "npx-skills/frontend-design",
       "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
       "contentHash": "sha256:665c585455decbcb02116bc928adf5148b9cd0f67b7eb4908c8c0d647c00f68a",
@@ -24,18 +18,6 @@
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
       "contentHash": "sha256:85c9f4be22f7af5d0c9be911087b6ec341dc1e24fe8d5b98cb44eb89f1271649",
       "targetPath": ".agents/skills/ui-ux-pro-max"
-    },
-    {
-      "id": "npx-skills/vitest-midscene-e2e",
-      "sourcePath": "skills/npx-skills/.agents/skills/vitest-midscene-e2e",
-      "contentHash": "sha256:e8277769eae8a9b030c6bed953c272ebe99917e253a852100d7ffd4e67534a24",
-      "targetPath": ".agents/skills/vitest-midscene-e2e"
-    },
-    {
-      "id": "npx-skills/web-artifacts-builder",
-      "sourcePath": "skills/npx-skills/.agents/skills/web-artifacts-builder",
-      "contentHash": "sha256:0f102ba19f13b4deb19f2248a5014952d2af1521129a5a0e4f3d805f74632b75",
-      "targetPath": ".agents/skills/web-artifacts-builder"
     },
     {
       "id": "pie-commands/generate-handoff",
@@ -60,12 +42,6 @@
       "sourcePath": "rules/pie-rules/rule-evolution-methodology.md",
       "contentHash": "sha256:694758a2f3ce15ffc9f38c5a0e6fe6696bfb8128b952afec6c0963cc803f5b9c",
       "targetPath": ".pro-gov/agent-assets/rules/rule-evolution-methodology.md"
-    },
-    {
-      "id": "pie-skills/doc-cross-validator",
-      "sourcePath": "skills/pie-skills/doc-cross-validator",
-      "contentHash": "sha256:8aadfc76f9c660ca42ac1dc2c2b25119f8f8328fcf759adb35f9106969411ab4",
-      "targetPath": ".agents/skills/doc-cross-validator"
     },
     {
       "id": "pie-skills/screenwalk",
