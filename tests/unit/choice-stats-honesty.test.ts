@@ -7,7 +7,7 @@ import {
   unlockAchievement,
 } from "../../apps/web/src/persistence/achievements";
 import { choiceStatsSourceNote } from "../../apps/web/src/stats/choiceStatsClient";
-import { DEFAULT_SHARE_CARD_COPY } from "../../apps/web/src/views/play/ShareCardExporter";
+import { DEFAULT_SHARE_CARD_COPY } from "../../apps/web/src/views/play/lib/ShareCardExporter";
 
 const STATS_SURFACE_KEYS = [
   "help.coPlayConflict",

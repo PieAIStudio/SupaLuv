@@ -3,10 +3,10 @@
  * Pure orchestration helper — no React.
  */
 
-import { recordChoiceSelected, type PlayerPathScope } from "../../persistence/pathMemory";
-import { recordStatsChoice, type SessionChoicePick } from "../../stats/choiceStatsClient";
-import type { InkStorySnapshot } from "../../story/inkStoryRunner";
-import type { StoryId } from "../../story/storyMapAdapter";
+import { recordChoiceSelected, type PlayerPathScope } from "../../../persistence/pathMemory";
+import { recordStatsChoice, type SessionChoicePick } from "../../../stats/choiceStatsClient";
+import type { InkStorySnapshot } from "../../../story/inkStoryRunner";
+import type { StoryId } from "../../../story/storyMapAdapter";
 
 export interface HostChoiceCommitInput {
   readonly storyId: StoryId;

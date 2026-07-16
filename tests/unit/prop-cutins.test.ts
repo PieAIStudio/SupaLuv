@@ -11,7 +11,7 @@ import {
   propCutInSceneKey,
   shouldRequestPropCutIn,
   shouldShowPropCutIn,
-} from "../../apps/web/src/views/play/propCutInState";
+} from "../../apps/web/src/views/play/lib/propCutInState";
 
 const workspaceRoot = path.resolve(import.meta.dirname, "../..");
 

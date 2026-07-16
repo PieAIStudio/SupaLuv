@@ -26,7 +26,9 @@ checkpoint advances into chapter 2 without AI final ending.
 | `src/story/session/*`                | **StorySession**: runner, save/resume, chapter transition                         | deep module; React adapter only       |
 | `src/views/VisualNovelPrototype.tsx` | Play stage **composition only**                                                   | **yes — do not re-grow grab bag**     |
 | `src/views/play/experience/*`        | **Narrative + decision lifecycle**: source/playback then choice/oracle/RPS/ending | deep; order before/after stage media  |
-| `src/views/play/*`                   | HUD, dialogue, choice flow adapter, stage media, pointers                         | preferred growth zone                 |
+| `src/views/play/hooks/*`             | Play-stage hooks (choice flow, stage media, pointers, prop cut-in)                | no JSX                                |
+| `src/views/play/lib/*`               | Pure play helpers (accessibility, presentation, share card, host choice)          | no JSX                                |
+| `src/views/play/*`                   | Play-stage React components (HUD, dialogue, portraits, system menu)               | preferred growth zone                 |
 | `src/coplay/*`                       | Protocol, presence, RPS, transports, pointer policy                               | no Supabase in DialoguePanel          |
 | `src/persistence/*`                  | save schema / settings / unlocks / achievements                                   | stable contracts                      |
 | `src/audio/*`                        | Howler façade + reverb engine                                                     | only Howler import in howlerEngine    |
@@ -44,10 +46,10 @@ checkpoint advances into chapter 2 without AI final ending.
    - Decision / run-outcome → `views/play/experience/useDecisionExperience.ts`
      (grouped input: source / viewer / narrative / actions; nested return choice / oracle / rps / ending / commands)
    - AI-branch run marker: `chooseAi(notifyAiBranchUsed)` at the panel — no order-bridge refs
-   - Choice / RPS conflict adapter → `views/play/usePlayChoiceFlow.ts` (composed by decision experience)
-   - Beds / CG / SFX → `views/play/useStageMedia.ts`
-   - Co-play pointers → `views/play/useCoPlayPointers.ts`
-   - Pure continue labels → `views/play/vnHelpers.ts`
+   - Choice / RPS conflict adapter → `views/play/hooks/usePlayChoiceFlow.ts` (composed by decision experience)
+   - Beds / CG / SFX → `views/play/hooks/useStageMedia.ts`
+   - Co-play pointers → `views/play/hooks/useCoPlayPointers.ts`
+   - Pure continue labels → `views/play/lib/vnHelpers.ts`
 2. **Story domain lives in `StorySession`** (`story/session/createStorySession.ts`).
    App calls the session interface; it does not re-own runner/snapshot/save orchestration.
 3. **Saves are written only through `writeStorySave`** (`persistence/saveWriter.ts`),
@@ -68,9 +70,9 @@ checkpoint advances into chapter 2 without AI final ending.
 | Dialogue + AI choice UI      | `views/play/DialoguePanel.tsx`                                                                |
 | Narrative source / playback  | `views/play/experience/useNarrativeSource.ts` + `useNarrativePlayback.ts` + pure resolvers    |
 | Decision / ending lifecycle  | `views/play/experience/useDecisionExperience.ts` + `resolveDecisionOutcome.ts`                |
-| Host/guest choice + RPS open | `views/play/usePlayChoiceFlow.ts` (owned via decision experience)                             |
-| Cutscene / BGM / SFX timing  | `views/play/useStageMedia.ts`                                                                 |
-| Shared cursor / touch focus  | `coplay/pointerPolicy.ts` + `useCoPlayPointers.ts`                                            |
+| Host/guest choice + RPS open | `views/play/hooks/usePlayChoiceFlow.ts` (owned via decision experience)                       |
+| Cutscene / BGM / SFX timing  | `views/play/hooks/useStageMedia.ts`                                                           |
+| Shared cursor / touch focus  | `coplay/pointerPolicy.ts` + `views/play/hooks/useCoPlayPointers.ts`                           |
 | Save / resume / chapter flow | `story/session/*` + `persistence/gameSave.ts` + `saveWriter.ts`                               |
 | Save schema                  | `persistence/gameSave.ts` + `saveWriter.ts` + tests                                           |
 | Settings values              | `persistence/settings.ts` + `views/settings/*` (player vs lab)                                |

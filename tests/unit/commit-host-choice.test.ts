@@ -3,7 +3,7 @@ import {
   CHOICE_STATS_REMOTE_TIMEOUT_MS,
   resetChoiceStatsRemoteForTesting,
 } from "../../apps/web/src/stats/choiceStatsRemote";
-import { commitHostChoice } from "../../apps/web/src/views/play/commitHostChoice";
+import { commitHostChoice } from "../../apps/web/src/views/play/lib/commitHostChoice";
 import type { InkStorySnapshot } from "../../apps/web/src/story/inkStoryRunner";
 import { getPlayerPathObservation } from "../../apps/web/src/persistence/pathMemory";
 

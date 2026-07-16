@@ -11,7 +11,7 @@ import {
 import { rewardSignalsForEchoRows } from "../stats/choiceStatsMath";
 import { majorityOptionForDecision, loadAuthoritativeCounts } from "../stats/choiceStatsLean";
 import { listOracleGuesses, scoreOracleVerdicts, type OracleVerdict } from "../stats/oracleMemory";
-import { downloadShareCard } from "./play/ShareCardExporter";
+import { downloadShareCard } from "./play/lib/ShareCardExporter";
 import { AiEndingExperience } from "./AiEndingExperience";
 import type { StoryCharacterBindings } from "../characters/characterPackTypes";
 import { useLocale } from "../i18n";

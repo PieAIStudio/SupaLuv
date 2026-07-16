@@ -7,8 +7,8 @@ import type { PointerEvent as ReactPointerEvent } from "react";
 import {
   shouldPublishContinuousCursor,
   type PointerPresenceMode,
-} from "../../coplay/pointerPolicy";
-import type { CoPlaySessionApi } from "../../coplay/useCoPlaySession";
+} from "../../../coplay/pointerPolicy";
+import type { CoPlaySessionApi } from "../../../coplay/useCoPlaySession";
 
 export function useCoPlayPointers(input: {
   readonly coPlay: CoPlaySessionApi | null;

@@ -13,7 +13,7 @@ import type { DisplayNameMap } from "../../../persistence/displayNames";
 import type { InkStorySnapshot } from "../../../story/inkStoryRunner";
 import type { StoryId } from "../../../story/storyMapAdapter";
 import { useLocale } from "../../../i18n";
-import { mapDialogueForPlayer } from "../stagePresentation";
+import { mapDialogueForPlayer } from "../lib/stagePresentation";
 import { resolveActiveAiBeat } from "./resolveActiveAiBeat";
 import {
   resolvePlaybackSource,

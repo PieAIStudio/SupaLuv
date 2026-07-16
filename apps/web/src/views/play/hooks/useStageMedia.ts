@@ -4,8 +4,8 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { gameAudio, isSceneCueSfx, type StageBedPlaybackResult } from "../../audio/gameAudio";
-import { hasCustomPortraitPack, type PortraitPackState } from "../../persistence/portraitPack";
+import { gameAudio, isSceneCueSfx, type StageBedPlaybackResult } from "../../../audio/gameAudio";
+import { hasCustomPortraitPack, type PortraitPackState } from "../../../persistence/portraitPack";
 
 export interface StageMediaPresentation {
   readonly videoUrl?: string | null;

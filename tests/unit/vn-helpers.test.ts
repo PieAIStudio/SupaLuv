@@ -4,7 +4,7 @@ import {
   isContinueChoiceText,
   isContinueOnly,
   storyHasComedyMeters,
-} from "../../apps/web/src/views/play/vnHelpers";
+} from "../../apps/web/src/views/play/lib/vnHelpers";
 import type { InkStorySnapshot } from "../../apps/web/src/story/inkStoryRunner";
 
 function snap(

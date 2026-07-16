@@ -7,11 +7,11 @@ import {
   applyDisplayNamesInText,
   resolveDisplaySpeaker,
   type DisplayNameMap,
-} from "../../persistence/displayNames";
-import { rewritePortraitUrl, type PortraitPackState } from "../../persistence/portraitPack";
-import { resolveCharacterPortrait } from "../../characters/portraitResolver";
-import type { StoryCharacterBindings } from "../../characters/characterPackTypes";
-import type { StagePortrait } from "../../story/storyMapAdapter";
+} from "../../../persistence/displayNames";
+import { rewritePortraitUrl, type PortraitPackState } from "../../../persistence/portraitPack";
+import { resolveCharacterPortrait } from "../../../characters/portraitResolver";
+import type { StoryCharacterBindings } from "../../../characters/characterPackTypes";
+import type { StagePortrait } from "../../../story/storyMapAdapter";
 
 export type StageMotion = "slow_push" | "drift" | "flash" | "none";
 

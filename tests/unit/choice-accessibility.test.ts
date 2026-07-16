@@ -7,7 +7,7 @@ import {
   formatAuthoredChoiceAccessibleName,
   formatOracleChoiceAccessibleName,
   ORACLE_CHOICES_LABEL_ID,
-} from "../../apps/web/src/views/play/choiceAccessibility";
+} from "../../apps/web/src/views/play/lib/choiceAccessibility";
 
 const SHARED_LABEL = "说人话了";
 

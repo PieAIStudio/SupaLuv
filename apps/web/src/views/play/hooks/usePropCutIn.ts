@@ -6,7 +6,7 @@ import {
   markPropCutInSeen,
   propCutInSceneKey,
   shouldRequestPropCutIn,
-} from "./propCutInState";
+} from "../lib/propCutInState";
 
 interface UsePropCutInInput {
   readonly storyId: string;

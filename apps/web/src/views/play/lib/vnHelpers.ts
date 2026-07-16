@@ -1,5 +1,5 @@
-import type { InkStorySnapshot } from "../../story/inkStoryRunner";
-import type { StoryId } from "../../story/storyMapAdapter";
+import type { InkStorySnapshot } from "../../../story/inkStoryRunner";
+import type { StoryId } from "../../../story/storyMapAdapter";
 
 /** Single-choice labels that advance plot without real branch pressure. */
 const CONTINUE_CHOICE_RE =
