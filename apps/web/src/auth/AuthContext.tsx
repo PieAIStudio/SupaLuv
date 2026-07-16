@@ -37,6 +37,31 @@ export interface AuthState {
 
 const AuthContext = createContext<AuthState | null>(null);
 
+/**
+ * supabase-js can hang after a 200 (session persistence / navigator.locks
+ * multi-tab contention), which would leave `busy` stuck forever. Every busy
+ * flow races against this guard so the UI always recovers; if auth actually
+ * succeeded, onAuthChange still delivers the session afterwards.
+ */
+const AUTH_FLOW_TIMEOUT_MS = 12_000;
+
+async function withAuthTimeout<T>(work: Promise<T>, label: string): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      work,
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(
+          () => reject(new Error(`${label}超时，请重试（若已登录会自动恢复）`)),
+          AUTH_FLOW_TIMEOUT_MS,
+        );
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const configured = isAuthConfigured();
   const [ready, setReady] = useState(!configured);
@@ -84,7 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setBusy(true);
     setError(null);
     try {
-      const next = await signInAnonymously();
+      const next = await withAuthTimeout(signInAnonymously(), "游客登录");
       setSession(next);
     } catch (err) {
       setError(err instanceof Error ? err.message : "登录失败");
@@ -98,7 +123,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setBusy(true);
     setError(null);
     try {
-      const next = await signInWithEmail(email, password);
+      const next = await withAuthTimeout(signInWithEmail(email, password), "登录");
       setSession(next);
     } catch (err) {
       setError(err instanceof Error ? err.message : "登录失败");
@@ -112,7 +137,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setBusy(true);
     setError(null);
     try {
-      await signOut();
+      await withAuthTimeout(signOut(), "退出登录");
       setSession(null);
       setBatteries(null);
     } finally {
