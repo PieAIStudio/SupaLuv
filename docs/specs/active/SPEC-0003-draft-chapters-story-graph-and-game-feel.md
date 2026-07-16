@@ -175,8 +175,8 @@ NPC 最小正式交付为 6 张 reference + 15 张透明立绘：陈佳 `neutral
 | --- | --- | --- |
 | `prop-protocol-terms` | `dch01_protocol_test` | 第三页小字、删除与模型训练的矛盾；可读文本替代必须完整。 |
 | `prop-barcode-shift` | `dch02_barcode_sweep` | 订单/条码节奏与超市劳动，不做抽象小游戏皮肤。 |
-| `prop-rental-receipt` | `dch02_s008`–`dch02_s010` | 九百房租与入住条件，回收 `budget_stance`。 |
-| `prop-application-nda` | `dch02_s027`、`dch02_s037` | 五个零违约金、独立房间与高度拟人条件。 |
+| `prop-rental-receipt` | `dch02_s017`–`dch02_s020` | 九百房租、入住条件与手写收条；`budget_stance` 已在 `dch02_s008` 先行回响。 |
+| `prop-application-nda` | `dch02_s027`、`dch02_s037` | 五个零违约金、独立房间条件与“是否介意设备高度拟人”问项。 |
 | `prop-approval-sms` | `dch02_s039`–`d2_chapter_end` | “初审通过”作为章节最后一个可见钩子。 |
 
 ### Audio and voice contract
