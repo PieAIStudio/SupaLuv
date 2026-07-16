@@ -52,6 +52,14 @@ async function revealAndContinue(page: Page) {
   await button.click();
 }
 
+async function dismissPropCutInIfVisible(page: Page) {
+  const dialog = page.getByTestId("prop-cutin-dialog");
+  if (await dialog.isVisible().catch(() => false)) {
+    await page.getByTestId("prop-cutin-close").click();
+    await expect(dialog).toHaveCount(0);
+  }
+}
+
 async function enterCalibration(page: Page) {
   await revealAndContinue(page);
   await expect(page.getByTestId("emotion-calibration")).toBeVisible();
@@ -157,12 +165,14 @@ test("protocol-test completes by keyboard and unlocks archive entry in gallery",
   await revealAndContinue(page);
   await expect(page.getByTestId("story-copy")).toContainText(/协议贴在门后头/);
   await revealAndContinue(page);
+  await dismissPropCutInIfVisible(page);
 
   await expect(page.getByTestId("protocol-test")).toBeVisible();
   await expect(page.getByTestId("vn-stage")).toHaveAttribute(
     "data-story-interaction",
     "protocol-test-v1",
   );
+  await page.getByTestId("protocol-test").focus();
   await page.keyboard.press("1");
   await expect(page.getByTestId("protocol-test")).toHaveAttribute("data-step", "2");
   await page.keyboard.press("2");
@@ -226,6 +236,7 @@ test("barcode sweep completes every segment and returns to authored chapter text
     await page.getByTestId("story-copy").click();
     await page.getByRole("button", { name: /(?:剧情选择|Story choice):\s*继续$|^继续$/ }).click();
   }
+  await dismissPropCutInIfVisible(page);
   await expect(page.getByTestId("barcode-sweep")).toBeVisible();
   for (let round = 0; round < 3; round += 1) {
     await page.getByTestId("barcode-segment-a").click();

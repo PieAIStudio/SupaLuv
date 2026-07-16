@@ -40,7 +40,7 @@ const FROZEN_PROP_IDS = [
   "prop-approval-sms",
 ] as const;
 
-const FROZEN_REQUIRED_MISSING_IDS = [...FROZEN_PORTRAIT_AND_REF_IDS, ...FROZEN_PROP_IDS] as const;
+const FROZEN_REQUIRED_MISSING_IDS = [...FROZEN_PORTRAIT_AND_REF_IDS] as const;
 
 interface AuditIssue {
   readonly assetId: string;
@@ -248,18 +248,18 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.decision).toBe("final");
     expect(result.report.summary).toEqual({
       assets: 43,
-      present: 26,
-      missing: 17,
+      present: 31,
+      missing: 12,
       openGaps: 3,
       releaseBlockers: 41,
     });
     expect(result.report.checks.stableIds).toBe(43);
-    expect(result.report.checks.fileExistence).toBe(26);
-    expect(result.report.checks.mimeAndExtension).toBe(26);
-    expect(result.report.checks.dimensions).toBe(26);
-    expect(result.report.checks.sha256).toBe(26);
+    expect(result.report.checks.fileExistence).toBe(31);
+    expect(result.report.checks.mimeAndExtension).toBe(31);
+    expect(result.report.checks.dimensions).toBe(31);
+    expect(result.report.checks.sha256).toBe(31);
     expect(result.report.checks.attribution).toBe(43);
-    expect(result.report.checks.runtimeLedgerRows).toBe(25);
+    expect(result.report.checks.runtimeLedgerRows).toBe(30);
     expect(result.report.checks.rightsEvidence).toBe(0);
     expect(result.report.checks.gapResolutions).toBe(0);
     expect(result.report.checks.productionTruth).toBe(41);
@@ -269,13 +269,10 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.checks.pathSafety).toBeGreaterThan(0);
     expect(result.report.errors).toEqual([]);
     expect(result.report.warnings.map((warning) => warning.assetId)).toEqual(
-      expect.arrayContaining([
-        "chen-jia-neutral",
-        "leo-neutral",
-        "shi-peixin-neutral",
-        "prop-protocol-terms",
-        "prop-approval-sms",
-      ]),
+      expect.arrayContaining(["chen-jia-neutral", "leo-neutral", "shi-peixin-neutral"]),
+    );
+    expect(result.report.warnings.map((warning) => warning.assetId)).not.toEqual(
+      expect.arrayContaining([...FROZEN_PROP_IDS]),
     );
 
     const sumingShame = result.report.assetMetrics.find(
@@ -289,6 +286,16 @@ describe("two-chapter visual asset intake", () => {
       visibleMagentaRatio: 0,
       portraitMattePass: true,
       sha256: "175a51a0071944dd167cc26fa9b40059eed25400f0a1fa2e041d1945803b6983",
+    });
+    const protocolProp = result.report.assetMetrics.find(
+      (metric) => metric.assetId === "prop-protocol-terms",
+    );
+    expect(protocolProp).toMatchObject({
+      path: "apps/web/public/assets/props/prop-protocol-terms.png",
+      width: 1600,
+      height: 900,
+      sha256: "5882911ea96692f14606fe5fee553c775eb25365b21a5adce1d17796d1a6d392",
+      bytes: 558904,
     });
   }, 60_000);
 
@@ -319,15 +326,30 @@ describe("two-chapter visual asset intake", () => {
       path: null,
       reasons: ["file missing", "qualityStatus=missing", "rightsStatus=pending"],
     });
+    const provisionalProp = result.report.releaseBlockers.find(
+      (blocker) => blocker.assetId === "prop-protocol-terms",
+    );
+    expect(provisionalProp).toMatchObject({
+      assetId: "prop-protocol-terms",
+      path: "apps/web/public/assets/props/prop-protocol-terms.png",
+      reasons: ["qualityStatus=prototype_only", "rightsStatus=pending"],
+    });
   }, 60_000);
 
-  it("asserts the frozen twelve character gaps and five prop IDs remain required", async () => {
+  it("keeps twelve character deliveries missing while five provisional prop files remain required", async () => {
     expect(FROZEN_PORTRAIT_AND_REF_IDS).toHaveLength(12);
     expect(FROZEN_PROP_IDS).toHaveLength(5);
-    expect(FROZEN_REQUIRED_MISSING_IDS).toHaveLength(17);
+    expect(FROZEN_REQUIRED_MISSING_IDS).toHaveLength(12);
 
     const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
-      assets: Array<{ id: string; fileStatus: string; requiredForProduction: boolean }>;
+      assets: Array<{
+        id: string;
+        fileStatus: string;
+        qualityStatus: string;
+        rightsStatus: string;
+        humanArtReview?: boolean;
+        requiredForProduction: boolean;
+      }>;
     };
     const byId = new Map(intake.assets.map((asset) => [asset.id, asset]));
     for (const frozenId of FROZEN_REQUIRED_MISSING_IDS) {
@@ -335,6 +357,17 @@ describe("two-chapter visual asset intake", () => {
       expect(asset, `missing frozen intake record ${frozenId}`).toBeDefined();
       expect(asset?.fileStatus).toBe("missing");
       expect(asset?.requiredForProduction).toBe(true);
+    }
+    for (const propId of FROZEN_PROP_IDS) {
+      const asset = byId.get(propId);
+      expect(asset, `missing frozen prop intake record ${propId}`).toBeDefined();
+      expect(asset).toMatchObject({
+        fileStatus: "present",
+        qualityStatus: "prototype_only",
+        rightsStatus: "pending",
+        humanArtReview: false,
+        requiredForProduction: true,
+      });
     }
 
     const archiveSource = await fs.readFile(
@@ -358,7 +391,7 @@ describe("two-chapter visual asset intake", () => {
           [
             "--input-type=module",
             "-e",
-            `import { FROZEN_REQUIRED_MISSING_IDS } from ${JSON.stringify(auditScript)}; process.stdout.write(JSON.stringify(FROZEN_REQUIRED_MISSING_IDS));`,
+            `import { FROZEN_REQUIRED_MISSING_IDS, FROZEN_REQUIRED_PROP_IDS } from ${JSON.stringify(auditScript)}; process.stdout.write(JSON.stringify({ missing: FROZEN_REQUIRED_MISSING_IDS, props: FROZEN_REQUIRED_PROP_IDS }));`,
           ],
           { cwd: workspaceRoot, stdio: ["ignore", "pipe", "pipe"] },
         );
@@ -374,7 +407,10 @@ describe("two-chapter visual asset intake", () => {
       },
     );
     expect(exportCheck.exitCode).toBe(0);
-    expect(JSON.parse(exportCheck.stdout)).toEqual([...FROZEN_REQUIRED_MISSING_IDS]);
+    expect(JSON.parse(exportCheck.stdout)).toEqual({
+      missing: [...FROZEN_REQUIRED_MISSING_IDS],
+      props: [...FROZEN_PROP_IDS],
+    });
   });
 
   it("ignores intake false for truth-required assets and formal production gaps", async () => {

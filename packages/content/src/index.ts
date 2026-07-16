@@ -216,6 +216,12 @@ export const legacyCh01Archive = {
 };
 
 export type { StorySeedManifest } from "@supaluv/shared";
+export {
+  PROP_CUTIN_CATALOG,
+  resolvePropCutIn,
+  type PropCutInDefinition,
+  type PropCutInId,
+} from "./propCatalog";
 export { CHARACTER_BY_NAME, resolveCharacter } from "../characters/registry";
 export type { CharacterDef, PortraitSide } from "../characters/registry";
 export { CHARACTER_SLOTS, INITIAL_CHARACTER_MOODS } from "../characters/slots";

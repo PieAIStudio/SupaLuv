@@ -505,6 +505,13 @@ export const en: MessageTree = {
     retry: "Retry playback",
     skip: "Skip CG · Continue",
   },
+  propCutIn: {
+    badge: "Story prop · Still cut-in",
+    close: "Close prop · Continue story",
+    reopen: "View prop",
+    fullText: "Full accessible text",
+    loadFailed: "The prop image could not load. The complete text remains available below.",
+  },
   chapterEnd: {
     draftTitle: "Two-chapter draft · current ending",
     title: "Chapter complete",

@@ -32,13 +32,16 @@ import { DialogueHistoryDrawer } from "./play/DialogueHistoryDrawer";
 import { DialoguePanel } from "./play/DialoguePanel";
 import { PlayHud } from "./play/PlayHud";
 import { PortraitStage } from "./play/PortraitStage";
+import { PropCutIn } from "./play/PropCutIn";
 import type { StoryCharacterBindings } from "../characters/characterPackTypes";
 import { CharacterStudioScreen, type CharacterStudioSlot } from "./CharacterStudioScreen";
 import { mapPortraitsForPlayer } from "./play/stagePresentation";
+import { shouldShowPropCutIn } from "./play/propCutInState";
 import { useCoPlayPointers } from "./play/useCoPlayPointers";
 import { useDecisionExperience } from "./play/experience/useDecisionExperience";
 import { useNarrativePlayback } from "./play/experience/useNarrativePlayback";
 import { useNarrativeSource } from "./play/experience/useNarrativeSource";
+import { usePropCutIn } from "./play/usePropCutIn";
 import { useStageMedia } from "./play/useStageMedia";
 import { isContinueOnly, storyHasComedyMeters } from "./play/vnHelpers";
 
@@ -173,6 +176,7 @@ export function VisualNovelPrototype({
   const [historyOpen, setHistoryOpen] = useState(false);
   const [localAutoPlay, setLocalAutoPlay] = useState(autoPlay);
   const stageRootRef = useRef<HTMLDivElement | null>(null);
+  const propReopenRef = useRef<HTMLButtonElement | null>(null);
   const { isFullscreen, toggleFullscreen } = useFullscreen(stageRootRef);
   const [nowPlayingBedId, setNowPlayingBedId] = useState<string | null>(() =>
     gameAudio.getNowPlayingKey(),
@@ -183,9 +187,24 @@ export function VisualNovelPrototype({
   const isGuestSpectator = coPlay?.role === "guest";
   const remoteStory = coPlay?.remoteStory ?? null;
   const activeStoryInteraction = !isGuestSpectator ? resolveStoryInteraction(snapshot) : null;
+  const propCutIn = usePropCutIn({
+    storyId,
+    sceneId: snapshot.sceneId,
+    isGuestSpectator,
+  });
 
   const ensureAudioUnlocked = useCallback(() => {
     gameAudio.unlock();
+  }, []);
+
+  const restorePropCutInFocus = useCallback((previousFocus: HTMLElement | null) => {
+    if (propReopenRef.current?.isConnected) {
+      propReopenRef.current.focus();
+    } else if (previousFocus?.isConnected) {
+      previousFocus.focus();
+    } else {
+      stageRootRef.current?.focus();
+    }
   }, []);
 
   // Order: narrative source → stage media → narrative playback (same-render cutscene gates).
@@ -233,7 +252,7 @@ export function VisualNovelPrototype({
     playback: {
       textSpeed,
       autoPlay: localAutoPlay,
-      activeCutscene: Boolean(activeCutscene),
+      activeCutscene: Boolean(activeCutscene) || propCutIn.requested,
       hasStoryInteraction: Boolean(activeStoryInteraction),
       masterMuted,
       voiceVolume,
@@ -317,12 +336,13 @@ export function VisualNovelPrototype({
   } = narrativeCommands;
 
   const performPlaySurfaceReset = useCallback(() => {
+    propCutIn.resetMemory();
     resetMediaMemory();
     resetNarrative();
     setActiveCutscene(null);
     setSystemOpen(false);
     onReset();
-  }, [onReset, resetMediaMemory, resetNarrative, setActiveCutscene]);
+  }, [onReset, propCutIn, resetMediaMemory, resetNarrative, setActiveCutscene]);
 
   const decision = useDecisionExperience({
     source: {
@@ -361,6 +381,16 @@ export function VisualNovelPrototype({
   } = decision;
   const { handleChoose, seenLabels, sessionStatsPicks } = decisionChoice;
   const { notifyAiBranchUsed, clearOracleForReset, replayFromEndCard } = decisionCommands;
+  const higherPriorityPropSurfaceOpen =
+    Boolean(activeCutscene) ||
+    systemOpen ||
+    historyOpen ||
+    decisionEnding.endCardOpen ||
+    Boolean(coPlay?.rpsView);
+  const propCutInVisible = shouldShowPropCutIn({
+    requested: propCutIn.requested,
+    higherPrioritySurfaceOpen: higherPriorityPropSurfaceOpen,
+  });
 
   /**
    * Ready AI branch selection: write a deterministic path-memory AI fact for the
@@ -406,6 +436,22 @@ export function VisualNovelPrototype({
   useEffect(() => {
     setLocalAutoPlay(autoPlay);
   }, [autoPlay]);
+
+  useEffect(() => {
+    if (
+      !import.meta.env.DEV ||
+      !new URLSearchParams(window.location.search).has("prop-stage-fixture")
+    ) {
+      return;
+    }
+    const testWindow = window as Window & {
+      __SUPALUV_PROP_STAGE_TEST__?: { jumpTo: (sceneId: string) => void };
+    };
+    testWindow.__SUPALUV_PROP_STAGE_TEST__ = { jumpTo: onJumpTo };
+    return () => {
+      delete testWindow.__SUPALUV_PROP_STAGE_TEST__;
+    };
+  }, [onJumpTo]);
 
   useEffect(() => {
     // Production stories hide tools by default; ?debug=1 keeps them available.
@@ -510,12 +556,13 @@ export function VisualNovelPrototype({
   usePlayInput({
     enabled:
       !isGuestSpectator &&
+      !propCutIn.requested &&
       !activeStoryInteraction &&
       (!decisionEnding.chapterEnded || Boolean(activeCutscene)),
     isComplete: Boolean(activeCutscene) || frame.typewriterComplete,
     canContinue:
       Boolean(activeCutscene) || frame.aiPlaying || (!frame.aiPlaying && isContinueOnly(snapshot)),
-    overlaysOpen: historyOpen || systemOpen,
+    overlaysOpen: historyOpen || systemOpen || propCutIn.requested,
     onReveal: handleDialogueActivate,
     onContinue: handleKeyboardContinue,
     onEscape: handleEscape,
@@ -548,7 +595,9 @@ export function VisualNovelPrototype({
         data-story-interaction={activeStoryInteraction?.definition.id ?? "none"}
         data-motion={activeAiBeat ? "none" : (currentScene?.stageMotion ?? "none")}
         data-coplay={coPlay ? coPlay.role : "off"}
+        data-prop-cutin={propCutIn.requested ? (propCutIn.definition?.id ?? "pending") : "none"}
         data-testid="vn-stage"
+        tabIndex={-1}
         data-pointer-mode={pointerMode}
         onPointerMove={coPlay ? handleStagePointer : undefined}
         onPointerDown={coPlay ? handleStageTouchFocus : undefined}
@@ -595,6 +644,14 @@ export function VisualNovelPrototype({
             url={activeCutscene.url}
             title={activeCutscene.title}
             onDismiss={dismissCutscene}
+          />
+        ) : null}
+
+        {propCutInVisible && propCutIn.definition ? (
+          <PropCutIn
+            definition={propCutIn.definition}
+            onDismiss={propCutIn.dismiss}
+            onRestoreFocus={restorePropCutInFocus}
           />
         ) : null}
 
@@ -647,6 +704,22 @@ export function VisualNovelPrototype({
           </div>
         )}
 
+        {!isGuestSpectator &&
+        propCutIn.definition &&
+        propCutIn.seen &&
+        !propCutIn.requested &&
+        !higherPriorityPropSurfaceOpen ? (
+          <button
+            ref={propReopenRef}
+            type="button"
+            className="prop-cutin-reopen"
+            data-testid="prop-cutin-reopen"
+            onClick={propCutIn.reopen}
+          >
+            {t("propCutIn.reopen")}
+          </button>
+        ) : null}
+
         {!isGuestSpectator ? (
           <PortraitStage
             portraits={portraits}
@@ -655,11 +728,11 @@ export function VisualNovelPrototype({
           />
         ) : null}
 
-        {activeStoryInteraction ? (
+        {activeStoryInteraction && !propCutIn.requested ? (
           <StoryInteractionHost
             active={activeStoryInteraction}
             snapshot={snapshot}
-            paused={historyOpen || systemOpen || Boolean(activeCutscene)}
+            paused={historyOpen || systemOpen || Boolean(activeCutscene) || propCutIn.requested}
             onChoose={handleChoose}
           />
         ) : null}
