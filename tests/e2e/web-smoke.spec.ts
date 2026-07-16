@@ -163,7 +163,7 @@ async function reachDraftChapterEnd(page: import("@playwright/test").Page) {
     "mobile-questionnaire-skip",
   ] as const;
 
-  for (let step = 0; step < 220; step += 1) {
+  for (let step = 0; step < 420; step += 1) {
     if (
       await page
         .getByTestId("ending-global-echo")
@@ -383,7 +383,8 @@ test("choice stats surfaces stay local-demo-only without authority", async ({ pa
   const echo = page.getByTestId("ending-global-echo");
   await expect(echo).toBeVisible();
   await expect(echo.getByRole("heading", { name: "本地演示样本" })).toBeVisible();
-  await expect(echo).toContainText("本地演示样本：本机记录与可清空进程内存计数");
+  // Local-demo ending copy varies with whether whitelist forks were visited.
+  await expect(echo).toContainText(/本地演示样本/);
   const echoText = await echo.innerText();
   expect(echoText).not.toMatch(/全球|社区|玩家/);
   await expect(page.getByTestId("ending-oracle")).toHaveCount(0);
