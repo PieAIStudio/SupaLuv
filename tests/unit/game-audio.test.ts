@@ -52,18 +52,30 @@ const engine = vi.hoisted(() => {
   }
 
   const howls: FakeHowl[] = [];
+  const fades: Array<{
+    howl: FakeHowl;
+    onDone?: () => void;
+    cancelled: boolean;
+  }> = [];
   const createEngineHowl = vi.fn((options: Record<string, unknown>) => {
     const howl = new FakeHowl(options);
     howls.push(howl);
     return howl;
   });
-  const fadeHowl = vi.fn((howl: FakeHowl, _from: number, to: number) => {
-    howl.volume(to);
-    return vi.fn();
-  });
+  const fadeHowl = vi.fn(
+    (howl: FakeHowl, _from: number, to: number, _durationMs: number, onDone?: () => void) => {
+      const fade = { howl, onDone, cancelled: false };
+      fades.push(fade);
+      howl.volume(to);
+      return vi.fn(() => {
+        fade.cancelled = true;
+      });
+    },
+  );
   return {
     FakeHowl,
     howls,
+    fades,
     createEngineHowl,
     fadeHowl,
     panForSpeaker: vi.fn(() => 0),
@@ -92,11 +104,16 @@ import {
   classifyBed,
   isSceneCueSfx,
 } from "../../apps/web/src/audio/gameAudio";
-import { VOICE_AMBIENT_DUCK, resolveAudioMixGains } from "../../apps/web/src/audio/audioMixState";
+import {
+  VOICE_AMBIENT_DUCK,
+  VOICE_MUSIC_DUCK,
+  resolveAudioMixGains,
+} from "../../apps/web/src/audio/audioMixState";
 
 describe("gameAudio catalog and mix policy", () => {
   beforeEach(() => {
     engine.howls.length = 0;
+    engine.fades.length = 0;
     vi.clearAllMocks();
     vi.stubGlobal("URL", {
       createObjectURL: vi.fn(() => "blob:supaluv-voice"),
@@ -161,6 +178,262 @@ describe("gameAudio catalog and mix policy", () => {
     controller.playExclusiveBed("night-ambient");
     expect(engine.createEngineHowl).toHaveBeenCalledOnce();
     expect(ambient?.playCalls).toBe(1);
+  });
+
+  it("starts dedicated music and ambience together and keeps same-key rerenders idempotent", () => {
+    const controller = new GameAudioController();
+    controller.unlock();
+
+    expect(
+      controller.playStageBeds({ musicKey: "soft-piano", ambientKey: "night-ambient" }),
+    ).toEqual({
+      mode: "dedicated",
+      heardBedIds: ["soft-piano", "night-ambient"],
+    });
+    const music = engine.howls[0];
+    const ambient = engine.howls[1];
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: "soft-piano",
+      ambientKey: "night-ambient",
+    });
+    expect(music?.playCalls).toBe(1);
+    expect(ambient?.playCalls).toBe(1);
+
+    expect(
+      controller.playStageBeds({ musicKey: "soft-piano", ambientKey: "night-ambient" }),
+    ).toEqual({ mode: "dedicated", heardBedIds: [] });
+    expect(engine.createEngineHowl).toHaveBeenCalledTimes(2);
+    expect(music?.playCalls).toBe(1);
+    expect(ambient?.playCalls).toBe(1);
+  });
+
+  it("changes or stops only the requested dedicated bus", () => {
+    const controller = new GameAudioController();
+    controller.unlock();
+    controller.playStageBeds({ musicKey: "soft-piano", ambientKey: "night-ambient" });
+    const firstMusic = engine.howls[0];
+    const ambient = engine.howls[1];
+
+    controller.playStageBeds({ musicKey: "chapter-end", ambientKey: "night-ambient" });
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: "chapter-end",
+      ambientKey: "night-ambient",
+    });
+    expect(engine.createEngineHowl).toHaveBeenCalledTimes(3);
+    expect(ambient?.playCalls).toBe(1);
+    expect(ambient?.unloadCalls).toBe(0);
+    expect(firstMusic?.unloadCalls).toBe(0);
+
+    const chapterMusic = engine.howls[2];
+    controller.playStageBeds({ musicKey: "chapter-end", ambientKey: "lonely-pad" });
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: "chapter-end",
+      ambientKey: "lonely-pad",
+    });
+    expect(engine.createEngineHowl).toHaveBeenCalledTimes(4);
+    expect(chapterMusic?.playCalls).toBe(1);
+    expect(chapterMusic?.unloadCalls).toBe(0);
+
+    controller.playStageBeds({ musicKey: null, ambientKey: "lonely-pad" });
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: null,
+      ambientKey: "lonely-pad",
+    });
+    expect(engine.howls[3]?.playCalls).toBe(1);
+  });
+
+  it("fail-closes invalid or wrong-kind dedicated keys without touching the other bus", () => {
+    const controller = new GameAudioController();
+    controller.unlock();
+    controller.playStageBeds({ musicKey: "soft-piano", ambientKey: "night-ambient" });
+    const originalAmbient = engine.howls[1];
+
+    expect(
+      controller.playStageBeds({ musicKey: "night-ambient", ambientKey: "lonely-pad" }),
+    ).toEqual({ mode: "dedicated", heardBedIds: ["lonely-pad"] });
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: null,
+      ambientKey: "lonely-pad",
+    });
+    expect(originalAmbient?.unloadCalls).toBe(0);
+
+    expect(controller.playStageBeds({ musicKey: "chapter-end", ambientKey: "soft-piano" })).toEqual(
+      { mode: "dedicated", heardBedIds: ["chapter-end"] },
+    );
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: "chapter-end",
+      ambientKey: null,
+    });
+
+    expect(
+      controller.playStageBeds({ musicKey: "not-authored", ambientKey: "night-ambient" }),
+    ).toEqual({ mode: "dedicated", heardBedIds: ["night-ambient"] });
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: null,
+      ambientKey: "night-ambient",
+    });
+  });
+
+  it("preserves legacy bgm, fallback, default, and invalid-exclusive behavior", () => {
+    const controller = new GameAudioController();
+    controller.unlock();
+
+    expect(controller.playStageBeds({ bgmKey: "night-ambient" })).toEqual({
+      mode: "legacy",
+      heardBedIds: ["night-ambient"],
+    });
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: null,
+      ambientKey: "night-ambient",
+    });
+    expect(controller.playStageBeds({ bgmKey: "night-ambient" })).toEqual({
+      mode: "legacy",
+      heardBedIds: [],
+    });
+
+    expect(controller.playStageBeds({ bgmKey: null, fallbackKey: "chapter-end" })).toEqual({
+      mode: "legacy",
+      heardBedIds: ["chapter-end"],
+    });
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: "chapter-end",
+      ambientKey: null,
+    });
+
+    expect(controller.playStageBeds({})).toEqual({
+      mode: "legacy",
+      heardBedIds: ["soft-piano"],
+    });
+
+    expect(
+      controller.playStageBeds({ bgmKey: "not-authored", fallbackKey: "chapter-end" }),
+    ).toEqual({ mode: "legacy", heardBedIds: [] });
+    expect(controller.getPlaybackSnapshot()).toMatchObject({ musicKey: null, ambientKey: null });
+  });
+
+  it("keeps each bus owner safe across overlapping crossfade completions", () => {
+    const controller = new GameAudioController();
+    controller.unlock();
+    controller.playStageBeds({ musicKey: "soft-piano", ambientKey: "night-ambient" });
+    const firstMusic = engine.howls[0];
+    const firstAmbient = engine.howls[1];
+
+    controller.playStageBeds({ musicKey: "chapter-end", ambientKey: "lonely-pad" });
+    const staleMusicFade = engine.fades.find(
+      (fade) => fade.howl === firstMusic && typeof fade.onDone === "function",
+    );
+    const staleAmbientFade = engine.fades.find(
+      (fade) => fade.howl === firstAmbient && typeof fade.onDone === "function",
+    );
+
+    controller.playStageBeds({ musicKey: "soft-piano", ambientKey: "night-ambient" });
+    const newestMusic = engine.howls[4];
+    const newestAmbient = engine.howls[5];
+    staleMusicFade?.onDone?.();
+    staleAmbientFade?.onDone?.();
+
+    expect(staleMusicFade?.cancelled).toBe(true);
+    expect(staleAmbientFade?.cancelled).toBe(true);
+    expect(newestMusic?.unloadCalls).toBe(0);
+    expect(newestAmbient?.unloadCalls).toBe(0);
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: "soft-piano",
+      ambientKey: "night-ambient",
+    });
+  });
+
+  it("isolates one dedicated bus load/play error from the other buses, voice, and SFX", () => {
+    const controller = new GameAudioController();
+    controller.unlock();
+    controller.playStageBeds({ musicKey: "soft-piano", ambientKey: "night-ambient" });
+    const failedMusic = engine.howls[0];
+    const ambient = engine.howls[1];
+    const musicError = failedMusic?.options.onplayerror;
+    if (typeof musicError === "function") {
+      musicError();
+    }
+
+    controller.playSfx("notify-soft");
+    expect(controller.playVoiceFromBase64("YQ==")).toBe(true);
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: null,
+      ambientKey: "night-ambient",
+      voiceActive: true,
+      duckOwner: "voice",
+    });
+    expect(ambient?.unloadCalls).toBe(0);
+    expect(ambient?.volumeValue).toBeCloseTo(0.28 * VOICE_AMBIENT_DUCK);
+    expect(engine.howls[2]?.playCalls).toBe(1);
+
+    controller.stopAll();
+    controller.playStageBeds({ musicKey: "chapter-end", ambientKey: "lonely-pad" });
+    const survivingMusic = engine.howls[4];
+    const failedAmbient = engine.howls[5];
+    const ambientError = failedAmbient?.options.onloaderror;
+    if (typeof ambientError === "function") {
+      ambientError();
+    }
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: "chapter-end",
+      ambientKey: null,
+      voiceActive: false,
+      duckOwner: null,
+    });
+    expect(survivingMusic?.unloadCalls).toBe(0);
+  });
+
+  it("applies mute, unlock, cutscene, duck/release, stopAll, and SFX independently to both beds", () => {
+    const controller = new GameAudioController();
+    controller.setMuted(true);
+    controller.playStageBeds({ musicKey: "soft-piano", ambientKey: "night-ambient" });
+    const music = engine.howls[0];
+    const ambient = engine.howls[1];
+    expect(music?.playCalls).toBe(0);
+    expect(ambient?.playCalls).toBe(0);
+
+    controller.unlock();
+    controller.unlock();
+    expect(music?.playCalls).toBe(0);
+    expect(ambient?.playCalls).toBe(0);
+    expect(engine.unlockHowler).toHaveBeenCalledOnce();
+    controller.setMuted(false);
+    controller.setMuted(false);
+    expect(music?.playCalls).toBe(1);
+    expect(ambient?.playCalls).toBe(1);
+    expect(engine.setHowlerMasterMute).toHaveBeenCalledTimes(3);
+
+    controller.pauseBedsForCutscene();
+    controller.pauseBedsForCutscene();
+    controller.resumeBedsAfterCutscene();
+    controller.resumeBedsAfterCutscene();
+    expect(music?.pauseCalls).toBe(1);
+    expect(ambient?.pauseCalls).toBe(1);
+    expect(music?.playCalls).toBe(2);
+    expect(ambient?.playCalls).toBe(2);
+
+    expect(controller.playVoiceFromBase64("YQ==")).toBe(true);
+    expect(music?.volumeValue).toBeCloseTo(0.42 * VOICE_MUSIC_DUCK);
+    expect(ambient?.volumeValue).toBeCloseTo(0.28 * VOICE_AMBIENT_DUCK);
+    const bedPlayCalls = [music?.playCalls, ambient?.playCalls];
+    controller.playSfx("notify-soft");
+    expect(controller.getPlaybackSnapshot().duckOwner).toBe("voice");
+    expect([music?.playCalls, ambient?.playCalls]).toEqual(bedPlayCalls);
+    controller.stopVoice();
+    expect(music?.volumeValue).toBeCloseTo(0.42);
+    expect(ambient?.volumeValue).toBeCloseTo(0.28);
+
+    expect(controller.playVoiceFromBase64("YQ==")).toBe(true);
+    controller.stopAll();
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: null,
+      ambientKey: null,
+      voiceActive: false,
+      duckOwner: null,
+      cutscenePaused: false,
+    });
+    expect(music?.unloadCalls).toBe(1);
+    expect(ambient?.unloadCalls).toBe(1);
+    expect(engine.howls[4]?.unloadCalls).toBe(1);
   });
 
   it("ducks and restores the active bed around voice, then unloads voice idempotently", () => {
