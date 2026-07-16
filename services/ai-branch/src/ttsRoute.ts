@@ -42,34 +42,44 @@ const LATIN_ALPHANUMERIC_TOKEN = /[A-Za-z0-9]+/gu;
 
 // Provider voice IDs are server-only catalog data. Core characters without a
 // final casting asset intentionally share a safe provisional lane voice.
-const router = createDualTtsFromEnv({
-  westernVoiceMap: {
-    suming: "CwhRBWXzGAHq8TQ4Fs17",
-    leo: "CwhRBWXzGAHq8TQ4Fs17",
-    narrator: "CwhRBWXzGAHq8TQ4Fs17",
-    staff_worker: "CwhRBWXzGAHq8TQ4Fs17",
-    staff_lead: "CwhRBWXzGAHq8TQ4Fs17",
-    test_ai: "EXAVITQu4vr4xnSDxMaL",
-    chen_jia: "EXAVITQu4vr4xnSDxMaL",
-    shi_peixin: "EXAVITQu4vr4xnSDxMaL",
-    shop_owner: "EXAVITQu4vr4xnSDxMaL",
-    lin_xiaotang: "EXAVITQu4vr4xnSDxMaL",
-    zhou_lu: "EXAVITQu4vr4xnSDxMaL",
-  },
-  chineseVoiceMap: {
-    suming: "male-qn-qingse",
-    leo: "male-qn-qingse",
-    narrator: "male-qn-qingse",
-    staff_worker: "male-qn-qingse",
-    staff_lead: "male-qn-qingse",
-    test_ai: "female-shaonv",
-    chen_jia: "female-shaonv",
-    shi_peixin: "female-shaonv",
-    shop_owner: "female-shaonv",
-    lin_xiaotang: "female-shaonv",
-    zhou_lu: "female-shaonv",
-  },
-});
+// Built lazily: server.ts loads local secret env files after module imports,
+// so an eager module-level build would capture an env without provider keys.
+let routerInstance: ReturnType<typeof createDualTtsFromEnv> | null = null;
+
+function router(): ReturnType<typeof createDualTtsFromEnv> {
+  routerInstance ??= buildRouter();
+  return routerInstance;
+}
+
+const buildRouter = () =>
+  createDualTtsFromEnv({
+    westernVoiceMap: {
+      suming: "CwhRBWXzGAHq8TQ4Fs17",
+      leo: "CwhRBWXzGAHq8TQ4Fs17",
+      narrator: "CwhRBWXzGAHq8TQ4Fs17",
+      staff_worker: "CwhRBWXzGAHq8TQ4Fs17",
+      staff_lead: "CwhRBWXzGAHq8TQ4Fs17",
+      test_ai: "EXAVITQu4vr4xnSDxMaL",
+      chen_jia: "EXAVITQu4vr4xnSDxMaL",
+      shi_peixin: "EXAVITQu4vr4xnSDxMaL",
+      shop_owner: "EXAVITQu4vr4xnSDxMaL",
+      lin_xiaotang: "EXAVITQu4vr4xnSDxMaL",
+      zhou_lu: "EXAVITQu4vr4xnSDxMaL",
+    },
+    chineseVoiceMap: {
+      suming: "male-qn-qingse",
+      leo: "male-qn-qingse",
+      narrator: "male-qn-qingse",
+      staff_worker: "male-qn-qingse",
+      staff_lead: "male-qn-qingse",
+      test_ai: "female-shaonv",
+      chen_jia: "female-shaonv",
+      shi_peixin: "female-shaonv",
+      shop_owner: "female-shaonv",
+      lin_xiaotang: "female-shaonv",
+      zhou_lu: "female-shaonv",
+    },
+  });
 
 export function ttsHealthSnapshot() {
   return {
@@ -153,7 +163,7 @@ export async function synthesizeDialogue(input: {
     throw new Error("TTS_MIXED_LANGUAGE_REQUIRES_SEGMENTED_CATALOG");
   }
   const language = segments[0]?.language ?? fallbackLanguage;
-  const result = await router.synthesize({
+  const result = await router().synthesize({
     text: segments.map((segment) => segment.text).join(" "),
     language,
     characterId: resolveTtsCharacterId(input.characterId),
