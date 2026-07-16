@@ -48,6 +48,12 @@ import {
   TITLE_CRITICAL_ASSETS,
   waitForDocumentFonts,
 } from "./loading/atomicLoading";
+import {
+  captureMetaReturnScreen,
+  resolveBackFromMeta,
+  type AppScreen,
+  type MetaScreen,
+} from "./app/screenRouting";
 import { BootSplash } from "./views/BootSplash";
 import type { EndingPathMeta } from "./views/ChapterEndCard";
 import { OrientationGate } from "./views/OrientationGate";
@@ -98,16 +104,6 @@ const AiSpendAnalysisScreen = lazy(() =>
     default: AiSpendAnalysisScreen,
   })),
 );
-
-type AppScreen =
-  | "title"
-  | "character-studio"
-  | "play"
-  | "gallery"
-  | "settings"
-  | "help"
-  | "achievements"
-  | "ai-spend";
 
 const BOOT_SEEN_KEY = "supaluv.boot.seen.v1";
 
@@ -408,8 +404,8 @@ export function App() {
     }
   }, [portraitPack, tryAchievement]);
 
-  function openMeta(next: "gallery" | "settings" | "help" | "achievements" | "ai-spend") {
-    metaReturnScreen.current = screen === "play" ? "play" : "title";
+  function openMeta(next: MetaScreen) {
+    metaReturnScreen.current = captureMetaReturnScreen(screen);
     if (next === "gallery") {
       tryAchievement("gallery_start");
       trackEvent({ name: "gallery_open" });
@@ -418,7 +414,7 @@ export function App() {
   }
 
   function backFromMeta() {
-    const target = metaReturnScreen.current === "play" && runner ? "play" : "title";
+    const target = resolveBackFromMeta(metaReturnScreen.current, Boolean(runner));
     startTransition(() => setScreen(target));
   }
 
