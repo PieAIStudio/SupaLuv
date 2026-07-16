@@ -4,12 +4,15 @@ export const PROTOTYPE_SCENE_SOURCE = "experimental-chapter-01-pipeline-dummy" a
 export const CHAPTER_01_TRIAL_SCENE_SOURCE = "chapter-01-trial-pipeline-dummy" as const;
 export const CHAPTER_01_NARRATIVE_DRAFT_SOURCE = "chapter-01-narrative-draft" as const;
 export const DRAFT_2026_07_SOURCE = "draft-2026-07" as const;
+/** Novel v2 densified chapters (supa-luv-v2 snapshot 2026-07). */
+export const SUPA_LUV_V2_2026_07_SOURCE = "supa-luv-v2-2026-07" as const;
 
 export type PrototypeSceneSource =
   | typeof PROTOTYPE_SCENE_SOURCE
   | typeof CHAPTER_01_TRIAL_SCENE_SOURCE
   | typeof CHAPTER_01_NARRATIVE_DRAFT_SOURCE
-  | typeof DRAFT_2026_07_SOURCE;
+  | typeof DRAFT_2026_07_SOURCE
+  | typeof SUPA_LUV_V2_2026_07_SOURCE;
 
 export type PrototypeSceneEdgeKind = "choice" | "return";
 

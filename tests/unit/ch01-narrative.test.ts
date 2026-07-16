@@ -56,7 +56,7 @@ describe("chapter 01 narrative draft", () => {
   it("exposes still art, portrait, and audio assets used by draft chapters", async () => {
     const { draftCh01Scenes } = await import("@supaluv/content/draft-ch01-scenes");
     const artKeys = draftCh01Scenes.map((scene) => scene.artKey).filter(Boolean);
-    const requiredBg = ["bg-office-night", "bg-rental-room", "bg-product-page", "bg-lobby-white"];
+    const requiredBg = ["bg-office-night", "bg-rental-room", "bg-lobby-white"];
 
     for (const key of requiredBg) {
       expect(artKeys).toContain(key);

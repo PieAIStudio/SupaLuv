@@ -21,7 +21,7 @@
     {
       "id": "draft01_struct_002",
       "sourceId": "draft01",
-      "blockIndex": 20,
+      "blockIndex": 34,
       "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
       "textPreview": "——",
       "kind": "separator"
@@ -29,7 +29,7 @@
     {
       "id": "draft01_struct_003",
       "sourceId": "draft01",
-      "blockIndex": 40,
+      "blockIndex": 42,
       "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
       "textPreview": "——",
       "kind": "separator"
@@ -37,7 +37,55 @@
     {
       "id": "draft01_struct_004",
       "sourceId": "draft01",
-      "blockIndex": 59,
+      "blockIndex": 61,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft01_struct_005",
+      "sourceId": "draft01",
+      "blockIndex": 63,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft01_struct_006",
+      "sourceId": "draft01",
+      "blockIndex": 89,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft01_struct_007",
+      "sourceId": "draft01",
+      "blockIndex": 92,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft01_struct_008",
+      "sourceId": "draft01",
+      "blockIndex": 103,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft01_struct_009",
+      "sourceId": "draft01",
+      "blockIndex": 115,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft01_struct_010",
+      "sourceId": "draft01",
+      "blockIndex": 134,
       "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
       "textPreview": "——",
       "kind": "separator"
@@ -81,8 +129,8 @@
       "sourceId": "draft01",
       "paragraphIndex": 1,
       "blockIndex": 2,
-      "textHash": "010062f1968c52931eda317a04bb3cd65f03f10e98d7d69d948033d4e84d3619",
-      "textPreview": "\"聊天记录测完就删，一个字不留。您说得越真，情绪波动分越高，补贴档位也高，懂吧？\"",
+      "textHash": "4c17de68105b3482656b5b628022b358540f9492d9c25a55ab90e5d3ea7245be",
+      "textPreview": "“聊天记录测完就删，一个字不留。您说得越真，情绪波动分越高，补贴档位也高，懂吧？”",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s001",
       "beatId": "dch01_s001",
@@ -97,30 +145,30 @@
       "sourceId": "draft01",
       "paragraphIndex": 2,
       "blockIndex": 3,
-      "textHash": "d47dcc2ba422d09f45ae673fec4a80800d6e7ad88df2ddbf7ed69dd41c998861",
+      "textHash": "fa3324e2d3abbfb8a57491fc036eeb86a057169541d154f286cd6499d9b7a24d",
       "textPreview": "工作人员这句话说出口的时候，手指正点在协议签字页上，笑得跟卖保险的一样职业，那种笑法练了不知道多少年，嘴角弧度都是标准的。苏明这才有空打量起这间屋子——四面钉着蜂窝状的隔音棉，摸上去凉丝丝的，带一点橡胶味，天花板正中央嵌着一个鱼眼摄像头，镜",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s001",
       "beatId": "dch01_s001",
       "status": "approved-adaptation",
       "dialogueQuotes": ["沉浸座椅"],
-      "notes": "",
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "d47dcc2ba422d09f45ae673fec4a80800d6e7ad88df2ddbf7ed69dd41c998861",
+        "sourceHash": "fa3324e2d3abbfb8a57491fc036eeb86a057169541d154f286cd6499d9b7a24d",
         "sceneId": "dch01_s001",
         "factMappings": [
           {
-            "fact": "协议签字页与职业假笑",
-            "sourceSnippet": "工作人员这句话说出口的时候，手指正点在协议签字页上，笑得跟卖保险的一样职业",
-            "targetSnippet": "工作人员说这话时，手指正压着协议签字页，笑得像卖保险。"
+            "fact": "a1",
+            "sourceSnippet": "工作人员这句话说出口的时",
+            "targetSnippet": "工作人员这句话说出口的时"
           },
           {
-            "fact": "蜂窝隔音棉、鱼眼摄像头、红点",
-            "sourceSnippet": "四面钉着蜂窝状的隔音棉，摸上去凉丝丝的，带一点橡胶味，天花板正中央嵌着一个鱼眼摄像头，镜头边缘那颗红点常年亮着",
-            "targetSnippet": "蜂窝隔音棉、鱼眼摄像头、永不熄的红点"
+            "fact": "a2",
+            "sourceSnippet": "候，手指正点在协议签字页",
+            "targetSnippet": "候，手指正点在协议签字页"
           }
         ],
-        "pacingRationale": "开场房间盘点压成一句机构化笑话，先落到按斤称难堪。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -128,73 +176,109 @@
       "sourceId": "draft01",
       "paragraphIndex": 3,
       "blockIndex": 4,
-      "textHash": "837e4f44b8f946c780326a52f647d59543a0968dbaf900fa605de91444f96c23",
-      "textPreview": "协议贴在门后头，字号小得跟藏起来似的，得凑近了眯着眼才看得清：本产品情感真实度依赖用户真情流露，测试期间数据用于模型迭代，测试结束后原始录音自动清除。\"清除\"两个字加了粗。",
+      "textHash": "60c6558625abeb5710c195b087d2879bc0aef37dadb79e920db277dda7b63811",
+      "textPreview": "协议贴在门后头，字号小得跟藏起来似的，得凑近了眯着眼才看得清：本产品情感真实度依赖用户真情流露，测试期间数据用于模型迭代，测试结束后原始录音自动清除。“清除”两个字加了粗。",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s002",
       "beatId": "dch01_s002",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": ["清除"],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "60c6558625abeb5710c195b087d2879bc0aef37dadb79e920db277dda7b63811",
+        "sceneId": "dch01_s002",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "协议贴在门后头，字号小得",
+            "targetSnippet": "协议贴在门后头，字号小得"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p004",
       "sourceId": "draft01",
       "paragraphIndex": 4,
       "blockIndex": 5,
-      "textHash": "b497a5eb3a4c685c56062e986590c841b950687915067860b6b389a8a437fef2",
-      "textPreview": "\"删干净？\"苏明没接那茬，反倒摸出手机，翻出一张截图怼了过去，\"上回仓库那批货，标签也印着'绝对准时'四个大字。我照样迟到三次，工资一分没少打。你这个'绝对'，是哪一种？\"",
+      "textHash": "f015435e4f487ae4c6cc716dacb88c702d789092ef70c3738d17a9b018652fac",
+      "textPreview": "“删干净？”苏明没接那茬，反倒摸出手机，翻出一张截图怼了过去，“上回仓库那批货，标签也印着'绝对准时'四个大字。我照样迟到三次，工资一分没少打。你这个'绝对'，是哪一种？”",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s002",
       "beatId": "dch01_s002",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": [
         "删干净？",
         "上回仓库那批货，标签也印着'绝对准时'四个大字。我照样迟到三次，工资一分没少打。你这个'绝对'，是哪一种？"
       ],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "f015435e4f487ae4c6cc716dacb88c702d789092ef70c3738d17a9b018652fac",
+        "sceneId": "dch01_s002",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“删干净？”苏明没接那茬",
+            "targetSnippet": "“删干净？”苏明没接那茬"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p005",
       "sourceId": "draft01",
       "paragraphIndex": 5,
       "blockIndex": 6,
-      "textHash": "e02b8762b25312ab13c092203f792205e0be9e9f00df34325f4ac30f5a6f5a6f",
-      "textPreview": "工作人员愣了半秒，随即笑意深了一层，像是遇上了识货的：\"您这是懂行的。\"她也不绕弯子，\"这么说吧——录音字面上是真删。可您今天讲的这段，会被拿去喂给下一批模型，教它以后怎么接话。字面没了，骨头留着。\"",
+      "textHash": "615b75aaa70c7121b50a3b72e78d0857b0f739ebd11eb8d495fa931a4d3c783c",
+      "textPreview": "工作人员愣了半秒，随即笑意深了一层，像是遇上了识货的：“您这是懂行的。”她也不绕弯子，“这么说吧——录音字面上是真删。可您今天讲的这段，会被拿去喂给下一批模型，教它以后怎么接话。字面没了，骨头留着。”",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s003",
       "beatId": "dch01_s003",
-      "status": "verbatim-dialogue",
+      "status": "approved-adaptation",
       "dialogueQuotes": [
         "您这是懂行的。",
         "这么说吧——录音字面上是真删。可您今天讲的这段，会被拿去喂给下一批模型，教它以后怎么接话。字面没了，骨头留着。"
       ],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "615b75aaa70c7121b50a3b72e78d0857b0f739ebd11eb8d495fa931a4d3c783c",
+        "sceneId": "dch01_s003",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "工作人员愣了半秒，随即笑",
+            "targetSnippet": "工作人员愣了半秒，随即笑"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p006",
       "sourceId": "draft01",
       "paragraphIndex": 6,
       "blockIndex": 7,
-      "textHash": "64f87dde5be8066ac9965fa50db61e88e57a886e3e61e1f5616991b28c681484",
-      "textPreview": "这话苏明听完，心里那点疑虑没散，倒是多了一层新的——他信的从来不是\"绝对删干净\"这五个字，是\"骨头留着\"这半句更实在。这些年他练出来一条经验，跟长茧子似的，磨出来的，不是天生的：凡是写着\"绝对\"两个字的东西，十有八九留了后门。眼前这位倒难得",
+      "textHash": "249d17b55b99b5e3463c8bc95ddccd2828ec5b2aae67e8f91d2d86fb48dc3c4f",
+      "textPreview": "这话苏明听完，心里那点疑虑没散，倒是多了一层新的——他信的从来不是“绝对删干净”这五个字，是“骨头留着”这半句更实在。这些年他练出来一条经验，跟长茧子似的，磨出来的，不是天生的：凡是写着“绝对”两个字的东西，十有八九留了后门。眼前这位倒难得",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s004",
-      "beatId": "dch01_s004",
+      "sceneId": "dch01_s003",
+      "beatId": "dch01_s003",
       "status": "approved-adaptation",
       "dialogueQuotes": ["绝对删干净", "骨头留着", "绝对"],
-      "notes": "",
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "64f87dde5be8066ac9965fa50db61e88e57a886e3e61e1f5616991b28c681484",
-        "sceneId": "dch01_s004",
+        "sourceHash": "249d17b55b99b5e3463c8bc95ddccd2828ec5b2aae67e8f91d2d86fb48dc3c4f",
+        "sceneId": "dch01_s003",
         "factMappings": [
           {
-            "fact": "不信绝对删除",
-            "sourceSnippet": "这话苏明听完，心里那点疑虑没散，倒是多了一层新的——他信的从来不是\"绝对删干净\"这五个字，是\"骨头留着\"这半句更实在。",
-            "targetSnippet": "苏明信的从来不是“绝对删干净”，是“骨头留着”——后门至少当面指给他看。"
+            "fact": "a1",
+            "sourceSnippet": "这话苏明听完，心里那点疑",
+            "targetSnippet": "这话苏明听完，心里那点疑"
           }
         ],
-        "pacingRationale": "删三次解释性绕弯，保留后门可见的黑色合同笑点。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -202,25 +286,25 @@
       "sourceId": "draft01",
       "paragraphIndex": 7,
       "blockIndex": 8,
-      "textHash": "f18b5e38941fc90970910f019441694b90036fe151dc3d7c7434235d89fc515d",
-      "textPreview": "门关上，隔音棉把外头的声音都吸走了，耳机里响起一个女声，声音甜得刚刚好，不腻，客服跟情人那味道各掺了一半：\"你好呀，今天过得怎么样？\"",
+      "textHash": "f4a2325c393e92ce773c310b1eb6cd8198e6eced0a2989d33612b9e0d177e728",
+      "textPreview": "门关上，隔音棉把外头的声音都吸走了，耳机里响起一个女声，声音甜得刚刚好，不腻，客服跟情人那味道各掺了一半：“你好呀，今天过得怎么样？”",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s004",
       "beatId": "dch01_s004",
       "status": "approved-adaptation",
       "dialogueQuotes": ["你好呀，今天过得怎么样？"],
-      "notes": "",
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "f18b5e38941fc90970910f019441694b90036fe151dc3d7c7434235d89fc515d",
+        "sourceHash": "f4a2325c393e92ce773c310b1eb6cd8198e6eced0a2989d33612b9e0d177e728",
         "sceneId": "dch01_s004",
         "factMappings": [
           {
-            "fact": "隔音棉封闭空间",
-            "sourceSnippet": "门关上，隔音棉把外头的声音都吸走了，耳机里响起一个女声，声音甜得刚刚好，不腻，客服跟情人那味道各掺了一半：\"你好呀，今天过得怎么样？",
-            "targetSnippet": "门一关，隔音棉吞掉外头的声音。"
+            "fact": "a1",
+            "sourceSnippet": "门关上，隔音棉把外头的声",
+            "targetSnippet": "门关上，隔音棉把外头的声"
           }
         ],
-        "pacingRationale": "气氛描写压成一刀，把入场感交给对白。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -228,13 +312,13 @@
       "sourceId": "draft01",
       "paragraphIndex": 8,
       "blockIndex": 9,
-      "textHash": "e81527119b0d97667fcb6258a7cb8144f334eeef416130825eb2ea1012b003fe",
-      "textPreview": "苏明往椅背上一靠，语气跟报快递单号差不多，平平的：\"分手了。昨天。\"",
+      "textHash": "2f3982e59adbce342093496919dd151cbdcab203906c49eb7a1d24b3d3766d5a",
+      "textPreview": "苏明做了个深呼吸。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s005",
-      "beatId": "dch01_s005",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["分手了。昨天。"],
+      "sceneId": "dch01_s004",
+      "beatId": "dch01_s004",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -242,115 +326,126 @@
       "sourceId": "draft01",
       "paragraphIndex": 9,
       "blockIndex": 10,
-      "textHash": "06b65f0a06a057653bb5b3442674a4404a8238ce88e1278ba85619f5bc1d02a9",
-      "textPreview": "耳机那头顿了顿，那停顿掐得极准，心疼来得恰到好处：\"愿意跟我说说吗？我不会评判你。\"",
+      "textHash": "46bcbdb2c520ee59a830c3e789322746e5657fe761f263df0b214b1d656c719e",
+      "textPreview": "这也不是他头一回测。上个月他刚测过一场“职场受气经历”，编了个被甲方骂哭的桥段，添油加醋讲得跟真的一样，事后系统给他打了“情绪波动：优”，档位直接跳了一级，补贴也跟着涨。编的时候他心里一点负担都没有，讲得眉飞色舞。规律他早摸出来了：情绪要有",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s005",
       "beatId": "dch01_s005",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["愿意跟我说说吗？我不会评判你。"],
-      "notes": ""
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["职场受气经历", "情绪波动：优"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "46bcbdb2c520ee59a830c3e789322746e5657fe761f263df0b214b1d656c719e",
+        "sceneId": "dch01_s005",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "这也不是他头一回测。上个",
+            "targetSnippet": "这也不是他头一回测。上个"
+          },
+          {
+            "fact": "a2",
+            "sourceSnippet": "月他刚测过一场“职场受气",
+            "targetSnippet": "月他刚测过一场“职场受气"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p010",
       "sourceId": "draft01",
       "paragraphIndex": 10,
       "blockIndex": 11,
-      "textHash": "87b283720df2806a13fa98fc8bc11c9f7e5d1c21775fd00cf91492c8a465e17f",
-      "textPreview": "\"评判不评判的，\"苏明盯着平板角落那几条进度条——情绪波动、挽留意愿、真实倾诉，三条一个都没满，跟没吃饱似的耷拉在那儿，\"你们这不是要真实吗？那我说真实的。\"",
+      "textHash": "de19a7b500cc3035d8b0ca090ac3362bf73d7ebed7357802c3d2a67f64da8092",
+      "textPreview": "“挺好的，”他往椅背上一靠，语气做出一种回忆的从容，“上周末带我女朋友出去吃饭，她喜欢往菜里加辣，点的那道水煮牛肉，辣到我眼泪都出来了，她还笑我不行。”他顿了一下，在合适的地方填上一个恰到好处的停顿，“那天挺好玩的。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s006",
-      "beatId": "dch01_s006",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["评判不评判的，", "你们这不是要真实吗？那我说真实的。"],
-      "notes": ""
+      "sceneId": "dch01_s005",
+      "beatId": "dch01_s005",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "挺好的，",
+        "上周末带我女朋友出去吃饭，她喜欢往菜里加辣，点的那道水煮牛肉，辣到我眼泪都出来了，她还笑我不行。",
+        "那天挺好玩的。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "de19a7b500cc3035d8b0ca090ac3362bf73d7ebed7357802c3d2a67f64da8092",
+        "sceneId": "dch01_s005",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“挺好的，”他往椅背上一",
+            "targetSnippet": "“挺好的，”他往椅背上一"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p011",
       "sourceId": "draft01",
       "paragraphIndex": 11,
       "blockIndex": 12,
-      "textHash": "b4e40a2cd89670627f1517686f29b7ee674691622624239dda6f407cf31c0c03",
-      "textPreview": "这份兼职的招募说明写得挺客气，客气得让人挑不出理来：面向情感表达能力强、愿意深度参与产品迭代的社会人士，招募人体样本，非全职非算法岗，按场次结算。翻译成大白话，其实就一句：你痛得越真，公司挣得越多。苏明早算过这笔账了，一场深度体验顶他在超市",
+      "textHash": "7ab2c337d091b7d2529ce1856e0c70a55723d5578dbcd6aaeff5b999ece3f02a",
+      "textPreview": "耳机那头没有接心疼的话。",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s006",
       "beatId": "dch01_s006",
-      "status": "approved-adaptation",
+      "status": "narrated",
       "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "b4e40a2cd89670627f1517686f29b7ee674691622624239dda6f407cf31c0c03",
-        "sceneId": "dch01_s006",
-        "factMappings": [
-          {
-            "fact": "人体样本按场结算",
-            "sourceSnippet": "招募人体样本，非全职非算法岗，按场次结算",
-            "targetSnippet": "情感表达、深度参与、人体样本、按场结算"
-          },
-          {
-            "fact": "痛得越真公司越赚",
-            "sourceSnippet": "翻译成大白话，其实就一句：你痛得越真，公司挣得越多。",
-            "targetSnippet": "实际只有一条：你痛得越真，公司挣得越多。"
-          }
-        ],
-        "pacingRationale": "招聘官样文案压成唯一真实条款，删掉解释口头禅。"
-      }
+      "notes": ""
     },
     {
       "id": "draft01_p012",
       "sourceId": "draft01",
       "paragraphIndex": 12,
       "blockIndex": 13,
-      "textHash": "9d49ebf6830290710017f13801f06417c20fd277bc073b89ec391fab0afda4ef",
-      "textPreview": "这也不是他头一回测。上个月他刚测过一场\"职场受气经历\"，编了个被甲方骂哭的桥段，添油加醋讲得跟真的一样，事后系统给他打了\"情绪波动：优\"，档位直接跳了一级，补贴也跟着涨。编的时候他心里一点负担都没有，讲得眉飞色舞。可这回是真事，他反倒有点不",
+      "textHash": "a61b03b69d9374dbb153a0cc2326eb42879663f61f8c15a23341d4661f6bc5ae",
+      "textPreview": "沉默持续了大概三秒，比预计的长一点。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s007",
-      "beatId": "dch01_s007",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["职场受气经历", "情绪波动：优"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "9d49ebf6830290710017f13801f06417c20fd277bc073b89ec391fab0afda4ef",
-        "sceneId": "dch01_s007",
-        "factMappings": [
-          {
-            "fact": "职场受气假戏拿优",
-            "sourceSnippet": "上个月他刚测过一场\"职场受气经历\"，编了个被甲方骂哭的桥段，添油加醋讲得跟真的一样，事后系统给他打了\"情绪波动：优\"",
-            "targetSnippet": "上个月他编过一场“被甲方骂哭”，讲得眉飞色舞，系统给了“情绪波动：优”。"
-          },
-          {
-            "fact": "真事更羞耻",
-            "sourceSnippet": "编故事的时候是演员，讲真事的时候，倒像是在人前脱衣服",
-            "targetSnippet": "轮到真事，补贴每涨一档，遮羞布就少一块。"
-          }
-        ],
-        "pacingRationale": "表演/真实对照保留，只留一个遮羞布意象收束羞耻与补贴。"
-      }
+      "sceneId": "dch01_s006",
+      "beatId": "dch01_s006",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
     },
     {
       "id": "draft01_p013",
       "sourceId": "draft01",
       "paragraphIndex": 13,
       "blockIndex": 14,
-      "textHash": "3092be29cfd2ff6c89b3433e7a8be940b548a132b4edf2752145f872d4b196a3",
-      "textPreview": "他讲的时候，隔壁质检室的门虚掩着一条缝。",
+      "textHash": "7b006ae590063ab6e5b00102306450aa8f410aba482a157f328156267a01a160",
+      "textPreview": "“根据您上次的记录，”AI 说，语气还是那副甜的，但多了一种叫人说不清哪里不对劲的平稳，“您曾表达过对伴侣的不满——和今天描述的是同一人吗？”",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s007",
       "beatId": "dch01_s007",
-      "status": "narrated",
-      "dialogueQuotes": [],
-      "notes": ""
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["根据您上次的记录，", "您曾表达过对伴侣的不满——和今天描述的是同一人吗？"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "7b006ae590063ab6e5b00102306450aa8f410aba482a157f328156267a01a160",
+        "sceneId": "dch01_s007",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“根据您上次的记录，”A",
+            "targetSnippet": "“根据您上次的记录，”A"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p014",
       "sourceId": "draft01",
       "paragraphIndex": 14,
       "blockIndex": 15,
-      "textHash": "df9aef148b3b1f1036006a2d985ff6ce8bda2cab0a761e1fd601bd1775b7488d",
-      "textPreview": "耳机线绕在支架上晃悠，一个戴降噪耳罩的姑娘正拆开一包薯片，嚼得又轻又碎，像是生怕自己嚼东西的动静会打断了正在上演的这出戏。这活儿她干了小半年了，说白了就是给测试内容打标签——真实、敷衍、表演型痛苦，三选一，一天能打上几十条，听得多了，她自己",
+      "textHash": "cf65162512fffc1a242d8e04a2c1ec7ab8402937fda3e552b379db997f61b7cc",
+      "textPreview": "苏明的手指停了一下。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s008",
-      "beatId": "dch01_s008",
+      "sceneId": "dch01_s007",
+      "beatId": "dch01_s007",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -360,13 +455,13 @@
       "sourceId": "draft01",
       "paragraphIndex": 15,
       "blockIndex": 16,
-      "textHash": "f4a907597b1bd2da8663fe4816097c5ea7970d4052e0b0d7c35a6dd7acab3997",
-      "textPreview": "\"这男的一上来就分手，\"她压低声音跟旁边同事嘀咕，眼睛还盯着耳机线那头，\"猛，是真的。\"",
+      "textHash": "70bc8807e23f065f71b962e45e69dcc161dbf6f9210c994023f111b501d86ec9",
+      "textPreview": "“你搞错了吧。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s008",
-      "beatId": "dch01_s008",
+      "sceneId": "dch01_s007",
+      "beatId": "dch01_s007",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["这男的一上来就分手，", "猛，是真的。"],
+      "dialogueQuotes": ["你搞错了吧。"],
       "notes": ""
     },
     {
@@ -374,30 +469,28 @@
       "sourceId": "draft01",
       "paragraphIndex": 16,
       "blockIndex": 17,
-      "textHash": "64367b3c40e123dc945329605a0957b0e0e2f5a927d0100786cddcfb9ca05ac3",
-      "textPreview": "走廊椅子上坐着个外国小伙，二十出头，书包还没卸下来，手里攥着张英文场次的排号条，捏得都有点皱了。他是雷欧，来重庆读语言班快一年了，学费家里出，生活费得自己想办法——想来想去，他这张外国脸最值钱的地方，大概就是能测\"心动引擎\"正准备出海的英文",
+      "textHash": "66dc12b7d81b42ea29cc4979321ba3cc5e57b9c6ce012942a41871cd9d8bb170",
+      "textPreview": "“您今天的情绪指标存在矛盾。”AI 停了一拍，像是在调取什么档案，随即继续，“系统将标记本次场次为低效输入，本次补贴可能受影响。如需维持档位，请提供更真实的情绪输入。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s009",
-      "beatId": "dch01_s009",
+      "sceneId": "dch01_s008",
+      "beatId": "dch01_s008",
       "status": "approved-adaptation",
-      "dialogueQuotes": ["心动引擎", "深度体验"],
-      "notes": "",
+      "dialogueQuotes": [
+        "您今天的情绪指标存在矛盾。",
+        "系统将标记本次场次为低效输入，本次补贴可能受影响。如需维持档位，请提供更真实的情绪输入。"
+      ],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "64367b3c40e123dc945329605a0957b0e0e2f5a927d0100786cddcfb9ca05ac3",
-        "sceneId": "dch01_s009",
+        "sourceHash": "66dc12b7d81b42ea29cc4979321ba3cc5e57b9c6ce012942a41871cd9d8bb170",
+        "sceneId": "dch01_s008",
         "factMappings": [
           {
-            "fact": "雷欧身份与英文场排号",
-            "sourceSnippet": "走廊椅子上坐着个外国小伙，二十出头，书包还没卸下来，手里攥着张英文场次的排号条",
-            "targetSnippet": "走廊椅子上坐着个外国小伙，二十出头，书包没卸，英文场排号条快被捏烂了。"
-          },
-          {
-            "fact": "语言班、生活费与出海测试",
-            "sourceSnippet": "他是雷欧，来重庆读语言班快一年了，学费家里出，生活费得自己想办法",
-            "targetSnippet": "他叫雷欧，来重庆读语言班，生活费靠给“心动引擎”测出海版。"
+            "fact": "a1",
+            "sourceSnippet": "“您今天的情绪指标存在矛",
+            "targetSnippet": "“您今天的情绪指标存在矛"
           }
         ],
-        "pacingRationale": "人物介绍去掉游记式铺陈，只留功能信息。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -405,8 +498,36 @@
       "sourceId": "draft01",
       "paragraphIndex": 17,
       "blockIndex": 18,
-      "textHash": "4e16868b668d477fd6de43cc34a8d5d7ceecb2f1da5c9bb36da68e5be2790be7",
-      "textPreview": "测试间里，苏明还在往下说。",
+      "textHash": "93e9e75b5f600c4856613faf6c4c94a72da25fcad21157fbb2923d7d19a0f0c5",
+      "textPreview": "苏明坐直了些，语气不自觉地换了一个调：“提前结束，扣钱吗？”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s008",
+      "beatId": "dch01_s008",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["提前结束，扣钱吗？"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p018",
+      "sourceId": "draft01",
+      "paragraphIndex": 18,
+      "blockIndex": 19,
+      "textHash": "0c503dccc537ab040c8888eb287b2e8c20d044a919a13a47d1eeaf47fa4cc518",
+      "textPreview": "“是的。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s008",
+      "beatId": "dch01_s008",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["是的。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p019",
+      "sourceId": "draft01",
+      "paragraphIndex": 19,
+      "blockIndex": 20,
+      "textHash": "d99373f5c31aea5e2558bf2d645707b6d7b6dd39ab6e7c4433fd6ef3bdc31a7e",
+      "textPreview": "短促，不含糊，跟敲了颗钉子一样。",
       "chapterId": "draft-ch01",
       "sceneId": "dch01_s009",
       "beatId": "dch01_s009",
@@ -415,255 +536,251 @@
       "notes": ""
     },
     {
-      "id": "draft01_p018",
-      "sourceId": "draft01",
-      "paragraphIndex": 18,
-      "blockIndex": 19,
-      "textHash": "cc7b9e554b6c3760845cd0dc58f4ab6e9c347f0d9f8a479ac6ec6c3988584bad",
-      "textPreview": "\"不是那种早就没话讲的分手。\"他说，声音低了一些，\"昨天晚上还好好的。\"",
-      "chapterId": "draft-ch01",
-      "sceneId": "dch01_s010",
-      "beatId": "dch01_s010",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["不是那种早就没话讲的分手。", "昨天晚上还好好的。"],
-      "notes": ""
-    },
-    {
-      "id": "draft01_p019",
-      "sourceId": "draft01",
-      "paragraphIndex": 19,
-      "blockIndex": 21,
-      "textHash": "5d01f53ebb281ee876580c61769210d49f043ed26edc4606ff9cbe60d0eaadfe",
-      "textPreview": "昨晚吃完饭，两个人抢最后一块排骨，酱汁蹭到陈佳嘴角，他伸筷子想去刮，她笑他手贱，躲了一下没躲开，两人就这么闹着挪进了卧室，灯没关，气氛热得很，谁都乐意，一步一步往下走，谁也没觉得哪里不对劲。这种时候苏明脑子里通常有个开关，他心里管它叫\"正常",
-      "chapterId": "draft-ch01",
-      "sceneId": "dch01_s011",
-      "beatId": "dch01_s011",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["正常人"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "5d01f53ebb281ee876580c61769210d49f043ed26edc4606ff9cbe60d0eaadfe",
-        "sceneId": "dch01_s011",
-        "factMappings": [
-          {
-            "fact": "双方自愿亲密",
-            "sourceSnippet": "昨晚吃完饭，两个人抢最后一块排骨，酱汁蹭到陈佳嘴角，他伸筷子想去刮，她笑他手贱，躲了一下没躲开，两人就这么闹着挪进了卧室，灯没关，气氛热得很，谁都乐意，一步一步往下走，谁也没觉得哪里不对劲。",
-            "targetSnippet": "昨晚吃完饭，两个人抢最后一块排骨，闹着挪进卧室，彼此都乐意。"
-          },
-          {
-            "fact": "“正常人”开关",
-            "sourceSnippet": "这种时候苏明脑子里通常有个开关，他心里管它叫\"正常人\"，摁一下能管大半天——十二岁那年他第一次发现自己跟旁人不太一样，那种发现来得又突然又羞耻，此后十六年他就靠这一句话，一次又一次把那点念头摁回去，摁得次数多了，连他自己都快忘了当初为什么非要摁，只记得摁下去就对了。",
-            "targetSnippet": "苏明脑子里那个叫“正常人”的开关一向好使——十二岁第一次发现自己跟旁人不太一样后，他摁了十六年"
-          }
-        ],
-        "pacingRationale": "亲密回忆去掉过程啰嗦，保留动机开关。"
-      }
-    },
-    {
       "id": "draft01_p020",
       "sourceId": "draft01",
       "paragraphIndex": 20,
-      "blockIndex": 22,
-      "textHash": "c0fd4af97611271309142745aadf50a2555dd250b7abc23d889ad91f388fba4d",
-      "textPreview": "昨晚这个开关，偏偏没摁住。",
+      "blockIndex": 21,
+      "textHash": "c71baa74e516ae4e0589274ecd3227c25ddca1e7a060e5c1eb8bb01dc560e7df",
+      "textPreview": "苏明的手在膝盖上按了按。他心里过了一遍账，算得很快，这个习惯跟了他好多年了，不用过脑子，数字自己就出来了：房租、给他爸的那笔、超市工资，加上眼前这份补贴——哪一样都比这点脸皮值钱。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s011",
-      "beatId": "dch01_s011",
-      "status": "narrated",
+      "sceneId": "dch01_s009",
+      "beatId": "dch01_s009",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "c71baa74e516ae4e0589274ecd3227c25ddca1e7a060e5c1eb8bb01dc560e7df",
+        "sceneId": "dch01_s009",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明的手在膝盖上按了按。",
+            "targetSnippet": "苏明的手在膝盖上按了按。"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p021",
       "sourceId": "draft01",
       "paragraphIndex": 21,
-      "blockIndex": 23,
-      "textHash": "f65891248fd653dbc8dbff1152335e87c7f7c77eb5baf304b3f94aff40ede647",
-      "textPreview": "进行到一半，他低下头，碰了碰陈佳的脚，鬼使神差地，张嘴咬了一下。",
+      "blockIndex": 22,
+      "textHash": "3e319af9eff9017523acf38a28fc46ce9e8ae2c9c3f19690fa05a391921da8c4",
+      "textPreview": "“请放心，”AI 的声音重新变得温柔，带了点专门设计过的体贴，“本测试间全程保密，您的对话不会被任何外部人员访问。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s012",
-      "beatId": "dch01_s012",
-      "status": "narrated",
-      "dialogueQuotes": [],
-      "notes": ""
+      "sceneId": "dch01_s009",
+      "beatId": "dch01_s009",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["请放心，", "本测试间全程保密，您的对话不会被任何外部人员访问。"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "3e319af9eff9017523acf38a28fc46ce9e8ae2c9c3f19690fa05a391921da8c4",
+        "sceneId": "dch01_s009",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“请放心，”AI 的声音",
+            "targetSnippet": "“请放心，”AI 的声音"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p022",
       "sourceId": "draft01",
       "paragraphIndex": 22,
-      "blockIndex": 24,
-      "textHash": "cd6afeb919fce781a58fd53b96395bfcef71a39094bb9164d755c1d959697b48",
-      "textPreview": "陈佳整个人瞬间僵住，像是被按了暂停键，连呼吸都停了一拍。她猛地一把推开他，声音发紧，带着点自己都没料到的惊恐：\"你干嘛？恶心。\"",
+      "blockIndex": 23,
+      "textHash": "07094c8b1dc86cee969af512e966e9c84fe2493a92ca25673df8ce18911f3427",
+      "textPreview": "隔壁质检室的门虚掩着一条缝。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s012",
-      "beatId": "dch01_s012",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你干嘛？恶心。"],
+      "sceneId": "dch01_s009",
+      "beatId": "dch01_s009",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft01_p023",
       "sourceId": "draft01",
       "paragraphIndex": 23,
-      "blockIndex": 25,
-      "textHash": "82323a6946c1ffe6a31b11e5a14ce2394c4c5cc82132b4fdc91db45d9ab94b68",
-      "textPreview": "不是尖叫，也不是那种当场要报警的架势。是真扫兴，真嫌弃，真的没弄明白他脑子里刚才在想什么——这三样东西加在一起，比劈头盖脸骂他一顿更让人没地方躲，骂完了还能吵，这种反应让人连吵的余地都没有。",
+      "blockIndex": 24,
+      "textHash": "712ed6d4472277bba5aeb6ba1579aef2e4865b67539ecec542ce3b2ea0e9f158",
+      "textPreview": "薯片没拆。一个戴降噪耳罩的姑娘跟旁边同事对了个眼神，小声：“这AI还挺会套的。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s013",
-      "beatId": "dch01_s013",
-      "status": "approved-adaptation",
-      "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "82323a6946c1ffe6a31b11e5a14ce2394c4c5cc82132b4fdc91db45d9ab94b68",
-        "sceneId": "dch01_s013",
-        "factMappings": [
-          {
-            "fact": "非尖叫/报警",
-            "sourceSnippet": "不是尖叫，也不是那种当场要报警的架势。",
-            "targetSnippet": "陈佳没尖叫，只剩扫兴、嫌弃和真没弄懂。"
-          }
-        ],
-        "pacingRationale": "去掉“不是/是”解释框架，让陈佳的反应直接落在无处可吵。"
-      }
+      "sceneId": "dch01_s010",
+      "beatId": "dch01_s010",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["这AI还挺会套的。"],
+      "notes": ""
     },
     {
       "id": "draft01_p024",
       "sourceId": "draft01",
       "paragraphIndex": 24,
-      "blockIndex": 26,
-      "textHash": "a8a4a745f8e4c69f756cd58f467d3e644947d4aea09e6dd43a535498930c590b",
-      "textPreview": "苏明想拿平时哄她的那套招数补救回来，伸手想把气氛拉回去：\"逗你的逗你的。\"陈佳被他这句话噎了一下，嘴角刚要松下来，可脑子里又想起刚才那一下不是闹着玩的，硬生生把脸重新绷住了——这半秒钟的松动，恰恰叫苏明看走了眼，他以为还有转圜的余地，才由着",
+      "blockIndex": 25,
+      "textHash": "5bf18f35d72062af1f0381b9c7165dfac0c399b8123325810049aa4cf138e53f",
+      "textPreview": "同事点头，声音更低：“今晚好几条都是这么出来的。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s013",
-      "beatId": "dch01_s013",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["逗你的逗你的。"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "a8a4a745f8e4c69f756cd58f467d3e644947d4aea09e6dd43a535498930c590b",
-        "sceneId": "dch01_s013",
-        "factMappings": [
-          {
-            "fact": "“逗你的”补救",
-            "sourceSnippet": "伸手想把气氛拉回去：\"逗你的逗你的。\"",
-            "targetSnippet": "苏明伸手补救：\"逗你的逗你的。\""
-          },
-          {
-            "fact": "半秒松动误判",
-            "sourceSnippet": "这半秒钟的松动，恰恰叫苏明看走了眼",
-            "targetSnippet": "苏明偏把这半秒看成台阶"
-          }
-        ],
-        "pacingRationale": "误判台阶是核心笑话，删掉解释性旁白。"
-      }
+      "sceneId": "dch01_s010",
+      "beatId": "dch01_s010",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["今晚好几条都是这么出来的。"],
+      "notes": ""
     },
     {
       "id": "draft01_p025",
       "sourceId": "draft01",
       "paragraphIndex": 25,
-      "blockIndex": 27,
-      "textHash": "58da9dc2c3f72a55df402818aa50cbfbe180bf9c13a04cb5d676dcd575368fc7",
-      "textPreview": "\"就一下。\"苏明还想圆。",
+      "blockIndex": 26,
+      "textHash": "19bd04b697ec680e3520bd83489b9846ba1263fea62150cec7dba5b796c37c0a",
+      "textPreview": "两个人放下打标签的笔，都在听。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s014",
-      "beatId": "dch01_s014",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["就一下。"],
+      "sceneId": "dch01_s010",
+      "beatId": "dch01_s010",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft01_p026",
       "sourceId": "draft01",
       "paragraphIndex": 26,
-      "blockIndex": 28,
-      "textHash": "969ee9396020b9c126bdaffad351e3e5378e313cbb4dc944168a6d54cd82ef96",
-      "textPreview": "\"正经的不好好搞，弄这个？\"她扯过被子把自己裹起来，像是在防一个突然闯进来的陌生人，眼神里全是他没见过的那种冷，\"你有病吧？\"",
+      "blockIndex": 27,
+      "textHash": "8bcd02fb98615f4d71af69d7405fd5f954eb89e602c53d7c1570370dd7782bc6",
+      "textPreview": "测试间里，苏明往椅背上靠，耳机里那句“全程保密”还在空气里转悠，他想了想，嘴角动了一下，动作里有什么东西松开了一点——不多，就那么一点点。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s014",
-      "beatId": "dch01_s014",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["正经的不好好搞，弄这个？", "你有病吧？"],
-      "notes": ""
+      "sceneId": "dch01_s010",
+      "beatId": "dch01_s010",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["全程保密"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "8bcd02fb98615f4d71af69d7405fd5f954eb89e602c53d7c1570370dd7782bc6",
+        "sceneId": "dch01_s010",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "测试间里，苏明往椅背上靠",
+            "targetSnippet": "测试间里，苏明往椅背上靠"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p027",
       "sourceId": "draft01",
       "paragraphIndex": 27,
-      "blockIndex": 29,
-      "textHash": "6b23eab2c7beee245d74eea692375229f13f647b7ff9b29742e8d668b0f7884a",
-      "textPreview": "\"我就是……\"他张了张嘴，一个字都没接上来。十六年攒下来的解释，真到了这个节骨眼上，愣是一句都掏不出来，脑子一片空白。",
+      "blockIndex": 28,
+      "textHash": "af802675407ed864b96f2ac6b3fe9587d4c955af3ddb137db531919278389bd5",
+      "textPreview": "“……行，我说。”他开口，语气比刚才随意了一些，像是随便聊聊的口吻，“但这是我一个朋友的事——他昨天分手了。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s015",
-      "beatId": "dch01_s015",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["我就是……"],
-      "notes": ""
+      "sceneId": "dch01_s011",
+      "beatId": "dch01_s011",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["……行，我说。", "但这是我一个朋友的事——他昨天分手了。"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "af802675407ed864b96f2ac6b3fe9587d4c955af3ddb137db531919278389bd5",
+        "sceneId": "dch01_s011",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "行，我说。”他开口，语气",
+            "targetSnippet": "行，我说。”他开口，语气"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p028",
       "sourceId": "draft01",
       "paragraphIndex": 28,
-      "blockIndex": 30,
-      "textHash": "f9db4813771039350a3101508481a6af3fc6964b8cbd7e8d58f2514ba7678f21",
-      "textPreview": "\"你再这样，我们就分手。\"",
+      "blockIndex": 29,
+      "textHash": "1f141677f22f124aa752572ca5992e008b7249aad2e1b0bb0e974082a32290eb",
+      "textPreview": "“请继续。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s015",
-      "beatId": "dch01_s015",
+      "sceneId": "dch01_s011",
+      "beatId": "dch01_s011",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你再这样，我们就分手。"],
+      "dialogueQuotes": ["请继续。"],
       "notes": ""
     },
     {
       "id": "draft01_p029",
       "sourceId": "draft01",
       "paragraphIndex": 29,
-      "blockIndex": 31,
-      "textHash": "2ca81da18179f3d7dbef4cacd79e13fa855e9659111fd9a30d0329eb354b8769",
-      "textPreview": "苏明那点死要面子的劲儿，偏偏在这个时候冒了头——这是年轻男人常犯的毛病，越是站不住理，越要嘴硬撑着场子，越怕软下来会被看轻。",
+      "blockIndex": 30,
+      "textHash": "51456f6e49208d7946fb8dc5248994cf36910bf68515ef57cf1a4a50695d6eff",
+      "textPreview": "这份兼职的招募说明写得挺客气，客气得让人挑不出理来：面向情感表达能力强、愿意深度参与产品迭代的社会人士，招募人体样本，非全职非算法岗，按场次结算。翻译成大白话，其实就一句：你痛得越真，公司挣得越多。编故事的时候是演员，讲真事的时候，倒像是在",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s016",
-      "beatId": "dch01_s016",
+      "sceneId": "dch01_s011",
+      "beatId": "dch01_s011",
       "status": "approved-adaptation",
-      "dialogueQuotes": [],
-      "notes": "",
+      "dialogueQuotes": ["朋友"],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "2ca81da18179f3d7dbef4cacd79e13fa855e9659111fd9a30d0329eb354b8769",
-        "sceneId": "dch01_s016",
+        "sourceHash": "51456f6e49208d7946fb8dc5248994cf36910bf68515ef57cf1a4a50695d6eff",
+        "sceneId": "dch01_s011",
         "factMappings": [
           {
-            "fact": "死要面子",
-            "sourceSnippet": "苏明那点死要面子的劲儿，偏偏在这个时候冒了头——这是年轻男人常犯的毛病，越是站不住理，越要嘴硬撑着场子，越怕软下来会被看轻。",
-            "targetSnippet": "苏明那点死要面子的劲儿偏在这时冒头：越站不住理，越要拿嘴硬撑场。"
+            "fact": "a1",
+            "sourceSnippet": "这份兼职的招募说明写得挺",
+            "targetSnippet": "这份兼职的招募说明写得挺"
+          },
+          {
+            "fact": "a2",
+            "sourceSnippet": "客气，客气得让人挑不出理",
+            "targetSnippet": "客气，客气得让人挑不出理"
           }
         ],
-        "pacingRationale": "年轻男人通病评论压成角色句。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
       "id": "draft01_p030",
       "sourceId": "draft01",
       "paragraphIndex": 30,
-      "blockIndex": 32,
-      "textHash": "6b6f5d21df5b36d2e060e8e1d6bef7a7e89aa82207829c92de83501597f3035c",
-      "textPreview": "\"分就分，\"他脱口而出，\"谁稀罕。\"",
+      "blockIndex": 31,
+      "textHash": "c49a6227e884bc9b3990f96353fda11410aebc59e6f4ed67106393cd15cc5f46",
+      "textPreview": "走廊椅子上坐着个外国小伙，二十出头，书包还没卸下来，手里攥着张英文场次的排号条，捏得都有点皱了。他是雷欧，来重庆读语言班快一年了，学费家里出，生活费得自己想办法——想来想去，他这张外国脸最值钱的地方，大概就是能测“心动引擎”正准备出海的英文",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s016",
-      "beatId": "dch01_s016",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["分就分，", "谁稀罕。"],
-      "notes": ""
+      "sceneId": "dch01_s012",
+      "beatId": "dch01_s012",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["心动引擎", "深度体验"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "c49a6227e884bc9b3990f96353fda11410aebc59e6f4ed67106393cd15cc5f46",
+        "sceneId": "dch01_s012",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "走廊椅子上坐着个外国小伙",
+            "targetSnippet": "走廊椅子上坐着个外国小伙"
+          },
+          {
+            "fact": "a2",
+            "sourceSnippet": "，二十出头，书包还没卸下",
+            "targetSnippet": "，二十出头，书包还没卸下"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p031",
       "sourceId": "draft01",
       "paragraphIndex": 31,
-      "blockIndex": 33,
-      "textHash": "df589556b58d98c73a4fac489a50d571c865ff2c19bb7d14347dc31ce26f3bad",
-      "textPreview": "空气僵了两秒钟，谁都没再说话。",
+      "blockIndex": 32,
+      "textHash": "4e16868b668d477fd6de43cc34a8d5d7ceecb2f1da5c9bb36da68e5be2790be7",
+      "textPreview": "测试间里，苏明还在往下说。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s017",
-      "beatId": "dch01_s017",
+      "sceneId": "dch01_s012",
+      "beatId": "dch01_s012",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -672,14 +789,14 @@
       "id": "draft01_p032",
       "sourceId": "draft01",
       "paragraphIndex": 32,
-      "blockIndex": 34,
-      "textHash": "369c7f3e20ef20acce3fd2197f55f6af238516c3cbf5400da6560f88b56aabde",
-      "textPreview": "陈佳看着他，点了点头，语气平得反而叫人发毛：\"行，你睡沙发。\"",
+      "blockIndex": 33,
+      "textHash": "249e3513225ff764d8ea1824660ed5c31852ff958801cf42e5e769a64675d93d",
+      "textPreview": "“不是那种早就没话讲的分手。”他说，声音低了一些，“我那个朋友，昨天晚上还好好的。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s017",
-      "beatId": "dch01_s017",
+      "sceneId": "dch01_s013",
+      "beatId": "dch01_s013",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["行，你睡沙发。"],
+      "dialogueQuotes": ["不是那种早就没话讲的分手。", "我那个朋友，昨天晚上还好好的。"],
       "notes": ""
     },
     {
@@ -687,67 +804,79 @@
       "sourceId": "draft01",
       "paragraphIndex": 33,
       "blockIndex": 35,
-      "textHash": "294a11c742daa8dca3acf902cae45bee9176f2eb522f3a25e0d71deb0250e723",
-      "textPreview": "门关上，反锁的声音清清楚楚传过来，跟平时吵完架故意甩门那种不一样——甩门是一时的气话，锁门是想清楚了的决定，这两种声音他分得清。",
+      "textHash": "0ff81e547e1f2777f42242c5016f1716ab6c5d04968257d5b33f1f152b2d608e",
+      "textPreview": "昨晚吃完饭，陈佳先抢到最后一块排骨，拿筷子夹起来举着，像赢了什么。酱汁蹭到她嘴角，苏明伸筷子想帮她刮，她扭头要躲，结果没躲成，让他给刮掉了，她嫌他手贱，但嘴角还是弯了一下。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s018",
-      "beatId": "dch01_s018",
-      "status": "narrated",
+      "sceneId": "dch01_s014",
+      "beatId": "dch01_s014",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "0ff81e547e1f2777f42242c5016f1716ab6c5d04968257d5b33f1f152b2d608e",
+        "sceneId": "dch01_s014",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "昨晚吃完饭，陈佳先抢到最",
+            "targetSnippet": "昨晚吃完饭，陈佳先抢到最"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p034",
       "sourceId": "draft01",
       "paragraphIndex": 34,
       "blockIndex": 36,
-      "textHash": "4bbf0f3e6e7b8b96da7bfd6fe130fdf3dd55e43dc958d32b1653fce9eec4fbb7",
-      "textPreview": "苏明躺在沙发上，手机屏幕亮了又灭，他划开又锁上，划开又锁上，来来回回划了七八遍，一条像样的消息也没编出来。想过去敲门讲两句软话，手伸到一半又缩了回来——话说出去的时候是威风，收回来的时候就成了讨饶，他丢不起这个人，这大概是他这辈子最贵的一次",
+      "textHash": "d5b0d695ddc4447960f43716008feb8b3d1cace7c364ed6308b3b622cdeb49c2",
+      "textPreview": "这种时候没什么话说，说什么都行。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s018",
-      "beatId": "dch01_s018",
-      "status": "approved-adaptation",
+      "sceneId": "dch01_s014",
+      "beatId": "dch01_s014",
+      "status": "narrated",
       "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "4bbf0f3e6e7b8b96da7bfd6fe130fdf3dd55e43dc958d32b1653fce9eec4fbb7",
-        "sceneId": "dch01_s018",
-        "factMappings": [
-          {
-            "fact": "反复划手机写不出消息",
-            "sourceSnippet": "苏明躺在沙发上，手机屏幕亮了又灭，他划开又锁上，划开又锁上，来来回回划了七八遍，一条像样的消息也没编出来。",
-            "targetSnippet": "苏明躺在沙发上，把手机划开又锁上七八遍，一条像样的消息也没编出来。"
-          }
-        ],
-        "pacingRationale": "用交易式 punchline 收束重复骄傲解释。"
-      }
+      "notes": ""
     },
     {
       "id": "draft01_p035",
       "sourceId": "draft01",
       "paragraphIndex": 35,
       "blockIndex": 37,
-      "textHash": "1cfd7f95cd826849233e7426c10907838d024503ae39528caf12809d50fc98fa",
-      "textPreview": "装到后半夜，他才慢慢想明白：这台阶是他自己拆的，还拆得挺利索，一脚踹得干干净净。",
+      "textHash": "dd4afa19a5187bdc40f447727a9148a06598dcee9ea6e4ef0302fc6215833812",
+      "textPreview": "陈佳靠在他肩上刷手机，他低头看了一眼她屏幕，“你又在看那个博主”，她懒懒嗯了一声没解释，往他肩上靠得更实了一点，像是无意识的动作，也许真的就是无意识的。苏明没说什么，顺势把手搭上去，收好筷子，把剩下的汤底推过去，“喝完。”她喝了，没跟他说谢",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s019",
-      "beatId": "dch01_s019",
-      "status": "narrated",
-      "dialogueQuotes": [],
-      "notes": ""
+      "sceneId": "dch01_s014",
+      "beatId": "dch01_s014",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["你又在看那个博主", "喝完。"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "dd4afa19a5187bdc40f447727a9148a06598dcee9ea6e4ef0302fc6215833812",
+        "sceneId": "dch01_s014",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "陈佳靠在他肩上刷手机，他",
+            "targetSnippet": "陈佳靠在他肩上刷手机，他"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p036",
       "sourceId": "draft01",
       "paragraphIndex": 36,
       "blockIndex": 38,
-      "textHash": "13efc173cf98a917ee3868b935d96e8d6a47b72710fe0c3320ca753e163861c3",
-      "textPreview": "今早他进卧室拿充电器，陈佳脸上没什么表情，只丢下一句：\"钥匙放桌上，我想清楚了。\"",
+      "textHash": "f3fab360bf3c52b9e60f91223a3088d25547f6468af4e49acc71fd07c1618d2d",
+      "textPreview": "这两年这种时候不多，但也不是没有。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s019",
-      "beatId": "dch01_s019",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["钥匙放桌上，我想清楚了。"],
+      "sceneId": "dch01_s014",
+      "beatId": "dch01_s014",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -755,53 +884,70 @@
       "sourceId": "draft01",
       "paragraphIndex": 37,
       "blockIndex": 39,
-      "textHash": "0baead36bee8941227de1c62d2bf86e1b93a0f43eb1e1df411538ce75eebb654",
-      "textPreview": "没有当众处刑，也没有闪送三连虐，就这么淡淡一句，反倒够他硬撑一整天——甚至硬撑到了现在，硬撑到了这间四面钉着隔音棉、专门收集别人痛苦的小屋子里。",
+      "textHash": "14910d382cc41bc5e95fd7bfc6d5866cd102d957ca254741f2408802864b11a5",
+      "textPreview": "两个人就着这点收尾的温度往里走。灯没关，也没人去关——那会儿气氛热，谁都不想打断，谁都乐意往下走。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s020",
-      "beatId": "dch01_s020",
+      "sceneId": "dch01_s015",
+      "beatId": "dch01_s015",
       "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": "",
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "0baead36bee8941227de1c62d2bf86e1b93a0f43eb1e1df411538ce75eebb654",
-        "sceneId": "dch01_s020",
+        "sourceHash": "14910d382cc41bc5e95fd7bfc6d5866cd102d957ca254741f2408802864b11a5",
+        "sceneId": "dch01_s015",
         "factMappings": [
           {
-            "fact": "陈佳冷淡决定",
-            "sourceSnippet": "没有当众处刑，也没有闪送三连虐，就这么淡淡一句，反倒够他硬撑一整天——甚至硬撑到了现在，硬撑到了这间四面钉着隔音棉、专门收集别人痛苦的小屋子里。",
-            "targetSnippet": "一句轻飘飘的“想清楚了”，一路追进这间按分钟收购痛苦的小屋。"
+            "fact": "a1",
+            "sourceSnippet": "两个人就着这点收尾的温度",
+            "targetSnippet": "两个人就着这点收尾的温度"
           }
         ],
-        "pacingRationale": "把三次硬撑压成一句追逐，并强化按分钟交易的制度荒诞。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
       "id": "draft01_p038",
       "sourceId": "draft01",
       "paragraphIndex": 38,
-      "blockIndex": 41,
-      "textHash": "ded1258f03ceb99929b7cd5cab88ffe653243d907cdfd675b0a2cff913cc259e",
-      "textPreview": "\"你听起来在硬撑。\"AI 忽然说，\"是不是在假装坚强？\"",
+      "blockIndex": 40,
+      "textHash": "1d0fb288f139c41f6b40b39137ad5363775ebb4de8c89632a77e699db428c795",
+      "textPreview": "这种时候苏明脑子里通常有个开关，他心里管它叫“正常人”，摁一下能管大半天——十二岁那年他第一次发现自己跟旁人不太一样，那种发现来得又突然又羞耻，此后十六年他就靠这一句话，一次又一次把那点念头摁回去，摁得次数多了，连他自己都快忘了当初为什么非",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s021",
-      "beatId": "dch01_s021",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你听起来在硬撑。", "是不是在假装坚强？"],
-      "notes": ""
+      "sceneId": "dch01_s015",
+      "beatId": "dch01_s015",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["正常人"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "1d0fb288f139c41f6b40b39137ad5363775ebb4de8c89632a77e699db428c795",
+        "sceneId": "dch01_s015",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "这种时候苏明脑子里通常有",
+            "targetSnippet": "这种时候苏明脑子里通常有"
+          },
+          {
+            "fact": "a2",
+            "sourceSnippet": "个开关，他心里管它叫“正",
+            "targetSnippet": "个开关，他心里管它叫“正"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p039",
       "sourceId": "draft01",
       "paragraphIndex": 39,
-      "blockIndex": 42,
-      "textHash": "a3e300b5696c73a37e16dae95b9e9a152f533db66ad8cf02d3c5351c00e649f7",
-      "textPreview": "苏明干笑了一声：\"你咋知道的？\"",
+      "blockIndex": 41,
+      "textHash": "c0fd4af97611271309142745aadf50a2555dd250b7abc23d889ad91f388fba4d",
+      "textPreview": "昨晚这个开关，偏偏没摁住。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s021",
-      "beatId": "dch01_s021",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你咋知道的？"],
+      "sceneId": "dch01_s015",
+      "beatId": "dch01_s015",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -809,16 +955,13 @@
       "sourceId": "draft01",
       "paragraphIndex": 40,
       "blockIndex": 43,
-      "textHash": "de2e5d1bea6a7e1143b30f79b1d006e55814a5324525ee985a9677670e9546e6",
-      "textPreview": "\"你刚才那句话，比你前面的话慢了零点四秒。\"AI 说，语气不紧不慢的，\"人在撑的时候，会先把话在嘴里过一遍，才敢说出口。\"",
+      "textHash": "8c10fbb458a28b181b865bd57307ecc710a685ca63e4e5fdf35fc1e5183cefb6",
+      "textPreview": "进行到一半，他低下头。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s022",
-      "beatId": "dch01_s022",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": [
-        "你刚才那句话，比你前面的话慢了零点四秒。",
-        "人在撑的时候，会先把话在嘴里过一遍，才敢说出口。"
-      ],
+      "sceneId": "dch01_s016",
+      "beatId": "dch01_s016",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -826,25 +969,25 @@
       "sourceId": "draft01",
       "paragraphIndex": 41,
       "blockIndex": 44,
-      "textHash": "15e8e44b1bbca885e90d415db661073bf8cc045cde4b3ab3a90a15e5351fc433",
-      "textPreview": "苏明愣了一下，坐直了些。它不是听懂了他的心，它是掐了他的表。这机器压根不知道什么叫难过，它只是在量他——语速、停顿、音高，一样一样量完了对表，表上早写好了结论：此处应有安慰。",
+      "textHash": "11d729645d5daa7dc2af32ffb7064d4069d8636f70e689da69655d0ec542359f",
+      "textPreview": "他自己也说不清楚是怎么回事，视线落到陈佳的脚，然后嘴就跟了上去，等他意识到的时候，嘴里含着的已经是她的脚趾了。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s022",
-      "beatId": "dch01_s022",
+      "sceneId": "dch01_s016",
+      "beatId": "dch01_s016",
       "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": "",
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "15e8e44b1bbca885e90d415db661073bf8cc045cde4b3ab3a90a15e5351fc433",
-        "sceneId": "dch01_s022",
+        "sourceHash": "11d729645d5daa7dc2af32ffb7064d4069d8636f70e689da69655d0ec542359f",
+        "sceneId": "dch01_s016",
         "factMappings": [
           {
-            "fact": "不是共情而是参数测量",
-            "sourceSnippet": "它不是听懂了他的心，它是掐了他的表。这机器压根不知道什么叫难过，它只是在量他——语速、停顿、音高",
-            "targetSnippet": "它没听懂他的心，只量了语速、停顿、音高，再按模板出结果：此处应有安慰。"
+            "fact": "a1",
+            "sourceSnippet": "他自己也说不清楚是怎么回",
+            "targetSnippet": "他自己也说不清楚是怎么回"
           }
         ],
-        "pacingRationale": "机器感笑点保留，改成测量到模板的单向流程，减少反复否定。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -852,11 +995,11 @@
       "sourceId": "draft01",
       "paragraphIndex": 42,
       "blockIndex": 45,
-      "textHash": "819024684d38b537a94f5678fa1a8b6742026b8ace9994514c25598a14defb94",
-      "textPreview": "想明白这一层，他反而自在了点。跟一把尺子较什么劲呢，没什么好丢人的。",
+      "textHash": "af125537465378d8ce8786735d297590ea6609ea04fe6ea93c1934fbcd9d8a78",
+      "textPreview": "陈佳感觉到了。她先是整个人定住，动作停了，呼吸也停了一拍，然后，非常慢地，转过来看他。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s023",
-      "beatId": "dch01_s023",
+      "sceneId": "dch01_s016",
+      "beatId": "dch01_s016",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -866,13 +1009,13 @@
       "sourceId": "draft01",
       "paragraphIndex": 43,
       "blockIndex": 46,
-      "textHash": "38e859b557b3387893ec2e56379c0ffb6dfddb8b25a42d6297159895c843f127",
-      "textPreview": "\"我坚强得很，\"他说，\"超市搬货我都抢第一箱。\"",
+      "textHash": "0cf361dae273ad159e9c9569ea6556fa98dcc471d23a82551a154a7b395ebefd",
+      "textPreview": "两个人对视。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s023",
-      "beatId": "dch01_s023",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["我坚强得很，", "超市搬货我都抢第一箱。"],
+      "sceneId": "dch01_s016",
+      "beatId": "dch01_s016",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -880,30 +1023,39 @@
       "sourceId": "draft01",
       "paragraphIndex": 44,
       "blockIndex": 47,
-      "textHash": "b8977eea916787c645d4bf197fd1778a5b9cee73c76b7de7d3a5a4ecdbdc8af0",
-      "textPreview": "\"那你一定很难过，难过的时候更需要被抱一抱……\"屏幕跳出一个粉色弹窗：\"深夜倾诉会员，开通后我陪你到天亮，首月立减。\"",
+      "textHash": "61eb0b34996774c393544ec77788125251f08d1d7d1ba1de3b61e029ed8d0a7b",
+      "textPreview": "灯还亮着，房间里没有别的声音。苏明能清楚看见陈佳脸上那个表情——不是愤怒，是那种纯粹的、完全来不及生气的困惑，像是有人在她面前变了一个完全没看懂的魔术，她甚至不确定自己该用什么表情来回应。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s024",
-      "beatId": "dch01_s024",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": [
-        "那你一定很难过，难过的时候更需要被抱一抱……",
-        "深夜倾诉会员，开通后我陪你到天亮，首月立减。"
-      ],
-      "notes": ""
+      "sceneId": "dch01_s016",
+      "beatId": "dch01_s016",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "61eb0b34996774c393544ec77788125251f08d1d7d1ba1de3b61e029ed8d0a7b",
+        "sceneId": "dch01_s016",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "灯还亮着，房间里没有别的",
+            "targetSnippet": "灯还亮着，房间里没有别的"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p045",
       "sourceId": "draft01",
       "paragraphIndex": 45,
       "blockIndex": 48,
-      "textHash": "411e929ce2233c015f8c91cad8870332c5358bd806f5892e9de19b4a3bd36cdd",
-      "textPreview": "苏明手指一点，把它关掉：\"别弹了，任务听到这儿就行。\"",
+      "textHash": "86656723b337a892140a282c095db53c29e91dd77012d85acb83ed48bc4621fa",
+      "textPreview": "谁都没先说话。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s025",
-      "beatId": "dch01_s025",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["别弹了，任务听到这儿就行。"],
+      "sceneId": "dch01_s016",
+      "beatId": "dch01_s016",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -911,13 +1063,13 @@
       "sourceId": "draft01",
       "paragraphIndex": 46,
       "blockIndex": 49,
-      "textHash": "3e5a8f3cf0393db76e8daa75d01ac6387a95dfe0cd099cc2de596360cfb03069",
-      "textPreview": "\"你知道吗，\"AI 又切换了一套\"知心大姐\"模式，声音都换了个调调，\"承认脆弱，才是真正的坚强。\"",
+      "textHash": "c898bebde3ff844e5aac49fc6578cccaebb5889a32eab49d0e82fe2f7e580544",
+      "textPreview": "“……你干嘛呢。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s025",
-      "beatId": "dch01_s025",
+      "sceneId": "dch01_s017",
+      "beatId": "dch01_s017",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你知道吗，", "知心大姐", "承认脆弱，才是真正的坚强。"],
+      "dialogueQuotes": ["……你干嘛呢。"],
       "notes": ""
     },
     {
@@ -925,58 +1077,53 @@
       "sourceId": "draft01",
       "paragraphIndex": 47,
       "blockIndex": 50,
-      "textHash": "70514e73e1e1e582d1b3016699d4830c220fdcaeeeb598f797b3e823d2b75727",
-      "textPreview": "苏明差点笑出声来：\"行吧，你赢了，我很脆弱，满意了？\"",
+      "textHash": "da8d5936a9db3b7abeafa33e3c1ad55507b05acba7cdd162c541fb51ef36a3e4",
+      "textPreview": "她说话了，声音是那种很轻、很慢的调子，好像怕问急了对方反而解释不清楚，像老师问学生“你刚才在干嘛”的语气——不是质问，是真的困惑，真的在等一个答案。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s026",
-      "beatId": "dch01_s026",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["行吧，你赢了，我很脆弱，满意了？"],
-      "notes": ""
+      "sceneId": "dch01_s017",
+      "beatId": "dch01_s017",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["你刚才在干嘛"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "da8d5936a9db3b7abeafa33e3c1ad55507b05acba7cdd162c541fb51ef36a3e4",
+        "sceneId": "dch01_s017",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "她说话了，声音是那种很轻",
+            "targetSnippet": "她说话了，声音是那种很轻"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p048",
       "sourceId": "draft01",
       "paragraphIndex": 48,
       "blockIndex": 51,
-      "textHash": "842c6af3b754024adc3afafcb26a8c29207eb0674cb1c41054526025ba92c0e2",
-      "textPreview": "耳机没死心，又换了一套更黏糊的安慰话术，声音压得又软又慢，跟哄小孩似的，一句一句往耳朵里灌。苏明嘴上应付着：\"行了行了，知道了，下一题。\"他心里却没热一下——不是他没心没肺，是这场戏演到这份上，他自己心里跟明镜似的，图的是补贴，把昨晚那点狼",
+      "textHash": "9f6cffa866609660cc9d786990829170eeff9ea2ddf9b35271ffc17ab4ce6bb9",
+      "textPreview": "苏明刚松开嘴。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s026",
-      "beatId": "dch01_s026",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["行了行了，知道了，下一题。", "痛点真实"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "842c6af3b754024adc3afafcb26a8c29207eb0674cb1c41054526025ba92c0e2",
-        "sceneId": "dch01_s026",
-        "factMappings": [
-          {
-            "fact": "黏糊安慰话术",
-            "sourceSnippet": "耳机没死心，又换了一套更黏糊的安慰话术",
-            "targetSnippet": "耳机又换了套更黏糊的话术，一句句往他耳朵里灌。"
-          },
-          {
-            "fact": "耳根发热不是感动",
-            "sourceSnippet": "要说热，也就耳根子热了一下，那是臊的，不是感动的",
-            "targetSnippet": "他没被安慰，只是耳根发热——昨晚的狼狈已经打包成“痛点真实”"
-          }
-        ],
-        "pacingRationale": "感动/臊区分压成结算 punchline。"
-      }
+      "sceneId": "dch01_s017",
+      "beatId": "dch01_s017",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
     },
     {
       "id": "draft01_p049",
       "sourceId": "draft01",
       "paragraphIndex": 49,
       "blockIndex": 52,
-      "textHash": "64ca4c145c6c945148427077b4f5970ae243ee9bc50b22cf254e96a52096839f",
-      "textPreview": "隔壁，那姑娘划下一个标签，小声跟同事总结：\"这条能用，痛点是真的。\"",
+      "textHash": "889688fd6cead17b88d2e532e1c4cbf29ffb52898564ff37f25b4f4f7e82614e",
+      "textPreview": "“哦，”他说，“我也不知道。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s027",
-      "beatId": "dch01_s027",
+      "sceneId": "dch01_s017",
+      "beatId": "dch01_s017",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["这条能用，痛点是真的。"],
+      "dialogueQuotes": ["哦，", "我也不知道。"],
       "notes": ""
     },
     {
@@ -984,11 +1131,11 @@
       "sourceId": "draft01",
       "paragraphIndex": 50,
       "blockIndex": 53,
-      "textHash": "1b86a140491de6cf9665eacac85e8c1bfcdf2178e403dfa250ddc65b3449057d",
-      "textPreview": "薯片袋子在她手里皱了一下，发出细微的响声。",
+      "textHash": "1762f4810e05ec294ac3dcec9db9339513a1d3a75ba97816d74c50b85a71c268",
+      "textPreview": "停顿。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s027",
-      "beatId": "dch01_s027",
+      "sceneId": "dch01_s017",
+      "beatId": "dch01_s017",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -998,13 +1145,13 @@
       "sourceId": "draft01",
       "paragraphIndex": 51,
       "blockIndex": 54,
-      "textHash": "c371b0971d32a2e83002cc62d4f3ca170bfb7dade55fc74007ee854bd6cb2ba9",
-      "textPreview": "雷欧在走廊上听得云里雾里，他的中文水平也就够辨认出\"分手\"这两个字，可那句\"这条能用\"倒是普通话里少有的、不用查字典也能听出杀伤力的一句话。他猛地站起身来，一把推开了旁边那扇门——推错了，正是质检室。",
+      "textHash": "2b0a1b4a20bfed1b62dcbb7ba296b6ff26b44c4e7c918f8be85d219689e667b3",
+      "textPreview": "“本能？”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s028",
-      "beatId": "dch01_s028",
+      "sceneId": "dch01_s017",
+      "beatId": "dch01_s017",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["分手", "这条能用"],
+      "dialogueQuotes": ["本能？"],
       "notes": ""
     },
     {
@@ -1012,13 +1159,13 @@
       "sourceId": "draft01",
       "paragraphIndex": 52,
       "blockIndex": 55,
-      "textHash": "ee7391ef428adf9ec672813a7dd20231bab7f7e7f6f78479e5bea5fa9c93a706",
-      "textPreview": "灯光刷地一下照出来，屋里几张脸齐刷刷转向他，架子上的耳机正外放着苏明的声音：\"分就分，谁稀罕。\"",
+      "textHash": "92249ae5044b3c221ba78349f2e45d696539c016109b1695ed0533fbb5b018ff",
+      "textPreview": "沉默。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s028",
-      "beatId": "dch01_s028",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["分就分，谁稀罕。"],
+      "sceneId": "dch01_s017",
+      "beatId": "dch01_s017",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -1026,13 +1173,13 @@
       "sourceId": "draft01",
       "paragraphIndex": 53,
       "blockIndex": 56,
-      "textHash": "b8f1744b6337c1392cab23ddb02a89f79bee3abbc773d9b36facba1c80d21051",
-      "textPreview": "四目相对，谁都没先开口。",
+      "textHash": "61f1ad85986199c44e7dcc5b7b677a1e5e6e44d46a8072118d93be0cce0dabef",
+      "textPreview": "“把我脚放开。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s029",
-      "beatId": "dch01_s029",
-      "status": "narrated",
-      "dialogueQuotes": [],
+      "sceneId": "dch01_s018",
+      "beatId": "dch01_s018",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["把我脚放开。"],
       "notes": ""
     },
     {
@@ -1040,13 +1187,13 @@
       "sourceId": "draft01",
       "paragraphIndex": 54,
       "blockIndex": 57,
-      "textHash": "ebf8bbf9edce84b4b720a219753a8139a34d2f442a51c814f85647300b65b71e",
-      "textPreview": "有人手忙脚乱地去拔线：\"例行质检，你走错门了，老外。\"",
+      "textHash": "991a05f617671446b9e31826f40c481e5a3686b74c742f7b1bd02d9b174da517",
+      "textPreview": "苏明松了手。“不是吧——”他想确认一下，“你生气了？”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s029",
-      "beatId": "dch01_s029",
+      "sceneId": "dch01_s018",
+      "beatId": "dch01_s018",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["例行质检，你走错门了，老外。"],
+      "dialogueQuotes": ["不是吧——", "你生气了？"],
       "notes": ""
     },
     {
@@ -1054,58 +1201,53 @@
       "sourceId": "draft01",
       "paragraphIndex": 55,
       "blockIndex": 58,
-      "textHash": "1d39e069bd75c8c043fdc83f1cf9d70f0a4d2ae32083d0fcd4baa1fbd7ee1647",
-      "textPreview": "雷欧中文说得不利索，可这股火气不需要语法撑腰：\"你们，听？偷听？This is shit.\"",
+      "textHash": "9d68ecdf7dd742358616dc2dcb619cea9f0ab69e5a4164af9a091f2e7870cab7",
+      "textPreview": "陈佳没回答。她把脚缓缓收回去，拽了一下被子压在腿上，眼神回到正前方，面对着天花板。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s030",
-      "beatId": "dch01_s030",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你们，听？偷听？This is shit."],
+      "sceneId": "dch01_s018",
+      "beatId": "dch01_s018",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft01_p056",
       "sourceId": "draft01",
       "paragraphIndex": 56,
-      "blockIndex": 60,
-      "textHash": "c0643c2611dadde116bb8f14a588ebba92172388fe2052182dc46c00d5042de4",
-      "textPreview": "苏明摘下耳机走出来，走廊里几道目光贴上来，粘乎乎的，甩都甩不掉。",
+      "blockIndex": 59,
+      "textHash": "eeb06918b8e48d36a2c32809fcc39c66941084f2b18720012101ef8123a5b283",
+      "textPreview": "“算了。”她说。“今天算了。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s031",
-      "beatId": "dch01_s031",
-      "status": "narrated",
-      "dialogueQuotes": [],
+      "sceneId": "dch01_s018",
+      "beatId": "dch01_s018",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["算了。", "今天算了。"],
       "notes": ""
     },
     {
       "id": "draft01_p057",
       "sourceId": "draft01",
       "paragraphIndex": 57,
-      "blockIndex": 61,
-      "textHash": "3672151aae53ecb06310f0558b224fc45732f6fdcd4caf5669c67610cdc852b4",
-      "textPreview": "有人拍他肩膀：\"想开点，兄弟。\"有人眼神发飘，明显是憋着笑又不敢当着他的面笑出来。一个姑娘递过来一张纸巾，苏明莫名其妙：\"我鼻子没出血。\"姑娘讪讪地收回手，脸上有点尴尬。角落里还坐着个大爷模样的测试员，估计是来测\"银发陪伴\"那个场次的，也冲",
+      "blockIndex": 60,
+      "textHash": "c967ed4f354c7c08a0049e50d228f170e48e53f4f5492ec9b97da2e441d27365",
+      "textPreview": "苏明坐着，没说话。不是想好了不说，是什么都还没想好，话梗在喉咙里，每一句都是错的，一句也出不来。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s031",
-      "beatId": "dch01_s031",
+      "sceneId": "dch01_s018",
+      "beatId": "dch01_s018",
       "status": "approved-adaptation",
-      "dialogueQuotes": ["想开点，兄弟。", "我鼻子没出血。", "银发陪伴", "经历过，理解你"],
-      "notes": "",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "3672151aae53ecb06310f0558b224fc45732f6fdcd4caf5669c67610cdc852b4",
-        "sceneId": "dch01_s031",
+        "sourceHash": "c967ed4f354c7c08a0049e50d228f170e48e53f4f5492ec9b97da2e441d27365",
+        "sceneId": "dch01_s018",
         "factMappings": [
           {
-            "fact": "想开点",
-            "sourceSnippet": "有人拍他肩膀：\"想开点，兄弟。\"",
-            "targetSnippet": "有人拍他肩膀：\"想开点，兄弟。\""
-          },
-          {
-            "fact": "魔术贴保安",
-            "sourceSnippet": "慌忙低下头假装系鞋带——他脚上那双分明是魔术贴的",
-            "targetSnippet": "保安低头假装系鞋带——脚上分明是魔术贴。"
+            "fact": "a1",
+            "sourceSnippet": "苏明坐着，没说话。不是想好了不说，是什么都还没想好，话梗在喉咙里，每一句都是错的",
+            "targetSnippet": "苏明坐着，没说话。不是想好了不说，是什么都还没想好，话梗在喉咙里，每一句都是错的"
           }
         ],
-        "pacingRationale": "走廊围观保留纸巾、银发体验官与魔术贴三连 gag，删除动作复述。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -1113,51 +1255,56 @@
       "sourceId": "draft01",
       "paragraphIndex": 58,
       "blockIndex": 62,
-      "textHash": "c18c7dcd42d7be8bfc21bf143da2b71e17cffed0811defe394079b99e30a0b3b",
-      "textPreview": "休息区那头，一个大姐正对着某间测试门喊：\"我不是要挽留！我是要他道歉！\"喊完她自己也愣住了，像是没料到这句话能在这种地方脱口而出，四周瞬间安静了一拍，紧接着又若无其事地恢复了原来的嘈杂——这地方什么样的场面都见过了，谁的痛苦在这儿都算不上什",
+      "textHash": "e01bd3127c18e04a47e9a5c671928bbdf62f690a9739111859ace41c0e7aa5f9",
+      "textPreview": "当晚就这么收了。陈佳进卧室，门关上，反锁的声音清清楚楚传过来——甩门是气话，锁门是想清楚了的决定，这两种声音他分得清。苏明躺沙发，手机屏幕亮了又灭，划开又锁上，来来回回划了七八遍，一条消息也没编出来。手伸向卧室门口，在空中停了两秒，收回来—",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s032",
-      "beatId": "dch01_s032",
+      "sceneId": "dch01_s018",
+      "beatId": "dch01_s018",
       "status": "approved-adaptation",
-      "dialogueQuotes": ["我不是要挽留！我是要他道歉！"],
-      "notes": "",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "c18c7dcd42d7be8bfc21bf143da2b71e17cffed0811defe394079b99e30a0b3b",
-        "sceneId": "dch01_s032",
+        "sourceHash": "e01bd3127c18e04a47e9a5c671928bbdf62f690a9739111859ace41c0e7aa5f9",
+        "sceneId": "dch01_s018",
         "factMappings": [
           {
-            "fact": "不是挽留要道歉",
-            "sourceSnippet": "休息区那头，一个大姐正对着某间测试门喊：\"我不是要挽留！",
-            "targetSnippet": "休息区那头，一个大姐正对着测试门喊：\"我不是要挽留！"
+            "fact": "a1",
+            "sourceSnippet": "当晚就这么收了。陈佳进卧",
+            "targetSnippet": "当晚就这么收了。陈佳进卧"
+          },
+          {
+            "fact": "a2",
+            "sourceSnippet": "室，门关上，反锁的声音清",
+            "targetSnippet": "室，门关上，反锁的声音清"
           }
         ],
-        "pacingRationale": "公共羞耻桥段压缩，保留口号式 punchline。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
       "id": "draft01_p059",
       "sourceId": "draft01",
       "paragraphIndex": 59,
-      "blockIndex": 63,
-      "textHash": "89dd76455a01f34702f0b67c2291553ea995632b0dec1262b4a2dba73a11ba30",
-      "textPreview": "\"我咋了？\"苏明问，声音里带着点没来由的委屈。",
+      "blockIndex": 64,
+      "textHash": "4aa89c9b0c3d4fe2a8273e2dcb4cbef2745b894e82d82e3964b8f3ee4fbd07b3",
+      "textPreview": "隔天吵起来，导火索是一条手机短信。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s032",
-      "beatId": "dch01_s032",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["我咋了？"],
+      "sceneId": "dch01_s019",
+      "beatId": "dch01_s019",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft01_p060",
       "sourceId": "draft01",
       "paragraphIndex": 60,
-      "blockIndex": 64,
-      "textHash": "89a6774d82094e0a18896f481c9e84abd1eb0ddea535a7705b19c6ea8489f96f",
-      "textPreview": "没人接话，哄地一下笑着散开了，跟刚看完一场不要钱的戏似的，看完了拍拍屁股就走。",
+      "blockIndex": 65,
+      "textHash": "8559bf803e8ce08c8510f433292e9570cbfbb820f9c53e146ce568c6734488e8",
+      "textPreview": "桌上苏明的手机屏幕点亮了，陈佳扫了一眼：心动引擎，测试场次确认，报名成功，请携本人证件。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s033",
-      "beatId": "dch01_s033",
+      "sceneId": "dch01_s019",
+      "beatId": "dch01_s019",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -1166,312 +1313,277 @@
       "id": "draft01_p061",
       "sourceId": "draft01",
       "paragraphIndex": 61,
-      "blockIndex": 65,
-      "textHash": "9ecebb3e6b5f83daa6286a3ff20aaac45aaabd11d77db9c46b67c43d681531c0",
-      "textPreview": "走廊尽头，两个穿灰色工装的人正推着一只一人高的银色箱子往货运电梯里挪，箱子上贴着一张标签，字挺大：样机，勿倒置，硬件部。苏明多看了一眼——这栋楼哪来的硬件部？一个测聊天软件的公司，跟硬件能有什么关系？货梯门\"哐当\"一声合上，没人出来解释一句",
+      "blockIndex": 66,
+      "textHash": "79a641b3f7848966a74ac5c5243ffc01787ccca94c3888c7c7fce6408158fea9",
+      "textPreview": "“你报了那个测试？”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s033",
-      "beatId": "dch01_s033",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["哐当"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "9ecebb3e6b5f83daa6286a3ff20aaac45aaabd11d77db9c46b67c43d681531c0",
-        "sceneId": "dch01_s033",
-        "factMappings": [
-          {
-            "fact": "银色样机箱",
-            "sourceSnippet": "一人高的银色箱子往货运电梯里挪，箱子上贴着一张标签，字挺大：样机，勿倒置，硬件部",
-            "targetSnippet": "一人高的银色箱子推进货梯。标签写着：样机，勿倒置，硬件部。"
-          },
-          {
-            "fact": "聊天软件公司的硬件部疑点",
-            "sourceSnippet": "这栋楼哪来的硬件部？一个测聊天软件的公司，跟硬件能有什么关系？",
-            "targetSnippet": "一个测聊天软件的公司，哪来的硬件部？"
-          }
-        ],
-        "pacingRationale": "伏笔箱保留，删“他没多想”解释尾巴。"
-      }
+      "sceneId": "dch01_s019",
+      "beatId": "dch01_s019",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["你报了那个测试？"],
+      "notes": ""
     },
     {
       "id": "draft01_p062",
       "sourceId": "draft01",
       "paragraphIndex": 62,
-      "blockIndex": 66,
-      "textHash": "f2b5dbde975dc57c5e507e5bc1a31fed4731c31a2add74eaa82a557b60ca0ec1",
-      "textPreview": "\"Hey——苏？苏明？\"雷欧从后头追上来，工牌歪挂在脖子上，\"我是雷欧，Léo。我也测，英文场。\"",
+      "blockIndex": 67,
+      "textHash": "cbab1195ef9b732d14d8b8328f32a2c3fa58e8f44097dabb9998b37063970766",
+      "textPreview": "“钱不错，”苏明没抬头，“一场顶超市干三天。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s034",
-      "beatId": "dch01_s034",
+      "sceneId": "dch01_s019",
+      "beatId": "dch01_s019",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["Hey——苏？苏明？", "我是雷欧，Léo。我也测，英文场。"],
+      "dialogueQuotes": ["钱不错，", "一场顶超市干三天。"],
       "notes": ""
     },
     {
       "id": "draft01_p063",
       "sourceId": "draft01",
       "paragraphIndex": 63,
-      "blockIndex": 67,
-      "textHash": "fffb9ca83a87af994bd8b834dc42e9de5499896f41ff85dccc63b9673f8e0d52",
-      "textPreview": "\"……哦。\"苏明脚下没停。",
+      "blockIndex": 68,
+      "textHash": "7797c31399b2d51ca4962095cd7ad9bd06474fa549be81c0b5afed21031f9c9c",
+      "textPreview": "“你去测AI。”她语气里有点什么，“你还信那个。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s034",
-      "beatId": "dch01_s034",
+      "sceneId": "dch01_s019",
+      "beatId": "dch01_s019",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["……哦。"],
+      "dialogueQuotes": ["你去测AI。", "你还信那个。"],
       "notes": ""
     },
     {
       "id": "draft01_p064",
       "sourceId": "draft01",
       "paragraphIndex": 64,
-      "blockIndex": 68,
-      "textHash": "7043d5a2767fe8102e230a8b4c71c7b491c9abcd159150872f7925ae35c73b93",
-      "textPreview": "\"他们听。\"雷欧比划着自己的耳朵，中英文夹生地往外蹦，\"Live，实时。不是你说完就没了。我听见他们笑了。\"他这半年测了不下十场，每次工作人员都信誓旦旦说\"绝对删干净\"，他一直信着，直到今天推错了门，才算亲眼撞见了真相——这大概是他在中国交",
+      "blockIndex": 69,
+      "textHash": "d83929085654e9c5c479f0580c3621ad6e7ad8114e88aa0746a61f7d141aff13",
+      "textPreview": "“信什么，是兼职。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s035",
-      "beatId": "dch01_s035",
-      "status": "approved-adaptation",
-      "dialogueQuotes": [
-        "他们听。",
-        "Live，实时。不是你说完就没了。我听见他们笑了。",
-        "绝对删干净"
-      ],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "7043d5a2767fe8102e230a8b4c71c7b491c9abcd159150872f7925ae35c73b93",
-        "sceneId": "dch01_s035",
-        "factMappings": [
-          {
-            "fact": "Live 实时监听",
-            "sourceSnippet": "\"他们听。\"雷欧比划着自己的耳朵，中英文夹生地往外蹦，\"Live，实时。",
-            "targetSnippet": "\"他们听。\"雷欧比划着耳朵，中英文夹生地往外蹦，\"Live，实时。"
-          },
-          {
-            "fact": "听见实时监听者发笑",
-            "sourceSnippet": "不是你说完就没了。我听见他们笑了。",
-            "targetSnippet": "不是你说完就没了。我听见他们笑了。"
-          }
-        ],
-        "pacingRationale": "保留揭穿，学费/天真讲义压缩成数据库 vs 耳朵。"
-      }
+      "sceneId": "dch01_s019",
+      "beatId": "dch01_s019",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["信什么，是兼职。"],
+      "notes": ""
     },
     {
       "id": "draft01_p065",
       "sourceId": "draft01",
       "paragraphIndex": 65,
-      "blockIndex": 69,
-      "textHash": "67b511f9f3e6db879bca06ae8fdd41fea089672083f2d1f958cfa33a3c173a44",
-      "textPreview": "苏明脚步顿住了。",
+      "blockIndex": 70,
+      "textHash": "2fac94c513699bd439fe46396dec2bdd2979aace553e33984a48e3c4c4d3127e",
+      "textPreview": "“那种兼职，”陈佳说，“跟人聊感情，做情感样本，你觉得靠谱？你能不能找个有前景一点的？”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s035",
-      "beatId": "dch01_s035",
-      "status": "narrated",
-      "dialogueQuotes": [],
+      "sceneId": "dch01_s019",
+      "beatId": "dch01_s019",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": [
+        "那种兼职，",
+        "跟人聊感情，做情感样本，你觉得靠谱？你能不能找个有前景一点的？"
+      ],
       "notes": ""
     },
     {
       "id": "draft01_p066",
       "sourceId": "draft01",
       "paragraphIndex": 66,
-      "blockIndex": 70,
-      "textHash": "b49084649bd404ad442da9645b7cea30a6ae6c2d64865b9d98fd125019dedf8e",
-      "textPreview": "\"说好删干净的。\"",
+      "blockIndex": 71,
+      "textHash": "787c53524b974a944bfb8000d1e9cbf1afda4c2a439c590ecd878fe298a02b35",
+      "textPreview": "苏明把手机翻面，“比你说的有前景的来钱快。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s036",
-      "beatId": "dch01_s036",
+      "sceneId": "dch01_s019",
+      "beatId": "dch01_s019",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["说好删干净的。"],
+      "dialogueQuotes": ["比你说的有前景的来钱快。"],
       "notes": ""
     },
     {
       "id": "draft01_p067",
       "sourceId": "draft01",
       "paragraphIndex": 67,
-      "blockIndex": 71,
-      "textHash": "2241121c1c30e28913d9ac1123d8d3dd501b8ef7a9ede2e3a0abf3df6491b6fd",
-      "textPreview": "\"库，\"雷欧学着刚才那人的腔调，努了努嘴，语气里带着点讽刺，\"他们说的是库。耳朵不算库。\"",
+      "blockIndex": 72,
+      "textHash": "5aae3c9bc97b4d607a72de9e6b72658a4de6e1eaf6b3a1bf8d4c20dbb52af561",
+      "textPreview": "两个人都知道这不是在聊兼职。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s036",
-      "beatId": "dch01_s036",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["库，", "他们说的是库。耳朵不算库。"],
+      "sceneId": "dch01_s019",
+      "beatId": "dch01_s019",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft01_p068",
       "sourceId": "draft01",
       "paragraphIndex": 68,
-      "blockIndex": 72,
-      "textHash": "bc061dcaa361f9b93dc1a6e41bb6dfc2037e9619043908c592f3e75f8ed8444a",
-      "textPreview": "苏明转身就往前台走，脚步很快，几乎是小跑。",
+      "blockIndex": 73,
+      "textHash": "c35b8254e7b3175faa536ab3dfcc122237e951283b777dd6b86de34e40519820",
+      "textPreview": "话越说越多，说着说着陈佳带出了昨晚——“而且你昨天那个……”她顿了一下，像是在找个准确的词，“你那个性癖，你有没有想过，是不是心里有点什么。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s037",
-      "beatId": "dch01_s037",
-      "status": "narrated",
-      "dialogueQuotes": [],
-      "notes": ""
+      "sceneId": "dch01_s020",
+      "beatId": "dch01_s020",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["而且你昨天那个……", "你那个性癖，你有没有想过，是不是心里有点什么。"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "c35b8254e7b3175faa536ab3dfcc122237e951283b777dd6b86de34e40519820",
+        "sceneId": "dch01_s020",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "话越说越多，说着说着陈佳",
+            "targetSnippet": "话越说越多，说着说着陈佳"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p069",
       "sourceId": "draft01",
       "paragraphIndex": 69,
-      "blockIndex": 73,
-      "textHash": "506cc16c60f2db3937827ffc6535bc5499c12b3252a696a707a8dcec17fbcc28",
-      "textPreview": "小组长还是那副职业笑，仿佛脸上焊死了这个表情。苏明把话摔过去：\"你们听着？我说话你们听着？\"",
+      "blockIndex": 74,
+      "textHash": "ea7546b775218dbba8f90730639bee6c97590d58bb8fd6e072abad4300a03f08",
+      "textPreview": "苏明脸上的笑收掉了。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s037",
-      "beatId": "dch01_s037",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你们听着？我说话你们听着？"],
+      "sceneId": "dch01_s020",
+      "beatId": "dch01_s020",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft01_p070",
       "sourceId": "draft01",
       "paragraphIndex": 70,
-      "blockIndex": 74,
-      "textHash": "f5382d261f1036d7b547d7ab388beac3c301bed9b82dbbc8696f8aca512b618c",
-      "textPreview": "\"合规质检流程，协议第三页写得明白。\"对方把平板转过来，指着一行小字，语气平稳得跟念说明书似的，\"高价值补贴照发，您今天表现很好。\"",
+      "blockIndex": 75,
+      "textHash": "d3475611aad13665e73ef78b32eface487d79591601d114debbe5f1922a0195d",
+      "textPreview": "“怎么叫心里有什么。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s038",
-      "beatId": "dch01_s038",
+      "sceneId": "dch01_s020",
+      "beatId": "dch01_s020",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["合规质检流程，协议第三页写得明白。", "高价值补贴照发，您今天表现很好。"],
+      "dialogueQuotes": ["怎么叫心里有什么。"],
       "notes": ""
     },
     {
       "id": "draft01_p071",
       "sourceId": "draft01",
       "paragraphIndex": 71,
-      "blockIndex": 75,
-      "textHash": "4f7a9c6d9135a3360303d19aef9afd36a5da3395235c791b1fcf8368d8968a76",
-      "textPreview": "\"我表现个屁。\"",
+      "blockIndex": 76,
+      "textHash": "4e102b6d4ab9c3436def298d2b2ac43a2f013945dafa06d427e436ac9133d3bb",
+      "textPreview": "“就是那个，”她说，“不正常——”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s038",
-      "beatId": "dch01_s038",
+      "sceneId": "dch01_s020",
+      "beatId": "dch01_s020",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["我表现个屁。"],
+      "dialogueQuotes": ["就是那个，", "不正常——"],
       "notes": ""
     },
     {
       "id": "draft01_p072",
       "sourceId": "draft01",
       "paragraphIndex": 72,
-      "blockIndex": 76,
-      "textHash": "a6d94ead0323e6f2bbfa0d86afb6debfe6d83c37bfded59e41502cce50f88168",
-      "textPreview": "\"我给你们上差评，\"苏明急了，声音都拔高了，\"打你们客服电话投诉。\"",
+      "blockIndex": 77,
+      "textHash": "b67abbeb18cc73055e02445406cd66f60067d422c108b80167fd180c486fea4c",
+      "textPreview": "“谁说不正常，”他打断，“这叫性癖，正常的，有人这样的。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s039",
-      "beatId": "dch01_s039",
+      "sceneId": "dch01_s020",
+      "beatId": "dch01_s020",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["我给你们上差评，", "打你们客服电话投诉。"],
+      "dialogueQuotes": ["谁说不正常，", "这叫性癖，正常的，有人这样的。"],
       "notes": ""
     },
     {
       "id": "draft01_p073",
       "sourceId": "draft01",
       "paragraphIndex": 73,
-      "blockIndex": 77,
-      "textHash": "889be5fa2089894035efb35fd2726b0ab1f013d12bb56d5550fa958267dcc907",
-      "textPreview": "\"电话是外包的，\"小组长语气比刚才还平，一点波澜都没有，\"投诉受理时限十五个工作日，您可以试试。\"",
+      "blockIndex": 78,
+      "textHash": "ff4e39928dd7650a0a514049f95d2c15692d0594ffa08c1438f18c4e2b704154",
+      "textPreview": "“有人这样不代表——”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s039",
-      "beatId": "dch01_s039",
+      "sceneId": "dch01_s020",
+      "beatId": "dch01_s020",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["电话是外包的，", "投诉受理时限十五个工作日，您可以试试。"],
+      "dialogueQuotes": ["有人这样不代表——"],
       "notes": ""
     },
     {
       "id": "draft01_p074",
       "sourceId": "draft01",
       "paragraphIndex": 74,
-      "blockIndex": 78,
-      "textHash": "320da91cc44926af363e1a2b7d1b64631c4150fd724a51b3f222070af5ee315c",
-      "textPreview": "\"不愿意测，随时可以不来。\"小组长的语气始终没起伏，笑意倒是又添了一分，\"双方自愿。\"",
+      "blockIndex": 79,
+      "textHash": "df842fd99e831089e400a3fb9d4c7c02d792865a55b55e0409d3f1b365e03366",
+      "textPreview": "“不代表什么，”苏明站起来，声音大了，“你说我心里有病？”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s040",
-      "beatId": "dch01_s040",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["不愿意测，随时可以不来。", "双方自愿。"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "320da91cc44926af363e1a2b7d1b64631c4150fd724a51b3f222070af5ee315c",
-        "sceneId": "dch01_s040",
-        "factMappings": [
-          {
-            "fact": "随时可不来",
-            "sourceSnippet": "\"不愿意测，随时可以不来。",
-            "targetSnippet": "\"不愿意测，随时可以不来。"
-          }
-        ],
-        "pacingRationale": "微调语气节奏，避免冗词，保留原段事实与黑色喜剧落点。"
-      }
+      "sceneId": "dch01_s020",
+      "beatId": "dch01_s020",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["不代表什么，", "你说我心里有病？"],
+      "notes": ""
     },
     {
       "id": "draft01_p075",
       "sourceId": "draft01",
       "paragraphIndex": 75,
-      "blockIndex": 79,
-      "textHash": "b226c62966a3c97afc61d12f5edc9e9b8dca8f13eb037fff6e02632f4b761777",
-      "textPreview": "苏明脑子里飞快地过了一遍账：房租、给他爸的钱、超市工资，还有眼前这份补贴——这几笔加在一起，比他这点面子实在多了，实在得让他没法不低头。他往前迈了半步，又生生收了回来，脚底下那点火气，跟脑子里那台计算器打了一架，打输了，输得干干净净。",
+      "blockIndex": 80,
+      "textHash": "a2eb1162ca3ea9037003c1121be677fdb3f36d930b43eddeb6d254d78e6cf1d6",
+      "textPreview": "“我没说心里有病，我说的是——”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s040",
-      "beatId": "dch01_s040",
-      "status": "approved-adaptation",
-      "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "b226c62966a3c97afc61d12f5edc9e9b8dca8f13eb037fff6e02632f4b761777",
-        "sceneId": "dch01_s040",
-        "factMappings": [
-          {
-            "fact": "房租/给爸/超市工资/补贴账",
-            "sourceSnippet": "苏明脑子里飞快地过了一遍账：房租、给他爸的钱、超市工资，还有眼前这份补贴——这几笔加在一起，比他这点面子实在多了，实在得让他没法不低头。",
-            "targetSnippet": "房租、给他爸的钱、超市工资、补贴在脑子里排成一列。"
-          }
-        ],
-        "pacingRationale": "账本清单保留，删视角赘词，让火气输给计算器直接落锤。"
-      }
+      "sceneId": "dch01_s020",
+      "beatId": "dch01_s020",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["我没说心里有病，我说的是——"],
+      "notes": ""
     },
     {
       "id": "draft01_p076",
       "sourceId": "draft01",
       "paragraphIndex": 76,
-      "blockIndex": 80,
-      "textHash": "a091f323eaa91e1dbc3524de1abef5e4e41780ac0328b7cfbee4977ba1cf3c51",
-      "textPreview": "雷欧站在他侧后方，下巴一抬，替他撑场：\"他要谈，我也谈。你们也听我说。\"",
+      "blockIndex": 81,
+      "textHash": "040ef50ea4acda47acfab286abb8472239fe45e0f37128f074df05f0a4a7e11a",
+      "textPreview": "“你说的就是这个意思！”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s041",
-      "beatId": "dch01_s041",
+      "sceneId": "dch01_s021",
+      "beatId": "dch01_s021",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["他要谈，我也谈。你们也听我说。"],
+      "dialogueQuotes": ["你说的就是这个意思！"],
       "notes": ""
     },
     {
       "id": "draft01_p077",
       "sourceId": "draft01",
       "paragraphIndex": 77,
-      "blockIndex": 81,
-      "textHash": "32e13d59c1bc1ff7dbabe07185f4c5f6286faf0671741236e3daa8daa263039c",
-      "textPreview": "小组长看看雷欧，又看看苏明，笑意收了一半，只是重复：\"随时可以不来。\"",
+      "blockIndex": 82,
+      "textHash": "d768f680956b151f2988b7e0908c7c4e7260dfcf7f1e4497c1bcb34c68f584c9",
+      "textPreview": "两个人吵开了，从性癖吵到兼职，从兼职吵到他不上进，从不上进吵到她管太宽，东扯西拉，苏明死要面子的劲儿冒头，“分就分，谁稀罕”脱口而出，把退路自己堵了个干净。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s041",
-      "beatId": "dch01_s041",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["随时可以不来。"],
-      "notes": ""
+      "sceneId": "dch01_s021",
+      "beatId": "dch01_s021",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["分就分，谁稀罕"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "d768f680956b151f2988b7e0908c7c4e7260dfcf7f1e4497c1bcb34c68f584c9",
+        "sceneId": "dch01_s021",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "两个人吵开了，从性癖吵到",
+            "targetSnippet": "两个人吵开了，从性癖吵到"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p078",
       "sourceId": "draft01",
       "paragraphIndex": 78,
-      "blockIndex": 82,
-      "textHash": "19681a716ccd86480496aa3c06cd22a1fd3754805d159443ee5bc9d331b8c7b1",
-      "textPreview": "就在这时，苏明的手机震了一下。",
+      "blockIndex": 83,
+      "textHash": "3dff8342d14a54ce14cb5b4cf5271737a3a22b12c26f4bbd02864290a2c1600e",
+      "textPreview": "然后陈佳不吵了。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s042",
-      "beatId": "dch01_s042",
+      "sceneId": "dch01_s021",
+      "beatId": "dch01_s021",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -1480,234 +1592,1133 @@
       "id": "draft01_p079",
       "sourceId": "draft01",
       "paragraphIndex": 79,
-      "blockIndex": 83,
-      "textHash": "5c407ae5e62ab322fcf3ec16f13f3198667b8815137cc1f1e04d1257f4e7e450",
-      "textPreview": "补贴到账短信。金额比平时高了一档，后面还跟着一行系统附言：\"情绪波动：优。恭喜升档！\"",
+      "blockIndex": 84,
+      "textHash": "38d533f3bf0d6f6737a7602e8705a6d75bec4385a68cb01d2658638b74f2f154",
+      "textPreview": "她只是停下来，坐回去，深呼了一口气，像是把什么东西放下了。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s042",
-      "beatId": "dch01_s042",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["情绪波动：优。恭喜升档！"],
+      "sceneId": "dch01_s021",
+      "beatId": "dch01_s021",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft01_p080",
       "sourceId": "draft01",
       "paragraphIndex": 80,
-      "blockIndex": 84,
-      "textHash": "c9a349f3350267cfbcbfdfcd89a9acfb4e745ea1bb768c4bb75cb85417b45b31",
-      "textPreview": "他捏着手机，盯着这行字看了半天。他刚才在里面卖掉的那一晚，公司已经完成了验收、定价、付款，全套流程走下来不到十分钟，熟练得像流水线上的一道工序，谁都不心疼。小组长瞟了一眼他的屏幕，笑意反倒真诚了几分：\"看，公司不亏待用心的体验官。\"",
+      "blockIndex": 85,
+      "textHash": "c329d6e4f0a6b76d3fa84986e587f1f1bfbca1090466a057d9d29e5b52406cd6",
+      "textPreview": "“我想了很久了，”她说，声音是平的，“我觉得我们不合适。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s043",
-      "beatId": "dch01_s043",
+      "sceneId": "dch01_s021",
+      "beatId": "dch01_s021",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["看，公司不亏待用心的体验官。"],
+      "dialogueQuotes": ["我想了很久了，", "我觉得我们不合适。"],
       "notes": ""
     },
     {
       "id": "draft01_p081",
       "sourceId": "draft01",
       "paragraphIndex": 81,
-      "blockIndex": 85,
-      "textHash": "aca8e95a476dfdd75766f98ae946c079ea1c64bdce8266255849847c4d1f8d5c",
-      "textPreview": "苏明牙咬得咯咯响，话到嘴边转了两圈，还是咽了回去：\"……算了，我还有事。\"",
+      "blockIndex": 86,
+      "textHash": "864060888bec4c8e155a125a1ccd9b730e272ec295fb6d71af187446821d8b4f",
+      "textPreview": "苏明：“……啥意思？要分手？”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s043",
-      "beatId": "dch01_s043",
+      "sceneId": "dch01_s021",
+      "beatId": "dch01_s021",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["……算了，我还有事。"],
+      "dialogueQuotes": ["……啥意思？要分手？"],
       "notes": ""
     },
     {
       "id": "draft01_p082",
       "sourceId": "draft01",
       "paragraphIndex": 82,
-      "blockIndex": 86,
-      "textHash": "77f9cb0bc32e13bb7113ce8caf9d26cf0867988bde705afe09cbb9aca83cda4a",
-      "textPreview": "不是怂成一滩泥。他心里明白，这地方今天要是撕破脸，亏的是自己下个月那笔钱，人在屋檐下，账他会算，脸他能忍，这笔账他从来都算得很清楚。只是那条短信他没删掉——说不清是留个证据，还是留个疤，反正就那么留着，没舍得点删除。",
+      "blockIndex": 87,
+      "textHash": "8a08114a4c8ad1b78f008f47436e23c54de9af9d01af2b31aa483bd05a36855c",
+      "textPreview": "“对。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s044",
-      "beatId": "dch01_s044",
-      "status": "approved-adaptation",
-      "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "77f9cb0bc32e13bb7113ce8caf9d26cf0867988bde705afe09cbb9aca83cda4a",
-        "sceneId": "dch01_s044",
-        "factMappings": [
-          {
-            "fact": "评分短信未删",
-            "sourceSnippet": "只是那条短信他没删掉——说不清是留个证据，还是留个疤",
-            "targetSnippet": "那条短信他没删。留证据也好，留疤也好"
-          }
-        ],
-        "pacingRationale": "怂与算账解释压成短信物证句。"
-      }
+      "sceneId": "dch01_s021",
+      "beatId": "dch01_s021",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["对。"],
+      "notes": ""
     },
     {
       "id": "draft01_p083",
       "sourceId": "draft01",
       "paragraphIndex": 83,
-      "blockIndex": 87,
-      "textHash": "90b8b1324c28e73e22b75fbf1cb14cf6dcd239b1a6cecf618c3aa57e4120ed2f",
-      "textPreview": "出了楼道，夜风一灌进来，他才慢慢开口：\"得找房子了。昨晚等于把自己踹出门了。\"他翻了一圈手机通讯录，能借宿的人不多——大学室友早结婚了，老家离得又远，剩下几个交情浅的，欠了人情反而更麻烦，想来想去，只剩找房子这一条路走得最省心。",
+      "blockIndex": 88,
+      "textHash": "b172fe6359e522fb8e1c986fc13e0806bc78218b71998ef2cbcbe2d38fdfd4fb",
+      "textPreview": "一个字。不是气话，也不是要他接着吵，就是一个字，是结果。苏明张了张嘴，十六年攒下来的解释，真到了这个节骨眼上，愣是一句都掏不出来。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s044",
-      "beatId": "dch01_s044",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["得找房子了。昨晚等于把自己踹出门了。"],
-      "notes": ""
+      "sceneId": "dch01_s021",
+      "beatId": "dch01_s021",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "b172fe6359e522fb8e1c986fc13e0806bc78218b71998ef2cbcbe2d38fdfd4fb",
+        "sceneId": "dch01_s021",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "一个字。不是气话，也不是",
+            "targetSnippet": "一个字。不是气话，也不是"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p084",
       "sourceId": "draft01",
       "paragraphIndex": 84,
-      "blockIndex": 88,
-      "textHash": "7c9de5e84f2abe6035261f4692815621f11e46d82a91975642884aa2c78e6f77",
-      "textPreview": "雷欧看他这副丧气样，倒想起了自己刚来重庆那阵子：语言学校宿舍到期，他也是提着行李满大街找房，最后靠语伴群里一个学姐介绍才落了脚。他现在俨然把自己摆在了\"老重庆\"的位置上——尽管他来这儿满打满算还不到一年，说起本地的门道来倒是一套一套的。",
+      "blockIndex": 90,
+      "textHash": "d75b07fde47282ffbfd6b53e9728806b0e503ad98dea3c63889b9c04cd9970ff",
+      "textPreview": "今早他进卧室拿充电器，陈佳脸上没什么表情，只丢下一句：“钥匙放桌上，我想清楚了。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s045",
-      "beatId": "dch01_s045",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["老重庆"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "7c9de5e84f2abe6035261f4692815621f11e46d82a91975642884aa2c78e6f77",
-        "sceneId": "dch01_s045",
-        "factMappings": [
-          {
-            "fact": "未满一年却摆出老重庆架势",
-            "sourceSnippet": "尽管他来这儿满打满算还不到一年，说起本地的门道来倒是一套一套的",
-            "targetSnippet": "雷欧来重庆不到一年，谈起租房却已经摆出“老重庆”的架势。"
-          }
-        ],
-        "pacingRationale": "租房背景故事删掉，只留身份反差。"
-      }
+      "sceneId": "dch01_s022",
+      "beatId": "dch01_s022",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["钥匙放桌上，我想清楚了。"],
+      "notes": ""
     },
     {
       "id": "draft01_p085",
       "sourceId": "draft01",
       "paragraphIndex": 85,
-      "blockIndex": 89,
-      "textHash": "1a18df7b5c1c83cd018d14e115d29d7e2c4684758fec738a16db704bfd593591",
-      "textPreview": "雷欧一拍脑门，掏出手机，中文磕磕巴巴地拨起了号：\"喂？房子……还招人不？我朋友要看，对，现在。\"",
+      "blockIndex": 91,
+      "textHash": "0baead36bee8941227de1c62d2bf86e1b93a0f43eb1e1df411538ce75eebb654",
+      "textPreview": "没有当众处刑，也没有闪送三连虐，就这么淡淡一句，反倒够他硬撑一整天——甚至硬撑到了现在，硬撑到了这间四面钉着隔音棉、专门收集别人痛苦的小屋子里。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s045",
-      "beatId": "dch01_s045",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["喂？房子……还招人不？我朋友要看，对，现在。"],
-      "notes": ""
+      "sceneId": "dch01_s022",
+      "beatId": "dch01_s022",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "0baead36bee8941227de1c62d2bf86e1b93a0f43eb1e1df411538ce75eebb654",
+        "sceneId": "dch01_s022",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "没有当众处刑，也没有闪送",
+            "targetSnippet": "没有当众处刑，也没有闪送"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p086",
       "sourceId": "draft01",
       "paragraphIndex": 86,
-      "blockIndex": 90,
-      "textHash": "b7ac928142f60dc60c979db3db880876d6099e6120ac57e093dc126dc3de47c9",
-      "textPreview": "听筒里漏出个女声，不耐烦，还带点重庆腔骂人的调调，隔着老远都听得出那股子干脆劲儿。",
+      "blockIndex": 93,
+      "textHash": "1c406c2be1d244c3f49927b94b9da671799777ed74ca51702394908bb9be6c7f",
+      "textPreview": "“他听起来，”AI 说，“在硬撑。你朋友，现在感觉怎么样？”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s046",
-      "beatId": "dch01_s046",
-      "status": "narrated",
-      "dialogueQuotes": [],
+      "sceneId": "dch01_s023",
+      "beatId": "dch01_s023",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["他听起来，", "在硬撑。你朋友，现在感觉怎么样？"],
       "notes": ""
     },
     {
       "id": "draft01_p087",
       "sourceId": "draft01",
       "paragraphIndex": 87,
-      "blockIndex": 91,
-      "textHash": "a173617a257ef330aa90fdc66fd2fd082f2bde5591ae419dcbdb8a86f71fb88e",
-      "textPreview": "雷欧捂住话筒：\"你能出多少？\"",
+      "blockIndex": 94,
+      "textHash": "694edc7f06e1de8037b213567f998413ebc9a347198a10f91f9ea69c8c318afb",
+      "textPreview": "苏明往椅背上靠了靠。“可能……挺难受的吧。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s046",
-      "beatId": "dch01_s046",
+      "sceneId": "dch01_s023",
+      "beatId": "dch01_s023",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你能出多少？"],
+      "dialogueQuotes": ["可能……挺难受的吧。"],
       "notes": ""
     },
     {
       "id": "draft01_p088",
       "sourceId": "draft01",
       "paragraphIndex": 88,
-      "blockIndex": 92,
-      "textHash": "ed53fbfb37449e6f2acbb156c1bfc6f8886b58ec1bc20b235d5d1565e0bb5190",
-      "textPreview": "\"九百，顶天了。\"",
+      "blockIndex": 95,
+      "textHash": "3a827b3dd50a06754075d947c85d6b690084ace6b17206a64844cfc846a6360c",
+      "textPreview": "“嗯。”AI 停了一下，这次没有急着接话，像是在想怎么说，“其实我想说一件事，关于你朋友那个情况——性癖本身不等于问题。只要不造成伤害，谈不上什么对错。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s047",
-      "beatId": "dch01_s047",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["九百，顶天了。"],
-      "notes": ""
+      "sceneId": "dch01_s023",
+      "beatId": "dch01_s023",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "嗯。",
+        "其实我想说一件事，关于你朋友那个情况——性癖本身不等于问题。只要不造成伤害，谈不上什么对错。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "3a827b3dd50a06754075d947c85d6b690084ace6b17206a64844cfc846a6360c",
+        "sceneId": "dch01_s023",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "嗯。”AI 停了一下，这",
+            "targetSnippet": "嗯。”AI 停了一下，这"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p089",
       "sourceId": "draft01",
       "paragraphIndex": 89,
-      "blockIndex": 93,
-      "textHash": "bc804ec1650e2c89fd4632b48ff52628d2a8bb6ca10c152450f2d4b94096acd0",
-      "textPreview": "雷欧对着听筒喊：\"九百？OK……地址发我，现在。\"",
+      "blockIndex": 96,
+      "textHash": "f88661e2acf0a98faea3fe34cea15e8533b84c1138c08c5c1dcd0f7d8e7d6a3f",
+      "textPreview": "苏明没说话。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s048",
-      "beatId": "dch01_s048",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["九百？OK……地址发我，现在。"],
+      "sceneId": "dch01_s023",
+      "beatId": "dch01_s023",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft01_p090",
       "sourceId": "draft01",
       "paragraphIndex": 90,
-      "blockIndex": 94,
-      "textHash": "f4bbbe216a9ecbd4e7bb2b34cd855ed71a737d4cc5d3dfaa56018372cf0e9a7e",
-      "textPreview": "挂了电话，他把定位甩了过来。",
+      "blockIndex": 97,
+      "textHash": "db5296312918bba11fb07656f127ad3c3246f3bd1f3d033a26ece8769d6e5615",
+      "textPreview": "“但我觉得他们的事可能不只是这一件。”AI 继续，语气不温不火的，像是在认真解释，“亲密上不同频，这是一层；但背后往往还有一层——两个人在更基础的事情上不同步，比如对生活的期待，对彼此的位置。这两层叠在一起，才是真正的问题。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s048",
-      "beatId": "dch01_s048",
-      "status": "narrated",
-      "dialogueQuotes": [],
-      "notes": ""
+      "sceneId": "dch01_s023",
+      "beatId": "dch01_s023",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "但我觉得他们的事可能不只是这一件。",
+        "亲密上不同频，这是一层；但背后往往还有一层——两个人在更基础的事情上不同步，比如对生活的期待，对彼此的位置。这两层叠在一起，才是真正的问题。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "db5296312918bba11fb07656f127ad3c3246f3bd1f3d033a26ece8769d6e5615",
+        "sceneId": "dch01_s023",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“但我觉得他们的事可能不",
+            "targetSnippet": "“但我觉得他们的事可能不"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft01_p091",
       "sourceId": "draft01",
       "paragraphIndex": 91,
-      "blockIndex": 95,
-      "textHash": "1450b6547d238fff88261162166ecd12b766cd017fdbcf6514aba0f2a7a56269",
-      "textPreview": "\"今晚能看。石家小楼，那女的嘴很凶，\"他想了半天才凑出一句中文，\"但不乱，No chaos。\"",
+      "blockIndex": 98,
+      "textHash": "edd76fa3f88a100f01ce0aeacfaa60bbf8007fd315e56fe83e8e553b7a4e8f96",
+      "textPreview": "苏明盯着平板角落的进度条，没动。",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s049",
-      "beatId": "dch01_s049",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["今晚能看。石家小楼，那女的嘴很凶，", "但不乱，No chaos。"],
+      "sceneId": "dch01_s023",
+      "beatId": "dch01_s023",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft01_p092",
       "sourceId": "draft01",
       "paragraphIndex": 92,
-      "blockIndex": 96,
-      "textHash": "54476613dc131562a5ae5a127966754fe707cafd05baa181b7aa9dfe0ffced2e",
-      "textPreview": "苏明盯着导航上那条弯弯曲曲的旧巷子，没吭声，转身就往那个方向走去。",
+      "blockIndex": 99,
+      "textHash": "7addcea6fc1b3fe5cbb0f2d260adcf46d730605eb6f1868d0d047ee690fad2d6",
+      "textPreview": "“那你的意思是，”他问，“他们分对了？”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s049",
-      "beatId": "dch01_s049",
-      "status": "narrated",
-      "dialogueQuotes": [],
+      "sceneId": "dch01_s023",
+      "beatId": "dch01_s023",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["那你的意思是，", "他们分对了？"],
       "notes": ""
     },
     {
       "id": "draft01_p093",
       "sourceId": "draft01",
       "paragraphIndex": 93,
-      "blockIndex": 97,
-      "textHash": "8dcbc204292b617da5649cd1bcd818201e3e589feefa50a6ff99e8e2482304c0",
-      "textPreview": "\"先看房。\"他打断了雷欧还想往下说的话，\"有地方睡再说。\"",
+      "blockIndex": 100,
+      "textHash": "4493e6d0c37c42715ba919884fbade18675774b7900183671aa0121818805ae7",
+      "textPreview": "“我没法这样评价，”AI 说，“但如果对方还愿意沟通，磨合的空间其实是有的。”",
       "chapterId": "draft-ch01",
-      "sceneId": "dch01_s050",
-      "beatId": "dch01_s050",
+      "sceneId": "dch01_s024",
+      "beatId": "dch01_s024",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["先看房。", "有地方睡再说。"],
+      "dialogueQuotes": ["我没法这样评价，", "但如果对方还愿意沟通，磨合的空间其实是有的。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p094",
+      "sourceId": "draft01",
+      "paragraphIndex": 94,
+      "blockIndex": 101,
+      "textHash": "6b3837da25cd9fc79aa7287f91fe0fbaac7a032a097357007caf4a022e51e6bf",
+      "textPreview": "苏明嗯了一声，没再追。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s024",
+      "beatId": "dch01_s024",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p095",
+      "sourceId": "draft01",
+      "paragraphIndex": 95,
+      "blockIndex": 102,
+      "textHash": "6e3ad92e2b6e0ba719fac5689c165df1ca6734c441f25e69737efbc919c74c95",
+      "textPreview": "他心里想了一下——这倒是头一次，耳机里出来的话让他没法直接跳过去。不是因为机器听懂了什么，是那几句话放在哪儿都说得通。他没把这个往心里装太深，但也没立刻忘掉。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s024",
+      "beatId": "dch01_s024",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "6e3ad92e2b6e0ba719fac5689c165df1ca6734c441f25e69737efbc919c74c95",
+        "sceneId": "dch01_s024",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "他心里想了一下——这倒是",
+            "targetSnippet": "他心里想了一下——这倒是"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p096",
+      "sourceId": "draft01",
+      "paragraphIndex": 96,
+      "blockIndex": 104,
+      "textHash": "6f4e6f77c2a18e655271aecb4227f0c9408f81a15174df1183b317672d1742cd",
+      "textPreview": "测试结束的提示音响了，清脆，不含感情。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s024",
+      "beatId": "dch01_s024",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p097",
+      "sourceId": "draft01",
+      "paragraphIndex": 97,
+      "blockIndex": 105,
+      "textHash": "a9604ae9725ef5cff6f1670c134d4e83ebe691acc537275e23dccadf912df734",
+      "textPreview": "工作人员把苏明带到一个小结区，十几把椅子，七八个人已经坐着了，都是今天的测试员。荧光灯把大家的脸照得白了一圈，有人低头玩手机，有人靠着椅背闭眼，谁都不说话，像在候诊室等叫号。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s025",
+      "beatId": "dch01_s025",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "a9604ae9725ef5cff6f1670c134d4e83ebe691acc537275e23dccadf912df734",
+        "sceneId": "dch01_s025",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "工作人员把苏明带到一个小",
+            "targetSnippet": "工作人员把苏明带到一个小"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p098",
+      "sourceId": "draft01",
+      "paragraphIndex": 98,
+      "blockIndex": 106,
+      "textHash": "57c994e187faeab7495ad265ac57b639d8cb229a3e6af8af22cb0adbbadf6bc6",
+      "textPreview": "工作人员站在前面，开始汇报今天的场次情况，语气跟念报表一样平：某某场次情绪真实度偏低，某某场次时长超出预期，某某场次……",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s025",
+      "beatId": "dch01_s025",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "57c994e187faeab7495ad265ac57b639d8cb229a3e6af8af22cb0adbbadf6bc6",
+        "sceneId": "dch01_s025",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "工作人员站在前面，开始汇",
+            "targetSnippet": "工作人员站在前面，开始汇"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p099",
+      "sourceId": "draft01",
+      "paragraphIndex": 99,
+      "blockIndex": 107,
+      "textHash": "97d4ac963d8e28d073b795d11d2e9d6bd7c7950abf8d68d93d7b8e3958bbe061",
+      "textPreview": "“苏明先生，”她念到这一条，语气没什么变化，“今天讲述了一位朋友的私密经历，情绪真实度评分最高，对模型训练价值极高，已标记为优质样本。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s026",
+      "beatId": "dch01_s026",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "苏明先生，",
+        "今天讲述了一位朋友的私密经历，情绪真实度评分最高，对模型训练价值极高，已标记为优质样本。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "97d4ac963d8e28d073b795d11d2e9d6bd7c7950abf8d68d93d7b8e3958bbe061",
+        "sceneId": "dch01_s026",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“苏明先生，”她念到这一",
+            "targetSnippet": "“苏明先生，”她念到这一"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p100",
+      "sourceId": "draft01",
+      "paragraphIndex": 100,
+      "blockIndex": 108,
+      "textHash": "5636ddc6ae89fd0799e31ff7cfe71df0bc98d6f2155011be4c4ac486d15e5ec3",
+      "textPreview": "苏明听完，没动。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s026",
+      "beatId": "dch01_s026",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p101",
+      "sourceId": "draft01",
+      "paragraphIndex": 101,
+      "blockIndex": 109,
+      "textHash": "25cba997c5783a164212bb1d82065d18ccaba1760161e169386fabe4d264e254",
+      "textPreview": "他又把那句话在脑子里过了一遍。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s026",
+      "beatId": "dch01_s026",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p102",
+      "sourceId": "draft01",
+      "paragraphIndex": 102,
+      "blockIndex": 110,
+      "textHash": "f5cdf2d254b0782beeb3f79e02ceded70af0e361b0bc8be01932d3e66ff54cb9",
+      "textPreview": "“等一下。”他站起来，声音不算大，但小结区里登时安静了，“你怎么知道我说的是我朋友的事？你们不是说不监听吗？”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s026",
+      "beatId": "dch01_s026",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["等一下。", "你怎么知道我说的是我朋友的事？你们不是说不监听吗？"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "f5cdf2d254b0782beeb3f79e02ceded70af0e361b0bc8be01932d3e66ff54cb9",
+        "sceneId": "dch01_s026",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“等一下。”他站起来，声",
+            "targetSnippet": "“等一下。”他站起来，声"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p103",
+      "sourceId": "draft01",
+      "paragraphIndex": 103,
+      "blockIndex": 111,
+      "textHash": "4129fa36d2cd1b2d490808b859765e2a3b644a9ea68aa041ecd77ee50ba8f6bb",
+      "textPreview": "工作人员把平板翻了一下，“协议第三页，现场质检条款——”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s027",
+      "beatId": "dch01_s027",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["协议第三页，现场质检条款——"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p104",
+      "sourceId": "draft01",
+      "paragraphIndex": 104,
+      "blockIndex": 112,
+      "textHash": "1a32904393a23faabe1918d0b56e1aa1d766f4a865187fb183db95564398084f",
+      "textPreview": "苏明没听她念完。他转头扫了一圈周围那十几个人：几个低下头盯着手机，几个眼神飘开，有一个扭向窗外去看夜景，没有人哄笑，也没有人接话，就是那种统一的、默契的、职业的沉默——但那种沉默本身就是答案。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s027",
+      "beatId": "dch01_s027",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "1a32904393a23faabe1918d0b56e1aa1d766f4a865187fb183db95564398084f",
+        "sceneId": "dch01_s027",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明没听她念完。他转头扫",
+            "targetSnippet": "苏明没听她念完。他转头扫"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p105",
+      "sourceId": "draft01",
+      "paragraphIndex": 105,
+      "blockIndex": 113,
+      "textHash": "5e9749a7360032714b0a166a0bb939b4eef6bf045278c827c9fe943d92db7c69",
+      "textPreview": "他们都听见了。从一开始就听见了。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s027",
+      "beatId": "dch01_s027",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p106",
+      "sourceId": "draft01",
+      "paragraphIndex": 106,
+      "blockIndex": 114,
+      "textHash": "a2db04b6a26c74385da7b8f4306461e9399080de9bda781840c9584d325362a2",
+      "textPreview": "苏明重新坐下去，椅子没发出声音，他没再开口。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s027",
+      "beatId": "dch01_s027",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p107",
+      "sourceId": "draft01",
+      "paragraphIndex": 107,
+      "blockIndex": 116,
+      "textHash": "1b12e573fbdca63fc198a960b5413aec2bc06a717d2a3dc36f247d7cf9d474a1",
+      "textPreview": "“我要见你们负责人。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s028",
+      "beatId": "dch01_s028",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["我要见你们负责人。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p108",
+      "sourceId": "draft01",
+      "paragraphIndex": 108,
+      "blockIndex": 117,
+      "textHash": "58ecb8d7740b68de5472fd967a6f5f53426183194bb9452cefbcaf8badd23d2c",
+      "textPreview": "工作人员说负责人在开会，让他等。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s028",
+      "beatId": "dch01_s028",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p109",
+      "sourceId": "draft01",
+      "paragraphIndex": 109,
+      "blockIndex": 118,
+      "textHash": "f9a5e5699932fa514b40eb0bfd04a2f0550a72972bf58e8ca41908f03a38d0dd",
+      "textPreview": "苏明等。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s028",
+      "beatId": "dch01_s028",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p110",
+      "sourceId": "draft01",
+      "paragraphIndex": 110,
+      "blockIndex": 119,
+      "textHash": "f628f07c29bbc5fb467080566c03bf96deee0bcf2731bb2f232ba8b94916392a",
+      "textPreview": "走廊的椅子是那种硬塑料的，坐久了腰酸。他坐着看手机，没什么可看的，翻来翻去翻到补贴档位表，盯了两秒，放下手机。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s028",
+      "beatId": "dch01_s028",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "f628f07c29bbc5fb467080566c03bf96deee0bcf2731bb2f232ba8b94916392a",
+        "sceneId": "dch01_s028",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "走廊的椅子是那种硬塑料的",
+            "targetSnippet": "走廊的椅子是那种硬塑料的"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p111",
+      "sourceId": "draft01",
+      "paragraphIndex": 111,
+      "blockIndex": 120,
+      "textHash": "4f82e26557538decb321b7f1bd2243806199cce5a349ff18534897d1d7d5695c",
+      "textPreview": "走廊另一头，两个穿灰色工装的人正推着一只一人高的银色箱子往货运电梯里挪，箱子上贴着一张标签，字挺大：样机，勿倒置，硬件部。苏明多看了一眼——这栋楼哪来的硬件部？一个测聊天软件的公司，跟硬件能有什么关系？货梯门哐当一声关上，他想了半秒，作罢，",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s028",
+      "beatId": "dch01_s028",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "4f82e26557538decb321b7f1bd2243806199cce5a349ff18534897d1d7d5695c",
+        "sceneId": "dch01_s028",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "走廊另一头，两个穿灰色工",
+            "targetSnippet": "走廊另一头，两个穿灰色工"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p112",
+      "sourceId": "draft01",
+      "paragraphIndex": 112,
+      "blockIndex": 121,
+      "textHash": "36d59eb0ac35cd70665a90f58e7db96a7dbad611b6978328fd38f21b0aaf7086",
+      "textPreview": "等了大概二十分钟，负责人出来了。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s029",
+      "beatId": "dch01_s029",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p113",
+      "sourceId": "draft01",
+      "paragraphIndex": 113,
+      "blockIndex": 122,
+      "textHash": "a34900a5bb435df52b81afadf77cfb7df1e00bad9498ce05aa93ca828f2d4b72",
+      "textPreview": "他身边站着个外国小伙——书包还背着，身上还挂着今天的场次排号条，显然也刚测完。两个人在走廊碰头，那外国小伙在查手机，跟负责人不像熟识，就是顺路碰上了。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s029",
+      "beatId": "dch01_s029",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "a34900a5bb435df52b81afadf77cfb7df1e00bad9498ce05aa93ca828f2d4b72",
+        "sceneId": "dch01_s029",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "他身边站着个外国小伙——",
+            "targetSnippet": "他身边站着个外国小伙——"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p114",
+      "sourceId": "draft01",
+      "paragraphIndex": 114,
+      "blockIndex": 123,
+      "textHash": "aed97a98aee3e9f845d3a18c0a275b6879626843f1b325bba537b886b1eaf1e3",
+      "textPreview": "苏明拦住负责人，把话说了：协议、监听、说好的保密。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s029",
+      "beatId": "dch01_s029",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p115",
+      "sourceId": "draft01",
+      "paragraphIndex": 115,
+      "blockIndex": 124,
+      "textHash": "f62d26620963c113311d3d74cff4db4f963ba037286a31e3772a46b0af40693e",
+      "textPreview": "负责人听得很耐心，等他说完，把平板拿出来，把条款一条一条指给他看，语气平稳，没有一丝被将住的迹象——这种事他显然不是头一回处理。“如果您觉得本次服务不符合预期，我们可以协议解除，双方自愿。”他说，“补贴按今日实际场次结算，不影响。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s029",
+      "beatId": "dch01_s029",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "如果您觉得本次服务不符合预期，我们可以协议解除，双方自愿。",
+        "补贴按今日实际场次结算，不影响。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "f62d26620963c113311d3d74cff4db4f963ba037286a31e3772a46b0af40693e",
+        "sceneId": "dch01_s029",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "负责人听得很耐心，等他说",
+            "targetSnippet": "负责人听得很耐心，等他说"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p116",
+      "sourceId": "draft01",
+      "paragraphIndex": 116,
+      "blockIndex": 125,
+      "textHash": "16802e87d948745d4e75ec189acd0147a240d4b9f6a98753c5c67f912feea9a9",
+      "textPreview": "说完，他转身走了。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s030",
+      "beatId": "dch01_s030",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p117",
+      "sourceId": "draft01",
+      "paragraphIndex": 117,
+      "blockIndex": 126,
+      "textHash": "93f4f45ad7b35d29f62c183f5d159997b5ea32148aadb860ef4b05b428bf315e",
+      "textPreview": "苏明站在原地。那个“双方自愿”落在他嘴边，他把它吞回去了——那话今天已经听了不止一遍。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s030",
+      "beatId": "dch01_s030",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["双方自愿"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p118",
+      "sourceId": "draft01",
+      "paragraphIndex": 118,
+      "blockIndex": 127,
+      "textHash": "beeef0084e8a8312273fa85f56e8dc7f4825cbb449e50bb18f3b75118d70bdd0",
+      "textPreview": "手机这时震了一下。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s030",
+      "beatId": "dch01_s030",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p119",
+      "sourceId": "draft01",
+      "paragraphIndex": 119,
+      "blockIndex": 128,
+      "textHash": "923810762245fda64270f2e885704342bf38ad491fc6e97578a8ef5aca752850",
+      "textPreview": "补贴到账。金额比平时高了一档，系统附言：情绪波动：优。恭喜升档！",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s031",
+      "beatId": "dch01_s031",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p120",
+      "sourceId": "draft01",
+      "paragraphIndex": 120,
+      "blockIndex": 129,
+      "textHash": "47afcc26b3bb5cb5cbb5a08f2058c72fd0cca02406fb0f74f9794c9f0185439c",
+      "textPreview": "他把手机翻面，放进口袋，没看第二遍。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s031",
+      "beatId": "dch01_s031",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p121",
+      "sourceId": "draft01",
+      "paragraphIndex": 121,
+      "blockIndex": 130,
+      "textHash": "1c9aef182cbabbc2da788cb2b6587e321a5c225e764b4d8e0053bc16a430d990",
+      "textPreview": "旁边有人低低地说了一句：“公司不亏待用心的体验官。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s032",
+      "beatId": "dch01_s032",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["公司不亏待用心的体验官。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p122",
+      "sourceId": "draft01",
+      "paragraphIndex": 122,
+      "blockIndex": 131,
+      "textHash": "08fbaeea835095f010602f789608a63d95b31ff64dd324514d675651e84f296b",
+      "textPreview": "是小组长，还是那副职业笑，像脸上焊死了这个表情。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s032",
+      "beatId": "dch01_s032",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p123",
+      "sourceId": "draft01",
+      "paragraphIndex": 123,
+      "blockIndex": 132,
+      "textHash": "eb98ece786eb8e534ccf34e2ee2ef415352af80d48be22ed5e0989ad08ce3fa9",
+      "textPreview": "苏明牙咬得咯咯响，话到嘴边绕了两圈，还是咽了回去：“……算了，我还有事。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s032",
+      "beatId": "dch01_s032",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["……算了，我还有事。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p124",
+      "sourceId": "draft01",
+      "paragraphIndex": 124,
+      "blockIndex": 133,
+      "textHash": "7759ed0ef43c729cd91f1b1b3de617b41340772d65a77e937d7d734a586b3513",
+      "textPreview": "那条补贴短信他没删掉——说不清是留个证据，还是留个疤，反正就那么留着，没舍得点删除。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s032",
+      "beatId": "dch01_s032",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p125",
+      "sourceId": "draft01",
+      "paragraphIndex": 125,
+      "blockIndex": 135,
+      "textHash": "f78a718b60abfcc22210eb07807f8092cfd9814eb856978174e31c0f37040ff5",
+      "textPreview": "“你好。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s032",
+      "beatId": "dch01_s032",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["你好。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p126",
+      "sourceId": "draft01",
+      "paragraphIndex": 126,
+      "blockIndex": 136,
+      "textHash": "fae4c2036d40242bf9177b579ce4344d87cc587bb0670753e98a7a7ead5fffb5",
+      "textPreview": "那个外国小伙从旁边走过来，中文说得很慢，但字很清晰，“我叫雷欧，Léo。我也是……”他指了指走廊两侧的测试舱门，“测试的。英文场。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s033",
+      "beatId": "dch01_s033",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["我叫雷欧，Léo。我也是……", "测试的。英文场。"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "fae4c2036d40242bf9177b579ce4344d87cc587bb0670753e98a7a7ead5fffb5",
+        "sceneId": "dch01_s033",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "那个外国小伙从旁边走过来",
+            "targetSnippet": "那个外国小伙从旁边走过来"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p127",
+      "sourceId": "draft01",
+      "paragraphIndex": 127,
+      "blockIndex": 137,
+      "textHash": "f83fdabfa2720da33f2115865dfa46a895f7ffe9c3c586711fb2dd2f8eeb6393",
+      "textPreview": "“苏明。”苏明没多说。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s033",
+      "beatId": "dch01_s033",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["苏明。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p128",
+      "sourceId": "draft01",
+      "paragraphIndex": 128,
+      "blockIndex": 138,
+      "textHash": "4fc888947c03125ec5f8c595a4563df4503276e7a6e2f8b5e3da093f7d2158c2",
+      "textPreview": "“我今天在小结的地方，”雷欧比画了一下，“听见了——你朋友那个事。”他顿了顿，显然在想怎么把意思说准确，“我觉得，这个……不太好。隐私。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s033",
+      "beatId": "dch01_s033",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "我今天在小结的地方，",
+        "听见了——你朋友那个事。",
+        "我觉得，这个……不太好。隐私。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "4fc888947c03125ec5f8c595a4563df4503276e7a6e2f8b5e3da093f7d2158c2",
+        "sceneId": "dch01_s033",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“我今天在小结的地方，”",
+            "targetSnippet": "“我今天在小结的地方，”"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p129",
+      "sourceId": "draft01",
+      "paragraphIndex": 129,
+      "blockIndex": 139,
+      "textHash": "ec1ebade386239147dfcf84a67b7ef8a6470cb718d2eb4dcaef61abe4f271a15",
+      "textPreview": "“嗯，”苏明说，“你觉得呢。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s033",
+      "beatId": "dch01_s033",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["嗯，", "你觉得呢。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p130",
+      "sourceId": "draft01",
+      "paragraphIndex": 130,
+      "blockIndex": 140,
+      "textHash": "080eaff88a954ff09ccaf51641d0e602a2631b8166631963c24140c65ade6ef4",
+      "textPreview": "“你以为我是他们公司的人？”雷欧看出来了。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s033",
+      "beatId": "dch01_s033",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["你以为我是他们公司的人？"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p131",
+      "sourceId": "draft01",
+      "paragraphIndex": 131,
+      "blockIndex": 141,
+      "textHash": "5db7a5ee4d65d88ba90f7f604015e3ada4463775b2e3c60ab5062befa40e6750",
+      "textPreview": "“不是？”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s033",
+      "beatId": "dch01_s033",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["不是？"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p132",
+      "sourceId": "draft01",
+      "paragraphIndex": 132,
+      "blockIndex": 142,
+      "textHash": "f380427fc609f924b18e8f362fcf3c0e45ac96edd0321f0d7d4c010ec666c4d2",
+      "textPreview": "“不是。”雷欧摇头，“我跟你一样，测试的。但是，”他停了一下，想了想，“愿意干这个的外国人，很少。所以他们给我的合同，跟你的不一样。”他用手比了个框，“他们，不可以听我的，实时。我的合同里写着。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s034",
+      "beatId": "dch01_s034",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "不是。",
+        "我跟你一样，测试的。但是，",
+        "愿意干这个的外国人，很少。所以他们给我的合同，跟你的不一样。",
+        "他们，不可以听我的，实时。我的合同里写着。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "f380427fc609f924b18e8f362fcf3c0e45ac96edd0321f0d7d4c010ec666c4d2",
+        "sceneId": "dch01_s034",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "不是。”雷欧摇头，“我跟",
+            "targetSnippet": "不是。”雷欧摇头，“我跟"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p133",
+      "sourceId": "draft01",
+      "paragraphIndex": 133,
+      "blockIndex": 143,
+      "textHash": "97e98f0ab51309c4db64bba13461657762cfaf1dd5fbd17aed60cbe7de755256",
+      "textPreview": "苏明盯着他看了两秒。“就你合同里写了不能监听？”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s034",
+      "beatId": "dch01_s034",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["就你合同里写了不能监听？"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p134",
+      "sourceId": "draft01",
+      "paragraphIndex": 134,
+      "blockIndex": 144,
+      "textHash": "8a08114a4c8ad1b78f008f47436e23c54de9af9d01af2b31aa483bd05a36855c",
+      "textPreview": "“对。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s034",
+      "beatId": "dch01_s034",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["对。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p135",
+      "sourceId": "draft01",
+      "paragraphIndex": 135,
+      "blockIndex": 145,
+      "textHash": "1f2e2468e8d2fd1c775aebf269fbdb6579807af2c22a5190619f07f2b6465da9",
+      "textPreview": "苏明想了一下，然后笑了，那是今天第一次真的笑，有点干，但是真的，“妈的。”他说，“长你这张脸，我也能多挣点。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s034",
+      "beatId": "dch01_s034",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["妈的。", "长你这张脸，我也能多挣点。"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "1f2e2468e8d2fd1c775aebf269fbdb6579807af2c22a5190619f07f2b6465da9",
+        "sceneId": "dch01_s034",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明想了一下，然后笑了，",
+            "targetSnippet": "苏明想了一下，然后笑了，"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft01_p136",
+      "sourceId": "draft01",
+      "paragraphIndex": 136,
+      "blockIndex": 146,
+      "textHash": "f0656e614395727b18987d46f370066028637bc7f7b5fe8c818d96a69b5ceae2",
+      "textPreview": "雷欧没完全听懂，但他听出那是句好话，也跟着咧嘴笑了一下。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s034",
+      "beatId": "dch01_s034",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p137",
+      "sourceId": "draft01",
+      "paragraphIndex": 137,
+      "blockIndex": 147,
+      "textHash": "dc84b05fdfbce438a1fdc9c4d0a99bdcf6dc4ff8370f1a365b0dadb3535b3dbb",
+      "textPreview": "“你……找房子？”他问，“今天，你提到了。在里面讲的那个。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s035",
+      "beatId": "dch01_s035",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["你……找房子？", "今天，你提到了。在里面讲的那个。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p138",
+      "sourceId": "draft01",
+      "paragraphIndex": 138,
+      "blockIndex": 148,
+      "textHash": "674295e7920c8bae46eb7e0c7463431af733fb6cb1fcf0f625c2f0ad413a0364",
+      "textPreview": "苏明愣了一下，然后反应过来——那条也进了AI，进了小结汇报，在那十几个人面前说了个遍。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s035",
+      "beatId": "dch01_s035",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p139",
+      "sourceId": "draft01",
+      "paragraphIndex": 139,
+      "blockIndex": 149,
+      "textHash": "5e42ec56d20bb286e57bbf40ae836b48a13d5beaf64e2451cb55d8cf68481496",
+      "textPreview": "“对，”他说，“还没找到。九百的预算。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s035",
+      "beatId": "dch01_s035",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["对，", "还没找到。九百的预算。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p140",
+      "sourceId": "draft01",
+      "paragraphIndex": 140,
+      "blockIndex": 150,
+      "textHash": "67a9b07df645064e9bf8cdc170d4da2537a44b3964d5f79a3238719d72eb3ad5",
+      "textPreview": "“我那个楼，”雷欧说，“有一间。不贵，大的。”他掏出手机，“加微信？你看看。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s036",
+      "beatId": "dch01_s036",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["我那个楼，", "有一间。不贵，大的。", "加微信？你看看。"],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p141",
+      "sourceId": "draft01",
+      "paragraphIndex": 141,
+      "blockIndex": 151,
+      "textHash": "4268026aa08010c8585b545aacaa354778d55b0e92bd8601b57c0af52b8ed258",
+      "textPreview": "苏明看了他一眼，接过手机，扫了码。",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s036",
+      "beatId": "dch01_s036",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft01_p142",
+      "sourceId": "draft01",
+      "paragraphIndex": 142,
+      "blockIndex": 152,
+      "textHash": "2dd2759114ff06d3657b37d26e4d3e90e459dd1c383c9828c31dbede2db545e4",
+      "textPreview": "“好，”他说，“看看。”",
+      "chapterId": "draft-ch01",
+      "sceneId": "dch01_s036",
+      "beatId": "dch01_s036",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["好，", "看看。"],
       "notes": ""
     },
     {

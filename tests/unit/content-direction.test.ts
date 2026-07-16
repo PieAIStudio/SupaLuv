@@ -28,7 +28,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_bones_accept",
     variableName: "bones_answer",
     expectedValue: "accept",
-    echoes: [{ sceneId: "dch01_s038", text: "只把诚实印成了蚂蚁" }],
+    echoes: [{ sceneId: "dch01_s031", text: "只把诚实印成了蚂蚁" }],
   },
   {
     slot: "P01/cold",
@@ -36,7 +36,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_bones_cold",
     variableName: "bones_answer",
     expectedValue: "cold",
-    echoes: [{ sceneId: "dch01_s038", text: "抢劫前贴告示，也不叫双方自愿" }],
+    echoes: [{ sceneId: "dch01_s031", text: "抢劫前贴告示，也不叫双方自愿" }],
   },
   {
     slot: "P02/flat",
@@ -76,7 +76,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_watch_leo",
     variableName: "leo_response",
     expectedValue: "watch",
-    echoes: [{ sceneId: "dch01_s041", text: "语法还是烂，账倒算得清" }],
+    echoes: [{ sceneId: "dch01_s031", text: "语法还是烂，账倒算得清" }],
   },
   {
     slot: "P04/rush",
@@ -84,7 +84,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_rush_front",
     variableName: "leo_response",
     expectedValue: "rush",
-    echoes: [{ sceneId: "dch01_s041", text: "火气临时办了个双人套餐" }],
+    echoes: [{ sceneId: "dch01_s031", text: "火气临时办了个双人套餐" }],
   },
   {
     slot: "P05/calculate",
@@ -260,12 +260,13 @@ function sequenceForScene(chapter: "ch1" | "ch2", sceneId: string | null): strin
     const match = /^dch01_s(\d{3})$/.exec(sceneId);
     if (!match) return null;
     const number = Number(match[1]);
-    if (number <= 5) return "SQ01";
-    if (number <= 14) return "SQ02";
-    if (number <= 23) return "SQ03";
-    if (number <= 30) return "SQ04";
-    if (number <= 36) return "SQ05";
-    if (number <= 44) return "SQ06";
+    // novel-v2 ch01 densified to 36 story beats; keep pure-continue runs ≤5 per SQ.
+    if (number <= 4) return "SQ01";
+    if (number <= 9) return "SQ02";
+    if (number <= 14) return "SQ03";
+    if (number <= 19) return "SQ04";
+    if (number <= 24) return "SQ05";
+    if (number <= 30) return "SQ06";
     return "SQ07";
   }
 
@@ -379,12 +380,12 @@ describe("Round 15 choice echoes", () => {
     },
   ])("carries the $label path through both authored endpoints", async (path) => {
     const chapter1 = await createDraftCh01InkStoryRunner();
-    for (const choiceId of path.chapter1Choices.slice(0, 4)) {
+    for (const choiceId of path.chapter1Choices.slice(0, 5)) {
       chooseById(chapter1, choiceId);
     }
-    expect(advanceToScene(chapter1, "dch01_s038").text).toContain(path.echoes.p01);
-    chooseById(chapter1, path.chapter1Choices[4]!);
-    expect(advanceToScene(chapter1, "dch01_s041").text).toContain(path.echoes.p04);
+    const s031 = advanceToScene(chapter1, "dch01_s031");
+    expect(s031.text).toContain(path.echoes.p01);
+    expect(s031.text).toContain(path.echoes.p04);
     chooseById(chapter1, path.chapter1Choices[5]!);
     expect(advanceToScene(chapter1, "d1_chapter_end").text).toContain("旧巷");
     finishChapter(chapter1);

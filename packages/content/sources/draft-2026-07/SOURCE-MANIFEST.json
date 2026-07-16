@@ -1,18 +1,18 @@
 {
   "id": "draft-2026-07",
-  "importedAt": "2026-07-13",
-  "note": "Body files under this directory are byte-identical to the original drafts. Metadata lives only in this manifest so source SHA-256 stays pure.",
+  "importedAt": "2026-07-16",
+  "note": "draft01 is novel-v2 ch01; draft02 remains prior draft until ch02 rewrite.",
   "coverageMappingDigest": {
     "algorithm": "sha256",
-    "entryCount": 169,
-    "value": "2aa51095ad83011f390f0876040f44933b1af5d7bed45834e0661c40346dca03"
+    "entryCount": 218,
+    "value": "69ecd57d39c4adfcc03634a2b34ee338afe4ce720ab2f1053140bbaff86b5da4"
   },
   "sources": [
     {
       "id": "draft01",
       "relativePath": "draft01.md",
-      "originalAbsolutePath": "/Users/yuanfei/PieAI/SupaLuv/Temp/draft01.md",
-      "sha256": "98bdaf86e6904baf8bbe67e46074a03bd9c49d4879e41c5c1717fe72fbc15d37",
+      "originalAbsolutePath": "/Users/yuanfei/PieAI/SupaLuv/Temp/novel-v2-2026-07-16/ch01.md",
+      "sha256": "84349750a806a57dfdb4fa4cf0cb6eb583171c22b51ce87be5fc9e8feb3a0292",
       "title": "第一章 你有病吧"
     },
     {

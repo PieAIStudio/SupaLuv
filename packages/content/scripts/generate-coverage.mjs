@@ -104,6 +104,7 @@ function loadPreviousMapping() {
 const previousByHash = loadPreviousMapping();
 const sourceManifest = JSON.parse(readFileSync(sourceManifestPath, "utf8"));
 const previousLedger = JSON.parse(readFileSync(ledgerPath, "utf8"));
+const previousById = new Map((previousLedger.entries ?? []).map((entry) => [entry.id, entry]));
 const previousDigestCheck = validateCoverageMappingDigest(
   previousLedger.entries ?? [],
   sourceManifest.coverageMappingDigest,
@@ -150,7 +151,10 @@ for (const source of SOURCE_CHAPTERS) {
     }
 
     bodyIndex += 1;
-    const previous = previousByHash.get(textHash) ?? {};
+    // Prefer stable entry id so identical short paragraphs (e.g. “对。”) do not
+    // collide when preserving scene mappings across rebuilds.
+    const entryId = `${source.sourceId}_p${String(bodyIndex).padStart(3, "0")}`;
+    const previous = previousById.get(entryId) ?? previousByHash.get(textHash) ?? {};
     const dialogueQuotes = extractQuotes(paragraph);
     const sceneId = previous.sceneId ?? null;
     const beatId = previous.beatId ?? previous.sceneId ?? null;
@@ -201,7 +205,7 @@ for (const source of SOURCE_CHAPTERS) {
     }
 
     const entry = {
-      id: `${source.sourceId}_p${String(bodyIndex).padStart(3, "0")}`,
+      id: entryId,
       sourceId: source.sourceId,
       paragraphIndex: bodyIndex,
       blockIndex,
@@ -223,7 +227,7 @@ for (const source of SOURCE_CHAPTERS) {
 
 const body01 = entries.filter((entry) => entry.sourceId === "draft01").length;
 const body02 = entries.filter((entry) => entry.sourceId === "draft02").length;
-if (body01 !== 93 || body02 !== 76 || entries.length !== 169 || structure.length !== 8) {
+if (body01 !== 142 || body02 !== 76 || entries.length !== 218 || structure.length !== 14) {
   console.error(
     `Unexpected parse counts: draft01=${body01} draft02=${body02} entries=${entries.length} structure=${structure.length}`,
   );
