@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "candidateSetId": "spec-0003-round15-prop-ui-candidates",
+  "generatedAt": "2026-07-16T06:02:39.735Z",
+  "contract": {
+    "id": "prop-ui-web-16x9",
+    "outputExtensions": [
+      ".png",
+      ".webp"
+    ],
+    "outputMimeTypes": [
+      "image/png",
+      "image/webp"
+    ],
+    "dimensions": {
+      "minWidth": 1280,
+      "maxWidth": 1920,
+      "minHeight": 720,
+      "maxHeight": 1080,
+      "aspectRatio": 1.777778,
+      "aspectTolerance": 0.002
+    },
+    "maxBytes": 2097152
+  },
+  "candidate_only": true,
+  "humanArtReview": false,
+  "rightsStatus": "pending",
+  "runtimeIntegrated": false,
+  "provenance": {
+    "owner": "project",
+    "method": "Grok/agent-authored editable SVG vector candidates; rendered locally with Sharp (no external images/fonts/templates)",
+    "type": "project_generated_agent_authored_vector_candidate",
+    "workflow": "grok-agent-directed-vector-candidate",
+    "externalImages": false,
+    "externalFonts": false,
+    "externalTemplates": false,
+    "sourceScope": [
+      "docs/specs/active/SPEC-0003-draft-chapters-story-graph-and-game-feel.md",
+      "packages/content/ink/draft-ch01.ink",
+      "packages/content/ink/draft-ch02.ink",
+      "apps/web/src/styles/base.css",
+      "apps/web/src/styles/stage.css",
+      "packages/content/assets/VISUAL-ASSET-INTAKE.json#contracts.prop-ui-web-16x9"
+    ],
+    "statement": "These files are agent-generated project vector candidates only. Machine checks do not establish copyright clearance, production readiness, or human art approval. They were not authored by the human project owner."
+  },
+  "assets": [
+    {
+      "id": "prop-protocol-terms",
+      "sceneIds": [
+        "dch01_s002",
+        "dch01_protocol_test",
+        "dch01_s003",
+        "dch01_s038"
+      ],
+      "accessibleText": "情感真实性测试协议，第3页，数据处理说明。03.1 本产品情感真实度依赖用户真情流露。03.2 测试期间数据用于模型迭代。03.3 测试结束后原始录音自动清除，其中“清除”加粗。条款继续见附录 A。",
+      "altText": "冷白色第三页协议压在黑色测试台上，三条小字依次写明真情流露、模型迭代与原始录音自动清除，“清除”被黑底加粗；纸面不含角色旁白或剧情揭示标注。",
+      "factSources": [
+        "docs/specs/active/SPEC-0003-draft-chapters-story-graph-and-game-feel.md#prop-inserts",
+        "packages/content/ink/draft-ch01.ink#dch01_s002",
+        "packages/content/ink/draft-ch01.ink#dch01_protocol_test",
+        "packages/content/ink/draft-ch01.ink#dch01_s003",
+        "packages/content/ink/draft-ch01.ink#dch01_s038"
+      ],
+      "sourcePath": "packages/content/assets/candidates/round15-props/prop-protocol-terms.svg",
+      "outputPath": "packages/content/assets/candidates/round15-props/prop-protocol-terms.png",
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "mimeType": "image/png",
+      "bytes": 558904,
+      "sha256": "5882911ea96692f14606fe5fee553c775eb25365b21a5adce1d17796d1a6d392",
+      "candidate_only": true,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "project_generated_agent_authored_vector_candidate",
+        "createdWith": "Grok/agent-authored editable SVG vector candidates; rendered locally with Sharp (no external images/fonts/templates)",
+        "workflow": "grok-agent-directed-vector-candidate",
+        "externalImages": false,
+        "externalFonts": false,
+        "externalTemplates": false,
+        "notes": "Agent-generated project vectors from local project inputs only (SPEC-0003 Presentation bible, draft-ch01/ch02 Ink scenes, web style tokens, prop-ui-web-16x9 intake contract). Not authored by the human project owner. Candidate-only; no runtime integration, rights clearance, or human art approval is asserted."
+      }
+    },
+    {
+      "id": "prop-barcode-shift",
+      "sceneIds": [
+        "dch02_s002",
+        "dch02_s003",
+        "dch02_barcode_sweep"
+      ],
+      "accessibleText": "惠万家 POS 收银终端与热敏条码带。一分钟扫四十件，画面显示01:00 / 40件。密集订单行含数量、单价、小计与状态。练习锚点：临期辣条已扫嘀；冰红茶已扫嘀；桶装方便面已扫嘀。穿插扫枪中断、条码磨损重扫与拒扫。货堆着，别玩系统。",
+      "altText": "廉价小超市的磨损 POS 屏与热敏条码带：高密度品名/条码/数量/价格/状态行，三行练习锚点为临期辣条、冰红茶与桶装方便面，红扫描线与物理污迹可见。",
+      "factSources": [
+        "docs/specs/active/SPEC-0003-draft-chapters-story-graph-and-game-feel.md#prop-inserts",
+        "packages/content/ink/draft-ch02.ink#dch02_s002",
+        "packages/content/ink/draft-ch02.ink#dch02_s003",
+        "packages/content/ink/draft-ch02.ink#dch02_barcode_sweep"
+      ],
+      "sourcePath": "packages/content/assets/candidates/round15-props/prop-barcode-shift.svg",
+      "outputPath": "packages/content/assets/candidates/round15-props/prop-barcode-shift.png",
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "mimeType": "image/png",
+      "bytes": 366032,
+      "sha256": "19c6fe3ce85dda8fc5977696a528f11f8dce079a8fc4eafaae175d0c3c40f424",
+      "candidate_only": true,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "project_generated_agent_authored_vector_candidate",
+        "createdWith": "Grok/agent-authored editable SVG vector candidates; rendered locally with Sharp (no external images/fonts/templates)",
+        "workflow": "grok-agent-directed-vector-candidate",
+        "externalImages": false,
+        "externalFonts": false,
+        "externalTemplates": false,
+        "notes": "Agent-generated project vectors from local project inputs only (SPEC-0003 Presentation bible, draft-ch01/ch02 Ink scenes, web style tokens, prop-ui-web-16x9 intake contract). Not authored by the human project owner. Candidate-only; no runtime integration, rights clearance, or human art approval is asserted."
+      }
+    },
+    {
+      "id": "prop-rental-receipt",
+      "sceneIds": [
+        "dch02_s017",
+        "dch02_s018",
+        "dch02_s019",
+        "dch02_s020"
+      ],
+      "accessibleText": "收条，房租 / 定金。今收到九百块房租定金。金额：￥900，九百。入住条件：① 九百块，五号前交。② 备注栏禁止发表情包。③ 奇怪的人别往楼里带，出事自己扛。代收人签字。字迹像医院处方。",
+      "altText": "一张皱旧热敏纸房租收条斜放在廉价木桌上，蓝色手写字像医院处方，金额“￥900”最大，下面写着五号前交、备注栏禁止发表情包和奇怪的人别往楼里带。画面外围另有演出标注（猫爪与“其余选择信任”卡片），不属于收条印刷事实。",
+      "factSources": [
+        "docs/specs/active/SPEC-0003-draft-chapters-story-graph-and-game-feel.md#prop-inserts",
+        "packages/content/ink/draft-ch02.ink#dch02_s017",
+        "packages/content/ink/draft-ch02.ink#dch02_s020"
+      ],
+      "sourcePath": "packages/content/assets/candidates/round15-props/prop-rental-receipt.svg",
+      "outputPath": "packages/content/assets/candidates/round15-props/prop-rental-receipt.png",
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "mimeType": "image/png",
+      "bytes": 86150,
+      "sha256": "b6242e9d1647a9e54b1e2248edd657fb7a4ab86e05f49c62dc18b6ef4bc4ee92",
+      "candidate_only": true,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "project_generated_agent_authored_vector_candidate",
+        "createdWith": "Grok/agent-authored editable SVG vector candidates; rendered locally with Sharp (no external images/fonts/templates)",
+        "workflow": "grok-agent-directed-vector-candidate",
+        "externalImages": false,
+        "externalFonts": false,
+        "externalTemplates": false,
+        "notes": "Agent-generated project vectors from local project inputs only (SPEC-0003 Presentation bible, draft-ch01/ch02 Ink scenes, web style tokens, prop-ui-web-16x9 intake contract). Not authored by the human project owner. Candidate-only; no runtime integration, rights clearance, or human art approval is asserted."
+      }
+    },
+    {
+      "id": "prop-application-nda",
+      "sceneIds": [
+        "dch02_s027",
+        "dch02_s029",
+        "dch02_s035",
+        "dch02_s036",
+        "dch02_s037",
+        "dch02_mobile_questionnaire",
+        "dch02_s038"
+      ],
+      "accessibleText": "体验官申请 / 01。申请成为体验官。实体设备全天候居家测试员。补贴五倍。居住条件：独立房间。问卷字段：邻居容忍度（一般/良好/优秀/不愿评价）；是否介意设备高度拟人（介意/不介意/不确定）。已阅读并同意。下一步：超级保密协议。超级保密协议。申请项目：实体设备全天候居家测试。签约条件：独立房间 / 超级保密协议。第七条：设备之存在，不得让任何非签约人知晓，包括同住人。违约金：前位隐去，后面五个零。",
+      "altText": "左侧廉价手机显示机器人全天候居家测试员申请，补贴五倍并勾选独立房间，问卷仅列出标签与可选值且无选定答案；右侧过度正式的黑框超级保密协议把第七条反白加粗，违约金只露出醒目的五个零。",
+      "factSources": [
+        "docs/specs/active/SPEC-0003-draft-chapters-story-graph-and-game-feel.md#prop-inserts",
+        "packages/content/ink/draft-ch02.ink#dch02_s027",
+        "packages/content/ink/draft-ch02.ink#dch02_s029",
+        "packages/content/ink/draft-ch02.ink#dch02_s037",
+        "packages/content/ink/draft-ch02.ink#dch02_mobile_questionnaire",
+        "packages/content/ink/draft-ch02.ink#dch02_s038"
+      ],
+      "sourcePath": "packages/content/assets/candidates/round15-props/prop-application-nda.svg",
+      "outputPath": "packages/content/assets/candidates/round15-props/prop-application-nda.png",
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "mimeType": "image/png",
+      "bytes": 94458,
+      "sha256": "e27ec1201b46df5ee893bb69f5838b39578ed5ecc9bcee93135539da5a1ea1a3",
+      "candidate_only": true,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "project_generated_agent_authored_vector_candidate",
+        "createdWith": "Grok/agent-authored editable SVG vector candidates; rendered locally with Sharp (no external images/fonts/templates)",
+        "workflow": "grok-agent-directed-vector-candidate",
+        "externalImages": false,
+        "externalFonts": false,
+        "externalTemplates": false,
+        "notes": "Agent-generated project vectors from local project inputs only (SPEC-0003 Presentation bible, draft-ch01/ch02 Ink scenes, web style tokens, prop-ui-web-16x9 intake contract). Not authored by the human project owner. Candidate-only; no runtime integration, rights clearance, or human art approval is asserted."
+      }
+    },
+    {
+      "id": "prop-approval-sms",
+      "sceneIds": [
+        "dch02_s038",
+        "dch02_s039",
+        "dch02_s040",
+        "d2_chapter_end"
+      ],
+      "accessibleText": "23:43，短信，系统通知。初审通过。三分钟后。初审通过。请于48小时内完成个性化匹配问卷。48小时。系统通知。短信正文仅含审核结果与问卷时限。",
+      "altText": "廉价出租屋床上亮着一部手机，企业短信界面用过分亲切的粉色圆角、对勾和小彩纸宣布“初审通过”，正文要求48小时内完成个性化匹配问卷。画面外围另有演出标注（屏幕还亮着 / 就当我有病），不属于短信正文。",
+      "factSources": [
+        "docs/specs/active/SPEC-0003-draft-chapters-story-graph-and-game-feel.md#prop-inserts",
+        "packages/content/ink/draft-ch02.ink#dch02_s038",
+        "packages/content/ink/draft-ch02.ink#dch02_s039",
+        "packages/content/ink/draft-ch02.ink#dch02_s040",
+        "packages/content/ink/draft-ch02.ink#d2_chapter_end"
+      ],
+      "sourcePath": "packages/content/assets/candidates/round15-props/prop-approval-sms.svg",
+      "outputPath": "packages/content/assets/candidates/round15-props/prop-approval-sms.png",
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "mimeType": "image/png",
+      "bytes": 62583,
+      "sha256": "bb48a716c3c3bfe1854a4380d6d35a2068c05acbe09054782a761f869e74c6ba",
+      "candidate_only": true,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "project_generated_agent_authored_vector_candidate",
+        "createdWith": "Grok/agent-authored editable SVG vector candidates; rendered locally with Sharp (no external images/fonts/templates)",
+        "workflow": "grok-agent-directed-vector-candidate",
+        "externalImages": false,
+        "externalFonts": false,
+        "externalTemplates": false,
+        "notes": "Agent-generated project vectors from local project inputs only (SPEC-0003 Presentation bible, draft-ch01/ch02 Ink scenes, web style tokens, prop-ui-web-16x9 intake contract). Not authored by the human project owner. Candidate-only; no runtime integration, rights clearance, or human art approval is asserted."
+      }
+    }
+  ],
+  "contactSheet": {
+    "path": "packages/content/assets/candidates/round15-props/contact-sheet.png",
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "mimeType": "image/png",
+    "bytes": 287349,
+    "sha256": "c2aa614631258fa3a55849a88875099103da4aceba0c290500abd32279a2c1b1"
+  }
+}

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#000000" flood-opacity="0.66"/>
+    </filter>
+    <linearGradient id="room" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3d3027"/>
+      <stop offset="0.48" stop-color="#181416"/>
+      <stop offset="1" stop-color="#111b22"/>
+    </linearGradient>
+    <linearGradient id="phone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eff3f2"/>
+      <stop offset="1" stop-color="#d8dddb"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#room)"/>
+  <path d="M0 668 C308 574 480 768 818 674 S1268 572 1600 700 L1600 900 L0 900 Z" fill="#08090b" opacity="0.55"/>
+  <rect x="100" y="70" width="1400" height="748" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-dasharray="8 12"/>
+
+  <g transform="translate(116 84)" filter="url(#shadow)">
+    <rect x="0" y="0" width="584" height="720" rx="42" fill="#090b0e" stroke="#727b7f" stroke-width="3"/>
+    <rect x="22" y="24" width="540" height="672" rx="28" fill="url(#phone)"/>
+    <rect x="214" y="38" width="156" height="18" rx="9" fill="#131619"/>
+    <text x="55" y="91" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" letter-spacing="2" fill="#5f6767">体验官申请 / 01</text>
+    <text x="55" y="148" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="36" font-weight="900" fill="#151c1c">申请成为体验官</text>
+    <text x="55" y="184" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20" font-weight="700" fill="#7b302e">实体设备全天候居家测试员</text>
+    <rect x="55" y="209" width="474" height="58" rx="8" fill="#18342d"/>
+    <text x="75" y="247" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="25" font-weight="800" fill="#e7f6ef">补贴五倍</text>
+    <text x="504" y="247" text-anchor="end" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#bfe0d1">全天候体验官</text>
+
+    <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif">
+      <text x="55" y="309" font-size="17" font-weight="800" letter-spacing="2" fill="#687171">居住条件</text>
+      <rect x="55" y="328" width="474" height="66" rx="8" fill="#ffffff" stroke="#a8b0ae"/>
+      <rect x="76" y="348" width="26" height="26" rx="4" fill="#18342d"/>
+      <path d="M82 360 L90 368 L99 353" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="121" y="372" font-size="24" font-weight="700" fill="#1c2423">独立房间</text>
+
+      <text x="55" y="437" font-size="17" font-weight="800" letter-spacing="2" fill="#687171">问卷字段</text>
+      <rect x="55" y="456" width="474" height="145" rx="8" fill="#ffffff" stroke="#a8b0ae"/>
+      <text x="76" y="488" font-size="18" fill="#65706e">邻居容忍度</text>
+      <text x="76" y="516" font-size="15" fill="#8a9290">一般 / 良好 / 优秀 / 不愿评价</text>
+      <line x1="76" y1="530" x2="503" y2="530" stroke="#d7dcda"/>
+      <text x="76" y="556" font-size="18" fill="#65706e">是否介意设备高度拟人</text>
+      <text x="76" y="584" font-size="15" fill="#8a9290">介意 / 不介意 / 不确定</text>
+    </g>
+
+    <rect x="58" y="610" width="22" height="22" rx="3" fill="#18342d"/>
+    <path d="M63 620 L69 626 L77 614" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="92" y="628" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="800" fill="#1c2423">已阅读并同意</text>
+    <rect x="55" y="644" width="474" height="38" rx="19" fill="#7d2f2f"/>
+    <text x="292" y="670" text-anchor="middle" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="800" letter-spacing="2" fill="#ffffff">下一步：超级保密协议</text>
+  </g>
+
+  <g transform="translate(735 58) rotate(-1.1 380 390)" filter="url(#shadow)">
+    <rect x="0" y="0" width="750" height="784" rx="5" fill="#f0efe9"/>
+    <rect x="24" y="24" width="702" height="736" fill="none" stroke="#181c1f" stroke-width="4"/>
+    <rect x="38" y="38" width="674" height="708" fill="none" stroke="#181c1f" stroke-width="1"/>
+    <text x="375" y="104" text-anchor="middle" font-family="Songti SC, SimSun, serif" font-size="54" font-weight="900" letter-spacing="12" fill="#15191c">超级保密协议</text>
+    <text x="375" y="145" text-anchor="middle" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" letter-spacing="4" fill="#5f6264">NON-DISCLOSURE COMMITMENT</text>
+    <line x1="88" y1="170" x2="662" y2="170" stroke="#181c1f" stroke-width="2"/>
+
+    <text x="92" y="219" font-family="Songti SC, SimSun, serif" font-size="23" font-weight="700" fill="#15191c">申请项目：实体设备全天候居家测试</text>
+    <text x="92" y="255" font-family="Songti SC, SimSun, serif" font-size="23" font-weight="700" fill="#15191c">签约条件：独立房间 / 超级保密协议</text>
+    <g opacity="0.25" fill="#1a1d1f">
+      <rect x="92" y="284" width="568" height="7" rx="3"/><rect x="92" y="306" width="520" height="7" rx="3"/>
+      <rect x="92" y="328" width="584" height="7" rx="3"/><rect x="92" y="350" width="548" height="7" rx="3"/>
+    </g>
+
+    <rect x="74" y="390" width="602" height="160" fill="#171b1e"/>
+    <text x="104" y="431" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="22" font-weight="900" letter-spacing="3" fill="#d9a8a4">第七条</text>
+    <text x="104" y="476" font-family="Songti SC, SimSun, serif" font-size="28" font-weight="900" fill="#ffffff">设备之存在，不得让任何非签约人知晓，</text>
+    <text x="104" y="518" font-family="Songti SC, SimSun, serif" font-size="28" font-weight="900" fill="#ffffff">包括同住人。</text>
+
+    <text x="92" y="607" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="800" letter-spacing="3" fill="#5f6264">违约金</text>
+    <rect x="92" y="626" width="568" height="82" fill="#e2ded2" stroke="#181c1f" stroke-width="2"/>
+    <text x="118" y="681" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="29" font-weight="800" fill="#1b2022">￥ [隐去]</text>
+    <text x="628" y="688" text-anchor="end" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="62" font-weight="900" letter-spacing="10" fill="#8c2929">00000</text>
+    <text x="375" y="735" text-anchor="middle" font-family="KaiTi, STKaiti, serif" font-size="23" font-weight="700" fill="#8c2929">后面五个零</text>
+  </g>
+
+  <text x="88" y="858" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="17" letter-spacing="2" fill="#ffffff" opacity="0.38">PROP / APPLICATION + NDA / CANDIDATE</text>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="30" stdDeviation="26" flood-color="#000000" flood-opacity="0.7"/>
+    </filter>
+    <linearGradient id="room" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4b392f"/>
+      <stop offset="0.48" stop-color="#1d1b20"/>
+      <stop offset="1" stop-color="#141f29"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff8f1"/>
+      <stop offset="1" stop-color="#eee7e3"/>
+    </linearGradient>
+    <linearGradient id="bubble" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe0d2"/>
+      <stop offset="1" stop-color="#f6c6ba"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#room)"/>
+  <path d="M0 680 C286 560 504 742 780 676 S1228 572 1600 708 L1600 900 L0 900 Z" fill="#0a0a0d" opacity="0.58"/>
+  <path d="M0 730 C278 650 487 822 823 722 S1256 668 1600 756" fill="none" stroke="#8d6b5b" stroke-width="28" opacity="0.16"/>
+  <rect x="110" y="76" width="1380" height="744" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-dasharray="8 12"/>
+
+  <g opacity="0.5">
+    <circle cx="230" cy="198" r="8" fill="#efb6a9"/>
+    <circle cx="1310" cy="210" r="6" fill="#d3dcae"/>
+    <path d="M1280 154 l16 16 -16 16 -16 -16z" fill="#efb6a9"/>
+    <path d="M300 650 l12 12 -12 12 -12 -12z" fill="#d3dcae"/>
+  </g>
+
+  <g transform="translate(412 66) rotate(-1.2 388 386)" filter="url(#shadow)">
+    <rect x="0" y="0" width="776" height="772" rx="58" fill="#080a0d" stroke="#6f777d" stroke-width="4"/>
+    <rect x="24" y="25" width="728" height="722" rx="42" fill="url(#screen)"/>
+    <rect x="292" y="40" width="192" height="22" rx="11" fill="#111416"/>
+    <text x="62" y="93" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20" font-weight="700" fill="#4f565a">23:43</text>
+    <text x="714" y="93" text-anchor="end" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#4f565a">短信</text>
+
+    <circle cx="388" cy="182" r="66" fill="#f3c1b5"/>
+    <circle cx="388" cy="182" r="48" fill="#fff8f2"/>
+    <path d="M361 183 l18 19 39 -48" fill="none" stroke="#ba5a4d" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#d8e2ba">
+      <circle cx="303" cy="151" r="7"/><circle cx="467" cy="139" r="6"/><circle cx="493" cy="208" r="8"/>
+    </g>
+    <g fill="#e5a89b">
+      <rect x="276" y="210" width="11" height="28" rx="5" transform="rotate(26 282 224)"/>
+      <rect x="482" y="175" width="10" height="28" rx="5" transform="rotate(-20 487 189)"/>
+    </g>
+
+    <text x="388" y="292" text-anchor="middle" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="44" font-weight="900" letter-spacing="4" fill="#7d342f">初审通过</text>
+    <text x="388" y="329" text-anchor="middle" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="#85807d">三分钟后</text>
+
+    <rect x="70" y="368" width="636" height="212" rx="34" fill="url(#bubble)" stroke="#d99c90" stroke-width="2"/>
+    <text x="112" y="430" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="31" font-weight="800" fill="#492b2a">初审通过。</text>
+    <text x="112" y="483" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="31" font-weight="700" fill="#492b2a">请于 48 小时内完成</text>
+    <text x="112" y="536" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="31" font-weight="700" fill="#492b2a">个性化匹配问卷。</text>
+
+    <rect x="106" y="622" width="564" height="62" rx="31" fill="#dfe7c8"/>
+    <text x="388" y="663" text-anchor="middle" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="25" font-weight="900" letter-spacing="3" fill="#49513d">48 小时</text>
+    <circle cx="109" cy="709" r="5" fill="#b5aca7"/>
+    <circle cx="129" cy="709" r="5" fill="#b5aca7"/>
+    <circle cx="149" cy="709" r="5" fill="#b5aca7"/>
+    <text x="706" y="715" text-anchor="end" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#8a8582">系统通知</text>
+  </g>
+
+  <g transform="translate(1220 558) rotate(8)" opacity="0.78">
+    <rect x="0" y="0" width="230" height="118" rx="8" fill="#e9dfbf"/>
+    <text x="115" y="47" text-anchor="middle" font-family="KaiTi, STKaiti, serif" font-size="31" font-weight="700" fill="#34465a">屏幕还亮着</text>
+    <text x="115" y="84" text-anchor="middle" font-family="KaiTi, STKaiti, serif" font-size="23" fill="#34465a">“就当我有病。”</text>
+  </g>
+  <text x="88" y="858" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="17" letter-spacing="2" fill="#ffffff" opacity="0.38">PROP / APPROVAL SMS / CANDIDATE</text>
+</svg>
