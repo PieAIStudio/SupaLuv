@@ -1,19 +1,4 @@
-export type {
-  CharacterPackRecord,
-  ReferenceAssetRecord,
-  StoredObjectRecord,
-  GeneratedAssetRecord,
-  GenerationActionKind,
-  GenerationClaim,
-  StoryRunRecord,
-  EndingSessionRecord,
-  AdvanceEndingCheckpointInput,
-  EndingCheckpointRecord,
-  SpendReceiptInput,
-  SpendReceiptRecord,
-  SettleCharacterGenerationInput,
-  SettleEndingCheckpointInput,
-} from "./types.js";
+export type { ReferenceAssetRecord, SpendReceiptInput } from "./types.js";
 
 export { EndingVersionConflictError, ReceiptConflictError } from "./errors.js";
 

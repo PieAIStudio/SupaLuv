@@ -1,37 +1,9 @@
 import { requestOpenRouterChatCompletion } from "@pieai/swimmer-ai-kit";
+import type { AiBranchBeat, AiBranchRequestBody, AiBranchResponseBody } from "./branchTypes.js";
 import { generateAiBranchWithMastra } from "./mastraBranch.js";
 import { buildAiBranchMessages } from "./prompts.js";
 
-export interface AiBranchRequestBody {
-  readonly storyId: string;
-  readonly sceneId: string;
-  readonly config: {
-    readonly enabled: true;
-    readonly rejoinSceneId: string;
-    readonly maxAiBeats?: number;
-    readonly context: string;
-    readonly artPool?: readonly string[];
-    readonly portraitPool?: readonly string[];
-    readonly speakerPool?: readonly string[];
-  };
-  readonly authoredChoiceLabels: readonly string[];
-  readonly meters?: { dignity: number; impulse: number };
-}
-
-export interface AiBranchBeat {
-  readonly speaker: string;
-  readonly text: string;
-  readonly artKey?: string;
-  readonly portraitKey?: string;
-  readonly mood?: string;
-}
-
-export interface AiBranchResponseBody {
-  readonly choiceLabel: string;
-  readonly beats: readonly AiBranchBeat[];
-  readonly rejoinSceneId: string;
-  readonly provider: string;
-}
+export type { AiBranchBeat, AiBranchRequestBody, AiBranchResponseBody } from "./branchTypes.js";
 
 function asString(value: unknown, fallback = ""): string {
   return typeof value === "string" ? value.trim() : fallback;
