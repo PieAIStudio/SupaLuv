@@ -3,7 +3,15 @@
   "$id": "https://supalu.v/schemas/round15-audio-candidate-manifest.schema.json",
   "title": "SupaLuv Round 15 audio candidate manifest",
   "type": "object",
-  "required": ["schemaVersion", "packageId", "candidate_only", "humanListeningReview", "rightsClearance", "counts", "candidates"],
+  "required": [
+    "schemaVersion",
+    "packageId",
+    "candidate_only",
+    "humanListeningReview",
+    "rightsClearance",
+    "counts",
+    "candidates"
+  ],
   "properties": {
     "schemaVersion": { "const": 1 },
     "packageId": { "const": "round15-audio" },
@@ -27,17 +35,41 @@
       "maxItems": 21,
       "items": {
         "type": "object",
-        "required": ["stableId", "kind", "function", "sequenceMapping", "file", "provenance", "transformation", "technical", "loopCandidate", "candidate_only", "humanListeningReview", "rightsClearance"],
+        "required": [
+          "stableId",
+          "kind",
+          "function",
+          "sequenceMapping",
+          "file",
+          "provenance",
+          "transformation",
+          "technical",
+          "loopCandidate",
+          "candidate_only",
+          "humanListeningReview",
+          "rightsClearance"
+        ],
         "properties": {
           "stableId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
           "kind": { "enum": ["music", "ambience", "sfx"] },
           "function": { "type": "string", "minLength": 1 },
-          "sequenceMapping": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^SQ(?:0[1-9]|1[0-3])$" } },
+          "sequenceMapping": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^SQ(?:0[1-9]|1[0-3])$" }
+          },
           "cue": { "type": "string" },
           "file": { "type": "string", "pattern": "^audio/(music|ambience|sfx)/[a-z0-9-]+\\.mp3$" },
           "provenance": {
             "type": "object",
-            "required": ["sourceRecordId", "provider", "itemUrl", "sourcePath", "claimedLicense", "sourceSha256"],
+            "required": [
+              "sourceRecordId",
+              "provider",
+              "itemUrl",
+              "sourcePath",
+              "claimedLicense",
+              "sourceSha256"
+            ],
             "properties": {
               "sourceRecordId": { "type": "string" },
               "provider": { "enum": ["Incompetech", "Freesound"] },
@@ -51,7 +83,16 @@
           "transformation": { "type": "string", "minLength": 1 },
           "technical": {
             "type": "object",
-            "required": ["codec", "sampleRate", "channels", "durationSeconds", "integratedLufs", "truePeakDbtp", "bytes", "sha256"],
+            "required": [
+              "codec",
+              "sampleRate",
+              "channels",
+              "durationSeconds",
+              "integratedLufs",
+              "truePeakDbtp",
+              "bytes",
+              "sha256"
+            ],
             "properties": {
               "codec": { "const": "mp3" },
               "sampleRate": { "const": 44100 },

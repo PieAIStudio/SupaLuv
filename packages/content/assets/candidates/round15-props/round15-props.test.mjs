@@ -185,7 +185,10 @@ test("scene IDs and full text alternatives align with frozen story facts", async
     }
     for (const phrase of expectedText[asset.id]) {
       const normalized = asset.accessibleText.replaceAll(" ", "");
-      assert.ok(normalized.includes(phrase.replaceAll(" ", "")), `${asset.id} missing text: ${phrase}`);
+      assert.ok(
+        normalized.includes(phrase.replaceAll(" ", "")),
+        `${asset.id} missing text: ${phrase}`,
+      );
     }
   }
 });

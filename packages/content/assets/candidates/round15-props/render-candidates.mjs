@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
+import { existsSync } from "node:fs";
 import { readFile, stat, writeFile } from "node:fs/promises";
-import { dirname, join, relative } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
@@ -13,6 +15,14 @@ const provenanceCreatedWith =
   "Grok/agent-authored editable SVG vector candidates; rendered locally with Sharp (no external images/fonts/templates)";
 const provenanceNotes =
   "Agent-generated project vectors from local project inputs only (SPEC-0003 Presentation bible, draft-ch01/ch02 Ink scenes, web style tokens, prop-ui-web-16x9 intake contract). Not authored by the human project owner. Candidate-only; no runtime integration, rights clearance, or human art approval is asserted.";
+
+function formatWithOxfmt(filePath) {
+  const oxfmtBin = resolve(repoRoot, "node_modules/.bin/oxfmt");
+  if (!existsSync(oxfmtBin)) {
+    throw new Error(`oxfmt not found at ${oxfmtBin}; run pnpm install at repo root`);
+  }
+  execFileSync(oxfmtBin, [filePath, "--write"], { cwd: repoRoot, stdio: "inherit" });
+}
 
 const candidates = [
   {
@@ -147,7 +157,8 @@ async function renderCandidate(candidate) {
   };
 }
 
-const labelSvg = (label, width, height) => Buffer.from(`
+const labelSvg = (label, width, height) =>
+  Buffer.from(`
   <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
     <rect x="0" y="0" width="${width}" height="${height}" fill="#090b0f"/>
     <rect x="1" y="1" width="${width - 2}" height="${height - 2}" fill="none" stroke="#ffffff" stroke-opacity="0.14"/>
@@ -267,11 +278,13 @@ const manifest = {
     statement:
       "These files are agent-generated project vector candidates only. Machine checks do not establish copyright clearance, production readiness, or human art approval. They were not authored by the human project owner.",
   },
-  assets: rendered.map(({ source, output, ...asset }) => asset),
+  assets: rendered.map(({ source: _source, output: _output, ...asset }) => asset),
   contactSheet,
 };
 
-await writeFile(join(here, "candidate-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
+const manifestPath = join(here, "candidate-manifest.json");
+await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+formatWithOxfmt(manifestPath);
 
 console.log(
   JSON.stringify(

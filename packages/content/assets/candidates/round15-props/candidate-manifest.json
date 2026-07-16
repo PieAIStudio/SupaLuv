@@ -1,17 +1,11 @@
 {
   "schemaVersion": 1,
   "candidateSetId": "spec-0003-round15-prop-ui-candidates",
-  "generatedAt": "2026-07-16T06:02:39.735Z",
+  "generatedAt": "2026-07-16T06:05:44.069Z",
   "contract": {
     "id": "prop-ui-web-16x9",
-    "outputExtensions": [
-      ".png",
-      ".webp"
-    ],
-    "outputMimeTypes": [
-      "image/png",
-      "image/webp"
-    ],
+    "outputExtensions": [".png", ".webp"],
+    "outputMimeTypes": ["image/png", "image/webp"],
     "dimensions": {
       "minWidth": 1280,
       "maxWidth": 1920,
@@ -47,12 +41,7 @@
   "assets": [
     {
       "id": "prop-protocol-terms",
-      "sceneIds": [
-        "dch01_s002",
-        "dch01_protocol_test",
-        "dch01_s003",
-        "dch01_s038"
-      ],
+      "sceneIds": ["dch01_s002", "dch01_protocol_test", "dch01_s003", "dch01_s038"],
       "accessibleText": "情感真实性测试协议，第3页，数据处理说明。03.1 本产品情感真实度依赖用户真情流露。03.2 测试期间数据用于模型迭代。03.3 测试结束后原始录音自动清除，其中“清除”加粗。条款继续见附录 A。",
       "altText": "冷白色第三页协议压在黑色测试台上，三条小字依次写明真情流露、模型迭代与原始录音自动清除，“清除”被黑底加粗；纸面不含角色旁白或剧情揭示标注。",
       "factSources": [
@@ -86,11 +75,7 @@
     },
     {
       "id": "prop-barcode-shift",
-      "sceneIds": [
-        "dch02_s002",
-        "dch02_s003",
-        "dch02_barcode_sweep"
-      ],
+      "sceneIds": ["dch02_s002", "dch02_s003", "dch02_barcode_sweep"],
       "accessibleText": "惠万家 POS 收银终端与热敏条码带。一分钟扫四十件，画面显示01:00 / 40件。密集订单行含数量、单价、小计与状态。练习锚点：临期辣条已扫嘀；冰红茶已扫嘀；桶装方便面已扫嘀。穿插扫枪中断、条码磨损重扫与拒扫。货堆着，别玩系统。",
       "altText": "廉价小超市的磨损 POS 屏与热敏条码带：高密度品名/条码/数量/价格/状态行，三行练习锚点为临期辣条、冰红茶与桶装方便面，红扫描线与物理污迹可见。",
       "factSources": [
@@ -123,12 +108,7 @@
     },
     {
       "id": "prop-rental-receipt",
-      "sceneIds": [
-        "dch02_s017",
-        "dch02_s018",
-        "dch02_s019",
-        "dch02_s020"
-      ],
+      "sceneIds": ["dch02_s017", "dch02_s018", "dch02_s019", "dch02_s020"],
       "accessibleText": "收条，房租 / 定金。今收到九百块房租定金。金额：￥900，九百。入住条件：① 九百块，五号前交。② 备注栏禁止发表情包。③ 奇怪的人别往楼里带，出事自己扛。代收人签字。字迹像医院处方。",
       "altText": "一张皱旧热敏纸房租收条斜放在廉价木桌上，蓝色手写字像医院处方，金额“￥900”最大，下面写着五号前交、备注栏禁止发表情包和奇怪的人别往楼里带。画面外围另有演出标注（猫爪与“其余选择信任”卡片），不属于收条印刷事实。",
       "factSources": [
@@ -203,12 +183,7 @@
     },
     {
       "id": "prop-approval-sms",
-      "sceneIds": [
-        "dch02_s038",
-        "dch02_s039",
-        "dch02_s040",
-        "d2_chapter_end"
-      ],
+      "sceneIds": ["dch02_s038", "dch02_s039", "dch02_s040", "d2_chapter_end"],
       "accessibleText": "23:43，短信，系统通知。初审通过。三分钟后。初审通过。请于48小时内完成个性化匹配问卷。48小时。系统通知。短信正文仅含审核结果与问卷时限。",
       "altText": "廉价出租屋床上亮着一部手机，企业短信界面用过分亲切的粉色圆角、对勾和小彩纸宣布“初审通过”，正文要求48小时内完成个性化匹配问卷。画面外围另有演出标注（屏幕还亮着 / 就当我有病），不属于短信正文。",
       "factSources": [

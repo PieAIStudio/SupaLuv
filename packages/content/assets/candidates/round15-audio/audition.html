@@ -1,146 +1,445 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SPEC-0003 Round 15 音频候选试听表</title>
-  <style>
-    :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    body { margin: 0; background: #111318; color: #eceff4; }
-    header { position: sticky; top: 0; z-index: 2; padding: 1rem 1.25rem; background: rgba(17,19,24,.96); border-bottom: 1px solid #30343d; backdrop-filter: blur(8px); }
-    h1 { margin: 0 0 .45rem; font-size: 1.3rem; }
-    .warning { color: #ffd479; font-weight: 700; }
-    .toolbar { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-top: .8rem; }
-    button, input { font: inherit; }
-    button { border: 1px solid #4b5261; border-radius: .45rem; background: #222733; color: inherit; padding: .45rem .7rem; cursor: pointer; }
-    button:hover { background: #2e3543; }
-    main { display: grid; gap: 1rem; padding: 1rem; max-width: 1200px; margin: 0 auto; }
-    article { border: 1px solid #30343d; border-radius: .75rem; background: #181b22; padding: 1rem; }
-    article h2 { margin: 0 0 .2rem; font-size: 1.08rem; }
-    article .seq { color: #95a0b5; font-size: .86rem; }
-    .lanes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; margin-top: .9rem; }
-    .lane { min-width: 0; border: 1px solid #2b3039; border-radius: .55rem; padding: .7rem; background: #13161b; }
-    .lane h3 { margin: 0 0 .55rem; font-size: .88rem; text-transform: uppercase; letter-spacing: .06em; color: #aab4c6; }
-    .clip { margin: .55rem 0; padding-top: .55rem; border-top: 1px solid #282d36; }
-    .clip:first-of-type { border-top: 0; padding-top: 0; }
-    .clip strong, .clip small { display: block; overflow-wrap: anywhere; }
-    .clip small { margin: .2rem 0 .45rem; color: #98a3b7; }
-    audio { width: 100%; height: 36px; }
-    .empty { color: #657086; font-style: italic; }
-    footer { padding: 1.5rem; text-align: center; color: #7f899b; }
-    @media (max-width: 800px) { .lanes { grid-template-columns: 1fr; } }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>SPEC-0003 · Round 15 音频候选试听表</h1>
-    <div class="warning">候选材料；未完成人类听感批准与权利清理；不得直接接入 runtime。</div>
-    <div class="toolbar">
-      <button id="stop-all" type="button">停止全部</button>
-      <label>总音量 <input id="master-volume" type="range" min="0" max="1" step="0.05" value="0.75"></label>
-      <span>建议先单听 music，再叠 ambience，最后点一次 sparse SFX。</span>
-    </div>
-  </header>
-  <main id="sequence-list"></main>
-  <footer>本页不请求网络，不使用服务端；音频均从同目录相对路径加载。</footer>
-  <script>
-    const AUDITION_DATA = {
-      candidates: {
-        "music-corporate-soft-pressure": { kind: "music", label: "企业温柔压迫", file: "audio/music/music-corporate-soft-pressure.mp3", metrics: "45.0s · -21.1 LUFS · -2.3 dBTP" },
-        "music-private-shame-fracture": { kind: "music", label: "私人羞耻裂缝", file: "audio/music/music-private-shame-fracture.mp3", metrics: "45.0s · -21.8 LUFS · -2.6 dBTP" },
-        "music-public-spectacle-payment": { kind: "music", label: "公开围观与到账", file: "audio/music/music-public-spectacle-payment.mp3", metrics: "45.0s · -22.4 LUFS · -8.9 dBTP" },
-        "music-night-alley-alliance": { kind: "music", label: "夜巷笨拙同盟", file: "audio/music/music-night-alley-alliance.mp3", metrics: "45.0s · -22.2 LUFS · -7.8 dBTP" },
-        "music-budget-settling": { kind: "music", label: "廉价安顿", file: "audio/music/music-budget-settling.mp3", metrics: "45.0s · -21.2 LUFS · -6.3 dBTP" },
-        "music-robot-temptation": { kind: "music", label: "机器人诱惑", file: "audio/music/music-robot-temptation.mp3", metrics: "45.0s · -22.5 LUFS · -10.4 dBTP" },
-        "music-chapter-endpoint": { kind: "music", label: "章节终点", file: "audio/music/music-chapter-endpoint.mp3", metrics: "45.0s · -22.6 LUFS · -9.6 dBTP" },
-        "test-booth-hvac": { kind: "ambience", label: "test-booth-hvac", file: "audio/ambience/test-booth-hvac.mp3", metrics: "30.0s · -26.5 LUFS · -13.7 dBTP" },
-        "office-corridor": { kind: "ambience", label: "office-corridor", file: "audio/ambience/office-corridor.mp3", metrics: "30.0s · -26.7 LUFS · -13.6 dBTP" },
-        "night-alley": { kind: "ambience", label: "night-alley", file: "audio/ambience/night-alley.mp3", metrics: "30.0s · -25.1 LUFS · -9.9 dBTP" },
-        "convenience-store": { kind: "ambience", label: "convenience-store", file: "audio/ambience/convenience-store.mp3", metrics: "30.0s · -25.9 LUFS · -5.9 dBTP" },
-        "budget-hotel": { kind: "ambience", label: "budget-hotel", file: "audio/ambience/budget-hotel.mp3", metrics: "30.0s · -26.3 LUFS · -12.1 dBTP" },
-        "rental-room": { kind: "ambience", label: "rental-room", file: "audio/ambience/rental-room.mp3", metrics: "30.0s · -28.3 LUFS · -15.7 dBTP" },
-        "door-lock": { kind: "sfx", label: "door-lock", file: "audio/sfx/door-lock.mp3", metrics: "0.93s · -29.6 LUFS · -7.1 dBTP" },
-        "chip-bag": { kind: "sfx", label: "chip-bag", file: "audio/sfx/chip-bag.mp3", metrics: "1.74s · -26.2 LUFS · -3.6 dBTP" },
-        "phone-buzz": { kind: "sfx", label: "phone-buzz", file: "audio/sfx/phone-buzz.mp3", metrics: "0.67s · -18.4 LUFS · -7.7 dBTP" },
-        "freight-elevator": { kind: "sfx", label: "freight-elevator", file: "audio/sfx/freight-elevator.mp3", metrics: "3.00s · -29.5 LUFS · -4.3 dBTP" },
-        "scanner": { kind: "sfx", label: "scanner", file: "audio/sfx/scanner.mp3", metrics: "1.22s · -18.5 LUFS · -6.8 dBTP" },
-        "door-knock": { kind: "sfx", label: "door-knock", file: "audio/sfx/door-knock.mp3", metrics: "0.58s · -26.3 LUFS · -3.5 dBTP" },
-        "cat-step": { kind: "sfx", label: "cat-step", file: "audio/sfx/cat-step.mp3", metrics: "2.60s · -25.3 LUFS · -4.9 dBTP" },
-        "payment-receipt": { kind: "sfx", label: "payment-receipt", file: "audio/sfx/payment-receipt.mp3", metrics: "3.77s · -21.3 LUFS · -3.4 dBTP" }
-      },
-      sequences: [
-        { id: "SQ01", label: "测试舱：企业温柔压迫", music: ["music-corporate-soft-pressure"], ambience: ["test-booth-hvac"], sfx: [] },
-        { id: "SQ02", label: "走廊与质检：私人裂缝开始", music: ["music-private-shame-fracture"], ambience: ["office-corridor", "test-booth-hvac"], sfx: [] },
-        { id: "SQ03", label: "分手余波：锁门与指标", music: ["music-private-shame-fracture"], ambience: ["test-booth-hvac"], sfx: ["door-lock"] },
-        { id: "SQ04", label: "会员弹窗与质检门口", music: ["music-public-spectacle-payment"], ambience: ["office-corridor"], sfx: ["chip-bag"] },
-        { id: "SQ05", label: "公开围观到货梯同盟", music: ["music-public-spectacle-payment"], ambience: ["office-corridor"], sfx: ["freight-elevator"] },
-        { id: "SQ06", label: "前台冲突与到账", music: ["music-public-spectacle-payment"], ambience: ["office-corridor"], sfx: ["phone-buzz"] },
-        { id: "SQ07", label: "夜街与旧巷笨拙同盟", music: ["music-night-alley-alliance"], ambience: ["night-alley"], sfx: [] },
-        { id: "SQ08", label: "快捷酒店与便利店补给", music: ["music-budget-settling"], ambience: ["budget-hotel", "convenience-store"], sfx: ["scanner", "payment-receipt"] },
-        { id: "SQ09", label: "夜巷到租房入口", music: ["music-night-alley-alliance"], ambience: ["night-alley", "rental-room"], sfx: [] },
-        { id: "SQ10", label: "搬入、房规与橘猫", music: ["music-budget-settling"], ambience: ["rental-room"], sfx: ["cat-step"] },
-        { id: "SQ11", label: "敲门与机器人招募", music: ["music-robot-temptation"], ambience: ["rental-room"], sfx: ["door-knock"] },
-        { id: "SQ12", label: "孤独房间、落地页与问卷", music: ["music-robot-temptation"], ambience: ["rental-room"], sfx: ["phone-buzz"] },
-        { id: "SQ13", label: "提交、批准与章节终点", music: ["music-chapter-endpoint"], ambience: ["rental-room"], sfx: [] }
-      ]
-    };
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SPEC-0003 Round 15 音频候选试听表</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #111318;
+        color: #eceff4;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        padding: 1rem 1.25rem;
+        background: rgba(17, 19, 24, 0.96);
+        border-bottom: 1px solid #30343d;
+        backdrop-filter: blur(8px);
+      }
+      h1 {
+        margin: 0 0 0.45rem;
+        font-size: 1.3rem;
+      }
+      .warning {
+        color: #ffd479;
+        font-weight: 700;
+      }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+        margin-top: 0.8rem;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      button {
+        border: 1px solid #4b5261;
+        border-radius: 0.45rem;
+        background: #222733;
+        color: inherit;
+        padding: 0.45rem 0.7rem;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #2e3543;
+      }
+      main {
+        display: grid;
+        gap: 1rem;
+        padding: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      article {
+        border: 1px solid #30343d;
+        border-radius: 0.75rem;
+        background: #181b22;
+        padding: 1rem;
+      }
+      article h2 {
+        margin: 0 0 0.2rem;
+        font-size: 1.08rem;
+      }
+      article .seq {
+        color: #95a0b5;
+        font-size: 0.86rem;
+      }
+      .lanes {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.8rem;
+        margin-top: 0.9rem;
+      }
+      .lane {
+        min-width: 0;
+        border: 1px solid #2b3039;
+        border-radius: 0.55rem;
+        padding: 0.7rem;
+        background: #13161b;
+      }
+      .lane h3 {
+        margin: 0 0 0.55rem;
+        font-size: 0.88rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #aab4c6;
+      }
+      .clip {
+        margin: 0.55rem 0;
+        padding-top: 0.55rem;
+        border-top: 1px solid #282d36;
+      }
+      .clip:first-of-type {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .clip strong,
+      .clip small {
+        display: block;
+        overflow-wrap: anywhere;
+      }
+      .clip small {
+        margin: 0.2rem 0 0.45rem;
+        color: #98a3b7;
+      }
+      audio {
+        width: 100%;
+        height: 36px;
+      }
+      .empty {
+        color: #657086;
+        font-style: italic;
+      }
+      footer {
+        padding: 1.5rem;
+        text-align: center;
+        color: #7f899b;
+      }
+      @media (max-width: 800px) {
+        .lanes {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>SPEC-0003 · Round 15 音频候选试听表</h1>
+      <div class="warning">候选材料；未完成人类听感批准与权利清理；不得直接接入 runtime。</div>
+      <div class="toolbar">
+        <button id="stop-all" type="button">停止全部</button>
+        <label
+          >总音量 <input id="master-volume" type="range" min="0" max="1" step="0.05" value="0.75"
+        /></label>
+        <span>建议先单听 music，再叠 ambience，最后点一次 sparse SFX。</span>
+      </div>
+    </header>
+    <main id="sequence-list"></main>
+    <footer>本页不请求网络，不使用服务端；音频均从同目录相对路径加载。</footer>
+    <script>
+      const AUDITION_DATA = {
+        candidates: {
+          "music-corporate-soft-pressure": {
+            kind: "music",
+            label: "企业温柔压迫",
+            file: "audio/music/music-corporate-soft-pressure.mp3",
+            metrics: "45.0s · -21.1 LUFS · -2.3 dBTP",
+          },
+          "music-private-shame-fracture": {
+            kind: "music",
+            label: "私人羞耻裂缝",
+            file: "audio/music/music-private-shame-fracture.mp3",
+            metrics: "45.0s · -21.8 LUFS · -2.6 dBTP",
+          },
+          "music-public-spectacle-payment": {
+            kind: "music",
+            label: "公开围观与到账",
+            file: "audio/music/music-public-spectacle-payment.mp3",
+            metrics: "45.0s · -22.4 LUFS · -8.9 dBTP",
+          },
+          "music-night-alley-alliance": {
+            kind: "music",
+            label: "夜巷笨拙同盟",
+            file: "audio/music/music-night-alley-alliance.mp3",
+            metrics: "45.0s · -22.2 LUFS · -7.8 dBTP",
+          },
+          "music-budget-settling": {
+            kind: "music",
+            label: "廉价安顿",
+            file: "audio/music/music-budget-settling.mp3",
+            metrics: "45.0s · -21.2 LUFS · -6.3 dBTP",
+          },
+          "music-robot-temptation": {
+            kind: "music",
+            label: "机器人诱惑",
+            file: "audio/music/music-robot-temptation.mp3",
+            metrics: "45.0s · -22.5 LUFS · -10.4 dBTP",
+          },
+          "music-chapter-endpoint": {
+            kind: "music",
+            label: "章节终点",
+            file: "audio/music/music-chapter-endpoint.mp3",
+            metrics: "45.0s · -22.6 LUFS · -9.6 dBTP",
+          },
+          "test-booth-hvac": {
+            kind: "ambience",
+            label: "test-booth-hvac",
+            file: "audio/ambience/test-booth-hvac.mp3",
+            metrics: "30.0s · -26.5 LUFS · -13.7 dBTP",
+          },
+          "office-corridor": {
+            kind: "ambience",
+            label: "office-corridor",
+            file: "audio/ambience/office-corridor.mp3",
+            metrics: "30.0s · -26.7 LUFS · -13.6 dBTP",
+          },
+          "night-alley": {
+            kind: "ambience",
+            label: "night-alley",
+            file: "audio/ambience/night-alley.mp3",
+            metrics: "30.0s · -25.1 LUFS · -9.9 dBTP",
+          },
+          "convenience-store": {
+            kind: "ambience",
+            label: "convenience-store",
+            file: "audio/ambience/convenience-store.mp3",
+            metrics: "30.0s · -25.9 LUFS · -5.9 dBTP",
+          },
+          "budget-hotel": {
+            kind: "ambience",
+            label: "budget-hotel",
+            file: "audio/ambience/budget-hotel.mp3",
+            metrics: "30.0s · -26.3 LUFS · -12.1 dBTP",
+          },
+          "rental-room": {
+            kind: "ambience",
+            label: "rental-room",
+            file: "audio/ambience/rental-room.mp3",
+            metrics: "30.0s · -28.3 LUFS · -15.7 dBTP",
+          },
+          "door-lock": {
+            kind: "sfx",
+            label: "door-lock",
+            file: "audio/sfx/door-lock.mp3",
+            metrics: "0.93s · -29.6 LUFS · -7.1 dBTP",
+          },
+          "chip-bag": {
+            kind: "sfx",
+            label: "chip-bag",
+            file: "audio/sfx/chip-bag.mp3",
+            metrics: "1.74s · -26.2 LUFS · -3.6 dBTP",
+          },
+          "phone-buzz": {
+            kind: "sfx",
+            label: "phone-buzz",
+            file: "audio/sfx/phone-buzz.mp3",
+            metrics: "0.67s · -18.4 LUFS · -7.7 dBTP",
+          },
+          "freight-elevator": {
+            kind: "sfx",
+            label: "freight-elevator",
+            file: "audio/sfx/freight-elevator.mp3",
+            metrics: "3.00s · -29.5 LUFS · -4.3 dBTP",
+          },
+          scanner: {
+            kind: "sfx",
+            label: "scanner",
+            file: "audio/sfx/scanner.mp3",
+            metrics: "1.22s · -18.5 LUFS · -6.8 dBTP",
+          },
+          "door-knock": {
+            kind: "sfx",
+            label: "door-knock",
+            file: "audio/sfx/door-knock.mp3",
+            metrics: "0.58s · -26.3 LUFS · -3.5 dBTP",
+          },
+          "cat-step": {
+            kind: "sfx",
+            label: "cat-step",
+            file: "audio/sfx/cat-step.mp3",
+            metrics: "2.60s · -25.3 LUFS · -4.9 dBTP",
+          },
+          "payment-receipt": {
+            kind: "sfx",
+            label: "payment-receipt",
+            file: "audio/sfx/payment-receipt.mp3",
+            metrics: "3.77s · -21.3 LUFS · -3.4 dBTP",
+          },
+        },
+        sequences: [
+          {
+            id: "SQ01",
+            label: "测试舱：企业温柔压迫",
+            music: ["music-corporate-soft-pressure"],
+            ambience: ["test-booth-hvac"],
+            sfx: [],
+          },
+          {
+            id: "SQ02",
+            label: "走廊与质检：私人裂缝开始",
+            music: ["music-private-shame-fracture"],
+            ambience: ["office-corridor", "test-booth-hvac"],
+            sfx: [],
+          },
+          {
+            id: "SQ03",
+            label: "分手余波：锁门与指标",
+            music: ["music-private-shame-fracture"],
+            ambience: ["test-booth-hvac"],
+            sfx: ["door-lock"],
+          },
+          {
+            id: "SQ04",
+            label: "会员弹窗与质检门口",
+            music: ["music-public-spectacle-payment"],
+            ambience: ["office-corridor"],
+            sfx: ["chip-bag"],
+          },
+          {
+            id: "SQ05",
+            label: "公开围观到货梯同盟",
+            music: ["music-public-spectacle-payment"],
+            ambience: ["office-corridor"],
+            sfx: ["freight-elevator"],
+          },
+          {
+            id: "SQ06",
+            label: "前台冲突与到账",
+            music: ["music-public-spectacle-payment"],
+            ambience: ["office-corridor"],
+            sfx: ["phone-buzz"],
+          },
+          {
+            id: "SQ07",
+            label: "夜街与旧巷笨拙同盟",
+            music: ["music-night-alley-alliance"],
+            ambience: ["night-alley"],
+            sfx: [],
+          },
+          {
+            id: "SQ08",
+            label: "快捷酒店与便利店补给",
+            music: ["music-budget-settling"],
+            ambience: ["budget-hotel", "convenience-store"],
+            sfx: ["scanner", "payment-receipt"],
+          },
+          {
+            id: "SQ09",
+            label: "夜巷到租房入口",
+            music: ["music-night-alley-alliance"],
+            ambience: ["night-alley", "rental-room"],
+            sfx: [],
+          },
+          {
+            id: "SQ10",
+            label: "搬入、房规与橘猫",
+            music: ["music-budget-settling"],
+            ambience: ["rental-room"],
+            sfx: ["cat-step"],
+          },
+          {
+            id: "SQ11",
+            label: "敲门与机器人招募",
+            music: ["music-robot-temptation"],
+            ambience: ["rental-room"],
+            sfx: ["door-knock"],
+          },
+          {
+            id: "SQ12",
+            label: "孤独房间、落地页与问卷",
+            music: ["music-robot-temptation"],
+            ambience: ["rental-room"],
+            sfx: ["phone-buzz"],
+          },
+          {
+            id: "SQ13",
+            label: "提交、批准与章节终点",
+            music: ["music-chapter-endpoint"],
+            ambience: ["rental-room"],
+            sfx: [],
+          },
+        ],
+      };
 
-    const list = document.querySelector("#sequence-list");
-    const allAudio = new Set();
-    const makeLane = (title, ids) => {
-      const lane = document.createElement("section");
-      lane.className = "lane";
-      const heading = document.createElement("h3");
-      heading.textContent = title;
-      lane.appendChild(heading);
-      if (!ids.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
-        empty.textContent = "本 sequence 不安排剧情 SFX";
-        lane.appendChild(empty);
+      const list = document.querySelector("#sequence-list");
+      const allAudio = new Set();
+      const makeLane = (title, ids) => {
+        const lane = document.createElement("section");
+        lane.className = "lane";
+        const heading = document.createElement("h3");
+        heading.textContent = title;
+        lane.appendChild(heading);
+        if (!ids.length) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+          empty.textContent = "本 sequence 不安排剧情 SFX";
+          lane.appendChild(empty);
+          return lane;
+        }
+        for (const id of ids) {
+          const data = AUDITION_DATA.candidates[id];
+          const clip = document.createElement("div");
+          clip.className = "clip";
+          const name = document.createElement("strong");
+          name.textContent = `${id} · ${data.label}`;
+          const metrics = document.createElement("small");
+          metrics.textContent = data.metrics;
+          const audio = document.createElement("audio");
+          audio.controls = true;
+          audio.preload = "metadata";
+          audio.src = data.file;
+          audio.loop = data.kind !== "sfx";
+          audio.volume = Number(document.querySelector("#master-volume").value);
+          allAudio.add(audio);
+          clip.append(name, metrics, audio);
+          lane.appendChild(clip);
+        }
         return lane;
-      }
-      for (const id of ids) {
-        const data = AUDITION_DATA.candidates[id];
-        const clip = document.createElement("div");
-        clip.className = "clip";
-        const name = document.createElement("strong");
-        name.textContent = `${id} · ${data.label}`;
-        const metrics = document.createElement("small");
-        metrics.textContent = data.metrics;
-        const audio = document.createElement("audio");
-        audio.controls = true;
-        audio.preload = "metadata";
-        audio.src = data.file;
-        audio.loop = data.kind !== "sfx";
-        audio.volume = Number(document.querySelector("#master-volume").value);
-        allAudio.add(audio);
-        clip.append(name, metrics, audio);
-        lane.appendChild(clip);
-      }
-      return lane;
-    };
+      };
 
-    for (const sequence of AUDITION_DATA.sequences) {
-      const card = document.createElement("article");
-      const title = document.createElement("h2");
-      title.textContent = sequence.label;
-      const sequenceId = document.createElement("div");
-      sequenceId.className = "seq";
-      sequenceId.textContent = sequence.id;
-      const lanes = document.createElement("div");
-      lanes.className = "lanes";
-      lanes.append(makeLane("Music", sequence.music), makeLane("Ambience", sequence.ambience), makeLane("Sparse SFX", sequence.sfx));
-      card.append(title, sequenceId, lanes);
-      list.appendChild(card);
-    }
+      for (const sequence of AUDITION_DATA.sequences) {
+        const card = document.createElement("article");
+        const title = document.createElement("h2");
+        title.textContent = sequence.label;
+        const sequenceId = document.createElement("div");
+        sequenceId.className = "seq";
+        sequenceId.textContent = sequence.id;
+        const lanes = document.createElement("div");
+        lanes.className = "lanes";
+        lanes.append(
+          makeLane("Music", sequence.music),
+          makeLane("Ambience", sequence.ambience),
+          makeLane("Sparse SFX", sequence.sfx),
+        );
+        card.append(title, sequenceId, lanes);
+        list.appendChild(card);
+      }
 
-    document.querySelector("#stop-all").addEventListener("click", () => {
-      for (const audio of allAudio) { audio.pause(); audio.currentTime = 0; }
-    });
-    document.querySelector("#master-volume").addEventListener("input", (event) => {
-      for (const audio of allAudio) audio.volume = Number(event.target.value);
-    });
-  </script>
-</body>
+      document.querySelector("#stop-all").addEventListener("click", () => {
+        for (const audio of allAudio) {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+      document.querySelector("#master-volume").addEventListener("input", (event) => {
+        for (const audio of allAudio) audio.volume = Number(event.target.value);
+      });
+    </script>
+  </body>
 </html>
