@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-16T08:11:43.192Z
+generated_at: 2026-07-16T21:55:20.841Z
 generator_version: doc-gov@0.7.3
-docs_count: 38
+docs_count: 40
 docs:
   - id: ADR-0001
     path: docs/adr/0001-web-first-react-ink-baseline.md
@@ -237,6 +237,20 @@ docs:
     pinned: false
   - id: REF-LEARNING-WORKFLOW-ISSUES-MAKE-CHECKED-IN-GENERATORS-EMIT-REPOSITORY-FORMATTED-ARTIFACTS
     path: docs/reference/learnings/workflow-issues/make-checked-in-generators-emit-repository-formatted-artifacts.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-16
+    pinned: false
+  - id: REF-LEARNING-WORKFLOW-ISSUES-MODULE-LEVEL-PROVIDER-CONSTRUCTION-CAPTURES-ENV-BEFORE-LOCAL-SECRETS-LOAD
+    path: docs/reference/learnings/workflow-issues/module-level-provider-construction-captures-env-before-local-secrets-load.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-16
+    pinned: false
+  - id: REF-LEARNING-WORKFLOW-ISSUES-REASONING-EFFORT-SHARES-THE-OUTPUT-TOKEN-BUDGET-AND-CAN-TRUNCATE-STRUCTURED-JSON
+    path: docs/reference/learnings/workflow-issues/reasoning-effort-shares-the-output-token-budget-and-can-truncate-structured-json.md
     type: reference
     status: stable
     canonical: true
