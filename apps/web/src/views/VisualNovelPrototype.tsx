@@ -41,6 +41,7 @@ import { useCoPlayPointers } from "./play/hooks/useCoPlayPointers";
 import { useDecisionExperience } from "./play/experience/useDecisionExperience";
 import { useNarrativePlayback } from "./play/experience/useNarrativePlayback";
 import { useNarrativeSource } from "./play/experience/useNarrativeSource";
+import { usePlaySurfaceChrome } from "./play/experience/usePlaySurfaceChrome";
 import { usePropCutIn } from "./play/hooks/usePropCutIn";
 import { useStageMedia } from "./play/hooks/useStageMedia";
 import { isContinueOnly, storyHasComedyMeters } from "./play/lib/vnHelpers";
@@ -170,10 +171,25 @@ export function VisualNovelPrototype({
   const debugToolsAvailable =
     import.meta.env.DEV && new URLSearchParams(window.location.search).get("debug") === "1";
 
-  const [showDevTools, setShowDevTools] = useState(!playerMode || debugToolsAvailable);
-  const [saveFlash, setSaveFlash] = useState(false);
-  const [systemOpen, setSystemOpen] = useState(false);
-  const [historyOpen, setHistoryOpen] = useState(false);
+  const chrome = usePlaySurfaceChrome({
+    playerMode,
+    debugToolsAvailable,
+    activeSaveSlot,
+    onSave,
+  });
+  const {
+    showDevTools,
+    saveFlash,
+    systemOpen,
+    historyOpen,
+    openHistory,
+    closeHistory,
+    toggleSystem,
+    closeSystem,
+    toggleDevTools,
+    handleSave,
+    closeChromeForReset,
+  } = chrome;
   const [localAutoPlay, setLocalAutoPlay] = useState(autoPlay);
   const stageRootRef = useRef<HTMLDivElement | null>(null);
   const propReopenRef = useRef<HTMLButtonElement | null>(null);
@@ -340,9 +356,16 @@ export function VisualNovelPrototype({
     resetMediaMemory();
     resetNarrative();
     setActiveCutscene(null);
-    setSystemOpen(false);
+    closeChromeForReset();
     onReset();
-  }, [onReset, propCutIn, resetMediaMemory, resetNarrative, setActiveCutscene]);
+  }, [
+    closeChromeForReset,
+    onReset,
+    propCutIn,
+    resetMediaMemory,
+    resetNarrative,
+    setActiveCutscene,
+  ]);
 
   const decision = useDecisionExperience({
     source: {
@@ -453,26 +476,6 @@ export function VisualNovelPrototype({
     };
   }, [onJumpTo]);
 
-  useEffect(() => {
-    // Production stories hide tools by default; ?debug=1 keeps them available.
-    setShowDevTools(!playerMode || debugToolsAvailable);
-  }, [playerMode, debugToolsAvailable]);
-
-  useEffect(() => {
-    if (!systemOpen) {
-      return;
-    }
-    function onPointerDown(event: PointerEvent) {
-      const target = event.target as HTMLElement | null;
-      if (target?.closest(".system-menu-wrap")) {
-        return;
-      }
-      setSystemOpen(false);
-    }
-    window.addEventListener("pointerdown", onPointerDown);
-    return () => window.removeEventListener("pointerdown", onPointerDown);
-  }, [systemOpen]);
-
   const dismissCutscene = useCallback(() => {
     ensureAudioUnlocked();
     setActiveCutscene(null);
@@ -507,17 +510,6 @@ export function VisualNovelPrototype({
     performPlaySurfaceReset();
   }, [clearOracleForReset, performPlaySurfaceReset]);
 
-  const handleSave = useCallback(
-    (slotId?: ManualSlotId) => {
-      onSave(slotId ?? activeSaveSlot);
-      setSaveFlash(true);
-      setSystemOpen(false);
-      window.setTimeout(() => setSaveFlash(false), 1400);
-      gameAudio.playSfx("notify-soft", 0.4);
-    },
-    [activeSaveSlot, onSave],
-  );
-
   const toggleAutoPlay = useCallback(() => {
     const next = !localAutoPlay;
     setLocalAutoPlay(next);
@@ -541,17 +533,17 @@ export function VisualNovelPrototype({
 
   const handleEscape = useCallback(() => {
     if (historyOpen) {
-      setHistoryOpen(false);
+      closeHistory();
       return;
     }
     if (systemOpen) {
-      setSystemOpen(false);
+      closeSystem();
       return;
     }
     if (activeCutscene) {
       dismissCutscene();
     }
-  }, [activeCutscene, dismissCutscene, historyOpen, systemOpen]);
+  }, [activeCutscene, closeHistory, closeSystem, dismissCutscene, historyOpen, systemOpen]);
 
   usePlayInput({
     enabled:
@@ -674,11 +666,8 @@ export function VisualNovelPrototype({
             onStoryChange={onStoryChange}
             onToggleFullscreen={() => void toggleFullscreen()}
             onToggleMute={handleMuteToggle}
-            onOpenHistory={() => {
-              setSystemOpen(false);
-              setHistoryOpen(true);
-            }}
-            onToggleSystem={() => setSystemOpen((value) => !value)}
+            onOpenHistory={openHistory}
+            onToggleSystem={toggleSystem}
             onSave={handleSave}
             onToggleAutoPlay={toggleAutoPlay}
             onReset={handleReset}
@@ -687,9 +676,7 @@ export function VisualNovelPrototype({
             onOpenHelp={onOpenHelp}
             onOpenAchievements={onOpenAchievements}
             onOpenTitle={onOpenTitle}
-            onToggleDevTools={
-              debugToolsAvailable ? () => setShowDevTools((value) => !value) : undefined
-            }
+            onToggleDevTools={toggleDevTools}
             onOpenPlayerPath={onOpenPlayerPath}
             onOpenCreatorMap={onOpenCreatorMap}
           />
@@ -767,11 +754,7 @@ export function VisualNovelPrototype({
           />
         ) : null}
 
-        <DialogueHistoryDrawer
-          open={historyOpen}
-          entries={historyEntries}
-          onClose={() => setHistoryOpen(false)}
-        />
+        <DialogueHistoryDrawer open={historyOpen} entries={historyEntries} onClose={closeHistory} />
 
         <ChapterEndCard
           open={decisionEnding.endCardOpen}
