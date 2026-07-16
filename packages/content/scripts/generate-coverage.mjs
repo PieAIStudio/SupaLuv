@@ -227,7 +227,7 @@ for (const source of SOURCE_CHAPTERS) {
 
 const body01 = entries.filter((entry) => entry.sourceId === "draft01").length;
 const body02 = entries.filter((entry) => entry.sourceId === "draft02").length;
-if (body01 !== 142 || body02 !== 76 || entries.length !== 218 || structure.length !== 14) {
+if (body01 !== 142 || body02 !== 148 || entries.length !== 290 || structure.length !== 21) {
   console.error(
     `Unexpected parse counts: draft01=${body01} draft02=${body02} entries=${entries.length} structure=${structure.length}`,
   );

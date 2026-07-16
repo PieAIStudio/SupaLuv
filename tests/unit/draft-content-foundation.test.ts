@@ -252,7 +252,7 @@ describe("draft-2026-07 source snapshots", () => {
       readFileSync(resolve(ROOT, "packages/content/ledgers/draft-2026-07-coverage.json"), "utf8"),
     ) as { entries: CoverageEntry[] };
     expect(manifest.coverageMappingDigest.algorithm).toBe("sha256");
-    expect(manifest.coverageMappingDigest.entryCount).toBe(218);
+    expect(manifest.coverageMappingDigest.entryCount).toBe(290);
     expect(manifest.coverageMappingDigest.value).toBe(computeCoverageMappingDigest(ledger.entries));
   });
 });
@@ -270,18 +270,18 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     "draft-ch02": stripInkComments(inkByChapter["draft-ch02"]!),
   };
 
-  it("re-parses snapshots to 142 + 76 = 218 body paragraphs and 14 structure blocks", () => {
+  it("re-parses snapshots to 142 + 148 = 290 body paragraphs and 21 structure blocks", () => {
     const draft01Body = parseBodyParagraphs(readFileSync(draft01Path, "utf8"));
     const draft02Body = parseBodyParagraphs(readFileSync(draft02Path, "utf8"));
     const draft01Struct = parseStructureBlocks(readFileSync(draft01Path, "utf8"));
     const draft02Struct = parseStructureBlocks(readFileSync(draft02Path, "utf8"));
     expect(draft01Body.length).toBe(142);
-    expect(draft02Body.length).toBe(76);
-    expect(draft01Body.length + draft02Body.length).toBe(218);
-    expect(draft01Struct.length + draft02Struct.length).toBe(14);
+    expect(draft02Body.length).toBe(148);
+    expect(draft01Body.length + draft02Body.length).toBe(290);
+    expect(draft01Struct.length + draft02Struct.length).toBe(21);
   });
 
-  it("ledger entries are exactly 218 and 1:1 with re-parsed source ids/hashes", () => {
+  it("ledger entries are exactly 290 and 1:1 with re-parsed source ids/hashes", () => {
     const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
       allowedStatuses: string[];
       structure: Array<{ id: string; textHash: string; sourceId: string }>;
@@ -289,8 +289,8 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     };
 
     expect(ledger.allowedStatuses).toEqual([...ALLOWED_STATUSES]);
-    expect(ledger.entries.length).toBe(218);
-    expect(ledger.structure.length).toBe(14);
+    expect(ledger.entries.length).toBe(290);
+    expect(ledger.structure.length).toBe(21);
 
     const bodyBySource: Record<string, string[]> = {
       draft01: parseBodyParagraphs(readFileSync(draft01Path, "utf8")),
@@ -390,7 +390,7 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     expect(dialogueMisses).toEqual([]);
     expect(paragraphMissing).toBe(0);
     expect(dialogueMissing).toBe(0);
-    expect(adaptations.length).toBe(70);
+    expect(adaptations.length).toBe(91);
 
     const dialogueEntries = ledger.entries.filter(
       (entry) => entry.status === "verbatim-dialogue" && entry.dialogueQuotes.length > 0,
@@ -507,7 +507,7 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
 
     const driftValidation = validateCoverageMappingDigest(ledger.entries, {
       algorithm: "sha256",
-      entryCount: 218,
+      entryCount: 290,
       value: "0".repeat(64),
     });
     expect(driftValidation.ok).toBe(false);
@@ -749,8 +749,7 @@ describe("draft ink / scene alignment and topology", () => {
       expect(chapter.scenes.every((s) => !("autoNext" in s) || s.autoNext === undefined)).toBe(
         true,
       );
-      const expectedSource = storyId === "draft-ch01" ? "supa-luv-v2-2026-07" : "draft-2026-07";
-      expect(chapter.scenes.every((s) => s.source === expectedSource)).toBe(true);
+      expect(chapter.scenes.every((s) => s.source === "supa-luv-v2-2026-07")).toBe(true);
     }
   });
 
@@ -878,7 +877,6 @@ describe("required narrative facts reachable", () => {
   it("chapter 2 ink contains mandatory beat phrases", () => {
     const draftCh02InkSource = readInkSource("packages/content/ink/draft-ch02.ink");
     const must = [
-      "一百六",
       "惠万家",
       "辣条",
       "石佩欣",

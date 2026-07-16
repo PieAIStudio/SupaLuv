@@ -84,33 +84,37 @@ describe("draft ch01 protocol-test-v1", () => {
 });
 
 describe("draft ch02 narrative interactions", () => {
-  it("barcode-sweep after s003 continues to s004", () => {
+  it("barcode-sweep after s002 continues to s003", () => {
     const runner = createInkStoryRunnerFromCompiled(ch02);
     chooseById(runner, "dch02_s001_continue");
     chooseById(runner, "dch02_s002_continue");
-    chooseById(runner, "dch02_s003_continue");
     expect(resolveStoryInteraction(runner.getSnapshot())?.definition.id).toBe("barcode-sweep-v1");
     chooseById(runner, "barcode_sweep_q1_ok");
     chooseById(runner, "barcode_sweep_q2_ok");
     chooseById(runner, "barcode_sweep_q3_ok");
     expect(runner.getVariable("barcode_sweep_completed_at_version")).toBe("barcode-sweep-v1");
-    expect(chooseById(runner, "barcode_sweep_continue").sceneId).toBe("dch02_s004");
+    expect(chooseById(runner, "barcode_sweep_continue").sceneId).toBe("dch02_s003");
   });
 
   it("housing-hotspots and mobile-questionnaire complete or skip into next scenes", () => {
     const runner = createInkStoryRunnerFromCompiled(ch02);
-    skipUntil(runner, "dch02_s016");
-    chooseById(runner, "dch02_s016_continue");
+    skipUntil(runner, "dch02_s017");
+    // s017 guest choices lead into housing hotspots
+    const guest = runner.getSnapshot().choices.find((c) => c.choiceId === "d2_ask_guest");
+    if (!guest) throw new Error("missing d2_ask_guest");
+    runner.choose(guest.index);
     expect(resolveStoryInteraction(runner.getSnapshot())?.definition.id).toBe(
       "housing-hotspots-v1",
     );
     chooseById(runner, "housing_hotspots_q1_wall");
     chooseById(runner, "housing_hotspots_q2_cat");
     chooseById(runner, "housing_hotspots_q3_stairwell");
-    expect(chooseById(runner, "housing_hotspots_continue").sceneId).toBe("dch02_s017");
+    expect(chooseById(runner, "housing_hotspots_continue").sceneId).toBe("dch02_s018");
 
-    skipUntil(runner, "dch02_s037");
-    chooseById(runner, "dch02_s037_continue");
+    skipUntil(runner, "dch02_s028");
+    const apply = runner.getSnapshot().choices.find((c) => c.choiceId === "d2_apply");
+    if (!apply) throw new Error("missing d2_apply");
+    runner.choose(apply.index);
     expect(resolveStoryInteraction(runner.getSnapshot())?.definition.id).toBe(
       "mobile-questionnaire-v1",
     );
@@ -120,7 +124,7 @@ describe("draft ch02 narrative interactions", () => {
     expect(runner.getVariable("mobile_questionnaire_completed_at_version")).toBe(
       "mobile-questionnaire-v1",
     );
-    expect(chooseById(runner, "mobile_questionnaire_continue").sceneId).toBe("dch02_s038");
+    expect(chooseById(runner, "mobile_questionnaire_continue").sceneId).toBe("dch02_s029");
   });
 
   it("reaches chapter-2 endpoint with interactions on path", () => {

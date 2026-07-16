@@ -44,7 +44,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_tell_flat",
     variableName: "breakup_delivery",
     expectedValue: "flat",
-    echoes: [{ sceneId: "dch02_s019", text: "报快递单似的“分手了。昨天。”" }],
+    echoes: [{ sceneId: "dch02_s017", text: "报快递单似的“分手了。昨天。”" }],
   },
   {
     slot: "P02/hard",
@@ -52,7 +52,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_tell_hard",
     variableName: "breakup_delivery",
     expectedValue: "hard",
-    echoes: [{ sceneId: "dch02_s019", text: "真实的你要吗？我提的" }],
+    echoes: [{ sceneId: "dch02_s017", text: "真实的你要吗？我提的" }],
   },
   {
     slot: "P03/shame",
@@ -60,7 +60,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_memory_shame",
     variableName: "memory_posture",
     expectedValue: "shame",
-    echoes: [{ sceneId: "dch02_s034", text: "掌心先贴上脸" }],
+    echoes: [{ sceneId: "dch02_s028", text: "掌心先贴上脸" }],
   },
   {
     slot: "P03/hard",
@@ -68,7 +68,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_memory_hard",
     variableName: "memory_posture",
     expectedValue: "hard",
-    echoes: [{ sceneId: "dch02_s034", text: "硬撑这门手艺，平台之间倒是通用" }],
+    echoes: [{ sceneId: "dch02_s028", text: "硬撑这门手艺，平台之间倒是通用" }],
   },
   {
     slot: "P04/watch",
@@ -92,7 +92,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_calc_money",
     variableName: "frontdesk_response",
     expectedValue: "calculate",
-    echoes: [{ sceneId: "dch02_s003", text: "现在计算器成了排班表" }],
+    echoes: [{ sceneId: "dch02_s001", text: "现在计算器成了排班表" }],
   },
   {
     slot: "P05/angry",
@@ -100,7 +100,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_still_angry",
     variableName: "frontdesk_response",
     expectedValue: "angry",
-    echoes: [{ sceneId: "dch02_s003", text: "火气照样得打卡" }],
+    echoes: [{ sceneId: "dch02_s001", text: "火气照样得打卡" }],
   },
   {
     slot: "P06/firm",
@@ -108,7 +108,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_confirm_900",
     variableName: "budget_stance",
     expectedValue: "firm_900",
-    echoes: [{ sceneId: "dch02_s008", text: "守住了数字，别的钱就得自己割" }],
+    echoes: [{ sceneId: "dch02_s017", text: "守住了数字，别的钱就得自己割" }],
   },
   {
     slot: "P06/unspoken",
@@ -116,7 +116,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d1_whisper_less",
     variableName: "budget_stance",
     expectedValue: "unspoken_less",
-    echoes: [{ sceneId: "dch02_s008", text: "没说出的还价，现在从辣条钱里找零" }],
+    echoes: [{ sceneId: "dch02_s017", text: "没说出的还价，现在从辣条钱里找零" }],
   },
   {
     slot: "P07/firm",
@@ -124,7 +124,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d2_catch_firm",
     variableName: "child_response",
     expectedValue: "firm",
-    echoes: [{ sceneId: "dch02_s006", text: "掌心还留着按下去的力道" }],
+    echoes: [{ sceneId: "dch02_s004", text: "掌心还留着按下去的力道" }],
   },
   {
     slot: "P07/soft",
@@ -132,7 +132,7 @@ const ECHO_CASES: readonly EchoCase[] = [
     sourceChoiceId: "d2_catch_soft",
     variableName: "child_response",
     expectedValue: "soft",
-    echoes: [{ sceneId: "dch02_s006", text: "克制不是撤单" }],
+    echoes: [{ sceneId: "dch02_s004", text: "克制不是撤单" }],
   },
   {
     slot: "P08/dismiss",
@@ -141,8 +141,8 @@ const ECHO_CASES: readonly EchoCase[] = [
     variableName: "robot_interest",
     expectedValue: "dismiss",
     echoes: [
-      { sceneId: "dch02_s035", text: "拇指已经替它办理了退货" },
-      { sceneId: "dch02_s040", text: "再把自己送进初审。流程闭环" },
+      { sceneId: "dch02_s028", text: "拇指已经替它办理了退货" },
+      { sceneId: "dch02_s032", text: "再把自己送进初审。流程闭环" },
     ],
   },
   {
@@ -152,8 +152,8 @@ const ECHO_CASES: readonly EchoCase[] = [
     variableName: "robot_interest",
     expectedValue: "curious",
     echoes: [
-      { sceneId: "dch02_s035", text: "他就知道自己会看到底" },
-      { sceneId: "dch02_s040", text: "那个藏法正式失效" },
+      { sceneId: "dch02_s028", text: "他就知道自己会看到底" },
+      { sceneId: "dch02_s032", text: "那个藏法正式失效" },
     ],
   },
 ];
@@ -277,11 +277,11 @@ function sequenceForScene(chapter: "ch1" | "ch2", sceneId: string | null): strin
   const match = /^dch02_s(\d{3})$/.exec(sceneId);
   if (!match) return null;
   const number = Number(match[1]);
-  if (number <= 5) return "SQ08";
+  if (number <= 4) return "SQ08";
   if (number <= 9) return "SQ09";
-  if (number <= 21) return "SQ10";
-  if (number <= 31) return "SQ11";
-  if (number <= 37) return "SQ12";
+  if (number <= 16) return "SQ10";
+  if (number <= 22) return "SQ11";
+  if (number <= 28) return "SQ12";
   return "SQ13";
 }
 
@@ -393,15 +393,15 @@ describe("Round 15 choice echoes", () => {
     const inheritedNames = getStoryCatalogMeta("draft-ch01").inheritVariableNames;
     const inherited = chapter1.exportVariables(inheritedNames);
     const chapter2 = await createDraftCh02InkStoryRunner(inherited);
-    expect(advanceToScene(chapter2, "dch02_s003").text).toContain(path.echoes.p05);
+    expect(advanceToScene(chapter2, "dch02_s001").text).toContain(path.echoes.p05);
     chooseById(chapter2, path.chapter2Choices[0]!);
     expect(chapter2.getSnapshot().text).toContain(path.echoes.p07);
-    expect(advanceToScene(chapter2, "dch02_s008").text).toContain(path.echoes.p06);
-    expect(advanceToScene(chapter2, "dch02_s019").text).toContain(path.echoes.p02);
+    expect(advanceToScene(chapter2, "dch02_s017").text).toContain(path.echoes.p06);
+    expect(advanceToScene(chapter2, "dch02_s017").text).toContain(path.echoes.p02);
     chooseById(chapter2, path.chapter2Choices[1]!);
-    expect(advanceToScene(chapter2, "dch02_s034").text).toContain(path.echoes.p03);
-    expect(advanceToScene(chapter2, "dch02_s035").text).toContain(path.echoes.p08Landing);
-    expect(advanceToScene(chapter2, "dch02_s040").text).toContain(path.echoes.p08End);
+    expect(advanceToScene(chapter2, "dch02_s028").text).toContain(path.echoes.p03);
+    expect(advanceToScene(chapter2, "dch02_s028").text).toContain(path.echoes.p08Landing);
+    expect(advanceToScene(chapter2, "dch02_s032").text).toContain(path.echoes.p08End);
     expect(advanceToScene(chapter2, "d2_chapter_end").text).toContain("短信屏幕还亮着");
     finishChapter(chapter2);
     expect(chapter2.getSnapshot().isEnded).toBe(true);

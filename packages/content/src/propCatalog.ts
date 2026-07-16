@@ -34,17 +34,17 @@ const PROP_TRIGGER_BY_ID = {
   },
   "prop-rental-receipt": {
     storyId: "draft-ch02",
-    sceneId: "dch02_s020",
+    sceneId: "dch02_s017",
     title: "九百块房租收条",
   },
   "prop-application-nda": {
     storyId: "draft-ch02",
-    sceneId: "dch02_s037",
+    sceneId: "dch02_s028",
     title: "体验官申请与超级保密协议",
   },
   "prop-approval-sms": {
     storyId: "draft-ch02",
-    sceneId: "dch02_s040",
+    sceneId: "dch02_s032",
     title: "系统通知 · 初审通过",
   },
 } as const satisfies Record<

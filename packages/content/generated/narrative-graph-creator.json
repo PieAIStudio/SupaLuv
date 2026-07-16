@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "packageId": "draft-2026-07",
-  "revision": "5748667b3b20b10c",
+  "revision": "640900cb15d51ddd",
   "nodes": [
     {
       "id": "draft-ch01#scene:d1_chapter_end",
@@ -1117,16 +1117,16 @@
       "excerpt": "短信屏幕还亮着。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 668,
-        "endLine": 673
+        "startLine": 554,
+        "endLine": 559
       },
       "dialogueLines": [
         {
           "text": "短信屏幕还亮着。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 670,
-            "endLine": 670
+            "startLine": 556,
+            "endLine": 556
           }
         }
       ]
@@ -1138,16 +1138,24 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_barcode_sweep",
-      "title": "条码连扫",
+      "title": "收银台练习 1/3 · 临期辣条。",
       "excerpt": "收银台练习 1/3 · 临期辣条。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 75,
-        "endLine": 131
+        "startLine": 64,
+        "endLine": 120
       },
       "dialogueLines": [
         {
           "text": "收银台练习 1/3 · 临期辣条。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 75,
+            "endLine": 75
+          }
+        },
+        {
+          "text": "收银台练习 2/3 · 冰红茶。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
             "startLine": 86,
@@ -1155,7 +1163,7 @@
           }
         },
         {
-          "text": "收银台练习 2/3 · 冰红茶。",
+          "text": "收银台练习 3/3 · 桶装方便面。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
             "startLine": 97,
@@ -1163,27 +1171,19 @@
           }
         },
         {
-          "text": "收银台练习 3/3 · 桶装方便面。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 108,
-            "endLine": 108
-          }
-        },
-        {
           "text": "练习模式关掉。老板娘在后头喊：“别玩系统，货堆着。”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 124,
-            "endLine": 124
+            "startLine": 113,
+            "endLine": 113
           }
         },
         {
           "text": "三声“嘀”叠在一起。苏明手腕还记得节奏：白天扫条码，晚上被 App 扫灵魂。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 126,
-            "endLine": 126
+            "startLine": 115,
+            "endLine": 115
           }
         }
       ]
@@ -1195,52 +1195,52 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_housing_hotspots",
-      "title": "初审通过",
+      "title": "看房标注 1/3 · 墙皮。",
       "excerpt": "看房标注 1/3 · 墙皮。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 275,
-        "endLine": 331
+        "startLine": 272,
+        "endLine": 328
       },
       "dialogueLines": [
         {
           "text": "看房标注 1/3 · 墙皮。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 286,
-            "endLine": 286
+            "startLine": 283,
+            "endLine": 283
           }
         },
         {
           "text": "看房标注 2/3 · 橘猫。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 297,
-            "endLine": 297
+            "startLine": 294,
+            "endLine": 294
           }
         },
         {
           "text": "看房标注 3/3 · 楼梯口 / 楼规。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 308,
-            "endLine": 308
+            "startLine": 305,
+            "endLine": 305
           }
         },
         {
           "text": "苏明没把每个角都摸一遍。石佩欣当没看见，楼规照旧等着他。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 324,
-            "endLine": 324
+            "startLine": 321,
+            "endLine": 321
           }
         },
         {
           "text": "墙皮、猫、楼梯口——三个点都在日志里亮了一下，像房东随手盖的审核章。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 326,
-            "endLine": 326
+            "startLine": 323,
+            "endLine": 323
           }
         }
       ]
@@ -1256,48 +1256,48 @@
       "excerpt": "手机问卷 1/3 · 邻居容忍度。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 555,
-        "endLine": 634
+        "startLine": 430,
+        "endLine": 509
       },
       "dialogueLines": [
         {
           "text": "手机问卷 1/3 · 邻居容忍度。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 566,
-            "endLine": 566
+            "startLine": 441,
+            "endLine": 441
           }
         },
         {
           "text": "手机问卷 2/3 · 是否介意设备高度拟人。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 586,
-            "endLine": 586
+            "startLine": 461,
+            "endLine": 461
           }
         },
         {
           "text": "手机问卷 3/3 · 独立房间。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 603,
-            "endLine": 603
+            "startLine": 478,
+            "endLine": 478
           }
         },
         {
           "text": "问卷页缩成一条“稍后再填”。保密承诺第七条仍加着粗。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 627,
-            "endLine": 627
+            "startLine": 502,
+            "endLine": 502
           }
         },
         {
           "text": "三道题交完，提交钮还在下一屏等他。苏明把手机屏幕亮度又调暗了一格。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 629,
-            "endLine": 629
+            "startLine": 504,
+            "endLine": 504
           }
         }
       ]
@@ -1309,24 +1309,16 @@
       "chapterOrder": 2,
       "kind": "entry",
       "stableSceneId": "dch02_s001",
-      "title": "第二章 她不会评判你",
-      "excerpt": "第二章 她不会评判你\n\n\"今晚看不成了，明天傍晚。\"石佩欣在电话里说，声音底下全是敲键盘的哒哒声，理由是赶稿。\n\n看房被推到第二天。石佩欣挑租客比甲方挑图还细；肯重新约时间，已经算初审通过。",
+      "title": "有用。苏明站在收银台后头，视线已经跟了那孩子有一阵了。她在辣",
+      "excerpt": "不评判。\n\n前台那次还在：现在计算器成了排班表，火气照样得打卡，两种输法他都试过。\n\n有用。苏明站在收银台后头，视线已经跟了那孩子有一阵了。她在辣条货架前假装比口味——翻一包看看背面，再拿另一包翻翻，动作悠闲，眼神却没往柜台这边飘过一下第三次了。苏明认得这件校服的颜色。他在这家叫“惠万家”的小超市干了快半年了——门脸两米宽，货架挤得侧身才能过，店名听着气派，实际能他绕出收银台，走过去，把平板转过来给她看。监控画面停在那儿，时间戳清清楚楚。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 40,
-        "endLine": 49
+        "startLine": 41,
+        "endLine": 56
       },
       "dialogueLines": [
         {
-          "text": "第二章 她不会评判你",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 42,
-            "endLine": 42
-          }
-        },
-        {
-          "text": "\"今晚看不成了，明天傍晚。\"石佩欣在电话里说，声音底下全是敲键盘的哒哒声，理由是赶稿。",
+          "text": "不评判。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
             "startLine": 43,
@@ -1334,11 +1326,35 @@
           }
         },
         {
-          "text": "看房被推到第二天。石佩欣挑租客比甲方挑图还细；肯重新约时间，已经算初审通过。",
+          "text": "白天工资、晚上补贴又在脑子里排队；前台那次火气输给计算器，现在计算器成了排班表。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
             "startLine": 45,
             "endLine": 45
+          }
+        },
+        {
+          "text": "他手腕扫得更快，像还在跟那张前台笑脸顶嘴；可两份工一班没少，火气照样得打卡。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 48,
+            "endLine": 48
+          }
+        },
+        {
+          "text": "前台那次还在：现在计算器成了排班表，火气照样得打卡，两种输法他都试过。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 50,
+            "endLine": 50
+          }
+        },
+        {
+          "text": "有用。苏明站在收银台后头，视线已经跟了那孩子有一阵了。她在辣条货架前假装比口味——翻一包看看背面，再拿另一包翻翻，动作悠闲，眼神却没往柜台这边飘过一下第三次了。苏明认得这件校服的颜色。他在这家叫“惠万家”的小超市干了快半年了——门脸两米宽，货架挤得侧身才能过，店名听着气派，实际能他绕出收银台，走过去，把平板转过来给她看。监控画面停在那儿，时间戳清清楚楚。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 52,
+            "endLine": 52
           }
         }
       ]
@@ -1350,28 +1366,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s002",
-      "title": "苏明当晚在快捷酒店将就了一宿，一百六一晚，躺在陌",
-      "excerpt": "苏明当晚在快捷酒店将就了一宿，一百六一晚，躺在陌生的床上翻来覆去，心疼得半宿没睡踏实。\n\n第二天他照常上日班。超市开在城中村巷口，门脸两米宽，货架挤得人得侧身走。店名叫“惠万家”，服务半径大约三百米。",
+      "title": "这是你第三次了。”小女孩先不说话。她抬起头看他，神情平静得不",
+      "excerpt": "“这是你第三次了。”小女孩先不说话。她抬起头看他，神情平静得不像这个年纪——不像是被抓住的人，更像是坐在谈判桌对面的两个人沉默了大概有四五秒。然后她开口了。“我是不是……太冷静了？”",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 50,
-        "endLine": 58
+        "startLine": 57,
+        "endLine": 63
       },
       "dialogueLines": [
         {
-          "text": "苏明当晚在快捷酒店将就了一宿，一百六一晚，躺在陌生的床上翻来覆去，心疼得半宿没睡踏实。",
+          "text": "“这是你第三次了。”小女孩先不说话。她抬起头看他，神情平静得不像这个年纪——不像是被抓住的人，更像是坐在谈判桌对面的两个人沉默了大概有四五秒。然后她开口了。“我是不是……太冷静了？”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 52,
-            "endLine": 52
-          }
-        },
-        {
-          "text": "第二天他照常上日班。超市开在城中村巷口，门脸两米宽，货架挤得人得侧身走。店名叫“惠万家”，服务半径大约三百米。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 54,
-            "endLine": 54
+            "startLine": 59,
+            "endLine": 59
           }
         }
       ]
@@ -1383,44 +1391,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s003",
-      "title": "这份工是他靠一分钟扫四十件抢来的。老板娘姓周，说",
-      "excerpt": "这份工是他靠一分钟扫四十件抢来的。老板娘姓周，说话难听，心不算硬；工资不高，时间够弹，正好接上晚上的测试班——白天扫条码，晚上被 App 扫灵魂。\n\n在店里，他会分真穷和装穷：前者只拿临期货，眼睛躲人；后者砍价嗓门最大。他对前一种人心软，老板娘骂了八回也没改。大超市管不了，小偷他一定管。",
+      "title": "苏明刚想接话，小女孩嘴一撇，两颗泪挤了出来，嘴角还没完全垮下",
+      "excerpt": "苏明刚想接话，小女孩嘴一撇，两颗泪挤了出来，嘴角还没完全垮下去，泪就先到了。“大哥哥，我真的错了。”苏明愣了整整一秒钟，什么话都没出来。那颗心回来以后，苏明做了个决定：叫老板娘出来处理，他一个收银的，管到这份上已经到头了。他掏出手机电话接通，“喂”字刚出口，小女孩从他旁边走过来，站到他手边——没抢手机，只是把他握手机的那只手，",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 59,
-        "endLine": 74
+        "startLine": 121,
+        "endLine": 134
       },
       "dialogueLines": [
         {
-          "text": "这份工是他靠一分钟扫四十件抢来的。老板娘姓周，说话难听，心不算硬；工资不高，时间够弹，正好接上晚上的测试班——白天扫条码，晚上被 App 扫灵魂。",
+          "text": "苏明刚想接话，小女孩嘴一撇，两颗泪挤了出来，嘴角还没完全垮下去，泪就先到了。“大哥哥，我真的错了。”苏明愣了整整一秒钟，什么话都没出来。那颗心回来以后，苏明做了个决定：叫老板娘出来处理，他一个收银的，管到这份上已经到头了。他掏出手机电话接通，“喂”字刚出口，小女孩从他旁边走过来，站到他手边——没抢手机，只是把他握手机的那只手，",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 61,
-            "endLine": 61
-          }
-        },
-        {
-          "text": "白天工资、晚上补贴、酒店一百六又在脑子里排队；前台那次火气输给计算器，现在计算器成了排班表。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 64,
-            "endLine": 64
-          }
-        },
-        {
-          "text": "他手腕扫得更快，像还在跟那张前台笑脸顶嘴；可两份工一班没少，火气照样得打卡。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 67,
-            "endLine": 67
-          }
-        },
-        {
-          "text": "在店里，他会分真穷和装穷：前者只拿临期货，眼睛躲人；后者砍价嗓门最大。他对前一种人心软，老板娘骂了八回也没改。大超市管不了，小偷他一定管。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 70,
-            "endLine": 70
+            "startLine": 123,
+            "endLine": 123
           }
         }
       ]
@@ -1432,28 +1416,36 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s004",
-      "title": "这天，他就撞上了后一件事。",
-      "excerpt": "这天，他就撞上了后一件事。\n\n辣条被塞进那件洗得发白、袖口挽了两道的校服口袋里，一塞就是两包，那个动作熟练得跟扫码差不多，一气呵成，连眼神都没往柜台这边飘一下。",
+      "title": "苏明看着她。她回看他，眼神又变回了那种平静的。等他想明白发生",
+      "excerpt": "苏明松开手时，掌心还留着按下去的力道；规矩办完了，围观的人才刚进场。\n\n苏明看着她。她回看他，眼神又变回了那种平静的。等他想明白发生了什么，小女孩已经松手开跑了。苏明追出去，手里还攥着电话，老板娘那头还在“喂喂喂”。出了门是巷子，巷子穿出去是菜市场，再出去是老居民楼中间夹着的水泥空地。这片地方下午五点以后就是摊周围猫从墙头看热闹，一动不动。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 132,
-        "endLine": 140
+        "startLine": 135,
+        "endLine": 147
       },
       "dialogueLines": [
         {
-          "text": "这天，他就撞上了后一件事。",
+          "text": "苏明松开手时，掌心还留着按下去的力道；规矩办完了，围观的人才刚进场。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 134,
-            "endLine": 134
+            "startLine": 138,
+            "endLine": 138
           }
         },
         {
-          "text": "辣条被塞进那件洗得发白、袖口挽了两道的校服口袋里，一塞就是两包，那个动作熟练得跟扫码差不多，一气呵成，连眼神都没往柜台这边飘一下。",
+          "text": "苏明先松开手，声音却没退：“拿出来。”克制不是撤单，只是不给围观的人加戏。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 136,
-            "endLine": 136
+            "startLine": 141,
+            "endLine": 141
+          }
+        },
+        {
+          "text": "苏明看着她。她回看他，眼神又变回了那种平静的。等他想明白发生了什么，小女孩已经松手开跑了。苏明追出去，手里还攥着电话，老板娘那头还在“喂喂喂”。出了门是巷子，巷子穿出去是菜市场，再出去是老居民楼中间夹着的水泥空地。这片地方下午五点以后就是摊周围猫从墙头看热闹，一动不动。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 143,
+            "endLine": 143
           }
         }
       ]
@@ -1465,20 +1457,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s005",
-      "title": "那母亲骂骂咧咧地拽着孩子往外走，临出门还啐了一句",
-      "excerpt": "苏明从收银台后头绕出来，一把按住那孩子的手腕：\"拿出来。\"",
+      "title": "苏明快追上了。小女孩脚步一停，站在原地，哇地嚎啕大哭，嗓门比",
+      "excerpt": "苏明快追上了。小女孩脚步一停，站在原地，哇地嚎啕大哭，嗓门比他大三倍，冲周围喊：“他追我！这个男的摸我！”摊贩、大妈、路过的两个外卖员，一圈人从四面合了过来，都看着苏明。苏明大声喊：“她偷东西！手机里有监控！”话音刚落，旁边一个卖牛肉的大胖子从摊位后头绕出来，手里还提着一把折叠椅，眼睛红的，嗓门比苏明还大",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 141,
-        "endLine": 153
+        "startLine": 148,
+        "endLine": 154
       },
       "dialogueLines": [
         {
-          "text": "苏明从收银台后头绕出来，一把按住那孩子的手腕：\"拿出来。\"",
+          "text": "苏明快追上了。小女孩脚步一停，站在原地，哇地嚎啕大哭，嗓门比他大三倍，冲周围喊：“他追我！这个男的摸我！”摊贩、大妈、路过的两个外卖员，一圈人从四面合了过来，都看着苏明。苏明大声喊：“她偷东西！手机里有监控！”话音刚落，旁边一个卖牛肉的大胖子从摊位后头绕出来，手里还提着一把折叠椅，眼睛红的，嗓门比苏明还大",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 143,
-            "endLine": 143
+            "startLine": 150,
+            "endLine": 150
           }
         }
       ]
@@ -1490,44 +1482,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s006",
-      "title": "傍晚，看房的时间到了。",
-      "excerpt": "苏明松开手时，掌心还留着按下去的力道；规矩办完了，围观的人才刚进场。\n\n小孩\"哇\"地一声就哭了出来——这哭声比动作还快，明显是训练有素，一套流程走得炉火纯青。母亲从货架后头杀出来，两只手在围裙上蹭了蹭——那双手粗糙得不像是闲人的手，一把把儿子护在身后，嗓门先拔高了三度：\"你干嘛吓孩子？血口喷人！\"\n\n\"监控在那儿。\"苏明抬手指了指天花板一角。",
+      "title": "苏明往旁边跳，折叠椅擦着他耳边过去，带起一阵风。他赶紧把手机",
+      "excerpt": "苏明往旁边跳，折叠椅擦着他耳边过去，带起一阵风。他赶紧把手机举起来，屏幕上调出监控画面，边跑边喊人群挪了挪位置，有人探头看了一眼他手机屏幕，往小女孩那边看了一眼，又往苏明这边看，开始犹豫。“他说的……好像也挺对……”有人小声说了一句。大胖子停了停，折叠椅还举着，转头看向小女孩：“你真的没被——”小女孩这时候嚎哭得更大声了，两行眼泪哗哗的，使劲往大胖子旁边的大妈身边蹭：“大妈大妈，他追我好久",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 154,
-        "endLine": 169
+        "startLine": 155,
+        "endLine": 161
       },
       "dialogueLines": [
         {
-          "text": "苏明松开手时，掌心还留着按下去的力道；规矩办完了，围观的人才刚进场。",
+          "text": "苏明往旁边跳，折叠椅擦着他耳边过去，带起一阵风。他赶紧把手机举起来，屏幕上调出监控画面，边跑边喊人群挪了挪位置，有人探头看了一眼他手机屏幕，往小女孩那边看了一眼，又往苏明这边看，开始犹豫。“他说的……好像也挺对……”有人小声说了一句。大胖子停了停，折叠椅还举着，转头看向小女孩：“你真的没被——”小女孩这时候嚎哭得更大声了，两行眼泪哗哗的，使劲往大胖子旁边的大妈身边蹭：“大妈大妈，他追我好久",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
             "startLine": 157,
             "endLine": 157
-          }
-        },
-        {
-          "text": "苏明先松开手，声音却没退：“拿出来。”克制不是撤单，只是不给围观的人加戏。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 160,
-            "endLine": 160
-          }
-        },
-        {
-          "text": "小孩\"哇\"地一声就哭了出来——这哭声比动作还快，明显是训练有素，一套流程走得炉火纯青。母亲从货架后头杀出来，两只手在围裙上蹭了蹭——那双手粗糙得不像是闲人的手，一把把儿子护在身后，嗓门先拔高了三度：\"你干嘛吓孩子？血口喷人！\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 163,
-            "endLine": 163
-          }
-        },
-        {
-          "text": "\"监控在那儿。\"苏明抬手指了指天花板一角。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 165,
-            "endLine": 165
           }
         }
       ]
@@ -1539,28 +1507,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s007",
-      "title": "门开了。石佩欣穿着皮卡丘家居服，身后电脑上的图被",
-      "excerpt": "\"那也是你逼的！他手滑！\"\n\n围观的顾客都停下脚步看热闹，谁也不出声，就那么站着看戏。老板娘从里屋出来打圆场：\"小苏啊，算了算了——\"",
+      "title": "大妈把小女孩搂进怀里，给大胖子使了个眼色。大胖子把折叠椅放下",
+      "excerpt": "大妈把小女孩搂进怀里，给大胖子使了个眼色。大胖子把折叠椅放下来，转身往苏明走过去，一把薅住他的衣领，把他往自己跟前拎了拎，就那么定在那儿，苏明没挣扎，他也知道这会儿挣扎只有死路一条，就那么被摁着，把手机举到大胖子眼前：“我以我妈的名义大胖子低下头，眯起眼睛，往手机屏幕上看了两秒，然后抬起头，把视线对准了小女孩。那边的大妈也跟着看过去。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 170,
-        "endLine": 178
+        "startLine": 162,
+        "endLine": 168
       },
       "dialogueLines": [
         {
-          "text": "\"那也是你逼的！他手滑！\"",
+          "text": "大妈把小女孩搂进怀里，给大胖子使了个眼色。大胖子把折叠椅放下来，转身往苏明走过去，一把薅住他的衣领，把他往自己跟前拎了拎，就那么定在那儿，苏明没挣扎，他也知道这会儿挣扎只有死路一条，就那么被摁着，把手机举到大胖子眼前：“我以我妈的名义大胖子低下头，眯起眼睛，往手机屏幕上看了两秒，然后抬起头，把视线对准了小女孩。那边的大妈也跟着看过去。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 172,
-            "endLine": 172
-          }
-        },
-        {
-          "text": "围观的顾客都停下脚步看热闹，谁也不出声，就那么站着看戏。老板娘从里屋出来打圆场：\"小苏啊，算了算了——\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 174,
-            "endLine": 174
+            "startLine": 164,
+            "endLine": 164
           }
         }
       ]
@@ -1572,36 +1532,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s008",
-      "title": "雷欧在她身后偷偷竖起大拇指，被一个眼神精准地扫到",
-      "excerpt": "\"辣条钱我扫了。\"苏明没搭理老板娘的劝，转身回到收银台，自己给那包辣条刷了单，小票\"啪\"地拍在柜台上，\"下次别带他来偷。\"",
+      "title": "周围的人也都跟着看过去。小女孩被这么多双眼睛盯着，哭声慢慢停",
+      "excerpt": "周围的人也都跟着看过去。小女孩被这么多双眼睛盯着，哭声慢慢停了。她抽了抽鼻子，把眼泪用袖子抹干净，神情从刚才那种哇哇大哭她想了一下，缓缓开口，像是在陈述事实：“你们大人，其实都挺好骗的。”说完，她低头从校服口袋里掏出苏明的手机——不知道什么时候顺走的，苏明手上那台还在，但屏幕已经变黑",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 179,
-        "endLine": 197
+        "startLine": 169,
+        "endLine": 175
       },
       "dialogueLines": [
         {
-          "text": "九百块房租像一道硬杠横在账本上；他守住了数字，别的钱就得自己割。",
+          "text": "周围的人也都跟着看过去。小女孩被这么多双眼睛盯着，哭声慢慢停了。她抽了抽鼻子，把眼泪用袖子抹干净，神情从刚才那种哇哇大哭她想了一下，缓缓开口，像是在陈述事实：“你们大人，其实都挺好骗的。”说完，她低头从校服口袋里掏出苏明的手机——不知道什么时候顺走的，苏明手上那台还在，但屏幕已经变黑",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 182,
-            "endLine": 182
-          }
-        },
-        {
-          "text": "那句“能不能再少点”没敢出口，九百照样落了地；没说出的还价，现在从辣条钱里找零。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 185,
-            "endLine": 185
-          }
-        },
-        {
-          "text": "\"辣条钱我扫了。\"苏明没搭理老板娘的劝，转身回到收银台，自己给那包辣条刷了单，小票\"啪\"地拍在柜台上，\"下次别带他来偷。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 188,
-            "endLine": 188
+            "startLine": 171,
+            "endLine": 171
           }
         }
       ]
@@ -1613,28 +1557,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s009",
-      "title": "看房热点",
-      "excerpt": "那母亲骂骂咧咧地拽着孩子往外走，临出门还啐了一句：\"小小收银的，狗眼看人低。\"\n\n老板娘叹了口气，问要不要把这钱从他工资里扣。",
+      "title": "苏明反射性就扑了过去。他没注意脚下。大胖子刚才放下的折叠椅就",
+      "excerpt": "苏明反射性就扑了过去。他没注意脚下。大胖子刚才放下的折叠椅就搁在他跟前，椅腿斜着支在地上，椅面朝上。苏明全力往前冲，右有人把他搀起来。鼻血滴在水泥上，脑袋嗡嗡的，视线糊了一下，他咬着牙站稳，捡起手机，把屏幕摁亮——没碎，屏幕是好的他低下头喘了口气，才发现手在抖。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 198,
-        "endLine": 206
+        "startLine": 176,
+        "endLine": 187
       },
       "dialogueLines": [
         {
-          "text": "那母亲骂骂咧咧地拽着孩子往外走，临出门还啐了一句：\"小小收银的，狗眼看人低。\"",
+          "text": "苏明反射性就扑了过去。他没注意脚下。大胖子刚才放下的折叠椅就搁在他跟前，椅腿斜着支在地上，椅面朝上。苏明全力往前冲，右有人把他搀起来。鼻血滴在水泥上，脑袋嗡嗡的，视线糊了一下，他咬着牙站稳，捡起手机，把屏幕摁亮——没碎，屏幕是好的他低下头喘了口气，才发现手在抖。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 200,
-            "endLine": 200
-          }
-        },
-        {
-          "text": "老板娘叹了口气，问要不要把这钱从他工资里扣。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 202,
-            "endLine": 202
+            "startLine": 178,
+            "endLine": 178
           }
         }
       ]
@@ -1646,28 +1582,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s010",
-      "title": "当夜，苏明搬了进来。行李是几个垃圾袋的升级版。",
-      "excerpt": "\"我出。\"他说第二遍时，脸绷得像在替两包辣条签担保。\n\n常来买烟的张师傅看完全程，走时拍他肩膀：\"小伙子，你这样迟早吃亏。\"顿了顿，又补一句，\"不过我看你顺眼。\"拎着烟走了，没解释顺在哪儿。",
+      "title": "等他抬起头，小女孩早就不见了。大胖子收起折叠椅，一脸说不清是",
+      "excerpt": "等他抬起头，小女孩早就不见了。大胖子收起折叠椅，一脸说不清是服气还是不服气的表情，没说话，转身回他摊子后头去了。大妈把抱过小女就苏明一个人站在那儿，鼻血还没止，手机还握着，像刚打输一场没人记得的架。回到超市，老板娘周姐已经听完电话了，嗔了他一眼：“你啊，下次算了，跑不赢小孩的。”常来买烟的张师傅蹲在门口，把这一出全看在了眼里，走的时候拍了拍他肩膀：“小伙子，你这样迟早吃亏。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 207,
-        "endLine": 215
+        "startLine": 188,
+        "endLine": 194
       },
       "dialogueLines": [
         {
-          "text": "\"我出。\"他说第二遍时，脸绷得像在替两包辣条签担保。",
+          "text": "等他抬起头，小女孩早就不见了。大胖子收起折叠椅，一脸说不清是服气还是不服气的表情，没说话，转身回他摊子后头去了。大妈把抱过小女就苏明一个人站在那儿，鼻血还没止，手机还握着，像刚打输一场没人记得的架。回到超市，老板娘周姐已经听完电话了，嗔了他一眼：“你啊，下次算了，跑不赢小孩的。”常来买烟的张师傅蹲在门口，把这一出全看在了眼里，走的时候拍了拍他肩膀：“小伙子，你这样迟早吃亏。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 209,
-            "endLine": 209
-          }
-        },
-        {
-          "text": "常来买烟的张师傅看完全程，走时拍他肩膀：\"小伙子，你这样迟早吃亏。\"顿了顿，又补一句，\"不过我看你顺眼。\"拎着烟走了，没解释顺在哪儿。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 211,
-            "endLine": 211
+            "startLine": 190,
+            "endLine": 190
           }
         }
       ]
@@ -1679,28 +1607,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s011",
-      "title": "苏明以为石佩欣反悔，手忙脚乱把东西塞回袋子才开门",
-      "excerpt": "傍晚，看房的时间到了。\n\n雷欧提前一步蹲在楼梯口给他当监工，见他人到了，老远就伸手招呼：\"你来了。石姐——很凶，Very。\"这几个字他说得又急又慢，明显是想提前给苏明打个预防针。",
+      "title": "苏明正想说什么，货架那头绕出来一个人。雷欧，背着包，背着手，",
+      "excerpt": "苏明正想说什么，货架那头绕出来一个人。雷欧，背着包，背着手，一脸等了很久的表情：“走了，看房子。”他扫了一眼苏明脸上的血，眉毛扬了一下：“你怎么了？”“摔了。”苏明捂着鼻子，“没事。”",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 216,
-        "endLine": 224
+        "startLine": 195,
+        "endLine": 201
       },
       "dialogueLines": [
         {
-          "text": "傍晚，看房的时间到了。",
+          "text": "苏明正想说什么，货架那头绕出来一个人。雷欧，背着包，背着手，一脸等了很久的表情：“走了，看房子。”他扫了一眼苏明脸上的血，眉毛扬了一下：“你怎么了？”“摔了。”苏明捂着鼻子，“没事。”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 218,
-            "endLine": 218
-          }
-        },
-        {
-          "text": "雷欧提前一步蹲在楼梯口给他当监工，见他人到了，老远就伸手招呼：\"你来了。石姐——很凶，Very。\"这几个字他说得又急又慢，明显是想提前给苏明打个预防针。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 220,
-            "endLine": 220
+            "startLine": 197,
+            "endLine": 197
           }
         }
       ]
@@ -1712,28 +1632,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s012",
-      "title": "躺上新床板，巷子里有人称重、讨价，隔壁回锅肉的油",
-      "excerpt": "门开了。石佩欣穿着皮卡丘家居服，身后电脑上的图被她一键缩进任务栏，手速像销毁证据。苏明只瞥见一片肉色，没敢问。\n\n她的目光在他胸前那块超市工牌上停留了一秒：\"收银的？\"",
+      "title": "雷欧骑的是一辆蓝色小电驴，车把手上绑着一圈快递贴纸，不知道从",
+      "excerpt": "雷欧骑的是一辆蓝色小电驴，车把手上绑着一圈快递贴纸，不知道从哪儿撕来的，贴得密密麻麻。苏明坐后座“你怎么租那个地方的？”苏明问。“语言学校宿舍去年到期，”雷欧踩着车，嗓音随引擎声起伏，“有人在语伴群里发，说代管的那个不在乎你“然后呢？”“然后我汉语没进步，”雷欧耸了耸肩，“但我觉得那楼住着干净，就没走。”",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 225,
-        "endLine": 233
+        "startLine": 202,
+        "endLine": 208
       },
       "dialogueLines": [
         {
-          "text": "门开了。石佩欣穿着皮卡丘家居服，身后电脑上的图被她一键缩进任务栏，手速像销毁证据。苏明只瞥见一片肉色，没敢问。",
+          "text": "雷欧骑的是一辆蓝色小电驴，车把手上绑着一圈快递贴纸，不知道从哪儿撕来的，贴得密密麻麻。苏明坐后座“你怎么租那个地方的？”苏明问。“语言学校宿舍去年到期，”雷欧踩着车，嗓音随引擎声起伏，“有人在语伴群里发，说代管的那个不在乎你“然后呢？”“然后我汉语没进步，”雷欧耸了耸肩，“但我觉得那楼住着干净，就没走。”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 227,
-            "endLine": 227
-          }
-        },
-        {
-          "text": "她的目光在他胸前那块超市工牌上停留了一秒：\"收银的？\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 229,
-            "endLine": 229
+            "startLine": 204,
+            "endLine": 204
           }
         }
       ]
@@ -1745,28 +1657,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s013",
-      "title": "他点开大学室友的对话框，最后一条是三个月前的婚礼",
-      "excerpt": "\"对，还兼职别的。\"\n\n\"只要别在我楼里摆摊。\"她开门见山，一点绕弯子的意思都没有，\"抽烟？带人过夜？谈过对象没？谁提的分手？\"",
+      "title": "苏明：“踏实个屁。”“不踏实，但干净。”石家小楼在一条旧巷子",
+      "excerpt": "苏明：“踏实个屁。”“不踏实，但干净。”石家小楼在一条旧巷子里，三层，外皮有些年头了，走近了能看见墙皮翘起的地方，屋里灯光是黄的，从窗缝石佩欣住2F。雷欧带苏明上楼，敲门。里面传出游戏音效——键盘声、鼠标点击声，还有那种组队游戏特有的人声提示音，一局正进行中。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 234,
-        "endLine": 247
+        "startLine": 209,
+        "endLine": 219
       },
       "dialogueLines": [
         {
-          "text": "\"对，还兼职别的。\"",
+          "text": "苏明：“踏实个屁。”“不踏实，但干净。”石家小楼在一条旧巷子里，三层，外皮有些年头了，走近了能看见墙皮翘起的地方，屋里灯光是黄的，从窗缝石佩欣住2F。雷欧带苏明上楼，敲门。里面传出游戏音效——键盘声、鼠标点击声，还有那种组队游戏特有的人声提示音，一局正进行中。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 236,
-            "endLine": 236
-          }
-        },
-        {
-          "text": "\"只要别在我楼里摆摊。\"她开门见山，一点绕弯子的意思都没有，\"抽烟？带人过夜？谈过对象没？谁提的分手？\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 238,
-            "endLine": 238
+            "startLine": 211,
+            "endLine": 211
           }
         }
       ]
@@ -1778,28 +1682,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s014",
-      "title": "问卷正经得过分：上传居住环境，他只拍没掉墙皮的死",
-      "excerpt": "问到\"分手谁提的\"这一句，热心过头的雷欧凑了过来，主动当起了翻译——先把这句话翻成英文讲给自己听懂，再翻回中文转述给苏明：\"她问，谁把谁扔掉了。\"\n\n\"不是扔——\"石佩欣一手扶额，一脸嫌弃，\"滚一边去。\"",
+      "title": "雷欧按门铃。没反应。两人站在门口，等。等了大概十分钟，雷欧从",
+      "excerpt": "雷欧按门铃。没反应。两人站在门口，等。等了大概十分钟，雷欧从背包侧袋摸出两罐啤酒，递给苏明一罐，两人就靠着走廊墙壁坐下来。漆皮已经龟裂聊了几句，里面的游戏音效突然停了。停了大概有三十秒，门才开。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 248,
-        "endLine": 256
+        "startLine": 220,
+        "endLine": 226
       },
       "dialogueLines": [
         {
-          "text": "问到\"分手谁提的\"这一句，热心过头的雷欧凑了过来，主动当起了翻译——先把这句话翻成英文讲给自己听懂，再翻回中文转述给苏明：\"她问，谁把谁扔掉了。\"",
+          "text": "雷欧按门铃。没反应。两人站在门口，等。等了大概十分钟，雷欧从背包侧袋摸出两罐啤酒，递给苏明一罐，两人就靠着走廊墙壁坐下来。漆皮已经龟裂聊了几句，里面的游戏音效突然停了。停了大概有三十秒，门才开。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 250,
-            "endLine": 250
-          }
-        },
-        {
-          "text": "\"不是扔——\"石佩欣一手扶额，一脸嫌弃，\"滚一边去。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 252,
-            "endLine": 252
+            "startLine": 222,
+            "endLine": 222
           }
         }
       ]
@@ -1811,28 +1707,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s015",
-      "title": "手机问卷",
-      "excerpt": "\"不抽。不带。分了，\"苏明顿了顿，硬着头皮往下说，\"我提的。\"\n\n\"自己提的更稳。过。\"",
+      "title": "石佩欣出来——睡衣，头发随手扎着，发卡还没拔，露出一截橡皮鸭",
+      "excerpt": "石佩欣出来——睡衣，头发随手扎着，发卡还没拔，露出一截橡皮鸭图案。身后的电脑屏幕上来不及缩的那幅“鼻血没擦干净。”苏明把袖子在脸上抹了一下。“我想住进来，九百的预算。”她目光在他胸前那块超市工牌上停了一秒：“收银的？”",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 257,
-        "endLine": 265
+        "startLine": 227,
+        "endLine": 233
       },
       "dialogueLines": [
         {
-          "text": "\"不抽。不带。分了，\"苏明顿了顿，硬着头皮往下说，\"我提的。\"",
+          "text": "石佩欣出来——睡衣，头发随手扎着，发卡还没拔，露出一截橡皮鸭图案。身后的电脑屏幕上来不及缩的那幅“鼻血没擦干净。”苏明把袖子在脸上抹了一下。“我想住进来，九百的预算。”她目光在他胸前那块超市工牌上停了一秒：“收银的？”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 259,
-            "endLine": 259
-          }
-        },
-        {
-          "text": "\"自己提的更稳。过。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 261,
-            "endLine": 261
+            "startLine": 229,
+            "endLine": 229
           }
         }
       ]
@@ -1844,28 +1732,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s016",
-      "title": "苏明想起这楼里住着三个活人，还有一只猫，手指在屏",
-      "excerpt": "雷欧在她身后偷偷竖起大拇指，被一个眼神精准地扫到，当场被罚站到了楼梯口。他站在那儿，小声跟苏明总结起了经验：\"她的问题不用翻译，答案统一是'不敢'。\"\n\n楼道墙皮鼓包，屋里倒收拾得干净。一只橘猫窝在沙发上，跟房东本人一样，看谁都像在审核。雷欧摸了摸墙：\"Cool，Authentic。\"",
+      "title": "对，还兼职别的。”“只要别在我楼里摆摊。”她一点不绕弯子，抽",
+      "excerpt": "“对，还兼职别的。”“只要别在我楼里摆摊。”她一点不绕弯子，抽烟？带人过夜？谈过对象没？谁提的分手？问到“谁提的分手”这一句，雷欧从旁边凑过来，热心肠地当起翻译，先把这句话翻成英文给自己过了一遍，“不是扔——”石佩欣一手扶额，嫌弃地看了他一眼，“滚一边去。”雷欧心服口服地退到了楼梯口，小声跟苏明总结经验：“她的问题不用翻译，答案统一是'不敢'。”",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 266,
-        "endLine": 274
+        "startLine": 234,
+        "endLine": 245
       },
       "dialogueLines": [
         {
-          "text": "雷欧在她身后偷偷竖起大拇指，被一个眼神精准地扫到，当场被罚站到了楼梯口。他站在那儿，小声跟苏明总结起了经验：\"她的问题不用翻译，答案统一是'不敢'。\"",
+          "text": "“对，还兼职别的。”“只要别在我楼里摆摊。”她一点不绕弯子，抽烟？带人过夜？谈过对象没？谁提的分手？问到“谁提的分手”这一句，雷欧从旁边凑过来，热心肠地当起翻译，先把这句话翻成英文给自己过了一遍，“不是扔——”石佩欣一手扶额，嫌弃地看了他一眼，“滚一边去。”雷欧心服口服地退到了楼梯口，小声跟苏明总结经验：“她的问题不用翻译，答案统一是'不敢'。”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 268,
-            "endLine": 268
-          }
-        },
-        {
-          "text": "楼道墙皮鼓包，屋里倒收拾得干净。一只橘猫窝在沙发上，跟房东本人一样，看谁都像在审核。雷欧摸了摸墙：\"Cool，Authentic。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 270,
-            "endLine": 270
+            "startLine": 236,
+            "endLine": 236
           }
         }
       ]
@@ -1877,28 +1757,52 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s017",
-      "title": "\"你再交三个月房租，这墙就能补上。\"石佩欣白了他一眼，\"酷不能挡雨。\"",
-      "excerpt": "\"你再交三个月房租，这墙就能补上。\"石佩欣白了他一眼，\"酷不能挡雨。\"\n\n楼是远房亲戚的，石佩欣代收房租，也代补墙。她既是租客又是管家，墙皮靠一茬茬租客按月喂。九百块，五号前交，备注栏禁止发表情包。",
+      "title": "不抽。不带。”苏明顿了顿，硬着头皮往下说，“分了，我提的。”",
+      "excerpt": "“不抽。不带。”苏明顿了顿，硬着头皮往下说，“分了，我提的。”“自己提的更稳。过。”她说完，挥了挥手接着往下——条款连着往外跟：不许带人、别在公共区抽烟、猫的苏明嘴比脑子快，插了一句：“能不能——假设——带女朋友？”“你不是刚分？”“……假设。”",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 332,
-        "endLine": 340
+        "startLine": 246,
+        "endLine": 271
       },
       "dialogueLines": [
         {
-          "text": "\"你再交三个月房租，这墙就能补上。\"石佩欣白了他一眼，\"酷不能挡雨。\"",
+          "text": "“不抽。不带。”苏明顿了顿，硬着头皮往下说，“分了，我提的。”“自己提的更稳。过。”她说完，挥了挥手接着往下——条款连着往外跟：不许带人、别在公共区抽烟、猫的苏明嘴比脑子快，插了一句：“能不能——假设——带女朋友？”“你不是刚分？”“……假设。”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 334,
-            "endLine": 334
+            "startLine": 249,
+            "endLine": 249
           }
         },
         {
-          "text": "楼是远房亲戚的，石佩欣代收房租，也代补墙。她既是租客又是管家，墙皮靠一茬茬租客按月喂。九百块，五号前交，备注栏禁止发表情包。",
+          "text": "苏明又把那句报快递单似的“分手了。昨天。”搬出来，平得像只要不抖就不算丢人。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 336,
-            "endLine": 336
+            "startLine": 252,
+            "endLine": 252
+          }
+        },
+        {
+          "text": "苏明下巴一硬：“真实的你要吗？我提的。”嘴还是那把临时搭的架子。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 255,
+            "endLine": 255
+          }
+        },
+        {
+          "text": "九百块房租像一道硬杠横在账本上；他守住了数字，别的钱就得自己割。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 258,
+            "endLine": 258
+          }
+        },
+        {
+          "text": "那句“能不能再少点”没敢出口，九百照样落了地；没说出的还价，现在从辣条钱里找零。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 261,
+            "endLine": 261
           }
         }
       ]
@@ -1910,20 +1814,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s018",
-      "title": "苏明这人嘴皮子有时比脑子还快：\"能不能——假设——带女朋友？\"",
-      "excerpt": "苏明这人嘴皮子有时比脑子还快：\"能不能——假设——带女朋友？\"",
+      "title": "假设也不行。”猫这时候从屋里踱出来，跳下门槛，顺道踩了苏明一",
+      "excerpt": "“假设也不行。”猫这时候从屋里踱出来，跳下门槛，顺道踩了苏明一脚，留下一个灰扑扑的爪印，像是替石佩欣补盖了一道审说着说着，石佩欣突然停下来了。她抬头看了苏明一眼，没说话，转身往屋里走，边走边说：“行，住进来吧，3F-A，我去取钥匙。”门半开半关，人不见了。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 341,
-        "endLine": 352
+        "startLine": 329,
+        "endLine": 335
       },
       "dialogueLines": [
         {
-          "text": "苏明这人嘴皮子有时比脑子还快：\"能不能——假设——带女朋友？\"",
+          "text": "“假设也不行。”猫这时候从屋里踱出来，跳下门槛，顺道踩了苏明一脚，留下一个灰扑扑的爪印，像是替石佩欣补盖了一道审说着说着，石佩欣突然停下来了。她抬头看了苏明一眼，没说话，转身往屋里走，边走边说：“行，住进来吧，3F-A，我去取钥匙。”门半开半关，人不见了。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 343,
-            "endLine": 343
+            "startLine": 331,
+            "endLine": 331
           }
         }
       ]
@@ -1935,44 +1839,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s019",
-      "title": "\"你不是刚分？\"",
-      "excerpt": "\"你不是刚分？\"\n\n\"……假设。\"",
+      "title": "雷欧在旁边没动，停了一会儿，很轻地说了一句：“她又开了一局。",
+      "excerpt": "雷欧在旁边没动，停了一会儿，很轻地说了一句：“她又开了一局。”游戏音效从门缝里漏出来，一如既往。当晚苏明就搬进了3F-A。行李是几个垃圾袋，抱进来放到墙边，站在屋子中间看了一圈——房间比想象中刚把最后一个袋子拖进来，楼下传来一阵急促的敲门声，一下比一下重。苏明心里咯噔了一下。第一反应是石佩欣反悔了，或者哪条规矩他没听清楚就已经犯了。他手忙脚乱地把摊在",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 353,
-        "endLine": 368
+        "startLine": 336,
+        "endLine": 342
       },
       "dialogueLines": [
         {
-          "text": "\"你不是刚分？\"",
+          "text": "雷欧在旁边没动，停了一会儿，很轻地说了一句：“她又开了一局。”游戏音效从门缝里漏出来，一如既往。当晚苏明就搬进了3F-A。行李是几个垃圾袋，抱进来放到墙边，站在屋子中间看了一圈——房间比想象中刚把最后一个袋子拖进来，楼下传来一阵急促的敲门声，一下比一下重。苏明心里咯噔了一下。第一反应是石佩欣反悔了，或者哪条规矩他没听清楚就已经犯了。他手忙脚乱地把摊在",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 355,
-            "endLine": 355
-          }
-        },
-        {
-          "text": "苏明又把那句报快递单似的“分手了。昨天。”搬出来，平得像只要不抖就不算丢人。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 358,
-            "endLine": 358
-          }
-        },
-        {
-          "text": "苏明下巴一硬：“真实的你要吗？我提的。”嘴还是那把临时搭的架子。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 361,
-            "endLine": 361
-          }
-        },
-        {
-          "text": "\"……假设。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 364,
-            "endLine": 364
+            "startLine": 338,
+            "endLine": 338
           }
         }
       ]
@@ -1984,28 +1864,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s020",
-      "title": "\"假设也不行。\"她挥手，\"我这楼的规矩比你那超市严。\"打呼噜自己处理，锅铲不许拿来试隔音。猫跳下沙发，顺脚在苏明裤腿上补盖一道灰爪审核章。",
-      "excerpt": "\"假设也不行。\"她挥手，\"我这楼的规矩比你那超市严。\"打呼噜自己处理，锅铲不许拿来试隔音。猫跳下沙发，顺脚在苏明裤腿上补盖一道灰爪审核章。\n\n扫完定金，石佩欣手写收条，字迹像医院处方。苏明只认出“九百”，其余选择信任。她最后补一刀：\"你兼职测什么的我不管，别把奇怪的人往楼里带，出事你自己扛。\"",
+      "title": "门外站着个抱保温杯的大爷，一脸急切：“娃儿，你是不是新搬来的",
+      "excerpt": "门外站着个抱保温杯的大爷，一脸急切：“娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？”苏明愣了两秒，才想起自己确实不知道，也确实不该知道——他今天才第一次踏进这栋楼。他老实回了句“不虚惊一场。苏明关上门，后背的汗才慢慢干下去——租客身份都没坐稳，倒先演练了一遍“东窗事发”是什么三个月以后。苏明住3F-A，两份工换着上，钱紧，但没崩。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 369,
-        "endLine": 378
+        "startLine": 343,
+        "endLine": 349
       },
       "dialogueLines": [
         {
-          "text": "\"假设也不行。\"她挥手，\"我这楼的规矩比你那超市严。\"打呼噜自己处理，锅铲不许拿来试隔音。猫跳下沙发，顺脚在苏明裤腿上补盖一道灰爪审核章。",
+          "text": "门外站着个抱保温杯的大爷，一脸急切：“娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？”苏明愣了两秒，才想起自己确实不知道，也确实不该知道——他今天才第一次踏进这栋楼。他老实回了句“不虚惊一场。苏明关上门，后背的汗才慢慢干下去——租客身份都没坐稳，倒先演练了一遍“东窗事发”是什么三个月以后。苏明住3F-A，两份工换着上，钱紧，但没崩。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 371,
-            "endLine": 371
-          }
-        },
-        {
-          "text": "扫完定金，石佩欣手写收条，字迹像医院处方。苏明只认出“九百”，其余选择信任。她最后补一刀：\"你兼职测什么的我不管，别把奇怪的人往楼里带，出事你自己扛。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 373,
-            "endLine": 373
+            "startLine": 345,
+            "endLine": 345
           }
         }
       ]
@@ -2017,28 +1889,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s021",
-      "title": "雷欧小声嘀咕：\"她是不是在说我？\"",
-      "excerpt": "雷欧小声嘀咕：\"她是不是在说我？\"\n\n\"你也扛。\"",
+      "title": "石佩欣天天憋在2F，外卖吃了三个月，公共区出没时间固定在深夜",
+      "excerpt": "石佩欣天天憋在2F，外卖吃了三个月，公共区出没时间固定在深夜，猫王子比她更常见到。雷欧住3F-B某天他从超市回来，走到3F-B门口，里面响着法语——那种激烈的法语，两个人都在说，声音越来越大，苏明在原地站了一会儿，不知道该不该动。过了一会儿，雷欧把门拉开了，看见苏明站在门口，问：“听了多久？”",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 379,
-        "endLine": 387
+        "startLine": 350,
+        "endLine": 356
       },
       "dialogueLines": [
         {
-          "text": "雷欧小声嘀咕：\"她是不是在说我？\"",
+          "text": "石佩欣天天憋在2F，外卖吃了三个月，公共区出没时间固定在深夜，猫王子比她更常见到。雷欧住3F-B某天他从超市回来，走到3F-B门口，里面响着法语——那种激烈的法语，两个人都在说，声音越来越大，苏明在原地站了一会儿，不知道该不该动。过了一会儿，雷欧把门拉开了，看见苏明站在门口，问：“听了多久？”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 381,
-            "endLine": 381
-          }
-        },
-        {
-          "text": "\"你也扛。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 383,
-            "endLine": 383
+            "startLine": 352,
+            "endLine": 352
           }
         }
       ]
@@ -2050,28 +1914,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s022",
-      "title": "当夜，苏明搬了进来。行李是几个垃圾袋的升级版。",
-      "excerpt": "当夜，苏明搬了进来。行李是几个垃圾袋的升级版。\n\n刚把最后一个袋子拖进屋，楼下就传来一阵急促的敲门声，一下比一下重。",
+      "title": "不知道。我也没懂。”“她觉得，”雷欧说，停了一下，“那个机器",
+      "excerpt": "“不知道。我也没懂。”“她觉得，”雷欧说，停了一下，“那个机器人的事——”他摇了摇头，“算了。”隔了两天，两人都在心动引擎测试楼的等候区等场次。等候区的椅子跟第一次来没什么变化，苏明选了靠墙的一张照片，一个机器人。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 388,
-        "endLine": 396
+        "startLine": 357,
+        "endLine": 363
       },
       "dialogueLines": [
         {
-          "text": "当夜，苏明搬了进来。行李是几个垃圾袋的升级版。",
+          "text": "“不知道。我也没懂。”“她觉得，”雷欧说，停了一下，“那个机器人的事——”他摇了摇头，“算了。”隔了两天，两人都在心动引擎测试楼的等候区等场次。等候区的椅子跟第一次来没什么变化，苏明选了靠墙的一张照片，一个机器人。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 390,
-            "endLine": 390
-          }
-        },
-        {
-          "text": "刚把最后一个袋子拖进屋，楼下就传来一阵急促的敲门声，一下比一下重。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 392,
-            "endLine": 392
+            "startLine": 359,
+            "endLine": 359
           }
         }
       ]
@@ -2083,20 +1939,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s023",
-      "title": "苏明以为石佩欣反悔，手忙脚乱把东西塞回袋子才开门。门外只是隔壁抱保温杯的大爷：\"娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？\"",
-      "excerpt": "苏明以为石佩欣反悔，手忙脚乱把东西塞回袋子才开门。门外只是隔壁抱保温杯的大爷：\"娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？\"",
+      "title": "苏明以为是那种钢铁感的、关节明显的那种，看了一眼才发现不是—",
+      "excerpt": "苏明以为是那种钢铁感的、关节明显的那种，看了一眼才发现不是——东亚脸，五官精细，皮肤质感是那种哑“公司新的，”雷欧说，“实体的。抱回家那种。补贴是咱们场次五倍，要独立房间，签保密协议，违约金后苏明盯着照片：“多少钱？”雷欧说了数字。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 397,
-        "endLine": 403
+        "startLine": 364,
+        "endLine": 375
       },
       "dialogueLines": [
         {
-          "text": "苏明以为石佩欣反悔，手忙脚乱把东西塞回袋子才开门。门外只是隔壁抱保温杯的大爷：\"娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？\"",
+          "text": "苏明以为是那种钢铁感的、关节明显的那种，看了一眼才发现不是——东亚脸，五官精细，皮肤质感是那种哑“公司新的，”雷欧说，“实体的。抱回家那种。补贴是咱们场次五倍，要独立房间，签保密协议，违约金后苏明盯着照片：“多少钱？”雷欧说了数字。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 399,
-            "endLine": 399
+            "startLine": 366,
+            "endLine": 366
           }
         }
       ]
@@ -2108,20 +1964,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s024",
-      "title": "\"不晓得。我今天刚来。\"大爷骂骂咧咧下楼找别人。苏明关门时才发现后背出了汗：租客身份没坐稳，先演练了一遍东窗事发。",
-      "excerpt": "\"不晓得。我今天刚来。\"大爷骂骂咧咧下楼找别人。苏明关门时才发现后背出了汗：租客身份没坐稳，先演练了一遍东窗事发。",
+      "title": "苏明把手机推回去：“测那玩意儿的都有病。”“你们中文场不也全",
+      "excerpt": "苏明把手机推回去：“测那玩意儿的都有病。”“你们中文场不也全天候被听？”雷欧接过手机，耸了耸肩，“一样一样。”苏明被这句话噎住了，没接话。“全天候体验官——”雷欧翻着手机上的短信，“官哦，苏明，你们中国什么都能当官。”",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 404,
-        "endLine": 410
+        "startLine": 376,
+        "endLine": 382
       },
       "dialogueLines": [
         {
-          "text": "\"不晓得。我今天刚来。\"大爷骂骂咧咧下楼找别人。苏明关门时才发现后背出了汗：租客身份没坐稳，先演练了一遍东窗事发。",
+          "text": "苏明把手机推回去：“测那玩意儿的都有病。”“你们中文场不也全天候被听？”雷欧接过手机，耸了耸肩，“一样一样。”苏明被这句话噎住了，没接话。“全天候体验官——”雷欧翻着手机上的短信，“官哦，苏明，你们中国什么都能当官。”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 406,
-            "endLine": 406
+            "startLine": 378,
+            "endLine": 378
           }
         }
       ]
@@ -2133,28 +1989,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s025",
-      "title": "雷欧帮着抬了半程行李，走到门口忽然刹住了脚步：\"昨天那事……你还去测？\"",
-      "excerpt": "雷欧帮着抬了半程行李，走到门口忽然刹住了脚步：\"昨天那事……你还去测？\"\n\n\"去。钱没攒够。\"",
+      "title": "他把手机翻面扣着，不理他。雷欧说，他其实想报名，但女友觉得这",
+      "excerpt": "他把手机翻面扣着，不理他。雷欧说，他其实想报名，但女友觉得这是他想用机器人解决性的问题，觉得恶心，觉得他把这当性玩具看了。雷欧看着他：“你说的挺准。”苏明：“我有一点经验。”",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 411,
-        "endLine": 419
+        "startLine": 383,
+        "endLine": 389
       },
       "dialogueLines": [
         {
-          "text": "雷欧帮着抬了半程行李，走到门口忽然刹住了脚步：\"昨天那事……你还去测？\"",
+          "text": "他把手机翻面扣着，不理他。雷欧说，他其实想报名，但女友觉得这是他想用机器人解决性的问题，觉得恶心，觉得他把这当性玩具看了。雷欧看着他：“你说的挺准。”苏明：“我有一点经验。”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 413,
-            "endLine": 413
-          }
-        },
-        {
-          "text": "\"去。钱没攒够。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 415,
-            "endLine": 415
+            "startLine": 385,
+            "endLine": 385
           }
         }
       ]
@@ -2166,28 +2014,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s026",
-      "title": "\"攒什么？\"",
-      "excerpt": "\"攒什么？\"\n\n\"房租。我爸。少问。\"",
+      "title": "他把话题关了，不想多说。当天晚上，苏明一个人坐在3F-A，手",
+      "excerpt": "他把话题关了，不想多说。当天晚上，苏明一个人坐在3F-A，手机震了一下——他爸：钱到没有？腰又开始痛了，医生说要买个护腰苏明回了“到了，最近忙”。其实还没转，得先紧着房租周转。他把这条消息看了两遍，扣在床边，没再回什又点开大学室友的对话框，想找个人说说话。最后一条消息是三个月前对方发来的婚礼电子请柬，他翻了半天",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 420,
-        "endLine": 428
+        "startLine": 390,
+        "endLine": 396
       },
       "dialogueLines": [
         {
-          "text": "\"攒什么？\"",
+          "text": "他把话题关了，不想多说。当天晚上，苏明一个人坐在3F-A，手机震了一下——他爸：钱到没有？腰又开始痛了，医生说要买个护腰苏明回了“到了，最近忙”。其实还没转，得先紧着房租周转。他把这条消息看了两遍，扣在床边，没再回什又点开大学室友的对话框，想找个人说说话。最后一条消息是三个月前对方发来的婚礼电子请柬，他翻了半天",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 422,
-            "endLine": 422
-          }
-        },
-        {
-          "text": "\"房租。我爸。少问。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 424,
-            "endLine": 424
+            "startLine": 392,
+            "endLine": 392
           }
         }
       ]
@@ -2199,28 +2039,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s027",
-      "title": "雷欧比划两根手指：\"两份工，you crazy。\"他掏出公司短信：招“实体设备全天候居家测试员”，补贴五倍，条件是独立房间和超级保密协议。",
-      "excerpt": "雷欧比划两根手指：\"两份工，you crazy。\"他掏出公司短信：招“实体设备全天候居家测试员”，补贴五倍，条件是独立房间和超级保密协议。\n\n\"测什么设备？\"",
+      "title": "他划开手机上的交友软件消磨时间：一个简介写着“社恐找懂我的人",
+      "excerpt": "他划开手机上的交友软件消磨时间：一个简介写着“社恐找懂我的人”，全程用表情包代替说话；一个直接甩划掉这些软件的时候，他的手指鬼使神差地点开了雷欧转发的那条招募链接。落地页第一行字迎面撞过来：“她不会评判你，只会理解你。”苏明一眼就认出了这句话。App里那个AI，开口没两句就是这一句。同一家公司，同一套话术，他连字体",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 429,
-        "endLine": 438
+        "startLine": 397,
+        "endLine": 403
       },
       "dialogueLines": [
         {
-          "text": "雷欧比划两根手指：\"两份工，you crazy。\"他掏出公司短信：招“实体设备全天候居家测试员”，补贴五倍，条件是独立房间和超级保密协议。",
+          "text": "他划开手机上的交友软件消磨时间：一个简介写着“社恐找懂我的人”，全程用表情包代替说话；一个直接甩划掉这些软件的时候，他的手指鬼使神差地点开了雷欧转发的那条招募链接。落地页第一行字迎面撞过来：“她不会评判你，只会理解你。”苏明一眼就认出了这句话。App里那个AI，开口没两句就是这一句。同一家公司，同一套话术，他连字体",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 431,
-            "endLine": 431
-          }
-        },
-        {
-          "text": "\"测什么设备？\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 433,
-            "endLine": 433
+            "startLine": 399,
+            "endLine": 399
           }
         }
       ]
@@ -2232,28 +2064,52 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s028",
-      "title": "\"Robot。\"雷欧压低了声音，眼睛瞪得溜圆，\"真的 robot，抱回家那种。会说话，会——\"他忽然卡壳了，一时半会儿没找到合适的词，索性改用手比划了一个说不清道不明的轮廓。",
-      "excerpt": "\"Robot。\"雷欧压低了声音，眼睛瞪得溜圆，\"真的 robot，抱回家那种。会说话，会——\"他忽然卡壳了，一时半会儿没找到合适的词，索性改用手比划了一个说不清道不明的轮廓。\n\n\"你报了？\"",
+      "title": "页面再往下滑，是体验官评价区。五星那条底下写着：“自从有了她",
+      "excerpt": "页面再往下滑，是体验官评价区。五星那条底下写着：“自从有了她，我再也不用假装很好。”点赞八百多个他终究还是点了那个“申请成为体验官”的按钮。报名问卷要上传居住环境照片，要求包含公共区域，要求“照片内不得出现他人面孔”。苏明架好手机，对着3F的走廊和公共区域准备拍，举起来刚要按，这时候楼梯口有声音——石佩欣从2F上\n\n他嘴里那句“都有病”还没过保质期，拇指已经替它办理了退货。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 439,
-        "endLine": 447
+        "startLine": 404,
+        "endLine": 429
       },
       "dialogueLines": [
         {
-          "text": "\"Robot。\"雷欧压低了声音，眼睛瞪得溜圆，\"真的 robot，抱回家那种。会说话，会——\"他忽然卡壳了，一时半会儿没找到合适的词，索性改用手比划了一个说不清道不明的轮廓。",
+          "text": "页面再往下滑，是体验官评价区。五星那条底下写着：“自从有了她，我再也不用假装很好。”点赞八百多个他终究还是点了那个“申请成为体验官”的按钮。报名问卷要上传居住环境照片，要求包含公共区域，要求“照片内不得出现他人面孔”。苏明架好手机，对着3F的走廊和公共区域准备拍，举起来刚要按，这时候楼梯口有声音——石佩欣从2F上",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 441,
-            "endLine": 441
+            "startLine": 407,
+            "endLine": 407
           }
         },
         {
-          "text": "\"你报了？\"",
+          "text": "他嘴里那句“都有病”还没过保质期，拇指已经替它办理了退货。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 443,
-            "endLine": 443
+            "startLine": 410,
+            "endLine": 410
+          }
+        },
+        {
+          "text": "耳朵先前竖起来的那一下没白费；落地页刚开，他就知道自己会看到底。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 413,
+            "endLine": 413
+          }
+        },
+        {
+          "text": "交友软件刚亮，他的掌心先贴上脸，像昨晚那段记忆又来收一次遮羞费。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 416,
+            "endLine": 416
+          }
+        },
+        {
+          "text": "交友软件刚亮，他把下巴咬紧，继续往下划；硬撑这门手艺，平台之间倒是通用。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 419,
+            "endLine": 419
           }
         }
       ]
@@ -2265,28 +2121,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s029",
-      "title": "\"我？\"雷欧往后一缩，\"宿舍住不下。机器人晚上睁眼怎么办？我会死。\"他把短信凑近：房间要拍，Super 保密协议要签，违约金后面五个零，材料比他的签证还多。",
-      "excerpt": "\"我？\"雷欧往后一缩，\"宿舍住不下。机器人晚上睁眼怎么办？我会死。\"他把短信凑近：房间要拍，Super 保密协议要签，违约金后面五个零，材料比他的签证还多。\n\n苏明嗤了一声：\"测那玩意儿的都有病。\"",
+      "title": "公共走廊的路由器就在3F楼梯口旁边，苏明知道这个。石佩欣今晚",
+      "excerpt": "公共走廊的路由器就在3F楼梯口旁边，苏明知道这个。石佩欣今晚游戏掉线，要上来重启。他赶紧把手机藏到背后。石佩欣走过去按了重启键，等指示灯变绿，转身下楼，经过苏明身边，看了他一眼，没说话，走了。苏明等她下楼，重新举起手机。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 448,
-        "endLine": 462
+        "startLine": 510,
+        "endLine": 516
       },
       "dialogueLines": [
         {
-          "text": "\"我？\"雷欧往后一缩，\"宿舍住不下。机器人晚上睁眼怎么办？我会死。\"他把短信凑近：房间要拍，Super 保密协议要签，违约金后面五个零，材料比他的签证还多。",
+          "text": "公共走廊的路由器就在3F楼梯口旁边，苏明知道这个。石佩欣今晚游戏掉线，要上来重启。他赶紧把手机藏到背后。石佩欣走过去按了重启键，等指示灯变绿，转身下楼，经过苏明身边，看了他一眼，没说话，走了。苏明等她下楼，重新举起手机。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 450,
-            "endLine": 450
-          }
-        },
-        {
-          "text": "苏明嗤了一声：\"测那玩意儿的都有病。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 452,
-            "endLine": 452
+            "startLine": 512,
+            "endLine": 512
           }
         }
       ]
@@ -2298,28 +2146,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s030",
-      "title": "雷欧耸了耸肩：\"你们中文场不也全天候被听？一样一样。\"",
-      "excerpt": "雷欧耸了耸肩：\"你们中文场不也全天候被听？一样一样。\"\n\n\"不一样。我那是上班。\"",
+      "title": "五分钟后，楼梯口又有声音。石佩欣又上来了——路由器重启完了要",
+      "excerpt": "五分钟后，楼梯口又有声音。石佩欣又上来了——路由器重启完了要拔一下电源确认，确认完重新插上。她照旧经过苏明，照旧什么都没说苏明又把手机藏了。这来来回回折腾了三次，到最后苏明只找到房间那个唯一不掉墙皮的角落，拍了个勉强过得去的照片；公共区",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 463,
-        "endLine": 471
+        "startLine": 517,
+        "endLine": 523
       },
       "dialogueLines": [
         {
-          "text": "雷欧耸了耸肩：\"你们中文场不也全天候被听？一样一样。\"",
+          "text": "五分钟后，楼梯口又有声音。石佩欣又上来了——路由器重启完了要拔一下电源确认，确认完重新插上。她照旧经过苏明，照旧什么都没说苏明又把手机藏了。这来来回回折腾了三次，到最后苏明只找到房间那个唯一不掉墙皮的角落，拍了个勉强过得去的照片；公共区",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 465,
-            "endLine": 465
-          }
-        },
-        {
-          "text": "\"不一样。我那是上班。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 467,
-            "endLine": 467
+            "startLine": 519,
+            "endLine": 519
           }
         }
       ]
@@ -2331,28 +2171,20 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s031",
-      "title": "\"上班，\"雷欧点点头，一本正经地反驳，\"他们也说，抱回家那个，也是上班。名字都起好了——\"他看着短信念出来，\"全、天、候、体、验、官。官哦，苏明。你们中国什么都能当官。\"",
-      "excerpt": "\"上班，\"雷欧点点头，一本正经地反驳，\"他们也说，抱回家那个，也是上班。名字都起好了——\"他看着短信念出来，\"全、天、候、体、验、官。官哦，苏明。你们中国什么都能当官。\"\n\n苏明被噎住，索性把他轰出去。门一关，雷欧那句“一样一样”还卡在屋里。",
+      "title": "他想了想，上传了。问卷：邻居容忍度自评——他先填了“一般”，",
+      "excerpt": "他想了想，上传了。问卷：邻居容忍度自评——他先填了“一般”，盯着屏幕看了两秒，改成了“良好”。“您是否介意设备高度提交前弹出一份保密承诺，第七条加了粗：**设备之存在，不得让任何非签约人知晓，包括同住人。**苏明想起这楼里住着三个活人，还有一只猫，手指在屏幕上悬了悬，最终还是勾选了“已阅读并同意”。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 472,
-        "endLine": 480
+        "startLine": 524,
+        "endLine": 530
       },
       "dialogueLines": [
         {
-          "text": "\"上班，\"雷欧点点头，一本正经地反驳，\"他们也说，抱回家那个，也是上班。名字都起好了——\"他看着短信念出来，\"全、天、候、体、验、官。官哦，苏明。你们中国什么都能当官。\"",
+          "text": "他想了想，上传了。问卷：邻居容忍度自评——他先填了“一般”，盯着屏幕看了两秒，改成了“良好”。“您是否介意设备高度提交前弹出一份保密承诺，第七条加了粗：**设备之存在，不得让任何非签约人知晓，包括同住人。**苏明想起这楼里住着三个活人，还有一只猫，手指在屏幕上悬了悬，最终还是勾选了“已阅读并同意”。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 474,
-            "endLine": 474
-          }
-        },
-        {
-          "text": "苏明被噎住，索性把他轰出去。门一关，雷欧那句“一样一样”还卡在屋里。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 476,
-            "endLine": 476
+            "startLine": 526,
+            "endLine": 526
           }
         }
       ]
@@ -2364,332 +2196,60 @@
       "chapterOrder": 2,
       "kind": "scene",
       "stableSceneId": "dch02_s032",
-      "title": "躺上新床板，巷子里有人称重、讨价，隔壁回锅肉的油烟钻进来，说不上香还是呛。",
-      "excerpt": "躺上新床板，巷子里有人称重、讨价，隔壁回锅肉的油烟钻进来，说不上香还是呛。\n\n手机震了一下，是他爸：钱到没有？腰又开始痛了，医生说要买个护腰。苏明回了一句\"到了，最近忙\"——其实钱还没转，得先紧着房租周转。他把这条消息前前后后看了两遍，扣在枕头边上，没再回什么。",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 481,
-        "endLine": 489
-      },
-      "dialogueLines": [
-        {
-          "text": "躺上新床板，巷子里有人称重、讨价，隔壁回锅肉的油烟钻进来，说不上香还是呛。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 483,
-            "endLine": 483
-          }
-        },
-        {
-          "text": "手机震了一下，是他爸：钱到没有？腰又开始痛了，医生说要买个护腰。苏明回了一句\"到了，最近忙\"——其实钱还没转，得先紧着房租周转。他把这条消息前前后后看了两遍，扣在枕头边上，没再回什么。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 485,
-            "endLine": 485
-          }
-        }
-      ]
-    },
-    {
-      "id": "draft-ch02#scene:dch02_s033",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
-      "kind": "scene",
-      "stableSceneId": "dch02_s033",
-      "title": "他点开大学室友的对话框，最后一条是三个月前的婚礼请柬。输入半句，又删掉。",
-      "excerpt": "他点开大学室友的对话框，最后一条是三个月前的婚礼请柬。输入半句，又删掉。\n\n他不是想谈恋爱，只想屋里有个东西在场：不追问，不评判，到点还能关机。可楼里不许带人；测场那句“我不评判你”，背后又站着一屋子边听边嗑瓜子的耳朵。真人太贵，尊严也没库存。",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 490,
-        "endLine": 498
-      },
-      "dialogueLines": [
-        {
-          "text": "他点开大学室友的对话框，最后一条是三个月前的婚礼请柬。输入半句，又删掉。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 492,
-            "endLine": 492
-          }
-        },
-        {
-          "text": "他不是想谈恋爱，只想屋里有个东西在场：不追问，不评判，到点还能关机。可楼里不许带人；测场那句“我不评判你”，背后又站着一屋子边听边嗑瓜子的耳朵。真人太贵，尊严也没库存。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 494,
-            "endLine": 494
-          }
-        }
-      ]
-    },
-    {
-      "id": "draft-ch02#scene:dch02_s034",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
-      "kind": "scene",
-      "stableSceneId": "dch02_s034",
-      "title": "交友软件刚亮，他的掌心先贴上脸，像昨晚那段记忆又来收一次遮羞费。",
-      "excerpt": "他划开手机上的交友软件消磨时间：一个简介写着\"社恐找懂我的人\"，全程用表情包代替说话；一个直接甩过来收款码，附言\"验证真心\"；再划一个，简介写着\"不聊你死了都不知道\"，配图是一只暹罗猫，瞪着两只圆眼睛。\n\n划掉这些软件的时候，他的手指鬼使神差地点开了雷欧转发的那条招募链接。",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 499,
-        "endLine": 514
-      },
-      "dialogueLines": [
-        {
-          "text": "交友软件刚亮，他的掌心先贴上脸，像昨晚那段记忆又来收一次遮羞费。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 502,
-            "endLine": 502
-          }
-        },
-        {
-          "text": "交友软件刚亮，他把下巴咬紧，继续往下划；硬撑这门手艺，平台之间倒是通用。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 505,
-            "endLine": 505
-          }
-        },
-        {
-          "text": "他划开手机上的交友软件消磨时间：一个简介写着\"社恐找懂我的人\"，全程用表情包代替说话；一个直接甩过来收款码，附言\"验证真心\"；再划一个，简介写着\"不聊你死了都不知道\"，配图是一只暹罗猫，瞪着两只圆眼睛。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 508,
-            "endLine": 508
-          }
-        },
-        {
-          "text": "划掉这些软件的时候，他的手指鬼使神差地点开了雷欧转发的那条招募链接。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 510,
-            "endLine": 510
-          }
-        }
-      ]
-    },
-    {
-      "id": "draft-ch02#scene:dch02_s035",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
-      "kind": "scene",
-      "stableSceneId": "dch02_s035",
-      "title": "落地页第一行字迎面撞过来：\"她不会评判你，只会理解你。\"",
-      "excerpt": "落地页第一行字迎面撞过来：\"她不会评判你，只会理解你。\"\n\n他嘴里那句“都有病”还没过保质期，拇指已经替它办理了退货。\n\n苏明认得这句话，也认得字体。同一家公司，同一套话术，每个字都标过价；手指却继续下滑。至少这次，报价里可能附送一具能搬回家的机器。",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 515,
-        "endLine": 530
-      },
-      "dialogueLines": [
-        {
-          "text": "落地页第一行字迎面撞过来：\"她不会评判你，只会理解你。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 517,
-            "endLine": 517
-          }
-        },
-        {
-          "text": "他嘴里那句“都有病”还没过保质期，拇指已经替它办理了退货。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 520,
-            "endLine": 520
-          }
-        },
-        {
-          "text": "耳朵先前竖起来的那一下没白费；落地页刚开，他就知道自己会看到底。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 523,
-            "endLine": 523
-          }
-        },
-        {
-          "text": "苏明认得这句话，也认得字体。同一家公司，同一套话术，每个字都标过价；手指却继续下滑。至少这次，报价里可能附送一具能搬回家的机器。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 526,
-            "endLine": 526
-          }
-        }
-      ]
-    },
-    {
-      "id": "draft-ch02#scene:dch02_s036",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
-      "kind": "scene",
-      "stableSceneId": "dch02_s036",
-      "title": "评价区五星第一条写着：\"自从有了她，我再也不用假装很好。\"八百多个赞。苏明点了“有用”，点完才发现，这比报名更丢脸。",
-      "excerpt": "评价区五星第一条写着：\"自从有了她，我再也不用假装很好。\"八百多个赞。苏明点了“有用”，点完才发现，这比报名更丢脸。\n\n他终究还是点了那个\"申请成为体验官\"的按钮。",
+      "title": "深夜十一点四十分，他按下了提交。三分钟后，短信回来了：“初审",
+      "excerpt": "深夜十一点四十分，他按下了提交。三分钟后，短信回来了：“初审通过。请于48小时内完成个性化匹配问卷。”回得这么快，快得像是那头有人专门在等着他似的。苏明盯着这条短信看了半分钟，喃喃说了句：“就当我有病。”\n\n嘴硬的账终于对上了：先骂体验官有病，再把自己送进初审。流程闭环。\n\n前台那次还在：现在计算器成了排班表，火气照样得打卡，两种输法他都试过。",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
         "startLine": 531,
-        "endLine": 544
+        "endLine": 553
       },
       "dialogueLines": [
         {
-          "text": "评价区五星第一条写着：\"自从有了她，我再也不用假装很好。\"八百多个赞。苏明点了“有用”，点完才发现，这比报名更丢脸。",
+          "text": "深夜十一点四十分，他按下了提交。三分钟后，短信回来了：“初审通过。请于48小时内完成个性化匹配问卷。”回得这么快，快得像是那头有人专门在等着他似的。苏明盯着这条短信看了半分钟，喃喃说了句：“就当我有病。”",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 533,
-            "endLine": 533
+            "startLine": 534,
+            "endLine": 534
           }
         },
-        {
-          "text": "他终究还是点了那个\"申请成为体验官\"的按钮。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 535,
-            "endLine": 535
-          }
-        }
-      ]
-    },
-    {
-      "id": "draft-ch02#scene:dch02_s037",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
-      "kind": "scene",
-      "stableSceneId": "dch02_s037",
-      "title": "问卷正经得过分：居住环境只拍没掉墙皮的死角；邻居容忍度从“一般”改成“良好”；“是否介意设备高度拟人”，他想了半天，介意的反义词到底是什么？",
-      "excerpt": "问卷正经得过分：居住环境只拍没掉墙皮的死角；邻居容忍度从“一般”改成“良好”；“是否介意设备高度拟人”，他想了半天，介意的反义词到底是什么？\n\n提交前弹出一份保密承诺，第七条加了粗：**设备之存在，不得让任何非签约人知晓，包括同住人。**",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 545,
-        "endLine": 554
-      },
-      "dialogueLines": [
-        {
-          "text": "问卷正经得过分：居住环境只拍没掉墙皮的死角；邻居容忍度从“一般”改成“良好”；“是否介意设备高度拟人”，他想了半天，介意的反义词到底是什么？",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 547,
-            "endLine": 547
-          }
-        },
-        {
-          "text": "提交前弹出一份保密承诺，第七条加了粗：**设备之存在，不得让任何非签约人知晓，包括同住人。**",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 549,
-            "endLine": 549
-          }
-        }
-      ]
-    },
-    {
-      "id": "draft-ch02#scene:dch02_s038",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
-      "kind": "scene",
-      "stableSceneId": "dch02_s038",
-      "title": "苏明想起这楼里住着三个活人，还有一只猫，手指在屏幕上悬了悬，最终还是勾选了\"已阅读并同意\"。",
-      "excerpt": "苏明想起这楼里住着三个活人，还有一只猫，手指在屏幕上悬了悬，最终还是勾选了\"已阅读并同意\"。\n\n深夜十一点四十分，他按下了提交。",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 635,
-        "endLine": 643
-      },
-      "dialogueLines": [
-        {
-          "text": "苏明想起这楼里住着三个活人，还有一只猫，手指在屏幕上悬了悬，最终还是勾选了\"已阅读并同意\"。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 637,
-            "endLine": 637
-          }
-        },
-        {
-          "text": "深夜十一点四十分，他按下了提交。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 639,
-            "endLine": 639
-          }
-        }
-      ]
-    },
-    {
-      "id": "draft-ch02#scene:dch02_s039",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
-      "kind": "scene",
-      "stableSceneId": "dch02_s039",
-      "title": "三分钟后，短信回来了：\"初审通过。请于48小时内完成个性化匹配问卷。\"",
-      "excerpt": "三分钟后，短信回来了：\"初审通过。请于48小时内完成个性化匹配问卷。\"\n\n回得这么快，快得像是那头有人专门在等着他似的。",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 644,
-        "endLine": 653
-      },
-      "dialogueLines": [
-        {
-          "text": "三分钟后，短信回来了：\"初审通过。请于48小时内完成个性化匹配问卷。\"",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 646,
-            "endLine": 646
-          }
-        },
-        {
-          "text": "回得这么快，快得像是那头有人专门在等着他似的。",
-          "sourceRange": {
-            "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 648,
-            "endLine": 648
-          }
-        }
-      ]
-    },
-    {
-      "id": "draft-ch02#scene:dch02_s040",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
-      "kind": "scene",
-      "stableSceneId": "dch02_s040",
-      "title": "嘴硬的账终于对上了：先骂体验官有病，再把自己送进初审。流程闭环。",
-      "excerpt": "嘴硬的账终于对上了：先骂体验官有病，再把自己送进初审。流程闭环。\n\n苏明盯着这条短信看了半分钟，喃喃说了句：\"就当我有病。\"",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 654,
-        "endLine": 667
-      },
-      "dialogueLines": [
         {
           "text": "嘴硬的账终于对上了：先骂体验官有病，再把自己送进初审。流程闭环。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 657,
-            "endLine": 657
+            "startLine": 537,
+            "endLine": 537
           }
         },
         {
           "text": "他早把好奇藏在骂声后头；短信一亮，那个藏法正式失效。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 660,
-            "endLine": 660
+            "startLine": 540,
+            "endLine": 540
           }
         },
         {
-          "text": "苏明盯着这条短信看了半分钟，喃喃说了句：\"就当我有病。\"",
+          "text": "白天工资、晚上补贴又在脑子里排队；前台那次火气输给计算器，现在计算器成了排班表。",
           "sourceRange": {
             "file": "packages/content/ink/draft-ch02.ink",
-            "startLine": 663,
-            "endLine": 663
+            "startLine": 543,
+            "endLine": 543
+          }
+        },
+        {
+          "text": "他手腕扫得更快，像还在跟那张前台笑脸顶嘴；可两份工一班没少，火气照样得打卡。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 546,
+            "endLine": 546
+          }
+        },
+        {
+          "text": "前台那次还在：现在计算器成了排班表，火气照样得打卡，两种输法他都试过。",
+          "sourceRange": {
+            "file": "packages/content/ink/draft-ch02.ink",
+            "startLine": 548,
+            "endLine": 548
           }
         }
       ]
@@ -3620,13 +3180,13 @@
       "id": "draft-ch02#choice:barcode_sweep_continue",
       "kind": "continue",
       "fromNodeId": "draft-ch02#scene:dch02_barcode_sweep",
-      "toNodeId": "draft-ch02#scene:dch02_s004",
+      "toNodeId": "draft-ch02#scene:dch02_s003",
       "stableChoiceId": "barcode_sweep_continue",
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 129,
-        "endLine": 129
+        "startLine": 118,
+        "endLine": 118
       }
     },
     {
@@ -3638,8 +3198,8 @@
       "label": "扫过这一单",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 87,
-        "endLine": 87
+        "startLine": 76,
+        "endLine": 76
       }
     },
     {
@@ -3651,8 +3211,8 @@
       "label": "跳过连扫",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 90,
-        "endLine": 90
+        "startLine": 79,
+        "endLine": 79
       }
     },
     {
@@ -3664,8 +3224,8 @@
       "label": "扫过这一单",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 98,
-        "endLine": 98
+        "startLine": 87,
+        "endLine": 87
       }
     },
     {
@@ -3677,8 +3237,8 @@
       "label": "跳过连扫",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 101,
-        "endLine": 101
+        "startLine": 90,
+        "endLine": 90
       }
     },
     {
@@ -3690,8 +3250,8 @@
       "label": "扫过这一单",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 109,
-        "endLine": 109
+        "startLine": 98,
+        "endLine": 98
       }
     },
     {
@@ -3703,8 +3263,8 @@
       "label": "跳过连扫",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 113,
-        "endLine": 113
+        "startLine": 102,
+        "endLine": 102
       }
     },
     {
@@ -3717,164 +3277,190 @@
       "label": "接受初审结果",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 671,
-        "endLine": 671
+        "startLine": 557,
+        "endLine": 557
       }
     },
     {
       "id": "draft-ch02#choice:d2_admit_me",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s013",
-      "toNodeId": "draft-ch02#scene:dch02_s014",
+      "fromNodeId": "draft-ch02#scene:dch02_s016",
+      "toNodeId": "draft-ch02#scene:dch02_s017",
       "stableChoiceId": "d2_admit_me",
       "label": "分了……我提的",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 240,
-        "endLine": 240
+        "startLine": 238,
+        "endLine": 238
       }
     },
     {
       "id": "draft-ch02#choice:d2_admit_me_hard",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s013",
-      "toNodeId": "draft-ch02#scene:dch02_s014",
+      "fromNodeId": "draft-ch02#scene:dch02_s016",
+      "toNodeId": "draft-ch02#scene:dch02_s017",
       "stableChoiceId": "d2_admit_me_hard",
       "label": "硬着头皮：我提的",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 243,
-        "endLine": 243
+        "startLine": 241,
+        "endLine": 241
       }
     },
     {
       "id": "draft-ch02#choice:d2_apply",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s036",
-      "toNodeId": "draft-ch02#scene:dch02_s037",
+      "fromNodeId": "draft-ch02#scene:dch02_s028",
+      "toNodeId": "draft-ch02#scene:dch02_mobile_questionnaire",
       "stableChoiceId": "d2_apply",
       "label": "点下申请成为体验官",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 537,
-        "endLine": 537
+        "startLine": 422,
+        "endLine": 422
       }
     },
     {
       "id": "draft-ch02#choice:d2_apply_shame",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s036",
-      "toNodeId": "draft-ch02#scene:dch02_s037",
+      "fromNodeId": "draft-ch02#scene:dch02_s028",
+      "toNodeId": "draft-ch02#scene:dch02_mobile_questionnaire",
       "stableChoiceId": "d2_apply_shame",
       "label": "骂自己一句再点申请",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 540,
-        "endLine": 540
+        "startLine": 425,
+        "endLine": 425
       }
     },
     {
       "id": "draft-ch02#choice:d2_ask_guest",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s018",
-      "toNodeId": "draft-ch02#scene:dch02_s019",
+      "fromNodeId": "draft-ch02#scene:dch02_s017",
+      "toNodeId": "draft-ch02#scene:dch02_housing_hotspots",
       "stableChoiceId": "d2_ask_guest",
       "label": "问出口：假设带女朋友？",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 345,
-        "endLine": 345
+        "startLine": 264,
+        "endLine": 264
       }
     },
     {
       "id": "draft-ch02#choice:d2_catch_firm",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s005",
-      "toNodeId": "draft-ch02#scene:dch02_s006",
+      "fromNodeId": "draft-ch02#scene:dch02_s003",
+      "toNodeId": "draft-ch02#scene:dch02_s004",
       "stableChoiceId": "d2_catch_firm",
       "label": "按住手腕：拿出来",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 145,
-        "endLine": 145
+        "startLine": 126,
+        "endLine": 126
       }
     },
     {
       "id": "draft-ch02#choice:d2_catch_soft",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s005",
-      "toNodeId": "draft-ch02#scene:dch02_s006",
+      "fromNodeId": "draft-ch02#scene:dch02_s003",
+      "toNodeId": "draft-ch02#scene:dch02_s004",
       "stableChoiceId": "d2_catch_soft",
       "label": "声音放轻一点，还是要拿出来",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 149,
-        "endLine": 149
+        "startLine": 130,
+        "endLine": 130
       }
     },
     {
       "id": "draft-ch02#choice:d2_curious_robot",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s029",
-      "toNodeId": "draft-ch02#scene:dch02_s030",
+      "fromNodeId": "draft-ch02#scene:dch02_s023",
+      "toNodeId": "draft-ch02#scene:dch02_s024",
       "stableChoiceId": "d2_curious_robot",
       "label": "嘴上骂，耳朵却竖起来",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 458,
-        "endLine": 458
+        "startLine": 371,
+        "endLine": 371
       }
     },
     {
       "id": "draft-ch02#choice:d2_dismiss_robot",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s029",
-      "toNodeId": "draft-ch02#scene:dch02_s030",
+      "fromNodeId": "draft-ch02#scene:dch02_s023",
+      "toNodeId": "draft-ch02#scene:dch02_s024",
       "stableChoiceId": "d2_dismiss_robot",
       "label": "嗤一声：测那玩意儿的都有病",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 455,
-        "endLine": 455
+        "startLine": 368,
+        "endLine": 368
+      }
+    },
+    {
+      "id": "draft-ch02#choice:d2_pace_a",
+      "kind": "choice",
+      "fromNodeId": "draft-ch02#scene:dch02_s013",
+      "toNodeId": "draft-ch02#scene:dch02_s014",
+      "stableChoiceId": "d2_pace_a",
+      "label": "先把楼规听完",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch02.ink",
+        "startLine": 213,
+        "endLine": 213
+      }
+    },
+    {
+      "id": "draft-ch02#choice:d2_pace_b",
+      "kind": "choice",
+      "fromNodeId": "draft-ch02#scene:dch02_s013",
+      "toNodeId": "draft-ch02#scene:dch02_s014",
+      "stableChoiceId": "d2_pace_b",
+      "label": "只想尽快定下来",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch02.ink",
+        "startLine": 216,
+        "endLine": 216
       }
     },
     {
       "id": "draft-ch02#choice:d2_pay_repeat",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s008",
-      "toNodeId": "draft-ch02#scene:dch02_s009",
+      "fromNodeId": "draft-ch02#scene:dch02_s009",
+      "toNodeId": "draft-ch02#scene:dch02_s010",
       "stableChoiceId": "d2_pay_repeat",
       "label": "再说一遍：我出",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 193,
-        "endLine": 193
+        "startLine": 183,
+        "endLine": 183
       }
     },
     {
       "id": "draft-ch02#choice:d2_pay_self",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s008",
-      "toNodeId": "draft-ch02#scene:dch02_s009",
+      "fromNodeId": "draft-ch02#scene:dch02_s009",
+      "toNodeId": "draft-ch02#scene:dch02_s010",
       "stableChoiceId": "d2_pay_self",
       "label": "辣条钱我扫了",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 190,
-        "endLine": 190
+        "startLine": 180,
+        "endLine": 180
       }
     },
     {
       "id": "draft-ch02#choice:d2_swallow_guest",
       "kind": "choice",
-      "fromNodeId": "draft-ch02#scene:dch02_s018",
-      "toNodeId": "draft-ch02#scene:dch02_s019",
+      "fromNodeId": "draft-ch02#scene:dch02_s017",
+      "toNodeId": "draft-ch02#scene:dch02_housing_hotspots",
       "stableChoiceId": "d2_swallow_guest",
       "label": "话到嘴边又咽回去……还是问了",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 348,
-        "endLine": 348
+        "startLine": 267,
+        "endLine": 267
       }
     },
     {
@@ -3886,34 +3472,21 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 47,
-        "endLine": 47
+        "startLine": 54,
+        "endLine": 54
       }
     },
     {
       "id": "draft-ch02#choice:dch02_s002_continue",
       "kind": "continue",
       "fromNodeId": "draft-ch02#scene:dch02_s002",
-      "toNodeId": "draft-ch02#scene:dch02_s003",
+      "toNodeId": "draft-ch02#scene:dch02_barcode_sweep",
       "stableChoiceId": "dch02_s002_continue",
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 56,
-        "endLine": 56
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s003_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s003",
-      "toNodeId": "draft-ch02#scene:dch02_barcode_sweep",
-      "stableChoiceId": "dch02_s003_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 72,
-        "endLine": 72
+        "startLine": 61,
+        "endLine": 61
       }
     },
     {
@@ -3925,8 +3498,21 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 138,
-        "endLine": 138
+        "startLine": 145,
+        "endLine": 145
+      }
+    },
+    {
+      "id": "draft-ch02#choice:dch02_s005_continue",
+      "kind": "continue",
+      "fromNodeId": "draft-ch02#scene:dch02_s005",
+      "toNodeId": "draft-ch02#scene:dch02_s006",
+      "stableChoiceId": "dch02_s005_continue",
+      "label": "继续",
+      "sourceRange": {
+        "file": "packages/content/ink/draft-ch02.ink",
+        "startLine": 152,
+        "endLine": 152
       }
     },
     {
@@ -3938,8 +3524,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 167,
-        "endLine": 167
+        "startLine": 159,
+        "endLine": 159
       }
     },
     {
@@ -3951,21 +3537,21 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 176,
-        "endLine": 176
+        "startLine": 166,
+        "endLine": 166
       }
     },
     {
-      "id": "draft-ch02#choice:dch02_s009_continue",
+      "id": "draft-ch02#choice:dch02_s008_continue",
       "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s009",
-      "toNodeId": "draft-ch02#scene:dch02_s010",
-      "stableChoiceId": "dch02_s009_continue",
+      "fromNodeId": "draft-ch02#scene:dch02_s008",
+      "toNodeId": "draft-ch02#scene:dch02_s009",
+      "stableChoiceId": "dch02_s008_continue",
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 204,
-        "endLine": 204
+        "startLine": 173,
+        "endLine": 173
       }
     },
     {
@@ -3977,8 +3563,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 213,
-        "endLine": 213
+        "startLine": 192,
+        "endLine": 192
       }
     },
     {
@@ -3990,8 +3576,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 222,
-        "endLine": 222
+        "startLine": 199,
+        "endLine": 199
       }
     },
     {
@@ -4003,8 +3589,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 231,
-        "endLine": 231
+        "startLine": 206,
+        "endLine": 206
       }
     },
     {
@@ -4016,8 +3602,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 254,
-        "endLine": 254
+        "startLine": 224,
+        "endLine": 224
       }
     },
     {
@@ -4029,34 +3615,21 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 263,
-        "endLine": 263
+        "startLine": 231,
+        "endLine": 231
       }
     },
     {
-      "id": "draft-ch02#choice:dch02_s016_continue",
+      "id": "draft-ch02#choice:dch02_s018_continue",
       "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s016",
-      "toNodeId": "draft-ch02#scene:dch02_housing_hotspots",
-      "stableChoiceId": "dch02_s016_continue",
+      "fromNodeId": "draft-ch02#scene:dch02_s018",
+      "toNodeId": "draft-ch02#scene:dch02_s019",
+      "stableChoiceId": "dch02_s018_continue",
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 272,
-        "endLine": 272
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s017_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s017",
-      "toNodeId": "draft-ch02#scene:dch02_s018",
-      "stableChoiceId": "dch02_s017_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 338,
-        "endLine": 338
+        "startLine": 333,
+        "endLine": 333
       }
     },
     {
@@ -4068,8 +3641,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 366,
-        "endLine": 366
+        "startLine": 340,
+        "endLine": 340
       }
     },
     {
@@ -4081,8 +3654,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 376,
-        "endLine": 376
+        "startLine": 347,
+        "endLine": 347
       }
     },
     {
@@ -4094,8 +3667,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 385,
-        "endLine": 385
+        "startLine": 354,
+        "endLine": 354
       }
     },
     {
@@ -4107,21 +3680,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 394,
-        "endLine": 394
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s023_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s023",
-      "toNodeId": "draft-ch02#scene:dch02_s024",
-      "stableChoiceId": "dch02_s023_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 401,
-        "endLine": 401
+        "startLine": 361,
+        "endLine": 361
       }
     },
     {
@@ -4133,8 +3693,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 408,
-        "endLine": 408
+        "startLine": 380,
+        "endLine": 380
       }
     },
     {
@@ -4143,11 +3703,11 @@
       "fromNodeId": "draft-ch02#scene:dch02_s025",
       "toNodeId": "draft-ch02#scene:dch02_s026",
       "stableChoiceId": "dch02_s025_continue",
-      "label": "让雷欧把行李抬进门",
+      "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 417,
-        "endLine": 417
+        "startLine": 387,
+        "endLine": 387
       }
     },
     {
@@ -4159,8 +3719,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 426,
-        "endLine": 426
+        "startLine": 394,
+        "endLine": 394
       }
     },
     {
@@ -4172,21 +3732,21 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 436,
-        "endLine": 436
+        "startLine": 401,
+        "endLine": 401
       }
     },
     {
-      "id": "draft-ch02#choice:dch02_s028_continue",
+      "id": "draft-ch02#choice:dch02_s029_continue",
       "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s028",
-      "toNodeId": "draft-ch02#scene:dch02_s029",
-      "stableChoiceId": "dch02_s028_continue",
+      "fromNodeId": "draft-ch02#scene:dch02_s029",
+      "toNodeId": "draft-ch02#scene:dch02_s030",
+      "stableChoiceId": "dch02_s029_continue",
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 445,
-        "endLine": 445
+        "startLine": 514,
+        "endLine": 514
       }
     },
     {
@@ -4198,8 +3758,8 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 469,
-        "endLine": 469
+        "startLine": 521,
+        "endLine": 521
       }
     },
     {
@@ -4211,125 +3771,34 @@
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 478,
-        "endLine": 478
+        "startLine": 528,
+        "endLine": 528
       }
     },
     {
       "id": "draft-ch02#choice:dch02_s032_continue",
       "kind": "continue",
       "fromNodeId": "draft-ch02#scene:dch02_s032",
-      "toNodeId": "draft-ch02#scene:dch02_s033",
+      "toNodeId": "draft-ch02#scene:d2_chapter_end",
       "stableChoiceId": "dch02_s032_continue",
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 487,
-        "endLine": 487
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s033_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s033",
-      "toNodeId": "draft-ch02#scene:dch02_s034",
-      "stableChoiceId": "dch02_s033_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 496,
-        "endLine": 496
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s034_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s034",
-      "toNodeId": "draft-ch02#scene:dch02_s035",
-      "stableChoiceId": "dch02_s034_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 512,
-        "endLine": 512
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s035_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s035",
-      "toNodeId": "draft-ch02#scene:dch02_s036",
-      "stableChoiceId": "dch02_s035_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 528,
-        "endLine": 528
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s037_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s037",
-      "toNodeId": "draft-ch02#scene:dch02_mobile_questionnaire",
-      "stableChoiceId": "dch02_s037_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 552,
-        "endLine": 552
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s038_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s038",
-      "toNodeId": "draft-ch02#scene:dch02_s039",
-      "stableChoiceId": "dch02_s038_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 641,
-        "endLine": 641
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s039_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s039",
-      "toNodeId": "draft-ch02#scene:dch02_s040",
-      "stableChoiceId": "dch02_s039_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 651,
-        "endLine": 651
-      }
-    },
-    {
-      "id": "draft-ch02#choice:dch02_s040_continue",
-      "kind": "continue",
-      "fromNodeId": "draft-ch02#scene:dch02_s040",
-      "toNodeId": "draft-ch02#scene:d2_chapter_end",
-      "stableChoiceId": "dch02_s040_continue",
-      "label": "继续",
-      "sourceRange": {
-        "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 665,
-        "endLine": 665
+        "startLine": 551,
+        "endLine": 551
       }
     },
     {
       "id": "draft-ch02#choice:housing_hotspots_continue",
       "kind": "continue",
       "fromNodeId": "draft-ch02#scene:dch02_housing_hotspots",
-      "toNodeId": "draft-ch02#scene:dch02_s017",
+      "toNodeId": "draft-ch02#scene:dch02_s018",
       "stableChoiceId": "housing_hotspots_continue",
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 329,
-        "endLine": 329
+        "startLine": 326,
+        "endLine": 326
       }
     },
     {
@@ -4341,8 +3810,8 @@
       "label": "跳过看房热点",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 290,
-        "endLine": 290
+        "startLine": 287,
+        "endLine": 287
       }
     },
     {
@@ -4354,8 +3823,8 @@
       "label": "点开墙皮",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 287,
-        "endLine": 287
+        "startLine": 284,
+        "endLine": 284
       }
     },
     {
@@ -4367,8 +3836,8 @@
       "label": "点开橘猫",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 298,
-        "endLine": 298
+        "startLine": 295,
+        "endLine": 295
       }
     },
     {
@@ -4380,8 +3849,8 @@
       "label": "跳过看房热点",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 301,
-        "endLine": 301
+        "startLine": 298,
+        "endLine": 298
       }
     },
     {
@@ -4393,8 +3862,8 @@
       "label": "跳过看房热点",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 313,
-        "endLine": 313
+        "startLine": 310,
+        "endLine": 310
       }
     },
     {
@@ -4406,21 +3875,21 @@
       "label": "点开楼梯口",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 309,
-        "endLine": 309
+        "startLine": 306,
+        "endLine": 306
       }
     },
     {
       "id": "draft-ch02#choice:mobile_questionnaire_continue",
       "kind": "continue",
       "fromNodeId": "draft-ch02#scene:dch02_mobile_questionnaire",
-      "toNodeId": "draft-ch02#scene:dch02_s038",
+      "toNodeId": "draft-ch02#scene:dch02_s029",
       "stableChoiceId": "mobile_questionnaire_continue",
       "label": "继续",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 632,
-        "endLine": 632
+        "startLine": 507,
+        "endLine": 507
       }
     },
     {
@@ -4432,8 +3901,8 @@
       "label": "一般",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 567,
-        "endLine": 567
+        "startLine": 442,
+        "endLine": 442
       }
     },
     {
@@ -4445,8 +3914,8 @@
       "label": "不愿评价",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 576,
-        "endLine": 576
+        "startLine": 451,
+        "endLine": 451
       }
     },
     {
@@ -4458,8 +3927,8 @@
       "label": "优秀",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 573,
-        "endLine": 573
+        "startLine": 448,
+        "endLine": 448
       }
     },
     {
@@ -4471,8 +3940,8 @@
       "label": "良好",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 570,
-        "endLine": 570
+        "startLine": 445,
+        "endLine": 445
       }
     },
     {
@@ -4484,8 +3953,8 @@
       "label": "跳过问卷",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 579,
-        "endLine": 579
+        "startLine": 454,
+        "endLine": 454
       }
     },
     {
@@ -4497,8 +3966,8 @@
       "label": "不介意",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 590,
-        "endLine": 590
+        "startLine": 465,
+        "endLine": 465
       }
     },
     {
@@ -4510,8 +3979,8 @@
       "label": "介意",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 587,
-        "endLine": 587
+        "startLine": 462,
+        "endLine": 462
       }
     },
     {
@@ -4523,8 +3992,8 @@
       "label": "跳过问卷",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 596,
-        "endLine": 596
+        "startLine": 471,
+        "endLine": 471
       }
     },
     {
@@ -4536,8 +4005,8 @@
       "label": "不确定",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 593,
-        "endLine": 593
+        "startLine": 468,
+        "endLine": 468
       }
     },
     {
@@ -4549,8 +4018,8 @@
       "label": "可改造",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 612,
-        "endLine": 612
+        "startLine": 487,
+        "endLine": 487
       }
     },
     {
@@ -4562,8 +4031,8 @@
       "label": "暂无",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 608,
-        "endLine": 608
+        "startLine": 483,
+        "endLine": 483
       }
     },
     {
@@ -4575,8 +4044,8 @@
       "label": "跳过问卷",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 616,
-        "endLine": 616
+        "startLine": 491,
+        "endLine": 491
       }
     },
     {
@@ -4588,8 +4057,8 @@
       "label": "有独立房间",
       "sourceRange": {
         "file": "packages/content/ink/draft-ch02.ink",
-        "startLine": 604,
-        "endLine": 604
+        "startLine": 479,
+        "endLine": 479
       }
     }
   ],

@@ -31,15 +31,15 @@ export const ALGORITHM_SHAME_ARCHIVE: readonly AlgorithmShameArchiveRecord[] = [
   },
   {
     id: "rental-receipt",
-    unlockSceneIds: ["dch02_s020"],
+    unlockSceneIds: ["dch02_s017"],
   },
   {
     id: "application-nda",
-    unlockSceneIds: ["dch02_mobile_questionnaire", "dch02_s037"],
+    unlockSceneIds: ["dch02_mobile_questionnaire", "dch02_s028"],
   },
   {
     id: "approval-sms",
-    unlockSceneIds: ["dch02_s039"],
+    unlockSceneIds: ["dch02_s032"],
   },
 ] as const;
 

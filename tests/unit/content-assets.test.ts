@@ -251,7 +251,7 @@ describe("two-chapter visual asset intake", () => {
       present: 31,
       missing: 12,
       openGaps: 3,
-      releaseBlockers: 41,
+      releaseBlockers: 40,
     });
     expect(result.report.checks.stableIds).toBe(43);
     expect(result.report.checks.fileExistence).toBe(31);
@@ -262,7 +262,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.checks.runtimeLedgerRows).toBe(30);
     expect(result.report.checks.rightsEvidence).toBe(0);
     expect(result.report.checks.gapResolutions).toBe(0);
-    expect(result.report.checks.productionTruth).toBe(41);
+    expect(result.report.checks.productionTruth).toBe(40);
     // Eight formal suming portraits reuse the calibrated matte gate.
     expect(result.report.checks.portraitMatte).toBe(8);
     expect(result.report.checks.reverseCoverage).toBeGreaterThan(0);
@@ -306,7 +306,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.pass).toBe(false);
     expect(result.report.decision).toBe("blocked");
     expect(result.report.errors).toEqual([]);
-    expect(result.report.summary.releaseBlockers).toBe(41);
+    expect(result.report.summary.releaseBlockers).toBe(40);
     expect(result.report.releaseBlockers.map((blocker) => blocker.assetId)).toEqual(
       expect.arrayContaining([
         "bg-office-night",
@@ -439,7 +439,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.exitCode).toBe(1);
     expect(result.report.decision).toBe("blocked");
     expect(result.report.errors).toEqual([]);
-    expect(result.report.summary.releaseBlockers).toBe(41);
+    expect(result.report.summary.releaseBlockers).toBe(40);
     expect(result.report.checks.portraitMatte).toBe(8);
     for (const requiredId of [
       "suming-shame",
@@ -619,8 +619,8 @@ describe("two-chapter visual asset intake", () => {
     ]);
 
     expect(result.exitCode).toBe(1);
-    expect(result.report.summary.releaseBlockers).toBe(41);
-    expect(result.report.checks.productionTruth).toBe(41);
+    expect(result.report.summary.releaseBlockers).toBe(40);
+    expect(result.report.checks.productionTruth).toBe(40);
     for (const gapId of [
       "gap-background-shot-list",
       "gap-npc-mood-matrix",
@@ -925,7 +925,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.stderr).not.toMatch(/asset audit crashed|Error:/i);
     const report = JSON.parse(await fs.readFile(reportPath, "utf8")) as AuditReport;
     expect(report.pass).toBe(true);
-    expect(report.summary.releaseBlockers).toBe(41);
+    expect(report.summary.releaseBlockers).toBe(40);
   }, 60_000);
 
   it("fails reverse coverage when a frozen missing delivery is deleted from intake", async () => {

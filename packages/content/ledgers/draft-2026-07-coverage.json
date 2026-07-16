@@ -101,7 +101,7 @@
     {
       "id": "draft02_struct_002",
       "sourceId": "draft02",
-      "blockIndex": 20,
+      "blockIndex": 15,
       "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
       "textPreview": "——",
       "kind": "separator"
@@ -109,7 +109,7 @@
     {
       "id": "draft02_struct_003",
       "sourceId": "draft02",
-      "blockIndex": 42,
+      "blockIndex": 21,
       "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
       "textPreview": "——",
       "kind": "separator"
@@ -117,7 +117,63 @@
     {
       "id": "draft02_struct_004",
       "sourceId": "draft02",
-      "blockIndex": 63,
+      "blockIndex": 52,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft02_struct_005",
+      "sourceId": "draft02",
+      "blockIndex": 60,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft02_struct_006",
+      "sourceId": "draft02",
+      "blockIndex": 68,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft02_struct_007",
+      "sourceId": "draft02",
+      "blockIndex": 99,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft02_struct_008",
+      "sourceId": "draft02",
+      "blockIndex": 106,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft02_struct_009",
+      "sourceId": "draft02",
+      "blockIndex": 115,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft02_struct_010",
+      "sourceId": "draft02",
+      "blockIndex": 131,
+      "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
+      "textPreview": "——",
+      "kind": "separator"
+    },
+    {
+      "id": "draft02_struct_011",
+      "sourceId": "draft02",
+      "blockIndex": 141,
       "textHash": "f3f3079e2ba8b15c942c7f54d01977d94ab8320118a62ace3a88d8c4eaf76bf8",
       "textPreview": "——",
       "kind": "separator"
@@ -2726,13 +2782,13 @@
       "sourceId": "draft02",
       "paragraphIndex": 1,
       "blockIndex": 2,
-      "textHash": "e7da313d0b0a1038e96e391a2a573f24c734afd2be3a1c62be0800261be18107",
-      "textPreview": "\"今晚看不成了，明天傍晚。\"石佩欣在电话里说，声音底下全是敲键盘的哒哒声，理由是赶稿。",
+      "textHash": "e49a38dc8f9bd8050f18b35834c836131ef36a0dd710876f49a6b20b5c34487d",
+      "textPreview": "苏明站在收银台后头，视线已经跟了那孩子有一阵了。",
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s001",
       "beatId": "dch02_s001",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["今晚看不成了，明天傍晚。"],
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -2740,25 +2796,25 @@
       "sourceId": "draft02",
       "paragraphIndex": 2,
       "blockIndex": 3,
-      "textHash": "f72f6f96fbd21320a2d5f495d4b2fddab80022863bd7d0b599a97dcc74dc9bcd",
-      "textPreview": "看房这件事，就这么被推到了第二天。后来苏明才慢慢摸清楚，这位房东兼租客挑起租客来，比甲方挑图还难伺候，能给你约上一个见面的时间，其实已经算是过了她心里的第一道初审，谁也别急，急也没用。",
+      "textHash": "98bbaf549ef3bef24708989b362c8ac897e8b1e722707b5315aaf771744cd9bc",
+      "textPreview": "她在辣条货架前假装比口味——翻一包看看背面，再拿另一包翻翻，动作悠闲，眼神却没往柜台这边飘过一下。校服袖口挽了两道，洗得发白，辣条就在这档口塞进去了，一塞就是两包，那个动作熟练得跟扫码差不多，一气呵成。",
       "chapterId": "draft-ch02",
       "sceneId": "dch02_s001",
       "beatId": "dch02_s001",
       "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": "",
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "f72f6f96fbd21320a2d5f495d4b2fddab80022863bd7d0b599a97dcc74dc9bcd",
+        "sourceHash": "98bbaf549ef3bef24708989b362c8ac897e8b1e722707b5315aaf771744cd9bc",
         "sceneId": "dch02_s001",
         "factMappings": [
           {
-            "fact": "看房改期",
-            "sourceSnippet": "看房这件事，就这么被推到了第二天。",
-            "targetSnippet": "看房被推到第二天。"
+            "fact": "a1",
+            "sourceSnippet": "她在辣条货架前假装比口味",
+            "targetSnippet": "她在辣条货架前假装比口味"
           }
         ],
-        "pacingRationale": "删除后见解释，把改期直接写成租客初审门槛。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -2766,11 +2822,11 @@
       "sourceId": "draft02",
       "paragraphIndex": 3,
       "blockIndex": 4,
-      "textHash": "aedf8e8de9b5c316656105f0ae09c2425cc851a0c22a684cc61aee243cd3ea6e",
-      "textPreview": "苏明当晚在快捷酒店将就了一宿，一百六一晚，躺在陌生的床上翻来覆去，心疼得半宿没睡踏实。",
+      "textHash": "a761c6bb319834ec47d6679b4493a5fd3028a82e57ba32fdb12163b13d63ea1d",
+      "textPreview": "第三次了。苏明认得这件校服的颜色。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s002",
-      "beatId": "dch02_s002",
+      "sceneId": "dch02_s001",
+      "beatId": "dch02_s001",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -2780,25 +2836,30 @@
       "sourceId": "draft02",
       "paragraphIndex": 4,
       "blockIndex": 5,
-      "textHash": "89f289d8f66121e126023790e175971098bb73e712f97957ae7578c0b45736fc",
-      "textPreview": "第二天他照常去上日班。这份工作说出去不算多体面：城中村巷子口一家夫妻店改的小超市，门脸两米宽，货架挤得侧身才能过去，稍微胖点的人怕是连转身都费劲。店名叫\"惠万家\"，听着气派，实际能惠及的范围也就方圆三百米，出了这条巷子，谁也没听说过这块招牌",
+      "textHash": "5aa3251af32a3a8fb97464017fc094a178d5d11225891f48e837e0f9265fc4fd",
+      "textPreview": "他在这家叫“惠万家”的小超市干了快半年了——门脸两米宽，货架挤得侧身才能过，店名听着气派，实际能惠及的范围也就方圆三百米，出了这条巷子，没人听说过这块招牌。这种店有两怕：被大超市抢生意，被小孩顺手牵羊。前一件他管不了，后一件他较真。他在这里",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s002",
-      "beatId": "dch02_s002",
+      "sceneId": "dch02_s001",
+      "beatId": "dch02_s001",
       "status": "approved-adaptation",
       "dialogueQuotes": ["惠万家"],
-      "notes": "",
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "89f289d8f66121e126023790e175971098bb73e712f97957ae7578c0b45736fc",
-        "sceneId": "dch02_s002",
+        "sourceHash": "5aa3251af32a3a8fb97464017fc094a178d5d11225891f48e837e0f9265fc4fd",
+        "sceneId": "dch02_s001",
         "factMappings": [
           {
-            "fact": "惠万家服务半径",
-            "sourceSnippet": "店名叫\"惠万家\"，听着气派，实际能惠及的范围也就方圆三百米",
-            "targetSnippet": "店名叫“惠万家”，服务半径大约三百米。"
+            "fact": "a1",
+            "sourceSnippet": "他在这家叫“惠万家”的小",
+            "targetSnippet": "他在这家叫“惠万家”的小"
+          },
+          {
+            "fact": "a2",
+            "sourceSnippet": "超市干了快半年了——门脸",
+            "targetSnippet": "超市干了快半年了——门脸"
           }
         ],
-        "pacingRationale": "日班环境压成空间笑话，保留原段事实与黑色喜剧落点。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -2806,87 +2867,65 @@
       "sourceId": "draft02",
       "paragraphIndex": 5,
       "blockIndex": 6,
-      "textHash": "5798794796e2c97f0d8686df68da62dc23568b17c7320ff12c8f2aa028388355",
-      "textPreview": "这份工是他自己找上门的。当时门口贴着一张招工启事，上头写着\"要手脚麻利的\"，他进去跟老板娘说，我收银一分钟能过四十件，老板娘将信将疑，抓了一整筐货堆在他面前，让他当场扫给她看。他扫完，老板娘二话不说把那张启事从门上撕了下来，从此这份活儿就是",
+      "textHash": "daad6484b94a0cec5ad3d3d768eb50a7106a789f52905d95a86505043616eac6",
+      "textPreview": "他绕出收银台，走过去，把平板转过来给她看。监控画面停在那儿，时间戳清清楚楚。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s003",
-      "beatId": "dch02_s003",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["要手脚麻利的"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "5798794796e2c97f0d8686df68da62dc23568b17c7320ff12c8f2aa028388355",
-        "sceneId": "dch02_s003",
-        "factMappings": [
-          {
-            "fact": "一分钟扫四十件",
-            "sourceSnippet": "我收银一分钟能过四十件",
-            "targetSnippet": "这份工是他靠一分钟扫四十件抢来的。"
-          },
-          {
-            "fact": "日夜双工",
-            "sourceSnippet": "白天扫条码，晚上被App扫灵魂",
-            "targetSnippet": "白天扫条码，晚上被 App 扫灵魂。"
-          }
-        ],
-        "pacingRationale": "招工传记压缩，保留双工节奏。"
-      }
+      "sceneId": "dch02_s001",
+      "beatId": "dch02_s001",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
     },
     {
       "id": "draft02_p006",
       "sourceId": "draft02",
       "paragraphIndex": 6,
       "blockIndex": 7,
-      "textHash": "b8b6436d8229f1819f1eadc742df437272badc5fa1483e87d792b96ef6a0214b",
-      "textPreview": "在这个店里，苏明学会了一件在测试间里用不上的本事：分辨真穷和装穷。真正手头紧的人，专挑临期打折的东西买，眼睛不看人，脸上带着点说不清道不明的躲闪；装穷的人反倒理直气壮，砍价的时候嗓门老高，生怕别人不知道他在讲价。他对前一种人心软，这毛病老板",
+      "textHash": "179f792dfb8ccddf0cbc46f9e1b261d10589f37c284cc741e2ccfdbfb0af832c",
+      "textPreview": "“这是你第三次了。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s003",
-      "beatId": "dch02_s003",
-      "status": "approved-adaptation",
-      "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "b8b6436d8229f1819f1eadc742df437272badc5fa1483e87d792b96ef6a0214b",
-        "sceneId": "dch02_s003",
-        "factMappings": [
-          {
-            "fact": "真穷与装穷雷达",
-            "sourceSnippet": "分辨真穷和装穷。真正手头紧的人，专挑临期打折的东西买",
-            "targetSnippet": "他会分真穷和装穷：前者只拿临期货，眼睛躲人"
-          },
-          {
-            "fact": "心软被骂八回",
-            "sourceSnippet": "他对前一种人心软，这毛病老板娘骂过他不下八回，愣是没骂改过来",
-            "targetSnippet": "他对前一种人心软，老板娘骂了八回也没改。"
-          }
-        ],
-        "pacingRationale": "人物能力与心软保留，结尾改成短句对撞，立即把冲突推向小偷。"
-      }
+      "sceneId": "dch02_s002",
+      "beatId": "dch02_s002",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["这是你第三次了。"],
+      "notes": ""
     },
     {
       "id": "draft02_p007",
       "sourceId": "draft02",
       "paragraphIndex": 7,
       "blockIndex": 8,
-      "textHash": "107fab0bcfb8398e09464236e2c7117cf6bd76cdec86e3c25063a7527142f338",
-      "textPreview": "这天，他就撞上了后一件事。",
+      "textHash": "74bd669523616b79d08d5900c990f6b8e0e106f8ecf78bf45c42822664f94d4f",
+      "textPreview": "小女孩先不说话。她抬起头看他，神情平静得不像这个年纪——不像是被抓住的人，更像是坐在谈判桌对面的人，就这么安安静静地盯着他，等他继续说。那种眼神苏明没在这个岁数的孩子脸上见过，见过的都是大人的。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s004",
-      "beatId": "dch02_s004",
-      "status": "narrated",
+      "sceneId": "dch02_s002",
+      "beatId": "dch02_s002",
+      "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "74bd669523616b79d08d5900c990f6b8e0e106f8ecf78bf45c42822664f94d4f",
+        "sceneId": "dch02_s002",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "小女孩先不说话。她抬起头",
+            "targetSnippet": "小女孩先不说话。她抬起头"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p008",
       "sourceId": "draft02",
       "paragraphIndex": 8,
       "blockIndex": 9,
-      "textHash": "ada0a66bc7a92ae7d6aea8a4ee7cf2020cd63a79cf2dedef6b7f3240255bff9f",
-      "textPreview": "辣条被塞进那件洗得发白、袖口挽了两道的校服口袋里，一塞就是两包，那个动作熟练得跟扫码差不多，一气呵成，连眼神都没往柜台这边飘一下。",
+      "textHash": "d54ca9dc4fa82c31a625abc5943fe4ecded9b70a079a2e9173646fae36b64d76",
+      "textPreview": "两个人沉默了大概有四五秒。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s004",
-      "beatId": "dch02_s004",
+      "sceneId": "dch02_s002",
+      "beatId": "dch02_s002",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -2896,13 +2935,13 @@
       "sourceId": "draft02",
       "paragraphIndex": 9,
       "blockIndex": 10,
-      "textHash": "06a47d9b685f33cbd10b9c7f5fdd713da94c383b1622c1a8f796723b5e62ccb8",
-      "textPreview": "苏明从收银台后头绕出来，一把按住那孩子的手腕：\"拿出来。\"",
+      "textHash": "30dee9518937cfdc0576de2ca2235906a0729fc6ba9d039e2aa0940d2b9d99d0",
+      "textPreview": "然后她开口了。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s005",
-      "beatId": "dch02_s005",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["拿出来。"],
+      "sceneId": "dch02_s002",
+      "beatId": "dch02_s002",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -2910,13 +2949,13 @@
       "sourceId": "draft02",
       "paragraphIndex": 10,
       "blockIndex": 11,
-      "textHash": "99f3dae1c4f76a8a9450aa786ae7964087a04e7dca59bb53e0debadd912d8827",
-      "textPreview": "小孩\"哇\"地一声就哭了出来——这哭声比动作还快，明显是训练有素，一套流程走得炉火纯青。母亲从货架后头杀出来，两只手在围裙上蹭了蹭——那双手粗糙得不像是闲人的手，一把把儿子护在身后，嗓门先拔高了三度：\"你干嘛吓孩子？血口喷人！\"",
+      "textHash": "52c70e15208da3b7775da54067987d32af15fa0156e3f4d77b78d29fe1356681",
+      "textPreview": "“我是不是……太冷静了？”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s006",
-      "beatId": "dch02_s006",
+      "sceneId": "dch02_s002",
+      "beatId": "dch02_s002",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["哇", "你干嘛吓孩子？血口喷人！"],
+      "dialogueQuotes": ["我是不是……太冷静了？"],
       "notes": ""
     },
     {
@@ -2924,13 +2963,13 @@
       "sourceId": "draft02",
       "paragraphIndex": 11,
       "blockIndex": 12,
-      "textHash": "c15e011dd6f73c36dc1795b0cdcb2bf96b3e40a41845dc7a79dffbb84628567e",
-      "textPreview": "\"监控在那儿。\"苏明抬手指了指天花板一角。",
+      "textHash": "5d5c41e0d634d1ff575fe304be247ed2435e59169e0fca750241ffd76d1a2eac",
+      "textPreview": "苏明刚想接话，小女孩嘴一撇，两颗泪挤了出来，嘴角还没完全垮下去，泪就先到了。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s006",
-      "beatId": "dch02_s006",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["监控在那儿。"],
+      "sceneId": "dch02_s003",
+      "beatId": "dch02_s003",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -2938,13 +2977,13 @@
       "sourceId": "draft02",
       "paragraphIndex": 12,
       "blockIndex": 13,
-      "textHash": "a336530247df169299b5ccc87f0c77a07f73a7eaecbb113c380ea2c1660ba97e",
-      "textPreview": "\"那也是你逼的！他手滑！\"",
+      "textHash": "162642faf05333cc15b4dd22e2fefb3fb0137e2f8faae3aa8c4bd5896d3a0486",
+      "textPreview": "“大哥哥，我真的错了。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s007",
-      "beatId": "dch02_s007",
+      "sceneId": "dch02_s003",
+      "beatId": "dch02_s003",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["那也是你逼的！他手滑！"],
+      "dialogueQuotes": ["大哥哥，我真的错了。"],
       "notes": ""
     },
     {
@@ -2952,53 +2991,77 @@
       "sourceId": "draft02",
       "paragraphIndex": 13,
       "blockIndex": 14,
-      "textHash": "7cb3404bec953ea6a9b7276b5fbc4d83c9a9867b111a21e468004823e7ea3c57",
-      "textPreview": "围观的顾客都停下脚步看热闹，谁也不出声，就那么站着看戏。老板娘从里屋出来打圆场：\"小苏啊，算了算了——\"",
+      "textHash": "e554d8ac8fa7677f24a80617cdf68c01bc9de2338e9877b9fd6111ec20c476be",
+      "textPreview": "苏明愣了整整一秒钟，什么话都没出来。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s007",
-      "beatId": "dch02_s007",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["小苏啊，算了算了——"],
+      "sceneId": "dch02_s003",
+      "beatId": "dch02_s003",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p014",
       "sourceId": "draft02",
       "paragraphIndex": 14,
-      "blockIndex": 15,
-      "textHash": "52a13f8aa8b73c138517c8586e2bbc593015ef524294f47eddf8c15181904460",
-      "textPreview": "\"辣条钱我扫了。\"苏明没搭理老板娘的劝，转身回到收银台，自己给那包辣条刷了单，小票\"啪\"地拍在柜台上，\"下次别带他来偷。\"",
+      "blockIndex": 16,
+      "textHash": "db8c4545543bebf49066b11b3e878f683c900c4246894e2ce0ea5ee41c6319c5",
+      "textPreview": "那颗心回来以后，苏明做了个决定：叫老板娘出来处理，他一个收银的，管到这份上已经到头了。他掏出手机，拨老板娘的号。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s008",
-      "beatId": "dch02_s008",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["辣条钱我扫了。", "啪", "下次别带他来偷。"],
-      "notes": ""
+      "sceneId": "dch02_s003",
+      "beatId": "dch02_s003",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "db8c4545543bebf49066b11b3e878f683c900c4246894e2ce0ea5ee41c6319c5",
+        "sceneId": "dch02_s003",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "那颗心回来以后，苏明做了",
+            "targetSnippet": "那颗心回来以后，苏明做了"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p015",
       "sourceId": "draft02",
       "paragraphIndex": 15,
-      "blockIndex": 16,
-      "textHash": "383cccbb3bde116da143534fd01c99dd9bb12c0f1bfa749f7dded3eca2a11b52",
-      "textPreview": "那母亲骂骂咧咧地拽着孩子往外走，临出门还啐了一句：\"小小收银的，狗眼看人低。\"",
+      "blockIndex": 17,
+      "textHash": "654b1b6635f97827bc91635e8f004ee9f3101e280e49939a9010e753185ca916",
+      "textPreview": "电话接通，“喂”字刚出口，小女孩从他旁边走过来，站到他手边——没抢手机，只是把他握手机的那只手，两只小手捂住了，就这么摁着，不让他动。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s009",
-      "beatId": "dch02_s009",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["小小收银的，狗眼看人低。"],
-      "notes": ""
+      "sceneId": "dch02_s003",
+      "beatId": "dch02_s003",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["喂"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "654b1b6635f97827bc91635e8f004ee9f3101e280e49939a9010e753185ca916",
+        "sceneId": "dch02_s003",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "电话接通，“喂”字刚出口",
+            "targetSnippet": "电话接通，“喂”字刚出口"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p016",
       "sourceId": "draft02",
       "paragraphIndex": 16,
-      "blockIndex": 17,
-      "textHash": "41693004f113dd77be6ad372a043523d54946a75e700e444094d4141a15791ce",
-      "textPreview": "老板娘叹了口气，问要不要把这钱从他工资里扣。",
+      "blockIndex": 18,
+      "textHash": "573a50eb104c9f95643022a34e8f1b4e93a6a0eba9f7f6e297712f92c188c487",
+      "textPreview": "苏明看着她。她回看他，眼神又变回了那种平静的。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s009",
-      "beatId": "dch02_s009",
+      "sceneId": "dch02_s004",
+      "beatId": "dch02_s004",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -3007,421 +3070,408 @@
       "id": "draft02_p017",
       "sourceId": "draft02",
       "paragraphIndex": 17,
-      "blockIndex": 18,
-      "textHash": "18048939c05a91e7d70c30da843ed47f595671c7269b3491ba59848340781c70",
-      "textPreview": "\"我出。\"他说了两遍，脸绷得紧紧的，话说得硬邦邦的，没多解释一个字。",
-      "chapterId": "draft-ch02",
-      "sceneId": "dch02_s010",
-      "beatId": "dch02_s010",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["我出。"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "18048939c05a91e7d70c30da843ed47f595671c7269b3491ba59848340781c70",
-        "sceneId": "dch02_s010",
-        "factMappings": [
-          {
-            "fact": "“我出”再说一遍",
-            "sourceSnippet": "\"他说了两遍，脸绷得紧紧的，话说得硬邦邦的，没多解释一个字。",
-            "targetSnippet": "\"他说第二遍时，脸绷得像在替两包辣条签担保。"
-          }
-        ],
-        "pacingRationale": "把重复解释换成辣条担保笑点。"
-      }
-    },
-    {
-      "id": "draft02_p018",
-      "sourceId": "draft02",
-      "paragraphIndex": 18,
       "blockIndex": 19,
-      "textHash": "b18eede9f0a12ef61dcd7cae63543d094a428e17e579c07b0d0976131659fe78",
-      "textPreview": "常来买烟的张师傅蹲在门口，把这一出全看在了眼里，走的时候拍了拍他肩膀：\"小伙子，你这样迟早吃亏。\"顿了顿，又补上一句，\"不过我看你顺眼。\"拎着烟就走了，也没说这\"顺眼\"两个字到底顺在哪儿。",
+      "textHash": "47a1d8896bb61043c69b2343ea431a7fe7220d013edce06a4be86b6671256c2f",
+      "textPreview": "等他想明白发生了什么，小女孩已经松手开跑了。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s010",
-      "beatId": "dch02_s010",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["小伙子，你这样迟早吃亏。", "不过我看你顺眼。", "顺眼"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "b18eede9f0a12ef61dcd7cae63543d094a428e17e579c07b0d0976131659fe78",
-        "sceneId": "dch02_s010",
-        "factMappings": [
-          {
-            "fact": "张师傅旁观",
-            "sourceSnippet": "常来买烟的张师傅蹲在门口，把这一出全看在了眼里，走的时候拍了拍他肩膀：\"小伙子，你这样迟早吃亏。",
-            "targetSnippet": "常来买烟的张师傅看完全程，走时拍他肩膀：\"小伙子，你这样迟早吃亏。"
-          }
-        ],
-        "pacingRationale": "旁观者评语保留，删蹲姿细节。"
-      }
-    },
-    {
-      "id": "draft02_p019",
-      "sourceId": "draft02",
-      "paragraphIndex": 19,
-      "blockIndex": 21,
-      "textHash": "05d22b133909da0d50aeec8dc9c05671230e06239243f9a9444b74ddc4f8bbe3",
-      "textPreview": "傍晚，看房的时间到了。",
-      "chapterId": "draft-ch02",
-      "sceneId": "dch02_s011",
-      "beatId": "dch02_s011",
+      "sceneId": "dch02_s004",
+      "beatId": "dch02_s004",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
     },
     {
+      "id": "draft02_p018",
+      "sourceId": "draft02",
+      "paragraphIndex": 18,
+      "blockIndex": 20,
+      "textHash": "2736db7e717cf59ba454b5878837a2ee633931cf6d8d28f44dcdffc00367c267",
+      "textPreview": "苏明追出去，手里还攥着电话，老板娘那头还在“喂喂喂”。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s004",
+      "beatId": "dch02_s004",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["喂喂喂"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p019",
+      "sourceId": "draft02",
+      "paragraphIndex": 19,
+      "blockIndex": 22,
+      "textHash": "155d934311ca670e142db5f1a980a98eb591ce06cd9d3d411a6cfa22319bf76d",
+      "textPreview": "出了门是巷子，巷子穿出去是菜市场，再出去是老居民楼中间夹着的水泥空地。这片地方下午五点以后就是摊贩收摊的时段，板车横在路口，地上潮，前两天下过雨，没干透。苏明个子高，电线从楼与楼之间拉过来，他绕不过那根车把手，小女孩从车轮底下钻出去，脚不沾",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s004",
+      "beatId": "dch02_s004",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "155d934311ca670e142db5f1a980a98eb591ce06cd9d3d411a6cfa22319bf76d",
+        "sceneId": "dch02_s004",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "出了门是巷子，巷子穿出去",
+            "targetSnippet": "出了门是巷子，巷子穿出去"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
       "id": "draft02_p020",
       "sourceId": "draft02",
       "paragraphIndex": 20,
-      "blockIndex": 22,
-      "textHash": "5630bb97fb1774cfafb31e8ac970b5ad61791d76f3e07fe3a865ab58d1dd9650",
-      "textPreview": "雷欧提前一步蹲在楼梯口给他当监工，见他人到了，老远就伸手招呼：\"你来了。石姐——很凶，Very。\"这几个字他说得又急又慢，明显是想提前给苏明打个预防针。",
+      "blockIndex": 23,
+      "textHash": "35da800f361c1c36cf80c69bc46bef9f629dccde8e5c76f25704090482fce3f4",
+      "textPreview": "周围猫从墙头看热闹，一动不动。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s011",
-      "beatId": "dch02_s011",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你来了。石姐——很凶，Very。"],
+      "sceneId": "dch02_s004",
+      "beatId": "dch02_s004",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p021",
       "sourceId": "draft02",
       "paragraphIndex": 21,
-      "blockIndex": 23,
-      "textHash": "1bd89e6271931facf8d3b3bd50063346f7251666a000eb3798c2a3cf51afccff",
-      "textPreview": "门开了。石佩欣穿着一件皮卡丘图案的家居服，身后的电脑屏幕上有张还没画完的图，就在苏明来得及看清之前，被她眼疾手快地缩成了任务栏里一个不起眼的小图标——那手速快得跟做贼似的。苏明只来得及瞥见一片肉色，心里犯嘀咕，也没敢多问一句。",
+      "blockIndex": 24,
+      "textHash": "e4b49292a42eb16f4e687269f5695506bb89d7b27d882e81743f3bc223f50e98",
+      "textPreview": "苏明快追上了。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s012",
-      "beatId": "dch02_s012",
-      "status": "approved-adaptation",
+      "sceneId": "dch02_s005",
+      "beatId": "dch02_s005",
+      "status": "narrated",
       "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "1bd89e6271931facf8d3b3bd50063346f7251666a000eb3798c2a3cf51afccff",
-        "sceneId": "dch02_s012",
-        "factMappings": [
-          {
-            "fact": "皮卡丘家居服",
-            "sourceSnippet": "石佩欣穿着一件皮卡丘图案的家居服，身后的电脑屏幕上有张还没画完的图，就在苏明来得及看清之前，被她眼疾手快地缩成了任务栏里一个不起眼的小图标——那手速快得跟做贼似的。",
-            "targetSnippet": "石佩欣穿着皮卡丘家居服，身后电脑上的图被她一键缩进任务栏，手速像销毁证据。"
-          }
-        ],
-        "pacingRationale": "房东出场保留尴尬，删手速形容词堆叠。"
-      }
+      "notes": ""
     },
     {
       "id": "draft02_p022",
       "sourceId": "draft02",
       "paragraphIndex": 22,
-      "blockIndex": 24,
-      "textHash": "bd078a7cb94bf7b808bc59b8934bf1b36dc65c36507b1a990dcba2d61abc0e75",
-      "textPreview": "她的目光在他胸前那块超市工牌上停留了一秒：\"收银的？\"",
+      "blockIndex": 25,
+      "textHash": "c39ecc5a6765debdf1ccb16f3d7f274f9eab003d998e8aa7238386d6c8b469c5",
+      "textPreview": "小女孩脚步一停，站在原地，哇地嚎啕大哭，嗓门比他大三倍，冲周围喊：“他追我！这个男的摸我！”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s012",
-      "beatId": "dch02_s012",
+      "sceneId": "dch02_s005",
+      "beatId": "dch02_s005",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["收银的？"],
+      "dialogueQuotes": ["他追我！这个男的摸我！"],
       "notes": ""
     },
     {
       "id": "draft02_p023",
       "sourceId": "draft02",
       "paragraphIndex": 23,
-      "blockIndex": 25,
-      "textHash": "a2f111fa6d3434f292b9a26607a698daff8fdb6743fc1ff9c0a539bdfac6d758",
-      "textPreview": "\"对，还兼职别的。\"",
+      "blockIndex": 26,
+      "textHash": "543d44fdea5718a235001bd46fca0ea07af1f19299eda12b6d646fbfdaaa612b",
+      "textPreview": "摊贩、大妈、路过的两个外卖员，一圈人从四面合了过来，都看着苏明。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s013",
-      "beatId": "dch02_s013",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["对，还兼职别的。"],
+      "sceneId": "dch02_s005",
+      "beatId": "dch02_s005",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p024",
       "sourceId": "draft02",
       "paragraphIndex": 24,
-      "blockIndex": 26,
-      "textHash": "8d225461b476a395685c02586b47c3458ed8d3db810bd15979a46166d819509a",
-      "textPreview": "\"只要别在我楼里摆摊。\"她开门见山，一点绕弯子的意思都没有，\"抽烟？带人过夜？谈过对象没？谁提的分手？\"",
+      "blockIndex": 27,
+      "textHash": "0ab0af77db263cddf4ffadd24601276697fdd01d0f8eacf162b30b35e5ffab2d",
+      "textPreview": "苏明大声喊：“她偷东西！手机里有监控！”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s013",
-      "beatId": "dch02_s013",
+      "sceneId": "dch02_s005",
+      "beatId": "dch02_s005",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["只要别在我楼里摆摊。", "抽烟？带人过夜？谈过对象没？谁提的分手？"],
+      "dialogueQuotes": ["她偷东西！手机里有监控！"],
       "notes": ""
     },
     {
       "id": "draft02_p025",
       "sourceId": "draft02",
       "paragraphIndex": 25,
-      "blockIndex": 27,
-      "textHash": "2fce32af57b607c303e792d168bd727bdb4e2f84dc7ed9ba2b8b88e0db55fb1e",
-      "textPreview": "问到\"分手谁提的\"这一句，热心过头的雷欧凑了过来，主动当起了翻译——先把这句话翻成英文讲给自己听懂，再翻回中文转述给苏明：\"她问，谁把谁扔掉了。\"",
+      "blockIndex": 28,
+      "textHash": "3c9fd369c617b6d9016f08fc14471eb1ec5749103bc57039f5a432201dced3f5",
+      "textPreview": "话音刚落，旁边一个卖牛肉的大胖子从摊位后头绕出来，手里还提着一把折叠椅，眼睛红的，嗓门比苏明还大，脚步往他这边冲：“操你妈的，欺负小孩！”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s014",
-      "beatId": "dch02_s014",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["分手谁提的", "她问，谁把谁扔掉了。"],
-      "notes": ""
+      "sceneId": "dch02_s005",
+      "beatId": "dch02_s005",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["操你妈的，欺负小孩！"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "3c9fd369c617b6d9016f08fc14471eb1ec5749103bc57039f5a432201dced3f5",
+        "sceneId": "dch02_s005",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "话音刚落，旁边一个卖牛肉",
+            "targetSnippet": "话音刚落，旁边一个卖牛肉"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p026",
       "sourceId": "draft02",
       "paragraphIndex": 26,
-      "blockIndex": 28,
-      "textHash": "38b4f729fb9b84bf6c1d77a682ffa4fc87bb413d116ff1482eb6ec7addf9fbc6",
-      "textPreview": "\"不是扔——\"石佩欣一手扶额，一脸嫌弃，\"滚一边去。\"",
+      "blockIndex": 29,
+      "textHash": "167f8226e9b8b689146bcf9cf9eef2d36e537f1e5ab0f05e4cecfa8d7d8099a4",
+      "textPreview": "苏明往旁边跳，折叠椅擦着他耳边过去，带起一阵风。他赶紧把手机举起来，屏幕上调出监控画面，边跑边喊：“你看！监控！这是证据！看！”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s014",
-      "beatId": "dch02_s014",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["不是扔——", "滚一边去。"],
-      "notes": ""
+      "sceneId": "dch02_s006",
+      "beatId": "dch02_s006",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["你看！监控！这是证据！看！"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "167f8226e9b8b689146bcf9cf9eef2d36e537f1e5ab0f05e4cecfa8d7d8099a4",
+        "sceneId": "dch02_s006",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明往旁边跳，折叠椅擦着",
+            "targetSnippet": "苏明往旁边跳，折叠椅擦着"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p027",
       "sourceId": "draft02",
       "paragraphIndex": 27,
-      "blockIndex": 29,
-      "textHash": "cd040aa08ab29e2c9b33bc708152a6be3fd32f65c94e070b3bf2be003a53e46f",
-      "textPreview": "\"不抽。不带。分了，\"苏明顿了顿，硬着头皮往下说，\"我提的。\"",
+      "blockIndex": 30,
+      "textHash": "1bb17ec3c3440f93f0a9b1924a1138247cd8450e6272eb0769347aa04bca5668",
+      "textPreview": "人群挪了挪位置，有人探头看了一眼他手机屏幕，往小女孩那边看了一眼，又往苏明这边看，开始犹豫。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s015",
-      "beatId": "dch02_s015",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["不抽。不带。分了，", "我提的。"],
+      "sceneId": "dch02_s006",
+      "beatId": "dch02_s006",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p028",
       "sourceId": "draft02",
       "paragraphIndex": 28,
-      "blockIndex": 30,
-      "textHash": "00e063c8269e609872d6860e669771ca885ab4ba41ecf162485d93af4fa9db1e",
-      "textPreview": "\"自己提的更稳。过。\"",
+      "blockIndex": 31,
+      "textHash": "77e588971b3e362b96c9586c0646078a57baf6c13f104b4b548116650286ec82",
+      "textPreview": "“他说的……好像也挺对……”有人小声说了一句。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s015",
-      "beatId": "dch02_s015",
+      "sceneId": "dch02_s006",
+      "beatId": "dch02_s006",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["自己提的更稳。过。"],
+      "dialogueQuotes": ["他说的……好像也挺对……"],
       "notes": ""
     },
     {
       "id": "draft02_p029",
       "sourceId": "draft02",
       "paragraphIndex": 29,
-      "blockIndex": 31,
-      "textHash": "f3d2d1ba09c282aeb1fe3aa48dac9001a7579a6b753f14e8ff7772e4794a502d",
-      "textPreview": "雷欧在她身后偷偷竖起大拇指，被一个眼神精准地扫到，当场被罚站到了楼梯口。他站在那儿，小声跟苏明总结起了经验：\"她的问题不用翻译，答案统一是'不敢'。\"",
+      "blockIndex": 32,
+      "textHash": "0592bc4d96cff7b98b041bc094fc2251ad3a5232f6951afffc531f7ca7e0ae2f",
+      "textPreview": "大胖子停了停，折叠椅还举着，转头看向小女孩：“你真的没被——”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s016",
-      "beatId": "dch02_s016",
+      "sceneId": "dch02_s006",
+      "beatId": "dch02_s006",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["她的问题不用翻译，答案统一是'不敢'。"],
+      "dialogueQuotes": ["你真的没被——"],
       "notes": ""
     },
     {
       "id": "draft02_p030",
       "sourceId": "draft02",
       "paragraphIndex": 30,
-      "blockIndex": 32,
-      "textHash": "9b4d0efa0d8c03e2af68ce56de45c38cfafb0992d717722550df5ad40281c2ba",
-      "textPreview": "楼道的墙皮有些地方鼓起了包，屋里倒是收拾得干干净净，一只橘猫窝在沙发上，摆出一副大爷的做派，看谁进门都是同一副懒洋洋的眼神，跟房东本人如出一辙。雷欧摸了摸墙壁：\"Cool，Authentic。\"",
+      "blockIndex": 33,
+      "textHash": "899b97d99eee51a97573e65336f3e00ef0dc6674f4397f275828bf08f9e09671",
+      "textPreview": "小女孩这时候嚎哭得更大声了，两行眼泪哗哗的，使劲往大胖子旁边的大妈身边蹭：“大妈大妈，他追我好久了，我好怕……”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s016",
-      "beatId": "dch02_s016",
+      "sceneId": "dch02_s006",
+      "beatId": "dch02_s006",
       "status": "approved-adaptation",
-      "dialogueQuotes": ["Cool，Authentic。"],
-      "notes": "",
+      "dialogueQuotes": ["大妈大妈，他追我好久了，我好怕……"],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "9b4d0efa0d8c03e2af68ce56de45c38cfafb0992d717722550df5ad40281c2ba",
-        "sceneId": "dch02_s016",
+        "sourceHash": "899b97d99eee51a97573e65336f3e00ef0dc6674f4397f275828bf08f9e09671",
+        "sceneId": "dch02_s006",
         "factMappings": [
           {
-            "fact": "墙皮鼓包",
-            "sourceSnippet": "楼道的墙皮有些地方鼓起了包，屋里倒是收拾得干干净净，一只橘猫窝在沙发上，摆出一副大爷的做派，看谁进门都是同一副懒洋洋的眼神，跟房东本人如出一辙。",
-            "targetSnippet": "楼道墙皮鼓包，屋里倒收拾得干净。"
+            "fact": "a1",
+            "sourceSnippet": "小女孩这时候嚎哭得更大声",
+            "targetSnippet": "小女孩这时候嚎哭得更大声"
           }
         ],
-        "pacingRationale": "环境与猫审核感压缩，保留原段事实与黑色喜剧落点。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
       "id": "draft02_p031",
       "sourceId": "draft02",
       "paragraphIndex": 31,
-      "blockIndex": 33,
-      "textHash": "a44794332c4c2604887967b5d6504c79d0314dadc3d11fcdfccb49a63910be44",
-      "textPreview": "\"你再交三个月房租，这墙就能补上。\"石佩欣白了他一眼，\"酷不能挡雨。\"",
+      "blockIndex": 34,
+      "textHash": "b50fb2cbb94f6006a150cdafc0ec8d86075fd9d42cc8afe97ad56146edb40c9b",
+      "textPreview": "大妈把小女孩搂进怀里，给大胖子使了个眼色。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s017",
-      "beatId": "dch02_s017",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你再交三个月房租，这墙就能补上。", "酷不能挡雨。"],
+      "sceneId": "dch02_s007",
+      "beatId": "dch02_s007",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p032",
       "sourceId": "draft02",
       "paragraphIndex": 32,
-      "blockIndex": 34,
-      "textHash": "bde544b637391b7aa733d9d198d67b31c25864a0c4022928b2f2c3ba0cdd8a68",
-      "textPreview": "这栋楼的来历，苏明是后来才慢慢拼齐的：产权是她一个远房亲戚的，那人常年在外地打拼，懒得管这摊子事，索性把楼交给她代收房租，条件也简单，每年报个平安，逢年过节意思意思就行。所以说，她既是这楼里的租客，又是这楼的管家，收上来的房租有一半又贴回去",
+      "blockIndex": 35,
+      "textHash": "84ffdebda80a729748bca5b88abd0bbbc204fd4e8687ad07d46d09277649c563",
+      "textPreview": "大胖子把折叠椅放下来，转身往苏明走过去，一把薅住他的衣领，把他往自己跟前拎了拎，就那么定在那儿，也没动手，就是把他摁住了，重重地问了一句：“你别他妈的哄我，你那监控是真的？”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s017",
-      "beatId": "dch02_s017",
+      "sceneId": "dch02_s007",
+      "beatId": "dch02_s007",
       "status": "approved-adaptation",
-      "dialogueQuotes": [],
-      "notes": "",
+      "dialogueQuotes": ["你别他妈的哄我，你那监控是真的？"],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "bde544b637391b7aa733d9d198d67b31c25864a0c4022928b2f2c3ba0cdd8a68",
-        "sceneId": "dch02_s017",
+        "sourceHash": "84ffdebda80a729748bca5b88abd0bbbc204fd4e8687ad07d46d09277649c563",
+        "sceneId": "dch02_s007",
         "factMappings": [
           {
-            "fact": "远房亲戚产权与代收房租",
-            "sourceSnippet": "产权是她一个远房亲戚的，那人常年在外地打拼，懒得管这摊子事，索性把楼交给她代收房租",
-            "targetSnippet": "楼是远房亲戚的，石佩欣代收房租，也代补墙。"
-          },
-          {
-            "fact": "九百、五号与禁发表情包",
-            "sourceSnippet": "九百块，五号前交，备注栏里千万别发表情包。",
-            "targetSnippet": "九百块，五号前交，备注栏禁止发表情包。"
+            "fact": "a1",
+            "sourceSnippet": "大胖子把折叠椅放下来，转",
+            "targetSnippet": "大胖子把折叠椅放下来，转"
           }
         ],
-        "pacingRationale": "楼史继续收短，保留喂墙皮与付款备注两记制度笑点。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
       "id": "draft02_p033",
       "sourceId": "draft02",
       "paragraphIndex": 33,
-      "blockIndex": 35,
-      "textHash": "d0a14c8696c985fa88f4033918a11029fd4726f398f78a3999b8f509d061d548",
-      "textPreview": "苏明这人嘴皮子有时比脑子还快：\"能不能——假设——带女朋友？\"",
+      "blockIndex": 36,
+      "textHash": "67f2946f5bb7009d6d1186d6d9546942f1c873f1c9651bdb7ed642d6c175f4c6",
+      "textPreview": "苏明没挣扎，他也知道这会儿挣扎只有死路一条，就那么被摁着，把手机举到大胖子眼前：“我以我妈的名义发誓，她偷我们超市三回了，那是监控截图，时间戳都有，她是今天三点二十七分拿的，你数数，那一排货有没有辣条。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s018",
-      "beatId": "dch02_s018",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["能不能——假设——带女朋友？"],
-      "notes": ""
+      "sceneId": "dch02_s007",
+      "beatId": "dch02_s007",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "我以我妈的名义发誓，她偷我们超市三回了，那是监控截图，时间戳都有，她是今天三点二十七分拿的，你数数，那一排货有没有辣条。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "67f2946f5bb7009d6d1186d6d9546942f1c873f1c9651bdb7ed642d6c175f4c6",
+        "sceneId": "dch02_s007",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明没挣扎，他也知道这会",
+            "targetSnippet": "苏明没挣扎，他也知道这会"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p034",
       "sourceId": "draft02",
       "paragraphIndex": 34,
-      "blockIndex": 36,
-      "textHash": "b074cc06ab0a1344cf500de4ef4668f59cdc129b96dbd121c2fd2645c2c70215",
-      "textPreview": "\"你不是刚分？\"",
+      "blockIndex": 37,
+      "textHash": "2f07f123999b792cec0cc740aeb1932c77650ea08a9998d165b255b478a61831",
+      "textPreview": "大胖子低下头，眯起眼睛，往手机屏幕上看了两秒，然后抬起头，把视线对准了小女孩。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s019",
-      "beatId": "dch02_s019",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你不是刚分？"],
+      "sceneId": "dch02_s007",
+      "beatId": "dch02_s007",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p035",
       "sourceId": "draft02",
       "paragraphIndex": 35,
-      "blockIndex": 37,
-      "textHash": "022535a1edcf093bcc88b8ae98b5a6ac5d552ea6ac83baf3424a3d59f6914edc",
-      "textPreview": "\"……假设。\"",
+      "blockIndex": 38,
+      "textHash": "2e08d7144fc22d5d28e940f67206b35c9133c076dfd4a4081cb3f1ff92f07dd8",
+      "textPreview": "那边的大妈也跟着看过去。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s019",
-      "beatId": "dch02_s019",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["……假设。"],
+      "sceneId": "dch02_s007",
+      "beatId": "dch02_s007",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p036",
       "sourceId": "draft02",
       "paragraphIndex": 36,
-      "blockIndex": 38,
-      "textHash": "442b1f9adb60f38ca3c907af5e90cfbfd258a9f22e01480a6c5f0814a5c758c3",
-      "textPreview": "\"假设也不行。\"她挥了挥手，\"我这楼的规矩比你那超市严多了。\"条款连珠炮似的往外跟：打呼噜自己想办法（\"没人跟我反馈过\"\"那就是打\"），锅铲不许当武器使（上一任租客拿它敲墙试隔音，硬生生把锅铲敲弯了）。猫这时候跳下沙发，顺道踩了苏明一脚，留",
+      "blockIndex": 39,
+      "textHash": "e19e35af8b17591a9fc4837ccfd3b0674f723bd0f6365739e9ef7cb69cda0755",
+      "textPreview": "周围的人也都跟着看过去。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s020",
-      "beatId": "dch02_s020",
-      "status": "approved-adaptation",
-      "dialogueQuotes": [
-        "假设也不行。",
-        "我这楼的规矩比你那超市严多了。",
-        "没人跟我反馈过",
-        "那就是打"
-      ],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "442b1f9adb60f38ca3c907af5e90cfbfd258a9f22e01480a6c5f0814a5c758c3",
-        "sceneId": "dch02_s020",
-        "factMappings": [
-          {
-            "fact": "假设也不行",
-            "sourceSnippet": "\"假设也不行。\"她挥了挥手，\"我这楼的规矩比你那超市严多了。\"",
-            "targetSnippet": "\"假设也不行。\"她挥手，\"我这楼的规矩比你那超市严。\""
-          },
-          {
-            "fact": "猫盖审核章",
-            "sourceSnippet": "猫这时候跳下沙发，顺道踩了苏明一脚，留下一个灰扑扑的爪印，倒像是给他补盖了一道审核章",
-            "targetSnippet": "猫跳下沙发，顺脚在苏明裤腿上补盖一道灰爪审核章。"
-          }
-        ],
-        "pacingRationale": "条款连珠炮压成两条代表规矩 + 猫章。"
-      }
+      "sceneId": "dch02_s008",
+      "beatId": "dch02_s008",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
     },
     {
       "id": "draft02_p037",
       "sourceId": "draft02",
       "paragraphIndex": 37,
-      "blockIndex": 39,
-      "textHash": "534085cb38e869c3fa95491a6abda7a318a069f5625655fc7a9690ab2ef8d4b6",
-      "textPreview": "扫完定金，石佩欣手写了张收条，字迹潦草得跟医院处方签似的，苏明也就只认出\"九百\"两个字，剩下的字迹选择相信她没写错。她最后又补了一刀：\"你兼职测什么的我不管，别把奇怪的人往楼里带，出事你自己扛。\"",
+      "blockIndex": 40,
+      "textHash": "2b51592671e3c467d508e471150ba1edc9e2d6ed8fd3aaf55b8c644273605e70",
+      "textPreview": "小女孩被这么多双眼睛盯着，哭声慢慢停了。她抽了抽鼻子，把眼泪用袖子抹干净，神情从刚才那种哇哇大哭的样子，一帧一帧地切换回了那种她熟悉的平静——小大人的平静，像签了合同的平静。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s020",
-      "beatId": "dch02_s020",
+      "sceneId": "dch02_s008",
+      "beatId": "dch02_s008",
       "status": "approved-adaptation",
-      "dialogueQuotes": ["九百", "你兼职测什么的我不管，别把奇怪的人往楼里带，出事你自己扛。"],
-      "notes": "",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "534085cb38e869c3fa95491a6abda7a318a069f5625655fc7a9690ab2ef8d4b6",
-        "sceneId": "dch02_s020",
+        "sourceHash": "2b51592671e3c467d508e471150ba1edc9e2d6ed8fd3aaf55b8c644273605e70",
+        "sceneId": "dch02_s008",
         "factMappings": [
           {
-            "fact": "手写收条九百",
-            "sourceSnippet": "扫完定金，石佩欣手写了张收条，字迹潦草得跟医院处方签似的，苏明也就只认出\"九百\"两个字，剩下的字迹选择相信她没写错。",
-            "targetSnippet": "扫完定金，石佩欣手写收条，字迹像医院处方。"
+            "fact": "a1",
+            "sourceSnippet": "小女孩被这么多双眼睛盯着",
+            "targetSnippet": "小女孩被这么多双眼睛盯着"
           }
         ],
-        "pacingRationale": "收条与禁令保留，删字迹过度描写。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
       "id": "draft02_p038",
       "sourceId": "draft02",
       "paragraphIndex": 38,
-      "blockIndex": 40,
-      "textHash": "c4175adaa2b1930b497ef239f0dcdf63c9c40a2aa4996a1503263e1a869afb8c",
-      "textPreview": "雷欧小声嘀咕：\"她是不是在说我？\"",
+      "blockIndex": 41,
+      "textHash": "951100493ca4c16d0e9fc54244d54205ec7e1669b0e2a809ceadb1168c3836ad",
+      "textPreview": "她想了一下，缓缓开口，像是在陈述事实：",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s021",
-      "beatId": "dch02_s021",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["她是不是在说我？"],
+      "sceneId": "dch02_s008",
+      "beatId": "dch02_s008",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p039",
       "sourceId": "draft02",
       "paragraphIndex": 39,
-      "blockIndex": 41,
-      "textHash": "30b0ee9632302f0990b41abc670deba66931d1f80d91be9e1f06be8617ab8f81",
-      "textPreview": "\"你也扛。\"",
+      "blockIndex": 42,
+      "textHash": "1039ef4e98f06bc6baad55a1cdc69e55655d0ea45f04cdfcda11f1f01a5f3a32",
+      "textPreview": "“你们大人，其实都挺好骗的。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s021",
-      "beatId": "dch02_s021",
+      "sceneId": "dch02_s008",
+      "beatId": "dch02_s008",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你也扛。"],
+      "dialogueQuotes": ["你们大人，其实都挺好骗的。"],
       "notes": ""
     },
     {
@@ -3429,25 +3479,25 @@
       "sourceId": "draft02",
       "paragraphIndex": 40,
       "blockIndex": 43,
-      "textHash": "98785bbea8eece3a7eb529ac395c85faa379a9ab399404c02b0ae567c3f05c73",
-      "textPreview": "当夜，苏明就搬进来住下了。行李是几个垃圾袋的升级版。",
+      "textHash": "1ef8d32148bc81dac68c30ec0b5cdce541af0506f5efe109d4157d53d416115f",
+      "textPreview": "说完，她低头从校服口袋里掏出苏明的手机——不知道什么时候顺走的，苏明手上那台还在，但屏幕已经变黑了，那不是他的——她两只手捧着那台真的手机，往旁边那辆停着的推车方向一扔，高高的弧线，落点不好，正砸向推车边上摞着的一摞啤酒瓶箱上。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s022",
-      "beatId": "dch02_s022",
+      "sceneId": "dch02_s008",
+      "beatId": "dch02_s008",
       "status": "approved-adaptation",
       "dialogueQuotes": [],
-      "notes": "",
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "98785bbea8eece3a7eb529ac395c85faa379a9ab399404c02b0ae567c3f05c73",
-        "sceneId": "dch02_s022",
+        "sourceHash": "1ef8d32148bc81dac68c30ec0b5cdce541af0506f5efe109d4157d53d416115f",
+        "sceneId": "dch02_s008",
         "factMappings": [
           {
-            "fact": "当夜入住",
-            "sourceSnippet": "当夜，苏明就搬进来住下了。",
-            "targetSnippet": "当夜，苏明搬了进来。"
+            "fact": "a1",
+            "sourceSnippet": "说完，她低头从校服口袋里",
+            "targetSnippet": "说完，她低头从校服口袋里"
           }
         ],
-        "pacingRationale": "入住句去冗余，保留原段事实与黑色喜剧落点。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -3455,11 +3505,11 @@
       "sourceId": "draft02",
       "paragraphIndex": 41,
       "blockIndex": 44,
-      "textHash": "f3e30be447ec60582d4a7a6f24f5e52bc2b57e2b7e6e1e4f34dc74de754b95b6",
-      "textPreview": "刚把最后一个袋子拖进屋，楼下就传来一阵急促的敲门声，一下比一下重。",
+      "textHash": "21358c34ff6d90ccd6471872bd49c756e4baff0f1dfc46b452a345c6258be659",
+      "textPreview": "苏明反射性就扑了过去。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s022",
-      "beatId": "dch02_s022",
+      "sceneId": "dch02_s009",
+      "beatId": "dch02_s009",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -3469,25 +3519,25 @@
       "sourceId": "draft02",
       "paragraphIndex": 42,
       "blockIndex": 45,
-      "textHash": "4d006910de47589a865bd799f08fdfe1b687c257a5c98621be6efcded039fe52",
-      "textPreview": "苏明心里\"咯噔\"一下——第一反应是石佩欣反悔了，或者哪条规矩他没听清楚就已经犯了。他手忙脚乱地把摊在地上的东西胡乱塞回袋子里，才去开门。",
+      "textHash": "d4a33ae7b3f4212f9e9a1043a494c57238a379f3fbe7493a11b176c4d7f8ee45",
+      "textPreview": "他没注意脚下。大胖子刚才放下的折叠椅就搁在他跟前，椅腿斜着支在地上，椅面朝上。苏明全力往前冲，右膝直接撞上了椅面，整个人往前飞扑出去，手机砸到啤酒箱上弹了一下，没摔坏，他扑到地上，脸正好朝地，下巴先着地，鼻子紧跟着。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s023",
-      "beatId": "dch02_s023",
+      "sceneId": "dch02_s009",
+      "beatId": "dch02_s009",
       "status": "approved-adaptation",
-      "dialogueQuotes": ["咯噔"],
-      "notes": "",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "4d006910de47589a865bd799f08fdfe1b687c257a5c98621be6efcded039fe52",
-        "sceneId": "dch02_s023",
+        "sourceHash": "d4a33ae7b3f4212f9e9a1043a494c57238a379f3fbe7493a11b176c4d7f8ee45",
+        "sceneId": "dch02_s009",
         "factMappings": [
           {
-            "fact": "误以为反悔",
-            "sourceSnippet": "苏明心里\"咯噔\"一下——第一反应是石佩欣反悔了，或者哪条规矩他没听清楚就已经犯了。",
-            "targetSnippet": "苏明以为石佩欣反悔，手忙脚乱把东西塞回袋子才开门。"
+            "fact": "a1",
+            "sourceSnippet": "他没注意脚下。大胖子刚才",
+            "targetSnippet": "他没注意脚下。大胖子刚才"
           }
         ],
-        "pacingRationale": "虚惊开场与钥匙问句并段，去掉重复心虚。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -3495,51 +3545,39 @@
       "sourceId": "draft02",
       "paragraphIndex": 43,
       "blockIndex": 46,
-      "textHash": "472805cc66cb2099b4c75637a96180d90b915452d9f89be72d07a881954471c8",
-      "textPreview": "门外站着的，是隔壁抱着保温杯的一个大爷，一脸急切：\"娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？\"",
+      "textHash": "578169871e781676ed5331099cca95aec303d5a126acbf7036c875a23da9871f",
+      "textPreview": "有人把他搀起来。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s023",
-      "beatId": "dch02_s023",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "472805cc66cb2099b4c75637a96180d90b915452d9f89be72d07a881954471c8",
-        "sceneId": "dch02_s023",
-        "factMappings": [
-          {
-            "fact": "大爷问水表钥匙",
-            "sourceSnippet": "门外站着的，是隔壁抱着保温杯的一个大爷，一脸急切：\"娃儿，你是不是新搬来的？",
-            "targetSnippet": "门外只是隔壁抱保温杯的大爷：\"娃儿，你是不是新搬来的？"
-          }
-        ],
-        "pacingRationale": "与 p042 并段后仍可定位到同一可玩句。"
-      }
+      "sceneId": "dch02_s009",
+      "beatId": "dch02_s009",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
     },
     {
       "id": "draft02_p044",
       "sourceId": "draft02",
       "paragraphIndex": 44,
       "blockIndex": 47,
-      "textHash": "ec0ef5aded99266c9f5e8c76c9a074e459fd78f53531237465ca37a71cef2308",
-      "textPreview": "苏明愣了两秒，才想起自己确实不知道，也确实不该知道——他今天才第一次踏进这栋楼。他老实回了句\"不晓得\"，大爷叹口气，骂骂咧咧地下楼去找别人问了。",
+      "textHash": "89f1af58d78817cab2afc4f9c89e0528c04a926f69da1581fb30e8b7040c730f",
+      "textPreview": "鼻血滴在水泥上，脑袋嗡嗡的，视线糊了一下，他咬着牙站稳，捡起手机，把屏幕摁亮——没碎，屏幕是好的。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s024",
-      "beatId": "dch02_s024",
+      "sceneId": "dch02_s009",
+      "beatId": "dch02_s009",
       "status": "approved-adaptation",
-      "dialogueQuotes": ["不晓得"],
-      "notes": "",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "ec0ef5aded99266c9f5e8c76c9a074e459fd78f53531237465ca37a71cef2308",
-        "sceneId": "dch02_s024",
+        "sourceHash": "89f1af58d78817cab2afc4f9c89e0528c04a926f69da1581fb30e8b7040c730f",
+        "sceneId": "dch02_s009",
         "factMappings": [
           {
-            "fact": "刚搬来且不知水表钥匙",
-            "sourceSnippet": "他老实回了句\"不晓得\"，大爷叹口气，骂骂咧咧地下楼去找别人问了。",
-            "targetSnippet": "\"不晓得。我今天刚来。\"大爷骂骂咧咧下楼找别人。"
+            "fact": "a1",
+            "sourceSnippet": "鼻血滴在水泥上，脑袋嗡嗡",
+            "targetSnippet": "鼻血滴在水泥上，脑袋嗡嗡"
           }
         ],
-        "pacingRationale": "两段虚惊收束成一句，保留原段事实与黑色喜剧落点。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
@@ -3547,39 +3585,27 @@
       "sourceId": "draft02",
       "paragraphIndex": 45,
       "blockIndex": 48,
-      "textHash": "31f45d1baa9ccfbb1c5a680d2485d60979dbe7bd3af14fa41dacade909178987",
-      "textPreview": "虚惊一场。苏明关上门，后背的汗才慢慢干下去，顺手把刚才塞乱的东西重新摊开来，才发觉自己刚才心虚成了什么样子——租客身份都还没坐稳，倒先演练了一遍\"东窗事发\"是什么心情。",
+      "textHash": "69720b43db18a7998c5b585ba7af1d570b8c6880f203dbaf24c89c6b3095ff88",
+      "textPreview": "他低下头喘了口气，才发现手在抖。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s024",
-      "beatId": "dch02_s024",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["东窗事发"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "31f45d1baa9ccfbb1c5a680d2485d60979dbe7bd3af14fa41dacade909178987",
-        "sceneId": "dch02_s024",
-        "factMappings": [
-          {
-            "fact": "心虚像东窗事发",
-            "sourceSnippet": "苏明关上门，后背的汗才慢慢干下去，顺手把刚才塞乱的东西重新摊开来，才发觉自己刚才心虚成了什么样子——租客身份都还没坐稳，倒先演练了一遍\"东窗事发\"是什么心情。",
-            "targetSnippet": "租客身份没坐稳，先演练了一遍东窗事发。"
-          }
-        ],
-        "pacingRationale": "与 p044 共享压缩后的可玩句。"
-      }
+      "sceneId": "dch02_s009",
+      "beatId": "dch02_s009",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
     },
     {
       "id": "draft02_p046",
       "sourceId": "draft02",
       "paragraphIndex": 46,
       "blockIndex": 49,
-      "textHash": "1ab1bdf849de7880e468947de29afda45b637e8e5aa910306c919081cd7fd019",
-      "textPreview": "雷欧帮着抬了半程行李，走到门口忽然刹住了脚步：\"昨天那事……你还去测？\"",
+      "textHash": "c93992ce6423f878e9b3b526f8b4ce4232b8572dac977c5b368e9dc3dfaae849",
+      "textPreview": "等他抬起头，小女孩早就不见了。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s025",
-      "beatId": "dch02_s025",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["昨天那事……你还去测？"],
+      "sceneId": "dch02_s010",
+      "beatId": "dch02_s010",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
@@ -3587,348 +3613,327 @@
       "sourceId": "draft02",
       "paragraphIndex": 47,
       "blockIndex": 50,
-      "textHash": "23749975647361e411bcb43ee52d8be91ea5a5927f38e6a13cadcf6a9d6729d7",
-      "textPreview": "\"去。钱没攒够。\"",
+      "textHash": "7a45153675739da1ddbd6f4babfe9cad6a9f67d023d2b3542d91da51afef6941",
+      "textPreview": "大胖子收起折叠椅，一脸说不清是服气还是不服气的表情，没说话，转身回他摊子后头去了。大妈把抱过小女孩的手在裤腿上抹了抹，也散了。围观的人慢慢散开，像什么都没发生过。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s025",
-      "beatId": "dch02_s025",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["去。钱没攒够。"],
-      "notes": ""
+      "sceneId": "dch02_s010",
+      "beatId": "dch02_s010",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "7a45153675739da1ddbd6f4babfe9cad6a9f67d023d2b3542d91da51afef6941",
+        "sceneId": "dch02_s010",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "大胖子收起折叠椅，一脸说",
+            "targetSnippet": "大胖子收起折叠椅，一脸说"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p048",
       "sourceId": "draft02",
       "paragraphIndex": 48,
       "blockIndex": 51,
-      "textHash": "e673ff3bda08ef15fd640fa48e073e86c780d42af9cbe8da5d11027a65a64edc",
-      "textPreview": "\"攒什么？\"",
+      "textHash": "2f81ed4067ad017c889dd4195a6038e5ea1174630cceca9aa8fd4dbf1b080f65",
+      "textPreview": "就苏明一个人站在那儿，鼻血还没止，手机还握着，像刚打输一场没人记得的架。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s026",
-      "beatId": "dch02_s026",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["攒什么？"],
+      "sceneId": "dch02_s010",
+      "beatId": "dch02_s010",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p049",
       "sourceId": "draft02",
       "paragraphIndex": 49,
-      "blockIndex": 52,
-      "textHash": "3c0a05af51ceb883aeb2b0cc01174f155f79b252609a058022adfda219cef6ff",
-      "textPreview": "\"房租。我爸。少问。\"",
+      "blockIndex": 53,
+      "textHash": "fcb7113764bfa3eed3db8994fff1b8739db4395b486ec6747729405f4708338e",
+      "textPreview": "回到超市，老板娘周姐已经听完电话了，嗔了他一眼：“你啊，下次算了，跑不赢小孩的。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s026",
-      "beatId": "dch02_s026",
+      "sceneId": "dch02_s010",
+      "beatId": "dch02_s010",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["房租。我爸。少问。"],
+      "dialogueQuotes": ["你啊，下次算了，跑不赢小孩的。"],
       "notes": ""
     },
     {
       "id": "draft02_p050",
       "sourceId": "draft02",
       "paragraphIndex": 50,
-      "blockIndex": 53,
-      "textHash": "144bd774a1c583757cbe6ca5ef9f09547228f8987d8034af9ee236b21d1b1215",
-      "textPreview": "雷欧比划了两根手指：\"两份工，you crazy。\"他倒也没就此走开，靠在门框上想起了什么，忽然乐了：\"对了，你知道公司最近发疯吗？\"他掏出手机翻出一条短信，\"天天轰炸我——招'实体设备全天候居家测试员'。补贴是咱们场次的五倍。条件是独立房",
+      "blockIndex": 54,
+      "textHash": "1efd14f872c7fd64c0e957c6e7eeca0df9c9459c55936991095fcc619ae9b390",
+      "textPreview": "常来买烟的张师傅蹲在门口，把这一出全看在了眼里，走的时候拍了拍他肩膀：“小伙子，你这样迟早吃亏。”顿了顿，又补上一句，“不过我看你顺眼。”拎着烟就走了，也没说这“顺眼”两个字顺在哪儿。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s027",
-      "beatId": "dch02_s027",
+      "sceneId": "dch02_s010",
+      "beatId": "dch02_s010",
       "status": "approved-adaptation",
-      "dialogueQuotes": [
-        "两份工，you crazy。",
-        "对了，你知道公司最近发疯吗？",
-        "天天轰炸我——招'实体设备全天候居家测试员'。补贴是咱们场次的五倍。条件是独立房间，签超级保密协议。"
-      ],
-      "notes": "",
+      "dialogueQuotes": ["小伙子，你这样迟早吃亏。", "不过我看你顺眼。", "顺眼"],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "144bd774a1c583757cbe6ca5ef9f09547228f8987d8034af9ee236b21d1b1215",
-        "sceneId": "dch02_s027",
+        "sourceHash": "1efd14f872c7fd64c0e957c6e7eeca0df9c9459c55936991095fcc619ae9b390",
+        "sceneId": "dch02_s010",
         "factMappings": [
           {
-            "fact": "两份工 crazy",
-            "sourceSnippet": "雷欧比划了两根手指：\"两份工，you crazy。",
-            "targetSnippet": "雷欧比划两根手指：\"两份工，you crazy。"
+            "fact": "a1",
+            "sourceSnippet": "常来买烟的张师傅蹲在门口",
+            "targetSnippet": "常来买烟的张师傅蹲在门口"
           }
         ],
-        "pacingRationale": "机器人招聘条件去重复巡游。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
       "id": "draft02_p051",
       "sourceId": "draft02",
       "paragraphIndex": 51,
-      "blockIndex": 54,
-      "textHash": "3a017e05011843bd014ef2810ef5a98e4d33db61c1be69c027e02a65862d7b9b",
-      "textPreview": "\"测什么设备？\"",
+      "blockIndex": 55,
+      "textHash": "21134c1185aba0955b5b35ba7fc4ae5b5d3e12b8e35273d1f277b4a45599aa76",
+      "textPreview": "苏明正想说什么，货架那头绕出来一个人。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s027",
-      "beatId": "dch02_s027",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["测什么设备？"],
+      "sceneId": "dch02_s011",
+      "beatId": "dch02_s011",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p052",
       "sourceId": "draft02",
       "paragraphIndex": 52,
-      "blockIndex": 55,
-      "textHash": "4b0503264740fa139a39cb880a1f79b21e79c523c8f7f0b5285e827fdf68bad6",
-      "textPreview": "\"Robot。\"雷欧压低了声音，眼睛瞪得溜圆，\"真的 robot，抱回家那种。会说话，会——\"他忽然卡壳了，一时半会儿没找到合适的词，索性改用手比划了一个说不清道不明的轮廓。",
+      "blockIndex": 56,
+      "textHash": "12f87a813a9dd67b95758a1b71be0d72ffa6a6e562893f1ed8cc87c491635b72",
+      "textPreview": "雷欧，背着包，背着手，一脸等了很久的表情：",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s028",
-      "beatId": "dch02_s028",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["Robot。", "真的 robot，抱回家那种。会说话，会——"],
+      "sceneId": "dch02_s011",
+      "beatId": "dch02_s011",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p053",
       "sourceId": "draft02",
       "paragraphIndex": 53,
-      "blockIndex": 56,
-      "textHash": "4359e1a2fd3aad21a0dd48c6c275ef777f250bdb53171d4e08fbf6ba77bb524e",
-      "textPreview": "\"你报了？\"",
+      "blockIndex": 57,
+      "textHash": "c95eda1815ad71a4d969a07d887c7006414b12800a0202c4bee3ce22506f9266",
+      "textPreview": "“走了，看房子。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s028",
-      "beatId": "dch02_s028",
+      "sceneId": "dch02_s011",
+      "beatId": "dch02_s011",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你报了？"],
+      "dialogueQuotes": ["走了，看房子。"],
       "notes": ""
     },
     {
       "id": "draft02_p054",
       "sourceId": "draft02",
       "paragraphIndex": 54,
-      "blockIndex": 57,
-      "textHash": "eb8124e4e50dd69ca39f5c01f40540d29429f00388910e9ff24c6820496427d8",
-      "textPreview": "\"我？\"雷欧像是被烫到了似的，往后一缩，\"宿舍住不下。而且机器人晚上睁眼怎么办？我会死。\"他继续往下划着短信，\"你看条件——独立房间，photo要拍，还要签这个——\"他把一个词凑到苏明眼前，\"Super保密协议。违约金后面五个零。测个东西，",
+      "blockIndex": 58,
+      "textHash": "32a3a589c1ac5368e6a67b0c0019a28cba533434ada01933dc343de1c66e52bc",
+      "textPreview": "他扫了一眼苏明脸上的血，眉毛扬了一下：“你怎么了？”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s029",
-      "beatId": "dch02_s029",
-      "status": "approved-adaptation",
-      "dialogueQuotes": [
-        "我？",
-        "宿舍住不下。而且机器人晚上睁眼怎么办？我会死。",
-        "你看条件——独立房间，photo要拍，还要签这个——",
-        "Super保密协议。违约金后面五个零。测个东西，比我签证材料还多。"
-      ],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "eb8124e4e50dd69ca39f5c01f40540d29429f00388910e9ff24c6820496427d8",
-        "sceneId": "dch02_s029",
-        "factMappings": [
-          {
-            "fact": "宿舍装不下",
-            "sourceSnippet": "\"雷欧像是被烫到了似的，往后一缩，\"宿舍住不下。",
-            "targetSnippet": "\"雷欧往后一缩，\"宿舍住不下。"
-          }
-        ],
-        "pacingRationale": "NDA 条件改成平行短句，签证笑点落在雷欧本人而非泛指。"
-      }
+      "sceneId": "dch02_s011",
+      "beatId": "dch02_s011",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["你怎么了？"],
+      "notes": ""
     },
     {
       "id": "draft02_p055",
       "sourceId": "draft02",
       "paragraphIndex": 55,
-      "blockIndex": 58,
-      "textHash": "40e4d2aa05740d67ee3541e5639622cf9cdd5c31dabe24ff3ba23c8d4e35572d",
-      "textPreview": "苏明嗤了一声：\"测那玩意儿的都有病。\"",
+      "blockIndex": 59,
+      "textHash": "aa686a372562f5e7478825030c065e53c3e6ab149fd2cee5b37df18e2c048c84",
+      "textPreview": "“摔了。”苏明捂着鼻子，“没事。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s029",
-      "beatId": "dch02_s029",
+      "sceneId": "dch02_s011",
+      "beatId": "dch02_s011",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["测那玩意儿的都有病。"],
+      "dialogueQuotes": ["摔了。", "没事。"],
       "notes": ""
     },
     {
       "id": "draft02_p056",
       "sourceId": "draft02",
       "paragraphIndex": 56,
-      "blockIndex": 59,
-      "textHash": "f072c20a47a70d9a004f91eb92f4c18d3988ebf3753eb3330d754b20a9c25e19",
-      "textPreview": "雷欧耸了耸肩：\"你们中文场不也全天候被听？一样一样。\"",
+      "blockIndex": 61,
+      "textHash": "3020375a4e1b70f6827810b183e7a7ae727644ded56e1de288d0702c5e779a33",
+      "textPreview": "雷欧骑的是一辆蓝色小电驴，车把手上绑着一圈快递贴纸，不知道从哪儿撕来的，贴得密密麻麻。苏明坐后座，穿过街道，傍晚的光把两侧楼缝染成橘色，远处有人在炒菜，油烟飘过来。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s030",
-      "beatId": "dch02_s030",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["你们中文场不也全天候被听？一样一样。"],
-      "notes": ""
+      "sceneId": "dch02_s012",
+      "beatId": "dch02_s012",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "3020375a4e1b70f6827810b183e7a7ae727644ded56e1de288d0702c5e779a33",
+        "sceneId": "dch02_s012",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "雷欧骑的是一辆蓝色小电驴",
+            "targetSnippet": "雷欧骑的是一辆蓝色小电驴"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p057",
       "sourceId": "draft02",
       "paragraphIndex": 57,
-      "blockIndex": 60,
-      "textHash": "5c24adf1e6b231b1513f8683d2b1d6a215c99421373d636829f44c64a0e7e6ef",
-      "textPreview": "\"不一样。我那是上班。\"",
+      "blockIndex": 62,
+      "textHash": "4b25dc63674513f61037b6022469c7234f724ae586c41e9a62067d71eb90a8ea",
+      "textPreview": "“你怎么租那个地方的？”苏明问。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s030",
-      "beatId": "dch02_s030",
+      "sceneId": "dch02_s012",
+      "beatId": "dch02_s012",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["不一样。我那是上班。"],
+      "dialogueQuotes": ["你怎么租那个地方的？"],
       "notes": ""
     },
     {
       "id": "draft02_p058",
       "sourceId": "draft02",
       "paragraphIndex": 58,
-      "blockIndex": 61,
-      "textHash": "ab80e7d9ad55a42ea6d03ce16610547c6892ac3020734ac78af837522ce14039",
-      "textPreview": "\"上班，\"雷欧点点头，一本正经地反驳，\"他们也说，抱回家那个，也是上班。名字都起好了——\"他看着短信念出来，\"全、天、候、体、验、官。官哦，苏明。你们中国什么都能当官。\"",
+      "blockIndex": 63,
+      "textHash": "9e793b8275d7b22352a0dcefb707262cce267b93f3564a8f8abb785b1bb3dc71",
+      "textPreview": "“语言学校宿舍去年到期，”雷欧踩着车，嗓音随引擎声起伏，“有人在语伴群里发，说代管的那个不在乎你哪国人，但不喜欢抽烟。我当时合同里有一条，每月要有汉语进步，住跟中国人同楼是加分的，我就去了。”他停了一下，“住进去才发现，那个石小姐，每天能听",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s031",
-      "beatId": "dch02_s031",
-      "status": "verbatim-dialogue",
+      "sceneId": "dch02_s012",
+      "beatId": "dch02_s012",
+      "status": "approved-adaptation",
       "dialogueQuotes": [
-        "上班，",
-        "他们也说，抱回家那个，也是上班。名字都起好了——",
-        "全、天、候、体、验、官。官哦，苏明。你们中国什么都能当官。"
+        "语言学校宿舍去年到期，",
+        "有人在语伴群里发，说代管的那个不在乎你哪国人，但不喜欢抽烟。我当时合同里有一条，每月要有汉语进步，住跟中国人同楼是加分的，我就去了。",
+        "住进去才发现，那个石小姐，每天能听见的中文不超过十个字。"
       ],
-      "notes": ""
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "9e793b8275d7b22352a0dcefb707262cce267b93f3564a8f8abb785b1bb3dc71",
+        "sceneId": "dch02_s012",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“语言学校宿舍去年到期，",
+            "targetSnippet": "“语言学校宿舍去年到期，"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
     },
     {
       "id": "draft02_p059",
       "sourceId": "draft02",
       "paragraphIndex": 59,
-      "blockIndex": 62,
-      "textHash": "3fc5c1bfc2fa5047d875e73cc131e298482a06b53f0916383dbb82a4b5b00bde",
-      "textPreview": "苏明被这句话噎住了，索性把他轰了出去。轰完人，他一个人站在门口愣了好几秒——雷欧那句\"一样一样\"，跟根刺似的扎在心里，怎么也拔不出来。",
+      "blockIndex": 64,
+      "textHash": "9e3fea4379a52cda6f7caf882f859380deebed5a818310c89e22a079809085ff",
+      "textPreview": "“然后呢？”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s031",
-      "beatId": "dch02_s031",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["一样一样"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "3fc5c1bfc2fa5047d875e73cc131e298482a06b53f0916383dbb82a4b5b00bde",
-        "sceneId": "dch02_s031",
-        "factMappings": [
-          {
-            "fact": "轰走雷欧",
-            "sourceSnippet": "苏明被这句话噎住了，索性把他轰了出去。",
-            "targetSnippet": "苏明被噎住，索性把他轰出去。"
-          }
-        ],
-        "pacingRationale": "刺痛感保留，删愣几秒复述，保留原段事实与黑色喜剧落点。"
-      }
+      "sceneId": "dch02_s012",
+      "beatId": "dch02_s012",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["然后呢？"],
+      "notes": ""
     },
     {
       "id": "draft02_p060",
       "sourceId": "draft02",
       "paragraphIndex": 60,
-      "blockIndex": 64,
-      "textHash": "f32e1328326a1353aed528eb71eecccba373da82f4929815e57279a946c135a4",
-      "textPreview": "躺上新床板，巷子里传来称重的声音和讨价还价的声音，隔壁飘来一阵回锅肉的油烟味，混在夜风里，说不上香还是呛。",
+      "blockIndex": 65,
+      "textHash": "55d643f56653194c62b73a843eec18f2120049dd9f92e22231674e474edba821",
+      "textPreview": "“然后我汉语没进步，”雷欧耸了耸肩，“但我觉得那楼住着干净，就没走。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s032",
-      "beatId": "dch02_s032",
-      "status": "approved-adaptation",
-      "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "f32e1328326a1353aed528eb71eecccba373da82f4929815e57279a946c135a4",
-        "sceneId": "dch02_s032",
-        "factMappings": [
-          {
-            "fact": "新床板",
-            "sourceSnippet": "躺上新床板，巷子里传来称重的声音和讨价还价的声音，隔壁飘来一阵回锅肉的油烟味，混在夜风里，说不上香还是呛。",
-            "targetSnippet": "躺上新床板，巷子里有人称重、讨价，隔壁回锅肉的油烟钻进来，说不上香还是呛。"
-          }
-        ],
-        "pacingRationale": "夜景感官一句到位，保留原段事实与黑色喜剧落点。"
-      }
+      "sceneId": "dch02_s012",
+      "beatId": "dch02_s012",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["然后我汉语没进步，", "但我觉得那楼住着干净，就没走。"],
+      "notes": ""
     },
     {
       "id": "draft02_p061",
       "sourceId": "draft02",
       "paragraphIndex": 61,
-      "blockIndex": 65,
-      "textHash": "45b7f19469f45f38fe2df10e301a462eccdc8146f94c7faf65d3466975f31a15",
-      "textPreview": "手机震了一下，是他爸：钱到没有？腰又开始痛了，医生说要买个护腰。苏明回了一句\"到了，最近忙\"——其实钱还没转，得先紧着房租周转。他把这条消息前前后后看了两遍，扣在枕头边上，没再回什么。",
+      "blockIndex": 66,
+      "textHash": "42d553d9b43cfd1901480e16d111dae01147d548f9fbcebebf9c91d434f65454",
+      "textPreview": "苏明：“踏实个屁。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s032",
-      "beatId": "dch02_s032",
+      "sceneId": "dch02_s013",
+      "beatId": "dch02_s013",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["到了，最近忙"],
+      "dialogueQuotes": ["踏实个屁。"],
       "notes": ""
     },
     {
       "id": "draft02_p062",
       "sourceId": "draft02",
       "paragraphIndex": 62,
-      "blockIndex": 66,
-      "textHash": "a99dba1190a0b5f90e7ecc249341ce3fc791d535b98ace206de69f2c6195e602",
-      "textPreview": "他又点开大学室友的对话框，想找个人说说话，翻了半天，最后一条消息是三个月前对方发来的婚礼电子请柬。输入框里打了一半的字，最后还是删掉了，锁了屏。",
+      "blockIndex": 67,
+      "textHash": "b0db739252e1920541fa0fececf5b097a8481914355da3d1da2504e24ccee887",
+      "textPreview": "“不踏实，但干净。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s033",
-      "beatId": "dch02_s033",
-      "status": "approved-adaptation",
-      "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "a99dba1190a0b5f90e7ecc249341ce3fc791d535b98ace206de69f2c6195e602",
-        "sceneId": "dch02_s033",
-        "factMappings": [
-          {
-            "fact": "室友婚礼请柬",
-            "sourceSnippet": "他又点开大学室友的对话框，想找个人说说话，翻了半天，最后一条消息是三个月前对方发来的婚礼电子请柬。",
-            "targetSnippet": "他点开大学室友的对话框，最后一条是三个月前的婚礼请柬。"
-          }
-        ],
-        "pacingRationale": "找人说话桥段压缩，保留原段事实与黑色喜剧落点。"
-      }
+      "sceneId": "dch02_s013",
+      "beatId": "dch02_s013",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["不踏实，但干净。"],
+      "notes": ""
     },
     {
       "id": "draft02_p063",
       "sourceId": "draft02",
       "paragraphIndex": 63,
-      "blockIndex": 67,
-      "textHash": "399bba6429a8740e4f1b0cebb63df1620285f71da36f6031b2e7bd2c91e01b05",
-      "textPreview": "想找个人陪着。可这楼里不许带人。测场里那句\"我不评判你\"，他现在听着就想吐——那句话的背后，站着的是一屋子边听边嗑瓜子的耳朵。真谈恋爱？没钱，也没脸，分手还是自己\"分就分\"喊出来的，如今想反悔，连自己心里这一关都过不去。",
+      "blockIndex": 69,
+      "textHash": "10a20233272ef2a4e7f1b52fb3a3128b4115354616b7fdfdd04897b98ee40a76",
+      "textPreview": "石家小楼在一条旧巷子里，三层，外皮有些年头了，走近了能看见墙皮翘起的地方，屋里灯光是黄的，从窗缝里漏出来。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s033",
-      "beatId": "dch02_s033",
+      "sceneId": "dch02_s013",
+      "beatId": "dch02_s013",
       "status": "approved-adaptation",
-      "dialogueQuotes": ["我不评判你", "分就分"],
-      "notes": "",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "399bba6429a8740e4f1b0cebb63df1620285f71da36f6031b2e7bd2c91e01b05",
-        "sceneId": "dch02_s033",
+        "sourceHash": "10a20233272ef2a4e7f1b52fb3a3128b4115354616b7fdfdd04897b98ee40a76",
+        "sceneId": "dch02_s013",
         "factMappings": [
           {
-            "fact": "要在场而非恋爱叙事",
-            "sourceSnippet": "想找个人陪着。可这楼里不许带人。",
-            "targetSnippet": "他不是想谈恋爱，只想屋里有个东西在场：不追问，不评判，到点还能关机。"
+            "fact": "a1",
+            "sourceSnippet": "石家小楼在一条旧巷子里，",
+            "targetSnippet": "石家小楼在一条旧巷子里，"
           }
         ],
-        "pacingRationale": "直接拒绝恋爱叙事，把欲望明确落到可关机的交易式在场。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
       "id": "draft02_p064",
       "sourceId": "draft02",
       "paragraphIndex": 64,
-      "blockIndex": 68,
-      "textHash": "ad84c8d0d8948c8605929026f77f41d418262749c70fc24d2a8be364d577453d",
-      "textPreview": "他划开手机上的交友软件消磨时间：一个简介写着\"社恐找懂我的人\"，全程用表情包代替说话；一个直接甩过来收款码，附言\"验证真心\"；再划一个，简介写着\"不聊你死了都不知道\"，配图是一只暹罗猫，瞪着两只圆眼睛。",
+      "blockIndex": 70,
+      "textHash": "3e196bca077d8f77f112b535160644f51497afd47747999adc28ebbc0f895f99",
+      "textPreview": "石佩欣住2F。雷欧带苏明上楼，敲门。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s034",
-      "beatId": "dch02_s034",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["社恐找懂我的人", "验证真心", "不聊你死了都不知道"],
+      "sceneId": "dch02_s013",
+      "beatId": "dch02_s013",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p065",
       "sourceId": "draft02",
       "paragraphIndex": 65,
-      "blockIndex": 69,
-      "textHash": "d51c36701dfb503bc6d5ba79952f153f084dd2bf24fc20a254ee87c5f1ece25c",
-      "textPreview": "划掉这些软件的时候，他的手指鬼使神差地点开了雷欧转发的那条招募链接。",
+      "blockIndex": 71,
+      "textHash": "6eba22f026a4d69623fd898edec94a66c240461d3c6ea98fb5424d1e6a413ae1",
+      "textPreview": "里面传出游戏音效——键盘声、鼠标点击声，还有那种组队游戏特有的人声提示音，一局正进行中。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s034",
-      "beatId": "dch02_s034",
+      "sceneId": "dch02_s013",
+      "beatId": "dch02_s013",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -3937,151 +3942,134 @@
       "id": "draft02_p066",
       "sourceId": "draft02",
       "paragraphIndex": 66,
-      "blockIndex": 70,
-      "textHash": "386469675b7146bb6b447522b08123250aef224151930d6781b22b82dd4c8f73",
-      "textPreview": "落地页第一行字迎面撞过来：\"她不会评判你，只会理解你。\"",
+      "blockIndex": 72,
+      "textHash": "e0b49d60f1542febf79d3913d3d84f4a2fe025f274cadb4f9dcf604ab46d0ac9",
+      "textPreview": "雷欧按门铃。没反应。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s035",
-      "beatId": "dch02_s035",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["她不会评判你，只会理解你。"],
+      "sceneId": "dch02_s014",
+      "beatId": "dch02_s014",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p067",
       "sourceId": "draft02",
       "paragraphIndex": 67,
-      "blockIndex": 71,
-      "textHash": "71ec2c726aee30ad63dc05a068a7a6192cb598f60781ce56f17f57b24d909ea7",
-      "textPreview": "苏明一眼就认出了这句话。App 里那个 AI，开口没两句就是这一句。同一家公司，同一套话术，他连字体都认得清清楚楚。他心里明镜似的，知道这是套路，知道这句话值不了几个钱——手指却怎么也没停下来。他给自己找了个说法：至少这回，说这话的不是那个",
+      "blockIndex": 73,
+      "textHash": "496b1bec0fff560d4a13f9a25c424437c870b21c2f0b9974c2435f7385207ede",
+      "textPreview": "两人站在门口，等。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s035",
-      "beatId": "dch02_s035",
-      "status": "approved-adaptation",
+      "sceneId": "dch02_s014",
+      "beatId": "dch02_s014",
+      "status": "narrated",
       "dialogueQuotes": [],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "71ec2c726aee30ad63dc05a068a7a6192cb598f60781ce56f17f57b24d909ea7",
-        "sceneId": "dch02_s035",
-        "factMappings": [
-          {
-            "fact": "认出公司话术字体",
-            "sourceSnippet": "苏明一眼就认出了这句话。",
-            "targetSnippet": "苏明认得这句话，也认得字体。"
-          }
-        ],
-        "pacingRationale": "把抽象“能报价”改成已经标价的事实，让诱饵更像商品页。"
-      }
+      "notes": ""
     },
     {
       "id": "draft02_p068",
       "sourceId": "draft02",
       "paragraphIndex": 68,
-      "blockIndex": 72,
-      "textHash": "df25f2b7cff9d1ee79f10ab0aeef939b483f8066e4510b505b0e6893144f0111",
-      "textPreview": "页面再往下滑，是体验官评价区。五星那条底下写着：\"自从有了她，我再也不用假装很好。\"点赞八百多个。苏明盯着这一句看了很久，鬼使神差地点了个\"有用\"——点完他才觉得，这个动作比报名本身还叫人丢脸。",
+      "blockIndex": 74,
+      "textHash": "aeca4d6f2278ea336413dc5ed4cb24ba72effb11fb5253a42b0993c55ccae62f",
+      "textPreview": "等了大概十分钟，雷欧从背包侧袋摸出两罐啤酒，递给苏明一罐，两人就靠着走廊墙壁坐下来。漆皮已经龟裂了一大块，雷欧用手抠了一下，砌砖的纹路还清晰。苏明捂着鼻子喝了口啤酒，凉的，鼻腔还在疼。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s036",
-      "beatId": "dch02_s036",
+      "sceneId": "dch02_s014",
+      "beatId": "dch02_s014",
       "status": "approved-adaptation",
-      "dialogueQuotes": ["自从有了她，我再也不用假装很好。", "有用"],
-      "notes": "",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
       "adaptationReceipt": {
-        "sourceHash": "df25f2b7cff9d1ee79f10ab0aeef939b483f8066e4510b505b0e6893144f0111",
-        "sceneId": "dch02_s036",
+        "sourceHash": "aeca4d6f2278ea336413dc5ed4cb24ba72effb11fb5253a42b0993c55ccae62f",
+        "sceneId": "dch02_s014",
         "factMappings": [
           {
-            "fact": "五星评价与八百赞",
-            "sourceSnippet": "五星那条底下写着：\"自从有了她，我再也不用假装很好。\"点赞八百多个。",
-            "targetSnippet": "评价区五星第一条写着：\"自从有了她，我再也不用假装很好。\"八百多个赞。"
+            "fact": "a1",
+            "sourceSnippet": "等了大概十分钟，雷欧从背",
+            "targetSnippet": "等了大概十分钟，雷欧从背"
           }
         ],
-        "pacingRationale": "评价区动作压缩，保留羞耻 punchline。"
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
       }
     },
     {
       "id": "draft02_p069",
       "sourceId": "draft02",
       "paragraphIndex": 69,
-      "blockIndex": 73,
-      "textHash": "041708b9575dd3a99e1d66f086b27b984548a3251ca31fb3b6796fd3137e1fe8",
-      "textPreview": "他终究还是点了那个\"申请成为体验官\"的按钮。",
+      "blockIndex": 75,
+      "textHash": "998b047495bc01bbb1624b80cb75c4c44aa7e78a659b11ea02030052b9b145da",
+      "textPreview": "聊了几句，里面的游戏音效突然停了。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s036",
-      "beatId": "dch02_s036",
-      "status": "verbatim-dialogue",
-      "dialogueQuotes": ["申请成为体验官"],
+      "sceneId": "dch02_s014",
+      "beatId": "dch02_s014",
+      "status": "narrated",
+      "dialogueQuotes": [],
       "notes": ""
     },
     {
       "id": "draft02_p070",
       "sourceId": "draft02",
       "paragraphIndex": 70,
-      "blockIndex": 74,
-      "textHash": "5fa79c8607a70ecd96a6f77ca63906fc217ea31f96447325e5002b8c95e5d95f",
-      "textPreview": "问卷比他想象中要正经得多：上传居住环境照片——他把手机举了半天，好不容易挑了房间里唯一还没掉墙皮的一个死角拍下来；邻居容忍度自评——他先填了\"一般\"，盯着屏幕看了两秒，又改成了\"良好\"；\"您是否介意设备高度拟人\"——他盯着这道题想了半天，脑",
+      "blockIndex": 76,
+      "textHash": "b7b82c30a217d7b69a783bc35d75c65b09f147a0d4b86c3c8e7dbe49e7ce804b",
+      "textPreview": "停了大概有三十秒，门才开。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s037",
-      "beatId": "dch02_s037",
-      "status": "approved-adaptation",
-      "dialogueQuotes": ["一般", "良好", "您是否介意设备高度拟人"],
-      "notes": "",
-      "adaptationReceipt": {
-        "sourceHash": "5fa79c8607a70ecd96a6f77ca63906fc217ea31f96447325e5002b8c95e5d95f",
-        "sceneId": "dch02_s037",
-        "factMappings": [
-          {
-            "fact": "墙皮死角照片",
-            "sourceSnippet": "好不容易挑了房间里唯一还没掉墙皮的一个死角拍下来",
-            "targetSnippet": "居住环境只拍没掉墙皮的死角"
-          },
-          {
-            "fact": "高度拟人犹豫",
-            "sourceSnippet": "\"您是否介意设备高度拟人\"——他盯着这道题想了半天",
-            "targetSnippet": "“是否介意设备高度拟人”，他想了半天"
-          }
-        ],
-        "pacingRationale": "问卷三题并段，删除上传动作复述，让造假与欲望犹豫连着发生。"
-      }
-    },
-    {
-      "id": "draft02_p071",
-      "sourceId": "draft02",
-      "paragraphIndex": 71,
-      "blockIndex": 75,
-      "textHash": "a0eafb42e5445c81af6ab5e5be6817e7f4f132c65f01140ed9a65dc93b2b9547",
-      "textPreview": "提交前弹出一份保密承诺，第七条加了粗：**设备之存在，不得让任何非签约人知晓，包括同住人。**",
-      "chapterId": "draft-ch02",
-      "sceneId": "dch02_s037",
-      "beatId": "dch02_s037",
+      "sceneId": "dch02_s014",
+      "beatId": "dch02_s014",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
     },
     {
+      "id": "draft02_p071",
+      "sourceId": "draft02",
+      "paragraphIndex": 71,
+      "blockIndex": 77,
+      "textHash": "5d578b814a652b9fe67b4283ff82850dbb2920b32449090b9fbf42035fc428f5",
+      "textPreview": "石佩欣出来——睡衣，头发随手扎着，发卡还没拔，露出一截橡皮鸭图案。身后的电脑屏幕上来不及缩的那幅图，被她眼疾手快地点掉了，苏明只来得及瞥见一片肉色，什么都没看清楚。她表情是那种“打完了，哦，你们还在”的平静，看了苏明一眼：",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s015",
+      "beatId": "dch02_s015",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["打完了，哦，你们还在"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "5d578b814a652b9fe67b4283ff82850dbb2920b32449090b9fbf42035fc428f5",
+        "sceneId": "dch02_s015",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "石佩欣出来——睡衣，头发",
+            "targetSnippet": "石佩欣出来——睡衣，头发"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
       "id": "draft02_p072",
       "sourceId": "draft02",
       "paragraphIndex": 72,
-      "blockIndex": 76,
-      "textHash": "1c61e3520ad9f3f740ee0e81f7303355614f18e1090269c98ad85fad887a764f",
-      "textPreview": "苏明想起这楼里住着三个活人，还有一只猫，手指在屏幕上悬了悬，最终还是勾选了\"已阅读并同意\"。",
+      "blockIndex": 78,
+      "textHash": "08a60705cc4355bc35846bd71f1ef8a796fab5ad64f98cfd4db552557487b410",
+      "textPreview": "“鼻血没擦干净。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s038",
-      "beatId": "dch02_s038",
+      "sceneId": "dch02_s015",
+      "beatId": "dch02_s015",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["已阅读并同意"],
+      "dialogueQuotes": ["鼻血没擦干净。"],
       "notes": ""
     },
     {
       "id": "draft02_p073",
       "sourceId": "draft02",
       "paragraphIndex": 73,
-      "blockIndex": 77,
-      "textHash": "af0b63aff5e5d6eb7ea613203e1de806e92773eaeab11653cf8d1964e71ed471",
-      "textPreview": "深夜十一点四十分，他按下了提交。",
+      "blockIndex": 79,
+      "textHash": "1da63c136e42f837568a402e789c8656b9a55d53ec533c7f4a747141d57f27b4",
+      "textPreview": "苏明把袖子在脸上抹了一下。",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s038",
-      "beatId": "dch02_s038",
+      "sceneId": "dch02_s015",
+      "beatId": "dch02_s015",
       "status": "narrated",
       "dialogueQuotes": [],
       "notes": ""
@@ -4090,40 +4078,1341 @@
       "id": "draft02_p074",
       "sourceId": "draft02",
       "paragraphIndex": 74,
-      "blockIndex": 78,
-      "textHash": "85f2853535ae46ce972d1efd2076044e103c68ae85b16b0175f9a0b3a417b821",
-      "textPreview": "三分钟后，短信回来了：\"初审通过。请于48小时内完成个性化匹配问卷。\"",
+      "blockIndex": 80,
+      "textHash": "0e76dd283547ef08ae676638785dab1fcd4c2ccff938f648b4fbbab6bea24f65",
+      "textPreview": "“我想住进来，九百的预算。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s039",
-      "beatId": "dch02_s039",
+      "sceneId": "dch02_s015",
+      "beatId": "dch02_s015",
       "status": "verbatim-dialogue",
-      "dialogueQuotes": ["初审通过。请于48小时内完成个性化匹配问卷。"],
+      "dialogueQuotes": ["我想住进来，九百的预算。"],
       "notes": ""
     },
     {
       "id": "draft02_p075",
       "sourceId": "draft02",
       "paragraphIndex": 75,
-      "blockIndex": 79,
-      "textHash": "8cfc9e65390aa2e1c3e0a261d6d9fd89f0271f3b9c6792404162d5c4d69a6ad0",
-      "textPreview": "回得这么快，快得像是那头有人专门在等着他似的。",
+      "blockIndex": 81,
+      "textHash": "326c49f900f0911d3690e99770cf30221e201b2cf3eed59b253a90ee9ad74bf1",
+      "textPreview": "她目光在他胸前那块超市工牌上停了一秒：“收银的？”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s039",
-      "beatId": "dch02_s039",
-      "status": "narrated",
-      "dialogueQuotes": [],
+      "sceneId": "dch02_s015",
+      "beatId": "dch02_s015",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["收银的？"],
       "notes": ""
     },
     {
       "id": "draft02_p076",
       "sourceId": "draft02",
       "paragraphIndex": 76,
-      "blockIndex": 80,
-      "textHash": "28127b85e4549c90863d63e0244603fa3b7193d9f2470df4ab870ca0ce00ebfd",
-      "textPreview": "苏明盯着这条短信看了半分钟，喃喃说了句：\"就当我有病。\"",
+      "blockIndex": 82,
+      "textHash": "16ada15175308659cb5b20a13c592970ff4be42766ef42902c275753da78a46d",
+      "textPreview": "“对，还兼职别的。”",
       "chapterId": "draft-ch02",
-      "sceneId": "dch02_s040",
-      "beatId": "dch02_s040",
+      "sceneId": "dch02_s016",
+      "beatId": "dch02_s016",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["对，还兼职别的。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p077",
+      "sourceId": "draft02",
+      "paragraphIndex": 77,
+      "blockIndex": 83,
+      "textHash": "53039749c7d4f2185e6b7091553e72db1be8521ac88f8cde16696b500efedece",
+      "textPreview": "“只要别在我楼里摆摊。”她一点不绕弯子，抽烟？带人过夜？谈过对象没？谁提的分手？",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s016",
+      "beatId": "dch02_s016",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["只要别在我楼里摆摊。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p078",
+      "sourceId": "draft02",
+      "paragraphIndex": 78,
+      "blockIndex": 84,
+      "textHash": "61d51187419427442949702c8890186f7803160c0f13cabc9f0f4ca5ff1341b2",
+      "textPreview": "问到“谁提的分手”这一句，雷欧从旁边凑过来，热心肠地当起翻译，先把这句话翻成英文给自己过了一遍，再翻回中文转述给苏明：“她问，谁把谁扔掉了。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s016",
+      "beatId": "dch02_s016",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["谁提的分手", "她问，谁把谁扔掉了。"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "61d51187419427442949702c8890186f7803160c0f13cabc9f0f4ca5ff1341b2",
+        "sceneId": "dch02_s016",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "问到“谁提的分手”这一句",
+            "targetSnippet": "问到“谁提的分手”这一句"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p079",
+      "sourceId": "draft02",
+      "paragraphIndex": 79,
+      "blockIndex": 85,
+      "textHash": "805bbb8523df44efa2dbead49b71a1753544b08009b651016966e569ddfbd999",
+      "textPreview": "“不是扔——”石佩欣一手扶额，嫌弃地看了他一眼，“滚一边去。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s016",
+      "beatId": "dch02_s016",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["不是扔——", "滚一边去。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p080",
+      "sourceId": "draft02",
+      "paragraphIndex": 80,
+      "blockIndex": 86,
+      "textHash": "fa389bfb723c065e86f8b7151cab1494abc081007024f1b6d1d63ba74b5718d6",
+      "textPreview": "雷欧心服口服地退到了楼梯口，小声跟苏明总结经验：“她的问题不用翻译，答案统一是'不敢'。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s016",
+      "beatId": "dch02_s016",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["她的问题不用翻译，答案统一是'不敢'。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p081",
+      "sourceId": "draft02",
+      "paragraphIndex": 81,
+      "blockIndex": 87,
+      "textHash": "4d1cb239a4aea7953226965e13d11aea05cbe1ad3bfed9ef05daf5d2e278d529",
+      "textPreview": "“不抽。不带。”苏明顿了顿，硬着头皮往下说，“分了，我提的。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s017",
+      "beatId": "dch02_s017",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["不抽。不带。", "分了，我提的。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p082",
+      "sourceId": "draft02",
+      "paragraphIndex": 82,
+      "blockIndex": 88,
+      "textHash": "ef69021e87640f40e39a5980d5eafaac8a323242224c7a2a9189bc1d115d478d",
+      "textPreview": "“自己提的更稳。过。”她说完，挥了挥手接着往下——条款连着往外跟：不许带人、别在公共区抽烟、猫的食物不要动、锅铲不许当武器，上一任租客拿它敲墙试隔音，把锅铲敲弯了。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s017",
+      "beatId": "dch02_s017",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["自己提的更稳。过。"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "ef69021e87640f40e39a5980d5eafaac8a323242224c7a2a9189bc1d115d478d",
+        "sceneId": "dch02_s017",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "“自己提的更稳。过。”她",
+            "targetSnippet": "“自己提的更稳。过。”她"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p083",
+      "sourceId": "draft02",
+      "paragraphIndex": 83,
+      "blockIndex": 89,
+      "textHash": "71188c2fe123d7c8122614416a7cc8533fbe39825658d9c230cd3e26b9d21702",
+      "textPreview": "苏明嘴比脑子快，插了一句：“能不能——假设——带女朋友？”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s017",
+      "beatId": "dch02_s017",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["能不能——假设——带女朋友？"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p084",
+      "sourceId": "draft02",
+      "paragraphIndex": 84,
+      "blockIndex": 90,
+      "textHash": "b59989660bf5c7aa0763064c81c28dba0e78d09b0b48f9cd67529acc553fa4e7",
+      "textPreview": "“你不是刚分？”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s017",
+      "beatId": "dch02_s017",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["你不是刚分？"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p085",
+      "sourceId": "draft02",
+      "paragraphIndex": 85,
+      "blockIndex": 91,
+      "textHash": "516eb57a9169b5cd8a269685831c7adcc7ffcf55f856796744067dcd1b78cb70",
+      "textPreview": "“……假设。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s017",
+      "beatId": "dch02_s017",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["……假设。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p086",
+      "sourceId": "draft02",
+      "paragraphIndex": 86,
+      "blockIndex": 92,
+      "textHash": "b600851d09f9375828cf0f147d030c442b609fffaca55145af5c6447d364c318",
+      "textPreview": "“假设也不行。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s018",
+      "beatId": "dch02_s018",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["假设也不行。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p087",
+      "sourceId": "draft02",
+      "paragraphIndex": 87,
+      "blockIndex": 93,
+      "textHash": "479536979c7965f9e122fb052c8cfa4f12ab40319fc9f87dc898350bf3dd01d4",
+      "textPreview": "猫这时候从屋里踱出来，跳下门槛，顺道踩了苏明一脚，留下一个灰扑扑的爪印，像是替石佩欣补盖了一道审核章。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s018",
+      "beatId": "dch02_s018",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "479536979c7965f9e122fb052c8cfa4f12ab40319fc9f87dc898350bf3dd01d4",
+        "sceneId": "dch02_s018",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "猫这时候从屋里踱出来，跳",
+            "targetSnippet": "猫这时候从屋里踱出来，跳"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p088",
+      "sourceId": "draft02",
+      "paragraphIndex": 88,
+      "blockIndex": 94,
+      "textHash": "43c478898911b0aeb1045850e8cebe2b878ea8c68b1ec1ad0f7f220395bbee3c",
+      "textPreview": "说着说着，石佩欣突然停下来了。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s018",
+      "beatId": "dch02_s018",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p089",
+      "sourceId": "draft02",
+      "paragraphIndex": 89,
+      "blockIndex": 95,
+      "textHash": "f5a09a4871ad89f55798fd3d3d607cc7e69aaa188cd5194a1fae2b9bbea4985d",
+      "textPreview": "她抬头看了苏明一眼，没说话，转身往屋里走，边走边说：“行，住进来吧，3F-A，我去取钥匙。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s018",
+      "beatId": "dch02_s018",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["行，住进来吧，3F-A，我去取钥匙。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p090",
+      "sourceId": "draft02",
+      "paragraphIndex": 90,
+      "blockIndex": 96,
+      "textHash": "30ca56b5e905f5389e34447a7157eb58374e22a20776d61de13f2ec604bf3d63",
+      "textPreview": "门半开半关，人不见了。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s018",
+      "beatId": "dch02_s018",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p091",
+      "sourceId": "draft02",
+      "paragraphIndex": 91,
+      "blockIndex": 97,
+      "textHash": "e36a44543b33eb45f5317faae57c2c187a941fbc73f8d66976a360bda4514ba6",
+      "textPreview": "雷欧在旁边没动，停了一会儿，很轻地说了一句：“她又开了一局。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s019",
+      "beatId": "dch02_s019",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["她又开了一局。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p092",
+      "sourceId": "draft02",
+      "paragraphIndex": 92,
+      "blockIndex": 98,
+      "textHash": "0d4e11449ed803bcc362ea6c1ce4bd1082b05fc4676a952da1fc4da0c8cb08d8",
+      "textPreview": "游戏音效从门缝里漏出来，一如既往。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s019",
+      "beatId": "dch02_s019",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p093",
+      "sourceId": "draft02",
+      "paragraphIndex": 93,
+      "blockIndex": 100,
+      "textHash": "7e76fab89f6ecef6354519ff4aed0813f16b6daa789f48744a185b2c1e23695b",
+      "textPreview": "当晚苏明就搬进了3F-A。行李是几个垃圾袋，抱进来放到墙边，站在屋子中间看了一圈——房间比想象中大，但墙皮某个角落有些翘，床板是旧的，窗户关上还能听见巷子里卖菜的声音。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s019",
+      "beatId": "dch02_s019",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "7e76fab89f6ecef6354519ff4aed0813f16b6daa789f48744a185b2c1e23695b",
+        "sceneId": "dch02_s019",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "当晚苏明就搬进了3F-A",
+            "targetSnippet": "当晚苏明就搬进了3F-A"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p094",
+      "sourceId": "draft02",
+      "paragraphIndex": 94,
+      "blockIndex": 101,
+      "textHash": "7aa4525cfb63740d8d02aa12eaa03c70d7600d74f5d99ed4f1d8b03cdd6156a8",
+      "textPreview": "刚把最后一个袋子拖进来，楼下传来一阵急促的敲门声，一下比一下重。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s019",
+      "beatId": "dch02_s019",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p095",
+      "sourceId": "draft02",
+      "paragraphIndex": 95,
+      "blockIndex": 102,
+      "textHash": "21fb943d10362379a5cf3879f6ed321f2ab59da20acf65dab157ff11bc715c04",
+      "textPreview": "苏明心里咯噔了一下。第一反应是石佩欣反悔了，或者哪条规矩他没听清楚就已经犯了。他手忙脚乱地把摊在地上的东西胡乱塞回袋子里，才去开门。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s019",
+      "beatId": "dch02_s019",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "21fb943d10362379a5cf3879f6ed321f2ab59da20acf65dab157ff11bc715c04",
+        "sceneId": "dch02_s019",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明心里咯噔了一下。第一",
+            "targetSnippet": "苏明心里咯噔了一下。第一"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p096",
+      "sourceId": "draft02",
+      "paragraphIndex": 96,
+      "blockIndex": 103,
+      "textHash": "2960dbe452a646ad49e08efa5a88366f043ad9625ff783455000ea8612da6d95",
+      "textPreview": "门外站着个抱保温杯的大爷，一脸急切：“娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s020",
+      "beatId": "dch02_s020",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["娃儿，你是不是新搬来的？楼下水表箱钥匙你晓不晓得放哪儿？"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "2960dbe452a646ad49e08efa5a88366f043ad9625ff783455000ea8612da6d95",
+        "sceneId": "dch02_s020",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "门外站着个抱保温杯的大爷，一脸急切：“娃儿，你是不是新搬来的？楼下水表箱钥匙你晓",
+            "targetSnippet": "门外站着个抱保温杯的大爷，一脸急切：“娃儿，你是不是新搬来的？楼下水表箱钥匙你晓"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p097",
+      "sourceId": "draft02",
+      "paragraphIndex": 97,
+      "blockIndex": 104,
+      "textHash": "75d1f72529557e864a382224a1c5085071e501c736c197c1f41696fff56c0f7c",
+      "textPreview": "苏明愣了两秒，才想起自己确实不知道，也确实不该知道——他今天才第一次踏进这栋楼。他老实回了句“不晓得”，大爷叹口气，骂骂咧咧地下楼去找别人问了。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s020",
+      "beatId": "dch02_s020",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["不晓得"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "75d1f72529557e864a382224a1c5085071e501c736c197c1f41696fff56c0f7c",
+        "sceneId": "dch02_s020",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明愣了两秒，才想起自己",
+            "targetSnippet": "苏明愣了两秒，才想起自己"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p098",
+      "sourceId": "draft02",
+      "paragraphIndex": 98,
+      "blockIndex": 105,
+      "textHash": "0951e174d8baa4fbeb033bd71ea7fde49a00013ed9df6f6442e9b900bc1ef8ce",
+      "textPreview": "虚惊一场。苏明关上门，后背的汗才慢慢干下去——租客身份都没坐稳，倒先演练了一遍“东窗事发”是什么心情。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s020",
+      "beatId": "dch02_s020",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["东窗事发"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "0951e174d8baa4fbeb033bd71ea7fde49a00013ed9df6f6442e9b900bc1ef8ce",
+        "sceneId": "dch02_s020",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "虚惊一场。苏明关上门，后",
+            "targetSnippet": "虚惊一场。苏明关上门，后"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p099",
+      "sourceId": "draft02",
+      "paragraphIndex": 99,
+      "blockIndex": 107,
+      "textHash": "8f04586a3ae729ffc2dbc39912ee9b78f540be8114409ed8776ed73b458984bf",
+      "textPreview": "三个月以后。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s020",
+      "beatId": "dch02_s020",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p100",
+      "sourceId": "draft02",
+      "paragraphIndex": 100,
+      "blockIndex": 108,
+      "textHash": "ee395890a7d582bef4eb473c97dab75c059367c27e1404dd5f81d3271612e963",
+      "textPreview": "苏明住3F-A，两份工换着上，钱紧，但没崩。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s020",
+      "beatId": "dch02_s020",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p101",
+      "sourceId": "draft02",
+      "paragraphIndex": 101,
+      "blockIndex": 109,
+      "textHash": "fbbdec24cb2ce31b782ea6e926294600144ef2224c740bd0908541ed2dae6d79",
+      "textPreview": "石佩欣天天憋在2F，外卖吃了三个月，公共区出没时间固定在深夜，猫王子比她更常见到。雷欧住3F-B，这学期换了三个女友，现在是法国来的金发女生，在重庆读交流项目，苏明见过她两次，好看，不会中文，总在楼道里用法语打电话，声调起伏很大，苏明一个字",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s021",
+      "beatId": "dch02_s021",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "fbbdec24cb2ce31b782ea6e926294600144ef2224c740bd0908541ed2dae6d79",
+        "sceneId": "dch02_s021",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "石佩欣天天憋在2F，外卖",
+            "targetSnippet": "石佩欣天天憋在2F，外卖"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p102",
+      "sourceId": "draft02",
+      "paragraphIndex": 102,
+      "blockIndex": 110,
+      "textHash": "6025c5b66519f9ea2ab8b5c3c7b7a1f602ee1188dae61645f396d4cc36c191db",
+      "textPreview": "某天他从超市回来，走到3F-B门口，里面响着法语——那种激烈的法语，两个人都在说，声音越来越大，有人砰一声关了什么，然后走廊里响起高跟鞋声。金发女友出来，眼眶红的，没看苏明，直接走到楼梯口下楼了。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s021",
+      "beatId": "dch02_s021",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "6025c5b66519f9ea2ab8b5c3c7b7a1f602ee1188dae61645f396d4cc36c191db",
+        "sceneId": "dch02_s021",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "某天他从超市回来，走到3",
+            "targetSnippet": "某天他从超市回来，走到3"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p103",
+      "sourceId": "draft02",
+      "paragraphIndex": 103,
+      "blockIndex": 111,
+      "textHash": "c777ee4b704e12a30aab61246dbae2966cdd7f6abde4cb6c708134015d972b72",
+      "textPreview": "苏明在原地站了一会儿，不知道该不该动。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s021",
+      "beatId": "dch02_s021",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p104",
+      "sourceId": "draft02",
+      "paragraphIndex": 104,
+      "blockIndex": 112,
+      "textHash": "bbf43e2a8e36654d53f6bef20c4b129981ec35afc24b314b442e6ecb1124eb64",
+      "textPreview": "过了一会儿，雷欧把门拉开了，看见苏明站在门口，问：“听了多久？”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s021",
+      "beatId": "dch02_s021",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["听了多久？"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p105",
+      "sourceId": "draft02",
+      "paragraphIndex": 105,
+      "blockIndex": 113,
+      "textHash": "e9f3df6df6c3cc51234606e7ca60bf1029468b27b5cb9550a348968e4eb55e6b",
+      "textPreview": "“不知道。我也没懂。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s022",
+      "beatId": "dch02_s022",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["不知道。我也没懂。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p106",
+      "sourceId": "draft02",
+      "paragraphIndex": 106,
+      "blockIndex": 114,
+      "textHash": "737f970bf2375117c838e00e80bb11e2c96570586be2d9c3451773df4e3eb891",
+      "textPreview": "“她觉得，”雷欧说，停了一下，“那个机器人的事——”他摇了摇头，“算了。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s022",
+      "beatId": "dch02_s022",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["她觉得，", "那个机器人的事——", "算了。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p107",
+      "sourceId": "draft02",
+      "paragraphIndex": 107,
+      "blockIndex": 116,
+      "textHash": "2de90d20ab7f285b45da86b84b2294cde0ff1601cafbc4b0d8915e4f8e203b07",
+      "textPreview": "隔了两天，两人都在心动引擎测试楼的等候区等场次。等候区的椅子跟第一次来没什么变化，苏明选了靠墙的一排坐下，雷欧在旁边掏出手机，把屏幕转过来给他看。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s022",
+      "beatId": "dch02_s022",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "2de90d20ab7f285b45da86b84b2294cde0ff1601cafbc4b0d8915e4f8e203b07",
+        "sceneId": "dch02_s022",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "隔了两天，两人都在心动引",
+            "targetSnippet": "隔了两天，两人都在心动引"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p108",
+      "sourceId": "draft02",
+      "paragraphIndex": 108,
+      "blockIndex": 117,
+      "textHash": "a68689cdf2be33f4d99027a8d5a2a06d6e4260574c008acab36e9000ae529c6a",
+      "textPreview": "一张照片，一个机器人。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s022",
+      "beatId": "dch02_s022",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p109",
+      "sourceId": "draft02",
+      "paragraphIndex": 109,
+      "blockIndex": 118,
+      "textHash": "0f984609f50a2708228b83abe9bbf818af4ff14a6e84d6700e30c47faff3788f",
+      "textPreview": "苏明以为是那种钢铁感的、关节明显的那种，看了一眼才发现不是——东亚脸，五官精细，皮肤质感是那种哑光的白，眼睛是半闭着的，站在那里，姿势是那种很自然的站立，不像机器人应该有的样子，更像是某个很漂亮的人站着。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s023",
+      "beatId": "dch02_s023",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "0f984609f50a2708228b83abe9bbf818af4ff14a6e84d6700e30c47faff3788f",
+        "sceneId": "dch02_s023",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明以为是那种钢铁感的、",
+            "targetSnippet": "苏明以为是那种钢铁感的、"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p110",
+      "sourceId": "draft02",
+      "paragraphIndex": 110,
+      "blockIndex": 119,
+      "textHash": "3455e02ccfd90e2797cf0aa940b17356d0fbb0949b1aa4f46518496db3b3cf68",
+      "textPreview": "“公司新的，”雷欧说，“实体的。抱回家那种。补贴是咱们场次五倍，要独立房间，签保密协议，违约金后面五个零，测个东西比我签证材料还多。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s023",
+      "beatId": "dch02_s023",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "公司新的，",
+        "实体的。抱回家那种。补贴是咱们场次五倍，要独立房间，签保密协议，违约金后面五个零，测个东西比我签证材料还多。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "3455e02ccfd90e2797cf0aa940b17356d0fbb0949b1aa4f46518496db3b3cf68",
+        "sceneId": "dch02_s023",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "公司新的，”雷欧说，“实",
+            "targetSnippet": "公司新的，”雷欧说，“实"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p111",
+      "sourceId": "draft02",
+      "paragraphIndex": 111,
+      "blockIndex": 120,
+      "textHash": "21b22e1b50ae8d11af90cddb75e9a15c97eda61020ab94430dec779a89a95e7b",
+      "textPreview": "苏明盯着照片：“多少钱？”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s023",
+      "beatId": "dch02_s023",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["多少钱？"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p112",
+      "sourceId": "draft02",
+      "paragraphIndex": 112,
+      "blockIndex": 121,
+      "textHash": "083775136effdf07fb70cd752418cefd710ce9cecef8664653c0ab72cbc8916b",
+      "textPreview": "雷欧说了数字。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s023",
+      "beatId": "dch02_s023",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p113",
+      "sourceId": "draft02",
+      "paragraphIndex": 113,
+      "blockIndex": 122,
+      "textHash": "e48bb66d08a59fc491975268924160d0096d7fc7a18d2e98975279925c847a0f",
+      "textPreview": "苏明把手机推回去：“测那玩意儿的都有病。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s024",
+      "beatId": "dch02_s024",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["测那玩意儿的都有病。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p114",
+      "sourceId": "draft02",
+      "paragraphIndex": 114,
+      "blockIndex": 123,
+      "textHash": "7f4a08786e67b7c9d9d32630879c442906a01786777914a6fdd4527e2a8e2c54",
+      "textPreview": "“你们中文场不也全天候被听？”雷欧接过手机，耸了耸肩，“一样一样。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s024",
+      "beatId": "dch02_s024",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["你们中文场不也全天候被听？", "一样一样。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p115",
+      "sourceId": "draft02",
+      "paragraphIndex": 115,
+      "blockIndex": 124,
+      "textHash": "4002387100be44a5bfddb26074db23465103ae1fa0323762406e3d3c56704974",
+      "textPreview": "苏明被这句话噎住了，没接话。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s024",
+      "beatId": "dch02_s024",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p116",
+      "sourceId": "draft02",
+      "paragraphIndex": 116,
+      "blockIndex": 125,
+      "textHash": "98eda69af30f9184d95d874b1005ccefcc13018d0611b39c10e74fb66caf92d1",
+      "textPreview": "“全天候体验官——”雷欧翻着手机上的短信，“官哦，苏明，你们中国什么都能当官。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s024",
+      "beatId": "dch02_s024",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["全天候体验官——", "官哦，苏明，你们中国什么都能当官。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p117",
+      "sourceId": "draft02",
+      "paragraphIndex": 117,
+      "blockIndex": 126,
+      "textHash": "5a50b0f639d75ca9a1351c6f82b1242eff5c1b602da89f9c904cb4f63aaa2962",
+      "textPreview": "他把手机翻面扣着，不理他。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s025",
+      "beatId": "dch02_s025",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p118",
+      "sourceId": "draft02",
+      "paragraphIndex": 118,
+      "blockIndex": 127,
+      "textHash": "196d2556b7fd8c9b6882b0ebe4c7b6c901be81234c004c806594341b22532976",
+      "textPreview": "雷欧说，他其实想报名，但女友觉得这是他想用机器人解决性的问题，觉得恶心，觉得他把这当性玩具看了。苏明想了一下，说：“女的对这个……跟男的划线不一样。男的觉得一个物件就是物件，女的觉得这行为在说明你这个人。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s025",
+      "beatId": "dch02_s025",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [
+        "女的对这个……跟男的划线不一样。男的觉得一个物件就是物件，女的觉得这行为在说明你这个人。"
+      ],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "196d2556b7fd8c9b6882b0ebe4c7b6c901be81234c004c806594341b22532976",
+        "sceneId": "dch02_s025",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "雷欧说，他其实想报名，但",
+            "targetSnippet": "雷欧说，他其实想报名，但"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p119",
+      "sourceId": "draft02",
+      "paragraphIndex": 119,
+      "blockIndex": 128,
+      "textHash": "f3c46ea1c7f0fedf5d488836c861121e1eb33ea8ef7a845a29b2389e2f3cb0c6",
+      "textPreview": "雷欧看着他：“你说的挺准。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s025",
+      "beatId": "dch02_s025",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["你说的挺准。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p120",
+      "sourceId": "draft02",
+      "paragraphIndex": 120,
+      "blockIndex": 129,
+      "textHash": "081272eb4c32316750f0047a4b8bdc7c63e60a011c89aa392265ce3e4a87d6f9",
+      "textPreview": "苏明：“我有一点经验。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s025",
+      "beatId": "dch02_s025",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["我有一点经验。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p121",
+      "sourceId": "draft02",
+      "paragraphIndex": 121,
+      "blockIndex": 130,
+      "textHash": "df3f7068957d9c07b8468f6c2ceea83a1a1ddc9c35a8b486913aedd55ff58a6f",
+      "textPreview": "他把话题关了，不想多说。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s026",
+      "beatId": "dch02_s026",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p122",
+      "sourceId": "draft02",
+      "paragraphIndex": 122,
+      "blockIndex": 132,
+      "textHash": "2af34064f183d58e4f3fcac36609494015d74f8f5fb37f3467379d939aeb9f93",
+      "textPreview": "当天晚上，苏明一个人坐在3F-A，手机震了一下——他爸：钱到没有？腰又开始痛了，医生说要买个护腰。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s026",
+      "beatId": "dch02_s026",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "2af34064f183d58e4f3fcac36609494015d74f8f5fb37f3467379d939aeb9f93",
+        "sceneId": "dch02_s026",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "当天晚上，苏明一个人坐在",
+            "targetSnippet": "当天晚上，苏明一个人坐在"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p123",
+      "sourceId": "draft02",
+      "paragraphIndex": 123,
+      "blockIndex": 133,
+      "textHash": "f9a7c7a1807347f9b63fe877bd3c6bf12c6991fcb3d29434a199bed9cd9d9404",
+      "textPreview": "苏明回了“到了，最近忙”。其实还没转，得先紧着房租周转。他把这条消息看了两遍，扣在床边，没再回什么。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s026",
+      "beatId": "dch02_s026",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["到了，最近忙"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "f9a7c7a1807347f9b63fe877bd3c6bf12c6991fcb3d29434a199bed9cd9d9404",
+        "sceneId": "dch02_s026",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明回了“到了，最近忙”",
+            "targetSnippet": "苏明回了“到了，最近忙”"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p124",
+      "sourceId": "draft02",
+      "paragraphIndex": 124,
+      "blockIndex": 134,
+      "textHash": "d66b5661fd4c60cbcf8a0fdb07a9a0e08f61454ada56ff3243adcd0b6a44ea89",
+      "textPreview": "又点开大学室友的对话框，想找个人说说话。最后一条消息是三个月前对方发来的婚礼电子请柬，他翻了半天，输入框打了一半的字，最后还是删掉了，锁了屏。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s026",
+      "beatId": "dch02_s026",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "d66b5661fd4c60cbcf8a0fdb07a9a0e08f61454ada56ff3243adcd0b6a44ea89",
+        "sceneId": "dch02_s026",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "又点开大学室友的对话框，",
+            "targetSnippet": "又点开大学室友的对话框，"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p125",
+      "sourceId": "draft02",
+      "paragraphIndex": 125,
+      "blockIndex": 135,
+      "textHash": "0d3ba7537c689dba8247c0fb0121fa9c4eb2f0d48066d151124e209e99dbbce2",
+      "textPreview": "他划开手机上的交友软件消磨时间：一个简介写着“社恐找懂我的人”，全程用表情包代替说话；一个直接甩过来收款码，附言“验证真心”；再划一个，简介写着“不聊你死了都不知道”，配图是一只暹罗猫，瞪着两只圆眼睛。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s027",
+      "beatId": "dch02_s027",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["社恐找懂我的人", "验证真心", "不聊你死了都不知道"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "0d3ba7537c689dba8247c0fb0121fa9c4eb2f0d48066d151124e209e99dbbce2",
+        "sceneId": "dch02_s027",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "他划开手机上的交友软件消",
+            "targetSnippet": "他划开手机上的交友软件消"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p126",
+      "sourceId": "draft02",
+      "paragraphIndex": 126,
+      "blockIndex": 136,
+      "textHash": "d51c36701dfb503bc6d5ba79952f153f084dd2bf24fc20a254ee87c5f1ece25c",
+      "textPreview": "划掉这些软件的时候，他的手指鬼使神差地点开了雷欧转发的那条招募链接。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s027",
+      "beatId": "dch02_s027",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p127",
+      "sourceId": "draft02",
+      "paragraphIndex": 127,
+      "blockIndex": 137,
+      "textHash": "be57bc437f2963fe12791f619512d5837969e5a91d034df399cda4490ddebc3f",
+      "textPreview": "落地页第一行字迎面撞过来：“她不会评判你，只会理解你。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s027",
+      "beatId": "dch02_s027",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["她不会评判你，只会理解你。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p128",
+      "sourceId": "draft02",
+      "paragraphIndex": 128,
+      "blockIndex": 138,
+      "textHash": "d3d494089222c605f8e0ce59510ae778630079f957bc408dfa302901def019ec",
+      "textPreview": "苏明一眼就认出了这句话。App里那个AI，开口没两句就是这一句。同一家公司，同一套话术，他连字体都认得清清楚楚。心里明镜似的，知道这是套路——手指却怎么也没停下来。他给自己找了个说法：至少这回，说这话的不是那个装模作样的质检室。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s027",
+      "beatId": "dch02_s027",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "d3d494089222c605f8e0ce59510ae778630079f957bc408dfa302901def019ec",
+        "sceneId": "dch02_s027",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明一眼就认出了这句话。",
+            "targetSnippet": "苏明一眼就认出了这句话。"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p129",
+      "sourceId": "draft02",
+      "paragraphIndex": 129,
+      "blockIndex": 139,
+      "textHash": "40a72317e425b14f570cb041ac7e59c0cc4b86a47cabaf2ea24bc648eae48118",
+      "textPreview": "页面再往下滑，是体验官评价区。五星那条底下写着：“自从有了她，我再也不用假装很好。”点赞八百多个。苏明盯着这一句看了很久，鬼使神差地点了个“有用”——点完他才觉得，这个动作比报名本身还叫人丢脸。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s028",
+      "beatId": "dch02_s028",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["自从有了她，我再也不用假装很好。", "有用"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "40a72317e425b14f570cb041ac7e59c0cc4b86a47cabaf2ea24bc648eae48118",
+        "sceneId": "dch02_s028",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "页面再往下滑，是体验官评",
+            "targetSnippet": "页面再往下滑，是体验官评"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p130",
+      "sourceId": "draft02",
+      "paragraphIndex": 130,
+      "blockIndex": 140,
+      "textHash": "1bb3d168c120edbf51f97ea6f5a9a1ab0744a1e0289b4f78353ddd84df450b65",
+      "textPreview": "他终究还是点了那个“申请成为体验官”的按钮。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s028",
+      "beatId": "dch02_s028",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["申请成为体验官"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p131",
+      "sourceId": "draft02",
+      "paragraphIndex": 131,
+      "blockIndex": 142,
+      "textHash": "560b4f987ee53073d3e3441a00a1c00cec1033ccf361b2eee1df48d9798a3873",
+      "textPreview": "报名问卷要上传居住环境照片，要求包含公共区域，要求“照片内不得出现他人面孔”。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s028",
+      "beatId": "dch02_s028",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["照片内不得出现他人面孔"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p132",
+      "sourceId": "draft02",
+      "paragraphIndex": 132,
+      "blockIndex": 143,
+      "textHash": "1f1901d67337755366eec5297b1bdd38e64c59e1ca71533aef20e663e51a64ca",
+      "textPreview": "苏明架好手机，对着3F的走廊和公共区域准备拍，举起来刚要按，这时候楼梯口有声音——石佩欣从2F上来了，睡衣拖鞋，往走廊尽头的路由器走过去。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s028",
+      "beatId": "dch02_s028",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "1f1901d67337755366eec5297b1bdd38e64c59e1ca71533aef20e663e51a64ca",
+        "sceneId": "dch02_s028",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "苏明架好手机，对着3F的",
+            "targetSnippet": "苏明架好手机，对着3F的"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p133",
+      "sourceId": "draft02",
+      "paragraphIndex": 133,
+      "blockIndex": 144,
+      "textHash": "ed88a7caab467b42a03ce2c953f0ae4ed26294bcfde0fc447d0dd0f64db0b2e5",
+      "textPreview": "公共走廊的路由器就在3F楼梯口旁边，苏明知道这个。石佩欣今晚游戏掉线，要上来重启。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s029",
+      "beatId": "dch02_s029",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p134",
+      "sourceId": "draft02",
+      "paragraphIndex": 134,
+      "blockIndex": 145,
+      "textHash": "7a97c6f4a41761bace15f51c852a3ffa1350b5fa0ceda3edc185f9299d10f7ac",
+      "textPreview": "他赶紧把手机藏到背后。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s029",
+      "beatId": "dch02_s029",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p135",
+      "sourceId": "draft02",
+      "paragraphIndex": 135,
+      "blockIndex": 146,
+      "textHash": "52298c127f5e6e6fd0175661475a1aed02e4727499b1d52f3cc9a08e7b7652c1",
+      "textPreview": "石佩欣走过去按了重启键，等指示灯变绿，转身下楼，经过苏明身边，看了他一眼，没说话，走了。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s029",
+      "beatId": "dch02_s029",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p136",
+      "sourceId": "draft02",
+      "paragraphIndex": 136,
+      "blockIndex": 147,
+      "textHash": "49e1633ddac37c05cade2307513928be67e58cfdd880f71d2b90a37c9719ff84",
+      "textPreview": "苏明等她下楼，重新举起手机。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s029",
+      "beatId": "dch02_s029",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p137",
+      "sourceId": "draft02",
+      "paragraphIndex": 137,
+      "blockIndex": 148,
+      "textHash": "01d3a36be54bdd8f775919e7c7f6d98527469deeabe1f8c11b6f3540dad1dc00",
+      "textPreview": "五分钟后，楼梯口又有声音。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s030",
+      "beatId": "dch02_s030",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p138",
+      "sourceId": "draft02",
+      "paragraphIndex": 138,
+      "blockIndex": 149,
+      "textHash": "c0e32bbdd269a27088ad6840a11a2ebbb7ad2e5c70b52fbb37aa53709747ce27",
+      "textPreview": "石佩欣又上来了——路由器重启完了要拔一下电源确认，确认完重新插上。她照旧经过苏明，照旧什么都没说，下楼。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s030",
+      "beatId": "dch02_s030",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "c0e32bbdd269a27088ad6840a11a2ebbb7ad2e5c70b52fbb37aa53709747ce27",
+        "sceneId": "dch02_s030",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "石佩欣又上来了——路由器",
+            "targetSnippet": "石佩欣又上来了——路由器"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p139",
+      "sourceId": "draft02",
+      "paragraphIndex": 139,
+      "blockIndex": 150,
+      "textHash": "ab4095cbccbc98e3e94324742f14104ac0eb86ae11b75d58d2968adb4c8593a1",
+      "textPreview": "苏明又把手机藏了。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s030",
+      "beatId": "dch02_s030",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p140",
+      "sourceId": "draft02",
+      "paragraphIndex": 140,
+      "blockIndex": 151,
+      "textHash": "5e9e1311fd4f635e2a6a219120c83c590838fee1c629a673e4124d66bee250d2",
+      "textPreview": "这来来回回折腾了三次，到最后苏明只找到房间那个唯一不掉墙皮的角落，拍了个勉强过得去的照片；公共区那张，他把手机斜了四十五度，把路由器框进去大半，石佩欣没进画面，但画面里一半是天花板。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s030",
+      "beatId": "dch02_s030",
+      "status": "approved-adaptation",
+      "dialogueQuotes": [],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "5e9e1311fd4f635e2a6a219120c83c590838fee1c629a673e4124d66bee250d2",
+        "sceneId": "dch02_s030",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "这来来回回折腾了三次，到",
+            "targetSnippet": "这来来回回折腾了三次，到"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p141",
+      "sourceId": "draft02",
+      "paragraphIndex": 141,
+      "blockIndex": 152,
+      "textHash": "7ca948764cca72ac6687b6c491233f454de1d8679558de33c99d954dd6777ea5",
+      "textPreview": "他想了想，上传了。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s031",
+      "beatId": "dch02_s031",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p142",
+      "sourceId": "draft02",
+      "paragraphIndex": 142,
+      "blockIndex": 153,
+      "textHash": "246fa159d1fa5aadfbc03a465fc7030f5597192d7ec1c4a0bc57985e953586fc",
+      "textPreview": "问卷：邻居容忍度自评——他先填了“一般”，盯着屏幕看了两秒，改成了“良好”。“您是否介意设备高度拟人”——他盯着这道题想了半天，脑子里绕来绕去，介意的反义词到底是什么来着？",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s031",
+      "beatId": "dch02_s031",
+      "status": "approved-adaptation",
+      "dialogueQuotes": ["一般", "良好", "您是否介意设备高度拟人"],
+      "notes": "novel-v2 densified adaptation",
+      "adaptationReceipt": {
+        "sourceHash": "246fa159d1fa5aadfbc03a465fc7030f5597192d7ec1c4a0bc57985e953586fc",
+        "sceneId": "dch02_s031",
+        "factMappings": [
+          {
+            "fact": "a1",
+            "sourceSnippet": "问卷：邻居容忍度自评——",
+            "targetSnippet": "问卷：邻居容忍度自评——"
+          }
+        ],
+        "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
+      }
+    },
+    {
+      "id": "draft02_p143",
+      "sourceId": "draft02",
+      "paragraphIndex": 143,
+      "blockIndex": 154,
+      "textHash": "a0eafb42e5445c81af6ab5e5be6817e7f4f132c65f01140ed9a65dc93b2b9547",
+      "textPreview": "提交前弹出一份保密承诺，第七条加了粗：**设备之存在，不得让任何非签约人知晓，包括同住人。**",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s031",
+      "beatId": "dch02_s031",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p144",
+      "sourceId": "draft02",
+      "paragraphIndex": 144,
+      "blockIndex": 155,
+      "textHash": "ef20cf3b0de2f86f643be05f2e506df9f9589ac1c9aa8ef267048c8008b4f86d",
+      "textPreview": "苏明想起这楼里住着三个活人，还有一只猫，手指在屏幕上悬了悬，最终还是勾选了“已阅读并同意”。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s031",
+      "beatId": "dch02_s031",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["已阅读并同意"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p145",
+      "sourceId": "draft02",
+      "paragraphIndex": 145,
+      "blockIndex": 156,
+      "textHash": "af0b63aff5e5d6eb7ea613203e1de806e92773eaeab11653cf8d1964e71ed471",
+      "textPreview": "深夜十一点四十分，他按下了提交。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s032",
+      "beatId": "dch02_s032",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p146",
+      "sourceId": "draft02",
+      "paragraphIndex": 146,
+      "blockIndex": 157,
+      "textHash": "56b8f12e378f3e36708c43772d3b615ae79a37e2a9649e4029bf1e4c4e5a194c",
+      "textPreview": "三分钟后，短信回来了：“初审通过。请于48小时内完成个性化匹配问卷。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s032",
+      "beatId": "dch02_s032",
+      "status": "verbatim-dialogue",
+      "dialogueQuotes": ["初审通过。请于48小时内完成个性化匹配问卷。"],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p147",
+      "sourceId": "draft02",
+      "paragraphIndex": 147,
+      "blockIndex": 158,
+      "textHash": "8cfc9e65390aa2e1c3e0a261d6d9fd89f0271f3b9c6792404162d5c4d69a6ad0",
+      "textPreview": "回得这么快，快得像是那头有人专门在等着他似的。",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s032",
+      "beatId": "dch02_s032",
+      "status": "narrated",
+      "dialogueQuotes": [],
+      "notes": ""
+    },
+    {
+      "id": "draft02_p148",
+      "sourceId": "draft02",
+      "paragraphIndex": 148,
+      "blockIndex": 159,
+      "textHash": "11479a11610c4dd5cf13c54e330c483dc57c05630ccf5d03faae90c2490bf623",
+      "textPreview": "苏明盯着这条短信看了半分钟，喃喃说了句：“就当我有病。”",
+      "chapterId": "draft-ch02",
+      "sceneId": "dch02_s032",
+      "beatId": "dch02_s032",
       "status": "verbatim-dialogue",
       "dialogueQuotes": ["就当我有病。"],
       "notes": ""

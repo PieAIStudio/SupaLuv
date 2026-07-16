@@ -1,11 +1,11 @@
 {
   "id": "draft-2026-07",
   "importedAt": "2026-07-16",
-  "note": "draft01 is novel-v2 ch01; draft02 remains prior draft until ch02 rewrite.",
+  "note": "draft01 byte-identical to novel-v2 ch01; draft02 is novel-v2 ch02 after oxfmt-stable whitespace normalize.",
   "coverageMappingDigest": {
     "algorithm": "sha256",
-    "entryCount": 218,
-    "value": "69ecd57d39c4adfcc03634a2b34ee338afe4ce720ab2f1053140bbaff86b5da4"
+    "entryCount": 290,
+    "value": "507c04bcaddf93cf1583de4669fde6f7e0537d18b44608650ab59da11167a3d7"
   },
   "sources": [
     {
@@ -18,8 +18,8 @@
     {
       "id": "draft02",
       "relativePath": "draft02.md",
-      "originalAbsolutePath": "/Users/yuanfei/PieAI/SupaLuv/Temp/draft02.md",
-      "sha256": "e8397dd051aad1a5cdb3b5c1cc7a30c202e52fa6be038dbffb3e3b714099eab2",
+      "originalAbsolutePath": "/Users/yuanfei/PieAI/SupaLuv/Temp/novel-v2-2026-07-16/ch02.oxfmt.md",
+      "sha256": "1d88bdab9a8d8999576c4fd1390124b819b2f9a579fc94cec8256cc864d6f437",
       "title": "第二章 她不会评判你"
     }
   ]

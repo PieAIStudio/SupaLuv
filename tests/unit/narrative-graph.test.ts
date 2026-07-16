@@ -155,8 +155,8 @@ describe("NarrativeGraph generated package", () => {
     const ch1Nodes = creator.nodes.filter((n) => n.storyId === "draft-ch01");
     const ch2Nodes = creator.nodes.filter((n) => n.storyId === "draft-ch02");
     expect(ch1Nodes).toHaveLength(39);
-    expect(ch2Nodes).toHaveLength(44);
-    expect(creator.nodes).toHaveLength(83);
+    expect(ch2Nodes).toHaveLength(36);
+    expect(creator.nodes).toHaveLength(75);
 
     expect(creator.entryNodeIds).toEqual([
       narrativeSceneNodeId("draft-ch01", "dch01_s001"),
@@ -510,7 +510,7 @@ describe("NarrativeGraph creator/player bundle boundary", () => {
   it("production content entry exports player skeleton but not creator module", async () => {
     const content = await import("@supaluv/content");
     expect(content.getNarrativeGraphPlayerSkeleton().packageId).toBe("draft-2026-07");
-    expect(content.narrativeGraphPlayerSkeleton.nodes.length).toBe(83);
+    expect(content.narrativeGraphPlayerSkeleton.nodes.length).toBe(75);
     expect("loadNarrativeGraphCreator" in content).toBe(false);
 
     const playerMod = await import("../../packages/content/src/narrative-graph-player");

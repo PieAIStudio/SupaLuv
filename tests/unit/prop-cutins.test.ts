@@ -18,9 +18,9 @@ const workspaceRoot = path.resolve(import.meta.dirname, "../..");
 const expectedScenes = [
   ["prop-protocol-terms", "draft-ch01", "dch01_protocol_test"],
   ["prop-barcode-shift", "draft-ch02", "dch02_barcode_sweep"],
-  ["prop-rental-receipt", "draft-ch02", "dch02_s020"],
-  ["prop-application-nda", "draft-ch02", "dch02_s037"],
-  ["prop-approval-sms", "draft-ch02", "dch02_s040"],
+  ["prop-rental-receipt", "draft-ch02", "dch02_s017"],
+  ["prop-application-nda", "draft-ch02", "dch02_s028"],
+  ["prop-approval-sms", "draft-ch02", "dch02_s032"],
 ] as const;
 
 describe("Round 16 prop cut-in catalog and runtime boundary", () => {
