@@ -12,10 +12,12 @@ import {
   aiBranchChoiceId,
   type PlayerPathRouteMemory,
 } from "../../apps/web/src/persistence/pathMemory";
+import { layoutGraph } from "../../apps/web/src/views/player-path/layout";
 import {
   buildPlayerPathViewModel,
+  DEFAULT_PLAYER_PATH_COPY,
   resolvePlayerPathTabIndex,
-} from "../../apps/web/src/views/PlayerPathPanel";
+} from "../../apps/web/src/views/player-path/viewModel";
 
 const VISITED_ID = opaqueNarrativeNodeId("draft-ch01", "scene-a");
 const SELECTED_TARGET_ID = opaqueNarrativeNodeId("draft-ch01", "scene-b");
@@ -289,13 +291,22 @@ function buildRealTwoChapterRoute(): {
 
 describe("PlayerPathPanel view model", () => {
   it("imports only the production player skeleton and shared projection", () => {
-    const source = readFileSync(
-      resolve(import.meta.dirname, "../../apps/web/src/views/PlayerPathPanel.tsx"),
+    const shellSource = readFileSync(
+      resolve(import.meta.dirname, "../../apps/web/src/views/player-path/PlayerPathPanel.tsx"),
       "utf8",
     );
+    const viewModelSource = readFileSync(
+      resolve(import.meta.dirname, "../../apps/web/src/views/player-path/viewModel.ts"),
+      "utf8",
+    );
+    const layoutSource = readFileSync(
+      resolve(import.meta.dirname, "../../apps/web/src/views/player-path/layout.ts"),
+      "utf8",
+    );
+    const source = `${shellSource}\n${viewModelSource}\n${layoutSource}`;
 
-    expect(source).toContain("getNarrativeGraphPlayerSkeleton");
-    expect(source).toContain("projectPlayerPath");
+    expect(shellSource).toContain("getNarrativeGraphPlayerSkeleton");
+    expect(shellSource).toContain("projectPlayerPath");
     expect(source).not.toContain("narrative-graph-creator");
     expect(source).not.toContain("loadNarrativeGraphCreator");
     expect(source).not.toContain("StoryMapPreview");
@@ -550,5 +561,60 @@ describe("PlayerPathPanel view model", () => {
       source: "ai",
     });
     expect(view.journey.some((item) => item.hasAi)).toBe(true);
+  });
+});
+
+describe("player-path layoutGraph", () => {
+  it("assigns finite dagre positions and fixed node dimensions", () => {
+    const view = buildPlayerPathViewModel(graph, route);
+    const flow = layoutGraph(view, DEFAULT_PLAYER_PATH_COPY);
+
+    expect(flow.nodes).toHaveLength(view.nodes.length);
+    for (const node of flow.nodes) {
+      expect(Number.isFinite(node.position.x)).toBe(true);
+      expect(Number.isFinite(node.position.y)).toBe(true);
+      expect(node.width).toBe(184);
+      expect(node.height).toBe(72);
+      expect(node.draggable).toBe(false);
+    }
+  });
+
+  it("maps node/edge states to React Flow classNames, aria, and selection rules", () => {
+    const view = buildPlayerPathViewModel(graph, route);
+    const flow = layoutGraph(view, DEFAULT_PLAYER_PATH_COPY);
+
+    const current = flow.nodes.find((node) => node.id === VISITED_ID);
+    const locked = flow.nodes.find((node) => node.id === UNKNOWN_TARGET_ID);
+    expect(current?.className).toBe("player-path-node player-path-node--current");
+    expect(current?.selectable).toBe(true);
+    expect(current?.ariaLabel).toBe(`${DEFAULT_PLAYER_PATH_COPY.currentAria}已见场景`);
+    expect(locked?.className).toBe("player-path-node player-path-node--locked");
+    expect(locked?.selectable).toBe(false);
+    expect(locked?.ariaLabel).toBe(DEFAULT_PLAYER_PATH_COPY.hiddenRoute);
+
+    const selectedEdge = flow.edges.find((edge) => edge.id === SELECTED_EDGE_ID);
+    const unselectedEdge = flow.edges.find((edge) => edge.id === UNSELECTED_EDGE_ID);
+    expect(selectedEdge).toMatchObject({
+      source: VISITED_ID,
+      target: SELECTED_TARGET_ID,
+      animated: true,
+      selectable: false,
+      className: "player-path-edge player-path-edge--selected",
+      ariaLabel: `${DEFAULT_PLAYER_PATH_COPY.selectedAria}真实选择`,
+    });
+    expect(unselectedEdge).toMatchObject({
+      animated: false,
+      className: "player-path-edge player-path-edge--available_unselected",
+      ariaLabel: `${DEFAULT_PLAYER_PATH_COPY.unselectedAria}已见但没选`,
+    });
+  });
+
+  it("separates left-to-right ranks for connected path nodes", () => {
+    const view = buildPlayerPathViewModel(graph, route);
+    const flow = layoutGraph(view, DEFAULT_PLAYER_PATH_COPY);
+    const from = flow.nodes.find((node) => node.id === VISITED_ID)!;
+    const to = flow.nodes.find((node) => node.id === SELECTED_TARGET_ID)!;
+    // rankdir: LR — selected target should sit to the right of the visited source.
+    expect(to.position.x).toBeGreaterThan(from.position.x);
   });
 });
