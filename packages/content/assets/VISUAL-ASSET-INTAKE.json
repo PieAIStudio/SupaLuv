@@ -1224,8 +1224,8 @@
       "rightsStatus": "pending",
       "humanArtReview": false,
       "requiredForProduction": true,
-      "sha256": "8754615ce962c0c9172c3ff1ca401d56b1d1de9826733c703efc717ae956e4d5",
-      "bytes": 1858790,
+      "sha256": "a640f0da1bf68e963b24415edbd3cf8e31e2d5e20edc28b07a048d0d54bd876c",
+      "bytes": 568612,
       "source": {
         "type": "project_generated_agent_image_candidate",
         "owner": "project",
@@ -1234,7 +1234,7 @@
         "date": "2026-07-17",
         "promptPointer": "packages/content/assets/candidates/r2-ch03-props/prompts/prop-coat-sms.prompt.txt"
       },
-      "notes": "Byte-identical r2-ch03-props agent-generated image candidate integrated provisionally for the playable draft. Human art review is false and release rights remain pending; presence is not production approval."
+      "notes": "Byte-identical r2-ch03-props agent-generated image candidate integrated provisionally for the playable draft. Human art review is false and release rights remain pending; presence is not production approval. Repair 2026-07-17: regenerated via image_gen to fix chat bubble direction — 陈佳 incoming coat message is left gray; 苏明 reply 行，我今晚都在店里。 is right blue (prior version put both messages as right blue, making 陈佳's line appear as 苏明's)."
     },
     {
       "id": "prop-activation-confirm",
