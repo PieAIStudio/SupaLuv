@@ -36,7 +36,7 @@ export const en: MessageTree = {
     minorHint: "If you are under 18, please close this page.",
   },
   title: {
-    badge: "SupaLuv · Two-Chapter Draft Playtest",
+    badge: "SupaLuv · Three-Chapter Draft Playtest",
     eyebrow: "INTERACTIVE CINEMA",
     logo: "SupaLuv",
     tagline: "It won’t judge you. The questionnaire might.",
@@ -56,7 +56,7 @@ export const en: MessageTree = {
     notSignedIn: "Not signed in · AI needs account",
     guestLogin: "Guest sign-in",
     footnote: "Play: Space / Enter advance · Esc closes menus · Fullscreen fills 16:9",
-    credits: "SupaLuv · two-chapter draft · local saves · AI requires login",
+    credits: "SupaLuv · three-chapter draft · local saves · AI requires login",
     dismiss: "Got it",
     primaryActions: "Primary actions",
     newGameConfirm:
@@ -411,7 +411,7 @@ export const en: MessageTree = {
     savesManual: "Three manual slots are available from the system menu and title screen.",
     savesGallery: "Scene art, Event CG, and music unlock as you play.",
     footer:
-      "SupaLuv · two-chapter draft · noncanonical · adult black comedy, not a porn generator.",
+      "SupaLuv · three-chapter draft · noncanonical · adult black comedy, not a porn generator.",
   },
   achievements: {
     title: "Achievements",
@@ -431,7 +431,7 @@ export const en: MessageTree = {
       first_manual_save: { title: "Dignity backup", description: "Create a manual save." },
       ch01_clear: {
         title: "Initial review passed",
-        description: "Complete the current two-chapter draft.",
+        description: "Complete the current three-chapter draft.",
       },
       high_ai_score: {
         title: "KPI overclocked",
@@ -519,7 +519,7 @@ export const en: MessageTree = {
     loadFailed: "The prop image could not load. The complete text remains available below.",
   },
   chapterEnd: {
-    draftTitle: "Two-chapter draft · current ending",
+    draftTitle: "Three-chapter draft · current ending",
     title: "Chapter complete",
     close: "Close results",
     aiEnding: "AI final chapter · 10–20 minutes",
@@ -601,7 +601,7 @@ export const en: MessageTree = {
     narrator: "Narrator",
     replayChoice: "Play again",
     titleChoice: "Return to title",
-    clipboardDraftTitle: "SupaLuv · current two-chapter draft ending",
+    clipboardDraftTitle: "SupaLuv · current three-chapter draft ending",
     clipboardApplication: "Tester application: initial review passed",
     clipboardNext: "Next step: complete the personalized matching questionnaire within 48 hours",
     clipboardEndingTitle: "SupaLuv · chapter ending",
