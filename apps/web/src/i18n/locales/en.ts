@@ -588,8 +588,7 @@ export const en: MessageTree = {
       "You let Inspiration nod once on your behalf. The authored story pulled the rope back, but the order number remembers.",
     flavorAi:
       "The AI branch was like a commit left out of the PR: short, reversible, and still in the history.",
-    flavorImpulse:
-      "Face is a daytime profession. Night has a separate invoice, and you paid it.",
+    flavorImpulse: "Face is a daytime profession. Night has a separate invoice, and you paid it.",
     flavorDignity:
       "You cleaned the dirty sample until it looked nonexistent—right before the delivery text arrived.",
     flavorNeutral:
