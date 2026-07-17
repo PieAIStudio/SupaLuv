@@ -1,8 +1,26 @@
 /* Base reset, app-shell, typography — split from styles.css for AI navigability */
 :root {
+  /* Latin families render A-Z; CJK glyphs fall through to the Noto families
+     (loaded via fontsource unicode-range slices in main.tsx). Serif carries
+     the literary cinema voice; sans is HUD/chrome. */
+  --supaluv-font-serif:
+    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Noto Serif SC Variable",
+    "Noto Serif SC", "Songti SC", serif;
+  --supaluv-font-sans:
+    "Avenir Next", "Trebuchet MS", "Noto Sans SC Variable", "Noto Sans SC", "PingFang SC",
+    sans-serif;
+
+  /* Local theme override of SwimmerUIKit font tokens: the UIKit stack names
+     'Noto Sans SC' but the fontsource variable package registers
+     'Noto Sans SC Variable', so the loaded file must be spliced in here. */
+  --game-ui-font-display:
+    "Baloo 2", "Geist Variable", "Noto Sans SC Variable", "Noto Sans SC", system-ui, sans-serif;
+  --game-ui-font-body:
+    "Geist Variable", "Noto Sans SC Variable", "Noto Sans SC", "Noto Sans", system-ui, sans-serif;
+
   color: #f9f1e9;
   background: #07080c;
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  font-family: var(--supaluv-font-serif);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -74,7 +92,7 @@ p {
 .eyebrow {
   margin-bottom: 0.75rem;
   color: #a6422d;
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -110,7 +128,7 @@ h3 {
 .standee-caption,
 .scene-chip,
 .mood-chip {
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
 }
 
 .story-map-grid {

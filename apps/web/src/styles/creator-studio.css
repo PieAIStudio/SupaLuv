@@ -64,7 +64,7 @@
   font-size: 11px;
 }
 .creator-brand-lockup h2 {
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: "Noto Serif SC Variable", "Noto Serif SC", "Songti SC", serif;
   font-size: clamp(22px, 2vw, 30px);
   letter-spacing: 0.05em;
 }
@@ -283,7 +283,7 @@
 .creator-graph-node strong {
   display: -webkit-box;
   overflow: hidden;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: "Noto Serif SC Variable", "Noto Serif SC", "Songti SC", serif;
   font-size: 14px;
   line-height: 1.4;
   -webkit-box-orient: vertical;
@@ -374,7 +374,7 @@
 }
 .creator-inspector-heading h3 {
   margin: 5px 0 0;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: "Noto Serif SC Variable", "Noto Serif SC", "Songti SC", serif;
   font-size: 21px;
   line-height: 1.4;
 }

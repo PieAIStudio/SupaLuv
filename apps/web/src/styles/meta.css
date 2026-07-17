@@ -122,7 +122,7 @@
 .title-eyebrow {
   margin: 0;
   color: rgba(255, 214, 188, 0.72);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.72rem;
   letter-spacing: 0.28em;
 }
@@ -140,7 +140,7 @@
 .title-sub {
   margin: 0;
   color: rgba(255, 245, 236, 0.78);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   line-height: 1.55;
 }
 
@@ -219,7 +219,7 @@
   border-radius: 0.75rem;
   background: rgba(0, 0, 0, 0.28);
   color: rgba(255, 245, 236, 0.88);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.78rem;
   text-align: left;
   cursor: pointer;
@@ -260,7 +260,7 @@
   border-radius: 0.55rem;
   background: transparent;
   color: rgba(255, 245, 236, 0.9);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.82rem;
   text-align: left;
   cursor: pointer;
@@ -299,7 +299,7 @@
   display: grid;
   gap: 0.35rem;
   color: rgba(255, 245, 236, 0.8);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.82rem;
 }
 
@@ -694,7 +694,7 @@
   border: 1px solid rgba(255, 200, 140, 0.28);
   background: rgba(40, 24, 12, 0.55);
   color: rgba(255, 220, 180, 0.92);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.78rem;
   letter-spacing: 0.02em;
   animation: title-audio-pulse 1.6s ease-in-out infinite;
@@ -752,7 +752,7 @@
 
 .settings-volume-label {
   color: rgba(255, 245, 236, 0.82);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.88rem;
 }
 
@@ -772,7 +772,7 @@
   border-radius: 999px;
   background: rgba(12, 28, 22, 0.92);
   color: #d4ffe8;
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.86rem;
   box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.45);
   pointer-events: none;
@@ -873,7 +873,7 @@
     border-radius: 0.75rem;
     background: rgba(255, 255, 255, 0.06);
     color: rgba(255, 245, 236, 0.94);
-    font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+    font-family: var(--supaluv-font-sans);
     cursor: pointer;
     list-style: none;
   }
@@ -961,7 +961,7 @@
 .ai-choice-error {
   margin: 0.25rem 0 0;
   color: rgba(255, 180, 160, 0.85);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.8rem;
 }
 
@@ -984,7 +984,7 @@
 .title-credits {
   margin: 0.75rem 0 0;
   color: rgba(255, 245, 236, 0.42);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.72rem;
   text-align: center;
   line-height: 1.45;
@@ -994,7 +994,7 @@
   display: block;
   margin: -0.15rem 0 0.15rem;
   color: rgba(255, 245, 236, 0.45);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.72rem;
   line-height: 1.35;
 }
@@ -1003,7 +1003,7 @@
   margin: 0;
   padding-left: 1.1rem;
   color: rgba(255, 245, 236, 0.82);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.9rem;
   line-height: 1.7;
 }
@@ -1015,7 +1015,7 @@
 .chapter-end-order {
   margin: 0.35rem 0 0.5rem;
   color: rgba(255, 220, 180, 0.88);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.86rem;
   letter-spacing: 0.04em;
 }

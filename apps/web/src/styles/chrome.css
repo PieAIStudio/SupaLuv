@@ -60,7 +60,7 @@
 
 .boot-splash-title {
   margin: 0;
-  font-family: "Avenir Next", "Songti SC", serif;
+  font-family: "Avenir Next", "Noto Serif SC Variable", "Noto Serif SC", "Songti SC", serif;
   font-size: clamp(2.2rem, 6vw, 3.4rem);
   font-weight: 700;
   color: #fff6ee;

@@ -241,7 +241,7 @@
 .authored-choice-lead {
   margin: 0.15rem 0 0;
   color: rgba(255, 245, 236, 0.88);
-  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  font-family: var(--supaluv-font-sans);
   font-size: 0.78rem;
   font-weight: 700;
 }
