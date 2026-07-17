@@ -82,6 +82,28 @@ describe("portraitPack", () => {
     );
   });
 
+  it("passes authored scene art through for official-cast bindings", () => {
+    // The studio's 使用官方形象 path locks { packId: "official:…", moodUrls: {} }.
+    // The resolver must not flatten authored mood portraits to the base face.
+    const bindings = {
+      lead_zhou_lu: {
+        slotId: "lead_zhou_lu",
+        packId: "official:lead_zhou_lu",
+        baseUrl: "/assets/portraits/zhou-neutral.png",
+        moodUrls: {},
+        lockedAt: "2026-07-17T00:00:00.000Z",
+      },
+    } as const;
+    expect(
+      resolveCharacterPortrait(
+        "lead_zhou_lu",
+        "neutral",
+        bindings,
+        "/assets/portraits/shipeixin-hurt.png",
+      ),
+    ).toBe("/assets/portraits/shipeixin-hurt.png");
+  });
+
   it("snapshots legacy local overrides into the new slot vocabulary", () => {
     const pack = setLeadOverride(EMPTY_PORTRAIT_PACK, "suming", "data:image/png;base64,old");
     expect(legacyPortraitBindings(pack, "2026-07-12T00:00:00.000Z")).toMatchObject({
