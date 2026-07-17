@@ -6,11 +6,12 @@ export const EXPECTED_HEIGHT = 1248;
 export const PORTRAIT_ROOT = "apps/web/public/assets/portraits";
 
 /**
- * ADR-0006 CG lead portraits (2026-07-17): pure green #00B140 key plates.
+ * ADR-0006 CG portraits (2026-07-17): pure green #00B140 key plates.
  * Paths are workspace-relative; resolveRawPath joins them as-is.
  * - suming 8 moods → suming-<mood>.png
  * - shipeixin neutral → zhou-neutral.png (stable runtime key, zero consumer renames)
  * - shipeixin 3 extra moods → shipeixin-{calm-smile,guarded,hurt}.png (new keys)
+ * - NPC 11 plates → apps/web/public/assets/portraits/<name>.png
  */
 export const FIX_TARGETS = Object.freeze([
   {
@@ -73,9 +74,75 @@ export const FIX_TARGETS = Object.freeze([
     raw: "packages/content/characters/shipeixin/refs/hurt-green.png",
     output: "shipeixin-hurt.png",
   },
+  // NPC CG batch 2026-07-17 (11 plates)
+  {
+    id: "leo-neutral",
+    raw: "packages/content/characters/npc/refs/leo-neutral-green.png",
+    output: "leo-neutral.png",
+  },
+  {
+    id: "leo-annoyed",
+    raw: "packages/content/characters/npc/refs/leo-annoyed-green.png",
+    output: "leo-annoyed.png",
+  },
+  {
+    id: "chenjia-neutral",
+    raw: "packages/content/characters/npc/refs/chenjia-neutral-green.png",
+    output: "chenjia-neutral.png",
+  },
+  {
+    id: "shopowner-neutral",
+    raw: "packages/content/characters/npc/refs/shopowner-neutral-green.png",
+    output: "shopowner-neutral.png",
+  },
+  {
+    id: "staff-neutral",
+    raw: "packages/content/characters/npc/refs/staff-neutral-green.png",
+    output: "staff-neutral.png",
+  },
+  {
+    id: "stafflead-neutral",
+    raw: "packages/content/characters/npc/refs/stafflead-neutral-green.png",
+    output: "stafflead-neutral.png",
+  },
+  {
+    id: "zhuzhu-neutral",
+    raw: "packages/content/characters/npc/refs/zhuzhu-neutral-green.png",
+    output: "zhuzhu-neutral.png",
+  },
+  {
+    id: "huanglaotai-neutral",
+    raw: "packages/content/characters/npc/refs/huanglaotai-neutral-green.png",
+    output: "huanglaotai-neutral.png",
+    // Key green bleeds through the curly-hair gaps as pale interior blobs
+    // (greenDominance ≈ 5-12, below the default margin, and interior pixels
+    // never reach the boundary-band despill). Run despill on interior pixels
+    // above the jacket line only — the floral jacket's leaf greens are
+    // legitimate foreground and must not be neutralized.
+    matteOverrides: {
+      interiorDespill: true,
+      interiorDespillMaxY: 700,
+      despillNeutralMargin: 4,
+    },
+  },
+  {
+    id: "police-neutral",
+    raw: "packages/content/characters/npc/refs/police-neutral-green.png",
+    output: "police-neutral.png",
+  },
+  {
+    id: "gridworker-neutral",
+    raw: "packages/content/characters/npc/refs/gridworker-neutral-green.png",
+    output: "gridworker-neutral.png",
+  },
+  {
+    id: "courier-neutral",
+    raw: "packages/content/characters/npc/refs/courier-neutral-green.png",
+    output: "courier-neutral.png",
+  },
 ]);
 
-/** All twelve CG plates are re-matted; no pre-accepted baseline portraits remain. */
+/** All CG plates are re-matted; no pre-accepted baseline portraits remain. */
 export const ACCEPTED_BASELINES = Object.freeze([]);
 
 export const ALL_RUNTIME_PORTRAITS = Object.freeze([
@@ -121,6 +188,10 @@ export const MATTE_PARAMETERS = Object.freeze({
   despillNeutralMargin: 12,
   despillStrength: 1,
   despillBoundaryRadius: 16,
+  /** When true, despill also runs on interior opaque pixels (per-target override). */
+  interiorDespill: false,
+  /** Interior despill only applies to rows above this y (guards legit greens below). */
+  interiorDespillMaxY: Number.POSITIVE_INFINITY,
 });
 
 /**

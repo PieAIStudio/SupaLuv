@@ -217,7 +217,7 @@
       "id": "lin-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": ["draft placeholder for 陈佳 and 石佩欣", "legacy character 林晓棠"],
+      "usage": ["legacy character 林晓棠 only"],
       "path": "apps/web/public/assets/portraits/lin-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "legacy_only",
@@ -230,7 +230,7 @@
         "owner": "project",
         "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
       },
-      "notes": "Legacy face reused only so the draft remains playable; not a current-character deliverable."
+      "notes": "Superseded as 陈佳 defaultPortrait by chenjia-neutral (2026-07-17 ADR-0006 NPC CG). Kept for legacy 林晓棠 archive speaker."
     },
     {
       "id": "zhou-neutral",
@@ -238,8 +238,7 @@
       "contract": "portrait-runtime-2x3",
       "usage": [
         "CharacterStudio official female-lead slot",
-        "registry defaultPortrait for 石佩欣 (stable key zhou-neutral)",
-        "draft placeholder for 雷欧 and 老板娘 when unbound"
+        "registry defaultPortrait for 石佩欣 (stable key zhou-neutral)"
       ],
       "path": "apps/web/public/assets/portraits/zhou-neutral.png",
       "fileStatus": "present",
@@ -601,156 +600,61 @@
       "notes": "Inventoried because the binary exists; excluded from current two-chapter production."
     },
     {
-      "id": "chen-jia-neutral",
-      "kind": "portrait",
-      "contract": "portrait-runtime-2x3",
-      "usage": ["draft-ch01 speaker=陈佳"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
-      "rightsStatus": "pending",
-      "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
-      "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
-      },
-      "notes": "Runtime currently falls back to lin-neutral; do not treat that legacy face as completion."
-    },
-    {
       "id": "leo-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": ["draft-ch01 speaker=雷欧", "draft-ch02 speaker=雷欧"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
+      "usage": ["draft-ch01 speaker=雷欧", "draft-ch02 speaker=雷欧", "draft-ch03 speaker=雷欧"],
+      "path": "apps/web/public/assets/portraits/leo-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
+      "sha256": "7885c8decc4a6fc69c47cdb06c2e0966261ae32196a7670dec4522946206c2b3",
+      "bytes": 1017230,
       "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
       },
-      "notes": "Runtime currently falls back to zhou-neutral; do not treat that legacy face as completion."
-    },
-    {
-      "id": "shi-peixin-neutral",
-      "kind": "portrait",
-      "contract": "portrait-runtime-2x3",
-      "usage": ["draft-ch02 speaker=石佩欣"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
-      "rightsStatus": "pending",
-      "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
-      "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
-      },
-      "notes": "Runtime currently falls back to lin-neutral; do not treat that legacy face as completion."
-    },
-    {
-      "id": "staff-worker-neutral",
-      "kind": "portrait",
-      "contract": "portrait-runtime-2x3",
-      "usage": ["draft-ch01 speaker=工作人员"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
-      "rightsStatus": "pending",
-      "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
-      "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
-      },
-      "notes": "Runtime currently falls back to demo-ui; named NPC art is still required."
-    },
-    {
-      "id": "staff-lead-neutral",
-      "kind": "portrait",
-      "contract": "portrait-runtime-2x3",
-      "usage": ["draft-ch01 speaker=小组长"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
-      "rightsStatus": "pending",
-      "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
-      "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
-      },
-      "notes": "Runtime currently falls back to demo-ui; named NPC art is still required."
-    },
-    {
-      "id": "shop-owner-neutral",
-      "kind": "portrait",
-      "contract": "portrait-runtime-2x3",
-      "usage": ["draft-ch02 speaker=老板娘"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
-      "rightsStatus": "pending",
-      "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
-      "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
-      },
-      "notes": "Runtime currently falls back to zhou-neutral; named NPC art is still required."
+      "notes": "ADR-0006 CG NPC 雷欧 neutral; green matte 2026-07-17."
     },
     {
       "id": "chen-jia-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": ["character=chen_jia identity reference"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
+      "usage": ["character identity / matte source for chenjia-neutral"],
+      "path": "packages/content/characters/npc/refs/chenjia-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
+      "sha256": "9a118d575ce2798bbdf899e5905b7efcb55366037a0dd65f7e7c66d8a4d60c15",
+      "bytes": 895393,
       "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
       },
-      "notes": "No approved adult identity/reference source is present."
+      "notes": "NPC green key plate; matte input for ADR-0006 CG."
     },
     {
       "id": "leo-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": ["character=leo identity reference"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
+      "usage": ["character identity / matte source for leo-neutral"],
+      "path": "packages/content/characters/npc/refs/leo-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
+      "sha256": "69857b6012be959ee517b2c809fec10e87f4b45cc951701e766cf5251a336b64",
+      "bytes": 1003024,
       "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
       },
-      "notes": "No approved identity/reference source is present."
+      "notes": "NPC green key plate; matte input for ADR-0006 CG."
     },
     {
       "id": "shi-peixin-ref-base",
@@ -769,64 +673,64 @@
         "owner": "unassigned",
         "evidence": "not_yet_supplied"
       },
-      "notes": "No approved adult identity/reference source is present."
+      "notes": "Dedicated 石佩欣 identity ref plate still open; runtime uses zhou-neutral + shipeixin/*-green mood plates."
     },
     {
       "id": "staff-worker-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": ["character=staff_worker identity reference"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
+      "usage": ["character identity / matte source for staff-neutral"],
+      "path": "packages/content/characters/npc/refs/staff-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
+      "sha256": "508a1106a33ad5ab10611c856e9f89d31df072901e0845da6fc1ce044f874494",
+      "bytes": 871312,
       "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
       },
-      "notes": "No approved identity/reference source is present."
+      "notes": "NPC green key plate; matte input for ADR-0006 CG."
     },
     {
       "id": "staff-lead-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": ["character=staff_lead identity reference"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
+      "usage": ["character identity / matte source for stafflead-neutral"],
+      "path": "packages/content/characters/npc/refs/stafflead-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
+      "sha256": "2ebf133d0fbe011675cf6b9e74b5e6d600afe8d4a1c6dde40da8e323cf40d262",
+      "bytes": 884802,
       "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
       },
-      "notes": "No approved identity/reference source is present."
+      "notes": "NPC green key plate; matte input for ADR-0006 CG."
     },
     {
       "id": "shop-owner-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": ["character=shop_owner identity reference"],
-      "path": null,
-      "fileStatus": "missing",
-      "qualityStatus": "missing",
+      "usage": ["character identity / matte source for shopowner-neutral"],
+      "path": "packages/content/characters/npc/refs/shopowner-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": null,
-      "bytes": null,
+      "sha256": "6992f63905f27fc75dfcf4b326e60a97589f5bf9b9a5242948cc2bcd0fe2e585",
+      "bytes": 1066190,
       "source": {
-        "type": "pending",
-        "owner": "unassigned",
-        "evidence": "not_yet_supplied"
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
       },
-      "notes": "No approved identity/reference source is present."
+      "notes": "NPC green key plate; matte input for ADR-0006 CG."
     },
     {
       "id": "prop-protocol-terms",
@@ -1269,6 +1173,310 @@
         "promptPointer": "packages/content/assets/candidates/r2-ch03-props/prompts/prop-activation-confirm.prompt.txt"
       },
       "notes": "Byte-identical r2-ch03-props agent-generated image candidate integrated provisionally for the playable draft. Human art review is false and release rights remain pending; presence is not production approval."
+    },
+    {
+      "id": "leo-annoyed",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch01 mood variant for 雷欧"],
+      "path": "apps/web/public/assets/portraits/leo-annoyed.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "3334e3889985aa62b4e93f9da114d6b1fd25125e853229042e58692845392a87",
+      "bytes": 999904,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 雷欧 annoyed; face-locked from leo-neutral."
+    },
+    {
+      "id": "chenjia-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch01 speaker=陈佳"],
+      "path": "apps/web/public/assets/portraits/chenjia-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "656e6ebaa1bcf4b3a8b54e00bb1a9fff64dffb82be6b9b2435469d2b841ad0e9",
+      "bytes": 913320,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 陈佳 neutral; supersedes lin-neutral binding for 陈佳."
+    },
+    {
+      "id": "shopowner-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch02 speaker=老板娘"],
+      "path": "apps/web/public/assets/portraits/shopowner-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "93bc7766e573c2b1d6bf6403b8beb4ad56b9982221abb7fb3bc64df89f18a575",
+      "bytes": 1081910,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 老板娘 neutral."
+    },
+    {
+      "id": "staff-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch01 speaker=工作人员"],
+      "path": "apps/web/public/assets/portraits/staff-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "e20fe903769709727eaaa66e5adda169219eb608b4a13bdf47e436592325640d",
+      "bytes": 909552,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 工作人员 neutral."
+    },
+    {
+      "id": "stafflead-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch01 speaker=小组长"],
+      "path": "apps/web/public/assets/portraits/stafflead-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "b35969359ea86af8e2b5e1817ae2ef36835a9c858414ef30a3a0b201c19be251",
+      "bytes": 895326,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 小组长 neutral."
+    },
+    {
+      "id": "zhuzhu-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch03 speaker=朱珠"],
+      "path": "apps/web/public/assets/portraits/zhuzhu-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "c0e7a24d2508b456a73d9b715a2c844f6b62bd74087bf8e810458fb4d6930e7a",
+      "bytes": 1247702,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 朱珠 neutral."
+    },
+    {
+      "id": "huanglaotai-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch03 speaker=黄老太"],
+      "path": "apps/web/public/assets/portraits/huanglaotai-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "6581c89c478a2ce539aee5d5c9d0319919f450796d172e54e094a9b8aca067b5",
+      "bytes": 1364292,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 黄老太 neutral."
+    },
+    {
+      "id": "police-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch03 speaker=警察"],
+      "path": "apps/web/public/assets/portraits/police-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "c27f16964fc2e576cee153e68fad4cb2b5f25b9f634e2b6fe17e1a8dc4ad153b",
+      "bytes": 727740,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 警察 neutral."
+    },
+    {
+      "id": "gridworker-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch03 speaker=网格员"],
+      "path": "apps/web/public/assets/portraits/gridworker-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "bdb6a776736a7b12ac1e2a47b52734367ba9d025d165765541f35dcf94e12c95",
+      "bytes": 1141641,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 网格员 neutral."
+    },
+    {
+      "id": "courier-neutral",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["draft-ch03 speaker=快递员"],
+      "path": "apps/web/public/assets/portraits/courier-neutral.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "d178930580bda8858f5fa06f244cab995e790ccfd4570df2a7e7197a7f1f7386",
+      "bytes": 769198,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "ADR-0006 CG NPC 快递员 neutral."
+    },
+    {
+      "id": "leo-annoyed-ref-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for leo-annoyed"],
+      "path": "packages/content/characters/npc/refs/leo-annoyed-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "669ebda0e761b2a5c9be4a1ba04d654c824eac8836839584533b619c6bf83a3d",
+      "bytes": 967137,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "Cover-crop normalize + headroom recompose + #00B140 flood-fill; matte input."
+    },
+    {
+      "id": "zhuzhu-neutral-ref-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for zhuzhu-neutral"],
+      "path": "packages/content/characters/npc/refs/zhuzhu-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "277c4bdf046a7ac729f7682ef2d6e80934d4796c5330ad3fdffeff3d94dcd061",
+      "bytes": 1171661,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "Cover-crop normalize + headroom recompose + #00B140 flood-fill; matte input."
+    },
+    {
+      "id": "huanglaotai-neutral-ref-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for huanglaotai-neutral"],
+      "path": "packages/content/characters/npc/refs/huanglaotai-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "ebae0a4b2ef21daf8e77feaf1f62438ecec091004492c0de89273010cc34a0ae",
+      "bytes": 1321006,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "Cover-crop normalize + headroom recompose + #00B140 flood-fill; matte input."
+    },
+    {
+      "id": "police-neutral-ref-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for police-neutral"],
+      "path": "packages/content/characters/npc/refs/police-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "0ab7002d83a25a952448b159f8b615cf5bda65514e7fe450b64d30dac4f2bc04",
+      "bytes": 708341,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "Cover-crop normalize + headroom recompose + #00B140 flood-fill; matte input."
+    },
+    {
+      "id": "gridworker-neutral-ref-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for gridworker-neutral"],
+      "path": "packages/content/characters/npc/refs/gridworker-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "ff6516770e24abf3d63a10702bbc7809d1c0e72d636c9720eb43698abe351723",
+      "bytes": 1099087,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "Cover-crop normalize + headroom recompose + #00B140 flood-fill; matte input."
+    },
+    {
+      "id": "courier-neutral-ref-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for courier-neutral"],
+      "path": "packages/content/characters/npc/refs/courier-neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "856bff83be5a005a55dc6bac35f1d7c5c11d6cef88b16203508d93b30f72c725",
+      "bytes": 746920,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+      },
+      "notes": "Cover-crop normalize + headroom recompose + #00B140 flood-fill; matte input."
     }
   ],
   "gaps": [

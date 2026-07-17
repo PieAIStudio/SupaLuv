@@ -23,7 +23,8 @@ describe("portrait matte asset gate", () => {
       badFixture: { rejected: boolean };
     };
 
-    expect(report.determinism).toHaveLength(12);
+    // 12 lead CG plates + 11 NPC CG plates (ADR-0006, 2026-07-17)
+    expect(report.determinism).toHaveLength(23);
     expect(
       report.determinism.every(
         (entry) =>
@@ -31,7 +32,7 @@ describe("portrait matte asset gate", () => {
       ),
     ).toBe(true);
     expect(report.badFixture.rejected).toBe(true);
-    expect(report.official).toHaveLength(12);
+    expect(report.official).toHaveLength(23);
     expect(report.official.every((entry) => entry.gate.pass)).toBe(true);
     expect(report.pass).toBe(true);
   }, 120_000);

@@ -138,18 +138,19 @@ the current draft fallback in `VISUAL-ASSET-INTAKE.json`.
 
 ### Named character portraits and references
 
-| Character / role | Required portrait ID   | Required reference ID   | Current playable fallback |
-| ---------------- | ---------------------- | ----------------------- | ------------------------- |
-| 陈佳             | `chen-jia-neutral`     | `chen-jia-ref-base`     | `lin-neutral` (legacy)    |
-| 雷欧             | `leo-neutral`          | `leo-ref-base`          | `zhou-neutral` (legacy)   |
-| 石佩欣           | `shi-peixin-neutral`   | `shi-peixin-ref-base`   | `lin-neutral` (legacy)    |
-| 工作人员         | `staff-worker-neutral` | `staff-worker-ref-base` | `demo-ui` (placeholder)   |
-| 小组长           | `staff-lead-neutral`   | `staff-lead-ref-base`   | `demo-ui` (placeholder)   |
-| 老板娘           | `shop-owner-neutral`   | `shop-owner-ref-base`   | `zhou-neutral` (legacy)   |
+| Character / role                       | Required portrait ID       | Required reference ID   | Runtime key (2026-07-17)      |
+| -------------------------------------- | -------------------------- | ----------------------- | ----------------------------- |
+| 陈佳                                   | `chenjia-neutral`          | `chen-jia-ref-base`     | `chenjia-neutral.png`         |
+| 雷欧                                   | `leo-neutral`              | `leo-ref-base`          | `leo-neutral.png` (+ annoyed) |
+| 石佩欣                                 | `zhou-neutral`             | `shi-peixin-ref-base`   | `zhou-neutral.png` (stable)   |
+| 工作人员                               | `staff-neutral`            | `staff-worker-ref-base` | `staff-neutral.png`           |
+| 小组长                                 | `stafflead-neutral`        | `staff-lead-ref-base`   | `stafflead-neutral.png`       |
+| 老板娘                                 | `shopowner-neutral`        | `shop-owner-ref-base`   | `shopowner-neutral.png`       |
+| 朱珠 / 黄老太 / 警察 / 网格员 / 快递员 | matching `*-neutral` stems | npc green refs          | ADR-0006 NPC CG batch         |
 
-The fallback files are intentionally marked `legacy_only`; they cannot satisfy
-the named characters' production records. Additional NPC emotions are not
-invented here because the author/art-direction mood matrix is not frozen.
+NPC CG portraits landed 2026-07-17 (ADR-0006 green matte). `lin-neutral` remains
+legacy-only for archive speaker 林晓棠. Additional NPC mood matrix beyond
+`leo-annoyed` is still open.
 
 ### Prop and interface stills
 

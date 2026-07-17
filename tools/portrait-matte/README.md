@@ -1,9 +1,10 @@
 # Portrait matte tool
 
-Deterministic, allowlisted chroma-key processing for the ADR-0006 CG lead
-portraits (Su Ming × 8 moods + Shi Peixin × 4 moods on pure green `#00B140`).
-It uses the installed `sharp` package only; it does not download, generate,
-segment, or reinterpret the character. Inputs must already be `832×1248`.
+Deterministic, allowlisted chroma-key processing for the ADR-0006 CG
+portraits (Su Ming × 8 moods + Shi Peixin × 4 moods + NPC × 11 plates on pure
+green `#00B140`). It uses the installed `sharp` package only; it does not
+download, generate, segment, or reinterpret the character. Inputs must already
+be `832×1248`.
 
 ## Inputs and outputs
 
@@ -11,15 +12,17 @@ The input allowlist is fixed in `config.mjs`:
 
 - `packages/content/characters/suming/refs/{base,committed,lonely,panic,restless,shame,tempted,uncanny}-green.png`
 - `packages/content/characters/shipeixin/refs/{neutral,calm-smile,guarded,hurt}-green.png`
+- `packages/content/characters/npc/refs/{leo-neutral,leo-annoyed,chenjia-neutral,shopowner-neutral,staff-neutral,stafflead-neutral,zhuzhu-neutral,huanglaotai-neutral,police-neutral,gridworker-neutral,courier-neutral}-green.png`
 
 Runtime outputs under `apps/web/public/assets/portraits/`:
 
 - Su Ming: `suming-<mood>.png` (same eight stable filenames)
 - Shi Peixin neutral: `zhou-neutral.png` (stable consumer key, zero renames)
 - Shi Peixin extra moods: `shipeixin-{calm-smile,guarded,hurt}.png`
+- NPC: matching stems (`leo-neutral.png`, `chenjia-neutral.png`, …)
 
-For inspection, `--out-dir` writes the same twelve filenames to a caller-selected
-local evidence directory.
+For inspection, `--out-dir` writes the same allowlisted filenames to a
+caller-selected local evidence directory.
 
 ## Commands
 

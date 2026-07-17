@@ -17,20 +17,7 @@ const temporaryDirectories: string[] = [];
 const temporaryFiles: string[] = [];
 
 /** Must stay aligned with tools/asset-audit.mjs FROZEN_REQUIRED_MISSING_IDS. */
-const FROZEN_PORTRAIT_AND_REF_IDS = [
-  "chen-jia-neutral",
-  "leo-neutral",
-  "shi-peixin-neutral",
-  "staff-worker-neutral",
-  "staff-lead-neutral",
-  "shop-owner-neutral",
-  "chen-jia-ref-base",
-  "leo-ref-base",
-  "shi-peixin-ref-base",
-  "staff-worker-ref-base",
-  "staff-lead-ref-base",
-  "shop-owner-ref-base",
-] as const;
+const FROZEN_REQUIRED_MISSING_IDS = ["shi-peixin-ref-base"] as const;
 
 const FROZEN_PROP_IDS = [
   "prop-protocol-terms",
@@ -39,8 +26,6 @@ const FROZEN_PROP_IDS = [
   "prop-application-nda",
   "prop-approval-sms",
 ] as const;
-
-const FROZEN_REQUIRED_MISSING_IDS = [...FROZEN_PORTRAIT_AND_REF_IDS] as const;
 
 interface AuditIssue {
   readonly assetId: string;
@@ -247,29 +232,29 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.pass).toBe(true);
     expect(result.report.decision).toBe("final");
     expect(result.report.summary).toEqual({
-      assets: 60,
-      present: 48,
-      missing: 12,
+      assets: 71,
+      present: 70,
+      missing: 1,
       openGaps: 3,
-      releaseBlockers: 44,
+      releaseBlockers: 49,
     });
-    expect(result.report.checks.stableIds).toBe(60);
-    expect(result.report.checks.fileExistence).toBe(48);
-    expect(result.report.checks.mimeAndExtension).toBe(48);
-    expect(result.report.checks.dimensions).toBe(48);
-    expect(result.report.checks.sha256).toBe(48);
-    expect(result.report.checks.attribution).toBe(60);
-    expect(result.report.checks.runtimeLedgerRows).toBe(35);
+    expect(result.report.checks.stableIds).toBe(71);
+    expect(result.report.checks.fileExistence).toBe(70);
+    expect(result.report.checks.mimeAndExtension).toBe(70);
+    expect(result.report.checks.dimensions).toBe(70);
+    expect(result.report.checks.sha256).toBe(70);
+    expect(result.report.checks.attribution).toBe(71);
+    expect(result.report.checks.runtimeLedgerRows).toBe(46);
     expect(result.report.checks.rightsEvidence).toBe(0);
     expect(result.report.checks.gapResolutions).toBe(0);
-    expect(result.report.checks.productionTruth).toBe(44);
-    // Twelve ADR-0006 CG lead portraits reuse the calibrated green matte gate.
-    expect(result.report.checks.portraitMatte).toBe(12);
+    expect(result.report.checks.productionTruth).toBe(49);
+    // 12 lead + 11 NPC ADR-0006 CG portraits share the calibrated green matte gate.
+    expect(result.report.checks.portraitMatte).toBe(23);
     expect(result.report.checks.reverseCoverage).toBeGreaterThan(0);
     expect(result.report.checks.pathSafety).toBeGreaterThan(0);
     expect(result.report.errors).toEqual([]);
     expect(result.report.warnings.map((warning) => warning.assetId)).toEqual(
-      expect.arrayContaining(["chen-jia-neutral", "leo-neutral", "shi-peixin-neutral"]),
+      expect.arrayContaining(["shi-peixin-ref-base"]),
     );
     expect(result.report.warnings.map((warning) => warning.assetId)).not.toEqual(
       expect.arrayContaining([...FROZEN_PROP_IDS]),
@@ -306,25 +291,26 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.pass).toBe(false);
     expect(result.report.decision).toBe("blocked");
     expect(result.report.errors).toEqual([]);
-    expect(result.report.summary.releaseBlockers).toBe(44);
+    expect(result.report.summary.releaseBlockers).toBe(49);
     expect(result.report.releaseBlockers.map((blocker) => blocker.assetId)).toEqual(
       expect.arrayContaining([
         "bg-office-night",
         "suming-shame",
         "zhou-neutral",
         "shipeixin-calm-smile",
-        "chen-jia-neutral",
+        "chenjia-neutral",
         "prop-protocol-terms",
+        "shi-peixin-ref-base",
         "gap-background-shot-list",
         "gap-commercial-rights-evidence",
       ]),
     );
 
     const missingPortrait = result.report.releaseBlockers.find(
-      (blocker) => blocker.assetId === "chen-jia-neutral",
+      (blocker) => blocker.assetId === "shi-peixin-ref-base",
     );
     expect(missingPortrait).toMatchObject({
-      assetId: "chen-jia-neutral",
+      assetId: "shi-peixin-ref-base",
       path: null,
       reasons: ["file missing", "qualityStatus=missing", "rightsStatus=pending"],
     });
@@ -338,10 +324,9 @@ describe("two-chapter visual asset intake", () => {
     });
   }, 60_000);
 
-  it("keeps twelve character deliveries missing while five provisional prop files remain required", async () => {
-    expect(FROZEN_PORTRAIT_AND_REF_IDS).toHaveLength(12);
+  it("keeps only shi-peixin-ref-base missing while five provisional prop files remain required", async () => {
     expect(FROZEN_PROP_IDS).toHaveLength(5);
-    expect(FROZEN_REQUIRED_MISSING_IDS).toHaveLength(12);
+    expect(FROZEN_REQUIRED_MISSING_IDS).toHaveLength(1);
 
     const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
       assets: Array<{
@@ -421,7 +406,7 @@ describe("two-chapter visual asset intake", () => {
       assets: Array<{ id: string; requiredForProduction: boolean }>;
       gaps: Array<{ id: string; requiredForProduction: boolean }>;
     };
-    for (const assetId of ["suming-shame", "chen-jia-neutral"]) {
+    for (const assetId of ["suming-shame", "shi-peixin-ref-base"]) {
       const asset = intake.assets.find((candidate) => candidate.id === assetId);
       expect(asset).toBeDefined();
       asset!.requiredForProduction = false;
@@ -441,11 +426,11 @@ describe("two-chapter visual asset intake", () => {
     expect(result.exitCode).toBe(1);
     expect(result.report.decision).toBe("blocked");
     expect(result.report.errors).toEqual([]);
-    expect(result.report.summary.releaseBlockers).toBe(44);
-    expect(result.report.checks.portraitMatte).toBe(12);
+    expect(result.report.summary.releaseBlockers).toBe(49);
+    expect(result.report.checks.portraitMatte).toBe(23);
     for (const requiredId of [
       "suming-shame",
-      "chen-jia-neutral",
+      "shi-peixin-ref-base",
       "gap-commercial-rights-evidence",
     ]) {
       const blocker = result.report.releaseBlockers.find((entry) => entry.assetId === requiredId);
@@ -621,8 +606,8 @@ describe("two-chapter visual asset intake", () => {
     ]);
 
     expect(result.exitCode).toBe(1);
-    expect(result.report.summary.releaseBlockers).toBe(44);
-    expect(result.report.checks.productionTruth).toBe(44);
+    expect(result.report.summary.releaseBlockers).toBe(49);
+    expect(result.report.checks.productionTruth).toBe(49);
     for (const gapId of [
       "gap-background-shot-list",
       "gap-npc-mood-matrix",
@@ -927,7 +912,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.stderr).not.toMatch(/asset audit crashed|Error:/i);
     const report = JSON.parse(await fs.readFile(reportPath, "utf8")) as AuditReport;
     expect(report.pass).toBe(true);
-    expect(report.summary.releaseBlockers).toBe(44);
+    expect(report.summary.releaseBlockers).toBe(49);
   }, 60_000);
 
   it("fails reverse coverage when a frozen missing delivery is deleted from intake", async () => {
@@ -935,7 +920,7 @@ describe("two-chapter visual asset intake", () => {
     const intake = JSON.parse(await fs.readFile(intakePath, "utf8")) as {
       assets: Array<{ id: string } & Record<string, unknown>>;
     };
-    intake.assets = intake.assets.filter((asset) => asset.id !== "chen-jia-neutral");
+    intake.assets = intake.assets.filter((asset) => asset.id !== "shi-peixin-ref-base");
     const malformedPath = path.join(temporaryDirectory, "VISUAL-ASSET-INTAKE.json");
     await fs.writeFile(malformedPath, `${JSON.stringify(intake, null, 2)}\n`, "utf8");
 
@@ -951,7 +936,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.errors.map((error) => error.message)).toEqual(
       expect.arrayContaining([
         expect.stringContaining(
-          "[chen-jia-neutral] <no-path>: reverse coverage missing intake record",
+          "[shi-peixin-ref-base] <no-path>: reverse coverage missing intake record",
         ),
       ]),
     );

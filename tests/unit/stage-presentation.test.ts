@@ -24,8 +24,13 @@ describe("stagePresentation", () => {
     const mapped = mapPortraitsForPlayer(
       [
         { name: "石佩欣", url: "/assets/portraits/zhou-neutral.png", side: "right", active: true },
-        { name: "雷欧", url: "/assets/portraits/zhou-neutral.png", side: "right", active: false },
-        { name: "陈佳", url: "/assets/portraits/lin-neutral.png", side: "right", active: false },
+        { name: "雷欧", url: "/assets/portraits/leo-neutral.png", side: "right", active: false },
+        {
+          name: "陈佳",
+          url: "/assets/portraits/chenjia-neutral.png",
+          side: "right",
+          active: false,
+        },
       ],
       { suming: "苏明", lin_xiaotang: "石佩欣" },
       { byStem: {}, byLead: {} },
@@ -33,8 +38,8 @@ describe("stagePresentation", () => {
     );
     const byName = Object.fromEntries(mapped.map((p) => [p.name, p.url]));
     expect(byName["石佩欣"]).toBe("data:image/png;base64,cast");
-    expect(byName["雷欧"]).toBe("/assets/portraits/zhou-neutral.png");
-    expect(byName["陈佳"]).toBe("/assets/portraits/lin-neutral.png");
+    expect(byName["雷欧"]).toBe("/assets/portraits/leo-neutral.png");
+    expect(byName["陈佳"]).toBe("/assets/portraits/chenjia-neutral.png");
   });
 
   it("applies portrait pack override URL", () => {
