@@ -1279,14 +1279,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "9d5de10a0b3dd9c08df4ef4f5f0e80c9bf790108688d1ee48f982b89415710b8",
-      "bytes": 1312831,
+      "sha256": "4621167dc9bb81a66456b7de7426b84600850e6d9bdf1f9dd884fbda6ff624d9",
+      "bytes": 981485,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "Temp/zhuzhu-regen-2026-07-17/ + Temp/zhuzhu-green-2026-07-17/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; identity=zhuzhu-b (de-cartoonized adult eye ratio); #00B140 green matte"
+        "evidence": "Temp/zhuzhu-robot-2026-07-17/README.md; channel=grok_image_edit; date=2026-07-18; identity=chenjia-neutral.png (novel truth: face is 'template 17 tweaked toward Chenjia'); textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; #00B140 green matte"
       },
-      "notes": "ADR-0006 CG NPC 朱珠 neutral, 2026-07-17 regen: eyes back to adult realism band."
+      "notes": "ADR-0006 CG NPC 朱珠 neutral, 2026-07-18 robot regen (candidate A): face structurally = Chenjia with factory-even skin + higher symmetry + home tee, per supa-luv-v2 canon (companion robot 0417, ch03 face reveal)."
     },
     {
       "id": "huanglaotai-neutral",
@@ -1393,14 +1393,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": false,
-      "sha256": "b7114deddcd69deebcffb50e9441d020f696798b2d5bfa69b27fcfb4d95c132e",
-      "bytes": 824023,
+      "sha256": "18088338c8a1746fdbf73feb70a2ad597cf5f954c6f7d5b4a3078c466620da6f",
+      "bytes": 915949,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "Temp/zhuzhu-green-2026-07-17/README.md; channel=grok_image_edit; date=2026-07-17; identity=Temp/zhuzhu-regen-2026-07-17/zhuzhu-b.png; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; native #00B140 green plate"
+        "evidence": "Temp/zhuzhu-robot-2026-07-17/README.md; channel=grok_image_edit; date=2026-07-18; identity=apps/web/public/assets/portraits/chenjia-neutral.png; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; hard-replaced #00B140 green plate"
       },
-      "notes": "2026-07-17 regen green plate; keySampleTopFraction 0.07 (hair crown at row 98); ponytail strand loop is legitimate enclosed background."
+      "notes": "2026-07-18 robot-regen green plate (candidate A); passes default matte/gate parameters, no per-target overrides needed."
     },
     {
       "id": "huanglaotai-neutral-ref-green",

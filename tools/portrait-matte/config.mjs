@@ -109,18 +109,6 @@ export const FIX_TARGETS = Object.freeze([
     id: "zhuzhu-neutral",
     raw: "packages/content/characters/npc/refs/zhuzhu-neutral-green.png",
     output: "zhuzhu-neutral.png",
-    // 2026-07-17 regen plate: hair crown starts at row 98, inside the default
-    // 10% (125px) key-sample strip, which blows the calibrated inner radius
-    // past outerRadius. Sample the top 7% (87px) of pure key instead.
-    matteOverrides: {
-      keySampleTopFraction: 0.07,
-    },
-    // The ponytail has a genuine strand loop (raw plate x629-648 / y664-758)
-    // enclosing ~872px of real background — legitimate see-through art, not a
-    // matte hole. Lift only this target's enclosed-area ceiling above it.
-    gateOverrides: {
-      maximumLargestEnclosedTransparentPixels: 1024,
-    },
   },
   {
     id: "huanglaotai-neutral",
