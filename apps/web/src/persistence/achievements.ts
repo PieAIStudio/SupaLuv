@@ -43,7 +43,7 @@ export const ACHIEVEMENT_DEFS: readonly AchievementDef[] = [
   {
     id: "ch01_clear",
     title: "初审通过",
-    description: "完成当前两章草稿。",
+    description: "完成当前三章草稿。",
   },
   {
     id: "high_ai_score",
@@ -117,10 +117,6 @@ export function loadAchievements(): AchievementMap {
   }
 }
 
-export function hasAchievement(id: AchievementId): boolean {
-  return Boolean(loadAchievements()[id]);
-}
-
 /**
  * Unlock if new. Returns definition when newly unlocked (for toast).
  */
@@ -139,9 +135,4 @@ export function unlockAchievement(id: AchievementId): AchievementDef | null {
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   return def;
-}
-
-export function listUnlocked(): readonly AchievementDef[] {
-  const map = loadAchievements();
-  return ACHIEVEMENT_DEFS.filter((def) => isAchievementAvailable(def) && Boolean(map[def.id]));
 }

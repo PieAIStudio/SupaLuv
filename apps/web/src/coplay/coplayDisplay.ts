@@ -93,18 +93,6 @@ export function formatCursorLabel(args: {
   return args.isHost ? `${args.alias}${args.hostSuffix}` : args.alias;
 }
 
-export function formatGlobalEchoNote(args: {
-  readonly side: "host" | "guest";
-  readonly percent: number;
-  readonly shortLabel: string;
-  /** Template with `{percent}` and `{label}` */
-  readonly hostTemplate: string;
-  readonly guestTemplate: string;
-}): string {
-  const template = args.side === "host" ? args.hostTemplate : args.guestTemplate;
-  return fillTemplate(template, { percent: args.percent, label: args.shortLabel });
-}
-
 /**
  * Legacy stats notes are entirely peer supplied. Without an authoritative
  * aggregate, never parse their percentage, side, or label into player copy.

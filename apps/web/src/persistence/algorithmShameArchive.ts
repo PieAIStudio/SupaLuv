@@ -62,9 +62,3 @@ export function archiveIdsForScene(
   }
   return sceneToArchive.get(sceneId) ?? [];
 }
-
-export function isAlgorithmShameArchiveRecordId(
-  value: string,
-): value is AlgorithmShameArchiveRecordId {
-  return (ALGORITHM_SHAME_ARCHIVE_RECORD_IDS as readonly string[]).includes(value);
-}

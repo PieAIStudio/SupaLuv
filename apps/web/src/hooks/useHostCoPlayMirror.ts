@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { CoPlaySessionApi } from "../coplay/useCoPlaySession";
 import type { InkStorySnapshot } from "../story/inkStoryRunner";
-import { clampMeter } from "../views/play/lib/vnHelpers";
+import { clampMeter } from "../lib/meters";
 
 /**
  * Host-only: mirror presentation snapshot to guests + clear votes on scene change.
