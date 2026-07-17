@@ -46,6 +46,12 @@ export type NarrativePlayback = {
     readonly remoteSceneId: string | null;
     readonly remoteIsEnded: boolean;
     readonly panelAiMode: boolean | undefined;
+    /** Dialogue free-form TTS affordance (hidden when freeform is on). */
+    readonly dialogueVoiceButton: {
+      readonly visible: boolean;
+      readonly disabled: boolean;
+      readonly tooltipKey: "play.voiceBudgetCharging" | null;
+    };
   };
   readonly history: {
     readonly entries: readonly GameUiHistoryEntry[];
@@ -128,7 +134,7 @@ export function useNarrativePlayback(input: {
   });
 
   // Same-render cutscene gate as pre-refactor (activeCutscene object truthiness).
-  useDialogueVoice({
+  const dialogueVoice = useDialogueVoice({
     enabled:
       !isGuestSpectator &&
       !playback.activeCutscene &&
@@ -341,6 +347,11 @@ export function useNarrativePlayback(input: {
       remoteSceneId: remote.sceneId,
       remoteIsEnded: remote.isEnded,
       panelAiMode: remote.aiMode,
+      dialogueVoiceButton: {
+        visible: dialogueVoice.buttonVisible,
+        disabled: dialogueVoice.buttonDisabled,
+        tooltipKey: dialogueVoice.buttonTooltipKey,
+      },
     },
     history: {
       entries: historyEntries,

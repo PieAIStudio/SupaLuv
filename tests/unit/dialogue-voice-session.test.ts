@@ -51,6 +51,7 @@ describe("dialogue voice mute/volume gates", () => {
     hasText: true,
     productMuted: false,
     voiceVolume: 0.8,
+    freeformEnabled: true,
   } as const;
 
   it("blocks request start on master mute or voice volume zero", () => {
@@ -58,6 +59,10 @@ describe("dialogue voice mute/volume gates", () => {
     expect(canStartDialogueVoiceRequest({ ...ready, masterMuted: true })).toBe(false);
     expect(canStartDialogueVoiceRequest({ ...ready, productMuted: true })).toBe(false);
     expect(canStartDialogueVoiceRequest({ ...ready, voiceVolume: 0 })).toBe(false);
+  });
+
+  it("blocks request start when free-form TTS capability is off", () => {
+    expect(canStartDialogueVoiceRequest({ ...ready, freeformEnabled: false })).toBe(false);
   });
 
   it("rejects stale completion after mute or voice-zero even if the ticket was current", () => {

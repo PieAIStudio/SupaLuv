@@ -96,9 +96,19 @@ const buildRouter = () =>
     },
   });
 
+/** Free-form `/tts/synthesize` (dialogue lines) — off unless env is exactly `"1"`. */
+export function isTtsFreeformEnabled(): boolean {
+  return process.env.SUPALUV_TTS_ALLOW_FREEFORM === "1";
+}
+
+/**
+ * Non-secret TTS capability snapshot for `/health`.
+ * Provider readiness + freeform policy only — never keys or internal voice maps.
+ */
 export function ttsHealthSnapshot() {
   return {
-    ...describeTtsEnv(),
+    providers: describeTtsEnv(),
+    freeformEnabled: isTtsFreeformEnabled(),
     defaultLang: process.env.SUPALUV_TTS_DEFAULT_LANG?.trim() || "zh-CN",
     routingCatalog: "supaluv-core-v1",
     mixedLanguageMode: "segmented-catalog-required",

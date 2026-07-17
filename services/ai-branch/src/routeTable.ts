@@ -18,7 +18,7 @@ import { generateAiBranch } from "./handler.js";
 import { hasOpenRouterKey, readBody, sendJson } from "./httpUtils.js";
 import { reviewAiBranchRequest, reviewAiBranchResponse } from "./safetyGate.js";
 import { listPreviewIds, resolvePreviewPhrase } from "./ttsCatalog.js";
-import { synthesizeDialogue, ttsHealthSnapshot } from "./ttsRoute.js";
+import { isTtsFreeformEnabled, synthesizeDialogue, ttsHealthSnapshot } from "./ttsRoute.js";
 import {
   AI_BRANCH_COST_BATTERIES,
   TTS_COST_BATTERIES,
@@ -213,13 +213,12 @@ export async function handleAiBranchRequest(
       };
 
       const phrase = resolvePreviewPhrase(body.previewId);
-      const allowFreeform = process.env.SUPALUV_TTS_ALLOW_FREEFORM === "1";
       let text = phrase?.text ?? "";
       let language = phrase?.language ?? body.language;
       let characterId = phrase?.characterId ?? body.characterId;
 
       if (!phrase) {
-        if (!allowFreeform) {
+        if (!isTtsFreeformEnabled()) {
           sendJson(res, 400, {
             error: "Free-form TTS disabled. Use previewId (zh_preview|en_preview) or /tts/preview.",
           });

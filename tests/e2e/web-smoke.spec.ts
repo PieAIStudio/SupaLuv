@@ -26,6 +26,19 @@ async function installSignedInSession(page: import("@playwright/test").Page) {
   await page.route("**/api/wallet/balance", (route) =>
     route.fulfill({ status: 200, contentType: "application/json", body: '{"batteries":99}' }),
   );
+  await page.route("**/api/ai/health", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        ok: true,
+        tts: {
+          providers: { elevenlabs: false, minimax: false },
+          freeformEnabled: false,
+        },
+      }),
+    }),
+  );
   await page.route("**/tts/synthesize", (route) =>
     route.fulfill({
       status: 503,
@@ -216,6 +229,26 @@ const CONTINUE_CHOICE = /(?:剧情选择|Story choice):\s*继续$|^继续$/i;
 test("commercial shell: cinematic title, play, system save", async ({ page }) => {
   const pageErrors: string[] = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));
+  await page.route("**/api/ai/health", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        ok: true,
+        tts: {
+          providers: { elevenlabs: false, minimax: false },
+          freeformEnabled: false,
+        },
+      }),
+    }),
+  );
+  await page.route("**/tts/synthesize", (route) =>
+    route.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: '{"error":"disabled_in_e2e"}',
+    }),
+  );
   await page.goto("/");
   // Ensure no leftover save trips new-game confirm.
   await page.evaluate(() => {
@@ -302,6 +335,15 @@ test("commercial shell: cinematic title, play, system save", async ({ page }) =>
   const dialogue = page.getByTestId("dialogue-box");
   const box = await dialogue.boundingBox();
   expect(box && box.height > 140).toBeTruthy();
+
+  // Free-form dialogue TTS is off by default: button exists but stays disabled (no 400 spam).
+  const voiceButton = page.getByTestId("dialogue-voice-button");
+  await expect(voiceButton).toBeVisible();
+  await expect(voiceButton).toBeDisabled();
+  await expect(voiceButton).toHaveAttribute(
+    "title",
+    /语音预算还在充电|Voice budget still charging/,
+  );
 
   await page.getByTestId("history-toggle").click({ force: true });
   await expect(page.getByTestId("history-drawer")).toBeVisible();
