@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-07-17
+last_reviewed: 2026-07-18
 domain: meta
 tags:
   - current-work
@@ -67,9 +67,9 @@ related:
 
 | 发布门 | 状态与证据 |
 | --- | --- |
-| 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、TTS、BGM/ambient/SFX 和长文本节奏任务；HEARTBEAT-X 机器人视觉候选尚未产出（需图像生成，owner 目选） |
+| 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、BGM/ambient/SFX 和长文本节奏任务；对白 TTS 本地全链路已打通（游客登录→逐句 MiniMax 合成 200）；机器人视觉候选已产出（`Temp/robot-design-candidates-2026-07-17/` 男款 ×4，owner 目选中）；朱珠按小说真相（女性机器人、脸=近陈佳）待重制，提示词就绪但被 grok 登录过期阻塞 |
 | 发行级试玩 | 未完成；独立 critic pass 与第二轮选择感/视听/地图/存档/失败恢复试玩仍未关闭 |
-| 真实服务验收 | 部分完成；本地真实调用证据已取得（auth/AI 支线/TTS/钱包 fail-closed/存储，见 `.scratch/director/playtest/2026-07-16/live-service-proof.md`），Preview/Production 端仍未验收 |
+| 真实服务验收 | 部分完成；本地真实调用证据已取得（auth/AI 支线/TTS/钱包 fail-closed/存储，见 `.scratch/director/playtest/2026-07-16/live-service-proof.md`）；2026-07-18 生产站云端 co-play 已实证（Supabase Realtime：建房/进房/presence/跟屏/投票回传全通）；Preview 部署被 Vercel Deployment Protection 登录墙拦截（未配自动化绕过密钥，owner 决定），完整 Preview/Production 验收仍未关闭 |
 
 当前优先级只保留三项：**正式内容 / 视听** → **发行级试玩** → **真实 Preview/Production 发布门**。
 不新增下一阶段 roadmap。
