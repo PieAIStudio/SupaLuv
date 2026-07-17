@@ -22,7 +22,7 @@ Options:
 
 Examples:
   pnpm auto-player --persona all --out .scratch/auto-player-run
-  pnpm auto-player --persona dignity --out /tmp/ap --chapter draft-ch01
+  pnpm auto-player --persona mianzi --out /tmp/ap --chapter draft-ch01
 `);
 }
 

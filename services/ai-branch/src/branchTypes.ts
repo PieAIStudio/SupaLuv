@@ -11,7 +11,7 @@ export interface AiBranchRequestBody {
     readonly speakerPool?: readonly string[];
   };
   readonly authoredChoiceLabels: readonly string[];
-  readonly meters?: { dignity: number; impulse: number };
+  readonly meters?: { mianzi: number; ai_score: number };
 }
 
 export interface AiBranchBeat {

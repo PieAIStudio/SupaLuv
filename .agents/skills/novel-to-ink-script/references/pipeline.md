@@ -6,7 +6,7 @@
 
 - story-id 形如 `draft-ch03`；文件头注释写明来源版本（如 `densified from supa-luv-v2 ch03`）与
   `Noncanonical draft.` 声明。
-- 顶部集中声明全部 VAR：态度计（dignity/impulse，起始 50）、事实旗标（bool）、
+- 顶部集中声明全部 VAR：态度计（mianzi/ai_score，起始 50）、事实旗标（bool）、
   选择记录（string "unanswered" 起始）、互动 VAR 组（每互动 3 题 + skipped + completed_at_version）、
   线索旗标（clue_*，供道具/结局结算用）。
 - knot 命名 = beat id（`=== dch03_s001 ===`）；每个 beat 末尾 `-> next`；选择用 `* [标签] 效果 -> target`。

@@ -1,8 +1,8 @@
 // 第二章 她不会评判你 — densified from supa-luv-v2 ch02 (2026-07-16).
 // Adult black comedy; no pornographic detail. Noncanonical draft.
 // Source: Temp/novel-v2-2026-07-16/ch02.md (supa-luv-v2-2026-07)
-VAR dignity = 50
-VAR impulse = 50
+VAR mianzi = 50
+VAR ai_score = 50
 VAR told_breakup_flat = false
 VAR closed_membership = false
 VAR budget_900 = false
@@ -126,11 +126,11 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [按住手腕：拿出来 # choice:d2_catch_firm]
     ~ child_response = "firm"
-    ~ dignity = dignity + 2
+    ~ mianzi = mianzi + 5
     -> dch02_s004
 + [声音放轻一点，还是要拿出来 # choice:d2_catch_soft]
     ~ child_response = "soft"
-    ~ dignity = dignity + 1
+    ~ mianzi = mianzi + 3
     -> dch02_s004
 
 
@@ -191,10 +191,11 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [辣条钱我扫了 # choice:d2_pay_self]
     ~ paid_snack = true
+    ~ mianzi = mianzi + 3
     -> dch02_s010
 + [再说一遍：我出 # choice:d2_pay_repeat]
     ~ paid_snack = true
-    ~ dignity = dignity + 1
+    ~ mianzi = mianzi + 5
     -> dch02_s010
 
 === dch02_s010 ===
@@ -227,10 +228,10 @@ VAR mobile_questionnaire_q3 = "unanswered"
 “不踏实，但干净。”
 
 + [先把楼规听完 # choice:d2_pace_a]
-    ~ dignity = dignity + 1
+    ~ mianzi = mianzi + 3
     -> dch02_s014
 + [只想尽快定下来 # choice:d2_pace_b]
-    ~ impulse = impulse + 1
+    ~ mianzi = mianzi - 3
     -> dch02_s014
 
 === dch02_s014 ===
@@ -257,10 +258,12 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [分了……我提的 # choice:d2_admit_me]
     ~ admitted_breakup = true
+    ~ mianzi = mianzi - 3
     -> dch02_s017
 + [硬着头皮：我提的 # choice:d2_admit_me_hard]
     ~ admitted_breakup = true
-    ~ impulse = impulse + 1
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 3
     -> dch02_s017
 
 === dch02_s017 ===
@@ -285,10 +288,11 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [问出口：假设带女朋友？ # choice:d2_ask_guest]
     ~ asked_guest = true
+    ~ mianzi = mianzi + 3
     -> dch02_housing_hotspots
 + [话到嘴边又咽回去……还是问了 # choice:d2_swallow_guest]
     ~ asked_guest = true
-    ~ dignity = dignity - 1
+    ~ mianzi = mianzi - 5
     -> dch02_housing_hotspots
 
 === dch02_housing_hotspots ===
@@ -396,10 +400,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [嗤一声：测那玩意儿的都有病 # choice:d2_dismiss_robot]
     ~ robot_interest = "dismiss"
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
     -> dch02_s024
 + [嘴上骂，耳朵却竖起来 # choice:d2_curious_robot]
     ~ robot_interest = "curious"
-    ~ impulse = impulse + 3
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     -> dch02_s024
 
 === dch02_s024 ===
@@ -457,10 +464,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [点下申请成为体验官 # choice:d2_apply]
     ~ applied_robot = true
+    ~ ai_score = ai_score + 8
+    ~ mianzi = mianzi - 5
     -> dch02_mobile_questionnaire
 + [骂自己一句再点申请 # choice:d2_apply_shame]
     ~ applied_robot = true
-    ~ dignity = dignity - 2
+    ~ ai_score = ai_score + 8
+    ~ mianzi = mianzi - 8
     -> dch02_mobile_questionnaire
 
 
@@ -478,17 +488,27 @@ VAR mobile_questionnaire_q3 = "unanswered"
 手机问卷 1/3 · 邻居容忍度。
 + [一般 # choice:mobile_questionnaire_q1_average]
     ~ mobile_questionnaire_q1 = "average"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q2
 + [良好 # choice:mobile_questionnaire_q1_good]
     ~ mobile_questionnaire_q1 = "good"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q2
 + [优秀 # choice:mobile_questionnaire_q1_excellent]
     ~ mobile_questionnaire_q1 = "excellent"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> q2
 + [不愿评价 # choice:mobile_questionnaire_q1_decline]
     ~ mobile_questionnaire_q1 = "decline"
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> q2
 + [跳过问卷 # choice:mobile_questionnaire_q1_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
     -> skipped
 
 = q2
@@ -498,14 +518,21 @@ VAR mobile_questionnaire_q3 = "unanswered"
 手机问卷 2/3 · 是否介意设备高度拟人。
 + [介意 # choice:mobile_questionnaire_q2_mind]
     ~ mobile_questionnaire_q2 = "mind"
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 3
     -> q3
 + [不介意 # choice:mobile_questionnaire_q2_fine]
     ~ mobile_questionnaire_q2 = "fine"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     -> q3
 + [不确定 # choice:mobile_questionnaire_q2_unsure]
     ~ mobile_questionnaire_q2 = "unsure"
+    ~ ai_score = ai_score + 3
     -> q3
 + [跳过问卷 # choice:mobile_questionnaire_q2_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
     -> skipped
 
 = q3

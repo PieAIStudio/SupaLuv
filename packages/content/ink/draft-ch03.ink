@@ -1,8 +1,8 @@
 // 第三章 长按七秒 — densified from supa-luv-v2 ch03 (2026-07-16).
 // Adult black comedy; no pornographic detail. Noncanonical draft.
 // Source: Temp/novel-v2-2026-07-16/ch03.md (supa-luv-v2-2026-07)
-VAR dignity = 50
-VAR impulse = 50
+VAR mianzi = 50
+VAR ai_score = 50
 VAR told_breakup_flat = false
 VAR closed_membership = false
 VAR budget_900 = false
@@ -54,11 +54,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [选基础脸，别开相册 # choice:d3_face_template]
     ~ face_choice = "template"
-    ~ dignity = dignity + 1
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> dch03_mobile_questionnaire
 + [手指在相册上停太久 # choice:d3_face_album]
     ~ face_choice = "album_hover"
-    ~ impulse = impulse + 2
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> dch03_mobile_questionnaire
 
 
@@ -76,17 +78,27 @@ VAR mobile_questionnaire_q3 = "unanswered"
 手机问卷 1/3 · 邻居容忍度。
 + [一般 # choice:mobile_questionnaire_q1_average]
     ~ mobile_questionnaire_q1 = "average"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q2
 + [良好 # choice:mobile_questionnaire_q1_good]
     ~ mobile_questionnaire_q1 = "good"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q2
 + [优秀 # choice:mobile_questionnaire_q1_excellent]
     ~ mobile_questionnaire_q1 = "excellent"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> q2
 + [不愿评价 # choice:mobile_questionnaire_q1_decline]
     ~ mobile_questionnaire_q1 = "decline"
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> q2
 + [跳过问卷 # choice:mobile_questionnaire_q1_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
     -> skipped
 
 = q2
@@ -96,14 +108,21 @@ VAR mobile_questionnaire_q3 = "unanswered"
 手机问卷 2/3 · 是否介意设备高度拟人。
 + [介意 # choice:mobile_questionnaire_q2_mind]
     ~ mobile_questionnaire_q2 = "mind"
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 3
     -> q3
 + [不介意 # choice:mobile_questionnaire_q2_fine]
     ~ mobile_questionnaire_q2 = "fine"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     -> q3
 + [不确定 # choice:mobile_questionnaire_q2_unsure]
     ~ mobile_questionnaire_q2 = "unsure"
+    ~ ai_score = ai_score + 3
     -> q3
 + [跳过问卷 # choice:mobile_questionnaire_q2_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
     -> skipped
 
 = q3
@@ -163,10 +182,11 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [回陈佳：明天吧 # choice:d3_coat_tomorrow]
     ~ coat_timing = "tomorrow"
+    ~ mianzi = mianzi + 3
     -> dch03_s007
 + [回陈佳：行，傍晚 # choice:d3_coat_today]
     ~ coat_timing = "today"
-    ~ dignity = dignity - 1
+    ~ mianzi = mianzi - 5
     -> dch03_s007
 
 === dch03_s007 ===
@@ -267,10 +287,10 @@ VAR mobile_questionnaire_q3 = "unanswered"
 石佩欣抱着头，在楼道灯下端详了两秒：“做工不错，挺像真人的。”苏明两手抱着胸和腰，用自己的外套裹着，低着头走在最后。三个人踩着旧楼梯上楼，脚步声咯吱咯吱的，谁都没说话。把所有东西放到3F-A门口，当天晚上三个人还是一起吃了饭。饭桌上，石佩欣拿筷子敲了敲碗沿：“人体模特多少钱一个？”
 
 + [让雷欧先走，签证要紧 # choice:d3_leo_go]
-    ~ dignity = dignity + 1
+    ~ mianzi = mianzi + 3
     -> dch03_s020
 + [想留他一起扛箱子 # choice:d3_leo_stay]
-    ~ impulse = impulse + 1
+    ~ mianzi = mianzi - 3
     -> dch03_s020
 
 === dch03_s020 ===
@@ -332,11 +352,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [数到三就缩手 # choice:d3_press_hesitate]
     ~ longpress_hesitation = "hesitate"
-    ~ dignity = dignity - 2
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 5
     -> dch03_s028
 + [一口气数满七秒 # choice:d3_press_commit]
     ~ longpress_hesitation = "commit"
-    ~ impulse = impulse + 2
+    ~ ai_score = ai_score + 8
+    ~ mianzi = mianzi - 8
     -> dch03_s028
 
 === dch03_s028 ===
@@ -359,11 +381,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [……就随便取的 # choice:d3_name_casual]
     ~ name_response = "casual"
-    ~ dignity = dignity - 2
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 3
     -> dch03_s030
 + [好。好好好好好 # choice:d3_name_accept]
     ~ name_response = "accept"
-    ~ impulse = impulse + 1
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> dch03_s030
 
 === dch03_s030 ===

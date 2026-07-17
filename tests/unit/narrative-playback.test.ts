@@ -32,8 +32,8 @@ const remote = {
   isComplete: true,
   isEnded: false,
   choices: [{ index: 0, text: "远程选项" }],
-  dignity: 40,
-  impulse: 60,
+  mianzi: 40,
+  ai_score: 60,
   aiMode: false,
 };
 
@@ -94,14 +94,14 @@ describe("resolvePlaybackSource — guest projection", () => {
       presentationSpeaker: "旁白",
       sceneTitle: "作者场景",
       snapshotSceneId: "ink-1",
-      snapshotDignity: 10,
-      snapshotImpulse: 90,
+      snapshotMianzi: 10,
+      snapshotAiScore: 90,
       snapshotChoices: [{ index: 0, text: "作者选项", choiceId: "c1" }],
       aiBeatIndex: 0,
     });
     expect(projection.sceneTitle).toBe("远程场景");
-    expect(projection.dignity).toBe(40);
-    expect(projection.impulse).toBe(60);
+    expect(projection.mianzi).toBe(40);
+    expect(projection.ai_score).toBe(60);
     expect(projection.choices).toEqual([{ index: 0, text: "远程选项" }]);
     expect(projection.typewriterEnabled).toBe(true);
     expect(projection.remoteIsComplete).toBe(true);
@@ -126,13 +126,13 @@ describe("resolvePlaybackSource — guest projection", () => {
       presentationSpeaker: "旁白",
       sceneTitle: "作者场景",
       snapshotSceneId: "ink-1",
-      snapshotDignity: 10,
-      snapshotImpulse: 90,
+      snapshotMianzi: 10,
+      snapshotAiScore: 90,
       snapshotChoices: [{ index: 0, text: "作者选项" }],
       aiBeatIndex: 0,
     });
-    expect(projection.dignity).toBe(50);
-    expect(projection.impulse).toBe(50);
+    expect(projection.mianzi).toBe(50);
+    expect(projection.ai_score).toBe(50);
     expect(projection.choices).toEqual([]);
     expect(projection.typewriterEnabled).toBe(false);
   });

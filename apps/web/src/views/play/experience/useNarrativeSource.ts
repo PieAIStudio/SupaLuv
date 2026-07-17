@@ -49,8 +49,8 @@ export type NarrativeSourceController = {
   };
   readonly choices: PlaybackSourceProjection["choices"];
   readonly meters: {
-    readonly dignity: number;
-    readonly impulse: number;
+    readonly mianzi: number;
+    readonly ai_score: number;
   };
   readonly remote: {
     readonly sceneId: string | null;
@@ -132,8 +132,8 @@ export function useNarrativeSource(input: {
     presentationSpeaker: source.presentationSpeaker,
     sceneTitle: source.sceneTitle,
     snapshotSceneId: snapshot.sceneId,
-    snapshotDignity: snapshot.meters.dignity,
-    snapshotImpulse: snapshot.meters.impulse,
+    snapshotMianzi: snapshot.meters.mianzi,
+    snapshotAiScore: snapshot.meters.ai_score,
     snapshotChoices: snapshot.choices,
     aiBeatIndex,
     copy: {
@@ -179,8 +179,8 @@ export function useNarrativeSource(input: {
     },
     choices: projection.choices,
     meters: {
-      dignity: projection.dignity,
-      impulse: projection.impulse,
+      mianzi: projection.mianzi,
+      ai_score: projection.ai_score,
     },
     remote: {
       sceneId: projection.remoteSceneId,

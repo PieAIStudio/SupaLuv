@@ -128,13 +128,24 @@
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              1,
+              5,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              3,
+              "-",
+              "/ev",
+              {
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -155,13 +166,24 @@
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
-              2,
+              5,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              5,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -306,6 +328,28 @@
                     "VAR=": "mobile_questionnaire_q1",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q2"
                   },
@@ -320,6 +364,28 @@
                   "/ev",
                   {
                     "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
                     "re": true
                   },
                   {
@@ -338,6 +404,28 @@
                     "VAR=": "mobile_questionnaire_q1",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q2"
                   },
@@ -354,6 +442,28 @@
                     "VAR=": "mobile_questionnaire_q1",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q2"
                   },
@@ -361,6 +471,28 @@
                 ],
                 "c-4": [
                   "\n",
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.skipped"
                   },
@@ -443,6 +575,28 @@
                     "VAR=": "mobile_questionnaire_q2",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q3"
                   },
@@ -457,6 +611,28 @@
                   "/ev",
                   {
                     "VAR=": "mobile_questionnaire_q2",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
                     "re": true
                   },
                   {
@@ -475,6 +651,17 @@
                     "VAR=": "mobile_questionnaire_q2",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q3"
                   },
@@ -482,6 +669,28 @@
                 ],
                 "c-3": [
                   "\n",
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.skipped"
                   },
@@ -839,6 +1048,17 @@
                 "VAR=": "coat_timing",
                 "re": true
               },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
               {
                 "->": "dch03_s007"
               },
@@ -857,13 +1077,13 @@
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              1,
+              5,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -1301,13 +1521,13 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              1,
+              3,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -1319,13 +1539,13 @@
               "\n",
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "mianzi"
               },
-              1,
-              "+",
+              3,
+              "-",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -1603,13 +1823,24 @@
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              2,
+              3,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              5,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -1630,13 +1861,24 @@
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
-              2,
+              8,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              8,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -1780,13 +2022,24 @@
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              2,
+              3,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              3,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -1807,13 +2060,24 @@
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
-              1,
+              5,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              5,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -1885,11 +2149,11 @@
         "ev",
         50,
         {
-          "VAR=": "dignity"
+          "VAR=": "mianzi"
         },
         50,
         {
-          "VAR=": "impulse"
+          "VAR=": "ai_score"
         },
         false,
         {

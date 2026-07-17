@@ -24,8 +24,8 @@ export interface EndingPathMeta {
 interface ChapterEndCardProps {
   readonly open: boolean;
   readonly storyId?: string;
-  readonly dignity: number;
-  readonly impulse: number;
+  readonly mianzi: number;
+  readonly ai_score: number;
   readonly path?: EndingPathMeta;
   /** Stats-visible authored picks from this run. */
   readonly sessionStatsPicks?: readonly SessionChoicePick[];
@@ -53,8 +53,8 @@ function buildOrderId(): string {
 export function ChapterEndCard({
   open,
   storyId = "draft-ch02",
-  dignity,
-  impulse,
+  mianzi,
+  ai_score,
   path,
   sessionStatsPicks = [],
   displayNames = DEFAULT_DISPLAY_NAMES,
@@ -83,19 +83,19 @@ export function ChapterEndCard({
   const orderId = useMemo(() => (open ? buildOrderId() : ""), [open]);
   const usedAi = Boolean(path?.usedAiBranch);
   const label =
-    impulse >= 65
-      ? t("chapterEnd.toneImpulse")
-      : dignity >= 55
+    ai_score >= 65
+      ? t("chapterEnd.toneAiScore")
+      : mianzi >= 55
         ? t("chapterEnd.toneDignity")
         : t("chapterEnd.toneNeutral");
   const flavor =
-    usedAi && impulse >= 60
+    usedAi && ai_score >= 60
       ? t("chapterEnd.flavorAiImpulse")
       : usedAi
         ? t("chapterEnd.flavorAi")
-        : impulse >= 65
+        : ai_score >= 65
           ? t("chapterEnd.flavorImpulse")
-          : dignity >= 55
+          : mianzi >= 55
             ? t("chapterEnd.flavorDignity")
             : t("chapterEnd.flavorNeutral");
 
@@ -166,13 +166,13 @@ export function ChapterEndCard({
             `【${t("chapterEnd.clipboardDraftTitle")}】`,
             t("chapterEnd.clipboardApplication"),
             t("chapterEnd.clipboardNext"),
-            `${t("chapterEnd.clipboardMeters")}: ${dignity} · ${impulse}`,
+            `${t("chapterEnd.clipboardMeters")}: ${mianzi} · ${ai_score}`,
             t("chapterEnd.draftLead"),
           ]
         : [
             `【${t("chapterEnd.clipboardEndingTitle")}】`,
             `${t("chapterEnd.clipboardOrder")}${orderId}`,
-            `${t("chapterEnd.clipboardMeters")}: ${dignity} · ${impulse}`,
+            `${t("chapterEnd.clipboardMeters")}: ${mianzi} · ${ai_score}`,
             `${t("chapterEnd.clipboardNote")}${label}`,
             usedAi ? t("chapterEnd.clipboardPathAi") : t("chapterEnd.clipboardPathAuthor"),
             flavor,
@@ -196,8 +196,8 @@ export function ChapterEndCard({
     try {
       await downloadShareCard({
         orderId,
-        dignity,
-        impulse,
+        mianzi,
+        ai_score,
         toneLabel: label,
         usedAi,
         flavor: aiNote ? `${flavor}\n${aiNote}` : flavor,
@@ -214,8 +214,8 @@ export function ChapterEndCard({
         copy: {
           title: t("chapterEnd.shareTitle"),
           order: t("chapterEnd.shareOrder"),
-          dignity: t("play.dignity"),
-          impulse: t("play.impulse"),
+          mianzi: t("play.mianzi"),
+          ai_score: t("play.ai_score"),
           leads: t("chapterEnd.shareLeads"),
           aiPath: t("chapterEnd.sharePathAi"),
           echo: t("chapterEnd.shareEcho"),
@@ -245,7 +245,7 @@ export function ChapterEndCard({
         storyId: "ch01",
         sceneId: "ch01_chapter_end",
         authoredChoiceLabels: [t("chapterEnd.replayChoice"), t("chapterEnd.titleChoice")],
-        meters: { dignity, impulse },
+        meters: { mianzi, ai_score },
         accessToken: auth.session?.access_token ?? null,
         config: {
           enabled: true,
@@ -401,24 +401,24 @@ export function ChapterEndCard({
           <div className="chapter-end-meters" aria-label={t("chapterEnd.metersAria")}>
             <div className="chapter-end-meter reveal-item" style={{ animationDelay: "90ms" }}>
               <div className="chapter-end-meter-head">
-                <span>{t("play.dignity")}</span>
-                <strong>{dignity}</strong>
+                <span>{t("play.mianzi")}</span>
+                <strong>{mianzi}</strong>
               </div>
               <GameProgress
-                label={t("chapterEnd.runDignity")}
-                value={dignity}
+                label={t("chapterEnd.runMianzi")}
+                value={mianzi}
                 tone="warning"
                 showValue
               />
             </div>
             <div className="chapter-end-meter reveal-item" style={{ animationDelay: "180ms" }}>
               <div className="chapter-end-meter-head">
-                <span>{t("play.impulse")}</span>
-                <strong>{impulse}</strong>
+                <span>{t("play.ai_score")}</span>
+                <strong>{ai_score}</strong>
               </div>
               <GameProgress
-                label={t("chapterEnd.runImpulse")}
-                value={impulse}
+                label={t("chapterEnd.runAiScore")}
+                value={ai_score}
                 tone="danger"
                 showValue
               />

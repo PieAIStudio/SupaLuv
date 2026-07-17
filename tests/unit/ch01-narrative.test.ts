@@ -97,7 +97,7 @@ describe("chapter 01 narrative draft", () => {
     expect(snapshot.sceneId).toMatch(/^dch01_/);
     expect(snapshot.text.length).toBeGreaterThan(10);
     expect(snapshot.choices.length).toBeGreaterThanOrEqual(1);
-    expect(snapshot.meters.dignity).toBe(50);
+    expect(snapshot.meters.mianzi).toBe(50);
 
     const next = runner.choose(0);
     expect(next.sceneId).not.toBe(snapshot.sceneId);

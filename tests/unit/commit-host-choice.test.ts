@@ -42,7 +42,7 @@ function snapshot(partial: Partial<InkStorySnapshot> = {}): InkStorySnapshot {
       { index: 0, text: "继续", choiceId: null },
       { index: 1, text: "左转", choiceId: "left" },
     ],
-    meters: { dignity: 50, impulse: 50 },
+    meters: { mianzi: 50, ai_score: 50 },
     tags: [],
     isEnded: false,
     ...partial,

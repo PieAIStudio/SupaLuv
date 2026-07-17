@@ -15,7 +15,7 @@ function snap(
     sceneId: "x",
     tags: [],
     isEnded: false,
-    meters: { dignity: 50, impulse: 50 },
+    meters: { mianzi: 50, ai_score: 50 },
     ...partial,
   };
 }

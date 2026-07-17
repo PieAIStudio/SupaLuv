@@ -194,8 +194,8 @@ export function VisualNovelPrototype(props: VisualNovelPrototypeProps) {
             playerMode={playerMode}
             autoPlay={audio.localAutoPlay}
             showComedyMeters={r.showComedyMeters}
-            dignity={r.frame.dignity}
-            impulse={r.frame.impulse}
+            mianzi={r.frame.mianzi}
+            ai_score={r.frame.ai_score}
             saveFlash={chrome.saveFlash}
             showDevTools={chrome.showDevTools}
             storyId={storyId}
@@ -225,7 +225,7 @@ export function VisualNovelPrototype(props: VisualNovelPrototypeProps) {
         ) : (
           <div className="coplay-guest-hud">
             <span>
-              {t("play.spectator")} · {r.frame.dignity}/{r.frame.impulse}
+              {t("play.spectator")} · {r.frame.mianzi}/{r.frame.ai_score}
             </span>
             <button type="button" className="coplay-banner-leave" onClick={onOpenTitle}>
               {t("play.title")}
@@ -310,8 +310,8 @@ export function VisualNovelPrototype(props: VisualNovelPrototypeProps) {
         <ChapterEndCard
           open={r.decisionEnding.endCardOpen}
           storyId={storyId}
-          dignity={r.frame.dignity}
-          impulse={r.frame.impulse}
+          mianzi={r.frame.mianzi}
+          ai_score={r.frame.ai_score}
           sessionStatsPicks={r.sessionStatsPicks}
           displayNames={displayNames}
           characterBindings={characterBindings}

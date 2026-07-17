@@ -26,7 +26,7 @@ export interface AiBranchRequest {
   readonly sceneId: string;
   readonly config: AiBranchSceneConfig;
   readonly authoredChoiceLabels: readonly string[];
-  readonly meters?: { dignity: number; impulse: number };
+  readonly meters?: { mianzi: number; ai_score: number };
   /** SwimmerCore access token — required for live AI (server enforces). */
   readonly accessToken?: string | null;
   readonly signal?: AbortSignal;

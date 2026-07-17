@@ -380,8 +380,8 @@ describe("NarrativeGraph generated package", () => {
       "endLine",
     ]);
     const forbiddenVariables = [
-      "dignity",
-      "impulse",
+      "mianzi",
+      "ai_score",
       "told_breakup_flat",
       "emotion_calibration_correct_count",
       "emotion_calibration_completed_at_version",

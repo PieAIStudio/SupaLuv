@@ -21,7 +21,7 @@ interface UseAiBranchSlotOptions {
   readonly sceneId: string | null;
   readonly config: AiBranchSceneConfig | undefined;
   readonly authoredChoiceLabels: readonly string[];
-  readonly meters: { dignity: number; impulse: number };
+  readonly meters: { mianzi: number; ai_score: number };
   readonly locale?: string;
 }
 

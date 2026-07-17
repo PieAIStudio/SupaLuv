@@ -1,8 +1,8 @@
 // 第一章 你有病吧 — densified from supa-luv-v2 ch01 (2026-07-16).
 // Adult black comedy; no pornographic detail. Noncanonical draft.
 // Source: Temp/novel-v2-2026-07-16/ch01.md (supa-luv-v2-2026-07)
-VAR dignity = 50
-VAR impulse = 50
+VAR mianzi = 50
+VAR ai_score = 50
 VAR told_breakup_flat = false
 VAR closed_membership = false
 VAR budget_900 = false
@@ -58,14 +58,22 @@ VAR protocol_test_completed_at_version = ""
 + [平静 # choice:emotion_calibration_q1_calm]
     ~ emotion_calibration_q1 = "calm"
     ~ emotion_calibration_correct_count = emotion_calibration_correct_count + 1
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q2
 + [刺痛 # choice:emotion_calibration_q1_sting]
     ~ emotion_calibration_q1 = "sting"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q2
 + [爆表 # choice:emotion_calibration_q1_overload]
     ~ emotion_calibration_q1 = "overload"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> q2
 + [跳过校准 # choice:emotion_calibration_q1_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> skipped
 
 = q2
@@ -75,15 +83,23 @@ VAR protocol_test_completed_at_version = ""
 校准台载入虚构样本 2/3。
 + [平静 # choice:emotion_calibration_q2_calm]
     ~ emotion_calibration_q2 = "calm"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q3
 + [刺痛 # choice:emotion_calibration_q2_sting]
     ~ emotion_calibration_q2 = "sting"
     ~ emotion_calibration_correct_count = emotion_calibration_correct_count + 1
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q3
 + [爆表 # choice:emotion_calibration_q2_overload]
     ~ emotion_calibration_q2 = "overload"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> q3
 + [跳过校准 # choice:emotion_calibration_q2_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> skipped
 
 = q3
@@ -94,17 +110,25 @@ VAR protocol_test_completed_at_version = ""
 + [平静 # choice:emotion_calibration_q3_calm]
     ~ emotion_calibration_q3 = "calm"
     ~ emotion_calibration_completed_at_version = "emotion-calibration-v1"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> result
 + [刺痛 # choice:emotion_calibration_q3_sting]
     ~ emotion_calibration_q3 = "sting"
     ~ emotion_calibration_completed_at_version = "emotion-calibration-v1"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> result
 + [爆表 # choice:emotion_calibration_q3_overload]
     ~ emotion_calibration_q3 = "overload"
     ~ emotion_calibration_correct_count = emotion_calibration_correct_count + 1
     ~ emotion_calibration_completed_at_version = "emotion-calibration-v1"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> result
 + [跳过校准 # choice:emotion_calibration_q3_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> skipped
 
 = skipped
@@ -153,11 +177,17 @@ VAR protocol_test_completed_at_version = ""
 条款校对 1/3 · 原始录音自动清除。
 + [字面接受：清除就是清除 # choice:protocol_test_q1_literal]
     ~ protocol_test_q1 = "literal"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     -> q2
 + [标记隐患：字面没了骨头留着 # choice:protocol_test_q1_model]
     ~ protocol_test_q1 = "model"
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> q2
 + [跳过条款 # choice:protocol_test_q1_skip]
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 5
     -> skipped
 
 = q2
@@ -167,11 +197,17 @@ VAR protocol_test_completed_at_version = ""
 条款校对 2/3 · 测试期间数据用于模型迭代。
 + [字面接受：迭代听起来正常 # choice:protocol_test_q2_literal]
     ~ protocol_test_q2 = "literal"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     -> q3
 + [标记隐患：今天的故事会喂下一批 # choice:protocol_test_q2_model]
     ~ protocol_test_q2 = "model"
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> q3
 + [跳过条款 # choice:protocol_test_q2_skip]
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 5
     -> skipped
 
 = q3
@@ -182,12 +218,18 @@ VAR protocol_test_completed_at_version = ""
 + [字面接受：真情流露就行 # choice:protocol_test_q3_literal]
     ~ protocol_test_q3 = "literal"
     ~ protocol_test_completed_at_version = "protocol-test-v1"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> result
 + [标记隐患：真情也是训练素材 # choice:protocol_test_q3_model]
     ~ protocol_test_q3 = "model"
     ~ protocol_test_completed_at_version = "protocol-test-v1"
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> result
 + [跳过条款 # choice:protocol_test_q3_skip]
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 5
     -> skipped
 
 = skipped
@@ -213,11 +255,13 @@ VAR protocol_test_completed_at_version = ""
 
 + [点头：至少说人话了 # choice:d1_bones_accept]
     ~ bones_answer = "accept"
-    ~ dignity = dignity + 2
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score + 3
     -> dch01_s004
 + [冷笑：后门也算诚实 # choice:d1_bones_cold]
     ~ bones_answer = "cold"
-    ~ impulse = impulse + 3
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> dch01_s004
 
 === dch01_s004 ===
@@ -249,10 +293,12 @@ VAR protocol_test_completed_at_version = ""
 “你搞错了吧。”
 
 + [先把矛盾听完 # choice:d1_pace_a1]
-    ~ dignity = dignity + 1
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     -> dch01_s008
 + [想提前结束 # choice:d1_pace_b1]
-    ~ impulse = impulse + 1
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> dch01_s008
 
 === dch01_s008 ===
@@ -286,10 +332,13 @@ VAR protocol_test_completed_at_version = ""
 + [借朋友的壳：他昨天分手了 # choice:d1_tell_flat]
     ~ breakup_delivery = "flat"
     ~ told_breakup_flat = true
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 3
     -> dch01_s012
 + [更硬一点：真实的你们要吗 # choice:d1_tell_hard]
     ~ breakup_delivery = "hard"
-    ~ dignity = dignity + 2
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     ~ told_breakup_flat = false
     -> dch01_s012
 
@@ -322,10 +371,12 @@ VAR protocol_test_completed_at_version = ""
 昨晚吃完饭，陈佳先抢到最后一块排骨，拿筷子夹起来举着，像赢了什么。酱汁蹭到她嘴角，苏明伸筷子想帮这种时候没什么话说，说什么都行。陈佳靠在他肩上刷手机，他低头看了一眼她屏幕，“你又在看那个博主”，她懒懒嗯了一声没解释，往他肩上这两年这种时候不多，但也不是没有。
 
 + [把那顿饭记得清楚点 # choice:d1_pace_a2]
-    ~ dignity = dignity + 1
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> dch01_s015
 + [快进到出事的地方 # choice:d1_pace_b2]
-    ~ impulse = impulse + 1
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 3
     -> dch01_s015
 
 === dch01_s015 ===
@@ -356,11 +407,13 @@ VAR protocol_test_completed_at_version = ""
 
 + [（回想时）把脸埋进掌心 # choice:d1_memory_shame]
     ~ memory_posture = "shame"
-    ~ dignity = dignity - 3
+    ~ mianzi = mianzi - 8
+    ~ ai_score = ai_score + 5
     -> dch01_s018
 + [（回想时）咬牙把后文讲完 # choice:d1_memory_hard]
     ~ memory_posture = "hard"
-    ~ impulse = impulse + 2
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     -> dch01_s018
 
 === dch01_s018 ===
@@ -390,10 +443,11 @@ VAR protocol_test_completed_at_version = ""
 “有人这样不代表——”
 
 + [硬着头皮辩 # choice:d1_pace_a3]
-    ~ dignity = dignity + 1
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> dch01_s021
 + [先把火气压住 # choice:d1_pace_b3]
-    ~ impulse = impulse + 1
+    ~ mianzi = mianzi + 3
     -> dch01_s021
 
 === dch01_s021 ===
@@ -436,10 +490,12 @@ VAR protocol_test_completed_at_version = ""
 工作人员开始汇报，语气跟念报表一样平：某某场次情绪真实度偏低，某某场次时长超出预期。
 
 + [听完小结 # choice:d1_pace_a4]
-    ~ dignity = dignity + 1
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     -> dch01_s026
 + [只想快点走 # choice:d1_pace_b4]
-    ~ impulse = impulse + 1
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> dch01_s026
 
 === dch01_s026 ===
@@ -470,10 +526,12 @@ VAR protocol_test_completed_at_version = ""
 
 + [先听雷欧在旁边嘀咕完 # choice:d1_watch_leo]
     ~ leo_response = "watch"
+    ~ mianzi = mianzi + 3
     -> dch01_s030
 + [已经想冲上去谈 # choice:d1_rush_front]
     ~ leo_response = "rush"
-    ~ impulse = impulse + 4
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> dch01_s030
 
 === dch01_s030 ===
@@ -484,11 +542,12 @@ VAR protocol_test_completed_at_version = ""
 
 + [在心里算房租和补贴 # choice:d1_calc_money]
     ~ frontdesk_response = "calculate"
-    ~ dignity = dignity - 2
+    ~ mianzi = mianzi - 5
     -> dch01_s031
 + [再顶一句，再算账 # choice:d1_still_angry]
     ~ frontdesk_response = "angry"
-    ~ impulse = impulse + 2
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> dch01_s031
 
 === dch01_s031 ===
@@ -544,11 +603,12 @@ VAR protocol_test_completed_at_version = ""
 + [九百，顶天了 # choice:d1_confirm_900]
     ~ budget_stance = "firm_900"
     ~ budget_900 = true
+    ~ mianzi = mianzi + 3
     -> dch01_s036
 + [……能不能再少点（他没敢说出口） # choice:d1_whisper_less]
     ~ budget_stance = "unspoken_less"
     ~ budget_900 = true
-    ~ dignity = dignity - 1
+    ~ mianzi = mianzi - 5
     -> dch01_s036
 
 === dch01_s036 ===

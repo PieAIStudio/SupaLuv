@@ -51,7 +51,7 @@ beforeAll(() => {
 
 function makeSave(overrides: Partial<GameSavePayload> = {}): GameSavePayload {
   return {
-    version: 2,
+    version: 3,
     slotId: AUTOSAVE_SLOT,
     storyId: "draft-ch01",
     packageId: "draft-2026-07",
@@ -130,7 +130,7 @@ describe("gameSave", () => {
       text: "保存时看到的台词",
       choices: [{ index: 0, text: "点头：至少说人话了", choiceId: "d1_bones_accept" }],
       isEnded: false,
-      meters: { dignity: 48, impulse: 55 },
+      meters: { mianzi: 48, ai_score: 55 },
     });
     writeSave(makeSave({ presentation }));
     const loaded = loadSave(AUTOSAVE_SLOT);
@@ -140,7 +140,7 @@ describe("gameSave", () => {
       text: "",
       choices: [{ index: 0, text: "点头：至少说人话了", choiceId: "d1_bones_accept" }],
       isEnded: false,
-      meters: { dignity: 48, impulse: 55 },
+      meters: { mianzi: 48, ai_score: 55 },
     };
     const restored = restoreSnapshotFromSave(inkBlank, loaded?.presentation);
     expect(restored.sceneId).toBe("dch01_s003");
@@ -161,16 +161,16 @@ describe("gameSave", () => {
   });
 
   it("persists inherited chapter variables for refresh recovery", async () => {
-    const runner = await createDraftCh02InkStoryRunner({ dignity: 61, clue_subsidy_sms: true });
+    const runner = await createDraftCh02InkStoryRunner({ mianzi: 61, clue_subsidy_sms: true });
     writeStorySave({
       runner,
       storyId: "draft-ch02",
       unlocks: EMPTY_UNLOCKS,
       slotId: AUTOSAVE_SLOT,
-      inheritedVariables: { dignity: 61, clue_subsidy_sms: true },
+      inheritedVariables: { mianzi: 61, clue_subsidy_sms: true },
     });
     expect(loadSave(AUTOSAVE_SLOT)?.inheritedVariables).toEqual({
-      dignity: 61,
+      mianzi: 61,
       clue_subsidy_sms: true,
     });
   });

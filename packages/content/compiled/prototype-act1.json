@@ -49,24 +49,24 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               8,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               5,
               "-",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -78,24 +78,24 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               6,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               10,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -139,24 +139,24 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               4,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               4,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -168,24 +168,24 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               2,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               2,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -231,13 +231,13 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               3,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -249,13 +249,13 @@
               "\n",
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               6,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -312,13 +312,13 @@
               "\n",
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               5,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -330,24 +330,24 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               5,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               3,
               "-",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -400,24 +400,24 @@
               "\n",
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               12,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               8,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -429,13 +429,13 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               3,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -447,24 +447,24 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               6,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               4,
               "-",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -512,24 +512,24 @@
               "\n",
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               10,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               5,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -541,24 +541,24 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               10,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
               8,
               "-",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -576,7 +576,7 @@
         "/#",
         "ev",
         {
-          "VAR?": "impulse"
+          "VAR?": "ai_score"
         },
         65,
         ">=",
@@ -607,7 +607,7 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
               55,
               ">=",
@@ -656,17 +656,17 @@
         ],
         "nop",
         "\n",
-        "^羞耻 ",
+        "^体面 ",
         "ev",
         {
-          "VAR?": "dignity"
+          "VAR?": "mianzi"
         },
         "out",
         "/ev",
-        "^，冲动 ",
+        "^，情感评分 ",
         "ev",
         {
-          "VAR?": "impulse"
+          "VAR?": "ai_score"
         },
         "out",
         "/ev",
@@ -679,11 +679,11 @@
         "ev",
         50,
         {
-          "VAR=": "dignity"
+          "VAR=": "mianzi"
         },
         50,
         {
-          "VAR=": "impulse"
+          "VAR=": "ai_score"
         },
         "/ev",
         "end",

@@ -531,13 +531,13 @@
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              2,
+              5,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -558,13 +558,13 @@
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              1,
+              3,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -844,6 +844,17 @@
                 "VAR=": "paid_snack",
                 "re": true
               },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
               {
                 "->": "dch02_s010"
               },
@@ -860,13 +871,13 @@
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              1,
+              5,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -1015,13 +1026,13 @@
               "\n",
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              1,
+              3,
               "+",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -1033,13 +1044,13 @@
               "\n",
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "mianzi"
               },
-              1,
-              "+",
+              3,
+              "-",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -1162,6 +1173,17 @@
                 "VAR=": "admitted_breakup",
                 "re": true
               },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
               {
                 "->": "dch02_s017"
               },
@@ -1178,13 +1200,24 @@
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "mianzi"
               },
-              1,
+              3,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              3,
+              "-",
+              "/ev",
+              {
+                "VAR=": "ai_score",
                 "re": true
               },
               {
@@ -1360,6 +1393,17 @@
                 "VAR=": "asked_guest",
                 "re": true
               },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
               {
                 "->": "dch02_housing_hotspots"
               },
@@ -1376,13 +1420,13 @@
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "mianzi"
               },
-              1,
+              5,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -1951,6 +1995,28 @@
                 "VAR=": "robot_interest",
                 "re": true
               },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              5,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              5,
+              "-",
+              "/ev",
+              {
+                "VAR=": "ai_score",
+                "re": true
+              },
               {
                 "->": "dch02_s024"
               },
@@ -1969,13 +2035,24 @@
               },
               "ev",
               {
-                "VAR?": "impulse"
+                "VAR?": "ai_score"
               },
-              3,
+              5,
               "+",
               "/ev",
               {
-                "VAR=": "impulse",
+                "VAR=": "ai_score",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -2285,6 +2362,28 @@
                 "VAR=": "applied_robot",
                 "re": true
               },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              8,
+              "+",
+              "/ev",
+              {
+                "VAR=": "ai_score",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              5,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
               {
                 "->": "dch02_mobile_questionnaire"
               },
@@ -2301,13 +2400,24 @@
               },
               "ev",
               {
-                "VAR?": "dignity"
+                "VAR?": "ai_score"
               },
-              2,
+              8,
+              "+",
+              "/ev",
+              {
+                "VAR=": "ai_score",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              8,
               "-",
               "/ev",
               {
-                "VAR=": "dignity",
+                "VAR=": "mianzi",
                 "re": true
               },
               {
@@ -2452,6 +2562,28 @@
                     "VAR=": "mobile_questionnaire_q1",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q2"
                   },
@@ -2466,6 +2598,28 @@
                   "/ev",
                   {
                     "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
                     "re": true
                   },
                   {
@@ -2484,6 +2638,28 @@
                     "VAR=": "mobile_questionnaire_q1",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q2"
                   },
@@ -2500,6 +2676,28 @@
                     "VAR=": "mobile_questionnaire_q1",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q2"
                   },
@@ -2507,6 +2705,28 @@
                 ],
                 "c-4": [
                   "\n",
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.skipped"
                   },
@@ -2589,6 +2809,28 @@
                     "VAR=": "mobile_questionnaire_q2",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q3"
                   },
@@ -2603,6 +2845,28 @@
                   "/ev",
                   {
                     "VAR=": "mobile_questionnaire_q2",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
                     "re": true
                   },
                   {
@@ -2621,6 +2885,17 @@
                     "VAR=": "mobile_questionnaire_q2",
                     "re": true
                   },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.q3"
                   },
@@ -2628,6 +2903,28 @@
                 ],
                 "c-3": [
                   "\n",
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
                   {
                     "->": ".^.^.^.^.skipped"
                   },
@@ -3156,11 +3453,11 @@
         "ev",
         50,
         {
-          "VAR=": "dignity"
+          "VAR=": "mianzi"
         },
         50,
         {
-          "VAR=": "impulse"
+          "VAR=": "ai_score"
         },
         false,
         {

@@ -20,8 +20,8 @@
         "nextChapterId": "draft-ch02"
       },
       "inheritVariableNames": [
-        "dignity",
-        "impulse",
+        "mianzi",
+        "ai_score",
         "told_breakup_flat",
         "closed_membership",
         "budget_900",
@@ -52,8 +52,8 @@
         "nextChapterId": "draft-ch03"
       },
       "inheritVariableNames": [
-        "dignity",
-        "impulse",
+        "mianzi",
+        "ai_score",
         "told_breakup_flat",
         "closed_membership",
         "budget_900",
@@ -83,8 +83,8 @@
         "kind": "draft_end"
       },
       "inheritVariableNames": [
-        "dignity",
-        "impulse",
+        "mianzi",
+        "ai_score",
         "told_breakup_flat",
         "closed_membership",
         "budget_900",
@@ -115,7 +115,7 @@
       "checkpoint": {
         "kind": "ai_ending_allowed"
       },
-      "inheritVariableNames": ["dignity", "impulse"]
+      "inheritVariableNames": ["mianzi", "ai_score"]
     },
     {
       "id": "chapter-01-trial",
@@ -126,7 +126,7 @@
       "checkpoint": {
         "kind": "ai_ending_allowed"
       },
-      "inheritVariableNames": ["dignity", "impulse"]
+      "inheritVariableNames": ["mianzi", "ai_score"]
     }
   ]
 }
