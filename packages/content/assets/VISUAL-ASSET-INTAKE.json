@@ -932,7 +932,11 @@
       "id": "shipeixin-calm-smile",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": ["shi_peixin mood library; not yet bound in scene manifests (expected)"],
+      "usage": [
+        "shi_peixin mood library",
+        "draft-ch02 s017 companion / s018 companion / s029 speaker",
+        "draft-ch03 s017 speaker"
+      ],
       "path": "apps/web/public/assets/portraits/shipeixin-calm-smile.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -945,13 +949,17 @@
         "owner": "project",
         "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "ADR-0006 CG mood; runtime present; no scene-manifest portraitKey yet (expected)."
+      "notes": "ADR-0006 CG mood; bound in draft-ch02/ch03 manifests for 看穿不点破 / 递台阶 beats."
     },
     {
       "id": "shipeixin-guarded",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": ["shi_peixin mood library; not yet bound in scene manifests (expected)"],
+      "usage": [
+        "shi_peixin mood library",
+        "draft-ch02 s015 speaker / s016 companion",
+        "draft-ch03 s019 speaker / s020 companion / s025 speaker"
+      ],
       "path": "apps/web/public/assets/portraits/shipeixin-guarded.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -964,13 +972,16 @@
         "owner": "project",
         "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "ADR-0006 CG mood; runtime present; no scene-manifest portraitKey yet (expected)."
+      "notes": "ADR-0006 CG mood; bound for 谈钱/谈边界/对系统起疑 beats."
     },
     {
       "id": "shipeixin-hurt",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": ["shi_peixin mood library; not yet bound in scene manifests (expected)"],
+      "usage": [
+        "shi_peixin mood library",
+        "draft-ch03 s029 companion (name_response / face_choice exit)"
+      ],
       "path": "apps/web/public/assets/portraits/shipeixin-hurt.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -983,7 +994,7 @@
         "owner": "project",
         "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "ADR-0006 CG mood; runtime present; no scene-manifest portraitKey yet (expected)."
+      "notes": "ADR-0006 CG mood; bound for ch03 平静裂缝 leave-beat after naming."
     },
     {
       "id": "suming-ref-base-green",

@@ -100,10 +100,19 @@ export function getStoryPresentation(storyId: StoryId, sceneId: string | null) {
   const portraits: StagePortrait[] = [];
 
   if (primaryChar) {
-    const moodKey =
-      primaryChar.id === "suming" && scene?.portraitKey?.startsWith("suming")
-        ? scene.portraitKey
-        : primaryChar.defaultPortrait;
+    // Mood portrait keys: suming-* for 苏明; shipeixin-* (and stable neutral zhou-neutral) for 石佩欣.
+    const moodKey = (() => {
+      const key = scene?.portraitKey;
+      if (!key) return primaryChar.defaultPortrait;
+      if (primaryChar.id === "suming" && key.startsWith("suming")) return key;
+      if (
+        primaryChar.id === "shi_peixin" &&
+        (key.startsWith("shipeixin") || key === "zhou-neutral")
+      ) {
+        return key;
+      }
+      return primaryChar.defaultPortrait;
+    })();
     portraits.push({
       name: primaryChar.name,
       url: portraitUrl(moodKey),
