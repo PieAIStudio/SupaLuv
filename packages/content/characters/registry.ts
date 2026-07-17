@@ -26,15 +26,15 @@ export const CHARACTER_BY_NAME: Readonly<Record<string, CharacterDef>> = {
     id: "chen_jia",
     name: "陈佳",
     side: "right",
-    // Distinct static face; must never share the female lead's (cast) face.
-    defaultPortrait: "lin-neutral",
+    // ADR-0006 NPC CG; must never share the female lead's (cast) face.
+    defaultPortrait: "chenjia-neutral",
   },
   雷欧: {
     id: "leo",
     name: "雷欧",
     side: "right",
-    // Male NPC; honest wireframe placeholder until real art lands (task: NPC portraits).
-    defaultPortrait: "demo-ui",
+    // ADR-0006 NPC CG (also leo-annoyed mood plate available).
+    defaultPortrait: "leo-neutral",
   },
   石佩欣: {
     id: "shi_peixin",
@@ -47,20 +47,19 @@ export const CHARACTER_BY_NAME: Readonly<Record<string, CharacterDef>> = {
     id: "staff_worker",
     name: "工作人员",
     side: "right",
-    defaultPortrait: "demo-ui",
+    defaultPortrait: "staff-neutral",
   },
   小组长: {
     id: "staff_lead",
     name: "小组长",
     side: "right",
-    defaultPortrait: "demo-ui",
+    defaultPortrait: "stafflead-neutral",
   },
   老板娘: {
     id: "shop_owner",
     name: "老板娘",
     side: "right",
-    // Honest wireframe placeholder until real art lands (task: NPC portraits).
-    defaultPortrait: "demo-ui",
+    defaultPortrait: "shopowner-neutral",
   },
   AI: {
     id: "test_ai",
@@ -72,32 +71,32 @@ export const CHARACTER_BY_NAME: Readonly<Record<string, CharacterDef>> = {
     id: "zhu_zhu",
     name: "朱珠",
     side: "right",
-    // Robot companion; honest placeholder until dedicated art (no shared human faces).
-    defaultPortrait: "demo-ui",
+    // ADR-0006 NPC CG (human neighbor/colleague face; not robot art).
+    defaultPortrait: "zhuzhu-neutral",
   },
   黄老太: {
     id: "huang_laotai",
     name: "黄老太",
     side: "right",
-    defaultPortrait: "demo-ui",
+    defaultPortrait: "huanglaotai-neutral",
   },
   网格员: {
     id: "grid_worker",
     name: "网格员",
     side: "right",
-    defaultPortrait: "demo-ui",
+    defaultPortrait: "gridworker-neutral",
   },
   警察: {
     id: "police_officer",
     name: "警察",
     side: "right",
-    defaultPortrait: "demo-ui",
+    defaultPortrait: "police-neutral",
   },
   快递员: {
     id: "courier",
     name: "快递员",
     side: "right",
-    defaultPortrait: "demo-ui",
+    defaultPortrait: "courier-neutral",
   },
   旁白: {
     id: "narrator",
@@ -110,6 +109,7 @@ export const CHARACTER_BY_NAME: Readonly<Record<string, CharacterDef>> = {
     id: "lin_xiaotang",
     name: "林晓棠",
     side: "right",
+    // Legacy face only; 陈佳 no longer uses lin-neutral.
     defaultPortrait: "lin-neutral",
   },
   周鹿: {
