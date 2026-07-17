@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-07-15
+last_reviewed: 2026-07-17
 domain: meta
 tags:
   - current-work
@@ -27,7 +27,7 @@ related:
 | 项目 | 当前真相 |
 | --- | --- |
 | 配置的生产入口 | <https://supaluv.pieaistudio.com> |
-| 默认内容 | `draft-ch01` → `draft-ch02`；两章仍是 noncanonical 草稿，不是冻结终稿 |
+| 默认内容 | `draft-ch01` → `draft-ch02` → `draft-ch03`；三章按 supa-luv-v2 小说重转，仍是 noncanonical 草稿，不是冻结终稿 |
 | active work | 只有 `SPEC-0003` 与 `PLAN-0005`；不要创建竞争规格，也不要把 completed/archive 改回 active |
 | 阶段判断 | 产品骨架与关键技术链路已存在，但正式内容、完整视听和发行验收尚未完成 |
 
@@ -44,6 +44,9 @@ related:
 | 成年真人照片输入、私有角色资产与删除流程 | `apps/web/src/characters/`, `services/ai-branch/src/character*` |
 | 电池计量、消费提交/退款与产品消费记录 | `services/ai-branch/src/walletMeter.ts`, `services/ai-branch/src/persistence/` |
 | 中英玩家界面与可选 co-play | `apps/web/src/i18n/`, `apps/web/src/coplay/` |
+| 小说→内容包与资产生成技能 | `.agents/skills/novel-to-ink-script/`, `.agents/skills/script-to-assets/` |
+| 自动玩家遍历引擎（人设通关+回响量化） | `tools/auto-player/`, `tests/unit/auto-player.test.ts` |
+| 视觉契约测试与 18+ 年龄门 | `tests/e2e/visual-contract.spec.ts`, `apps/web/src/boot/` |
 
 这些能力表示代码路径和既有验证证据已经存在，不等于当前版本已经通过新的发行验收。
 
@@ -65,7 +68,7 @@ related:
 | --- | --- |
 | 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、TTS、BGM/ambient/SFX 和长文本节奏任务 |
 | 发行级试玩 | 未完成；独立 critic pass 与第二轮选择感/视听/地图/存档/失败恢复试玩仍未关闭 |
-| 真实服务验收 | 未完成；当前版本仍需取得真实 AI、审核、钱包和私有存储的 Preview/Production 最小端到端证据 |
+| 真实服务验收 | 部分完成；本地真实调用证据已取得（auth/AI 支线/TTS/钱包 fail-closed/存储，见 `.scratch/director/playtest/2026-07-16/live-service-proof.md`），Preview/Production 端仍未验收 |
 
 当前优先级只保留三项：**正式内容 / 视听** → **发行级试玩** → **真实 Preview/Production 发布门**。
 不新增下一阶段 roadmap。
@@ -75,13 +78,16 @@ related:
 | 关注点 | 位置 |
 | --- | --- |
 | 页面路由与存档编排 | `apps/web/src/App.tsx` |
-| 游戏舞台与 HUD | `apps/web/src/views/VisualNovelPrototype.tsx`, `apps/web/src/views/play/` |
+| 游戏舞台与 HUD | `apps/web/src/views/VisualNovelPrototype.tsx`（composition-only 壳）, `apps/web/src/views/play/`（experience/ hooks + hooks/ + lib/ 分层） |
 | Ink 与场景映射 | `apps/web/src/story/`, `packages/content/` |
 | 共享剧情图 | `packages/shared/src/narrative-graph.ts`, `packages/content/generated/` |
 | 角色生成与剧情绑定 | `apps/web/src/characters/`, `services/ai-branch/src/character*` |
 | AI 选项与最终章 | `apps/web/src/ai/`, `services/ai-branch/src/` |
 | 玩家界面语言 | `apps/web/src/i18n/`, `apps/web/src/views/` |
 | 音频与 TTS | `apps/web/src/audio/`, `services/ai-branch/src/ttsCatalog.ts`, `services/ai-branch/src/ttsRoute.ts` |
+| 美术方向与数值系统决定 | `docs/adr/0006-dual-track-art-direction.md`, `docs/adr/0007-diegetic-meter-system.md` |
+| 立绘抠像与资产三账 | `tools/portrait-matte/`, `packages/content/assets/` |
+| 自动玩家引擎 | `tools/auto-player/` |
 | 存档与设置 | `apps/web/src/persistence/` |
 | 产品分析 | `apps/web/src/analytics/` |
 

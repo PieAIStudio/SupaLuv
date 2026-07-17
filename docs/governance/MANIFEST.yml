@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-17T04:28:27.950Z
+generated_at: 2026-07-17T04:31:37.487Z
 generator_version: doc-gov@0.7.3
 docs_count: 42
 docs:
@@ -233,7 +233,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-15
+    last_reviewed: 2026-07-17
     pinned: true
   - id: REF-VERCEL-PREVIEW-RUNBOOK
     path: docs/reference/execution/vercel-preview-runbook.md
