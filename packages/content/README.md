@@ -18,20 +18,25 @@ Story packages, scene manifests, character locks, and Ink sources for SupaLuv.
 
 ## Current default package
 
-| Path                                                      | Role                                                                            |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `sources/draft-2026-07/`                                  | Byte-identical snapshots of `Temp/draft01.md` / `draft02.md` + SHA-256 manifest |
-| `ledgers/draft-2026-07-coverage.json`                     | Body-paragraph coverage (169 entries) + structure titles/separators             |
-| `ink/draft-ch01.ink` / `ink/draft-ch02.ink`               | Production Ink topology SSOT                                                    |
-| `compiled/draft-ch01.json` / `draft-ch02.json`            | Precompiled Ink for async player load                                           |
-| `catalog/story-catalog.json`                              | Data-only catalog SSOT (package/chapters/checkpoints/ink+manifest filenames)    |
-| `generated/narrative-graph-player.json`                   | Production-safe NarrativeGraph skeleton (opaque handles / structure only)       |
-| `generated/narrative-graph-creator.json`                  | Full creator graph (Node/dev only; semantic ids, titles, excerpts, ranges)      |
-| `manifests/draft-ch01-scenes.ts` / `draft-ch02-scenes.ts` | Presentation-only scene metadata                                                |
-| `src/chapters/*.ts`                                       | Per-chapter dynamic import modules (compiled JSON + scenes)                     |
-| `ink/legacy/ch01.ink`                                     | Retired demo archive (not in production catalog)                                |
+Production package id `draft-2026-07` (catalog label: **草稿三章 · 2026-07**).
+Chapter chain SSOT is `catalog/story-catalog.json` only.
 
-Default story id: `draft-ch01`. Chapter 1 checkpoint → `draft-ch02`. Chapter 2 is draft end (no AI final chapter).
+| Path                                                                               | Role                                                                         |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `sources/draft-2026-07/`                                                           | Snapshots `draft01.md` / `draft02.md` / `draft03.md` + SHA-256 manifest      |
+| `ledgers/draft-2026-07-coverage.json`                                              | Body-paragraph coverage (290 entries) + structure titles/separators          |
+| `ink/draft-ch01.ink` / `draft-ch02.ink` / `draft-ch03.ink`                         | Production Ink topology sources                                              |
+| `compiled/draft-ch01.json` / `draft-ch02.json` / `draft-ch03.json`                 | Precompiled Ink for async player load                                        |
+| `catalog/story-catalog.json`                                                       | Data-only catalog SSOT (package/chapters/checkpoints/ink+manifest filenames) |
+| `generated/narrative-graph-player.json`                                            | Production-safe NarrativeGraph skeleton (opaque handles / structure only)    |
+| `generated/narrative-graph-creator.json`                                           | Full creator graph (Node/dev only; semantic ids, titles, excerpts, ranges)   |
+| `manifests/draft-ch01-scenes.ts` / `draft-ch02-scenes.ts` / `draft-ch03-scenes.ts` | Presentation-only scene metadata                                             |
+| `src/chapters/draft-ch01.ts` / `draft-ch02.ts` / `draft-ch03.ts` (+ dev chapters)  | Per-chapter dynamic import modules (compiled JSON + scenes)                  |
+| `ink/legacy/ch01.ink`                                                              | Retired demo archive (not in production catalog)                             |
+
+Default start chapter: `draft-ch01`. Checkpoints: `draft-ch01` → `draft-ch02` →
+`draft-ch03`. Chapter 3 is `draft_end` (no AI final chapter on this production
+draft chain).
 
 ## Entrypoints
 
@@ -82,4 +87,4 @@ pnpm test   # includes source hash, coverage, topology, path, and production-gra
 
 `evolving` for draft-2026-07; legacy `ch01` is archived and not player-selectable.
 
-Last reviewed: 2026-07-13
+Last reviewed: 2026-07-17

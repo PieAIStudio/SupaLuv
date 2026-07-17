@@ -37,7 +37,7 @@ related:
 
 | 能力 | 可验证入口 |
 | --- | --- |
-| 两章剧情运行与跨章会话 | `packages/content/src/index.ts`, `apps/web/src/story/session/` |
+| 三章剧情运行与跨章会话 | `packages/content/src/index.ts`, `apps/web/src/story/session/` |
 | 游戏外壳、舞台、存档、设置、画廊与帮助 | `apps/web/src/App.tsx`, `apps/web/src/views/`, `apps/web/src/persistence/` |
 | 剧情内可跳过互动、玩家路线图与本地 Creator Studio | `apps/web/src/views/play/`, `apps/web/src/views/PlayerPathPanel.tsx`, `apps/web/src/creator/`, `PLAN-0005` 已完成项 |
 | 受约束 AI 支线与 AI 最终章 | `apps/web/src/ai/`, `apps/web/src/ai-ending/`, `services/ai-branch/src/` |
@@ -46,7 +46,7 @@ related:
 | 中英玩家界面与可选 co-play | `apps/web/src/i18n/`, `apps/web/src/coplay/` |
 | 小说→内容包与资产生成技能 | `.agents/skills/novel-to-ink-script/`, `.agents/skills/script-to-assets/` |
 | 自动玩家遍历引擎（人设通关+回响量化） | `tools/auto-player/`, `tests/unit/auto-player.test.ts` |
-| 视觉契约测试与 18+ 年龄门 | `tests/e2e/visual-contract.spec.ts`, `apps/web/src/boot/` |
+| 视觉契约测试与 18+ 年龄门 | `tests/e2e/visual-contract.spec.ts`, `apps/web/src/views/BootSplash.tsx` |
 
 这些能力表示代码路径和既有验证证据已经存在，不等于当前版本已经通过新的发行验收。
 

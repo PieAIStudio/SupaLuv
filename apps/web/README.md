@@ -1,8 +1,10 @@
 # @supaluv/web
 
 SupaLuv browser runtime: interactive cinema shell for the default draft package
-(`draft-ch01` → `draft-ch02`). Production loads precompiled Ink JSON; chapter 1
-checkpoint advances into chapter 2 without AI final ending.
+(`draft-ch01` → `draft-ch02` → `draft-ch03`, see
+`packages/content/catalog/story-catalog.json`). Production loads precompiled Ink
+JSON; chapter checkpoints advance along that chain. Chapter 3 ends as
+`draft_end` (no AI final chapter on the production draft path).
 
 ## Responsibility
 
@@ -32,9 +34,9 @@ checkpoint advances into chapter 2 without AI final ending.
 | `src/views/play/*`                        | Play-stage React components (HUD, dialogue, portraits, system menu)                                                  | preferred growth zone                 |
 | `src/coplay/*`                            | Protocol, presence, RPS, transports, pointer policy                                                                  | no Supabase in DialoguePanel          |
 | `src/persistence/*`                       | save schema / settings / unlocks / achievements                                                                      | stable contracts                      |
-| `src/audio/*`                             | Howler façade + reverb engine                                                                                        | only Howler import in howlerEngine    |
+| `src/audio/*`                             | Howler façade + reverb + dialogue TTS client/segmentation                                                            | only Howler import in howlerEngine    |
 | `src/auth/*`                              | Browser auth adapter for shared backend; wallet **read via edge**                                                    | never service_role                    |
-| `src/commerce/*`                          | Battery pitch copy                                                                                                   | pure strings                          |
+| `src/commerce/*`                          | Battery pitch copy + spend-receipt client (`aiBatteryPitch.ts`, `aiSpendClient.ts`)                                  | pure pitch strings; spend via edge    |
 | `src/ai/*`                                | AI branch client providers                                                                                           | mock only if FORCE_MOCK               |
 | `src/hooks/*`                             | Cross-view hooks (AI slot, typewriter, fullscreen…)                                                                  | no JSX                                |
 | `src/story/*`                             | Multi-chapter Ink runner (compiled JSON) + map adapter                                                               | content-facing                        |
@@ -89,7 +91,7 @@ checkpoint advances into chapter 2 without AI final ending.
 | Co-play RPS presentation     | `coplay/rpsViewModel.ts`                                                                      |
 | Audio play/pan/reverb        | `audio/gameAudio.ts` + `howlerEngine.ts`                                                      |
 | Settings → audio gains       | `audio/syncGameAudioFromSettings.ts` (owned by `App`; settings UI may preview optimistically) |
-| Battery pitch copy           | `commerce/aiBatteryPitch.ts`                                                                  |
+| Battery pitch / spend client | `commerce/aiBatteryPitch.ts` + `commerce/aiSpendClient.ts`                                    |
 | AI edge HTTP                 | `services/ai-branch/src/routeTable.ts` (not `server.ts`)                                      |
 | Wallet reserve/commit        | `services/ai-branch/src/walletMeter.ts`                                                       |
 | TTS fixed phrases            | `services/ai-branch/src/ttsCatalog.ts`                                                        |
@@ -135,4 +137,4 @@ pnpm test:e2e
 pnpm build
 ```
 
-Last reviewed: 2026-07-16
+Last reviewed: 2026-07-17
