@@ -45,6 +45,7 @@ related:
 | 电池计量、消费提交/退款与产品消费记录 | `services/ai-branch/src/walletMeter.ts`, `services/ai-branch/src/persistence/` |
 | 中英玩家界面与可选 co-play | `apps/web/src/i18n/`, `apps/web/src/coplay/` |
 | 小说→内容包与资产生成技能 | `.agents/skills/novel-to-ink-script/`, `.agents/skills/script-to-assets/` |
+| 全角色 CG 立绘（双主角情绪集 + 10 配角），官方选角直通授权情绪演出 | `apps/web/public/assets/portraits/`, `packages/content/characters/registry.ts`, `apps/web/src/characters/portraitResolver.ts` |
 | 自动玩家遍历引擎（人设通关+回响量化） | `tools/auto-player/`, `tests/unit/auto-player.test.ts` |
 | 视觉契约测试与 18+ 年龄门 | `tests/e2e/visual-contract.spec.ts`, `apps/web/src/views/BootSplash.tsx` |
 
@@ -66,7 +67,7 @@ related:
 
 | 发布门 | 状态与证据 |
 | --- | --- |
-| 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、TTS、BGM/ambient/SFX 和长文本节奏任务 |
+| 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、TTS、BGM/ambient/SFX 和长文本节奏任务；HEARTBEAT-X 机器人视觉候选尚未产出（需图像生成，owner 目选） |
 | 发行级试玩 | 未完成；独立 critic pass 与第二轮选择感/视听/地图/存档/失败恢复试玩仍未关闭 |
 | 真实服务验收 | 部分完成；本地真实调用证据已取得（auth/AI 支线/TTS/钱包 fail-closed/存储，见 `.scratch/director/playtest/2026-07-16/live-service-proof.md`），Preview/Production 端仍未验收 |
 
