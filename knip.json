@@ -1,0 +1,37 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreBinaries": ["awk", "shasum"],
+  "ignoreExportsUsedInFile": true,
+  "ignoreDependencies": ["inkjs"],
+  "workspaces": {
+    ".": {
+      "entry": ["tools/**/*.{mjs,ts}", "tests/**/*.{ts,tsx}"],
+      "project": ["tools/**/*.{mjs,ts}", "tests/**/*.{ts,tsx}"]
+    },
+    "apps/web": {
+      "entry": ["localPublicEnv.ts"],
+      "project": ["src/**/*.{ts,tsx}"]
+    },
+    "packages/content": {
+      "entry": [
+        "src/**/*.ts",
+        "scripts/**/*.{mjs,mts}",
+        "manifests/**/*.ts",
+        "assets/candidates/**/*.mjs"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "scripts/**/*.{mjs,mts}",
+        "manifests/**/*.ts",
+        "assets/candidates/**/*.mjs"
+      ]
+    },
+    "packages/shared": {
+      "project": ["src/**/*.ts"]
+    },
+    "services/ai-branch": {
+      "project": ["src/**/*.ts"],
+      "ignoreDependencies": ["mastra", "vitest"]
+    }
+  }
+}

@@ -55,10 +55,6 @@ let state: "idle" | "loading" | "ready" | "disabled" = "idle";
 const pending: Array<{ name: string; properties: Record<string, unknown> }> = [];
 const MAX_PENDING = 24;
 
-export function isAnalyticsEnabled(): boolean {
-  return client !== null;
-}
-
 export async function initProductAnalytics(): Promise<void> {
   const key = import.meta.env.VITE_POSTHOG_KEY?.trim();
   const enabled = import.meta.env.VITE_ENABLE_POSTHOG !== "false";

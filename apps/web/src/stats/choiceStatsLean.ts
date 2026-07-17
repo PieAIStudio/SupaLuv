@@ -10,7 +10,7 @@
 import { isAuthoritativeChoiceStatsSource } from "@supaluv/shared/choice-stats-catalog";
 import { resolveStatsPick, decisionsForStory } from "./choiceStatsCatalog";
 import { percentForChoice } from "./choiceStatsMath";
-import { fetchAuthoritativeChoiceStats, fetchRemoteChoiceStats } from "./choiceStatsRemote";
+import { fetchAuthoritativeChoiceStats } from "./choiceStatsRemote";
 import type { ChoiceCountMap } from "./choiceStatsTypes";
 
 export interface ChoiceLean {
@@ -18,15 +18,6 @@ export interface ChoiceLean {
   readonly shortLabel: string;
   readonly percent: number | null;
   readonly totalSamples: number;
-}
-
-/**
- * Display-only counts. May include process-memory sample data.
- * Never use for Oracle prediction scoring or co-play referee majority.
- */
-export async function loadDisplayCounts(storyId: string): Promise<ChoiceCountMap> {
-  const snapshot = await fetchRemoteChoiceStats(storyId);
-  return snapshot?.counts ?? {};
 }
 
 /**
@@ -39,14 +30,6 @@ export async function loadAuthoritativeCounts(storyId: string): Promise<ChoiceCo
     return {};
   }
   return snapshot.counts;
-}
-
-/**
- * @deprecated Prefer loadDisplayCounts or loadAuthoritativeCounts.
- * Kept as a display alias so existing call sites do not imply authority.
- */
-export async function loadMergedCounts(storyId: string): Promise<ChoiceCountMap> {
-  return loadDisplayCounts(storyId);
 }
 
 export function leanForChoiceLabel(

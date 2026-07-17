@@ -84,11 +84,6 @@ export function saveDisplayNames(names: DisplayNameMap): void {
   );
 }
 
-export function resetDisplayNames(): DisplayNameMap {
-  saveDisplayNames(DEFAULT_DISPLAY_NAMES);
-  return DEFAULT_DISPLAY_NAMES;
-}
-
 /**
  * Map an authored speaker string (or known alias) to the player's display name.
  * Non-leads pass through unchanged.

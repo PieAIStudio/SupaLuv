@@ -117,10 +117,6 @@ export function loadAchievements(): AchievementMap {
   }
 }
 
-export function hasAchievement(id: AchievementId): boolean {
-  return Boolean(loadAchievements()[id]);
-}
-
 /**
  * Unlock if new. Returns definition when newly unlocked (for toast).
  */
@@ -139,9 +135,4 @@ export function unlockAchievement(id: AchievementId): AchievementDef | null {
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   return def;
-}
-
-export function listUnlocked(): readonly AchievementDef[] {
-  const map = loadAchievements();
-  return ACHIEVEMENT_DEFS.filter((def) => isAchievementAvailable(def) && Boolean(map[def.id]));
 }
