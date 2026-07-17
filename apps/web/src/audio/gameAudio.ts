@@ -7,246 +7,114 @@
  * 3. SFX never become a second duck owner;
  * 4. stage playback selects music and location ambience independently, with a
  *    legacy exclusive fallback only when neither dedicated key is authored.
+ *
+ * Implementation is split across `./internal/*` facets; this module remains the
+ * sole public export surface. Consumer import paths are unchanged.
  */
 
+import * as beds from "./internal/beds";
+import * as core from "./internal/core";
+import { classifyBed, isSceneCueSfx } from "./internal/helpers";
 import {
-  AUDIO_BED_CATALOG,
-  AUDIO_SFX_CATALOG,
-  resolveBedCatalogEntry,
-  resolveSfxCatalogEntry,
-  type AudioBedCatalogEntry,
-  type AudioBedKind,
-  type AudioBedId,
-  type AudioSfxId,
-} from "./audioCatalog";
-import { clamp01, resolveAudioMixGains, type AudioDuckOwner } from "./audioMixState";
-import {
-  createEngineHowl,
-  fadeHowl,
-  panForSpeaker,
-  setGlobalReverbWet,
-  setHowlerMasterMute,
-  stopAndUnload,
-  unlockHowler,
-  type CancelEngineFade,
-  type EngineHowl,
-} from "./howlerEngine";
+  createGameAudioRuntime,
+  type GameAudioRuntime,
+  type GameBedKey,
+  type GameSfxKey,
+  type NowPlayingListener,
+  type StageBedSelectionInput,
+} from "./internal/runtime";
+import * as sfx from "./internal/sfx";
+import * as voice from "./internal/voice";
 
-const VOICE_DUCK_ATTACK_MS = 160;
-const VOICE_DUCK_RELEASE_MS = 260;
+export type {
+  AudioPlaybackSnapshot,
+  GameBedKey,
+  GameBgmKey,
+  GameSfxKey,
+  StageBedPlaybackResult,
+  StageBedSelectionInput,
+} from "./internal/runtime";
+export type { AudioBedKind } from "./internal/runtime";
 
-function mimeToHowlerFormat(mime: string): string[] | undefined {
-  const normalized = mime.toLowerCase();
-  if (normalized.includes("mpeg") || normalized.includes("mp3")) {
-    return ["mp3"];
-  }
-  if (normalized.includes("wav")) {
-    return ["wav"];
-  }
-  if (normalized.includes("ogg")) {
-    return ["ogg"];
-  }
-  if (normalized.includes("mp4") || normalized.includes("m4a") || normalized.includes("aac")) {
-    return ["m4a"];
-  }
-  return undefined;
-}
-
-export type GameSfxKey = AudioSfxId | string;
-export type GameBedKey = AudioBedId | string;
-export type GameBgmKey = GameBedKey;
-export type { AudioBedKind };
-
-export interface StageBedSelectionInput {
-  readonly musicKey?: GameBedKey | null;
-  readonly ambientKey?: GameBedKey | null;
-  readonly bgmKey?: GameBedKey | null;
-  readonly fallbackKey?: GameBedKey | null;
-}
-
-export interface StageBedPlaybackResult {
-  readonly mode: "dedicated" | "legacy";
-  readonly heardBedIds: readonly string[];
-}
-
-export interface AudioPlaybackSnapshot {
-  readonly muted: boolean;
-  readonly unlocked: boolean;
-  readonly cutscenePaused: boolean;
-  readonly duckOwner: AudioDuckOwner;
-  readonly musicKey: string | null;
-  readonly ambientKey: string | null;
-  readonly voiceActive: boolean;
-}
-
-type NowPlayingListener = (key: string | null) => void;
-
-interface FadingPlayback {
-  readonly howl: EngineHowl;
-  readonly cancel: CancelEngineFade;
-}
-
-export function isSceneCueSfx(key: string | null | undefined): boolean {
-  return resolveSfxCatalogEntry(key)?.sceneCue ?? false;
-}
-
-export function classifyBed(key: string | null | undefined): AudioBedKind | null {
-  return resolveBedCatalogEntry(key)?.kind ?? null;
-}
+export { classifyBed, isSceneCueSfx };
 
 export class GameAudioController {
-  private muted = false;
-  private unlocked = false;
-  private cutscenePaused = false;
-  private voiceActive = false;
-
-  private musicVolume = 0.42;
-  private ambientVolume = 0.28;
-  private sfxVolume = 0.72;
-  private voiceVolume = 0.8;
-  private reverbAmount = 0.28;
-
-  private musicHowl: EngineHowl | null = null;
-  private musicKey: string | null = null;
-  private musicFadingOut: FadingPlayback | null = null;
-
-  private ambientHowl: EngineHowl | null = null;
-  private ambientKey: string | null = null;
-  private ambientFadingOut: FadingPlayback | null = null;
-
-  private voiceHowl: EngineHowl | null = null;
-  private voiceObjectUrl: string | null = null;
-
-  private readonly nowPlayingListeners = new Set<NowPlayingListener>();
-  private readonly sfxCache = new Map<string, EngineHowl>();
+  private readonly rt: GameAudioRuntime = createGameAudioRuntime();
 
   isMuted(): boolean {
-    return this.muted;
+    return core.isMuted(this.rt);
   }
 
   isUnlocked(): boolean {
-    return this.unlocked;
+    return core.isUnlocked(this.rt);
   }
 
   getMusicVolume(): number {
-    return this.musicVolume;
+    return core.getMusicVolume(this.rt);
   }
 
   getAmbientVolume(): number {
-    return this.ambientVolume;
+    return core.getAmbientVolume(this.rt);
   }
 
   getSfxVolume(): number {
-    return this.sfxVolume;
+    return core.getSfxVolume(this.rt);
   }
 
   getVoiceVolume(): number {
-    return this.voiceVolume;
+    return core.getVoiceVolume(this.rt);
   }
 
   getReverbAmount(): number {
-    return this.reverbAmount;
+    return core.getReverbAmount(this.rt);
   }
 
   getBgmVolume(): number {
-    return this.musicVolume;
+    return core.getBgmVolume(this.rt);
   }
 
-  getPlaybackSnapshot(): AudioPlaybackSnapshot {
-    return {
-      muted: this.muted,
-      unlocked: this.unlocked,
-      cutscenePaused: this.cutscenePaused,
-      duckOwner: this.resolveMix().duckOwner,
-      musicKey: this.musicKey,
-      ambientKey: this.ambientKey,
-      voiceActive: this.voiceActive,
-    };
+  getPlaybackSnapshot() {
+    return core.getPlaybackSnapshot(this.rt);
   }
 
   setMusicVolume(next: number): void {
-    this.musicVolume = clamp01(next);
-    this.applyBedMix();
+    core.setMusicVolume(this.rt, next);
   }
 
   setAmbientVolume(next: number): void {
-    this.ambientVolume = clamp01(next);
-    this.applyBedMix();
+    core.setAmbientVolume(this.rt, next);
   }
 
   setSfxVolume(next: number): void {
-    this.sfxVolume = clamp01(next);
+    core.setSfxVolume(this.rt, next);
   }
 
   setVoiceVolume(next: number): void {
-    this.voiceVolume = clamp01(next);
-    if (this.voiceVolume === 0) {
-      this.stopVoice();
-      return;
-    }
-    this.voiceHowl?.volume(this.resolveMix().voice);
+    core.setVoiceVolume(this.rt, next);
   }
 
   setReverbAmount(next: number): void {
-    this.reverbAmount = clamp01(next);
-    setGlobalReverbWet(this.reverbAmount);
+    core.setReverbAmount(this.rt, next);
   }
 
   setBgmVolume(next: number): void {
-    this.setMusicVolume(next);
+    core.setBgmVolume(this.rt, next);
   }
 
   setMuted(next: boolean): void {
-    if (this.muted === next) {
-      return;
-    }
-    this.muted = next;
-    setHowlerMasterMute(next);
-    if (next) {
-      this.stopVoice();
-      this.cancelFadingBeds();
-      this.musicHowl?.pause();
-      this.ambientHowl?.pause();
-      return;
-    }
-    this.applyBedMix();
-    this.resumeBedsIfAllowed();
+    core.setMuted(this.rt, next);
   }
 
   unlock(): void {
-    if (this.unlocked) {
-      return;
-    }
-    this.unlocked = true;
-    unlockHowler();
-    // Re-assert product mute after context unlock; unlock must never unmute.
-    setHowlerMasterMute(this.muted);
-    setGlobalReverbWet(this.reverbAmount);
-    this.applyBedMix();
-    this.resumeBedsIfAllowed();
+    core.unlock(this.rt);
   }
 
   preload(): void {
-    for (const entry of AUDIO_BED_CATALOG) {
-      createEngineHowl({ src: entry.src, volume: 0, loop: true }).unload();
-    }
-    for (const entry of AUDIO_SFX_CATALOG) {
-      createEngineHowl({ src: entry.src, volume: 0, loop: false }).unload();
-    }
+    core.preload();
   }
 
   stopVoice(): void {
-    const hadActiveVoice = this.voiceActive || Boolean(this.voiceHowl || this.voiceObjectUrl);
-    stopAndUnload(this.voiceHowl);
-    this.voiceHowl = null;
-    if (this.voiceObjectUrl) {
-      URL.revokeObjectURL(this.voiceObjectUrl);
-      this.voiceObjectUrl = null;
-    }
-    this.voiceActive = false;
-    if (hadActiveVoice) {
-      this.applyBedMix(VOICE_DUCK_RELEASE_MS);
-    }
+    voice.stopVoice(this.rt);
   }
 
   playVoiceFromBase64(
@@ -254,546 +122,96 @@ export class GameAudioController {
     mimeType = "audio/mpeg",
     options?: { speaker?: string; side?: "left" | "right" | "center" },
   ): boolean {
-    this.unlock();
-    this.stopVoice();
-    if (this.muted || this.voiceVolume === 0 || !base64) {
-      return false;
-    }
-
-    try {
-      const binary = atob(base64);
-      const bytes = new Uint8Array(binary.length);
-      for (let index = 0; index < binary.length; index += 1) {
-        bytes[index] = binary.charCodeAt(index);
-      }
-      const safeMime = mimeType || "audio/mpeg";
-      const format = mimeToHowlerFormat(safeMime);
-      if (!format) {
-        return false;
-      }
-      const blob = new Blob([bytes], { type: safeMime });
-      const objectUrl = URL.createObjectURL(blob);
-      this.voiceObjectUrl = objectUrl;
-      const pan = panForSpeaker(options?.speaker ?? "", options?.side);
-      let howl: EngineHowl | null = null;
-      const release = () => {
-        // Owner-safe: only tear down if this attempt still owns the URL/howl.
-        // Covers immediate construct errors before `this.voiceHowl` is assigned.
-        if (this.voiceObjectUrl === objectUrl || (howl !== null && this.voiceHowl === howl)) {
-          this.stopVoice();
-        }
-      };
-      howl = createEngineHowl({
-        src: objectUrl,
-        loop: false,
-        volume: this.resolveMix().voice,
-        pan,
-        reverb: this.reverbAmount * 0.65,
-        html5: false,
-        format,
-        onend: release,
-        onloaderror: release,
-        onplayerror: release,
-      });
-      // Sync onloaderror may have already released URL/duck via `release`.
-      if (this.voiceObjectUrl !== objectUrl) {
-        stopAndUnload(howl);
-        return false;
-      }
-      this.voiceHowl = howl;
-      this.voiceActive = true;
-      this.applyBedMix(VOICE_DUCK_ATTACK_MS);
-      howl.play();
-      return true;
-    } catch {
-      this.stopVoice();
-      return false;
-    }
+    return voice.playVoiceFromBase64(this.rt, base64, mimeType, options);
   }
 
   playSfx(key: GameSfxKey | null | undefined, volume = 0.7): void {
-    const entry = resolveSfxCatalogEntry(key);
-    if (!entry || this.muted || this.sfxVolume === 0) {
-      return;
-    }
-
-    let howl = this.sfxCache.get(entry.id);
-    if (!howl) {
-      let created: EngineHowl;
-      const releaseFailed = () => {
-        if (this.sfxCache.get(entry.id) === created) {
-          this.sfxCache.delete(entry.id);
-          stopAndUnload(created);
-        }
-      };
-      created = createEngineHowl({
-        src: entry.src,
-        loop: false,
-        volume: 1,
-        reverb: 0.08,
-        onloaderror: releaseFailed,
-        onplayerror: releaseFailed,
-      });
-      howl = created;
-      this.sfxCache.set(entry.id, howl);
-    }
-    if (entry.repeat === "restart" && howl.playing()) {
-      howl.stop();
-    }
-    howl.volume(clamp01(volume * this.sfxVolume));
-    howl.play();
+    sfx.playSfx(this.rt, key, volume);
   }
 
   playExclusiveBed(key: GameBedKey | null | undefined): void {
-    const entry = resolveBedCatalogEntry(key);
-    if (!entry) {
-      this.fadeStopMusic();
-      this.fadeStopAmbient();
-      return;
-    }
-    if (entry.kind === "music") {
-      this.fadeStopAmbient(false);
-      this.playMusicEntry(entry);
-    } else {
-      this.fadeStopMusic(false);
-      this.playAmbientEntry(entry);
-    }
-    this.emitNowPlaying();
+    beds.playExclusiveBed(this.rt, key);
   }
 
-  playStageBeds(input: StageBedSelectionInput): StageBedPlaybackResult {
-    const dedicated = hasDedicatedKey(input.musicKey) || hasDedicatedKey(input.ambientKey);
-    if (!dedicated) {
-      const legacyKey = input.bgmKey ?? input.fallbackKey ?? "soft-piano";
-      const entry = resolveBedCatalogEntry(legacyKey);
-      const wasAlreadyActive = entry ? this.isBedEntryActive(entry) : false;
-      this.playExclusiveBed(legacyKey);
-      return {
-        mode: "legacy",
-        heardBedIds: entry && !wasAlreadyActive && this.isBedEntryActive(entry) ? [entry.id] : [],
-      };
-    }
-
-    const previousNowPlaying = this.getNowPlayingKey();
-    const previousMusicKey = this.musicKey;
-    const previousAmbientKey = this.ambientKey;
-    const heardBedIds: string[] = [];
-    const musicEntry = resolveBedCatalogEntry(input.musicKey);
-    if (musicEntry?.kind === "music") {
-      this.playMusicEntry(musicEntry);
-      if (previousMusicKey !== musicEntry.id && this.musicHowl && this.musicKey === musicEntry.id) {
-        heardBedIds.push(musicEntry.id);
-      }
-    } else {
-      this.fadeStopMusic(false);
-    }
-
-    const ambientEntry = resolveBedCatalogEntry(input.ambientKey);
-    if (ambientEntry?.kind === "ambient") {
-      this.playAmbientEntry(ambientEntry);
-      if (
-        previousAmbientKey !== ambientEntry.id &&
-        this.ambientHowl &&
-        this.ambientKey === ambientEntry.id
-      ) {
-        heardBedIds.push(ambientEntry.id);
-      }
-    } else {
-      this.fadeStopAmbient(false);
-    }
-
-    this.emitNowPlayingIfChanged(previousNowPlaying);
-    return { mode: "dedicated", heardBedIds };
+  playStageBeds(input: StageBedSelectionInput) {
+    return beds.playStageBeds(this.rt, input);
   }
 
   playBed(key: GameBedKey | null | undefined): void {
-    const entry = resolveBedCatalogEntry(key);
-    if (!entry) {
-      return;
-    }
-    if (entry.kind === "music") {
-      this.playMusicEntry(entry);
-    } else {
-      this.playAmbientEntry(entry);
-    }
-    this.emitNowPlaying();
+    beds.playBed(this.rt, key);
   }
 
   playBgm(key: GameBedKey | null | undefined): void {
-    if (!key) {
-      this.fadeStopMusic();
-      this.fadeStopAmbient();
-      return;
-    }
-    this.playExclusiveBed(key);
+    beds.playBgm(this.rt, key);
   }
 
   playMusic(key: GameBedKey | null | undefined): void {
-    const entry = resolveBedCatalogEntry(key);
-    if (!entry || entry.kind !== "music") {
-      this.fadeStopMusic();
-      return;
-    }
-    this.playMusicEntry(entry);
-    this.emitNowPlaying();
+    beds.playMusic(this.rt, key);
   }
 
   playAmbient(key: GameBedKey | null | undefined): void {
-    const entry = resolveBedCatalogEntry(key);
-    if (!entry || entry.kind !== "ambient") {
-      this.fadeStopAmbient();
-      return;
-    }
-    this.playAmbientEntry(entry);
-    this.emitNowPlaying();
+    beds.playAmbient(this.rt, key);
   }
 
   previewMusic(): void {
-    if (!this.musicKey) {
-      this.playMusic("title-theme");
-      return;
-    }
-    this.resumeBedsIfAllowed();
+    beds.previewMusic(this.rt);
   }
 
   previewAmbient(): void {
-    if (!this.ambientKey) {
-      this.playAmbient("night-ambient");
-      return;
-    }
-    this.resumeBedsIfAllowed();
+    beds.previewAmbient(this.rt);
   }
 
   pauseBedsForCutscene(): void {
-    if (this.cutscenePaused) {
-      return;
-    }
-    this.cutscenePaused = true;
-    this.cancelFadingBeds();
-    this.musicHowl?.pause();
-    this.ambientHowl?.pause();
+    beds.pauseBedsForCutscene(this.rt);
   }
 
   resumeBedsAfterCutscene(): void {
-    if (!this.cutscenePaused) {
-      return;
-    }
-    this.cutscenePaused = false;
-    this.applyBedMix();
-    this.resumeBedsIfAllowed();
+    beds.resumeBedsAfterCutscene(this.rt);
   }
 
   pauseBgmForCutscene(): void {
-    this.pauseBedsForCutscene();
+    beds.pauseBedsForCutscene(this.rt);
   }
 
   resumeBgmAfterCutscene(): void {
-    this.resumeBedsAfterCutscene();
+    beds.resumeBedsAfterCutscene(this.rt);
   }
 
   stopMusic(): void {
-    this.clearMusicFadingOut();
-    stopAndUnload(this.musicHowl);
-    this.musicHowl = null;
-    this.musicKey = null;
-    this.emitNowPlaying();
+    beds.stopMusic(this.rt);
   }
 
   stopAmbient(): void {
-    this.clearAmbientFadingOut();
-    stopAndUnload(this.ambientHowl);
-    this.ambientHowl = null;
-    this.ambientKey = null;
-    this.emitNowPlaying();
+    beds.stopAmbient(this.rt);
   }
 
   stopSfx(): void {
-    for (const howl of this.sfxCache.values()) {
-      stopAndUnload(howl);
-    }
-    this.sfxCache.clear();
+    sfx.stopSfx(this.rt);
   }
 
   stopBgm(): void {
-    this.stopMusic();
-    this.stopAmbient();
+    beds.stopBgm(this.rt);
   }
 
   stopAll(): void {
-    this.stopVoice();
-    this.stopBgm();
-    this.stopSfx();
-    this.cutscenePaused = false;
+    core.stopAll(this.rt);
   }
 
   currentMusic(): string | null {
-    return this.musicKey;
+    return beds.currentMusic(this.rt);
   }
 
   currentAmbient(): string | null {
-    return this.ambientKey;
+    return beds.currentAmbient(this.rt);
   }
 
   getNowPlayingKey(): string | null {
-    return this.musicKey ?? this.ambientKey;
+    return beds.getNowPlayingKey(this.rt);
   }
 
   onNowPlayingChange(listener: NowPlayingListener): () => void {
-    this.nowPlayingListeners.add(listener);
-    listener(this.getNowPlayingKey());
-    return () => {
-      this.nowPlayingListeners.delete(listener);
-    };
-  }
-
-  private resolveMix() {
-    return resolveAudioMixGains({
-      state: {
-        muted: this.muted,
-        unlocked: this.unlocked,
-        cutscenePaused: this.cutscenePaused,
-        voiceActive: this.voiceActive,
-      },
-      musicVolume: this.musicVolume,
-      ambientVolume: this.ambientVolume,
-      voiceVolume: this.voiceVolume,
-    });
-  }
-
-  private applyBedMix(durationMs = 0): void {
-    const mix = this.resolveMix();
-    this.setHowlVolume(this.musicHowl, mix.music, durationMs);
-    this.setHowlVolume(this.ambientHowl, mix.ambient, durationMs);
-  }
-
-  private setHowlVolume(howl: EngineHowl | null, target: number, durationMs: number): void {
-    if (!howl) {
-      return;
-    }
-    if (durationMs > 0 && howl.playing()) {
-      fadeHowl(howl, howl.volume(), target, durationMs);
-      return;
-    }
-    howl.volume(target);
-  }
-
-  private resumeBedsIfAllowed(): void {
-    const mix = this.resolveMix();
-    if (!mix.bedsShouldPlay) {
-      return;
-    }
-    if (this.musicHowl && !this.musicHowl.playing()) {
-      this.musicHowl.volume(mix.music);
-      this.musicHowl.play();
-    }
-    if (this.ambientHowl && !this.ambientHowl.playing()) {
-      this.ambientHowl.volume(mix.ambient);
-      this.ambientHowl.play();
-    }
-  }
-
-  private playMusicEntry(entry: AudioBedCatalogEntry): void {
-    if (this.musicKey === entry.id && this.musicHowl) {
-      this.musicHowl.volume(this.resolveMix().music);
-      this.resumeBedsIfAllowed();
-      return;
-    }
-    this.clearMusicFadingOut();
-    const previous = this.musicHowl;
-    let next: EngineHowl | null = null;
-    let failedSynchronously = false;
-    const releaseFailed = () => {
-      failedSynchronously = next === null;
-      // Only clear if this instance is still the music owner (never clobber a newer Howl).
-      if (next && this.musicHowl === next && this.musicKey === entry.id) {
-        stopAndUnload(next);
-        this.musicHowl = null;
-        this.musicKey = null;
-        this.emitNowPlaying();
-      }
-    };
-    next = createEngineHowl({
-      src: entry.src,
-      loop: true,
-      volume: 0,
-      reverb: this.reverbAmount,
-      onloaderror: releaseFailed,
-      onplayerror: releaseFailed,
-    });
-    if (failedSynchronously) {
-      stopAndUnload(next);
-      this.musicHowl = null;
-      this.musicKey = null;
-      if (previous) {
-        this.fadeOutMusicHowl(previous, entry.fadeOutMs);
-      }
-      return;
-    }
-    this.musicHowl = next;
-    this.musicKey = entry.id;
-    const mix = this.resolveMix();
-    if (mix.bedsShouldPlay) {
-      next.play();
-      fadeHowl(next, 0, mix.music, entry.fadeInMs);
-    } else {
-      next.volume(mix.music);
-    }
-    if (previous) {
-      this.fadeOutMusicHowl(previous, entry.fadeOutMs);
-    }
-  }
-
-  private playAmbientEntry(entry: AudioBedCatalogEntry): void {
-    if (this.ambientKey === entry.id && this.ambientHowl) {
-      this.ambientHowl.volume(this.resolveMix().ambient);
-      this.resumeBedsIfAllowed();
-      return;
-    }
-    this.clearAmbientFadingOut();
-    const previous = this.ambientHowl;
-    let next: EngineHowl | null = null;
-    let failedSynchronously = false;
-    const releaseFailed = () => {
-      failedSynchronously = next === null;
-      if (next && this.ambientHowl === next && this.ambientKey === entry.id) {
-        stopAndUnload(next);
-        this.ambientHowl = null;
-        this.ambientKey = null;
-        this.emitNowPlaying();
-      }
-    };
-    next = createEngineHowl({
-      src: entry.src,
-      loop: true,
-      volume: 0,
-      reverb: this.reverbAmount,
-      onloaderror: releaseFailed,
-      onplayerror: releaseFailed,
-    });
-    if (failedSynchronously) {
-      stopAndUnload(next);
-      this.ambientHowl = null;
-      this.ambientKey = null;
-      if (previous) {
-        this.fadeOutAmbientHowl(previous, entry.fadeOutMs);
-      }
-      return;
-    }
-    this.ambientHowl = next;
-    this.ambientKey = entry.id;
-    const mix = this.resolveMix();
-    if (mix.bedsShouldPlay) {
-      next.play();
-      fadeHowl(next, 0, mix.ambient, entry.fadeInMs);
-    } else {
-      next.volume(mix.ambient);
-    }
-    if (previous) {
-      this.fadeOutAmbientHowl(previous, entry.fadeOutMs);
-    }
-  }
-
-  private fadeStopMusic(emit = true): void {
-    const howl = this.musicHowl;
-    const entry = resolveBedCatalogEntry(this.musicKey);
-    this.musicHowl = null;
-    this.musicKey = null;
-    if (howl) {
-      this.fadeOutMusicHowl(howl, entry?.fadeOutMs ?? 700);
-    }
-    if (emit) {
-      this.emitNowPlaying();
-    }
-  }
-
-  private fadeStopAmbient(emit = true): void {
-    const howl = this.ambientHowl;
-    const entry = resolveBedCatalogEntry(this.ambientKey);
-    this.ambientHowl = null;
-    this.ambientKey = null;
-    if (howl) {
-      this.fadeOutAmbientHowl(howl, entry?.fadeOutMs ?? 700);
-    }
-    if (emit) {
-      this.emitNowPlaying();
-    }
-  }
-
-  private fadeOutMusicHowl(howl: EngineHowl, durationMs: number): void {
-    this.clearMusicFadingOut();
-    if (!howl.playing() || this.muted || this.cutscenePaused) {
-      stopAndUnload(howl);
-      return;
-    }
-    const cancel = fadeHowl(howl, howl.volume(), 0, durationMs, () => {
-      if (this.musicFadingOut?.howl === howl) {
-        stopAndUnload(howl);
-        this.musicFadingOut = null;
-      }
-    });
-    this.musicFadingOut = { howl, cancel };
-  }
-
-  private fadeOutAmbientHowl(howl: EngineHowl, durationMs: number): void {
-    this.clearAmbientFadingOut();
-    if (!howl.playing() || this.muted || this.cutscenePaused) {
-      stopAndUnload(howl);
-      return;
-    }
-    const cancel = fadeHowl(howl, howl.volume(), 0, durationMs, () => {
-      if (this.ambientFadingOut?.howl === howl) {
-        stopAndUnload(howl);
-        this.ambientFadingOut = null;
-      }
-    });
-    this.ambientFadingOut = { howl, cancel };
-  }
-
-  private clearMusicFadingOut(): void {
-    if (!this.musicFadingOut) {
-      return;
-    }
-    this.musicFadingOut.cancel();
-    stopAndUnload(this.musicFadingOut.howl);
-    this.musicFadingOut = null;
-  }
-
-  private clearAmbientFadingOut(): void {
-    if (!this.ambientFadingOut) {
-      return;
-    }
-    this.ambientFadingOut.cancel();
-    stopAndUnload(this.ambientFadingOut.howl);
-    this.ambientFadingOut = null;
-  }
-
-  private cancelFadingBeds(): void {
-    this.clearMusicFadingOut();
-    this.clearAmbientFadingOut();
-  }
-
-  private emitNowPlaying(): void {
-    const key = this.getNowPlayingKey();
-    for (const listener of this.nowPlayingListeners) {
-      listener(key);
-    }
-  }
-
-  private emitNowPlayingIfChanged(previous: string | null): void {
-    if (this.getNowPlayingKey() !== previous) {
-      this.emitNowPlaying();
-    }
-  }
-
-  private isBedEntryActive(entry: AudioBedCatalogEntry): boolean {
-    return entry.kind === "music"
-      ? this.musicKey === entry.id && Boolean(this.musicHowl)
-      : this.ambientKey === entry.id && Boolean(this.ambientHowl);
+    return beds.onNowPlayingChange(this.rt, listener);
   }
 }
 
 export const gameAudio = new GameAudioController();
-
-function hasDedicatedKey(key: GameBedKey | null | undefined): boolean {
-  return typeof key === "string" && key.length > 0;
-}
