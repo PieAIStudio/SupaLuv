@@ -80,6 +80,13 @@ export const AI_SCORE_KEYWORDS = Object.freeze([
   "好好好好",
   "相册",
   "傍晚",
+  "扫过",
+  "按住手腕",
+  "尽快定",
+  "只想尽快",
+  "良好",
+  "有独立房间",
+  "可改造",
 ]);
 
 /** Skip interactions when the label offers an explicit skip. */
@@ -162,6 +169,41 @@ export function pickSkipper(choices) {
   return 0;
 }
 
+/**
+ * Platform-coop persona: prefer ai_score keywords; never treat bare "跳过" as a win.
+ * When scores tie at zero, take the earliest non-skip option so questionnaire completion
+ * diverges from mianzi/skipper paths under position-aligned transcript diffs.
+ * @param {readonly Choice[]} choices
+ * @returns {number}
+ */
+export function pickAiScorePersona(choices) {
+  if (choices.length === 0) {
+    throw new RangeError("Cannot pick from empty choices");
+  }
+  let bestIndex = 0;
+  let bestScore = Number.NEGATIVE_INFINITY;
+  for (let i = 0; i < choices.length; i += 1) {
+    const text = choices[i].text;
+    let score = scoreKeywords(text, AI_SCORE_KEYWORDS);
+    if (scoreKeywords(text, SKIP_KEYWORDS) > 0) {
+      score -= 10;
+    }
+    // Later option wins ties so "骂自己再申请" beats plain apply when both score.
+    if (score > bestScore || (score === bestScore && score > 0 && i > bestIndex)) {
+      bestScore = score;
+      bestIndex = i;
+    }
+  }
+  if (bestScore <= 0) {
+    for (let i = 0; i < choices.length; i += 1) {
+      if (scoreKeywords(choices[i].text, SKIP_KEYWORDS) === 0) {
+        return i;
+      }
+    }
+  }
+  return bestIndex;
+}
+
 /** @type {Readonly<Record<string, Persona>>} */
 export const PERSONAS = Object.freeze({
   mianzi: Object.freeze({
@@ -172,7 +214,7 @@ export const PERSONAS = Object.freeze({
   ai_score: Object.freeze({
     id: "ai_score",
     label: "绩效/配合系统",
-    pick: (choices) => pickHighestScoreLast(choices, AI_SCORE_KEYWORDS),
+    pick: pickAiScorePersona,
   }),
   skipper: Object.freeze({
     id: "skipper",
