@@ -295,6 +295,7 @@ VAR protocol_test_completed_at_version = ""
 + [先把矛盾听完 # choice:d1_pace_a1]
     ~ ai_score = ai_score + 5
     ~ mianzi = mianzi - 3
+    【系统】情感真实度 +5。您已完整接收矛盾样本。矛盾是数据的朋友，请继续。
     -> dch01_s008
 + [想提前结束 # choice:d1_pace_b1]
     ~ mianzi = mianzi + 5
@@ -340,6 +341,7 @@ VAR protocol_test_completed_at_version = ""
     ~ ai_score = ai_score + 5
     ~ mianzi = mianzi - 3
     ~ told_breakup_flat = false
+    【系统】情感真实度 +5。原始亲密素材接收成功。请勿担心：我们只训练模型，不训练良心。
     -> dch01_s012
 
 
@@ -373,6 +375,7 @@ VAR protocol_test_completed_at_version = ""
 + [把那顿饭记得清楚点 # choice:d1_pace_a2]
     ~ ai_score = ai_score + 5
     ~ mianzi = mianzi - 5
+    【系统】情感真实度 +5。晚餐细节已入库。温馨提示：回忆越清楚，补贴表越好看。
     -> dch01_s015
 + [快进到出事的地方 # choice:d1_pace_b2]
     ~ mianzi = mianzi + 3
@@ -409,6 +412,7 @@ VAR protocol_test_completed_at_version = ""
     ~ memory_posture = "shame"
     ~ mianzi = mianzi - 8
     ~ ai_score = ai_score + 5
+    【系统】情感真实度 +5。遮脸动作已被标记为「高纯度羞赧」。该数据已同步至企业后台。祝您今天也保持真诚。
     -> dch01_s018
 + [（回想时）咬牙把后文讲完 # choice:d1_memory_hard]
     ~ memory_posture = "hard"

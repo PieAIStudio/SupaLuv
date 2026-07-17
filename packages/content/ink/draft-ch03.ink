@@ -61,6 +61,7 @@ VAR mobile_questionnaire_q3 = "unanswered"
     ~ face_choice = "album_hover"
     ~ ai_score = ai_score + 5
     ~ mianzi = mianzi - 5
+    【系统】情感真实度 +5。相册悬停时长已记入亲密度预估。未上传也算一种坦白。
     -> dch03_mobile_questionnaire
 
 
@@ -359,6 +360,7 @@ VAR mobile_questionnaire_q3 = "unanswered"
     ~ longpress_hesitation = "commit"
     ~ ai_score = ai_score + 8
     ~ mianzi = mianzi - 8
+    【系统】情感真实度 +8。长按七秒完成。握手协议已升级为「几乎像人」。请勿对外展示此进度条。
     -> dch03_s028
 
 === dch03_s028 ===
@@ -388,6 +390,7 @@ VAR mobile_questionnaire_q3 = "unanswered"
     ~ name_response = "accept"
     ~ ai_score = ai_score + 5
     ~ mianzi = mianzi - 5
+    【系统】情感真实度 +5。您已确认命名。重复的「好」会被解析为高度配合，不是语塞。
     -> dch03_s030
 
 === dch03_s030 ===

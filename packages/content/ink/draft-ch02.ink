@@ -407,6 +407,7 @@ VAR mobile_questionnaire_q3 = "unanswered"
     ~ robot_interest = "curious"
     ~ ai_score = ai_score + 5
     ~ mianzi = mianzi - 3
+    【系统】情感真实度 +5。口头否定与行为兴趣同时捕获——恭喜，您很有样本价值。
     -> dch02_s024
 
 === dch02_s024 ===
@@ -466,11 +467,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
     ~ applied_robot = true
     ~ ai_score = ai_score + 8
     ~ mianzi = mianzi - 5
+    【系统】情感真实度 +8。体验官申请已受理。隐私会好好保管——在「好好」的定义范围内。
     -> dch02_mobile_questionnaire
 + [骂自己一句再点申请 # choice:d2_apply_shame]
     ~ applied_robot = true
     ~ ai_score = ai_score + 8
     ~ mianzi = mianzi - 8
+    【系统】情感真实度 +8。自厌独白可提升样本可信度。请继续对自己诚实，对公司更诚实。
     -> dch02_mobile_questionnaire
 
 
@@ -525,6 +528,7 @@ VAR mobile_questionnaire_q3 = "unanswered"
     ~ mobile_questionnaire_q2 = "fine"
     ~ ai_score = ai_score + 5
     ~ mianzi = mianzi - 3
+    【系统】情感真实度 +5。您对高度拟人「不介意」。此选项在后台显示为绿灯。
     -> q3
 + [不确定 # choice:mobile_questionnaire_q2_unsure]
     ~ mobile_questionnaire_q2 = "unsure"
