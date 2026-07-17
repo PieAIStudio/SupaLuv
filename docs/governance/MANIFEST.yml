@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-17T04:43:15.783Z
+generated_at: 2026-07-17T06:41:03.486Z
 generator_version: doc-gov@0.7.3
-docs_count: 42
+docs_count: 43
 docs:
   - id: ADR-0001
     path: docs/adr/0001-web-first-react-ink-baseline.md
@@ -241,6 +241,13 @@ docs:
     status: active
     canonical: false
     last_reviewed: 2026-07-11
+    pinned: false
+  - id: REF-LEARNING-INTEGRATION-TESTING-MANIFEST-LAYER-TESTS-CANNOT-PROVE-PLAYER-FLOW-RENDERING
+    path: docs/reference/learnings/integration-testing/manifest-layer-tests-cannot-prove-player-flow-rendering.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-17
     pinned: false
   - id: LEARNING-SEPARATE-LOCAL-ENV-TRUST-BOUNDARY
     path: docs/reference/learnings/separate-local-env-files-at-the-browser-trust-boundary.md
