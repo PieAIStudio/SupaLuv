@@ -163,6 +163,11 @@ async function applyAlphaAndDespill(data, info, alpha, parameters) {
     parameters.despillBoundaryRadius,
   );
 
+  const interiorDespillRowLimit =
+    parameters.interiorDespill === true
+      ? Math.min(info.height, parameters.interiorDespillMaxY ?? Number.POSITIVE_INFINITY)
+      : 0;
+
   for (let pixel = 0; pixel < info.width * info.height; pixel += 1) {
     const sourceIndex = pixel * info.channels;
     const outputIndex = pixel * 4;
@@ -175,7 +180,11 @@ async function applyAlphaAndDespill(data, info, alpha, parameters) {
       red = 0;
       green = 0;
       blue = 0;
-    } else if (opacity < 255 || boundary[pixel] === 1) {
+    } else if (
+      opacity < 255 ||
+      boundary[pixel] === 1 ||
+      pixel < interiorDespillRowLimit * info.width
+    ) {
       // Green-screen despill: pull excess G toward max(R, B) inside the boundary band.
       const excess = Math.max(0, green - Math.max(red, blue) - parameters.despillNeutralMargin);
       if (excess > 0) {
@@ -219,9 +228,12 @@ export async function processAllowlistedPortraits({ workspaceRoot, outputDirecto
   for (const target of FIX_TARGETS) {
     const inputPath = resolveRawPath(workspaceRoot, target);
     const outputPath = path.join(outputDirectory, target.output);
+    const parameters = target.matteOverrides
+      ? Object.freeze({ ...MATTE_PARAMETERS, ...target.matteOverrides })
+      : MATTE_PARAMETERS;
     results.push({
       id: target.id,
-      ...(await renderPortrait({ inputPath, outputPath })),
+      ...(await renderPortrait({ inputPath, outputPath, parameters })),
     });
   }
   return results;

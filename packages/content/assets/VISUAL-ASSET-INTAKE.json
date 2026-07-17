@@ -1287,8 +1287,8 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "092d9c3c804bfe4023b1610d9ddd8a09de3a36ca944fd67de06077c4fb8d536c",
-      "bytes": 1366710,
+      "sha256": "6581c89c478a2ce539aee5d5c9d0319919f450796d172e54e094a9b8aca067b5",
+      "bytes": 1364292,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",

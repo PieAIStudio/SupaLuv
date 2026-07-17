@@ -114,6 +114,16 @@ export const FIX_TARGETS = Object.freeze([
     id: "huanglaotai-neutral",
     raw: "packages/content/characters/npc/refs/huanglaotai-neutral-green.png",
     output: "huanglaotai-neutral.png",
+    // Key green bleeds through the curly-hair gaps as pale interior blobs
+    // (greenDominance ≈ 5-12, below the default margin, and interior pixels
+    // never reach the boundary-band despill). Run despill on interior pixels
+    // above the jacket line only — the floral jacket's leaf greens are
+    // legitimate foreground and must not be neutralized.
+    matteOverrides: {
+      interiorDespill: true,
+      interiorDespillMaxY: 700,
+      despillNeutralMargin: 4,
+    },
   },
   {
     id: "police-neutral",
@@ -178,6 +188,10 @@ export const MATTE_PARAMETERS = Object.freeze({
   despillNeutralMargin: 12,
   despillStrength: 1,
   despillBoundaryRadius: 16,
+  /** When true, despill also runs on interior opaque pixels (per-target override). */
+  interiorDespill: false,
+  /** Interior despill only applies to rows above this y (guards legit greens below). */
+  interiorDespillMaxY: Number.POSITIVE_INFINITY,
 });
 
 /**
