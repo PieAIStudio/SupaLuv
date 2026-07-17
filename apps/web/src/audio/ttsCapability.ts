@@ -86,9 +86,12 @@ export async function loadTtsCapability(signal?: AbortSignal): Promise<TtsCapabi
 
   inflight = (async () => {
     try {
+      // The probe is a shared cache fill: deliberately NOT tied to the caller's
+      // signal. Binding it would let one unmount (e.g. a StrictMode dev double
+      // mount) abort the shared inflight promise for every awaiter, leaving the
+      // cache empty and dialogue voice silently disabled for the session.
       const response = await fetch(healthEndpoint(), {
         method: "GET",
-        signal,
         headers: { accept: "application/json" },
       });
       if (!response.ok) {
@@ -99,9 +102,6 @@ export async function loadTtsCapability(signal?: AbortSignal): Promise<TtsCapabi
       cached = parseTtsCapabilityFromHealth(body);
       return cached;
     } catch {
-      if (signal?.aborted) {
-        throw new DOMException("Aborted", "AbortError");
-      }
       cached = DEFAULT_CAPABILITY;
       return cached;
     } finally {
@@ -109,5 +109,21 @@ export async function loadTtsCapability(signal?: AbortSignal): Promise<TtsCapabi
     }
   })();
 
-  return inflight;
+  const pending = inflight;
+  if (signal) {
+    // A caller may stop waiting, but the probe continues and fills the cache.
+    return new Promise<TtsCapability>((resolve, reject) => {
+      const onAbort = () => reject(new DOMException("Aborted", "AbortError"));
+      if (signal.aborted) {
+        onAbort();
+        return;
+      }
+      signal.addEventListener("abort", onAbort, { once: true });
+      pending.then((value) => {
+        signal.removeEventListener("abort", onAbort);
+        resolve(value);
+      }, reject);
+    });
+  }
+  return pending;
 }

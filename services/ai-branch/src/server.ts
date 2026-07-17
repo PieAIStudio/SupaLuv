@@ -36,7 +36,9 @@ function loadSecrets(): void {
 
 loadSecrets();
 
-const PORT = Number(firstDefinedEnv(process.env, ["PORT", "SUPALUV_AI_BRANCH_PORT"]) ?? 8787);
+// Service-specific port must win: dev harnesses inject a generic PORT (e.g.
+// 5173) for the web app, which would make this process fight vite for it.
+const PORT = Number(firstDefinedEnv(process.env, ["SUPALUV_AI_BRANCH_PORT", "PORT"]) ?? 8787);
 const HOST = process.env.SUPALUV_AI_BRANCH_HOST ?? "127.0.0.1";
 
 const server = createServer(async (req, res) => {
