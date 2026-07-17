@@ -3,7 +3,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { PROP_CUTIN_CATALOG, resolvePropCutIn } from "@supaluv/content";
-import candidateManifest from "../../packages/content/assets/candidates/round15-props/candidate-manifest.json";
+import round15Manifest from "../../packages/content/assets/candidates/round15-props/candidate-manifest.json";
+import r2Ch03Manifest from "../../packages/content/assets/candidates/r2-ch03-props/candidate-manifest.json";
 import {
   createEmptyPropCutInSeenMemory,
   hasSeenPropCutIn,
@@ -21,21 +22,26 @@ const expectedScenes = [
   ["prop-rental-receipt", "draft-ch02", "dch02_s017"],
   ["prop-application-nda", "draft-ch02", "dch02_s028"],
   ["prop-approval-sms", "draft-ch02", "dch02_s032"],
+  ["prop-coat-sms", "draft-ch03", "dch03_s002"],
+  ["prop-activation-confirm", "draft-ch03", "dch03_robot_barcode"],
 ] as const;
 
 describe("Round 16 prop cut-in catalog and runtime boundary", () => {
-  it("resolves only the five exact story/scene landing points", () => {
-    expect(PROP_CUTIN_CATALOG).toHaveLength(5);
+  it("resolves only the exact story/scene landing points", () => {
+    expect(PROP_CUTIN_CATALOG).toHaveLength(7);
     for (const [id, storyId, sceneId] of expectedScenes) {
       expect(resolvePropCutIn(storyId, sceneId)).toMatchObject({ id, storyId, sceneId });
     }
     expect(resolvePropCutIn("draft-ch01", "dch01_s016")).toBeNull();
     expect(resolvePropCutIn("draft-ch02", "dch02_s021")).toBeNull();
+    expect(resolvePropCutIn("draft-ch03", "dch03_s010")).toBeNull();
     expect(resolvePropCutIn("draft-ch02", null)).toBeNull();
   });
 
   it("derives image metadata and complete accessible text from the candidate manifest", () => {
-    const manifestById = new Map(candidateManifest.assets.map((asset) => [asset.id, asset]));
+    const manifestById = new Map(
+      [...round15Manifest.assets, ...r2Ch03Manifest.assets].map((asset) => [asset.id, asset]),
+    );
     for (const definition of PROP_CUTIN_CATALOG) {
       const candidate = manifestById.get(definition.id);
       expect(candidate).toBeDefined();

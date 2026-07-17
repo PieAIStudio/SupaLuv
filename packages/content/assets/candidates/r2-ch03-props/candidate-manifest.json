@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "candidateSetId": "r2-ch03-props-density",
+  "generatedAt": "2026-07-17T05:10:05.061Z",
+  "contract": {
+    "id": "prop-ui-web-16x9",
+    "outputExtensions": [".png", ".webp"],
+    "outputMimeTypes": ["image/png", "image/webp"],
+    "dimensions": {
+      "minWidth": 1280,
+      "maxWidth": 1920,
+      "minHeight": 720,
+      "maxHeight": 1080,
+      "aspectRatio": 1.777778,
+      "aspectTolerance": 0.002
+    },
+    "maxBytes": 2097152
+  },
+  "candidate_only": true,
+  "humanArtReview": false,
+  "rightsStatus": "pending",
+  "runtimeIntegrated": true,
+  "provenance": {
+    "owner": "project",
+    "method": "Grok image_gen photoreal still-life props; resized locally with Sharp",
+    "type": "project_generated_agent_image_candidate",
+    "workflow": "grok-agent-image-gen-candidate",
+    "externalImages": false,
+    "externalFonts": false,
+    "externalTemplates": false,
+    "sourceScope": [
+      "packages/content/ink/draft-ch03.ink",
+      "packages/content/assets/VISUAL-ASSET-INTAKE.json#contracts.prop-ui-web-16x9",
+      ".agents/skills/script-to-assets/references/generation.md"
+    ],
+    "statement": "These files are agent-generated project image candidates for ch03 density. Machine checks do not establish copyright clearance, production readiness, or human art approval."
+  },
+  "assets": [
+    {
+      "id": "prop-coat-sms",
+      "sceneIds": ["dch03_s002", "dch03_s005", "dch03_s006"],
+      "accessibleText": "微信风格短信截图。联系人陈佳。消息：我有件外套放那边了，什么时候方便我过来拿一下。后续：能不能今天？那件外套比较急。时间戳今天 14:22。",
+      "altText": "磨损柜台上的裂纹手机屏：聊天对象陈佳，两条蓝气泡写着外套来拿与今天比较急，无真人面孔。",
+      "factSources": [
+        "packages/content/ink/draft-ch03.ink#dch03_s002",
+        "packages/content/ink/draft-ch03.ink#dch03_s005"
+      ],
+      "sourcePath": "packages/content/assets/candidates/r2-ch03-props/prop-coat-sms.png",
+      "outputPath": "packages/content/assets/candidates/r2-ch03-props/prop-coat-sms.png",
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "mimeType": "image/png",
+      "bytes": 1858790,
+      "sha256": "8754615ce962c0c9172c3ff1ca401d56b1d1de9826733c703efc717ae956e4d5",
+      "candidate_only": true,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "project_generated_agent_image_candidate",
+        "createdWith": "Grok image_gen (photoreal environment still-life) + local Sharp resize to 1600x900",
+        "workflow": "grok-agent-image-gen-candidate",
+        "externalImages": false,
+        "externalFonts": false,
+        "externalTemplates": false,
+        "notes": "Agent-generated prop stills for draft-ch03 density pass. Candidate-only; no human art approval or rights clearance asserted. Chinese text verified against Ink copy.",
+        "promptPointer": "packages/content/assets/candidates/r2-ch03-props/prompts/prop-coat-sms.prompt.txt",
+        "channel": "grok-image_gen",
+        "generatedAt": "2026-07-17"
+      }
+    },
+    {
+      "id": "prop-activation-confirm",
+      "sceneIds": ["dch03_robot_barcode", "dch03_s023"],
+      "accessibleText": "心动引擎 · 激活确认单。型号：HEARTBEAT-X / 健身假人套装。租期：体验官测试期 90 日。绑定：长按后颈七秒完成绑定。页脚：绑定即视为自愿，自愿的定义见 7.3 条。协议编号 TE-03-7S。",
+      "altText": "廉价木桌上的折痕激活确认单，加粗写着长按后颈七秒完成绑定，旁有包装泡沫碎屑，无人物入镜。",
+      "factSources": [
+        "packages/content/ink/draft-ch03.ink#dch03_robot_barcode",
+        "packages/content/ink/draft-ch03.ink#dch03_s023"
+      ],
+      "sourcePath": "packages/content/assets/candidates/r2-ch03-props/prop-activation-confirm.png",
+      "outputPath": "packages/content/assets/candidates/r2-ch03-props/prop-activation-confirm.png",
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "mimeType": "image/png",
+      "bytes": 1587141,
+      "sha256": "70f083616e4e0293848e8358227733756af729c22e84e86e31f6928e397f2a45",
+      "candidate_only": true,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "project_generated_agent_image_candidate",
+        "createdWith": "Grok image_gen (photoreal environment still-life) + local Sharp resize to 1600x900",
+        "workflow": "grok-agent-image-gen-candidate",
+        "externalImages": false,
+        "externalFonts": false,
+        "externalTemplates": false,
+        "notes": "Agent-generated prop stills for draft-ch03 density pass. Candidate-only; no human art approval or rights clearance asserted. Chinese text verified against Ink copy.",
+        "promptPointer": "packages/content/assets/candidates/r2-ch03-props/prompts/prop-activation-confirm.prompt.txt",
+        "channel": "grok-image_gen",
+        "generatedAt": "2026-07-17"
+      }
+    }
+  ]
+}

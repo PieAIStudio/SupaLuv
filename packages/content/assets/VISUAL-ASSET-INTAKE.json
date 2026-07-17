@@ -1212,6 +1212,52 @@
         "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
       "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "prop-coat-sms",
+      "kind": "prop_ui",
+      "contract": "prop-ui-web-16x9",
+      "usage": ["draft-ch03 scene=dch03_s002 still cut-in"],
+      "path": "apps/web/public/assets/props/prop-coat-sms.png",
+      "fileStatus": "present",
+      "qualityStatus": "prototype_only",
+      "rightsStatus": "pending",
+      "humanArtReview": false,
+      "requiredForProduction": true,
+      "sha256": "8754615ce962c0c9172c3ff1ca401d56b1d1de9826733c703efc717ae956e4d5",
+      "bytes": 1858790,
+      "source": {
+        "type": "project_generated_agent_image_candidate",
+        "owner": "project",
+        "evidence": "packages/content/assets/candidates/r2-ch03-props/candidate-manifest.json#prop-coat-sms",
+        "channel": "grok-image_gen",
+        "date": "2026-07-17",
+        "promptPointer": "packages/content/assets/candidates/r2-ch03-props/prompts/prop-coat-sms.prompt.txt"
+      },
+      "notes": "Byte-identical r2-ch03-props agent-generated image candidate integrated provisionally for the playable draft. Human art review is false and release rights remain pending; presence is not production approval."
+    },
+    {
+      "id": "prop-activation-confirm",
+      "kind": "prop_ui",
+      "contract": "prop-ui-web-16x9",
+      "usage": ["draft-ch03 scene=dch03_robot_barcode still cut-in"],
+      "path": "apps/web/public/assets/props/prop-activation-confirm.png",
+      "fileStatus": "present",
+      "qualityStatus": "prototype_only",
+      "rightsStatus": "pending",
+      "humanArtReview": false,
+      "requiredForProduction": true,
+      "sha256": "70f083616e4e0293848e8358227733756af729c22e84e86e31f6928e397f2a45",
+      "bytes": 1587141,
+      "source": {
+        "type": "project_generated_agent_image_candidate",
+        "owner": "project",
+        "evidence": "packages/content/assets/candidates/r2-ch03-props/candidate-manifest.json#prop-activation-confirm",
+        "channel": "grok-image_gen",
+        "date": "2026-07-17",
+        "promptPointer": "packages/content/assets/candidates/r2-ch03-props/prompts/prop-activation-confirm.prompt.txt"
+      },
+      "notes": "Byte-identical r2-ch03-props agent-generated image candidate integrated provisionally for the playable draft. Human art review is false and release rights remain pending; presence is not production approval."
     }
   ],
   "gaps": [
