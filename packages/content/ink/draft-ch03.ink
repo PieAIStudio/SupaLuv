@@ -27,6 +27,11 @@ VAR mobile_questionnaire_completed_at_version = ""
 VAR mobile_questionnaire_q1 = "unanswered"
 VAR mobile_questionnaire_q2 = "unanswered"
 VAR mobile_questionnaire_q3 = "unanswered"
+VAR barcode_sweep_skipped = false
+VAR barcode_sweep_completed_at_version = ""
+VAR barcode_sweep_q1 = "unanswered"
+VAR barcode_sweep_q2 = "unanswered"
+VAR barcode_sweep_q3 = "unanswered"
 
 -> dch03_s001
 
@@ -383,13 +388,95 @@ VAR mobile_questionnaire_q3 = "unanswered"
 === dch03_s022 ===
 # scene:dch03_s022
 “我能帮开箱吗？”“不用，出去。”“万一是炸——”“不是炸弹。出去。”门在他脸前锁上了。
+纸箱侧面贴着三枚激活码贴纸，公司字体像在收银小票上开会：主机箱、肢体箱、头箱——每个都要先扫，才能开箱“合规”。
 
 + [继续 # choice:dch03_s022_continue]
+    -> dch03_robot_barcode
+
+=== dch03_robot_barcode ===
+{ barcode_sweep_completed_at_version != "":
+    -> result
+- else:
+    -> q1
+}
+
+= q1
+# scene:dch03_robot_barcode
+# interaction:barcode-sweep-v1
+# interaction-step:1
+开箱激活 1/3 · 主机箱外激活码。
++ [扫过这一单 # choice:barcode_sweep_q1_ok]
+    ~ barcode_sweep_q1 = "ok"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
+    -> q2
++ [跳过连扫 # choice:barcode_sweep_q1_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
+    -> skipped
+
+= q2
+# scene:dch03_robot_barcode
+# interaction:barcode-sweep-v1
+# interaction-step:2
+开箱激活 2/3 · 肢体箱质检码。
++ [扫过这一单 # choice:barcode_sweep_q2_ok]
+    ~ barcode_sweep_q2 = "ok"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
+    -> q3
++ [跳过连扫 # choice:barcode_sweep_q2_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
+    -> skipped
+
+= q3
+# scene:dch03_robot_barcode
+# interaction:barcode-sweep-v1
+# interaction-step:3
+开箱激活 3/3 · 头箱绑定预授权码。
++ [扫过这一单 # choice:barcode_sweep_q3_ok]
+    ~ barcode_sweep_q3 = "ok"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
+    ~ barcode_sweep_completed_at_version = "barcode-sweep-v1"
+    【系统】情感真实度 +11。包装激活码已核销。您已自愿完成绑定前序。
+    -> result
++ [跳过连扫 # choice:barcode_sweep_q3_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
+    -> skipped
+
+= skipped
+~ barcode_sweep_skipped = true
+~ barcode_sweep_completed_at_version = "barcode-sweep-v1"
+-> result
+
+= result
+# scene:dch03_robot_barcode
+{ barcode_sweep_skipped:
+    扫描页缩成一条“稍后补录激活”。包装胶带还粘着，激活码像没拆的临期贴纸。
+    他假装会回头扫——就像假装门后没有三箱“健身假人”。
+- else:
+    三声“嘀”叠在出租屋灯管里。主机、肢体、头箱——每扫一声，像给自己的体面打叉。
+    { barcode_sweep_q1 == "ok":
+        主机箱外激活码绿灯。系统记下：用户配合度可观。
+    }
+    { barcode_sweep_q2 == "ok":
+        肢体箱质检码通过。他手腕还记得超市班次的扫枪节奏，只是货架换成了硅胶。
+    }
+    { barcode_sweep_q3 == "ok":
+        头箱绑定预授权完成。下一步是说明书最后一页的七秒。
+    }
+}
+
++ [继续 # choice:barcode_sweep_continue]
     -> dch03_s023
 
 === dch03_s023 ===
 # scene:dch03_s023
 苏明对着说明书准备自己拼，石佩欣站在门口看了一会儿，说她朋友让她帮组过美术人台，逻辑一样，她可以两个人对着拼了一个小时。装左臂关节的时候“嘎嘣”一声，苏明吓得手缩回去，脊背一阵发麻，以为弄坏了什么。石佩欣翻了一下说明苏明的心跳才慢慢回来。最后一步：说明书最后一页，加粗：“长按后颈七秒，首次绑定需语音命名。”
+包装夹层里掉出一张激活确认单：型号、租期、以及那句逐字加粗的绑定说明。页脚用小字写着：绑定即视为自愿，自愿的定义见 7.3 条。
 
 + [继续 # choice:dch03_s023_continue]
     -> dch03_s024

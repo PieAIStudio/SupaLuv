@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "packageId": "draft-2026-07",
-  "revision": "ea9389b8c5d1ca12",
+  "revision": "75e2c636f3d0854e",
   "nodes": [
     {
       "id": "n_23adde913ff7ad78c08893c3cecd94d2",
@@ -537,6 +537,13 @@
     },
     {
       "id": "n_49e5390775fd0aa25430e16d662fe810",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_9043cade7c1011addf89ec0411cf8c7b",
       "storyId": "draft-ch03",
       "chapterId": "draft-ch03",
       "chapterOrder": 3,
@@ -1597,6 +1604,48 @@
       "toNodeId": "n_b44c155f4eaa6c6aaaf3c2257d553918"
     },
     {
+      "id": "e_098f3b8b2878e25410517c35a6d8b7b6",
+      "kind": "continue",
+      "fromNodeId": "n_9043cade7c1011addf89ec0411cf8c7b",
+      "toNodeId": "n_1843f223d37841b28d89dfcd347293bc"
+    },
+    {
+      "id": "e_0338221f4b4a302a159e4e51f7603c2c",
+      "kind": "choice",
+      "fromNodeId": "n_9043cade7c1011addf89ec0411cf8c7b",
+      "toNodeId": "n_9043cade7c1011addf89ec0411cf8c7b"
+    },
+    {
+      "id": "e_1653f572a1ca8a7fd0544fd45ec1fa61",
+      "kind": "choice",
+      "fromNodeId": "n_9043cade7c1011addf89ec0411cf8c7b",
+      "toNodeId": "n_9043cade7c1011addf89ec0411cf8c7b"
+    },
+    {
+      "id": "e_985eb7ecf314bec1002f11fa4672885f",
+      "kind": "choice",
+      "fromNodeId": "n_9043cade7c1011addf89ec0411cf8c7b",
+      "toNodeId": "n_9043cade7c1011addf89ec0411cf8c7b"
+    },
+    {
+      "id": "e_a45fd12140b9ad042bb2980f4945fab2",
+      "kind": "choice",
+      "fromNodeId": "n_9043cade7c1011addf89ec0411cf8c7b",
+      "toNodeId": "n_9043cade7c1011addf89ec0411cf8c7b"
+    },
+    {
+      "id": "e_5cca41dd4a20a0f048646a33f019af36",
+      "kind": "choice",
+      "fromNodeId": "n_9043cade7c1011addf89ec0411cf8c7b",
+      "toNodeId": "n_9043cade7c1011addf89ec0411cf8c7b"
+    },
+    {
+      "id": "e_ec6905d838bd502d28f3f42eaac7c2e3",
+      "kind": "choice",
+      "fromNodeId": "n_9043cade7c1011addf89ec0411cf8c7b",
+      "toNodeId": "n_9043cade7c1011addf89ec0411cf8c7b"
+    },
+    {
       "id": "e_56f7b25dd6ec557025bb314b45ae8e5e",
       "kind": "choice",
       "fromNodeId": "n_ab3ec95ee073d8fbf88f056cc177eee1",
@@ -1775,7 +1824,7 @@
       "id": "e_260a617e208ab51bb6ee30189d4187b5",
       "kind": "continue",
       "fromNodeId": "n_1743f090d47843458c89de3a3572954f",
-      "toNodeId": "n_1843f223d37841b28d89dfcd347293bc"
+      "toNodeId": "n_9043cade7c1011addf89ec0411cf8c7b"
     },
     {
       "id": "e_a9e438778b2951b2c8c625019d10da3c",

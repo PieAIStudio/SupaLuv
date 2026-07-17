@@ -1,15 +1,18 @@
-import candidateManifest from "../assets/candidates/round15-props/candidate-manifest.json";
+import round15Manifest from "../assets/candidates/round15-props/candidate-manifest.json";
+import r2Ch03Manifest from "../assets/candidates/r2-ch03-props/candidate-manifest.json";
 
 export type PropCutInId =
   | "prop-protocol-terms"
   | "prop-barcode-shift"
   | "prop-rental-receipt"
   | "prop-application-nda"
-  | "prop-approval-sms";
+  | "prop-approval-sms"
+  | "prop-coat-sms"
+  | "prop-activation-confirm";
 
 export interface PropCutInDefinition {
   readonly id: PropCutInId;
-  readonly storyId: "draft-ch01" | "draft-ch02";
+  readonly storyId: "draft-ch01" | "draft-ch02" | "draft-ch03";
   readonly sceneId: string;
   readonly title: string;
   readonly imageUrl: string;
@@ -47,10 +50,20 @@ const PROP_TRIGGER_BY_ID = {
     sceneId: "dch02_s032",
     title: "系统通知 · 初审通过",
   },
+  "prop-coat-sms": {
+    storyId: "draft-ch03",
+    sceneId: "dch03_s002",
+    title: "陈佳 · 外套来拿",
+  },
+  "prop-activation-confirm": {
+    storyId: "draft-ch03",
+    sceneId: "dch03_robot_barcode",
+    title: "心动引擎 · 激活确认单",
+  },
 } as const satisfies Record<
   PropCutInId,
   {
-    readonly storyId: "draft-ch01" | "draft-ch02";
+    readonly storyId: "draft-ch01" | "draft-ch02" | "draft-ch03";
     readonly sceneId: string;
     readonly title: string;
   }
@@ -65,13 +78,17 @@ interface CandidateAssetRecord {
   readonly sha256: string;
   readonly provenance: { readonly type: string };
 }
-const candidateAssets = candidateManifest.assets as readonly CandidateAssetRecord[];
+
+const candidateAssets = [
+  ...(round15Manifest.assets as readonly CandidateAssetRecord[]),
+  ...(r2Ch03Manifest.assets as readonly CandidateAssetRecord[]),
+];
 
 export const PROP_CUTIN_CATALOG: readonly PropCutInDefinition[] = Object.freeze(
   candidateAssets.map((asset) => {
     const trigger = PROP_TRIGGER_BY_ID[asset.id as PropCutInId];
     if (!trigger) {
-      throw new Error(`Unknown Round 15 prop candidate id: ${asset.id}`);
+      throw new Error(`Unknown prop candidate id: ${asset.id}`);
     }
     return Object.freeze({
       id: asset.id as PropCutInId,

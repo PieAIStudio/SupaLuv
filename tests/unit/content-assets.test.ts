@@ -247,19 +247,19 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.pass).toBe(true);
     expect(result.report.decision).toBe("final");
     expect(result.report.summary).toEqual({
-      assets: 58,
-      present: 46,
+      assets: 60,
+      present: 48,
       missing: 12,
       openGaps: 3,
       releaseBlockers: 44,
     });
-    expect(result.report.checks.stableIds).toBe(58);
-    expect(result.report.checks.fileExistence).toBe(46);
-    expect(result.report.checks.mimeAndExtension).toBe(46);
-    expect(result.report.checks.dimensions).toBe(46);
-    expect(result.report.checks.sha256).toBe(46);
-    expect(result.report.checks.attribution).toBe(58);
-    expect(result.report.checks.runtimeLedgerRows).toBe(33);
+    expect(result.report.checks.stableIds).toBe(60);
+    expect(result.report.checks.fileExistence).toBe(48);
+    expect(result.report.checks.mimeAndExtension).toBe(48);
+    expect(result.report.checks.dimensions).toBe(48);
+    expect(result.report.checks.sha256).toBe(48);
+    expect(result.report.checks.attribution).toBe(60);
+    expect(result.report.checks.runtimeLedgerRows).toBe(35);
     expect(result.report.checks.rightsEvidence).toBe(0);
     expect(result.report.checks.gapResolutions).toBe(0);
     expect(result.report.checks.productionTruth).toBe(44);
