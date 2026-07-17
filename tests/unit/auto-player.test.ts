@@ -60,7 +60,7 @@ async function loadEngine(): Promise<AutoPlayerModule> {
 describe("auto-player persona traversal engine", () => {
   it("runs all three personas through draft-ch01 to normal termination", async () => {
     const { runChapter, PERSONA_IDS, MAX_STEPS } = await loadEngine();
-    expect(PERSONA_IDS).toEqual(["dignity", "impulse", "skipper"]);
+    expect(PERSONA_IDS).toEqual(["mianzi", "ai_score", "skipper"]);
 
     for (const personaId of PERSONA_IDS) {
       const result = runChapter({
@@ -79,19 +79,19 @@ describe("auto-player persona traversal engine", () => {
 
   it("is byte-stable: same persona × chapter twice yields identical transcript", async () => {
     const { runChapter } = await loadEngine();
-    const a = runChapter({ chapterId: "draft-ch01", personaId: "dignity" });
-    const b = runChapter({ chapterId: "draft-ch01", personaId: "dignity" });
+    const a = runChapter({ chapterId: "draft-ch01", personaId: "mianzi" });
+    const b = runChapter({ chapterId: "draft-ch01", personaId: "mianzi" });
     expect(a.transcriptMarkdown).toBe(b.transcriptMarkdown);
     expect(
       Buffer.from(a.transcriptMarkdown, "utf8").equals(Buffer.from(b.transcriptMarkdown, "utf8")),
     ).toBe(true);
   });
 
-  it("dignity and impulse produce different ch01 transcripts (diff lines > 0)", async () => {
+  it("mianzi and ai_score produce different ch01 transcripts (diff lines > 0)", async () => {
     const { runChapter, lineDiffCount } = await loadEngine();
-    const dignity = runChapter({ chapterId: "draft-ch01", personaId: "dignity" });
-    const impulse = runChapter({ chapterId: "draft-ch01", personaId: "impulse" });
-    const diffs = lineDiffCount(dignity.transcriptMarkdown, impulse.transcriptMarkdown);
+    const mianzi = runChapter({ chapterId: "draft-ch01", personaId: "mianzi" });
+    const ai_score = runChapter({ chapterId: "draft-ch01", personaId: "ai_score" });
+    const diffs = lineDiffCount(mianzi.transcriptMarkdown, ai_score.transcriptMarkdown);
     expect(diffs).toBeGreaterThan(0);
   });
 
@@ -109,15 +109,15 @@ describe("auto-player persona traversal engine", () => {
 
     const onDisk = JSON.parse(readFileSync(join(outDir, "summary.json"), "utf8")) as typeof summary;
 
-    expect(onDisk.personas).toEqual(["dignity", "impulse", "skipper"]);
+    expect(onDisk.personas).toEqual(["mianzi", "ai_score", "skipper"]);
     expect(onDisk.chapters).toEqual(["draft-ch01"]);
-    expect(onDisk.stats.dignity?.["draft-ch01"]?.ended).toBe(true);
-    expect(onDisk.stats.impulse?.["draft-ch01"]?.ended).toBe(true);
+    expect(onDisk.stats.mianzi?.["draft-ch01"]?.ended).toBe(true);
+    expect(onDisk.stats.ai_score?.["draft-ch01"]?.ended).toBe(true);
     expect(onDisk.stats.skipper?.["draft-ch01"]?.ended).toBe(true);
 
-    expect(onDisk.transcriptDiffs["dignity|impulse"]?.["draft-ch01"]).toBeGreaterThan(0);
-    expect(typeof onDisk.transcriptDiffs["dignity|skipper"]?.["draft-ch01"]).toBe("number");
-    expect(typeof onDisk.transcriptDiffs["impulse|skipper"]?.["draft-ch01"]).toBe("number");
+    expect(onDisk.transcriptDiffs["mianzi|ai_score"]?.["draft-ch01"]).toBeGreaterThan(0);
+    expect(typeof onDisk.transcriptDiffs["mianzi|skipper"]?.["draft-ch01"]).toBe("number");
+    expect(typeof onDisk.transcriptDiffs["ai_score|skipper"]?.["draft-ch01"]).toBe("number");
 
     // Transcript files written per persona.
     for (const persona of PERSONA_IDS) {

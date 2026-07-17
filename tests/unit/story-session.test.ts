@@ -63,7 +63,7 @@ function snapshot(partial: Partial<InkStorySnapshot> = {}): InkStorySnapshot {
     text: "opening line",
     choices: [{ index: 0, text: "go", choiceId: "c0" }],
     isEnded: false,
-    meters: { dignity: 50, impulse: 50 },
+    meters: { mianzi: 50, ai_score: 50 },
     ...partial,
   };
 }
@@ -71,8 +71,8 @@ function snapshot(partial: Partial<InkStorySnapshot> = {}): InkStorySnapshot {
 function makeRunner(initial: InkStorySnapshot = snapshot()): InkStoryRunner {
   let current = initial;
   const variables: Record<string, unknown> = {
-    dignity: initial.meters.dignity,
-    impulse: initial.meters.impulse,
+    mianzi: initial.meters.mianzi,
+    ai_score: initial.meters.ai_score,
     clue_subsidy_sms: false,
   };
   return {
@@ -84,8 +84,8 @@ function makeRunner(initial: InkStorySnapshot = snapshot()): InkStoryRunner {
       current = {
         ...current,
         meters: {
-          dignity: Number(variables.dignity ?? 50),
-          impulse: Number(variables.impulse ?? 50),
+          mianzi: Number(variables.mianzi ?? 50),
+          ai_score: Number(variables.ai_score ?? 50),
         },
       };
     },
@@ -104,8 +104,8 @@ function makeRunner(initial: InkStorySnapshot = snapshot()): InkStoryRunner {
         choices: [],
         isEnded: false,
         meters: {
-          dignity: Number(variables.dignity ?? 50),
-          impulse: Number(variables.impulse ?? 50),
+          mianzi: Number(variables.mianzi ?? 50),
+          ai_score: Number(variables.ai_score ?? 50),
         },
       });
       return current;
@@ -184,7 +184,7 @@ function makeRuntime(options?: {
       id: storyId,
       label: storyId,
       packageId: "draft-2026-07",
-      inheritVariableNames: options?.inheritVariableNames ?? ["dignity", "clue_subsidy_sms"],
+      inheritVariableNames: options?.inheritVariableNames ?? ["mianzi", "clue_subsidy_sms"],
       checkpoint:
         options?.nextChapterId === null
           ? { kind: "ai_final" as const }
@@ -263,7 +263,7 @@ function makeSave(overrides: Partial<GameSavePayload> = {}): GameSavePayload {
       text: "saved line",
       choices: [{ index: 0, text: "go", choiceId: "c0" }],
       isEnded: false,
-      meters: { dignity: 50, impulse: 50 },
+      meters: { mianzi: 50, ai_score: 50 },
     },
     ...overrides,
   };
@@ -363,7 +363,7 @@ describe("StorySession", () => {
           text: "auto",
           choices: [],
           isEnded: false,
-          meters: { dignity: 10, impulse: 90 },
+          meters: { mianzi: 10, ai_score: 90 },
         },
       }),
     );
@@ -375,7 +375,7 @@ describe("StorySession", () => {
           text: "s1",
           choices: [],
           isEnded: false,
-          meters: { dignity: 20, impulse: 80 },
+          meters: { mianzi: 20, ai_score: 80 },
         },
       }),
     );
@@ -387,7 +387,7 @@ describe("StorySession", () => {
           text: "s2",
           choices: [],
           isEnded: false,
-          meters: { dignity: 30, impulse: 70 },
+          meters: { mianzi: 30, ai_score: 70 },
         },
       }),
     );
@@ -406,7 +406,7 @@ describe("StorySession", () => {
           text: "auto",
           choices: [],
           isEnded: false,
-          meters: { dignity: 11, impulse: 22 },
+          meters: { mianzi: 11, ai_score: 22 },
         },
       }),
     );
@@ -428,7 +428,7 @@ describe("StorySession", () => {
           text: "m3",
           choices: [],
           isEnded: false,
-          meters: { dignity: 1, impulse: 2 },
+          meters: { mianzi: 1, ai_score: 2 },
         },
       }),
     );
@@ -440,7 +440,7 @@ describe("StorySession", () => {
           text: "m1",
           choices: [],
           isEnded: false,
-          meters: { dignity: 3, impulse: 4 },
+          meters: { mianzi: 3, ai_score: 4 },
         },
       }),
     );
@@ -631,7 +631,7 @@ describe("StorySession", () => {
   it("chapter transition exports inherited variables and autosaves chapter 2", async () => {
     runtime = makeRuntime({
       inheritVariableNames: [
-        "dignity",
+        "mianzi",
         "clue_subsidy_sms",
         "breakup_delivery",
         "memory_posture",
@@ -646,7 +646,7 @@ describe("StorySession", () => {
     });
     await session.startNew();
     session.getState().runner?.applyVariables({
-      dignity: 61,
+      mianzi: 61,
       clue_subsidy_sms: true,
       breakup_delivery: "hard",
       memory_posture: "shame",
@@ -658,7 +658,7 @@ describe("StorySession", () => {
     expect(advanced).toBe(true);
     expect(session.getState().storyId).toBe("draft-ch02");
     expect(session.getState().snapshot?.sceneId).toBe("dch02_s001");
-    expect(session.getState().runner?.getVariable("dignity")).toBe(61);
+    expect(session.getState().runner?.getVariable("mianzi")).toBe(61);
     expect(session.getState().runner?.getVariable("clue_subsidy_sms")).toBe(true);
     expect(session.getState().runner?.getVariable("breakup_delivery")).toBe("hard");
     expect(session.getState().runner?.getVariable("memory_posture")).toBe("shame");
@@ -667,7 +667,7 @@ describe("StorySession", () => {
     const autosave = loadSave(AUTOSAVE_SLOT);
     expect(autosave?.storyId).toBe("draft-ch02");
     expect(autosave?.inheritedVariables).toEqual({
-      dignity: 61,
+      mianzi: 61,
       clue_subsidy_sms: true,
       breakup_delivery: "hard",
       memory_posture: "shame",

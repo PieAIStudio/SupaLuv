@@ -18,8 +18,8 @@ export interface StoryMirrorPayloadV1 {
   readonly isComplete: boolean;
   readonly isEnded: boolean;
   readonly choices: readonly { readonly index: number; readonly text: string }[];
-  readonly dignity: number;
-  readonly impulse: number;
+  readonly mianzi: number;
+  readonly ai_score: number;
   readonly aiMode: boolean;
   readonly hostAlias: string;
   readonly updatedAtMs: number;
@@ -194,8 +194,18 @@ export function parseEnvelope(value: unknown): CoPlayEnvelope | null {
         isComplete: payload.isComplete,
         isEnded: payload.isEnded,
         choices,
-        dignity: typeof payload.dignity === "number" ? payload.dignity : 50,
-        impulse: typeof payload.impulse === "number" ? payload.impulse : 50,
+        mianzi:
+          typeof payload.mianzi === "number"
+            ? payload.mianzi
+            : typeof (payload as { dignity?: number }).dignity === "number"
+              ? (payload as { dignity: number }).dignity
+              : 50,
+        ai_score:
+          typeof payload.ai_score === "number"
+            ? payload.ai_score
+            : typeof (payload as { impulse?: number }).impulse === "number"
+              ? (payload as { impulse: number }).impulse
+              : 50,
         aiMode: Boolean(payload.aiMode),
         hostAlias: typeof payload.hostAlias === "string" ? payload.hostAlias : "房主",
         updatedAtMs: typeof payload.updatedAtMs === "number" ? payload.updatedAtMs : Date.now(),

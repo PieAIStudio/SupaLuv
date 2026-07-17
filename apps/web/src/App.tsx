@@ -411,11 +411,11 @@ export function App() {
     gameAudio.stopAmbient();
     gameAudio.playExclusiveBed("chapter-end");
     tryAchievement("ch01_clear");
-    if (snapshot.meters.impulse >= 65) {
-      tryAchievement("high_impulse");
+    if (snapshot.meters.ai_score >= 65) {
+      tryAchievement("high_ai_score");
     }
-    if (snapshot.meters.dignity >= 55) {
-      tryAchievement("high_dignity");
+    if (snapshot.meters.mianzi >= 55) {
+      tryAchievement("high_mianzi");
     }
     if (path.usedAiBranch) {
       tryAchievement("first_ai_branch");

@@ -31,8 +31,8 @@ export interface RemoteStorySource {
   readonly isComplete: boolean;
   readonly isEnded: boolean;
   readonly choices: readonly { readonly index: number; readonly text: string }[];
-  readonly dignity: number;
-  readonly impulse: number;
+  readonly mianzi: number;
+  readonly ai_score: number;
   readonly aiMode: boolean;
 }
 
@@ -50,8 +50,8 @@ export interface PlaybackSourceInput {
   readonly presentationSpeaker: string;
   readonly sceneTitle: string | null | undefined;
   readonly snapshotSceneId: string | null;
-  readonly snapshotDignity: number;
-  readonly snapshotImpulse: number;
+  readonly snapshotMianzi: number;
+  readonly snapshotAiScore: number;
   readonly snapshotChoices: readonly {
     readonly index: number;
     readonly text: string;
@@ -66,8 +66,8 @@ export interface PlaybackSourceProjection {
   readonly rawSpeaker: string;
   readonly sceneTitle: string;
   readonly voiceLineKey: string;
-  readonly dignity: number;
-  readonly impulse: number;
+  readonly mianzi: number;
+  readonly ai_score: number;
   readonly choices: readonly {
     readonly index: number;
     readonly text: string;
@@ -147,18 +147,18 @@ export function resolveVoiceLineKey(input: {
 export function resolvePlaybackMeters(input: {
   readonly isGuestSpectator: boolean;
   readonly remoteStory: RemoteStorySource | null;
-  readonly snapshotDignity: number;
-  readonly snapshotImpulse: number;
-}): { readonly dignity: number; readonly impulse: number } {
+  readonly snapshotMianzi: number;
+  readonly snapshotAiScore: number;
+}): { readonly mianzi: number; readonly ai_score: number } {
   if (input.isGuestSpectator) {
     return {
-      dignity: clampMeter(input.remoteStory?.dignity ?? 50),
-      impulse: clampMeter(input.remoteStory?.impulse ?? 50),
+      mianzi: clampMeter(input.remoteStory?.mianzi ?? 50),
+      ai_score: clampMeter(input.remoteStory?.ai_score ?? 50),
     };
   }
   return {
-    dignity: clampMeter(input.snapshotDignity),
-    impulse: clampMeter(input.snapshotImpulse),
+    mianzi: clampMeter(input.snapshotMianzi),
+    ai_score: clampMeter(input.snapshotAiScore),
   };
 }
 
@@ -212,8 +212,8 @@ export function resolvePlaybackSource(input: PlaybackSourceInput): PlaybackSourc
       snapshotText: input.snapshotText,
       aiBeatIndex: input.aiBeatIndex,
     }),
-    dignity: meters.dignity,
-    impulse: meters.impulse,
+    mianzi: meters.mianzi,
+    ai_score: meters.ai_score,
     choices: resolvePanelChoices(input),
     typewriterEnabled: !input.isGuestSpectator || Boolean(input.remoteStory),
     remoteIsComplete: input.isGuestSpectator ? Boolean(input.remoteStory?.isComplete) : undefined,

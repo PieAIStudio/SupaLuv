@@ -13,6 +13,7 @@ export function storyHasComedyMeters(storyId: StoryId): boolean {
   return (
     storyId === "draft-ch01" ||
     storyId === "draft-ch02" ||
+    storyId === "draft-ch03" ||
     storyId === "prototype-act1" ||
     storyId === "chapter-01-trial"
   );

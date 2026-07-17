@@ -795,7 +795,7 @@ describe("draft path termination, facts, and chapter inheritance", () => {
       expect(result.lastText.includes("先看房") || result.scenes.includes("d1_chapter_end")).toBe(
         true,
       );
-      expect(Number(runner.getVariable("dignity"))).toBeTypeOf("number");
+      expect(Number(runner.getVariable("mianzi"))).toBeTypeOf("number");
       expect(
         runner.getVariable("budget_900") === true || runner.getVariable("budget_900") === false,
       ).toBe(true);
@@ -807,12 +807,12 @@ describe("draft path termination, facts, and chapter inheritance", () => {
       await import("../../apps/web/src/story/inkStoryRunner");
     for (const bias of [0, 1] as const) {
       const runner = await createDraftCh02InkStoryRunner({
-        dignity: 61,
-        impulse: 44,
+        mianzi: 61,
+        ai_score: 44,
         budget_900: true,
         clue_subsidy_sms: true,
       });
-      expect(runner.getSnapshot().meters.dignity).toBe(61);
+      expect(runner.getSnapshot().meters.mianzi).toBe(61);
       expect(runner.getVariable("budget_900")).toBe(true);
       const result = walkToEnd(runner, (choices) => Math.min(bias, choices.length - 1));
       expect(result.ended).toBe(true);

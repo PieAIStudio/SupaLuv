@@ -8,7 +8,7 @@ export interface BranchPromptInput {
   readonly artPool: readonly string[];
   readonly portraitPool: readonly string[];
   readonly speakerPool: readonly string[];
-  readonly meters?: { dignity: number; impulse: number };
+  readonly meters?: { mianzi: number; ai_score: number };
 }
 
 export function buildAiBranchMessages(input: BranchPromptInput): Array<{

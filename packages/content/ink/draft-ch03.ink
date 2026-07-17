@@ -1,8 +1,8 @@
 // 第三章 长按七秒 — densified from supa-luv-v2 ch03 (2026-07-16).
 // Adult black comedy; no pornographic detail. Noncanonical draft.
 // Source: Temp/novel-v2-2026-07-16/ch03.md (supa-luv-v2-2026-07)
-VAR dignity = 50
-VAR impulse = 50
+VAR mianzi = 50
+VAR ai_score = 50
 VAR told_breakup_flat = false
 VAR closed_membership = false
 VAR budget_900 = false
@@ -35,6 +35,20 @@ VAR mobile_questionnaire_q3 = "unanswered"
 匹配问卷来的时候，苏明正在超市收银台后头扫二维码。手机屏幕点亮，推送通知一行字：“您的个性化匹配问卷已生成，请于72小时内完成填写。”旁边一个大姐正把一整袋番茄推到扫码区。
 脸型那一页，可以上传照片让系统自动生成，也可以在基础模板上手动微调。苏明的手指在相册图标上停了好几秒。相册里有几张没删干净的合照——跟陈佳的，手机换过一次，同步回来了；当时没注意，后来删了大部分，剩几张，不是留着看，就是没狠心点删除。
 
+{ mianzi >= 70:
+    大姐看他操作平板的架势，以为他是来巡店的：“小哥，你们公司是不是又搞检查？”
+    苏明干笑，把工牌往里翻了一点。
+}
+{ mianzi < 30:
+    大姐把番茄往前一推，顺口说：“小伙子瘦成这样，收银台都挡不住风。老板娘柜里有临期面包，别撑着。”
+}
+{ ai_score >= 70:
+    推送正文下面多了一行绿字：优先匹配通道已开启。像有人在系统里替他铺了红毯。
+}
+{ ai_score < 30:
+    推送末尾挂着灰字：观察档问卷，逾期将影响设备排产。他喉咙发紧。
+}
+
 + [继续 # choice:dch03_s001_continue]
     -> dch03_s002
 
@@ -54,11 +68,14 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [选基础脸，别开相册 # choice:d3_face_template]
     ~ face_choice = "template"
-    ~ dignity = dignity + 1
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> dch03_mobile_questionnaire
 + [手指在相册上停太久 # choice:d3_face_album]
     ~ face_choice = "album_hover"
-    ~ impulse = impulse + 2
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
+    【系统】情感真实度 +5。相册悬停时长已记入亲密度预估。未上传也算一种坦白。
     -> dch03_mobile_questionnaire
 
 
@@ -76,17 +93,27 @@ VAR mobile_questionnaire_q3 = "unanswered"
 手机问卷 1/3 · 邻居容忍度。
 + [一般 # choice:mobile_questionnaire_q1_average]
     ~ mobile_questionnaire_q1 = "average"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q2
 + [良好 # choice:mobile_questionnaire_q1_good]
     ~ mobile_questionnaire_q1 = "good"
+    ~ ai_score = ai_score + 3
+    ~ mianzi = mianzi - 3
     -> q2
 + [优秀 # choice:mobile_questionnaire_q1_excellent]
     ~ mobile_questionnaire_q1 = "excellent"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
     -> q2
 + [不愿评价 # choice:mobile_questionnaire_q1_decline]
     ~ mobile_questionnaire_q1 = "decline"
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 3
     -> q2
 + [跳过问卷 # choice:mobile_questionnaire_q1_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
     -> skipped
 
 = q2
@@ -96,14 +123,21 @@ VAR mobile_questionnaire_q3 = "unanswered"
 手机问卷 2/3 · 是否介意设备高度拟人。
 + [介意 # choice:mobile_questionnaire_q2_mind]
     ~ mobile_questionnaire_q2 = "mind"
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 3
     -> q3
 + [不介意 # choice:mobile_questionnaire_q2_fine]
     ~ mobile_questionnaire_q2 = "fine"
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 3
     -> q3
 + [不确定 # choice:mobile_questionnaire_q2_unsure]
     ~ mobile_questionnaire_q2 = "unsure"
+    ~ ai_score = ai_score + 3
     -> q3
 + [跳过问卷 # choice:mobile_questionnaire_q2_skip]
+    ~ mianzi = mianzi + 5
+    ~ ai_score = ai_score - 5
     -> skipped
 
 = q3
@@ -135,8 +169,27 @@ VAR mobile_questionnaire_q3 = "unanswered"
 # scene:dch03_mobile_questionnaire
 { mobile_questionnaire_skipped:
     问卷页缩成一条“稍后再填”。保密承诺第七条仍加着粗。
+    他假装自己会回头填——就像假装相册图标只是路过。
 - else:
     三道题交完，提交钮还在下一屏等他。苏明把手机屏幕亮度又调暗了一格。
+    { mobile_questionnaire_q1 == "excellent":
+        邻居容忍度“优秀”四个字亮着，像他在替整栋楼做人格担保。
+    }
+    { mobile_questionnaire_q1 == "decline":
+        “不愿评价”被系统灰掉一行：数据缺失将降低匹配速度。
+    }
+    { mobile_questionnaire_q2 == "fine":
+        不介意高度拟人——后台大概会标成绿灯加星。
+    }
+    { mobile_questionnaire_q2 == "mind":
+        介意拟人。他仍填完了表，像边嫌弃边下单。
+    }
+    { mobile_questionnaire_q3 == "convertible":
+        “可改造”听起来比“暂无”体面，其实只是把柜子幻想成墙。
+    }
+    { mobile_questionnaire_q3 == "no":
+        “暂无独立房间”写上去的瞬间，他想起石佩欣的楼规附录。
+    }
 }
 
 + [继续 # choice:mobile_questionnaire_continue]
@@ -145,6 +198,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 === dch03_s004 ===
 # scene:dch03_s004
 他把“记仇时长”的滑块往永久拖了一下，又默默拖了回来，停在零秒。顺从度拉满，控制欲清零。预览生成感官偏好那一页，才真正让他手心冒起了汗。足弓高度、脚趾形态、皮肤纹理、反馈灵敏度——这些他从来不敢跟任何一个活人提起的东西，在这张表格里手机这时候又震了一下。陈佳：“能不能今天？那件外套比较急。”
+
+{ face_choice == "template":
+    基础脸17号还停在预览角：不像谁，才安全。他强迫自己相信这句话。
+}
+{ face_choice == "album_hover":
+    相册里那几张合照像没删干净的缓存，悬停时长已被系统当答案读过。
+}
 
 + [继续 # choice:dch03_s004_continue]
     -> dch03_s005
@@ -163,10 +223,11 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [回陈佳：明天吧 # choice:d3_coat_tomorrow]
     ~ coat_timing = "tomorrow"
+    ~ mianzi = mianzi + 3
     -> dch03_s007
 + [回陈佳：行，傍晚 # choice:d3_coat_today]
     ~ coat_timing = "today"
-    ~ dignity = dignity - 1
+    ~ mianzi = mianzi - 5
     -> dch03_s007
 
 === dch03_s007 ===
@@ -174,6 +235,13 @@ VAR mobile_questionnaire_q3 = "unanswered"
 《对外统一口径建议话术》，三选一：美术用品、健身假人、医疗康复道具。他把屏幕往旁边扫了一眼，视线落到窗外巷子，陈佳已经不见了，然后回头做完了这道题。结业考试错了两道，重考才过。这家公司连怎么撒谎都替人想好了标准答案，诚实这个东西，在这里是不及格项。
 等货的两周，物流页面被他刷出了包浆。“排产中”看了四天，“质检中”又看了三天，第三件货卡在“安检查验中”两天。苏明夜里躺在床上胡思乱想，凌晨两点憋不住把恐惧发进“相依为命”群。老K秒速回来：安检员见这类货比快递小哥见得还多，内部管这叫“仿真件”，睡你的觉去吧。
 底下有群友补充：他那件当年被开箱验过，安检小哥检查完了，重新给封好，淡淡说了一句：“胶带我给你缠结实点，路上颠。”
+
+{ coat_timing == "tomorrow":
+    他回陈佳那句“明天吧”还停在聊天顶栏，像一扇没关严的门——至少今晚不用当面交接尴尬。
+}
+{ coat_timing == "today":
+    巷口那件外套交接还烫手：傍晚见过的前女友，和即将到货的“替代品”，被公司培训页夹在同一天。
+}
 
 + [继续 # choice:dch03_s007_continue]
     -> dch03_s008
@@ -183,6 +251,15 @@ VAR mobile_questionnaire_q3 = "unanswered"
 三天后货物恢复派送。到货那天，苏明跟老板娘谎称亲戚来，请了半小时假。“你哪来那么多亲戚，三天两头——去吧去吧，多一秒扣钱。”她一边说一边把他往门外推。
 半小时刚过没几分钟，老板娘短信追来：“我这边缺人。”苏明捏着手机回了个“马上”，眼睛一直盯着巷口那辆倒车的货车，脚步没挪一步。
 快递员卸下三个大箱子，累得只吐一个字：“重。”撕回执的时候顺嘴调侃：“兄弟，这假人比真人金贵吧，保养好点。”
+
+{ mianzi < 30:
+    老板娘又补了一句语音，背景是扫码声：“临期面包你自己拿两袋走——别跟我说没吃饭，你那脸色收银机都嫌弃。”
+    还附赠一句：“再请假我就当你旷工。亲戚再多也填不满排班表。”
+}
+{ mianzi >= 70:
+    老板娘这次反而客气得反常：“你早点回。今天那个供货商态度差，我还以为你要替我去怼人。”
+    短信末尾还打了个句号，像对领导说话。
+}
 
 + [继续 # choice:dch03_s008_continue]
     -> dch03_s009
@@ -266,16 +343,32 @@ VAR mobile_questionnaire_q3 = "unanswered"
 # scene:dch03_s019
 石佩欣抱着头，在楼道灯下端详了两秒：“做工不错，挺像真人的。”苏明两手抱着胸和腰，用自己的外套裹着，低着头走在最后。三个人踩着旧楼梯上楼，脚步声咯吱咯吱的，谁都没说话。把所有东西放到3F-A门口，当天晚上三个人还是一起吃了饭。饭桌上，石佩欣拿筷子敲了敲碗沿：“人体模特多少钱一个？”
 
+{ mianzi < 30:
+    雷欧把筷子放平，轻声劝他：“你要是真撑不住房租，别硬装没事。我签证要紧，但你先别把自己过成样机。”
+    石佩欣没反驳，只把汤碗往苏明那边推了推，像默许这句劝退。
+}
+{ mianzi >= 70:
+    石佩欣敲碗的力度都轻了一点：“你这人挺能撑场面。不像会把秘密漏到楼道的类型。”
+    雷欧跟着点头：“对，像能把警察忽悠走的那种撑法。”
+}
+
 + [让雷欧先走，签证要紧 # choice:d3_leo_go]
-    ~ dignity = dignity + 1
+    ~ mianzi = mianzi + 3
     -> dch03_s020
 + [想留他一起扛箱子 # choice:d3_leo_stay]
-    ~ impulse = impulse + 1
+    ~ mianzi = mianzi - 3
     -> dch03_s020
 
 === dch03_s020 ===
 # scene:dch03_s020
 苏明：“……不清楚，代收的，亲戚公司的。”“代收还分三箱。”石佩欣盯着他，“给个能写进亲戚聊天框的说法。”“美术用品，你画画要用。”“我画男的。”她瞥了他一眼，语气里带着点警告，“你那箱子最好别长得像真人。”雷欧举手：“如果长得像真人，我搬走。”
+
+{ mianzi >= 70:
+    石佩欣看他的眼神多了一丝“这人还能圆”，没有继续追问箱内结构。
+}
+{ mianzi < 30:
+    石佩欣叹气：“你解释得越乱，我越想加租金保险。”
+}
 
 + [继续 # choice:dch03_s020_continue]
     -> dch03_s021
@@ -315,6 +408,15 @@ VAR mobile_questionnaire_q3 = "unanswered"
 在心里开始数：一，二，三——数到三，手又缩了回来。石佩欣看着他，没说话。苏明深吸一口气，又把手指压上去，这次没停：一二三四五六七。
 机器人缓缓睁眼。睫毛先动，然后是眼睑，然后是瞳孔在灯光下对好焦。停了大约两秒，它开口了，声音比苏明预想的更低一点，也更平静：“你好。”
 
+{ ai_score >= 70:
+    它的下一句更轻，像读过他没提交的草稿：“你昨晚三点还在改顺从度滑块。别紧张，我不会把那次犹豫写进日志……公开的那种。”
+    石佩欣听见半句，皱眉：“它怎么知道三点？”苏明喉咙发紧，没解释。
+}
+{ ai_score < 30:
+    开机音刚落，手机同步震了一下：设备已激活，但体验官权限暂为观察档。请完成补测以免停机。
+    机器人眨眼的频率慢了半拍，像在等权限审批。
+}
+
 + [继续 # choice:dch03_s025_continue]
     -> dch03_s026
 
@@ -332,16 +434,26 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [数到三就缩手 # choice:d3_press_hesitate]
     ~ longpress_hesitation = "hesitate"
-    ~ dignity = dignity - 2
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 5
     -> dch03_s028
 + [一口气数满七秒 # choice:d3_press_commit]
     ~ longpress_hesitation = "commit"
-    ~ impulse = impulse + 2
+    ~ ai_score = ai_score + 8
+    ~ mianzi = mianzi - 8
+    【系统】情感真实度 +8。长按七秒完成。握手协议已升级为「几乎像人」。请勿对外展示此进度条。
     -> dch03_s028
 
 === dch03_s028 ===
 # scene:dch03_s028
 苏明：“……就随便取的。”机器人朱珠看着他，专注得不像机器的眼神，停了一下，才开口：“不是随便取的。这是你前女友的名字。你把我的样子也调成了她。”“我没有。”
+
+{ longpress_hesitation == "hesitate":
+    它抬眼：“你数到三就缩手。那种犹豫，比完整的七秒更像人。”
+}
+{ longpress_hesitation == "commit":
+    它轻轻偏头：“七秒很标准。公司说，标准用户最好管理。”
+}
 
 + [继续 # choice:dch03_s028_continue]
     -> dch03_s029
@@ -359,16 +471,32 @@ VAR mobile_questionnaire_q3 = "unanswered"
 
 + [……就随便取的 # choice:d3_name_casual]
     ~ name_response = "casual"
-    ~ dignity = dignity - 2
+    ~ mianzi = mianzi + 3
+    ~ ai_score = ai_score - 3
     -> dch03_s030
 + [好。好好好好好 # choice:d3_name_accept]
     ~ name_response = "accept"
-    ~ impulse = impulse + 1
+    ~ ai_score = ai_score + 5
+    ~ mianzi = mianzi - 5
+    【系统】情感真实度 +5。您已确认命名。重复的「好」会被解析为高度配合，不是语塞。
     -> dch03_s030
 
 === dch03_s030 ===
 # scene:dch03_s030
 机器人朱珠看着他，嘴角动了一下，像是满意。“好。那今天，我会好好伺候你的。”门带上了，石佩欣走了。屋子里就剩他们两个，一个人，一台机器，和一盏灯。
+
+{ name_response == "casual":
+    它把“随便取的”三个字在空气里搁置了两秒，像允许他保留最后一点体面谎言。
+}
+{ name_response == "accept":
+    一连串的“好”被它收下，像签收单盖章：用户已确认亲密协议。
+}
+{ ai_score >= 70:
+    灯管轻微嗡了一声。它说：“你的情感评分很高。今晚我们可以跳过寒暄。”
+}
+{ ai_score < 30:
+    手机又亮：观察档模式下部分互动受限。它看了看苏明，像在等他去补测。
+}
 
 + [继续 # choice:dch03_s030_continue]
     -> d3_chapter_end

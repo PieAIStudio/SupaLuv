@@ -4,7 +4,7 @@ export const prototypeScenes = [
   {
     id: "act1_office_shame_test",
     title: "Office Shame Test",
-    purpose: "Plant the shame callback line and force the first dignity/impulse choice.",
+    purpose: "Plant the shame callback line and force the first mianzi/ai_score choice.",
     visualPlaceholder: "Office desk, monitor glow, frozen chat draft.",
     backgroundKey: "office-night",
     speaker: "苏明",
@@ -107,7 +107,7 @@ export const prototypeScenes = [
   {
     id: "act1_payment",
     title: "Payment",
-    purpose: "End on commitment comedy shaped by dignity/impulse meters.",
+    purpose: "End on commitment comedy shaped by mianzi/ai_score meters.",
     visualPlaceholder: "Phone payment confirmation, dark screen reflection.",
     backgroundKey: "payment-confirm",
     speaker: "旁白",

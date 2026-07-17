@@ -433,13 +433,13 @@ export const en: MessageTree = {
         title: "Initial review passed",
         description: "Complete the current two-chapter draft.",
       },
-      high_impulse: {
-        title: "Impulse delivered",
-        description: "Finish with impulse at 65 or higher.",
+      high_ai_score: {
+        title: "KPI overclocked",
+        description: "Finish with AI Score at 65 or higher.",
       },
-      high_dignity: {
-        title: "Residual dignity",
-        description: "Finish with dignity at 55 or higher.",
+      high_mianzi: {
+        title: "Residual face",
+        description: "Finish with Face at 55 or higher.",
       },
       gallery_start: { title: "Gallery beginner", description: "Open the gallery." },
       rare_echo_path: {
@@ -547,8 +547,8 @@ export const en: MessageTree = {
     orderNumber: "Order",
     aiNotePrefix: "AI closing note:",
     metersAria: "Run results",
-    runDignity: "Run dignity",
-    runImpulse: "Run impulse",
+    runMianzi: "Face",
+    runAiScore: "AI Score",
     echoAria: "Local demo choice sample",
     echoTitle: "Local demo sample",
     echoLead:
@@ -581,15 +581,14 @@ export const en: MessageTree = {
     footnote: "An experiment, not a verdict—but the order number now exists.",
     pathAi: "This run used an AI Inspiration branch and rejoined the authored story.",
     pathAuthor: "This run used authored choices only.",
-    toneImpulse: "High impulse · night account settled",
-    toneDignity: "Dignity remains · experiment note",
+    toneAiScore: "High AI Score · night account settled",
+    toneDignity: "Face remains · experiment note",
     toneNeutral: "Neither heroic nor absolute",
     flavorAiImpulse:
       "You let Inspiration nod once on your behalf. The authored story pulled the rope back, but the order number remembers.",
     flavorAi:
       "The AI branch was like a commit left out of the PR: short, reversible, and still in the history.",
-    flavorImpulse:
-      "Dignity is a daytime profession. Night has a separate invoice, and you paid it.",
+    flavorImpulse: "Face is a daytime profession. Night has a separate invoice, and you paid it.",
     flavorDignity:
       "You cleaned the dirty sample until it looked nonexistent—right before the delivery text arrived.",
     flavorNeutral:
@@ -607,7 +606,7 @@ export const en: MessageTree = {
     clipboardNext: "Next step: complete the personalized matching questionnaire within 48 hours",
     clipboardEndingTitle: "SupaLuv · chapter ending",
     clipboardOrder: "Order:",
-    clipboardMeters: "Dignity / Impulse",
+    clipboardMeters: "Face / AI Score",
     clipboardNote: "Note:",
     clipboardPathAi: "Path: AI branch used, then rejoined the authored story",
     clipboardPathAuthor: "Path: authored choices only",
@@ -642,8 +641,8 @@ export const en: MessageTree = {
     history: "History",
     system: "System",
     storyMode: "Story mode",
-    dignity: "Dignity",
-    impulse: "Impulse",
+    mianzi: "Face",
+    ai_score: "AI Score",
     saved: "Saved",
     quickSave: "Quick save",
     saveManual: "Save to manual slot",

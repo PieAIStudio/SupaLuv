@@ -3,12 +3,46 @@ import type { StoryId } from "../story/storyMapAdapter";
 import type { ComedyMeters, InkStoryChoice, InkStorySnapshot } from "../story/inkStoryRunner";
 import type { StoryCharacterBindings } from "../characters/characterPackTypes";
 
-export const SAVE_VERSION = 2 as const;
+/** v3: ADR-0007 meters rename (dignity/impulse → mianzi/ai_score). */
+export const SAVE_VERSION = 3 as const;
 export const AUTOSAVE_SLOT = "autosave";
 export const MANUAL_SLOTS = ["slot-1", "slot-2", "slot-3"] as const;
 export type ManualSlotId = (typeof MANUAL_SLOTS)[number];
 
 const STORAGE_PREFIX = "supaluv.save.v1.";
+
+type LegacyMeters = {
+  readonly mianzi?: number;
+  readonly ai_score?: number;
+  readonly dignity?: number;
+  readonly impulse?: number;
+};
+
+/** Prefer ADR-0007 names; accept pre-migration dignity/impulse on disk. */
+export function migrateComedyMeters(meters: LegacyMeters | null | undefined): ComedyMeters {
+  return {
+    mianzi: Number(meters?.mianzi ?? meters?.dignity ?? 50),
+    ai_score: Number(meters?.ai_score ?? meters?.impulse ?? 50),
+  };
+}
+
+export function migrateInheritedVariables(
+  values: Readonly<Record<string, unknown>> | null | undefined,
+): Record<string, unknown> | undefined {
+  if (!values) {
+    return undefined;
+  }
+  const out: Record<string, unknown> = { ...values };
+  if (!("mianzi" in out) && "dignity" in out) {
+    out.mianzi = out.dignity;
+  }
+  if (!("ai_score" in out) && "impulse" in out) {
+    out.ai_score = out.impulse;
+  }
+  delete out.dignity;
+  delete out.impulse;
+  return out;
+}
 
 export interface GalleryUnlocks {
   readonly images: readonly string[];
@@ -36,7 +70,8 @@ export interface SavePresentation {
 }
 
 export interface GameSavePayload {
-  readonly version: typeof SAVE_VERSION | 1;
+  /** 1–2 = pre-ADR-0007; 3 = mianzi/ai_score. */
+  readonly version: typeof SAVE_VERSION | 1 | 2;
   readonly slotId: string;
   readonly storyId: string;
   readonly packageId?: string;
@@ -136,14 +171,22 @@ export function loadSave(slotId: string): GameSavePayload | null {
     }
     const parsed = JSON.parse(raw) as GameSavePayload;
     if (
-      (parsed.version !== SAVE_VERSION && parsed.version !== 1) ||
+      (parsed.version !== SAVE_VERSION && parsed.version !== 1 && parsed.version !== 2) ||
       typeof parsed.inkStateJson !== "string"
     ) {
       return null;
     }
+    const presentation = parsed.presentation
+      ? {
+          ...parsed.presentation,
+          meters: migrateComedyMeters(parsed.presentation.meters as LegacyMeters),
+        }
+      : undefined;
     return {
       ...parsed,
       unlocks: normalizeUnlocks(parsed.unlocks),
+      presentation,
+      inheritedVariables: migrateInheritedVariables(parsed.inheritedVariables),
     };
   } catch {
     return null;

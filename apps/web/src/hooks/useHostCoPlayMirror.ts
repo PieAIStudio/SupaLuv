@@ -32,8 +32,8 @@ export function useHostCoPlayMirror(input: {
       isComplete: input.isComplete,
       isEnded: input.snapshot.isEnded,
       choices: input.snapshot.choices.map((c) => ({ index: c.index, text: c.text })),
-      dignity: clampMeter(input.snapshot.meters.dignity),
-      impulse: clampMeter(input.snapshot.meters.impulse),
+      mianzi: clampMeter(input.snapshot.meters.mianzi),
+      ai_score: clampMeter(input.snapshot.meters.ai_score),
       aiMode: input.aiMode,
     });
   }, [
@@ -42,8 +42,8 @@ export function useHostCoPlayMirror(input: {
     input.sceneTitle,
     input.snapshot.choices,
     input.snapshot.isEnded,
-    input.snapshot.meters.dignity,
-    input.snapshot.meters.impulse,
+    input.snapshot.meters.mianzi,
+    input.snapshot.meters.ai_score,
     input.snapshot.sceneId,
     input.speaker,
     input.text,

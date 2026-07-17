@@ -9,8 +9,8 @@ interface PlayHudProps {
   readonly playerMode: boolean;
   readonly autoPlay: boolean;
   readonly showComedyMeters: boolean;
-  readonly dignity: number;
-  readonly impulse: number;
+  readonly mianzi: number;
+  readonly ai_score: number;
   readonly saveFlash: boolean;
   readonly showDevTools: boolean;
   readonly storyId: StoryId;
@@ -43,8 +43,8 @@ export function PlayHud({
   playerMode,
   autoPlay,
   showComedyMeters,
-  dignity,
-  impulse,
+  mianzi,
+  ai_score,
   saveFlash,
   showDevTools,
   storyId,
@@ -88,12 +88,12 @@ export function PlayHud({
         {showComedyMeters ? (
           <div className="meter-rail" data-testid="comedy-meters">
             <div className="meter-block">
-              <span className="meter-label">{t("play.dignity")}</span>
-              <GameProgress label={t("play.dignity")} value={dignity} tone="warning" showValue />
+              <span className="meter-label">{t("play.mianzi")}</span>
+              <GameProgress label={t("play.mianzi")} value={mianzi} tone="warning" showValue />
             </div>
             <div className="meter-block">
-              <span className="meter-label">{t("play.impulse")}</span>
-              <GameProgress label={t("play.impulse")} value={impulse} tone="danger" showValue />
+              <span className="meter-label">{t("play.ai_score")}</span>
+              <GameProgress label={t("play.ai_score")} value={ai_score} tone="danger" showValue />
             </div>
           </div>
         ) : null}

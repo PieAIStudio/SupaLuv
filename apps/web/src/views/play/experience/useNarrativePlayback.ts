@@ -41,8 +41,8 @@ export type NarrativePlayback = {
     readonly aiPlaying: boolean;
     readonly activeAiBeat: AiBranchBeat | null;
     readonly aiSlot: AiChoiceSlotState;
-    readonly dignity: number;
-    readonly impulse: number;
+    readonly mianzi: number;
+    readonly ai_score: number;
     readonly remoteSceneId: string | null;
     readonly remoteIsEnded: boolean;
     readonly panelAiMode: boolean | undefined;
@@ -336,8 +336,8 @@ export function useNarrativePlayback(input: {
       aiPlaying: ai.playing,
       activeAiBeat: ai.beat,
       aiSlot,
-      dignity: meters.dignity,
-      impulse: meters.impulse,
+      mianzi: meters.mianzi,
+      ai_score: meters.ai_score,
       remoteSceneId: remote.sceneId,
       remoteIsEnded: remote.isEnded,
       panelAiMode: remote.aiMode,

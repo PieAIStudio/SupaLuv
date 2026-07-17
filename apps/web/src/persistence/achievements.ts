@@ -7,8 +7,8 @@ export type AchievementId =
   | "first_ai_branch"
   | "first_manual_save"
   | "ch01_clear"
-  | "high_impulse"
-  | "high_dignity"
+  | "high_ai_score"
+  | "high_mianzi"
   | "gallery_start"
   | "rare_echo_path"
   | "first_coplay"
@@ -46,14 +46,14 @@ export const ACHIEVEMENT_DEFS: readonly AchievementDef[] = [
     description: "完成当前两章草稿。",
   },
   {
-    id: "high_impulse",
-    title: "冲动签收",
-    description: "结局冲动 ≥ 65。",
+    id: "high_ai_score",
+    title: "绩效爆表",
+    description: "结局情感评分 ≥ 65。",
   },
   {
-    id: "high_dignity",
+    id: "high_mianzi",
     title: "残留体面",
-    description: "结局羞耻/体面 ≥ 55。",
+    description: "结局体面 ≥ 55。",
   },
   {
     id: "gallery_start",

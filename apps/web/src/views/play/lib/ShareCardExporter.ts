@@ -10,8 +10,8 @@ export interface ShareCardEchoLine {
 
 export interface ShareCardPayload {
   readonly orderId: string;
-  readonly dignity: number;
-  readonly impulse: number;
+  readonly mianzi: number;
+  readonly ai_score: number;
   readonly toneLabel: string;
   readonly usedAi: boolean;
   readonly flavor: string;
@@ -22,8 +22,8 @@ export interface ShareCardPayload {
   readonly copy?: {
     readonly title: string;
     readonly order: string;
-    readonly dignity: string;
-    readonly impulse: string;
+    readonly mianzi: string;
+    readonly ai_score: string;
     readonly leads: string;
     readonly aiPath: string;
     readonly echo: string;
@@ -34,8 +34,8 @@ export interface ShareCardPayload {
 export const DEFAULT_SHARE_CARD_COPY = {
   title: "超级爱人 · 第 1 章",
   order: "订单",
-  dignity: "羞耻",
-  impulse: "冲动",
+  mianzi: "体面",
+  ai_score: "情感评分",
   leads: "主演",
   aiPath: "路径：含 AI 旁支 · 已汇合主线",
   echo: "本地演示样本",
@@ -77,7 +77,7 @@ export async function downloadShareCard(payload: ShareCardPayload): Promise<void
   ctx.fillStyle = "#fff6ee";
   ctx.font = "500 34px 'Avenir Next', 'PingFang SC', sans-serif";
   ctx.fillText(
-    `${copy.dignity} ${payload.dignity}  ·  ${copy.impulse} ${payload.impulse}`,
+    `${copy.mianzi} ${payload.mianzi}  ·  ${copy.ai_score} ${payload.ai_score}`,
     64,
     240,
   );

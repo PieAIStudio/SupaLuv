@@ -9,8 +9,8 @@ export interface InkStoryChoice {
 }
 
 export interface ComedyMeters {
-  readonly dignity: number;
-  readonly impulse: number;
+  readonly mianzi: number;
+  readonly ai_score: number;
 }
 
 export interface InkStorySnapshot {
@@ -37,11 +37,52 @@ function getChoiceIdFromTags(tags: readonly string[] | undefined): string | null
 }
 
 function readMeters(story: Story): ComedyMeters {
-  const variables = story.variablesState;
+  const variables = story.variablesState as Record<string, unknown>;
+  // Prefer ADR-0007 names; fall back to pre-migration dignity/impulse for mixed state.
   return {
-    dignity: Number(variables.dignity ?? 50),
-    impulse: Number(variables.impulse ?? 50),
+    mianzi: Number(variables.mianzi ?? variables.dignity ?? 50),
+    ai_score: Number(variables.ai_score ?? variables.impulse ?? 50),
   };
+}
+
+/** Map pre-ADR-0007 meter variable names onto mianzi / ai_score. */
+export function migrateInheritedMeterVariables(
+  values: Readonly<Record<string, unknown>>,
+): Record<string, unknown> {
+  const out: Record<string, unknown> = { ...values };
+  if (!("mianzi" in out) && "dignity" in out) {
+    out.mianzi = out.dignity;
+  }
+  if (!("ai_score" in out) && "impulse" in out) {
+    out.ai_score = out.impulse;
+  }
+  delete out.dignity;
+  delete out.impulse;
+  return out;
+}
+
+/** Rewrite Ink save JSON variable keys from dignity/impulse → mianzi/ai_score. */
+export function migrateInkStateJsonMeters(savedStateJson: string): string {
+  try {
+    const state = JSON.parse(savedStateJson) as {
+      variablesState?: Record<string, unknown>;
+    };
+    if (!state.variablesState || typeof state.variablesState !== "object") {
+      return savedStateJson;
+    }
+    const vs = state.variablesState;
+    if (!("mianzi" in vs) && "dignity" in vs) {
+      vs.mianzi = vs.dignity;
+      delete vs.dignity;
+    }
+    if (!("ai_score" in vs) && "impulse" in vs) {
+      vs.ai_score = vs.impulse;
+      delete vs.impulse;
+    }
+    return JSON.stringify(state);
+  } catch {
+    return savedStateJson;
+  }
 }
 
 function readSnapshot(story: Story): InkStorySnapshot {
@@ -91,7 +132,7 @@ export class InkStoryRunner {
   static fromCompiledJson(compiledJson: string, savedStateJson?: string): InkStoryRunner {
     const story = new Story(compiledJson);
     if (savedStateJson) {
-      story.state.LoadJson(savedStateJson);
+      story.state.LoadJson(migrateInkStateJsonMeters(savedStateJson));
     }
     return new InkStoryRunner(story);
   }
@@ -116,7 +157,8 @@ export class InkStoryRunner {
 
   /** Apply inherited variables after loading a new chapter. */
   applyVariables(values: Readonly<Record<string, unknown>>): void {
-    for (const [name, value] of Object.entries(values)) {
+    const migrated = migrateInheritedMeterVariables(values);
+    for (const [name, value] of Object.entries(migrated)) {
       try {
         this.story.variablesState[name] = value as never;
       } catch {

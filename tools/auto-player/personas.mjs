@@ -1,6 +1,8 @@
 /**
  * Built-in auto-player personas. Keyword tables are maintainable; selection is
  * fully deterministic (same content + persona → same choice index every time).
+ *
+ * ADR-0007: mianzi (体面) vs ai_score (情感评分) strategies.
  */
 
 /** @typedef {{ index: number, text: string }} Choice */
@@ -12,47 +14,45 @@
  * @property {(choices: readonly Choice[]) => number} pick
  */
 
-/** Dignity-leaning: restraint / composure / refusal. */
-export const DIGNITY_KEYWORDS = Object.freeze([
-  "平静",
-  "不说",
+/** Face/mianzi-leaning: restraint, refusal, privacy, 嘴硬 boundary. */
+export const MIANZI_KEYWORDS = Object.freeze([
   "拒绝",
   "收起",
   "克制",
   "体面",
-  "字面接受",
-  "先把",
-  "听完",
   "放轻",
   "咽回",
   "不确定",
   "暂无",
-  "一般",
-  "不介意",
-  "良好",
-  "优秀",
   "基础脸",
   "再少",
   "九百",
   "让雷欧先走",
-  "扫过",
   "回陈佳：明天",
+  "标记隐患",
+  "跳过",
+  "不愿评价",
+  "介意",
+  "冷笑",
+  "想提前结束",
+  "只想快点走",
+  "快进",
+  "硬着头皮",
+  "借朋友",
+  "嗤一声",
+  "数到三",
+  "随便取",
+  "明天吧",
+  "不说",
 ]);
 
-/** Impulse-leaning: impulse / bravado / spending / agreeing. */
-export const IMPULSE_KEYWORDS = Object.freeze([
-  "冲动",
-  "嘴硬",
-  "答应",
-  "花钱",
+/** Platform/ai_score-leaning: cooperate with system, privacy, full performance. */
+export const AI_SCORE_KEYWORDS = Object.freeze([
   "爆表",
   "刺痛",
-  "冷笑",
-  "标记隐患",
-  "硬着头皮",
-  "骂",
+  "答应",
+  "花钱",
   "冲上去",
-  "想提前结束",
   "想留",
   "辣条",
   "点下申请",
@@ -60,14 +60,33 @@ export const IMPULSE_KEYWORDS = Object.freeze([
   "进巷子",
   "问出口",
   "更硬",
-  "介意",
-  "借朋友",
   "我提的",
   "一口气",
   "手指在相册",
-  "快进",
   "回陈佳：行",
   "接受初审",
+  "字面接受",
+  "真情流露",
+  "不介意",
+  "优秀",
+  "申请",
+  "耳朵却竖",
+  "骂自己",
+  "把那顿饭",
+  "听完小结",
+  "先把矛盾听完",
+  "咬牙",
+  "数满七秒",
+  "好好好好",
+  "相册",
+  "傍晚",
+  "扫过",
+  "按住手腕",
+  "尽快定",
+  "只想尽快",
+  "良好",
+  "有独立房间",
+  "可改造",
 ]);
 
 /** Skip interactions when the label offers an explicit skip. */
@@ -150,17 +169,52 @@ export function pickSkipper(choices) {
   return 0;
 }
 
+/**
+ * Platform-coop persona: prefer ai_score keywords; never treat bare "跳过" as a win.
+ * When scores tie at zero, take the earliest non-skip option so questionnaire completion
+ * diverges from mianzi/skipper paths under position-aligned transcript diffs.
+ * @param {readonly Choice[]} choices
+ * @returns {number}
+ */
+export function pickAiScorePersona(choices) {
+  if (choices.length === 0) {
+    throw new RangeError("Cannot pick from empty choices");
+  }
+  let bestIndex = 0;
+  let bestScore = Number.NEGATIVE_INFINITY;
+  for (let i = 0; i < choices.length; i += 1) {
+    const text = choices[i].text;
+    let score = scoreKeywords(text, AI_SCORE_KEYWORDS);
+    if (scoreKeywords(text, SKIP_KEYWORDS) > 0) {
+      score -= 10;
+    }
+    // Later option wins ties so "骂自己再申请" beats plain apply when both score.
+    if (score > bestScore || (score === bestScore && score > 0 && i > bestIndex)) {
+      bestScore = score;
+      bestIndex = i;
+    }
+  }
+  if (bestScore <= 0) {
+    for (let i = 0; i < choices.length; i += 1) {
+      if (scoreKeywords(choices[i].text, SKIP_KEYWORDS) === 0) {
+        return i;
+      }
+    }
+  }
+  return bestIndex;
+}
+
 /** @type {Readonly<Record<string, Persona>>} */
 export const PERSONAS = Object.freeze({
-  dignity: Object.freeze({
-    id: "dignity",
-    label: "克制/体面",
-    pick: (choices) => pickHighestScoreFirst(choices, DIGNITY_KEYWORDS),
+  mianzi: Object.freeze({
+    id: "mianzi",
+    label: "体面/拒绝",
+    pick: (choices) => pickHighestScoreFirst(choices, MIANZI_KEYWORDS),
   }),
-  impulse: Object.freeze({
-    id: "impulse",
-    label: "冲动/嘴硬",
-    pick: (choices) => pickHighestScoreLast(choices, IMPULSE_KEYWORDS),
+  ai_score: Object.freeze({
+    id: "ai_score",
+    label: "绩效/配合系统",
+    pick: pickAiScorePersona,
   }),
   skipper: Object.freeze({
     id: "skipper",
