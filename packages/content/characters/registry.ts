@@ -71,7 +71,11 @@ export const CHARACTER_BY_NAME: Readonly<Record<string, CharacterDef>> = {
     id: "zhu_zhu",
     name: "朱珠",
     side: "right",
-    // ADR-0006 NPC CG (human neighbor/colleague face; not robot art).
+    // supa-luv-v2 truth: 朱珠 is the FEMALE COMPANION ROBOT (惊蛰智能 test
+    // unit 0417), not a human neighbor. Her face is authored as "template 17
+    // tweaked to look like 陈佳 but not quite" — the ch03 reveal ("你把我的脸
+    // 也调成了她的样子") only lands if players see the resemblance. Current
+    // plate is an interim human face; near-Chenjia robot regen is in flight.
     defaultPortrait: "zhuzhu-neutral",
   },
   黄老太: {
