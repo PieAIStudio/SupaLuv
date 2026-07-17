@@ -236,20 +236,24 @@
       "id": "zhou-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": ["draft placeholder for 雷欧 and 老板娘", "legacy character 周鹿"],
+      "usage": [
+        "CharacterStudio official female-lead slot",
+        "registry defaultPortrait for 石佩欣 (stable key zhou-neutral)",
+        "draft placeholder for 雷欧 and 老板娘 when unbound"
+      ],
       "path": "apps/web/public/assets/portraits/zhou-neutral.png",
       "fileStatus": "present",
-      "qualityStatus": "legacy_only",
-      "rightsStatus": "not_required",
-      "requiredForProduction": false,
-      "sha256": "2a3bbd930e794baf3aa529cd21fe499f0059d688cd8c3ebc3c965b9737bd1f2a",
-      "bytes": 822278,
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "89ee7d528b8c5d18337368ebf3dc6011cec7d20bfc6ad1d562d73093a5bec7bb",
+      "bytes": 781795,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "packages/content/assets/ATTRIBUTION.md#generated-in-house-ai-image-tools"
+        "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "Legacy face reused only so the draft remains playable; not a current-character deliverable."
+      "notes": "ADR-0006 CG 石佩欣 neutral on stable key zhou-neutral.png. Supersedes legacy 周鹿 face at same path."
     },
     {
       "id": "suming-base",
@@ -261,14 +265,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "c48196af84be96162940e86ef9ae6224880f1d82c70f0860fae48c851bbc13cd",
-      "bytes": 1084487,
+      "sha256": "5566b65384c52f96e71d809d106e15954497016010663185245ad5cd2089d3ff",
+      "bytes": 1048821,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "packages/content/characters/suming/prompts.md"
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+      "notes": "ADR-0006 CG; green #00B140 matte 2026-07-17. Supersedes photoreal magenta matte at same path."
     },
     {
       "id": "suming-committed",
@@ -283,14 +287,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "c794b507cff71022a6fd55d4e7ed48021f203c34faea1f104679d3d9cd8d4ffd",
-      "bytes": 985422,
+      "sha256": "b84c49aafa34cd51a6019a7478ec72807443791845bfeb160f43a468472830a9",
+      "bytes": 1088602,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "packages/content/characters/suming/prompts.md#recorded-2026-07-11-mood-repairs"
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "Distinct mood regeneration recorded; terms and input-chain review remain pending."
+      "notes": "ADR-0006 CG; green #00B140 matte 2026-07-17. Supersedes photoreal magenta matte at same path."
     },
     {
       "id": "suming-lonely",
@@ -302,14 +306,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "d6f7d6ab48a5d51b4274357389854c9f43590e840ca614ae3c8185181252b69f",
-      "bytes": 1044940,
+      "sha256": "d5225979cd565d66d36c8989f80366138ac90dc515fead350d39b1beeb53e34a",
+      "bytes": 1076349,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "packages/content/characters/suming/prompts.md"
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+      "notes": "ADR-0006 CG; green #00B140 matte 2026-07-17. Supersedes photoreal magenta matte at same path."
     },
     {
       "id": "suming-panic",
@@ -321,14 +325,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "44a9a10645b8396dda443e366aa0a7225f658a3b6ca81e44c97a00edf6d99eb8",
-      "bytes": 1070715,
+      "sha256": "a9224192f2dd1485eadb6ee520ab06fa1bcbe4c418511f9aa8fb3acb893370a4",
+      "bytes": 1004396,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "packages/content/characters/suming/prompts.md"
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+      "notes": "ADR-0006 CG; green #00B140 matte 2026-07-17. Supersedes photoreal magenta matte at same path."
     },
     {
       "id": "suming-restless",
@@ -340,14 +344,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "2fd48b58fcba60e912647a820f71f22b42047f37bbc5ccc305683e068e59ea2b",
-      "bytes": 987856,
+      "sha256": "df8a0be220878171001ab43a3af7eed1ca0fd318bcc1618bd4fe95c7d64adf0d",
+      "bytes": 1143749,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "packages/content/characters/suming/prompts.md#recorded-2026-07-11-mood-repairs"
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "Distinct mood regeneration recorded; terms and input-chain review remain pending."
+      "notes": "ADR-0006 CG; green #00B140 matte 2026-07-17. Supersedes photoreal magenta matte at same path."
     },
     {
       "id": "suming-shame",
@@ -359,14 +363,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "175a51a0071944dd167cc26fa9b40059eed25400f0a1fa2e041d1945803b6983",
-      "bytes": 1061077,
+      "sha256": "2fe82ea944814e5655e0e03cce9feb22d49ca5763ecf9d4f90c1b5540521b163",
+      "bytes": 1018318,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "packages/content/characters/suming/prompts.md"
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+      "notes": "ADR-0006 CG; green #00B140 matte 2026-07-17. Supersedes photoreal magenta matte at same path."
     },
     {
       "id": "suming-tempted",
@@ -378,14 +382,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "67e8dd317513263af6eaab8f1e3f43fc64303174bca223d6a6059c01fab696c8",
-      "bytes": 1097285,
+      "sha256": "5931e293d7cf3714b13fa21e75810709feafb0307db9b8b5c8af6da51ef2b8e0",
+      "bytes": 1048031,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "packages/content/characters/suming/prompts.md"
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+      "notes": "ADR-0006 CG; green #00B140 matte 2026-07-17. Supersedes photoreal magenta matte at same path."
     },
     {
       "id": "suming-uncanny",
@@ -397,14 +401,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "7a841a46f05e5b6f99e2566d0156279d937f8fcb6df77bb9c3d00a2691210899",
-      "bytes": 1063918,
+      "sha256": "0b5909b1f8515a4612273c6d001494fc95dbaf4aa9423e5b92db7d904c485099",
+      "bytes": 1137720,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "packages/content/characters/suming/prompts.md"
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
       },
-      "notes": "Transparency and magenta gates pass; release-rights evidence remains pending."
+      "notes": "ADR-0006 CG; green #00B140 matte 2026-07-17. Supersedes photoreal magenta matte at same path."
     },
     {
       "id": "suming-ref-base",
@@ -423,7 +427,7 @@
         "owner": "project",
         "evidence": "packages/content/characters/suming/prompts.md"
       },
-      "notes": "Identity source is present; account terms and input-chain evidence remain pending."
+      "notes": "Superseded as matte source by packages/content/characters/suming/refs/base-green.png (ADR-0006). Photoreal magenta raw retained as historical identity archive; file not deleted."
     },
     {
       "id": "suming-ref-committed",
@@ -442,7 +446,7 @@
         "owner": "project",
         "evidence": "packages/content/characters/suming/prompts.md#recorded-2026-07-11-mood-repairs"
       },
-      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+      "notes": "Superseded as matte source by packages/content/characters/suming/refs/committed-green.png (ADR-0006). Photoreal magenta raw retained as historical identity archive; file not deleted."
     },
     {
       "id": "suming-ref-lonely",
@@ -461,7 +465,7 @@
         "owner": "project",
         "evidence": "packages/content/characters/suming/prompts.md"
       },
-      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+      "notes": "Superseded as matte source by packages/content/characters/suming/refs/lonely-green.png (ADR-0006). Photoreal magenta raw retained as historical identity archive; file not deleted."
     },
     {
       "id": "suming-ref-panic",
@@ -480,7 +484,7 @@
         "owner": "project",
         "evidence": "packages/content/characters/suming/prompts.md"
       },
-      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+      "notes": "Superseded as matte source by packages/content/characters/suming/refs/panic-green.png (ADR-0006). Photoreal magenta raw retained as historical identity archive; file not deleted."
     },
     {
       "id": "suming-ref-restless",
@@ -499,7 +503,7 @@
         "owner": "project",
         "evidence": "packages/content/characters/suming/prompts.md#recorded-2026-07-11-mood-repairs"
       },
-      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+      "notes": "Superseded as matte source by packages/content/characters/suming/refs/restless-green.png (ADR-0006). Photoreal magenta raw retained as historical identity archive; file not deleted."
     },
     {
       "id": "suming-ref-shame",
@@ -518,7 +522,7 @@
         "owner": "project",
         "evidence": "packages/content/characters/suming/prompts.md"
       },
-      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+      "notes": "Superseded as matte source by packages/content/characters/suming/refs/shame-green.png (ADR-0006). Photoreal magenta raw retained as historical identity archive; file not deleted."
     },
     {
       "id": "suming-ref-tempted",
@@ -537,7 +541,7 @@
         "owner": "project",
         "evidence": "packages/content/characters/suming/prompts.md"
       },
-      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+      "notes": "Superseded as matte source by packages/content/characters/suming/refs/tempted-green.png (ADR-0006). Photoreal magenta raw retained as historical identity archive; file not deleted."
     },
     {
       "id": "suming-ref-uncanny",
@@ -556,7 +560,7 @@
         "owner": "project",
         "evidence": "packages/content/characters/suming/prompts.md"
       },
-      "notes": "Raw chroma-key source retained for reproducibility; rights review pending."
+      "notes": "Superseded as matte source by packages/content/characters/suming/refs/uncanny-green.png (ADR-0006). Photoreal magenta raw retained as historical identity archive; file not deleted."
     },
     {
       "id": "lin-xiaotang-ref-base",
@@ -608,7 +612,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "Runtime currently falls back to lin-neutral; do not treat that legacy face as completion."
     },
     {
@@ -623,7 +631,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "Runtime currently falls back to zhou-neutral; do not treat that legacy face as completion."
     },
     {
@@ -638,7 +650,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "Runtime currently falls back to lin-neutral; do not treat that legacy face as completion."
     },
     {
@@ -653,7 +669,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "Runtime currently falls back to demo-ui; named NPC art is still required."
     },
     {
@@ -668,7 +688,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "Runtime currently falls back to demo-ui; named NPC art is still required."
     },
     {
@@ -683,7 +707,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "Runtime currently falls back to zhou-neutral; named NPC art is still required."
     },
     {
@@ -698,7 +726,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "No approved adult identity/reference source is present."
     },
     {
@@ -713,7 +745,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "No approved identity/reference source is present."
     },
     {
@@ -728,7 +764,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "No approved adult identity/reference source is present."
     },
     {
@@ -743,7 +783,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "No approved identity/reference source is present."
     },
     {
@@ -758,7 +802,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "No approved identity/reference source is present."
     },
     {
@@ -773,7 +821,11 @@
       "requiredForProduction": true,
       "sha256": null,
       "bytes": null,
-      "source": { "type": "pending", "owner": "unassigned", "evidence": "not_yet_supplied" },
+      "source": {
+        "type": "pending",
+        "owner": "unassigned",
+        "evidence": "not_yet_supplied"
+      },
       "notes": "No approved identity/reference source is present."
     },
     {
@@ -875,6 +927,291 @@
         "evidence": "packages/content/assets/candidates/round15-props/candidate-manifest.json#prop-approval-sms"
       },
       "notes": "Byte-identical Round 15 agent-generated candidate integrated provisionally for the playable draft. Human art review is false and release rights remain pending; presence is not production approval."
+    },
+    {
+      "id": "shipeixin-calm-smile",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["shi_peixin mood library; not yet bound in scene manifests (expected)"],
+      "path": "apps/web/public/assets/portraits/shipeixin-calm-smile.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "a9ad04bc1cf47da9d2502ab442dc25a53f054a564007fece098583b7982b329b",
+      "bytes": 731451,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "ADR-0006 CG mood; runtime present; no scene-manifest portraitKey yet (expected)."
+    },
+    {
+      "id": "shipeixin-guarded",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["shi_peixin mood library; not yet bound in scene manifests (expected)"],
+      "path": "apps/web/public/assets/portraits/shipeixin-guarded.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "38a11e96251f692a5194265ea1f4cf85d7ac2d8b088faee3c552201599b429fb",
+      "bytes": 783847,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "ADR-0006 CG mood; runtime present; no scene-manifest portraitKey yet (expected)."
+    },
+    {
+      "id": "shipeixin-hurt",
+      "kind": "portrait",
+      "contract": "portrait-runtime-2x3",
+      "usage": ["shi_peixin mood library; not yet bound in scene manifests (expected)"],
+      "path": "apps/web/public/assets/portraits/shipeixin-hurt.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": true,
+      "sha256": "da8967a0558c60e841c3a8fb79febc40fdb416e47dea4f576c7a4f90fdfa99f3",
+      "bytes": 784584,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "ADR-0006 CG mood; runtime present; no scene-manifest portraitKey yet (expected)."
+    },
+    {
+      "id": "suming-ref-base-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for suming-base"],
+      "path": "packages/content/characters/suming/refs/base-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "36646faa6fb54a009a4f868df7eede59cc98037f29c2c0e6bf986529c3bb37c3",
+      "bytes": 964837,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "suming-ref-committed-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for suming-committed"],
+      "path": "packages/content/characters/suming/refs/committed-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "5dd877835c72b1ede6c7b0458ba800716704ae9cf03b49cd40a2c717e249fa90",
+      "bytes": 1000889,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "suming-ref-lonely-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for suming-lonely"],
+      "path": "packages/content/characters/suming/refs/lonely-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "96f06428d4a0f0630edd375e7722b30d6877be0d4ffc36aed453e60058602013",
+      "bytes": 990014,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "suming-ref-panic-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for suming-panic"],
+      "path": "packages/content/characters/suming/refs/panic-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "e00d95538deff1f6ce4a1d8180112aef645b337c79251f82e66b730c9e4ed00f",
+      "bytes": 918033,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "suming-ref-restless-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for suming-restless"],
+      "path": "packages/content/characters/suming/refs/restless-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "ff596f6796c45f6428b08730e373469a9c72d5c1073f9cb338af88a9982dd723",
+      "bytes": 1052157,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "suming-ref-shame-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for suming-shame"],
+      "path": "packages/content/characters/suming/refs/shame-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "921f3e50bf9060a4fa50f6c12d4261b73ea3ad24d79488bbd8098a1c59e96cf6",
+      "bytes": 930145,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "suming-ref-tempted-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for suming-tempted"],
+      "path": "packages/content/characters/suming/refs/tempted-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "8ca9c526bfb129812e24dc10fa9a182f338a701fe8ebb5ef0a17cc6ae9c95b1a",
+      "bytes": 963286,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "suming-ref-uncanny-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for suming-uncanny"],
+      "path": "packages/content/characters/suming/refs/uncanny-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "fede2aae81bf14cd08586d71dcfff60d50795694c15ce807fc4b05ccb4c17d86",
+      "bytes": 1045597,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-suming/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-suming/00-CloseUp-Front.png; promptArchive=Temp/identity-suming/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "shipeixin-ref-neutral-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for zhou-neutral"],
+      "path": "packages/content/characters/shipeixin/refs/neutral-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "79b1173ac891145dc508e83005f58ed817af44fd1c16d7fb780c549e5f636044",
+      "bytes": 716902,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "shipeixin-ref-calm-smile-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for shipeixin-calm-smile"],
+      "path": "packages/content/characters/shipeixin/refs/calm-smile-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "e6d251e596ad99bb679cfcf6036f308eaa214e10102a364391424e0a949a7e8d",
+      "bytes": 680718,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "shipeixin-ref-guarded-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for shipeixin-guarded"],
+      "path": "packages/content/characters/shipeixin/refs/guarded-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "6a85e17bf5f01de30ff13ecb71cc0704806b6ea79e310ceaa11878c226c4aa1c",
+      "bytes": 718986,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
+    },
+    {
+      "id": "shipeixin-ref-hurt-green",
+      "kind": "character_reference",
+      "contract": "character-reference-2x3",
+      "usage": ["matte source for shipeixin-hurt"],
+      "path": "packages/content/characters/shipeixin/refs/hurt-green.png",
+      "fileStatus": "present",
+      "qualityStatus": "production_ready",
+      "rightsStatus": "pending",
+      "requiredForProduction": false,
+      "sha256": "02f27c0b75b85e31d7631ddfb7a461ee8797cdb322dc08014d8fe022256d823a",
+      "bytes": 721055,
+      "source": {
+        "type": "owner_generated_ai",
+        "owner": "project",
+        "evidence": "Temp/identity-shipeixin/greenscreen/README.md; channel=grok_image_edit; date=2026-07-17; identityAnchor=Temp/identity-shipeixin/00-CloseUp-Front.png; promptArchive=Temp/identity-shipeixin/prompts/; decision=ADR-0006; owner texture anchors accepted"
+      },
+      "notes": "Cover-crop normalize 864x1152→832x1248 from owner-accepted greenscreen; matte input."
     }
   ],
   "gaps": [
