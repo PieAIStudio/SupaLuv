@@ -17,6 +17,7 @@
     "build:web": "pnpm --filter @supaluv/web build",
     "build:vercel": "vercel build --standalone",
     "verify:vercel-output": "node tools/verify-vercel-output.mjs",
+    "auto-player": "node tools/auto-player/cli.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "oxlint apps packages services tests tools docs/governance -c ./.oxlintrc.json --react-plugin",
     "lint:audit": "oxlint apps packages services tests tools docs/governance -c ./.oxlintrc.json --react-plugin --jsx-a11y-plugin --vitest-plugin --import-plugin",
