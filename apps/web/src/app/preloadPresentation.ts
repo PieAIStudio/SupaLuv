@@ -21,7 +21,7 @@ export const loadStoryMapPreviewModule = createModulePreloader(
 );
 
 export const loadPlayerPathPanelModule = createModulePreloader(
-  () => import("../views/PlayerPathPanel"),
+  () => import("../views/player-path/PlayerPathPanel"),
 );
 
 export const loadVisualNovelModule = createModulePreloader(
