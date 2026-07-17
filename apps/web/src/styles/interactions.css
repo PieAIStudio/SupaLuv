@@ -1,22 +1,22 @@
 .emotion-calibration {
   position: absolute;
-  inset: 13% clamp(0.8rem, 6vw, 6rem) 7%;
+  inset: 13% clamp(0.8em, 6cqw, 6em) 7%;
   z-index: 3;
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr) auto auto;
-  gap: clamp(0.45rem, 1.2vw, 0.9rem);
+  gap: clamp(0.45em, 1.2cqw, 0.9em);
   min-height: 0;
-  padding: clamp(0.75rem, 1.8vw, 1.35rem);
+  padding: clamp(0.75em, 1.8cqw, 1.35em);
   overflow: hidden;
   border: 1px solid rgba(150, 234, 214, 0.48);
-  border-radius: clamp(0.7rem, 1.2vw, 1.1rem);
+  border-radius: clamp(0.7em, 1.2cqw, 1.1em);
   outline: none;
   background:
     linear-gradient(135deg, rgba(14, 35, 36, 0.98), rgba(7, 14, 20, 0.97)), rgba(4, 9, 13, 0.96);
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.72),
-    0 1.5rem 5rem rgba(0, 0, 0, 0.56),
-    inset 0 0 4rem rgba(80, 220, 190, 0.06);
+    0 1.5em 5em rgba(0, 0, 0, 0.56),
+    inset 0 0 4em rgba(80, 220, 190, 0.06);
   color: #ebfff9;
   font-family: "Avenir Next", "Trebuchet MS", sans-serif;
   animation: emotion-calibration-enter 260ms ease-out both;
@@ -25,8 +25,8 @@
 .emotion-calibration:focus-visible {
   box-shadow:
     0 0 0 2px rgba(191, 255, 235, 0.85),
-    0 1.5rem 5rem rgba(0, 0, 0, 0.56),
-    inset 0 0 4rem rgba(80, 220, 190, 0.06);
+    0 1.5em 5em rgba(0, 0, 0, 0.56),
+    inset 0 0 4em rgba(80, 220, 190, 0.06);
 }
 
 .emotion-calibration-scanline {
@@ -50,7 +50,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.8rem;
+  gap: 0.8em;
 }
 
 .emotion-calibration-kicker,
@@ -63,60 +63,60 @@
 
 .emotion-calibration-kicker {
   color: rgba(183, 255, 235, 0.62);
-  font-size: clamp(0.56rem, 0.8vw, 0.7rem);
+  font-size: clamp(0.56em, 0.8cqw, 0.7em);
   font-weight: 800;
   letter-spacing: 0.16em;
 }
 
 .emotion-calibration h2 {
-  margin: 0.14rem 0 0;
-  font-size: clamp(1.15rem, 2.3vw, 1.8rem);
+  margin: 0.14em 0 0;
+  font-size: clamp(1.15em, 2.3cqw, 1.8em);
   letter-spacing: 0.04em;
 }
 
 .emotion-calibration-status {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.4em;
   flex: 0 0 auto;
-  padding: 0.36rem 0.62rem;
+  padding: 0.36em 0.62em;
   border: 1px solid rgba(155, 243, 218, 0.25);
   border-radius: 999px;
   background: rgba(10, 33, 33, 0.64);
   color: rgba(224, 255, 247, 0.78);
-  font-size: clamp(0.62rem, 0.9vw, 0.76rem);
+  font-size: clamp(0.62em, 0.9cqw, 0.76em);
 }
 
 .emotion-calibration-status span {
-  width: 0.48rem;
-  height: 0.48rem;
+  width: 0.48em;
+  height: 0.48em;
   border-radius: 50%;
   background: #77efc7;
-  box-shadow: 0 0 0.7rem rgba(119, 239, 199, 0.7);
+  box-shadow: 0 0 0.7em rgba(119, 239, 199, 0.7);
 }
 
 .emotion-calibration-progress {
   color: rgba(211, 255, 243, 0.68);
-  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+  font-size: clamp(0.58em, 0.85cqw, 0.72em);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.12em;
 }
 
 .emotion-calibration-progress-rail {
   display: grid;
-  grid-template-columns: repeat(3, minmax(2rem, 5rem));
-  gap: 0.35rem;
+  grid-template-columns: repeat(3, minmax(2em, 5em));
+  gap: 0.35em;
 }
 
 .emotion-calibration-progress-rail i {
-  height: 0.26rem;
+  height: 0.26em;
   border-radius: 999px;
   background: rgba(210, 255, 244, 0.14);
 }
 
 .emotion-calibration-progress-rail i.is-active {
   background: #7be9c8;
-  box-shadow: 0 0 0.7rem rgba(123, 233, 200, 0.3);
+  box-shadow: 0 0 0.7em rgba(123, 233, 200, 0.3);
 }
 
 .emotion-calibration-sample {
@@ -125,17 +125,17 @@
   display: grid;
   place-content: center;
   min-height: 0;
-  padding: clamp(0.75rem, 2vw, 1.5rem);
+  padding: clamp(0.75em, 2cqw, 1.5em);
   border: 1px solid rgba(212, 255, 244, 0.16);
-  border-radius: 0.75rem;
+  border-radius: 0.75em;
   background:
     linear-gradient(90deg, rgba(110, 222, 195, 0.08), transparent 28%), rgba(2, 8, 12, 0.64);
 }
 
 .emotion-calibration-sender {
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.55em;
   color: rgba(171, 240, 221, 0.62);
-  font-size: clamp(0.65rem, 1vw, 0.8rem);
+  font-size: clamp(0.65em, 1cqw, 0.8em);
   font-weight: 800;
   letter-spacing: 0.08em;
 }
@@ -144,7 +144,7 @@
   margin: 0;
   color: #f7fffc;
   font-family: "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(1rem, 2.1vw, 1.55rem);
+  font-size: clamp(1em, 2.1cqw, 1.55em);
   font-weight: 700;
   line-height: 1.55;
   text-wrap: balance;
@@ -152,13 +152,13 @@
 
 .emotion-calibration-instructions {
   color: rgba(222, 255, 247, 0.67);
-  font-size: clamp(0.63rem, 0.95vw, 0.78rem);
+  font-size: clamp(0.63em, 0.95cqw, 0.78em);
 }
 
 .emotion-calibration-levels {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.4rem, 0.9vw, 0.75rem);
+  gap: clamp(0.4em, 0.9cqw, 0.75em);
 }
 
 .emotion-calibration-levels button,
@@ -171,11 +171,11 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: 0.6rem;
-  min-height: 3.5rem;
-  padding: 0.55rem 0.7rem;
+  gap: 0.6em;
+  min-height: 3.5em;
+  padding: 0.55em 0.7em;
   border: 1px solid rgba(195, 255, 239, 0.2);
-  border-radius: 0.68rem;
+  border-radius: 0.68em;
   background: rgba(18, 43, 44, 0.7);
   color: #edfff9;
   text-align: left;
@@ -196,7 +196,7 @@
 .emotion-calibration-levels button.is-selected {
   border-color: #99f4d7;
   background: rgba(40, 94, 84, 0.92);
-  box-shadow: inset 0 0 1.2rem rgba(120, 255, 215, 0.08);
+  box-shadow: inset 0 0 1.2em rgba(120, 255, 215, 0.08);
 }
 
 .emotion-calibration-levels button:disabled,
@@ -211,14 +211,14 @@
 }
 
 .emotion-calibration-levels strong {
-  font-size: clamp(0.82rem, 1.35vw, 1rem);
+  font-size: clamp(0.82em, 1.35cqw, 1em);
 }
 
 .emotion-calibration-levels small {
-  margin-top: 0.16rem;
+  margin-top: 0.16em;
   overflow: hidden;
   color: rgba(218, 255, 246, 0.58);
-  font-size: clamp(0.54rem, 0.8vw, 0.67rem);
+  font-size: clamp(0.54em, 0.8cqw, 0.67em);
   line-height: 1.25;
   text-overflow: ellipsis;
 }
@@ -226,25 +226,25 @@
 .emotion-calibration-key {
   display: grid;
   place-items: center;
-  width: 1.65rem;
-  height: 1.65rem;
+  width: 1.65em;
+  height: 1.65em;
   border: 1px solid rgba(212, 255, 244, 0.28);
-  border-radius: 0.4rem;
+  border-radius: 0.4em;
   color: #bff8e8;
-  font-size: 0.74rem;
+  font-size: 0.74em;
   font-weight: 900;
 }
 
 .emotion-calibration-feedback {
   min-width: 0;
   color: rgba(229, 255, 249, 0.78);
-  font-size: clamp(0.64rem, 0.95vw, 0.78rem);
+  font-size: clamp(0.64em, 0.95cqw, 0.78em);
 }
 
 .emotion-calibration-skip {
   flex: 0 0 auto;
-  min-height: 2.2rem;
-  padding: 0.35rem 0.65rem;
+  min-height: 2.2em;
+  padding: 0.35em 0.65em;
   border: 0;
   border-bottom: 1px solid rgba(203, 255, 241, 0.28);
   background: transparent;
@@ -259,7 +259,7 @@
 }
 
 .emotion-calibration-skip span {
-  margin-left: 0.3rem;
+  margin-left: 0.3em;
   opacity: 0.62;
   font-size: 0.7em;
 }
@@ -267,7 +267,7 @@
 @keyframes emotion-calibration-enter {
   from {
     opacity: 0;
-    transform: translateY(0.45rem) scale(0.992);
+    transform: translateY(0.45em) scale(0.992);
   }
   to {
     opacity: 1;
@@ -277,22 +277,22 @@
 
 @media (max-width: 900px), (max-height: 560px) {
   .emotion-calibration {
-    inset: 12% 0.7rem 4%;
-    gap: 0.38rem;
-    padding: 0.62rem 0.72rem;
+    inset: 12% 0.7em 4%;
+    gap: 0.38em;
+    padding: 0.62em 0.72em;
   }
 
   .emotion-calibration-sample {
-    padding: 0.55rem 0.75rem;
+    padding: 0.55em 0.75em;
   }
 
   .emotion-calibration-sender {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.25em;
   }
 
   .emotion-calibration-levels button {
-    min-height: 2.75rem;
-    padding: 0.35rem 0.45rem;
+    min-height: 2.75em;
+    padding: 0.35em 0.45em;
   }
 
   .emotion-calibration-levels small {
@@ -319,17 +319,17 @@
   }
 
   .vn-stage[data-story-interaction="emotion-calibration-v1"] .hud-right {
-    gap: 0.3rem;
+    gap: 0.3em;
   }
 
   .vn-stage[data-story-interaction="emotion-calibration-v1"] .hud-right button {
-    min-height: 2rem;
-    padding: 0.35rem 0.55rem;
-    font-size: 0.72rem;
+    min-height: 2em;
+    padding: 0.35em 0.55em;
+    font-size: 0.72em;
   }
 
   .emotion-calibration {
-    inset: 17% 0.7rem 3%;
+    inset: 17% 0.7em 3%;
     grid-template-rows: auto minmax(0, 1fr) auto auto;
   }
 
@@ -349,23 +349,23 @@
 /* Shared chrome for story-native interactions (protocol, barcode, housing, mobile). */
 .story-interaction {
   position: absolute;
-  inset: 13% clamp(0.8rem, 6vw, 6rem) 7%;
+  inset: 13% clamp(0.8em, 6cqw, 6em) 7%;
   z-index: 3;
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr) auto auto;
-  gap: clamp(0.45rem, 1.2vw, 0.9rem);
+  gap: clamp(0.45em, 1.2cqw, 0.9em);
   min-height: 0;
-  padding: clamp(0.75rem, 1.8vw, 1.35rem);
+  padding: clamp(0.75em, 1.8cqw, 1.35em);
   overflow: hidden;
   border: 1px solid rgba(150, 234, 214, 0.48);
-  border-radius: clamp(0.7rem, 1.2vw, 1.1rem);
+  border-radius: clamp(0.7em, 1.2cqw, 1.1em);
   outline: none;
   background:
     linear-gradient(135deg, rgba(14, 35, 36, 0.98), rgba(7, 14, 20, 0.97)), rgba(4, 9, 13, 0.96);
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.72),
-    0 1.5rem 5rem rgba(0, 0, 0, 0.56),
-    inset 0 0 4rem rgba(80, 220, 190, 0.06);
+    0 1.5em 5em rgba(0, 0, 0, 0.56),
+    inset 0 0 4em rgba(80, 220, 190, 0.06);
   color: #ebfff9;
   font-family: "Avenir Next", "Trebuchet MS", sans-serif;
   animation: emotion-calibration-enter 260ms ease-out both;
@@ -374,8 +374,8 @@
 .story-interaction:focus-visible {
   box-shadow:
     0 0 0 2px rgba(191, 255, 235, 0.85),
-    0 1.5rem 5rem rgba(0, 0, 0, 0.56),
-    inset 0 0 4rem rgba(80, 220, 190, 0.06);
+    0 1.5em 5em rgba(0, 0, 0, 0.56),
+    inset 0 0 4em rgba(80, 220, 190, 0.06);
 }
 
 .story-interaction-header,
@@ -385,7 +385,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.8rem;
+  gap: 0.8em;
 }
 
 .story-interaction-kicker,
@@ -397,55 +397,55 @@
 
 .story-interaction-kicker {
   color: rgba(183, 255, 235, 0.62);
-  font-size: clamp(0.56rem, 0.8vw, 0.7rem);
+  font-size: clamp(0.56em, 0.8cqw, 0.7em);
   font-weight: 800;
   letter-spacing: 0.16em;
 }
 
 .story-interaction h2 {
-  margin: 0.14rem 0 0;
-  font-size: clamp(1.15rem, 2.3vw, 1.8rem);
+  margin: 0.14em 0 0;
+  font-size: clamp(1.15em, 2.3cqw, 1.8em);
   letter-spacing: 0.04em;
 }
 
 .story-interaction-status {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.4em;
   flex: 0 0 auto;
-  padding: 0.36rem 0.62rem;
+  padding: 0.36em 0.62em;
   border: 1px solid rgba(155, 243, 218, 0.25);
   border-radius: 999px;
   background: rgba(10, 33, 33, 0.64);
   color: rgba(224, 255, 247, 0.78);
-  font-size: clamp(0.62rem, 0.9vw, 0.76rem);
+  font-size: clamp(0.62em, 0.9cqw, 0.76em);
 }
 
 .story-interaction-status span {
-  width: 0.48rem;
-  height: 0.48rem;
+  width: 0.48em;
+  height: 0.48em;
   border-radius: 50%;
   background: #77efc7;
-  box-shadow: 0 0 0.7rem rgba(119, 239, 199, 0.7);
+  box-shadow: 0 0 0.7em rgba(119, 239, 199, 0.7);
 }
 
 .story-interaction-progress {
   color: rgba(211, 255, 243, 0.68);
-  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+  font-size: clamp(0.58em, 0.85cqw, 0.72em);
   letter-spacing: 0.08em;
   font-weight: 700;
 }
 
 .story-interaction-progress-rail {
   display: flex;
-  gap: 0.35rem;
+  gap: 0.35em;
   flex: 1;
-  max-width: 12rem;
+  max-width: 12em;
 }
 
 .story-interaction-progress-rail i {
   flex: 1;
-  height: 0.28rem;
+  height: 0.28em;
   border-radius: 999px;
   background: rgba(120, 180, 170, 0.22);
 }
@@ -456,20 +456,20 @@
 
 .story-interaction-instructions {
   color: rgba(210, 255, 242, 0.72);
-  font-size: clamp(0.72rem, 1.1vw, 0.88rem);
+  font-size: clamp(0.72em, 1.1cqw, 0.88em);
 }
 
 .story-interaction-key {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 1.4rem;
-  height: 1.4rem;
-  margin-right: 0.45rem;
-  border-radius: 0.35rem;
+  min-width: 1.4em;
+  height: 1.4em;
+  margin-right: 0.45em;
+  border-radius: 0.35em;
   border: 1px solid rgba(160, 245, 220, 0.35);
   background: rgba(8, 28, 28, 0.8);
-  font-size: 0.72rem;
+  font-size: 0.72em;
   font-weight: 800;
 }
 
@@ -480,7 +480,7 @@
 .story-interaction-feedback {
   flex: 1;
   color: rgba(200, 255, 238, 0.82);
-  font-size: clamp(0.72rem, 1.05vw, 0.9rem);
+  font-size: clamp(0.72em, 1.05cqw, 0.9em);
   min-height: 1.3em;
 }
 
@@ -488,9 +488,9 @@
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  min-height: 2.5rem;
-  padding: 0.4rem 0.85rem;
+  gap: 0.4em;
+  min-height: 2.5em;
+  padding: 0.4em 0.85em;
   border-radius: 999px;
   border: 1px solid rgba(160, 230, 210, 0.35);
   background: rgba(12, 28, 30, 0.85);
@@ -501,7 +501,7 @@
 
 .story-interaction-skip span {
   opacity: 0.65;
-  font-size: 0.75rem;
+  font-size: 0.75em;
 }
 
 .story-interaction-skip:disabled,
@@ -516,30 +516,30 @@
 .protocol-test-card {
   min-height: 0;
   overflow: auto;
-  padding: 0.85rem 1rem;
-  border-radius: 0.85rem;
+  padding: 0.85em 1em;
+  border-radius: 0.85em;
   border: 1px solid rgba(150, 230, 210, 0.28);
   background: rgba(6, 18, 20, 0.72);
 }
 
 .protocol-test-card-label {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.4em;
   color: rgba(180, 250, 230, 0.55);
-  font-size: 0.68rem;
+  font-size: 0.68em;
   letter-spacing: 0.12em;
   font-weight: 800;
 }
 
 .protocol-test-card blockquote {
   margin: 0;
-  font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+  font-size: clamp(0.95em, 1.6cqw, 1.2em);
   line-height: 1.45;
 }
 
 .protocol-test-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.55rem;
+  gap: 0.55em;
 }
 
 .protocol-test-actions button,
@@ -547,10 +547,10 @@
 .housing-hotspot {
   display: flex;
   align-items: flex-start;
-  gap: 0.15rem;
-  min-height: 3rem;
-  padding: 0.55rem 0.7rem;
-  border-radius: 0.75rem;
+  gap: 0.15em;
+  min-height: 3em;
+  padding: 0.55em 0.7em;
+  border-radius: 0.75em;
   border: 1px solid rgba(150, 230, 210, 0.32);
   background: linear-gradient(180deg, rgba(18, 42, 42, 0.95), rgba(8, 18, 22, 0.95));
   color: #ebfff9;
@@ -562,29 +562,29 @@
   min-height: 0;
   display: grid;
   align-content: center;
-  gap: 0.65rem;
-  padding: 0.8rem 1rem;
-  border-radius: 0.85rem;
+  gap: 0.65em;
+  padding: 0.8em 1em;
+  border-radius: 0.85em;
   border: 1px solid rgba(150, 230, 210, 0.28);
   background: rgba(6, 18, 20, 0.72);
 }
 
 .barcode-sweep-product-name {
   margin: 0;
-  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-size: clamp(1em, 1.8cqw, 1.25em);
   font-weight: 800;
 }
 
 .barcode-sweep-bars {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.55rem;
-  min-height: 4.2rem;
+  gap: 0.55em;
+  min-height: 4.2em;
 }
 
 .barcode-sweep-bars button {
   border: 1px dashed rgba(160, 240, 220, 0.35);
-  border-radius: 0.55rem;
+  border-radius: 0.55em;
   background:
     repeating-linear-gradient(
       90deg,
@@ -595,7 +595,7 @@
     ),
     rgba(4, 12, 14, 0.9);
   cursor: pointer;
-  min-height: 3.6rem;
+  min-height: 3.6em;
 }
 
 .barcode-sweep-bars button.is-next {
@@ -612,29 +612,29 @@
 .barcode-sweep-hint {
   margin: 0;
   color: rgba(190, 245, 230, 0.62);
-  font-size: 0.78rem;
+  font-size: 0.78em;
 }
 
 .housing-hotspots-map {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.55rem;
+  gap: 0.55em;
   min-height: 0;
 }
 
 .housing-hotspot {
   flex-direction: column;
-  min-height: 5.5rem;
+  min-height: 5.5em;
 }
 
 .housing-hotspot strong {
   display: block;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.2em;
 }
 
 .housing-hotspot small {
   color: rgba(190, 245, 230, 0.62);
-  font-size: 0.72rem;
+  font-size: 0.72em;
 }
 
 .housing-hotspot.is-done {
@@ -650,32 +650,32 @@
 .mobile-questionnaire-phone {
   min-height: 0;
   overflow: auto;
-  padding: 0.85rem 1rem 1rem;
-  border-radius: 1.1rem;
+  padding: 0.85em 1em 1em;
+  border-radius: 1.1em;
   border: 1px solid rgba(150, 230, 210, 0.32);
   background: linear-gradient(180deg, rgba(12, 28, 32, 0.98), rgba(6, 14, 18, 0.98));
-  max-width: 28rem;
-  width: min(100%, 28rem);
+  max-width: 28em;
+  width: min(100%, 28em);
   margin: 0 auto;
 }
 
 .mobile-questionnaire-app {
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.45em;
   color: rgba(180, 250, 230, 0.55);
-  font-size: 0.68rem;
+  font-size: 0.68em;
   letter-spacing: 0.14em;
   font-weight: 800;
 }
 
 .mobile-questionnaire-prompt {
-  margin: 0 0 0.7rem;
-  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  margin: 0 0 0.7em;
+  font-size: clamp(0.95em, 1.5cqw, 1.15em);
   line-height: 1.35;
 }
 
 .mobile-questionnaire-options {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.45em;
 }
 
 .mobile-questionnaire-options button {
@@ -700,10 +700,10 @@
   }
 
   .story-interaction {
-    inset: 17% 0.7rem 3%;
+    inset: 17% 0.7em 3%;
     grid-template-rows: auto minmax(0, 1fr) auto auto;
-    gap: 0.38rem;
-    padding: 0.62rem 0.72rem;
+    gap: 0.38em;
+    padding: 0.62em 0.72em;
   }
 
   .story-interaction-header {
@@ -715,7 +715,7 @@
   }
 
   .housing-hotspot {
-    min-height: 2.6rem;
+    min-height: 2.6em;
     flex-direction: row;
     align-items: center;
   }
