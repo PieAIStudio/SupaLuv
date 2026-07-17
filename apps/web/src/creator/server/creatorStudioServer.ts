@@ -189,19 +189,31 @@ function replaceSourceRange(
   if (hasTrailingNewline) {
     lines.pop();
   }
-  const current = lines.slice(range.startLine - 1, range.endLine).join("\n");
-  if (current !== originalText) {
+  const currentLines = lines.slice(range.startLine - 1, range.endLine);
+  const current = currentLines.join("\n");
+  const originalLines = originalText.split("\n");
+  // The creator graph serves display text with indentation trimmed, so an
+  // exact byte match fails for any line nested inside a gather/choice block.
+  // Accept a per-line trimmed match and re-apply each disk line's leading
+  // whitespace on write, so indentation survives the edit untouched.
+  const trimmedMatch =
+    currentLines.length === originalLines.length &&
+    currentLines.every((line, index) => line.trim() === originalLines[index]!.trim());
+  if (current !== originalText && !trimmedMatch) {
     throw new CreatorStudioError(
       "RANGE_DRIFT",
       "行号或原文本已变化。刷新创作地图后重新选择这一行。",
       409,
     );
   }
-  lines.splice(
-    range.startLine - 1,
-    range.endLine - range.startLine + 1,
-    ...replacement.split("\n"),
-  );
+  const replacementLines = replacement.split("\n").map((line, index) => {
+    if (current === originalText) {
+      return line;
+    }
+    const indent = currentLines[index]?.match(/^[ \t]*/)?.[0] ?? "";
+    return `${indent}${line.trimStart()}`;
+  });
+  lines.splice(range.startLine - 1, range.endLine - range.startLine + 1, ...replacementLines);
   return `${lines.join(newline)}${hasTrailingNewline ? newline : ""}`;
 }
 

@@ -230,6 +230,34 @@ describe("Creator Studio source transaction", () => {
     ).rejects.toMatchObject({ code: "RANGE_DRIFT" });
   });
 
+  it("saves an indented line via trimmed match and preserves the disk indentation", async () => {
+    const fixture = await createFixture();
+    // The creator graph serves display text with indentation trimmed; a line
+    // nested in a gather/choice block carries leading whitespace on disk.
+    const indentedSource = fixture.source.replace(
+      "旁白：订单像遗书一样准时。",
+      "    旁白：订单像遗书一样准时。",
+    );
+    await writeFile(join(fixture.repoRoot, fixture.inkPath), indentedSource, "utf8");
+    const service = createCreatorStudioService({
+      repoRoot: fixture.repoRoot,
+      validateCandidate: successfulValidator,
+    });
+    const envelope = await service.getGraph();
+
+    await service.save({
+      file: fixture.inkPath,
+      revision: envelope.graph.revision,
+      sourceHash: envelope.sources[fixture.inkPath]!.hash,
+      sourceRange: { startLine: 3, endLine: 3 },
+      originalText: "旁白：订单像遗书一样准时。",
+      replacement: "旁白：订单像遗书一样准时！",
+    });
+
+    const written = await readFile(join(fixture.repoRoot, fixture.inkPath), "utf8");
+    expect(written.split("\n")[2]).toBe("    旁白：订单像遗书一样准时！");
+  });
+
   it("keeps every persisted byte unchanged when candidate compilation fails", async () => {
     const fixture = await createFixture();
     const service = createCreatorStudioService({

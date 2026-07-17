@@ -1,8 +1,19 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { expect, test, type Page } from "@playwright/test";
 
 const evidenceDir = resolve(".devspace-visual/creator-studio");
+
+/** Generated graph artifact is the truth for node/edge counts — hardcoded
+ * numbers rotted every time a chapter was re-converted from the novel. */
+async function readGeneratedGraphCounts(): Promise<{ nodes: number; edges: number }> {
+  const raw = await readFile(
+    resolve("packages/content/generated/narrative-graph-creator.json"),
+    "utf8",
+  );
+  const graph = JSON.parse(raw) as { nodes: unknown[]; edges: unknown[] };
+  return { nodes: graph.nodes.length, edges: graph.edges.length };
+}
 
 async function openCreatorStudio(page: Page) {
   await page.goto("/?debug=1");
@@ -42,12 +53,14 @@ test("Creator Studio visual evidence at desktop and narrow desktop", async ({ pa
     failedRequests.push(`${failed.method()} ${failed.url()} ${failed.failure()?.errorText ?? ""}`),
   );
 
+  const expected = await readGeneratedGraphCounts();
   await page.setViewportSize({ width: 1440, height: 900 });
   await openCreatorStudio(page);
-  // Viewport culling settles asynchronously after fitView; poll instead of sampling once.
+  // Viewport culling settles asynchronously after fitView; poll instead of
+  // sampling once. Culling is proven by rendering fewer nodes than the graph has.
   await expect
     .poll(() => page.locator(".react-flow__node").count(), { timeout: 15_000 })
-    .toBeLessThan(93);
+    .toBeLessThan(expected.nodes);
   const renderedNodeCount = await page.locator(".react-flow__node").count();
   expect(renderedNodeCount).toBeGreaterThan(0);
   await page.screenshot({ path: `${evidenceDir}/desktop-1440x900.png` });
@@ -63,8 +76,8 @@ test("Creator Studio visual evidence at desktop and narrow desktop", async ({ pa
       edges: unknown[];
     };
   };
-  expect(envelope.graph.nodes).toHaveLength(97);
-  expect(envelope.graph.edges).toHaveLength(157);
+  expect(envelope.graph.nodes).toHaveLength(expected.nodes);
+  expect(envelope.graph.edges).toHaveLength(expected.edges);
   const target = envelope.graph.nodes.find((node) =>
     node.dialogueLines.some((line) => Boolean(line.sourceRange)),
   );
