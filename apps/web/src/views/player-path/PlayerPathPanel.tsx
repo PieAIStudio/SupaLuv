@@ -373,32 +373,37 @@ export function PlayerPathPanel({ isOpen, onClose }: PlayerPathPanelProps) {
               hidden={viewMode !== "graph"}
               data-testid="player-path-graph"
             >
-              <ReactFlow
-                nodes={result.flow.nodes}
-                edges={result.flow.edges}
-                fitView
-                fitViewOptions={{ padding: 0.2 }}
-                minZoom={0.35}
-                maxZoom={1.6}
-                nodesDraggable={false}
-                nodesConnectable={false}
-                edgesFocusable={false}
-                onInit={(instance) => {
-                  flowInstanceRef.current = instance;
-                }}
-                onNodeClick={(_, node) => {
-                  const item = result.view.journey.find((candidate) =>
-                    candidate.entries.some((entry) => entry.nodeId === node.id),
-                  );
-                  if (item) {
-                    setSelectedItemId(item.id);
-                  }
-                }}
-                proOptions={{ hideAttribution: true }}
-              >
-                <Background gap={24} size={1} />
-                <Controls showInteractive={false} />
-              </ReactFlow>
+              {/* Mount only while the graph tab is visible: ReactFlow measures its
+                  container at init, and a hidden tabpanel is 0x0, so an always-on
+                  instance computes a garbage initial fitView transform. */}
+              {viewMode === "graph" ? (
+                <ReactFlow
+                  nodes={result.flow.nodes}
+                  edges={result.flow.edges}
+                  fitView
+                  fitViewOptions={{ padding: 0.2 }}
+                  minZoom={0.35}
+                  maxZoom={1.6}
+                  nodesDraggable={false}
+                  nodesConnectable={false}
+                  edgesFocusable={false}
+                  onInit={(instance) => {
+                    flowInstanceRef.current = instance;
+                  }}
+                  onNodeClick={(_, node) => {
+                    const item = result.view.journey.find((candidate) =>
+                      candidate.entries.some((entry) => entry.nodeId === node.id),
+                    );
+                    if (item) {
+                      setSelectedItemId(item.id);
+                    }
+                  }}
+                  proOptions={{ hideAttribution: true }}
+                >
+                  <Background gap={24} size={1} />
+                  <Controls showInteractive={false} />
+                </ReactFlow>
+              ) : null}
             </section>
 
             <section
