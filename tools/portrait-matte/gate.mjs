@@ -23,7 +23,10 @@ const options = parseArguments(process.argv.slice(2));
 const portraits = [];
 for (const target of ALL_RUNTIME_PORTRAITS) {
   const metrics = await inspectPortrait(resolveRuntimePath(workspaceRoot, target), target.id);
-  portraits.push({ ...metrics, gate: evaluateGate(metrics) });
+  const gateParameters = target.gateOverrides
+    ? { ...GATE_PARAMETERS, ...target.gateOverrides }
+    : GATE_PARAMETERS;
+  portraits.push({ ...metrics, gate: evaluateGate(metrics, gateParameters) });
 }
 const pass = portraits.every((portrait) => portrait.gate.pass);
 const report = { pass, gateParameters: GATE_PARAMETERS, portraits };

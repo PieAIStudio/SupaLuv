@@ -1279,14 +1279,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": true,
-      "sha256": "c0e7a24d2508b456a73d9b715a2c844f6b62bd74087bf8e810458fb4d6930e7a",
-      "bytes": 1247702,
+      "sha256": "9d5de10a0b3dd9c08df4ef4f5f0e80c9bf790108688d1ee48f982b89415710b8",
+      "bytes": 1312831,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+        "evidence": "Temp/zhuzhu-regen-2026-07-17/ + Temp/zhuzhu-green-2026-07-17/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; identity=zhuzhu-b (de-cartoonized adult eye ratio); #00B140 green matte"
       },
-      "notes": "ADR-0006 CG NPC 朱珠 neutral."
+      "notes": "ADR-0006 CG NPC 朱珠 neutral, 2026-07-17 regen: eyes back to adult realism band."
     },
     {
       "id": "huanglaotai-neutral",
@@ -1393,14 +1393,14 @@
       "qualityStatus": "production_ready",
       "rightsStatus": "pending",
       "requiredForProduction": false,
-      "sha256": "277c4bdf046a7ac729f7682ef2d6e80934d4796c5330ad3fdffeff3d94dcd061",
-      "bytes": 1171661,
+      "sha256": "b7114deddcd69deebcffb50e9441d020f696798b2d5bfa69b27fcfb4d95c132e",
+      "bytes": 824023,
       "source": {
         "type": "owner_generated_ai",
         "owner": "project",
-        "evidence": "Temp/npc-faces-2026-07-17/prompts/; channel=grok_image_edit; date=2026-07-17; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; cream→#00B140 green matte"
+        "evidence": "Temp/zhuzhu-green-2026-07-17/README.md; channel=grok_image_edit; date=2026-07-17; identity=Temp/zhuzhu-regen-2026-07-17/zhuzhu-b.png; textureAnchor=Temp/identity-suming/00-CloseUp-Front.png (style only); decision=ADR-0006; native #00B140 green plate"
       },
-      "notes": "Cover-crop normalize + headroom recompose + #00B140 flood-fill; matte input."
+      "notes": "2026-07-17 regen green plate; keySampleTopFraction 0.07 (hair crown at row 98); ponytail strand loop is legitimate enclosed background."
     },
     {
       "id": "huanglaotai-neutral-ref-green",

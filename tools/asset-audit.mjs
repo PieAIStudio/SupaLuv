@@ -5,8 +5,16 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
-import { ALL_RUNTIME_PORTRAITS } from "./portrait-matte/config.mjs";
+import { ALL_RUNTIME_PORTRAITS, GATE_PARAMETERS } from "./portrait-matte/config.mjs";
 import { evaluateGate, inspectPortrait } from "./portrait-matte/matte.mjs";
+
+/** Per-target gate overrides declared in portrait-matte config (single truth). */
+const PORTRAIT_GATE_OVERRIDES = new Map(
+  ALL_RUNTIME_PORTRAITS.filter((target) => target.gateOverrides).map((target) => [
+    target.id,
+    Object.freeze({ ...GATE_PARAMETERS, ...target.gateOverrides }),
+  ]),
+);
 
 const DEFAULT_MANIFEST_PATH = "packages/content/assets/VISUAL-ASSET-INTAKE.json";
 const DEFAULT_RUNTIME_LEDGER_PATH = "packages/content/assets/RUNTIME-ASSET-LEDGER.csv";
@@ -1347,7 +1355,10 @@ export async function auditAssetIntake({
     if (requiresStrictPortraitMatte(asset, truthRequired)) {
       try {
         const portraitMetrics = await inspectPortrait(absoluteAssetPath, assetId);
-        const gate = evaluateGate(portraitMetrics);
+        const gate = evaluateGate(
+          portraitMetrics,
+          PORTRAIT_GATE_OVERRIDES.get(assetId) ?? GATE_PARAMETERS,
+        );
         checks.portraitMatte += 1;
         if (!gate.pass) {
           for (const failure of gate.failures) {

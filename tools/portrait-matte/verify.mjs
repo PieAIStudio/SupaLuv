@@ -11,6 +11,7 @@ import {
   EXPECTED_HEIGHT,
   EXPECTED_WIDTH,
   FIX_TARGETS,
+  GATE_PARAMETERS,
   resolveRuntimePath,
 } from "./config.mjs";
 import { evaluateGate, inspectPortrait, processAllowlistedPortraits } from "./matte.mjs";
@@ -52,7 +53,10 @@ try {
   const official = [];
   for (const target of ALL_RUNTIME_PORTRAITS) {
     const metrics = await inspectPortrait(resolveRuntimePath(workspaceRoot, target), target.id);
-    official.push({ id: target.id, gate: evaluateGate(metrics) });
+    const gateParameters = target.gateOverrides
+      ? { ...GATE_PARAMETERS, ...target.gateOverrides }
+      : GATE_PARAMETERS;
+    official.push({ id: target.id, gate: evaluateGate(metrics, gateParameters) });
   }
 
   const fixturePath = path.join(temporaryRoot, "opaque-magenta.png");
