@@ -81,11 +81,17 @@ export function estimateKey(data, width, height, channels, parameters) {
 
   return {
     rgb: key,
-    magentaDominance: Math.min(key[0], key[2]) - key[1],
+    /** Green key dominance: G - max(R, B). Positive ⇒ greener than the non-green channels. */
+    greenDominance: key[1] - Math.max(key[0], key[2]),
     sampleHeight,
     noiseP99,
     innerRadius,
   };
+}
+
+/** Green spill metric used by foreground lock, despill, and edge gates. */
+export function greenDominance(red, green, blue) {
+  return green - Math.max(red, blue);
 }
 
 async function buildAlphaMask(data, info, keyEvidence, parameters) {
@@ -98,10 +104,11 @@ async function buildAlphaMask(data, info, keyEvidence, parameters) {
     const green = data[index + 1];
     const blue = data[index + 2];
     const distance = keyRayDistance(red, green, blue, [keyRed, keyGreen, keyBlue], parameters);
-    const magentaDominance = Math.min(red, blue) - green;
+    const dominance = greenDominance(red, green, blue);
 
     let opacity = smoothstep(keyEvidence.innerRadius, parameters.outerRadius, distance);
-    if (magentaDominance <= parameters.foregroundMagentaDominanceCeiling) {
+    // Non-green subject pixels are forced opaque so hair/skin never go soft by distance alone.
+    if (dominance <= parameters.foregroundGreenDominanceCeiling) {
       opacity = 1;
     }
     alpha[pixel] = Math.round(opacity * 255);
@@ -169,12 +176,12 @@ async function applyAlphaAndDespill(data, info, alpha, parameters) {
       green = 0;
       blue = 0;
     } else if (opacity < 255 || boundary[pixel] === 1) {
-      const excess = Math.max(0, Math.min(red, blue) - green - parameters.despillNeutralMargin);
+      // Green-screen despill: pull excess G toward max(R, B) inside the boundary band.
+      const excess = Math.max(0, green - Math.max(red, blue) - parameters.despillNeutralMargin);
       if (excess > 0) {
-        const neutralTarget = Math.max(0, green - 1);
-        red = Math.round(red + (Math.min(red, neutralTarget) - red) * parameters.despillStrength);
-        blue = Math.round(
-          blue + (Math.min(blue, neutralTarget) - blue) * parameters.despillStrength,
+        const neutralTarget = Math.max(red, blue);
+        green = Math.round(
+          green + (Math.max(0, neutralTarget) - green) * parameters.despillStrength,
         );
       }
     }
@@ -220,9 +227,9 @@ export async function processAllowlistedPortraits({ workspaceRoot, outputDirecto
   return results;
 }
 
-function isMagentaEdge(red, green, blue, gate) {
+function isGreenEdge(red, green, blue, gate) {
   return (
-    Math.min(red, blue) - green > gate.edgeMagentaDominanceThreshold &&
+    greenDominance(red, green, blue) > gate.edgeGreenDominanceThreshold &&
     Math.abs(red - blue) < gate.edgeRedBlueDifferenceMaximum
   );
 }
@@ -325,7 +332,7 @@ export async function inspectPortrait(imagePath, id = path.basename(imagePath)) 
   let opaque = 0;
   let partial = 0;
   let edgePixels = 0;
-  let magentaEdgePixels = 0;
+  let greenEdgePixels = 0;
   const alphaMask = Buffer.alloc(total);
   const topBandHeight = Math.max(1, Math.floor(info.height * 0.1));
   let topBandTransparent = 0;
@@ -352,8 +359,8 @@ export async function inspectPortrait(imagePath, id = path.basename(imagePath)) 
     if (boundary[pixel] !== 1) continue;
     const index = pixel * 4;
     edgePixels += 1;
-    if (isMagentaEdge(data[index], data[index + 1], data[index + 2], GATE_PARAMETERS)) {
-      magentaEdgePixels += 1;
+    if (isGreenEdge(data[index], data[index + 1], data[index + 2], GATE_PARAMETERS)) {
+      greenEdgePixels += 1;
     }
   }
 
@@ -389,9 +396,9 @@ export async function inspectPortrait(imagePath, id = path.basename(imagePath)) 
     topBandTransparentCoverage: topBandTransparent / (info.width * topBandHeight),
     subjectCoverage: (opaque + partial) / total,
     topology,
-    magentaEdgeRatio: edgePixels === 0 ? 0 : magentaEdgePixels / edgePixels,
+    greenEdgeRatio: edgePixels === 0 ? 0 : greenEdgePixels / edgePixels,
     edgePixels,
-    magentaEdgePixels,
+    greenEdgePixels,
     sha256,
     bytes: file.length,
   };
@@ -458,8 +465,8 @@ export function evaluateGate(metrics, gate = GATE_PARAMETERS) {
       `largest enclosed transparent area above ${gate.maximumLargestEnclosedTransparentPixels} pixels`,
     );
   }
-  if (metrics.magentaEdgeRatio > gate.maximumMagentaEdgeRatio) {
-    failures.push(`magenta edge ratio above ${gate.maximumMagentaEdgeRatio}`);
+  if (metrics.greenEdgeRatio > gate.maximumGreenEdgeRatio) {
+    failures.push(`green edge ratio above ${gate.maximumGreenEdgeRatio}`);
   }
   return { pass: failures.length === 0, failures };
 }

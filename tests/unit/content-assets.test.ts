@@ -247,24 +247,24 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.pass).toBe(true);
     expect(result.report.decision).toBe("final");
     expect(result.report.summary).toEqual({
-      assets: 43,
-      present: 31,
+      assets: 58,
+      present: 46,
       missing: 12,
       openGaps: 3,
-      releaseBlockers: 40,
+      releaseBlockers: 44,
     });
-    expect(result.report.checks.stableIds).toBe(43);
-    expect(result.report.checks.fileExistence).toBe(31);
-    expect(result.report.checks.mimeAndExtension).toBe(31);
-    expect(result.report.checks.dimensions).toBe(31);
-    expect(result.report.checks.sha256).toBe(31);
-    expect(result.report.checks.attribution).toBe(43);
-    expect(result.report.checks.runtimeLedgerRows).toBe(30);
+    expect(result.report.checks.stableIds).toBe(58);
+    expect(result.report.checks.fileExistence).toBe(46);
+    expect(result.report.checks.mimeAndExtension).toBe(46);
+    expect(result.report.checks.dimensions).toBe(46);
+    expect(result.report.checks.sha256).toBe(46);
+    expect(result.report.checks.attribution).toBe(58);
+    expect(result.report.checks.runtimeLedgerRows).toBe(33);
     expect(result.report.checks.rightsEvidence).toBe(0);
     expect(result.report.checks.gapResolutions).toBe(0);
-    expect(result.report.checks.productionTruth).toBe(40);
-    // Eight formal suming portraits reuse the calibrated matte gate.
-    expect(result.report.checks.portraitMatte).toBe(8);
+    expect(result.report.checks.productionTruth).toBe(44);
+    // Twelve ADR-0006 CG lead portraits reuse the calibrated green matte gate.
+    expect(result.report.checks.portraitMatte).toBe(12);
     expect(result.report.checks.reverseCoverage).toBeGreaterThan(0);
     expect(result.report.checks.pathSafety).toBeGreaterThan(0);
     expect(result.report.errors).toEqual([]);
@@ -285,7 +285,7 @@ describe("two-chapter visual asset intake", () => {
       hasAlpha: true,
       visibleMagentaRatio: 0,
       portraitMattePass: true,
-      sha256: "175a51a0071944dd167cc26fa9b40059eed25400f0a1fa2e041d1945803b6983",
+      sha256: "2fe82ea944814e5655e0e03cce9feb22d49ca5763ecf9d4f90c1b5540521b163",
     });
     const protocolProp = result.report.assetMetrics.find(
       (metric) => metric.assetId === "prop-protocol-terms",
@@ -306,11 +306,13 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.pass).toBe(false);
     expect(result.report.decision).toBe("blocked");
     expect(result.report.errors).toEqual([]);
-    expect(result.report.summary.releaseBlockers).toBe(40);
+    expect(result.report.summary.releaseBlockers).toBe(44);
     expect(result.report.releaseBlockers.map((blocker) => blocker.assetId)).toEqual(
       expect.arrayContaining([
         "bg-office-night",
         "suming-shame",
+        "zhou-neutral",
+        "shipeixin-calm-smile",
         "chen-jia-neutral",
         "prop-protocol-terms",
         "gap-background-shot-list",
@@ -439,8 +441,8 @@ describe("two-chapter visual asset intake", () => {
     expect(result.exitCode).toBe(1);
     expect(result.report.decision).toBe("blocked");
     expect(result.report.errors).toEqual([]);
-    expect(result.report.summary.releaseBlockers).toBe(40);
-    expect(result.report.checks.portraitMatte).toBe(8);
+    expect(result.report.summary.releaseBlockers).toBe(44);
+    expect(result.report.checks.portraitMatte).toBe(12);
     for (const requiredId of [
       "suming-shame",
       "chen-jia-neutral",
@@ -619,8 +621,8 @@ describe("two-chapter visual asset intake", () => {
     ]);
 
     expect(result.exitCode).toBe(1);
-    expect(result.report.summary.releaseBlockers).toBe(40);
-    expect(result.report.checks.productionTruth).toBe(40);
+    expect(result.report.summary.releaseBlockers).toBe(44);
+    expect(result.report.checks.productionTruth).toBe(44);
     for (const gapId of [
       "gap-background-shot-list",
       "gap-npc-mood-matrix",
@@ -925,7 +927,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.stderr).not.toMatch(/asset audit crashed|Error:/i);
     const report = JSON.parse(await fs.readFile(reportPath, "utf8")) as AuditReport;
     expect(report.pass).toBe(true);
-    expect(report.summary.releaseBlockers).toBe(40);
+    expect(report.summary.releaseBlockers).toBe(44);
   }, 60_000);
 
   it("fails reverse coverage when a frozen missing delivery is deleted from intake", async () => {

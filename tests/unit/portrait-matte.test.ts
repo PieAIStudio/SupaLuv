@@ -23,7 +23,7 @@ describe("portrait matte asset gate", () => {
       badFixture: { rejected: boolean };
     };
 
-    expect(report.determinism).toHaveLength(6);
+    expect(report.determinism).toHaveLength(12);
     expect(
       report.determinism.every(
         (entry) =>
@@ -31,8 +31,8 @@ describe("portrait matte asset gate", () => {
       ),
     ).toBe(true);
     expect(report.badFixture.rejected).toBe(true);
-    expect(report.official).toHaveLength(8);
+    expect(report.official).toHaveLength(12);
     expect(report.official.every((entry) => entry.gate.pass)).toBe(true);
     expect(report.pass).toBe(true);
-  }, 30_000);
+  }, 120_000);
 });
