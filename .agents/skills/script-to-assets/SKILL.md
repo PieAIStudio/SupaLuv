@@ -16,16 +16,20 @@ metadata:
 1. 盘点缺口：grep 该章 manifest 的 backgroundKey/artKey/portraitKey/companionPortraitKey 与
    `packages/content/src/propCatalog.ts` 落点，对照 `apps/web/public/assets/` 现有文件列缺失清单。
 2. 读 `references/generation.md`（渠道与命令）与 `references/intake.md`（三账与门禁）。
-3. 风格基线：**绘画感写实**（painterly realism，介于写实与风格化之间，参照 Arcane 质感）。
-   若风格 ADR 尚未冻结，先走"风格试板"流程（见下），不许直接批量生成。
+3. 风格基线（owner 2026-07-17 目选冻结，双轨制）：
+   - **人物 = 半写实风格化 3D 动画 CG**：matte simplified skin、grounded adult proportions、
+     clean studio lighting；一眼可见非真人，但质感高级。禁止 photorealistic photography /
+     anime / oil painting / fashion editorial。美学种子：`Temp/基准美学/A.png`
+     （完整身份套件与验证过的 prompt 模板在 `Temp/基准美学/prompts/`，照抄其结构）。
+   - **环境 = 写实质感**：photoreal 环境（参照 `Temp/style-tiles-2026-07-17/style-1-photoreal.png`）。
+   - **合成律**："明显非真人的 3D 角色，活在现实质感的环境里"——人物永远不写实化去迁就背景，
+     背景永远不卡通化去迁就人物；靠光位与色温一致来缝合。
+   见 `references/generation.md` 的风格块模板；风格变更需 owner 重新目选，不许生成侧擅自漂移。
 
-## 风格试板（style tiles，仅风格未冻结时）
+## 风格试板（style tiles，仅风格重开时）
 
-1. 取同一个代表场景（建议：夜班超市收银台 + 苏明侧脸），用 SuperGrok 生成 4-6 块风格微调试板：
-   写实摄影感 / 绘画感写实(Arcane系) / 厚涂插画 / 轻水彩 / 2.5D 渲染感，每块同构图同光位。
-2. 试板落 `Temp/style-tiles-<date>/`，写一页对照说明（每块的 prompt 与差异点）。
-3. **停下来等用户目选**；选定后把风格关键词、负面词、参考图冻结进 ADR（docs/adr/），
-   此后所有生成 prompt 必须引用该 ADR 的风格块。
+风格已冻结如上。仅当 owner 明确要求重开风格时才重跑试板流程：
+同构图同光位出 4-6 块微调试板落 `Temp/style-tiles-<date>/`，写对照说明，**停下来等 owner 目选**。
 
 ## 生成规则
 
