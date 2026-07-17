@@ -1,3 +1,8 @@
+/**
+ * gameAudio façade tests — grouped by internal facet boundaries:
+ * catalog/mix policy · beds · voice+core · sfx
+ * (Single file: vitest forbids exporting vi.hoisted engine mocks across files.)
+ */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const engine = vi.hoisted(() => {
@@ -110,16 +115,18 @@ import {
   resolveAudioMixGains,
 } from "../../apps/web/src/audio/audioMixState";
 
-describe("gameAudio catalog and mix policy", () => {
-  beforeEach(() => {
-    engine.howls.length = 0;
-    engine.fades.length = 0;
-    vi.clearAllMocks();
-    vi.stubGlobal("URL", {
-      createObjectURL: vi.fn(() => "blob:supaluv-voice"),
-      revokeObjectURL: vi.fn(),
-    });
+function resetEngine(): void {
+  engine.howls.length = 0;
+  engine.fades.length = 0;
+  vi.clearAllMocks();
+  vi.stubGlobal("URL", {
+    createObjectURL: vi.fn(() => "blob:supaluv-voice"),
+    revokeObjectURL: vi.fn(),
   });
+}
+
+describe("gameAudio catalog and mix policy", () => {
+  beforeEach(resetEngine);
 
   it("classifies stable music and ambient IDs without inventing missing assets", () => {
     expect(classifyBed("soft-piano")).toBe("music");
@@ -162,6 +169,10 @@ describe("gameAudio catalog and mix policy", () => {
       }).bedsShouldPlay,
     ).toBe(false);
   });
+});
+
+describe("gameAudio beds (dual-track stage music + ambience)", () => {
+  beforeEach(resetEngine);
 
   it("routes exclusive ambient beds to the ambient bus and does not restart repeats", () => {
     const controller = new GameAudioController();
@@ -382,6 +393,73 @@ describe("gameAudio catalog and mix policy", () => {
     expect(survivingMusic?.unloadCalls).toBe(0);
   });
 
+  it("clears failed music/ambient beds so the same id can retry with a new Howl", () => {
+    const controller = new GameAudioController();
+    controller.unlock();
+    controller.playExclusiveBed("soft-piano");
+    const failedMusic = engine.howls[0];
+    const musicError = failedMusic?.options.onloaderror;
+    expect(typeof musicError).toBe("function");
+    if (typeof musicError === "function") {
+      musicError();
+    }
+    expect(controller.getPlaybackSnapshot().musicKey).toBeNull();
+    expect(failedMusic?.unloadCalls).toBe(1);
+
+    controller.playExclusiveBed("soft-piano");
+    expect(engine.createEngineHowl).toHaveBeenCalledTimes(2);
+    expect(controller.getPlaybackSnapshot().musicKey).toBe("soft-piano");
+
+    controller.playExclusiveBed("night-ambient");
+    const failedAmbient = engine.howls[2];
+    const ambientError = failedAmbient?.options.onplayerror;
+    expect(typeof ambientError).toBe("function");
+    if (typeof ambientError === "function") {
+      ambientError();
+    }
+    expect(controller.getPlaybackSnapshot().ambientKey).toBeNull();
+    controller.playExclusiveBed("night-ambient");
+    expect(controller.getPlaybackSnapshot().ambientKey).toBe("night-ambient");
+  });
+
+  it("does not clear a newer bed Howl when a superseded instance fails late", () => {
+    const controller = new GameAudioController();
+    controller.unlock();
+    controller.playExclusiveBed("soft-piano");
+    const first = engine.howls[0];
+    controller.playExclusiveBed("chapter-end");
+    const second = engine.howls[1];
+    const lateError = first?.options.onloaderror;
+    if (typeof lateError === "function") {
+      lateError();
+    }
+    expect(controller.getPlaybackSnapshot().musicKey).toBe("chapter-end");
+    expect(second?.unloadCalls).toBe(0);
+  });
+
+  it("switches sequence beds across channels without leaving the prior layer current", () => {
+    const controller = new GameAudioController();
+    controller.unlock();
+    controller.playExclusiveBed("night-ambient");
+    controller.playExclusiveBed("chapter-end");
+
+    expect(controller.getPlaybackSnapshot()).toMatchObject({
+      musicKey: "chapter-end",
+      ambientKey: null,
+    });
+  });
+
+  it("ignores unknown catalog IDs without creating Howls or URLs", () => {
+    const controller = new GameAudioController();
+    controller.playExclusiveBed("not-authored");
+    controller.playSfx("not-authored");
+    expect(engine.createEngineHowl).not.toHaveBeenCalled();
+  });
+});
+
+describe("gameAudio voice + unlock/mute core", () => {
+  beforeEach(resetEngine);
+
   it("applies mute, unlock, cutscene, duck/release, stopAll, and SFX independently to both beds", () => {
     const controller = new GameAudioController();
     controller.setMuted(true);
@@ -495,80 +573,6 @@ describe("gameAudio catalog and mix policy", () => {
     expect(controller.getPlaybackSnapshot().cutscenePaused).toBe(false);
   });
 
-  it("restarts cinematic SFX but permits overlapping UI SFX", () => {
-    const controller = new GameAudioController();
-    controller.playSfx("notify-soft");
-    controller.playSfx("notify-soft");
-    const notify = engine.howls[0];
-    expect(notify?.stopCalls).toBe(1);
-    expect(notify?.playCalls).toBe(2);
-
-    controller.playSfx("ui-click");
-    controller.playSfx("ui-click");
-    const click = engine.howls[1];
-    expect(click?.stopCalls).toBe(0);
-    expect(click?.playCalls).toBe(2);
-  });
-
-  it("drops failed cached SFX so a retry creates a fresh playable object", () => {
-    const controller = new GameAudioController();
-    controller.playSfx("notify-soft");
-    const failed = engine.howls[0];
-    const onloaderror = failed?.options.onloaderror;
-    expect(typeof onloaderror).toBe("function");
-    if (typeof onloaderror === "function") {
-      onloaderror();
-    }
-
-    controller.playSfx("notify-soft");
-    expect(engine.createEngineHowl).toHaveBeenCalledTimes(2);
-    expect(failed?.unloadCalls).toBe(1);
-  });
-
-  it("clears failed music/ambient beds so the same id can retry with a new Howl", () => {
-    const controller = new GameAudioController();
-    controller.unlock();
-    controller.playExclusiveBed("soft-piano");
-    const failedMusic = engine.howls[0];
-    const musicError = failedMusic?.options.onloaderror;
-    expect(typeof musicError).toBe("function");
-    if (typeof musicError === "function") {
-      musicError();
-    }
-    expect(controller.getPlaybackSnapshot().musicKey).toBeNull();
-    expect(failedMusic?.unloadCalls).toBe(1);
-
-    controller.playExclusiveBed("soft-piano");
-    expect(engine.createEngineHowl).toHaveBeenCalledTimes(2);
-    expect(controller.getPlaybackSnapshot().musicKey).toBe("soft-piano");
-
-    controller.playExclusiveBed("night-ambient");
-    const failedAmbient = engine.howls[2];
-    const ambientError = failedAmbient?.options.onplayerror;
-    expect(typeof ambientError).toBe("function");
-    if (typeof ambientError === "function") {
-      ambientError();
-    }
-    expect(controller.getPlaybackSnapshot().ambientKey).toBeNull();
-    controller.playExclusiveBed("night-ambient");
-    expect(controller.getPlaybackSnapshot().ambientKey).toBe("night-ambient");
-  });
-
-  it("does not clear a newer bed Howl when a superseded instance fails late", () => {
-    const controller = new GameAudioController();
-    controller.unlock();
-    controller.playExclusiveBed("soft-piano");
-    const first = engine.howls[0];
-    controller.playExclusiveBed("chapter-end");
-    const second = engine.howls[1];
-    const lateError = first?.options.onloaderror;
-    if (typeof lateError === "function") {
-      lateError();
-    }
-    expect(controller.getPlaybackSnapshot().musicKey).toBe("chapter-end");
-    expect(second?.unloadCalls).toBe(0);
-  });
-
   it("keeps product mute after unlock and never unmutes via context unlock", () => {
     const controller = new GameAudioController();
     controller.setMuted(true);
@@ -616,23 +620,38 @@ describe("gameAudio catalog and mix policy", () => {
     expect(controller.getPlaybackSnapshot().voiceActive).toBe(false);
     expect(voice?.unloadCalls).toBe(1);
   });
+});
 
-  it("switches sequence beds across channels without leaving the prior layer current", () => {
+describe("gameAudio sfx", () => {
+  beforeEach(resetEngine);
+
+  it("restarts cinematic SFX but permits overlapping UI SFX", () => {
     const controller = new GameAudioController();
-    controller.unlock();
-    controller.playExclusiveBed("night-ambient");
-    controller.playExclusiveBed("chapter-end");
+    controller.playSfx("notify-soft");
+    controller.playSfx("notify-soft");
+    const notify = engine.howls[0];
+    expect(notify?.stopCalls).toBe(1);
+    expect(notify?.playCalls).toBe(2);
 
-    expect(controller.getPlaybackSnapshot()).toMatchObject({
-      musicKey: "chapter-end",
-      ambientKey: null,
-    });
+    controller.playSfx("ui-click");
+    controller.playSfx("ui-click");
+    const click = engine.howls[1];
+    expect(click?.stopCalls).toBe(0);
+    expect(click?.playCalls).toBe(2);
   });
 
-  it("ignores unknown catalog IDs without creating Howls or URLs", () => {
+  it("drops failed cached SFX so a retry creates a fresh playable object", () => {
     const controller = new GameAudioController();
-    controller.playExclusiveBed("not-authored");
-    controller.playSfx("not-authored");
-    expect(engine.createEngineHowl).not.toHaveBeenCalled();
+    controller.playSfx("notify-soft");
+    const failed = engine.howls[0];
+    const onloaderror = failed?.options.onloaderror;
+    expect(typeof onloaderror).toBe("function");
+    if (typeof onloaderror === "function") {
+      onloaderror();
+    }
+
+    controller.playSfx("notify-soft");
+    expect(engine.createEngineHowl).toHaveBeenCalledTimes(2);
+    expect(failed?.unloadCalls).toBe(1);
   });
 });
