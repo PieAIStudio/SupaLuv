@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "candidateSetId": "npc-cg-2026-07-17",
+  "generatedAt": "2026-07-17T05:42:23.611Z",
+  "contract": {
+    "id": "portrait-runtime-2x3"
+  },
+  "candidate_only": false,
+  "humanArtReview": false,
+  "rightsStatus": "pending",
+  "runtimeIntegrated": true,
+  "provenance": {
+    "owner": "project",
+    "method": "Grok image_edit style-from-texture-anchor + green key + portrait-matte",
+    "type": "owner_generated_ai",
+    "workflow": "script-to-assets NPC CG batch",
+    "decision": "ADR-0006",
+    "statement": "NPC CG portraits for draft chapters. Rights pending; human art review false. Texture anchor used for style only; faces must not match leads."
+  },
+  "assets": [
+    {
+      "id": "leo-neutral",
+      "outputPath": "apps/web/public/assets/portraits/leo-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 1017230,
+      "sha256": "7885c8decc4a6fc69c47cdb06c2e0966261ae32196a7670dec4522946206c2b3",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/leo-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "leo-annoyed",
+      "outputPath": "apps/web/public/assets/portraits/leo-annoyed.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 999904,
+      "sha256": "3334e3889985aa62b4e93f9da114d6b1fd25125e853229042e58692845392a87",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/leo-annoyed.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "chenjia-neutral",
+      "outputPath": "apps/web/public/assets/portraits/chenjia-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 913320,
+      "sha256": "656e6ebaa1bcf4b3a8b54e00bb1a9fff64dffb82be6b9b2435469d2b841ad0e9",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/chenjia-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "shopowner-neutral",
+      "outputPath": "apps/web/public/assets/portraits/shopowner-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 1081910,
+      "sha256": "93bc7766e573c2b1d6bf6403b8beb4ad56b9982221abb7fb3bc64df89f18a575",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/shopowner-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "staff-neutral",
+      "outputPath": "apps/web/public/assets/portraits/staff-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 909552,
+      "sha256": "e20fe903769709727eaaa66e5adda169219eb608b4a13bdf47e436592325640d",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/staff-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "stafflead-neutral",
+      "outputPath": "apps/web/public/assets/portraits/stafflead-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 895326,
+      "sha256": "b35969359ea86af8e2b5e1817ae2ef36835a9c858414ef30a3a0b201c19be251",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/stafflead-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "zhuzhu-neutral",
+      "outputPath": "apps/web/public/assets/portraits/zhuzhu-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 1247702,
+      "sha256": "c0e7a24d2508b456a73d9b715a2c844f6b62bd74087bf8e810458fb4d6930e7a",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/zhuzhu-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "huanglaotai-neutral",
+      "outputPath": "apps/web/public/assets/portraits/huanglaotai-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 1366710,
+      "sha256": "092d9c3c804bfe4023b1610d9ddd8a09de3a36ca944fd67de06077c4fb8d536c",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/huanglaotai-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "police-neutral",
+      "outputPath": "apps/web/public/assets/portraits/police-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 727740,
+      "sha256": "c27f16964fc2e576cee153e68fad4cb2b5f25b9f634e2b6fe17e1a8dc4ad153b",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/police-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "gridworker-neutral",
+      "outputPath": "apps/web/public/assets/portraits/gridworker-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 1141641,
+      "sha256": "bdb6a776736a7b12ac1e2a47b52734367ba9d025d165765541f35dcf94e12c95",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/gridworker-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    },
+    {
+      "id": "courier-neutral",
+      "outputPath": "apps/web/public/assets/portraits/courier-neutral.png",
+      "dimensions": {
+        "width": 832,
+        "height": 1248
+      },
+      "mimeType": "image/png",
+      "bytes": 769198,
+      "sha256": "d178930580bda8858f5fa06f244cab995e790ccfd4570df2a7e7197a7f1f7386",
+      "candidate_only": false,
+      "humanArtReview": false,
+      "rightsStatus": "pending",
+      "provenance": {
+        "type": "owner_generated_ai",
+        "channel": "grok_image_edit",
+        "generatedAt": "2026-07-17",
+        "decision": "ADR-0006",
+        "textureAnchor": "Temp/identity-suming/00-CloseUp-Front.png",
+        "promptPointer": "packages/content/assets/candidates/npc-cg-2026-07-17/prompts/courier-neutral.prompt.md",
+        "matte": "tools/portrait-matte green #00B140"
+      }
+    }
+  ]
+}

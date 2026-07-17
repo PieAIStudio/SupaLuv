@@ -35,26 +35,27 @@ const VISUAL_FILE_EXTENSIONS = new Set([
 ]);
 
 const FROZEN_PRODUCTION_CHARACTER_ASSETS = Object.freeze([
-  { registryId: "chen_jia", portraitId: "chen-jia-neutral", referenceId: "chen-jia-ref-base" },
+  // NPC CG portraits landed 2026-07-17 (ADR-0006). IDs match runtime stems.
+  { registryId: "chen_jia", portraitId: "chenjia-neutral", referenceId: "chen-jia-ref-base" },
   { registryId: "leo", portraitId: "leo-neutral", referenceId: "leo-ref-base" },
   {
     registryId: "shi_peixin",
-    portraitId: "shi-peixin-neutral",
+    portraitId: "zhou-neutral",
     referenceId: "shi-peixin-ref-base",
   },
   {
     registryId: "staff_worker",
-    portraitId: "staff-worker-neutral",
+    portraitId: "staff-neutral",
     referenceId: "staff-worker-ref-base",
   },
   {
     registryId: "staff_lead",
-    portraitId: "staff-lead-neutral",
+    portraitId: "stafflead-neutral",
     referenceId: "staff-lead-ref-base",
   },
   {
     registryId: "shop_owner",
-    portraitId: "shop-owner-neutral",
+    portraitId: "shopowner-neutral",
     referenceId: "shop-owner-ref-base",
   },
 ]);
@@ -66,11 +67,12 @@ const FROZEN_ARCHIVE_PROP_IDS = Object.freeze([
   "prop-approval-sms",
 ]);
 export const FROZEN_REQUIRED_PROP_IDS = FROZEN_ARCHIVE_PROP_IDS;
-/** Frozen minimum deliveries that are still genuinely missing. */
-export const FROZEN_REQUIRED_MISSING_IDS = Object.freeze([
-  ...FROZEN_PRODUCTION_CHARACTER_ASSETS.map(({ portraitId }) => portraitId),
-  ...FROZEN_PRODUCTION_CHARACTER_ASSETS.map(({ referenceId }) => referenceId),
-]);
+/**
+ * Frozen minimum deliveries that are still genuinely missing.
+ * NPC portraits/refs delivered 2026-07-17; 石佩欣 dedicated ref plate still open
+ * (runtime uses zhou-neutral key + shipeixin green refs).
+ */
+export const FROZEN_REQUIRED_MISSING_IDS = Object.freeze(["shi-peixin-ref-base"]);
 const FROZEN_REQUIRED_PRODUCTION_GAP_IDS = new Set([
   "gap-background-shot-list",
   "gap-npc-mood-matrix",
