@@ -67,9 +67,9 @@ related:
 
 | 发布门 | 状态与证据 |
 | --- | --- |
-| 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、BGM/ambient/SFX 和长文本节奏任务；对白 TTS 本地全链路已打通（游客登录→逐句 MiniMax 合成 200）；机器人视觉候选已产出（`Temp/robot-design-candidates-2026-07-17/` 男款 ×4，owner 目选中）；朱珠按小说真相（女性机器人、脸=近陈佳）待重制，提示词就绪但被 grok 登录过期阻塞 |
+| 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、BGM/ambient/SFX 和长文本节奏任务；对白 TTS 本地全链路已打通（游客登录→逐句 MiniMax 合成 200）；朱珠已按小说真相重制入库（2026-07-18，脸=近陈佳的机器人版，ch03 揭晓场景浏览器实证）；男款大力 v2 候选已按 owner 方向（robot-4 更高大魅惑）产出于 `Temp/dali-robot-v2-2026-07-18/`，等 owner 目选且大力尚无剧情戏份 |
 | 发行级试玩 | 未完成；独立 critic pass 与第二轮选择感/视听/地图/存档/失败恢复试玩仍未关闭 |
-| 真实服务验收 | 部分完成；本地真实调用证据已取得（auth/AI 支线/TTS/钱包 fail-closed/存储，见 `.scratch/director/playtest/2026-07-16/live-service-proof.md`）；2026-07-18 生产站云端 co-play 已实证（Supabase Realtime：建房/进房/presence/跟屏/投票回传全通）；Preview 部署被 Vercel Deployment Protection 登录墙拦截（未配自动化绕过密钥，owner 决定），完整 Preview/Production 验收仍未关闭 |
+| 真实服务验收 | 部分完成；本地真实调用证据已取得（auth/AI 支线/TTS/钱包 fail-closed/存储，见 `.scratch/director/playtest/2026-07-16/live-service-proof.md`）；2026-07-18 生产站云端 co-play 已实证（Supabase Realtime：建房/进房/presence/跟屏/投票回传全通）；2026-07-18 Preview 验收已通过（owner 关闭 Deployment Protection 后重新部署当日 main：匿名访问 200、`/api/ai/health` 真实响应、开场→选角→第一章冒烟零控制台错误、CJK 字体分片加载）；Production 尚未重新发布——本轮含 `services/ai-branch` 改动（端口优先级），按约需专用 AI 审查后再上线 |
 
 当前优先级只保留三项：**正式内容 / 视听** → **发行级试玩** → **真实 Preview/Production 发布门**。
 不新增下一阶段 roadmap。
