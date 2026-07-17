@@ -12,6 +12,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["dev:full"],
       "port": 5173
+    },
+    {
+      "name": "full-unmetered",
+      "runtimeExecutable": "env",
+      "runtimeArgs": ["VITE_SUPALUV_AI_ALLOW_UNMETERED=1", "pnpm", "dev:full"],
+      "port": 5173
     }
   ]
 }

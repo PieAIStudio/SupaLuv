@@ -280,6 +280,23 @@ export const draftCh02Scenes = [
     sfxKey: "ui-click",
     speaker: "苏明",
     mood: "shame",
+    aiBranch: {
+      enabled: true,
+      waitLabel: "灵感生成中…",
+      rejoinSceneId: "dch02_housing_hotspots",
+      maxAiBeats: 2,
+      context:
+        "看房现场，苏明想问房东石佩欣「假设带女朋友住行不行」：作者两支是问出口和咽回去又问。请给黑色喜剧第三条：更迂回、更没出息的试探话术（比如假装替朋友问），不色情。短选项文案+1-2句对白后必须回到看房流程。",
+      artPool: ["bg-rental-room", "bg-lobby-white"],
+      portraitPool: [
+        "suming-shame",
+        "suming-panic",
+        "suming-restless",
+        "shipeixin-calm-smile",
+        "shipeixin-guarded",
+      ],
+      speakerPool: ["苏明", "石佩欣", "旁白"],
+    },
     noncanonical: true,
     source: "supa-luv-v2-2026-07",
   },

@@ -202,6 +202,23 @@ export const draftCh01Scenes = [
     sfxKey: "ui-click",
     speaker: "苏明",
     mood: "shame",
+    aiBranch: {
+      enabled: true,
+      waitLabel: "灵感生成中…",
+      rejoinSceneId: "dch01_s012",
+      maxAiBeats: 2,
+      context:
+        "苏明在测试间要讲分手：作者两支是「借朋友的壳」和「硬说真实」。请给黑色喜剧第三条：更怂、更绕、更程序员式的自我保护话术，不色情。短选项文案+1-2句对白后必须回到讲述现场。",
+      artPool: ["bg-office-night", "bg-lobby-white", "bg-rental-room"],
+      portraitPool: [
+        "suming-shame",
+        "suming-panic",
+        "suming-restless",
+        "suming-lonely",
+        "suming-tempted",
+      ],
+      speakerPool: ["苏明", "旁白"],
+    },
     noncanonical: true,
     source: "supa-luv-v2-2026-07",
   },
