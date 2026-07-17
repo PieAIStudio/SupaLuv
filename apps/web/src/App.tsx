@@ -268,6 +268,7 @@ export function App() {
       __SUPALUV_ATOMIC_LOADING_TEST__?: {
         transitionToChapter1: () => void;
         transitionToChapter2: () => void;
+        transitionToChapter3: () => void;
       };
     };
     testWindow.__SUPALUV_ATOMIC_LOADING_TEST__ = {
@@ -275,6 +276,8 @@ export function App() {
         runStoryAction(() => session.loadChapter("draft-ch01" as StoryId), "chapter"),
       transitionToChapter2: () =>
         runStoryAction(() => session.loadChapter("draft-ch02" as StoryId), "chapter"),
+      transitionToChapter3: () =>
+        runStoryAction(() => session.loadChapter("draft-ch03" as StoryId), "chapter"),
     };
     return () => {
       delete testWindow.__SUPALUV_ATOMIC_LOADING_TEST__;
