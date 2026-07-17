@@ -158,11 +158,16 @@ async function captureStage(page: Page, name: string, portraitFilename: string) 
   // with the resolved stage geometry so an otherwise identical replacement
   // cannot detach the element-scoped screenshot operation on slower CI.
   await page.screenshot({ path: screenshotPath, clip: stageBox, animations: "disabled" });
+  // Floor-anchored sprites touch the stage's bottom edge, so naive rounding can
+  // push the crop 1px past the screenshot and fail vips with "bad extract area".
+  // Clamp the crop to the remaining stage extent from its own origin.
+  const cropLeft = Math.max(0, Math.round(portraitBox.x - stageBox.x));
+  const cropTop = Math.max(0, Math.round(portraitBox.y - stageBox.y));
   const crop = {
-    left: Math.max(0, Math.round(portraitBox.x - stageBox.x)),
-    top: Math.max(0, Math.round(portraitBox.y - stageBox.y)),
-    width: Math.min(Math.round(portraitBox.width), Math.round(stageBox.width)),
-    height: Math.min(Math.round(portraitBox.height), Math.round(stageBox.height)),
+    left: cropLeft,
+    top: cropTop,
+    width: Math.min(Math.round(portraitBox.width), Math.floor(stageBox.width) - cropLeft),
+    height: Math.min(Math.round(portraitBox.height), Math.floor(stageBox.height) - cropTop),
   };
   const magentaPixelRatio = await strongMagentaRatio(screenshotPath, crop);
   const metadata = await portrait.evaluate((element) => {

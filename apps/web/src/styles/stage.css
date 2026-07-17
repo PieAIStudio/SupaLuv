@@ -397,7 +397,9 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 28%;
+  /* VN standard: sprites stand on the stage floor and tuck BEHIND the dialogue
+     box (box z-index 4 > actors z-index 2), which hides the bust crop edge. */
+  bottom: 0;
   top: 12%;
   z-index: 2;
   display: flex;
@@ -413,7 +415,9 @@
   grid-template-columns: 1fr 1fr;
   align-items: end;
   gap: 2%;
-  width: min(92%, 48em);
+  /* Sized in stage units so sprites can actually reach VN scale; an em cap
+     here silently shrinks every sprite below its intended height. */
+  width: min(92%, 116cqh);
   height: 100%;
 }
 
@@ -424,6 +428,8 @@
   justify-content: flex-end;
   height: 100%;
   min-width: 0;
+  /* Sprites are floor-anchored: dim/active scaling must keep feet planted. */
+  transform-origin: bottom center;
   transition:
     opacity 220ms ease,
     transform 220ms ease,
@@ -457,30 +463,50 @@
   z-index: 1;
 }
 
+/* Short stages (mobile landscape, tiny windows): the readable-text floor makes
+   the dialogue box eat most of the height, so floor-anchored sprites would
+   disappear behind it. Fall back to floating busts above the box — the bottom
+   mask fade dissolves the crop edge, the standard mobile-VN treatment. */
+@container stage (max-height: 470px) {
+  .vn-stage-actors {
+    bottom: 36%;
+  }
+
+  .portrait-image {
+    height: 52cqh;
+    mask-image: linear-gradient(to bottom, #000 82%, transparent 99%);
+  }
+}
+
 .portrait-image {
   display: block;
   width: auto;
-  height: min(100%, 22em);
-  max-width: min(100%, 15em);
+  /* Bust sprites read at VN scale: fill the actor band (12%→bottom of stage)
+     so the face lands in the upper third even with the dialogue box overlaid.
+     Sized in cqh (stage container units) — percentage heights don't resolve
+     reliably through this flex/grid chain. */
+  height: 88cqh;
+  max-width: 100%;
   object-fit: contain;
   object-position: bottom center;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 1.1em 1.1em 0.35em 0.35em;
-  background: rgba(7, 8, 12, 0.58);
-  box-shadow: 0 0.9em 2em rgba(0, 0, 0, 0.5);
+  /* 立绘标准（ADR-0006 amendment）: sprites are matted transparent cutouts that
+     composite DIRECTLY into the scene. Never wrap them in a card — no border,
+     no border-radius, no backdrop fill, no box-shadow. Separation comes from an
+     alpha-aware drop-shadow that follows the character silhouette. Enforced by
+     tests/e2e/visual-contract.spec.ts. */
+  filter: drop-shadow(0 0.6em 1.4em rgba(0, 0, 0, 0.42));
+  /* Bust-crop insurance: if the dialogue box is short, dissolve the torso cut
+     edge instead of showing a hard horizontal line. */
+  mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
   user-select: none;
   pointer-events: none;
   animation: portrait-in 420ms ease;
 }
 
 .portrait-name {
-  margin-top: 0.25em;
-  padding: 0.15em 0.5em;
-  border-radius: 999px;
-  background: rgba(8, 10, 16, 0.55);
-  color: rgba(255, 245, 236, 0.8);
-  font-family: var(--supaluv-font-sans);
-  font-size: 0.72em;
+  /* VN standard: the speaker is named by the dialogue-box nameplate, not by
+     floating labels under sprites. Kept in DOM for structure only. */
+  display: none;
 }
 
 .scene-art-caption {

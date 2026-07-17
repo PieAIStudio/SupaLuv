@@ -120,6 +120,26 @@ test("stage keeps choices fully visible and non-speaker portraits readable", asy
     expect(opacity, "non-speaker portrait opacity").toBeGreaterThanOrEqual(0.6);
   }
 
+  // 立绘标准 (ADR-0006 amendment): sprites are matted cutouts composited
+  // directly into the scene. Any card treatment — border, backdrop fill,
+  // corner rounding, box-shadow — breaks the VN staging and fails here.
+  const sprite = page.locator(".portrait-image").first();
+  if (await sprite.isVisible().catch(() => false)) {
+    const card = await sprite.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      return {
+        borderWidth: cs.borderTopWidth,
+        background: cs.backgroundColor,
+        radius: cs.borderTopLeftRadius,
+        boxShadow: cs.boxShadow,
+      };
+    });
+    expect(card.borderWidth, "sprite must not have a border").toBe("0px");
+    expect(card.background, "sprite must not have a backdrop fill").toBe("rgba(0, 0, 0, 0)");
+    expect(card.radius, "sprite must not have rounded corners").toBe("0px");
+    expect(card.boxShadow, "sprite must not have a box-shadow").toBe("none");
+  }
+
   // Contract: choice label text is light on the dark dialogue panel.
   const labelColor = await firstChoice.evaluate((el) => getComputedStyle(el).color);
   expect(relativeLuminance(labelColor), `choice text ${labelColor}`).toBeGreaterThan(0.4);
