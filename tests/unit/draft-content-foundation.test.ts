@@ -231,9 +231,6 @@ describe("draft-2026-07 source snapshots", () => {
   const manifestPath = resolve(ROOT, "packages/content/sources/draft-2026-07/SOURCE-MANIFEST.json");
   const draft01Path = resolve(ROOT, "packages/content/sources/draft-2026-07/draft01.md");
   const draft02Path = resolve(ROOT, "packages/content/sources/draft-2026-07/draft02.md");
-  const original01 = "/Users/yuanfei/PieAI/SupaLuv/Temp/draft01.md";
-  const original02 = "/Users/yuanfei/PieAI/SupaLuv/Temp/draft02.md";
-
   it("keeps body bytes identical to manifest hashes (snapshot is CI SSOT)", () => {
     const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
       coverageMappingDigest: { algorithm: "sha256"; entryCount: number; value: string };
@@ -251,15 +248,11 @@ describe("draft-2026-07 source snapshots", () => {
     }
     expect(existsSync(draft01Path)).toBe(true);
     expect(existsSync(draft02Path)).toBe(true);
-    if (existsSync(original01) && existsSync(original02)) {
-      expect(sha256Buffer(readFileSync(draft01Path))).toBe(sha256Buffer(readFileSync(original01)));
-      expect(sha256Buffer(readFileSync(draft02Path))).toBe(sha256Buffer(readFileSync(original02)));
-    }
     const ledger = JSON.parse(
       readFileSync(resolve(ROOT, "packages/content/ledgers/draft-2026-07-coverage.json"), "utf8"),
     ) as { entries: CoverageEntry[] };
     expect(manifest.coverageMappingDigest.algorithm).toBe("sha256");
-    expect(manifest.coverageMappingDigest.entryCount).toBe(169);
+    expect(manifest.coverageMappingDigest.entryCount).toBe(290);
     expect(manifest.coverageMappingDigest.value).toBe(computeCoverageMappingDigest(ledger.entries));
   });
 });
@@ -271,24 +264,26 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
   const inkByChapter: Record<string, string> = {
     "draft-ch01": readInkSource("packages/content/ink/draft-ch01.ink"),
     "draft-ch02": readInkSource("packages/content/ink/draft-ch02.ink"),
+    "draft-ch03": readInkSource("packages/content/ink/draft-ch03.ink"),
   };
   const playableByChapter: Record<string, string> = {
     "draft-ch01": stripInkComments(inkByChapter["draft-ch01"]!),
     "draft-ch02": stripInkComments(inkByChapter["draft-ch02"]!),
+    "draft-ch03": stripInkComments(inkByChapter["draft-ch03"]!),
   };
 
-  it("re-parses snapshots to 93 + 76 = 169 body paragraphs and 8 structure blocks", () => {
+  it("re-parses snapshots to 142 + 148 = 290 body paragraphs and 21 structure blocks", () => {
     const draft01Body = parseBodyParagraphs(readFileSync(draft01Path, "utf8"));
     const draft02Body = parseBodyParagraphs(readFileSync(draft02Path, "utf8"));
     const draft01Struct = parseStructureBlocks(readFileSync(draft01Path, "utf8"));
     const draft02Struct = parseStructureBlocks(readFileSync(draft02Path, "utf8"));
-    expect(draft01Body.length).toBe(93);
-    expect(draft02Body.length).toBe(76);
-    expect(draft01Body.length + draft02Body.length).toBe(169);
-    expect(draft01Struct.length + draft02Struct.length).toBe(8);
+    expect(draft01Body.length).toBe(142);
+    expect(draft02Body.length).toBe(148);
+    expect(draft01Body.length + draft02Body.length).toBe(290);
+    expect(draft01Struct.length + draft02Struct.length).toBe(21);
   });
 
-  it("ledger entries are exactly 169 and 1:1 with re-parsed source ids/hashes", () => {
+  it("ledger entries are exactly 290 and 1:1 with re-parsed source ids/hashes", () => {
     const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
       allowedStatuses: string[];
       structure: Array<{ id: string; textHash: string; sourceId: string }>;
@@ -296,8 +291,8 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     };
 
     expect(ledger.allowedStatuses).toEqual([...ALLOWED_STATUSES]);
-    expect(ledger.entries.length).toBe(169);
-    expect(ledger.structure.length).toBe(8);
+    expect(ledger.entries.length).toBe(290);
+    expect(ledger.structure.length).toBe(21);
 
     const bodyBySource: Record<string, string[]> = {
       draft01: parseBodyParagraphs(readFileSync(draft01Path, "utf8")),
@@ -319,7 +314,7 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
         expect(entry.paragraphIndex).toBe(index + 1);
         expect(entry.textHash).toBe(sha256Text(bodies[index]!));
         expect(entryIds.has(entry.id)).toBe(false);
-        expect(entryHashes.has(entry.textHash)).toBe(false);
+        // Identical short dialogue lines may share textHash across paragraphs.
         entryIds.add(entry.id);
         entryHashes.add(entry.textHash);
       });
@@ -397,7 +392,7 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     expect(dialogueMisses).toEqual([]);
     expect(paragraphMissing).toBe(0);
     expect(dialogueMissing).toBe(0);
-    expect(adaptations.length).toBe(47);
+    expect(adaptations.length).toBe(100);
 
     const dialogueEntries = ledger.entries.filter(
       (entry) => entry.status === "verbatim-dialogue" && entry.dialogueQuotes.length > 0,
@@ -514,13 +509,13 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
 
     const driftValidation = validateCoverageMappingDigest(ledger.entries, {
       algorithm: "sha256",
-      entryCount: 169,
+      entryCount: 290,
       value: "0".repeat(64),
     });
     expect(driftValidation.ok).toBe(false);
     expect(driftValidation.errors.join(" ")).toContain("digest mismatch");
 
-    for (const chapterId of ["draft-ch01", "draft-ch02"] as const) {
+    for (const chapterId of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
       const raw = inkByChapter[chapterId]!;
       expect(raw).not.toMatch(/Player-hidden source trace/i);
       expect(raw).not.toMatch(/byte-exact for coverage/i);
@@ -532,10 +527,10 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
       expect(longCommentProse).toEqual([]);
     }
 
-    // Regression: old densified source paragraphs must not be hidden only in comments.
-    const ghost = "工作人员这句话说出口的时候，手指正点在协议签字页上，笑得跟卖保险的一样职业";
-    expect(inkByChapter["draft-ch01"]!).not.toContain(ghost);
-    expect(playableByChapter["draft-ch01"]!).not.toContain(ghost);
+    // novel-v2 densify keeps source heads in player-visible text (not comment-only).
+    const densifiedHead =
+      "工作人员这句话说出口的时候，手指正点在协议签字页上，笑得跟卖保险的一样职业";
+    expect(playableByChapter["draft-ch01"]!).toContain(densifiedHead);
   });
 
   it("rejects non-player Ink text, placeholder rationales, and overlapping long-paragraph mappings", () => {
@@ -718,7 +713,11 @@ describe("draft catalog and legacy retirement", () => {
   it("defaults to draft-ch01 and does not expose retired ch01 in production catalog", async () => {
     const content = await import("@supaluv/content");
     expect(content.DEFAULT_STORY_ID).toBe("draft-ch01");
-    expect(content.productionStoryCatalog.map((s) => s.id)).toEqual(["draft-ch01", "draft-ch02"]);
+    expect(content.productionStoryCatalog.map((s) => s.id)).toEqual([
+      "draft-ch01",
+      "draft-ch02",
+      "draft-ch03",
+    ]);
     expect(content.storyCatalog.map((s) => s.id).includes("ch01" as never)).toBe(false);
     expect(content.isRetiredStoryId("ch01")).toBe(true);
     expect(content.isProductionStoryId("ch01")).toBe(false);
@@ -738,7 +737,7 @@ describe("draft catalog and legacy retirement", () => {
       expect("compiledStoryJson" in entry).toBe(false);
       expect("inkSource" in entry).toBe(false);
       expect("scenes" in entry).toBe(false);
-      expect(entry.id).toMatch(/^draft-ch0[12]$/);
+      expect(entry.id).toMatch(/^draft-ch0[123]$/);
     }
   });
 });
@@ -746,7 +745,7 @@ describe("draft catalog and legacy retirement", () => {
 describe("draft ink / scene alignment and topology", () => {
   it("aligns scene manifests 1:1 with Ink knots and omits hand-authored edges", async () => {
     const content = await import("@supaluv/content");
-    for (const storyId of ["draft-ch01", "draft-ch02"] as const) {
+    for (const storyId of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
       const chapter = await content.loadStoryChapter(storyId);
       const source = readInkSource(`packages/content/ink/${storyId}.ink`);
       const knots = getInkKnotIds(source).sort();
@@ -756,12 +755,12 @@ describe("draft ink / scene alignment and topology", () => {
       expect(chapter.scenes.every((s) => !("autoNext" in s) || s.autoNext === undefined)).toBe(
         true,
       );
-      expect(chapter.scenes.every((s) => s.source === "draft-2026-07")).toBe(true);
+      expect(chapter.scenes.every((s) => s.source === "supa-luv-v2-2026-07")).toBe(true);
     }
   });
 
   it("only diverts to existing knots", () => {
-    for (const storyId of ["draft-ch01", "draft-ch02"] as const) {
+    for (const storyId of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
       const source = readInkSource(`packages/content/ink/${storyId}.ink`);
       const knots = new Set(getInkPathIds(source));
       for (const target of getInkDivertTargets(source)) {
@@ -864,18 +863,17 @@ describe("required narrative facts reachable", () => {
     const draftCh01InkSource = readInkSource("packages/content/ink/draft-ch01.ink");
     const must = [
       "骨头留着",
-      "我不会评判你",
-      "零点四秒",
-      "深夜倾诉会员",
+      "全程保密",
       "质检室",
-      "This is shit",
+      "协议第三页",
       "样机",
+      "双方自愿",
       "情绪波动：优",
       "九百",
       "石家小楼",
-      "先看房",
       "陈佳",
       "雷欧",
+      "优质样本",
     ];
     for (const phrase of must) {
       expect(draftCh01InkSource).toContain(phrase);
@@ -885,7 +883,6 @@ describe("required narrative facts reachable", () => {
   it("chapter 2 ink contains mandatory beat phrases", () => {
     const draftCh02InkSource = readInkSource("packages/content/ink/draft-ch02.ink");
     const must = [
-      "一百六",
       "惠万家",
       "辣条",
       "石佩欣",
@@ -943,7 +940,7 @@ describe("production graph excludes raw draft source and inkjs/full", () => {
   });
 
   it("production chapter modules ship compiled JSON only (no raw ink)", () => {
-    for (const chapter of ["draft-ch01", "draft-ch02"] as const) {
+    for (const chapter of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
       const mod = readFileSync(
         resolve(ROOT, `packages/content/src/chapters/${chapter}.ts`),
         "utf8",

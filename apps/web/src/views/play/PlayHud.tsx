@@ -126,6 +126,7 @@ export function PlayHud({
             >
               <option value="draft-ch01">第01章 · 你有病吧</option>
               <option value="draft-ch02">第02章 · 她不会评判你</option>
+              <option value="draft-ch03">第03章 · 长按七秒</option>
               <option value="prototype-act1">Prototype Act 1</option>
               <option value="chapter-01-trial">Chapter 01 Trial</option>
             </select>

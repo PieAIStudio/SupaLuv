@@ -154,25 +154,39 @@ describe("NarrativeGraph generated package", () => {
 
     const ch1Nodes = creator.nodes.filter((n) => n.storyId === "draft-ch01");
     const ch2Nodes = creator.nodes.filter((n) => n.storyId === "draft-ch02");
-    expect(ch1Nodes).toHaveLength(53);
-    expect(ch2Nodes).toHaveLength(44);
-    expect(creator.nodes).toHaveLength(97);
+    expect(ch1Nodes).toHaveLength(39);
+    expect(ch2Nodes).toHaveLength(36);
+    const ch3Nodes = creator.nodes.filter((n) => n.storyId === "draft-ch03");
+    expect(ch3Nodes).toHaveLength(32);
+    expect(creator.nodes).toHaveLength(107);
 
     expect(creator.entryNodeIds).toEqual([
       narrativeSceneNodeId("draft-ch01", "dch01_s001"),
       narrativeSceneNodeId("draft-ch02", "dch02_s001"),
+      narrativeSceneNodeId("draft-ch03", "dch03_s001"),
     ]);
     expect(creator.terminalNodeIds).toEqual([
       narrativeSceneNodeId("draft-ch01", "d1_chapter_end"),
       narrativeSceneNodeId("draft-ch02", "d2_chapter_end"),
+      narrativeSceneNodeId("draft-ch03", "d3_chapter_end"),
     ]);
 
-    const transition = creator.edges.find((e) => e.kind === "chapter_transition");
-    expect(transition).toMatchObject({
-      fromNodeId: narrativeSceneNodeId("draft-ch01", "d1_chapter_end"),
-      toNodeId: narrativeSceneNodeId("draft-ch02", "dch02_s001"),
-      stableChoiceId: null,
-    });
+    const transitions = creator.edges.filter((e) => e.kind === "chapter_transition");
+    expect(transitions).toHaveLength(2);
+    expect(transitions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          fromNodeId: narrativeSceneNodeId("draft-ch01", "d1_chapter_end"),
+          toNodeId: narrativeSceneNodeId("draft-ch02", "dch02_s001"),
+          stableChoiceId: null,
+        }),
+        expect.objectContaining({
+          fromNodeId: narrativeSceneNodeId("draft-ch02", "d2_chapter_end"),
+          toNodeId: narrativeSceneNodeId("draft-ch03", "dch03_s001"),
+          stableChoiceId: null,
+        }),
+      ]),
+    );
 
     // Every Ink-authored edge has a stable choice id except chapter_transition.
     for (const edge of creator.edges) {
@@ -216,27 +230,34 @@ describe("NarrativeGraph generated package", () => {
     expect(player.entryNodeIds).toEqual([
       opaqueNarrativeNodeId("draft-ch01", "dch01_s001"),
       opaqueNarrativeNodeId("draft-ch02", "dch02_s001"),
+      opaqueNarrativeNodeId("draft-ch03", "dch03_s001"),
     ]);
     expect(player.terminalNodeIds).toEqual([
       opaqueNarrativeNodeId("draft-ch01", "d1_chapter_end"),
       opaqueNarrativeNodeId("draft-ch02", "d2_chapter_end"),
+      opaqueNarrativeNodeId("draft-ch03", "d3_chapter_end"),
     ]);
   });
 
-  it("reaches chapter terminals and package ch2 via chapter_transition", () => {
+  it("reaches chapter terminals and package ch2/ch3 via chapter_transition", () => {
     const player = readJson<NarrativeGraphPlayerSkeleton>(PLAYER_PATH);
     const ch1Entry = opaqueNarrativeNodeId("draft-ch01", "dch01_s001");
     const ch1Terminal = opaqueNarrativeNodeId("draft-ch01", "d1_chapter_end");
     const ch2Entry = opaqueNarrativeNodeId("draft-ch02", "dch02_s001");
     const ch2Terminal = opaqueNarrativeNodeId("draft-ch02", "d2_chapter_end");
+    const ch3Entry = opaqueNarrativeNodeId("draft-ch03", "dch03_s001");
+    const ch3Terminal = opaqueNarrativeNodeId("draft-ch03", "d3_chapter_end");
 
     const fromCh1 = collectReachableNodeIds([ch1Entry], player.edges);
     expect(fromCh1.has(ch1Terminal)).toBe(true);
     expect(fromCh1.has(ch2Entry)).toBe(true);
     expect(fromCh1.has(ch2Terminal)).toBe(true);
+    expect(fromCh1.has(ch3Entry)).toBe(true);
+    expect(fromCh1.has(ch3Terminal)).toBe(true);
 
     const fromCh2 = collectReachableNodeIds([ch2Entry], player.edges);
     expect(fromCh2.has(ch2Terminal)).toBe(true);
+    expect(fromCh2.has(ch3Entry)).toBe(true);
     expect(fromCh2.has(ch1Entry)).toBe(false);
   });
 
@@ -424,7 +445,7 @@ describe("NarrativeGraph player projection", () => {
   it("hides unvisited future nodes at the data layer", () => {
     const entrySemantic = narrativeSceneNodeId("draft-ch01", "dch01_s001");
     const entryOpaque = opaqueNarrativeNodeId("draft-ch01", "dch01_s001");
-    const futureOpaque = opaqueNarrativeNodeId("draft-ch01", "dch01_s050");
+    const futureOpaque = opaqueNarrativeNodeId("draft-ch01", "dch01_s036");
     const projected = projectPlayerPath(player, {
       visitedNodeIds: [entrySemantic],
       currentNodeId: entrySemantic,
@@ -512,7 +533,7 @@ describe("NarrativeGraph creator/player bundle boundary", () => {
   it("production content entry exports player skeleton but not creator module", async () => {
     const content = await import("@supaluv/content");
     expect(content.getNarrativeGraphPlayerSkeleton().packageId).toBe("draft-2026-07");
-    expect(content.narrativeGraphPlayerSkeleton.nodes.length).toBe(97);
+    expect(content.narrativeGraphPlayerSkeleton.nodes.length).toBe(107);
     expect("loadNarrativeGraphCreator" in content).toBe(false);
 
     const playerMod = await import("../../packages/content/src/narrative-graph-player");
@@ -565,7 +586,7 @@ describe("NarrativeGraph creator/player bundle boundary", () => {
 describe("NarrativeGraph ink knot alignment smoke", () => {
   it("creator stable scene ids match ink knots 1:1 per chapter", () => {
     const creator = readJson<NarrativeGraphCreator>(CREATOR_PATH);
-    for (const storyId of ["draft-ch01", "draft-ch02"] as const) {
+    for (const storyId of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
       const ink = readFileSync(resolve(ROOT, `packages/content/ink/${storyId}.ink`), "utf8");
       const knots = getInkKnotIds(ink).sort();
       const scenes = creator.nodes

@@ -198,6 +198,16 @@ export function speakerToCharacterId(speaker: string): string {
     linxiaotang: "lin_xiaotang",
     周鹿: "zhou_lu",
     zhoulu: "zhou_lu",
+    朱珠: "zhu_zhu",
+    zhuzhu: "zhu_zhu",
+    黄老太: "huang_laotai",
+    huanglaotai: "huang_laotai",
+    网格员: "grid_worker",
+    gridworker: "grid_worker",
+    警察: "police_officer",
+    policeofficer: "police_officer",
+    快递员: "courier",
+    courier: "courier",
   };
   return aliases[normalized] ?? "narrator";
 }

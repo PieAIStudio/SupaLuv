@@ -145,7 +145,7 @@ test("mobile landscape barcode cut-in stays inside the viewport and closes by to
 test("desktop NDA cut-in is a cinematic stage layer with complete text", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await startStory(page, "draft-ch02");
-  const dialog = await jumpToPropScene(page, "dch02_s037", "prop-application-nda");
+  const dialog = await jumpToPropScene(page, "dch02_s028", "prop-application-nda");
   await expect(dialog.getByRole("heading", { name: /体验官申请与超级保密协议/ })).toBeVisible();
   const accessibleText = dialog.locator(".prop-cutin-transcript p");
   await expect(accessibleText).toBeVisible();
@@ -165,7 +165,7 @@ test("image failure immediately falls back to complete text and closing still pe
     route.fulfill({ status: 404, contentType: "text/plain", body: "missing fixture" }),
   );
   await startStory(page, "draft-ch02");
-  const dialog = await jumpToPropScene(page, "dch02_s037", "prop-application-nda");
+  const dialog = await jumpToPropScene(page, "dch02_s028", "prop-application-nda");
   await expect(dialog).toHaveAttribute("data-image-status", "failed");
   await expect(page.getByTestId("prop-cutin-fallback")).toBeVisible();
   await expect(dialog.locator(".prop-cutin-transcript p")).toBeVisible();
@@ -175,9 +175,12 @@ test("image failure immediately falls back to complete text and closing still pe
 
   await page.getByTestId("prop-cutin-close").click();
   await page.getByTestId("story-copy").click();
-  const continueButton = page.getByRole("button", { name: /剧情选择: 继续/ });
-  await expect(continueButton).toBeVisible();
-  await continueButton.click();
+  // novel-v2 densify: NDA beat exits via apply branch choices, not pure「继续」.
+  const applyButton = page.getByRole("button", {
+    name: /剧情选择:\s*(点下申请成为体验官|骂自己一句再点申请)/,
+  });
+  await expect(applyButton.first()).toBeVisible();
+  await applyButton.first().click();
   await expect(page.getByTestId("prop-cutin-reopen")).toHaveCount(0);
   await expect(page.getByTestId("mobile-questionnaire")).toBeVisible();
 });

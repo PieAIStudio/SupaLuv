@@ -40,6 +40,10 @@ describe("human-video removal", () => {
   it("keeps draft chapters still-first with no authored video references", () => {
     expect(draftCh01Scenes.every((scene) => !("videoKey" in scene))).toBe(true);
     expect(draftCh02Scenes.every((scene) => !("videoKey" in scene))).toBe(true);
-    expect(productionStoryCatalog.map((s) => s.id)).toEqual(["draft-ch01", "draft-ch02"]);
+    expect(productionStoryCatalog.map((s) => s.id)).toEqual([
+      "draft-ch01",
+      "draft-ch02",
+      "draft-ch03",
+    ]);
   });
 });

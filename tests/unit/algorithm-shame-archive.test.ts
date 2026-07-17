@@ -52,9 +52,9 @@ describe("algorithm shame archive catalog", () => {
   it("maps authored scenes and interactions to archive unlocks", () => {
     expect(archiveIdsForScene("dch01_protocol_test")).toContain("protocol-terms");
     expect(archiveIdsForScene("dch02_barcode_sweep")).toContain("barcode-shift");
-    expect(archiveIdsForScene("dch02_s020")).toContain("rental-receipt");
-    expect(archiveIdsForScene("dch02_s037")).toContain("application-nda");
-    expect(archiveIdsForScene("dch02_s039")).toContain("approval-sms");
+    expect(archiveIdsForScene("dch02_s017")).toContain("rental-receipt");
+    expect(archiveIdsForScene("dch02_s028")).toContain("application-nda");
+    expect(archiveIdsForScene("dch02_s032")).toContain("approval-sms");
     expect(archiveIdsForScene("unknown")).toEqual([]);
   });
 });

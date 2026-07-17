@@ -232,7 +232,8 @@ test("barcode sweep completes every segment and returns to authored chapter text
   page.on("pageerror", (error) => pageErrors.push(error.message));
   await startFreshChapterTwo(page);
 
-  for (let index = 0; index < 3; index += 1) {
+  // novel-v2 ch02: s001 → s002 → barcode-sweep
+  for (let index = 0; index < 2; index += 1) {
     await page.getByTestId("story-copy").click();
     await page.getByRole("button", { name: /(?:剧情选择|Story choice):\s*继续$|^继续$/ }).click();
   }

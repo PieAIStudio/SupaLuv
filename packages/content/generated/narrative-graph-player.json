@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "packageId": "draft-2026-07",
-  "revision": "4e8049257f90721f",
+  "revision": "1ee342abd83ef4e6",
   "nodes": [
     {
       "id": "n_23adde913ff7ad78c08893c3cecd94d2",
@@ -277,104 +277,6 @@
       "kind": "scene"
     },
     {
-      "id": "n_fabf35724415c48b96b84d1c0f5776dd",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_fdbf3a2b4115bfd29db8582100575f40",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_fcbf38984215c1659cb8568e015760d3",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_7bc23f1cbb1d3ba513c44ad61268c4b7",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_7cc240afba1d3a1214c44c691168c324",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_7dc24242b91d387f11c447b01468c7dd",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_7ec243d5b81d36ec12c449431368c64a",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_77c238d0b71d355917c451220e68be6b",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_78c23a63b61d33c618c452b50d68bcd8",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_79c23bf6b51d323315c44dfc1068c191",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_7ac23d89b41d30a016c44f8f0f68bffe",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_83c24bb4c31d483d1bc4576e0a68b81f",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_84c24d47c21d46aa1cc459010968b68c",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
-      "id": "n_81c48725b51af39c19c692df0c667cae",
-      "storyId": "draft-ch01",
-      "chapterId": "draft-ch01",
-      "chapterOrder": 1,
-      "kind": "scene"
-    },
-    {
       "id": "n_d4cf7ed30e4b32dad52862dd566b3424",
       "storyId": "draft-ch02",
       "chapterId": "draft-ch02",
@@ -627,59 +529,227 @@
       "kind": "scene"
     },
     {
-      "id": "n_083aef6a37cc9eeb57b8b71c08e42aad",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
+      "id": "n_8e7da345cd8b4b004f8be30fff21688a",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "terminal"
+    },
+    {
+      "id": "n_49e5390775fd0aa25430e16d662fe810",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
       "kind": "scene"
     },
     {
-      "id": "n_033ae78b3ccca6ca56b8b58901e41fa8",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
+      "id": "n_ae3ece17e573e0daf78f03d9c277f074",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "entry"
+    },
+    {
+      "id": "n_af3ecfaae473df47f48eff20c577f52d",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
       "kind": "scene"
     },
     {
-      "id": "n_023ae5f83dcca85d55b8b3f602e4213b",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
+      "id": "n_b03ed13de373ddb4f58f00b3c477f39a",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
       "kind": "scene"
     },
     {
-      "id": "n_053aeab13acca3a454b8b26303e422ce",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
+      "id": "n_a93ec638e273dc21fa8f0892bf77ebbb",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
       "kind": "scene"
     },
     {
-      "id": "n_043ae91e3bcca53753b8b0d004e42461",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
+      "id": "n_aa3ec7cbe173da8efb8f0a25be77ea28",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
       "kind": "scene"
     },
     {
-      "id": "n_ff3ae13f30cc93e662b8c86dfde4195c",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
+      "id": "n_ab3ec95ee073d8fbf88f056cc177eee1",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
       "kind": "scene"
     },
     {
-      "id": "n_fe3adfac31cc957961b8c6dafee41aef",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
+      "id": "n_ac3ecaf1df73d768f98f06ffc077ed4e",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
       "kind": "scene"
     },
     {
-      "id": "n_fd2994f8bac0a131e8b14c9a7fe1146b",
-      "storyId": "draft-ch02",
-      "chapterId": "draft-ch02",
-      "chapterOrder": 2,
+      "id": "n_a53ebfecde73d5d5fe8f0edebb77e56f",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_a63ec17fdd73d442ff8f1071ba77e3dc",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_b341148d6070d0e4fc914a4f3d74e07e",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_b24112fa6170d277fb9148bc3e74e211",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_b14111676270d40afe914d753b74dd58",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_b0410fd46370d59dfd914be23c74deeb",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_af410e415c70ca98f89144034174e6ca",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_ae410cae5d70cc2bf79142704274e85d",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_ad410b1b5e70cdbefa9147293f74e3a4",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_ac4109885f70cf51f99145964074e537",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_ab4107f55870c44c049156e73574d3e6",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_aa4106625970c5df039155543674d579",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_1943f3b6d278401f8a89db1437729875",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_1a43f549d1783e8c8b89dca7367296e2",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_1743f090d47843458c89de3a3572954f",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_1843f223d37841b28d89dfcd347293bc",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_1d43fa02ce7839d38689d4c833729229",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_1e43fb95cd7838408789d65b32729096",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_1b43f6dcd0783cf98889d7ee31728f03",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_1c43f86fcf783b668989d98130728d70",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_2144004eda784cb78289ce7c3f72a50d",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_224401e1d9784b248389d00f3e72a37a",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
+      "kind": "scene"
+    },
+    {
+      "id": "n_1f463bbfcc75f816908c231d3170506c",
+      "storyId": "draft-ch03",
+      "chapterId": "draft-ch03",
+      "chapterOrder": 3,
       "kind": "scene"
     }
   ],
@@ -689,6 +759,12 @@
       "kind": "chapter_transition",
       "fromNodeId": "n_23adde913ff7ad78c08893c3cecd94d2",
       "toNodeId": "n_76334dcf31ca56e261bb057176eb939c"
+    },
+    {
+      "id": "e_7bbbf48ade43644fc0f61748160569c5",
+      "kind": "chapter_transition",
+      "fromNodeId": "n_d4cf7ed30e4b32dad52862dd566b3424",
+      "toNodeId": "n_ae3ece17e573e0daf78f03d9c277f074"
     },
     {
       "id": "e_467659c8314f94d19bbfbd2a8a554f1b",
@@ -705,20 +781,14 @@
     {
       "id": "e_31f7ce3ec86f1f6fa7f0c878662a0e81",
       "kind": "choice",
-      "fromNodeId": "n_fcbf38984215c1659cb8568e015760d3",
-      "toNodeId": "n_7bc23f1cbb1d3ba513c44ad61268c4b7"
-    },
-    {
-      "id": "e_309aaa695d6f7cc2384e151f1c51f2b8",
-      "kind": "choice",
-      "fromNodeId": "n_0bbd119e3317e85f13b5404c925a83ad",
-      "toNodeId": "n_0cbd13313217e6cc14b541df915a821a"
+      "fromNodeId": "n_f5bf2d934915cc6a95b84b8908576bd8",
+      "toNodeId": "n_f4bf2c004a15cdfd94b849f609576d6b"
     },
     {
       "id": "e_ee02fa549261091f74b4fbfe0c54c1f9",
       "kind": "choice",
-      "fromNodeId": "n_7ac23d89b41d30a016c44f8f0f68bffe",
-      "toNodeId": "n_83c24bb4c31d483d1bc4576e0a68b81f"
+      "fromNodeId": "n_f8bf324c4615c7b198b850420d5773b7",
+      "toNodeId": "n_fbbf37054315c2f897b84eaf0e57754a"
     },
     {
       "id": "e_d4c1cbde821146ef18c8a1b845dd6549",
@@ -730,56 +800,98 @@
     {
       "id": "e_58efba016ce0d26aa5610e3be0e854ac",
       "kind": "choice",
-      "fromNodeId": "n_0dbad62dc1107924a5bce1e7905cbf1e",
-      "toNodeId": "n_0cbad49ac2107ab7a4bce054915cc0b1"
+      "fromNodeId": "n_0abad174c4107ddda6bce37a8f5cbd8b",
+      "toNodeId": "n_01bac349b510664099bccf038c5cb8d2"
     },
     {
       "id": "e_6702a930552abf29eb2e89d6b3fd196f",
       "kind": "choice",
+      "fromNodeId": "n_0abad174c4107ddda6bce37a8f5cbd8b",
+      "toNodeId": "n_01bac349b510664099bccf038c5cb8d2"
+    },
+    {
+      "id": "e_26219edecd2658b5dce784b8568205cf",
+      "kind": "choice",
+      "fromNodeId": "n_8ab7c95d441385f496ba8bb37f5ee2f2",
+      "toNodeId": "n_7bb7b1c03b1377c9a3baa02a825ee7ab"
+    },
+    {
+      "id": "e_25219d4bca2653fcdfe7897157820762",
+      "kind": "choice",
       "fromNodeId": "n_0dbad62dc1107924a5bce1e7905cbf1e",
       "toNodeId": "n_0cbad49ac2107ab7a4bce054915cc0b1"
     },
     {
-      "id": "e_de333486e0544f4f9c01b768a9878fe9",
+      "id": "e_24219bb8cb26558fdee787de588208f5",
       "kind": "choice",
-      "fromNodeId": "n_f5bf2d934915cc6a95b84b8908576bd8",
-      "toNodeId": "n_f4bf2c004a15cdfd94b849f609576d6b"
+      "fromNodeId": "n_0fbd17ea2f17e2130fb53a008e5a7d61",
+      "toNodeId": "n_10bd197d2e17e08010b53b938d5a7bce"
     },
     {
-      "id": "e_ad60141e253f85918930aa585b1b438b",
+      "id": "e_2b21a6bdc82650d6e1e78c975181fdf0",
       "kind": "choice",
-      "fromNodeId": "n_0bbd119e3317e85f13b5404c925a83ad",
-      "toNodeId": "n_0cbd13313217e6cc14b541df915a821a"
+      "fromNodeId": "n_0cbd13313217e6cc14b541df915a821a",
+      "toNodeId": "n_09bd0e783517eb8515b54372905a8087"
+    },
+    {
+      "id": "e_2e23ea0dc5240d864cdfe643e689a444",
+      "kind": "choice",
+      "fromNodeId": "n_8ab7c95d441385f496ba8bb37f5ee2f2",
+      "toNodeId": "n_7bb7b1c03b1377c9a3baa02a825ee7ab"
+    },
+    {
+      "id": "e_2b23e554c4240bf34ddfe7d6e989a8fd",
+      "kind": "choice",
+      "fromNodeId": "n_0dbad62dc1107924a5bce1e7905cbf1e",
+      "toNodeId": "n_0cbad49ac2107ab7a4bce054915cc0b1"
+    },
+    {
+      "id": "e_2c23e6e7c3240a604edfe969e889a76a",
+      "kind": "choice",
+      "fromNodeId": "n_0fbd17ea2f17e2130fb53a008e5a7d61",
+      "toNodeId": "n_10bd197d2e17e08010b53b938d5a7bce"
+    },
+    {
+      "id": "e_2923e22eca2415654fdfeafce3899f8b",
+      "kind": "choice",
+      "fromNodeId": "n_0cbd13313217e6cc14b541df915a821a",
+      "toNodeId": "n_09bd0e783517eb8515b54372905a8087"
+    },
+    {
+      "id": "e_de333486e0544f4f9c01b768a9878fe9",
+      "kind": "choice",
+      "fromNodeId": "n_08bd0ce53617ed1818b5482b855a6f36",
+      "toNodeId": "n_f5bf2d934915cc6a95b84b8908576bd8"
     },
     {
       "id": "e_1c528398b033414ba0d9880e467c00a1",
       "kind": "choice",
-      "fromNodeId": "n_fcbf38984215c1659cb8568e015760d3",
-      "toNodeId": "n_7bc23f1cbb1d3ba513c44ad61268c4b7"
-    },
-    {
-      "id": "e_f9576adb2d891ba4c5679e0d7b54d81e",
-      "kind": "choice",
-      "fromNodeId": "n_88b7c6374613891a98ba8ed97d5edfcc",
-      "toNodeId": "n_89b7c7ca4513878795ba8a20805ee485"
-    },
-    {
-      "id": "e_6dac6f691b1f4fc6a355e4d370b6c5c0",
-      "kind": "choice",
-      "fromNodeId": "n_88b7c6374613891a98ba8ed97d5edfcc",
-      "toNodeId": "n_89b7c7ca4513878795ba8a20805ee485"
-    },
-    {
-      "id": "e_8827de88c56b8f03bb586e4a0937fe0d",
-      "kind": "choice",
       "fromNodeId": "n_f5bf2d934915cc6a95b84b8908576bd8",
       "toNodeId": "n_f4bf2c004a15cdfd94b849f609576d6b"
     },
     {
+      "id": "e_f9576adb2d891ba4c5679e0d7b54d81e",
+      "kind": "choice",
+      "fromNodeId": "n_08bace4ebe10746ba0bcda08955cc6fd",
+      "toNodeId": "n_07baccbbbf1075fea3bcdec1925cc244"
+    },
+    {
+      "id": "e_6dac6f691b1f4fc6a355e4d370b6c5c0",
+      "kind": "choice",
+      "fromNodeId": "n_08bace4ebe10746ba0bcda08955cc6fd",
+      "toNodeId": "n_07baccbbbf1075fea3bcdec1925cc244"
+    },
+    {
+      "id": "e_8827de88c56b8f03bb586e4a0937fe0d",
+      "kind": "choice",
+      "fromNodeId": "n_08bd0ce53617ed1818b5482b855a6f36",
+      "toNodeId": "n_f5bf2d934915cc6a95b84b8908576bd8"
+    },
+    {
       "id": "e_e4c95c9a64636ef3a838f1e8350c9fa9",
       "kind": "choice",
-      "fromNodeId": "n_7ac23d89b41d30a016c44f8f0f68bffe",
-      "toNodeId": "n_83c24bb4c31d483d1bc4576e0a68b81f"
+      "fromNodeId": "n_f8bf324c4615c7b198b850420d5773b7",
+      "toNodeId": "n_fbbf37054315c2f897b84eaf0e57754a"
     },
     {
       "id": "e_78d93177689322fabef1967133ff8014",
@@ -800,16 +912,16 @@
       "toNodeId": "n_88b7c6374613891a98ba8ed97d5edfcc"
     },
     {
+      "id": "e_443d520ba6f16076c375530522aeb8d0",
+      "kind": "continue",
+      "fromNodeId": "n_88b7c6374613891a98ba8ed97d5edfcc",
+      "toNodeId": "n_89b7c7ca4513878795ba8a20805ee485"
+    },
+    {
       "id": "e_1476579c765a1db968e4a012b8f8c7cf",
       "kind": "continue",
       "fromNodeId": "n_89b7c7ca4513878795ba8a20805ee485",
       "toNodeId": "n_8ab7c95d441385f496ba8bb37f5ee2f2"
-    },
-    {
-      "id": "e_d7e3f3954967db909c8a067bdebd7ab6",
-      "kind": "continue",
-      "fromNodeId": "n_8ab7c95d441385f496ba8bb37f5ee2f2",
-      "toNodeId": "n_7bb7b1c03b1377c9a3baa02a825ee7ab"
     },
     {
       "id": "e_5156fe7699d7b40b82b44d002f2858d5",
@@ -828,12 +940,6 @@
       "kind": "continue",
       "fromNodeId": "n_09bacfe1bd1072d8a1bcdb9b945cc56a",
       "toNodeId": "n_08bace4ebe10746ba0bcda08955cc6fd"
-    },
-    {
-      "id": "e_15a3a8e450842c3dc80de67e9fcec8a7",
-      "kind": "continue",
-      "fromNodeId": "n_08bace4ebe10746ba0bcda08955cc6fd",
-      "toNodeId": "n_07baccbbbf1075fea3bcdec1925cc244"
     },
     {
       "id": "e_fa3487330737b16a98fa59415e9b9348",
@@ -860,12 +966,6 @@
       "toNodeId": "n_0abad174c4107ddda6bce37a8f5cbd8b"
     },
     {
-      "id": "e_612968c6e084d2bfe784e39cace63845",
-      "kind": "continue",
-      "fromNodeId": "n_0abad174c4107ddda6bce37a8f5cbd8b",
-      "toNodeId": "n_01bac349b510664099bccf038c5cb8d2"
-    },
-    {
       "id": "e_823fa36535f25e8cd9eb678f6209c2a6",
       "kind": "continue",
       "fromNodeId": "n_01bac349b510664099bccf038c5cb8d2",
@@ -876,12 +976,6 @@
       "kind": "continue",
       "fromNodeId": "n_00bac1b6b61067d398bccd708d5cba65",
       "toNodeId": "n_0fbd17ea2f17e2130fb53a008e5a7d61"
-    },
-    {
-      "id": "e_f48a9fbc6fc09e457864424ae64a8b6b",
-      "kind": "continue",
-      "fromNodeId": "n_0fbd17ea2f17e2130fb53a008e5a7d61",
-      "toNodeId": "n_10bd197d2e17e08010b53b938d5a7bce"
     },
     {
       "id": "e_f4bb4d35ce59f0cccd431333f8e20fc2",
@@ -902,10 +996,10 @@
       "toNodeId": "n_0bbd119e3317e85f13b5404c925a83ad"
     },
     {
-      "id": "e_39e89be12175f948efd1d91f254d7cde",
+      "id": "e_a03dcf789d830db13437f4c657d789d7",
       "kind": "continue",
-      "fromNodeId": "n_0cbd13313217e6cc14b541df915a821a",
-      "toNodeId": "n_09bd0e783517eb8515b54372905a8087"
+      "fromNodeId": "n_0bbd119e3317e85f13b5404c925a83ad",
+      "toNodeId": "n_0cbd13313217e6cc14b541df915a821a"
     },
     {
       "id": "e_3672c39e62a92ea7c589aae0ffa56b21",
@@ -924,12 +1018,6 @@
       "kind": "continue",
       "fromNodeId": "n_07bd0b523717eeab17b54698865a70c9",
       "toNodeId": "n_08bd0ce53617ed1818b5482b855a6f36"
-    },
-    {
-      "id": "e_c17d9ead059f0cc4ccec1e5b9e79895a",
-      "kind": "continue",
-      "fromNodeId": "n_08bd0ce53617ed1818b5482b855a6f36",
-      "toNodeId": "n_f5bf2d934915cc6a95b84b8908576bd8"
     },
     {
       "id": "e_95d61412725daf1fb6bbadf0c061d1e5",
@@ -956,87 +1044,9 @@
       "toNodeId": "n_f8bf324c4615c7b198b850420d5773b7"
     },
     {
-      "id": "e_08e2daee4fcee9333a6fd634346acb51",
-      "kind": "continue",
-      "fromNodeId": "n_f8bf324c4615c7b198b850420d5773b7",
-      "toNodeId": "n_fbbf37054315c2f897b84eaf0e57754a"
-    },
-    {
       "id": "e_ebe30a716b3e0ae49c126983f5b49b4e",
       "kind": "continue",
       "fromNodeId": "n_fbbf37054315c2f897b84eaf0e57754a",
-      "toNodeId": "n_fabf35724415c48b96b84d1c0f5776dd"
-    },
-    {
-      "id": "e_7bd81c08c9268e1d3365e6dab0d18c47",
-      "kind": "continue",
-      "fromNodeId": "n_fabf35724415c48b96b84d1c0f5776dd",
-      "toNodeId": "n_fdbf3a2b4115bfd29db8582100575f40"
-    },
-    {
-      "id": "e_ed52f8d30d2ccece9491c8a153c5d764",
-      "kind": "continue",
-      "fromNodeId": "n_fdbf3a2b4115bfd29db8582100575f40",
-      "toNodeId": "n_fcbf38984215c1659cb8568e015760d3"
-    },
-    {
-      "id": "e_0ba6b232c7a7fc07a63ff334c89aae51",
-      "kind": "continue",
-      "fromNodeId": "n_7bc23f1cbb1d3ba513c44ad61268c4b7",
-      "toNodeId": "n_7cc240afba1d3a1214c44c691168c324"
-    },
-    {
-      "id": "e_a108159ba8105d0ef9aa2f6dadee4de8",
-      "kind": "continue",
-      "fromNodeId": "n_7cc240afba1d3a1214c44c691168c324",
-      "toNodeId": "n_7dc24242b91d387f11c447b01468c7dd"
-    },
-    {
-      "id": "e_4fe60f2ccd61cb119f3603da45016f47",
-      "kind": "continue",
-      "fromNodeId": "n_7dc24242b91d387f11c447b01468c7dd",
-      "toNodeId": "n_7ec243d5b81d36ec12c449431368c64a"
-    },
-    {
-      "id": "e_6bf892a5cc008ca807e2868389e47e4e",
-      "kind": "continue",
-      "fromNodeId": "n_7ec243d5b81d36ec12c449431368c64a",
-      "toNodeId": "n_77c238d0b71d355917c451220e68be6b"
-    },
-    {
-      "id": "e_5275fb0ef6a2779b228bcaf05491b4e5",
-      "kind": "continue",
-      "fromNodeId": "n_77c238d0b71d355917c451220e68be6b",
-      "toNodeId": "n_78c23a63b61d33c618c452b50d68bcd8"
-    },
-    {
-      "id": "e_720d9a076141143248dd999957f9f46c",
-      "kind": "continue",
-      "fromNodeId": "n_78c23a63b61d33c618c452b50d68bcd8",
-      "toNodeId": "n_79c23bf6b51d323315c44dfc1068c191"
-    },
-    {
-      "id": "e_76662aa8c192f4a576f8e056cc2fa3db",
-      "kind": "continue",
-      "fromNodeId": "n_79c23bf6b51d323315c44dfc1068c191",
-      "toNodeId": "n_7ac23d89b41d30a016c44f8f0f68bffe"
-    },
-    {
-      "id": "e_5c8dfd8ab52a245f4894c87cf10697c9",
-      "kind": "continue",
-      "fromNodeId": "n_83c24bb4c31d483d1bc4576e0a68b81f",
-      "toNodeId": "n_84c24d47c21d46aa1cc459010968b68c"
-    },
-    {
-      "id": "e_cf2f50730c1a0006e979a4f5c4cd3060",
-      "kind": "continue",
-      "fromNodeId": "n_84c24d47c21d46aa1cc459010968b68c",
-      "toNodeId": "n_81c48725b51af39c19c692df0c667cae"
-    },
-    {
-      "id": "e_ce187ee197dc2098358d4d93e94e7f62",
-      "kind": "continue",
-      "fromNodeId": "n_81c48725b51af39c19c692df0c667cae",
       "toNodeId": "n_23adde913ff7ad78c08893c3cecd94d2"
     },
     {
@@ -1181,7 +1191,7 @@
       "id": "e_3289061ccea5a38326c6af0edf475c1d",
       "kind": "continue",
       "fromNodeId": "n_6c106dbaebb2001ddb90638876a53adb",
-      "toNodeId": "n_713345f02eca522964bb0a2a73eb8ee3"
+      "toNodeId": "n_783350f52fca53bc5fbb024b78eb96c2"
     },
     {
       "id": "e_61d77932420e3db788a77a4410fbfef9",
@@ -1229,74 +1239,86 @@
     {
       "id": "e_4e685048df9417c15a048d9279e5fe53",
       "kind": "choice",
-      "fromNodeId": "n_78358f8c2fc8152567bd4d7af0e88213",
-      "toNodeId": "n_77358df928c80a2062bd459bf5e889f2"
+      "fromNodeId": "n_75358ad32ac80d4664bd48c1f3e886cc",
+      "toNodeId": "n_743589402bc80ed963bd472ef4e8885f"
     },
     {
       "id": "e_5912686c1d8a0c13132798522e2b7f49",
       "kind": "choice",
-      "fromNodeId": "n_78358f8c2fc8152567bd4d7af0e88213",
-      "toNodeId": "n_77358df928c80a2062bd459bf5e889f2"
+      "fromNodeId": "n_75358ad32ac80d4664bd48c1f3e886cc",
+      "toNodeId": "n_743589402bc80ed963bd472ef4e8885f"
     },
     {
       "id": "e_432c3f9881d5424b07301382809e5225",
       "kind": "choice",
-      "fromNodeId": "n_053aeab13acca3a454b8b26303e422ce",
-      "toNodeId": "n_043ae91e3bcca53753b8b0d004e42461"
+      "fromNodeId": "n_f9389936b6cfa56fdcb5b6e403e66165",
+      "toNodeId": "n_b44c155f4eaa6c6aaaf3c2257d553918"
     },
     {
       "id": "e_a011a93f2c670c0082d241814105ec3a",
       "kind": "choice",
-      "fromNodeId": "n_053aeab13acca3a454b8b26303e422ce",
-      "toNodeId": "n_043ae91e3bcca53753b8b0d004e42461"
+      "fromNodeId": "n_f9389936b6cfa56fdcb5b6e403e66165",
+      "toNodeId": "n_b44c155f4eaa6c6aaaf3c2257d553918"
     },
     {
       "id": "e_643a246260c2c499b0a7b8c8ae96048f",
       "kind": "choice",
-      "fromNodeId": "n_8335a0dd34c81d045ebd3f4ff9e8903e",
-      "toNodeId": "n_82359f4a35c81e975dbd3dbcfae891d1"
+      "fromNodeId": "n_743589402bc80ed963bd472ef4e8885f",
+      "toNodeId": "n_c2c061072186aca24bcb75f950bf4434"
     },
     {
       "id": "e_09184ce80f1d3575378be3627ccbbe17",
       "kind": "choice",
-      "fromNodeId": "n_723347832dca509665bb0bbd72eb8d50",
-      "toNodeId": "n_733349162cca4f0362bb070475eb9209"
+      "fromNodeId": "n_783350f52fca53bc5fbb024b78eb96c2",
+      "toNodeId": "n_713345f02eca522964bb0a2a73eb8ee3"
     },
     {
       "id": "e_034bd1cc62519c912f16fcb277ce7c4f",
       "kind": "choice",
-      "fromNodeId": "n_723347832dca509665bb0bbd72eb8d50",
-      "toNodeId": "n_733349162cca4f0362bb070475eb9209"
+      "fromNodeId": "n_783350f52fca53bc5fbb024b78eb96c2",
+      "toNodeId": "n_713345f02eca522964bb0a2a73eb8ee3"
     },
     {
       "id": "e_6cf3a8092f56d6ba3dd93c07c9f97ff0",
       "kind": "choice",
-      "fromNodeId": "n_fa389ac9b5cfa3dcddb5b87702e65fd2",
-      "toNodeId": "n_073aedd738cca07e5ab8bbd505e425f4"
+      "fromNodeId": "n_0038a43bbfcfb39ad7b5af0508e66944",
+      "toNodeId": "n_0538ac1abacfabbbd0b5a40007e667b1"
     },
     {
       "id": "e_c7c7faf75806fbecd984720966644f56",
       "kind": "choice",
-      "fromNodeId": "n_fa389ac9b5cfa3dcddb5b87702e65fd2",
-      "toNodeId": "n_073aedd738cca07e5ab8bbd505e425f4"
+      "fromNodeId": "n_0038a43bbfcfb39ad7b5af0508e66944",
+      "toNodeId": "n_0538ac1abacfabbbd0b5a40007e667b1"
+    },
+    {
+      "id": "e_78ff16978e601d5a297965352623fa28",
+      "kind": "choice",
+      "fromNodeId": "n_78358f8c2fc8152567bd4d7af0e88213",
+      "toNodeId": "n_77358df928c80a2062bd459bf5e889f2"
+    },
+    {
+      "id": "e_79ff182a8d601bc72679607c2923fee1",
+      "kind": "choice",
+      "fromNodeId": "n_78358f8c2fc8152567bd4d7af0e88213",
+      "toNodeId": "n_77358df928c80a2062bd459bf5e889f2"
     },
     {
       "id": "e_eb861928ea555eade551f9f681cc89ab",
       "kind": "choice",
-      "fromNodeId": "n_7d3358d43aca650d58baf7467feba1c7",
-      "toNodeId": "n_7e335a6739ca637a59baf8d97eeba034"
+      "fromNodeId": "n_7e335a6739ca637a59baf8d97eeba034",
+      "toNodeId": "n_7b3594452cc8106c66bd4be7f1e883a6"
     },
     {
       "id": "e_fa7e61c1f86ba5842f13ea1365b51e26",
       "kind": "choice",
-      "fromNodeId": "n_7d3358d43aca650d58baf7467feba1c7",
-      "toNodeId": "n_7e335a6739ca637a59baf8d97eeba034"
+      "fromNodeId": "n_7e335a6739ca637a59baf8d97eeba034",
+      "toNodeId": "n_7b3594452cc8106c66bd4be7f1e883a6"
     },
     {
       "id": "e_1b1b4d944dfc42b324b69e0a884314f9",
       "kind": "choice",
-      "fromNodeId": "n_8335a0dd34c81d045ebd3f4ff9e8903e",
-      "toNodeId": "n_82359f4a35c81e975dbd3dbcfae891d1"
+      "fromNodeId": "n_743589402bc80ed963bd472ef4e8885f",
+      "toNodeId": "n_c2c061072186aca24bcb75f950bf4434"
     },
     {
       "id": "e_2ffe5ed5bfb0162862e3e7cf076677ca",
@@ -1308,12 +1330,6 @@
       "id": "e_323c2422bb578587cc99d8d0d59ced9d",
       "kind": "continue",
       "fromNodeId": "n_77334f6230ca554f5ebb00b879eb9855",
-      "toNodeId": "n_783350f52fca53bc5fbb024b78eb96c2"
-    },
-    {
-      "id": "e_b89f844b9bbfe68ef5bbeff977b46a64",
-      "kind": "continue",
-      "fromNodeId": "n_783350f52fca53bc5fbb024b78eb96c2",
       "toNodeId": "n_6c106dbaebb2001ddb90638876a53adb"
     },
     {
@@ -1321,6 +1337,12 @@
       "kind": "continue",
       "fromNodeId": "n_713345f02eca522964bb0a2a73eb8ee3",
       "toNodeId": "n_723347832dca509665bb0bbd72eb8d50"
+    },
+    {
+      "id": "e_e7afb581992ffaac56611263c33a2a46",
+      "kind": "continue",
+      "fromNodeId": "n_723347832dca509665bb0bbd72eb8d50",
+      "toNodeId": "n_733349162cca4f0362bb070475eb9209"
     },
     {
       "id": "e_103f10beea52011bddeaa01480c547c9",
@@ -1335,10 +1357,10 @@
       "toNodeId": "n_7d3358d43aca650d58baf7467feba1c7"
     },
     {
-      "id": "e_a18c774dc41ed8a0afcf84b72e1e9872",
+      "id": "e_34d586141fe6d309b9542abe5bee53db",
       "kind": "continue",
-      "fromNodeId": "n_7e335a6739ca637a59baf8d97eeba034",
-      "toNodeId": "n_7b3594452cc8106c66bd4be7f1e883a6"
+      "fromNodeId": "n_7d3358d43aca650d58baf7467feba1c7",
+      "toNodeId": "n_7e335a6739ca637a59baf8d97eeba034"
     },
     {
       "id": "e_349e179be7f00da270f87eb5e17b7f54",
@@ -1371,16 +1393,10 @@
       "toNodeId": "n_75358ad32ac80d4664bd48c1f3e886cc"
     },
     {
-      "id": "e_0b5d6b118b8baa1823990317b367bff6",
+      "id": "e_62c5527387dff9ba3dbad02d7687191c",
       "kind": "continue",
-      "fromNodeId": "n_75358ad32ac80d4664bd48c1f3e886cc",
-      "toNodeId": "n_c2c061072186aca24bcb75f950bf4434"
-    },
-    {
-      "id": "e_09fc2ca89d639f01b2aff51e68ed9d0f",
-      "kind": "continue",
-      "fromNodeId": "n_743589402bc80ed963bd472ef4e8885f",
-      "toNodeId": "n_8335a0dd34c81d045ebd3f4ff9e8903e"
+      "fromNodeId": "n_8335a0dd34c81d045ebd3f4ff9e8903e",
+      "toNodeId": "n_82359f4a35c81e975dbd3dbcfae891d1"
     },
     {
       "id": "e_f023ff8a62ffe1e316ec80f439f4b515",
@@ -1407,12 +1423,6 @@
       "toNodeId": "n_0038a43bbfcfb39ad7b5af0508e66944"
     },
     {
-      "id": "e_61ae80e12cf70d70b1112c0300b6e3a2",
-      "kind": "continue",
-      "fromNodeId": "n_0038a43bbfcfb39ad7b5af0508e66944",
-      "toNodeId": "n_0538ac1abacfabbbd0b5a40007e667b1"
-    },
-    {
       "id": "e_18940f82124dc903cbba7070b62a7501",
       "kind": "continue",
       "fromNodeId": "n_0538ac1abacfabbbd0b5a40007e667b1",
@@ -1437,10 +1447,10 @@
       "toNodeId": "n_f9389936b6cfa56fdcb5b6e403e66165"
     },
     {
-      "id": "e_d439dd9662ff46d7f1c36dfc700736cd",
+      "id": "e_0185da2f307539de92a84a7503504594",
       "kind": "continue",
-      "fromNodeId": "n_f9389936b6cfa56fdcb5b6e403e66165",
-      "toNodeId": "n_fa389ac9b5cfa3dcddb5b87702e65fd2"
+      "fromNodeId": "n_fa389ac9b5cfa3dcddb5b87702e65fd2",
+      "toNodeId": "n_073aedd738cca07e5ab8bbd505e425f4"
     },
     {
       "id": "e_22afaf3d3bc50a60debbf3139a2af8d6",
@@ -1458,55 +1468,13 @@
       "id": "e_1518ddd3aa73544650dad57d45bde370",
       "kind": "continue",
       "fromNodeId": "n_093af0fd36cc9d5858b8b8af07e4291a",
-      "toNodeId": "n_083aef6a37cc9eeb57b8b71c08e42aad"
-    },
-    {
-      "id": "e_d963346a660d389fecafc6c46c0fb219",
-      "kind": "continue",
-      "fromNodeId": "n_083aef6a37cc9eeb57b8b71c08e42aad",
-      "toNodeId": "n_033ae78b3ccca6ca56b8b58901e41fa8"
-    },
-    {
-      "id": "e_5ed7b3695eed946463b6cfffc2681c5a",
-      "kind": "continue",
-      "fromNodeId": "n_033ae78b3ccca6ca56b8b58901e41fa8",
-      "toNodeId": "n_023ae5f83dcca85d55b8b3f602e4213b"
-    },
-    {
-      "id": "e_d76ba600bcd6179d0bf4e2a62b149f03",
-      "kind": "continue",
-      "fromNodeId": "n_023ae5f83dcca85d55b8b3f602e4213b",
-      "toNodeId": "n_053aeab13acca3a454b8b26303e422ce"
-    },
-    {
-      "id": "e_97e11a66437e72b36dcfa9401cdc47ed",
-      "kind": "continue",
-      "fromNodeId": "n_043ae91e3bcca53753b8b0d004e42461",
-      "toNodeId": "n_b44c155f4eaa6c6aaaf3c2257d553918"
-    },
-    {
-      "id": "e_182cac0524e627e854f531bb493c0fde",
-      "kind": "continue",
-      "fromNodeId": "n_ff3ae13f30cc93e662b8c86dfde4195c",
-      "toNodeId": "n_fe3adfac31cc957961b8c6dafee41aef"
-    },
-    {
-      "id": "e_081de18c3f9288515e34ad527bc61cd7",
-      "kind": "continue",
-      "fromNodeId": "n_fe3adfac31cc957961b8c6dafee41aef",
-      "toNodeId": "n_fd2994f8bac0a131e8b14c9a7fe1146b"
-    },
-    {
-      "id": "e_1b935e90b334908d2192e7ca9d9c7617",
-      "kind": "continue",
-      "fromNodeId": "n_fd2994f8bac0a131e8b14c9a7fe1146b",
       "toNodeId": "n_d4cf7ed30e4b32dad52862dd566b3424"
     },
     {
       "id": "e_e0e394530c846fba7bfd1ca16c1868c0",
       "kind": "continue",
       "fromNodeId": "n_c2c061072186aca24bcb75f950bf4434",
-      "toNodeId": "n_743589402bc80ed963bd472ef4e8885f"
+      "toNodeId": "n_8335a0dd34c81d045ebd3f4ff9e8903e"
     },
     {
       "id": "e_5f5bed7a22baa345fd71cc9057378e9b",
@@ -1548,7 +1516,7 @@
       "id": "e_4d11a07f4eacc9fa95e5e579d89f5fb4",
       "kind": "continue",
       "fromNodeId": "n_b44c155f4eaa6c6aaaf3c2257d553918",
-      "toNodeId": "n_ff3ae13f30cc93e662b8c86dfde4195c"
+      "toNodeId": "n_fa389ac9b5cfa3dcddb5b87702e65fd2"
     },
     {
       "id": "e_a24bd3044aa0b305afab2aaef1331c9f",
@@ -1627,8 +1595,317 @@
       "kind": "choice",
       "fromNodeId": "n_b44c155f4eaa6c6aaaf3c2257d553918",
       "toNodeId": "n_b44c155f4eaa6c6aaaf3c2257d553918"
+    },
+    {
+      "id": "e_56f7b25dd6ec557025bb314b45ae8e5e",
+      "kind": "choice",
+      "fromNodeId": "n_ab3ec95ee073d8fbf88f056cc177eee1",
+      "toNodeId": "n_ac3ecaf1df73d768f98f06ffc077ed4e"
+    },
+    {
+      "id": "e_a337165b5804364859592401f62c9546",
+      "kind": "choice",
+      "fromNodeId": "n_ab3ec95ee073d8fbf88f056cc177eee1",
+      "toNodeId": "n_ac3ecaf1df73d768f98f06ffc077ed4e"
+    },
+    {
+      "id": "e_67c545b1e115a6547a5e26e32ec37a16",
+      "kind": "continue",
+      "fromNodeId": "n_8e7da345cd8b4b004f8be30fff21688a",
+      "toNodeId": "n_8e7da345cd8b4b004f8be30fff21688a",
+      "endsChapter": true
+    },
+    {
+      "id": "e_2eb2a9dd567edb8037dd055b2c07849e",
+      "kind": "choice",
+      "fromNodeId": "n_b03ed13de373ddb4f58f00b3c477f39a",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_025e6f109d1e665f8a7d3866fd0bbfe5",
+      "kind": "choice",
+      "fromNodeId": "n_b03ed13de373ddb4f58f00b3c477f39a",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_ab51270bf10a0d3e3af56a4120fe0474",
+      "kind": "choice",
+      "fromNodeId": "n_aa4106625970c5df039155543674d579",
+      "toNodeId": "n_1943f3b6d278401f8a89db1437729875"
+    },
+    {
+      "id": "e_7fb11ee0951b3c71dc8b8a12e9707f7b",
+      "kind": "choice",
+      "fromNodeId": "n_aa4106625970c5df039155543674d579",
+      "toNodeId": "n_1943f3b6d278401f8a89db1437729875"
+    },
+    {
+      "id": "e_9d5fa3782a0810df9f520502cf88a9c1",
+      "kind": "choice",
+      "fromNodeId": "n_224401e1d9784b248389d00f3e72a37a",
+      "toNodeId": "n_1f463bbfcc75f816908c231d3170506c"
+    },
+    {
+      "id": "e_58fce251161b203aec5dfb03eb1e080c",
+      "kind": "choice",
+      "fromNodeId": "n_224401e1d9784b248389d00f3e72a37a",
+      "toNodeId": "n_1f463bbfcc75f816908c231d3170506c"
+    },
+    {
+      "id": "e_9ca5ed79ebbb6e38bb2d63472a75176e",
+      "kind": "choice",
+      "fromNodeId": "n_1c43f86fcf783b668989d98130728d70",
+      "toNodeId": "n_2144004eda784cb78289ce7c3f72a50d"
+    },
+    {
+      "id": "e_63790397d00d9c02586ddf19d14e696c",
+      "kind": "choice",
+      "fromNodeId": "n_1c43f86fcf783b668989d98130728d70",
+      "toNodeId": "n_2144004eda784cb78289ce7c3f72a50d"
+    },
+    {
+      "id": "e_fa0ee483dfd9fa5acaa99ff527f0f854",
+      "kind": "continue",
+      "fromNodeId": "n_ae3ece17e573e0daf78f03d9c277f074",
+      "toNodeId": "n_af3ecfaae473df47f48eff20c577f52d"
+    },
+    {
+      "id": "e_986c51343a4e25eddace854210297aa3",
+      "kind": "continue",
+      "fromNodeId": "n_af3ecfaae473df47f48eff20c577f52d",
+      "toNodeId": "n_b03ed13de373ddb4f58f00b3c477f39a"
+    },
+    {
+      "id": "e_69253e56c44e006f21811638c945f639",
+      "kind": "continue",
+      "fromNodeId": "n_a93ec638e273dc21fa8f0892bf77ebbb",
+      "toNodeId": "n_aa3ec7cbe173da8efb8f0a25be77ea28"
+    },
+    {
+      "id": "e_75d667efb79cd6d6e191e0a19c53b410",
+      "kind": "continue",
+      "fromNodeId": "n_aa3ec7cbe173da8efb8f0a25be77ea28",
+      "toNodeId": "n_ab3ec95ee073d8fbf88f056cc177eee1"
+    },
+    {
+      "id": "e_3b09f799632fc17039c3ff57f9dd38f6",
+      "kind": "continue",
+      "fromNodeId": "n_ac3ecaf1df73d768f98f06ffc077ed4e",
+      "toNodeId": "n_a53ebfecde73d5d5fe8f0edebb77e56f"
+    },
+    {
+      "id": "e_ebcae84227aafc6b876fee34806a2e15",
+      "kind": "continue",
+      "fromNodeId": "n_a53ebfecde73d5d5fe8f0edebb77e56f",
+      "toNodeId": "n_a63ec17fdd73d442ff8f1071ba77e3dc"
+    },
+    {
+      "id": "e_d93363eb3a4280c2dada2a6dbcfc921c",
+      "kind": "continue",
+      "fromNodeId": "n_a63ec17fdd73d442ff8f1071ba77e3dc",
+      "toNodeId": "n_b341148d6070d0e4fc914a4f3d74e07e"
+    },
+    {
+      "id": "e_0cbfb129952648648cf6873bb169156e",
+      "kind": "continue",
+      "fromNodeId": "n_b341148d6070d0e4fc914a4f3d74e07e",
+      "toNodeId": "n_b24112fa6170d277fb9148bc3e74e211"
+    },
+    {
+      "id": "e_b6cd61c0f30ecb9d963602d28f3266e7",
+      "kind": "continue",
+      "fromNodeId": "n_b24112fa6170d277fb9148bc3e74e211",
+      "toNodeId": "n_b14111676270d40afe914d753b74dd58"
+    },
+    {
+      "id": "e_acb4887f24d855ca8ed2adc5245e5688",
+      "kind": "continue",
+      "fromNodeId": "n_b14111676270d40afe914d753b74dd58",
+      "toNodeId": "n_b0410fd46370d59dfd914be23c74deeb"
+    },
+    {
+      "id": "e_54f29b2679b726b3ed6c004c946944f1",
+      "kind": "continue",
+      "fromNodeId": "n_b0410fd46370d59dfd914be23c74deeb",
+      "toNodeId": "n_af410e415c70ca98f89144034174e6ca"
+    },
+    {
+      "id": "e_99d88dfd71fdbe6081bb3e273e5c4e92",
+      "kind": "continue",
+      "fromNodeId": "n_af410e415c70ca98f89144034174e6ca",
+      "toNodeId": "n_ae410cae5d70cc2bf79142704274e85d"
+    },
+    {
+      "id": "e_35ad7f449e3725c97af7a3ae7201b4fb",
+      "kind": "continue",
+      "fromNodeId": "n_ae410cae5d70cc2bf79142704274e85d",
+      "toNodeId": "n_ad410b1b5e70cdbefa9147293f74e3a4"
+    },
+    {
+      "id": "e_27b9ab93e0ac0846bc951d3188de370c",
+      "kind": "continue",
+      "fromNodeId": "n_ad410b1b5e70cdbefa9147293f74e3a4",
+      "toNodeId": "n_ac4109885f70cf51f99145964074e537"
+    },
+    {
+      "id": "e_cba2182a9c45ec9f408808c898ed0185",
+      "kind": "continue",
+      "fromNodeId": "n_ac4109885f70cf51f99145964074e537",
+      "toNodeId": "n_ab4107f55870c44c049156e73574d3e6"
+    },
+    {
+      "id": "e_cd918031052a826c16bd489318a16fe6",
+      "kind": "continue",
+      "fromNodeId": "n_ab4107f55870c44c049156e73574d3e6",
+      "toNodeId": "n_aa4106625970c5df039155543674d579"
+    },
+    {
+      "id": "e_bb65f758eb7b3225f155803e2e9fa1ab",
+      "kind": "continue",
+      "fromNodeId": "n_1943f3b6d278401f8a89db1437729875",
+      "toNodeId": "n_1a43f549d1783e8c8b89dca7367296e2"
+    },
+    {
+      "id": "e_f6f6d441cf68aeace7d0da3799546502",
+      "kind": "continue",
+      "fromNodeId": "n_1a43f549d1783e8c8b89dca7367296e2",
+      "toNodeId": "n_1743f090d47843458c89de3a3572954f"
+    },
+    {
+      "id": "e_260a617e208ab51bb6ee30189d4187b5",
+      "kind": "continue",
+      "fromNodeId": "n_1743f090d47843458c89de3a3572954f",
+      "toNodeId": "n_1843f223d37841b28d89dfcd347293bc"
+    },
+    {
+      "id": "e_a9e438778b2951b2c8c625019d10da3c",
+      "kind": "continue",
+      "fromNodeId": "n_1843f223d37841b28d89dfcd347293bc",
+      "toNodeId": "n_1d43fa02ce7839d38689d4c833729229"
+    },
+    {
+      "id": "e_45815e9cf74a0891135293a24fe20c17",
+      "kind": "continue",
+      "fromNodeId": "n_1d43fa02ce7839d38689d4c833729229",
+      "toNodeId": "n_1e43fb95cd7838408789d65b32729096"
+    },
+    {
+      "id": "e_08eefa95f5e8ca2899b5f3cbdef8fe1e",
+      "kind": "continue",
+      "fromNodeId": "n_1e43fb95cd7838408789d65b32729096",
+      "toNodeId": "n_1b43f6dcd0783cf98889d7ee31728f03"
+    },
+    {
+      "id": "e_480774e2f1903987bb6f825ce26ed661",
+      "kind": "continue",
+      "fromNodeId": "n_1b43f6dcd0783cf98889d7ee31728f03",
+      "toNodeId": "n_1c43f86fcf783b668989d98130728d70"
+    },
+    {
+      "id": "e_24d880901c7058ddc0a9f0362d00d443",
+      "kind": "continue",
+      "fromNodeId": "n_2144004eda784cb78289ce7c3f72a50d",
+      "toNodeId": "n_224401e1d9784b248389d00f3e72a37a"
+    },
+    {
+      "id": "e_a3ba64c7a36a33a6119a2add643c66ac",
+      "kind": "continue",
+      "fromNodeId": "n_1f463bbfcc75f816908c231d3170506c",
+      "toNodeId": "n_8e7da345cd8b4b004f8be30fff21688a"
+    },
+    {
+      "id": "e_e93270f29f104be7998af4fc16ef2e11",
+      "kind": "continue",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_a93ec638e273dc21fa8f0892bf77ebbb"
+    },
+    {
+      "id": "e_31e05d0d33f6e55cff0043f73d67ced6",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_e3584324d626ee15e18b6ad23160d7eb",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_75dd6dcca107bbd5adc1d09a4480c9fb",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_49f02d9f981b23041a01b6154d7cb27a",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_79ff135d6918f93e74912ea718be8e00",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_66d544c175ffad3ea05a657fdcbe8294",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_1ec1750dc431f632e62041df2ada8d84",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_c5189d0eb755128da58ed28c3d38c3ab",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_68f0e7736dacc950f185f37d9cef1fba",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_a00956cbf8961746ca2325b571683a60",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_ec54fa97a77da8243b4ccc6dde8a7d12",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_ca51a9ef693191e41f0d18f5625b911a",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
+    },
+    {
+      "id": "e_f4ea6e83533df81289bcd80961a2da08",
+      "kind": "choice",
+      "fromNodeId": "n_49e5390775fd0aa25430e16d662fe810",
+      "toNodeId": "n_49e5390775fd0aa25430e16d662fe810"
     }
   ],
-  "entryNodeIds": ["n_84b7bfeb421382ce9cba9525795ed980", "n_76334dcf31ca56e261bb057176eb939c"],
-  "terminalNodeIds": ["n_23adde913ff7ad78c08893c3cecd94d2", "n_d4cf7ed30e4b32dad52862dd566b3424"]
+  "entryNodeIds": [
+    "n_84b7bfeb421382ce9cba9525795ed980",
+    "n_76334dcf31ca56e261bb057176eb939c",
+    "n_ae3ece17e573e0daf78f03d9c277f074"
+  ],
+  "terminalNodeIds": [
+    "n_23adde913ff7ad78c08893c3cecd94d2",
+    "n_d4cf7ed30e4b32dad52862dd566b3424",
+    "n_8e7da345cd8b4b004f8be30fff21688a"
+  ]
 }
