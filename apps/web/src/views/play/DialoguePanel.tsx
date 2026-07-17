@@ -26,6 +26,12 @@ interface DialoguePanelProps {
   readonly seenChoiceLabels?: readonly string[];
   readonly aiSlot?: AiChoiceSlotState;
   readonly aiMode?: boolean;
+  /** Free-form dialogue TTS affordance (shown disabled when capability is off). */
+  readonly dialogueVoiceButton?: {
+    readonly visible: boolean;
+    readonly disabled: boolean;
+    readonly tooltip: string | null;
+  };
   /** Stats-tracked decision options for 预言家 guess UI. */
   readonly oracleOptions?: readonly OracleOptionView[];
   readonly oracleGuessLabel?: string | null;
@@ -47,6 +53,7 @@ export function DialoguePanel({
   seenChoiceLabels = [],
   aiSlot,
   aiMode = false,
+  dialogueVoiceButton,
   oracleOptions = [],
   oracleGuessLabel = null,
   onOracleGuess,
@@ -70,9 +77,23 @@ export function DialoguePanel({
           {sceneTitle}
           {aiMode ? ` · ${t("play.aiBranch")}` : ""}
         </p>
-        <h1 id="prototype-title" className="nameplate">
-          {speaker}
-        </h1>
+        <div className="nameplate-row">
+          <h1 id="prototype-title" className="nameplate">
+            {speaker}
+          </h1>
+          {dialogueVoiceButton?.visible ? (
+            <GameButton
+              type="button"
+              variant="ghost"
+              disabled={dialogueVoiceButton.disabled}
+              title={dialogueVoiceButton.tooltip ?? undefined}
+              aria-label={dialogueVoiceButton.tooltip ?? t("settings.voice")}
+              data-testid="dialogue-voice-button"
+            >
+              {t("play.voiceLine")}
+            </GameButton>
+          ) : null}
+        </div>
       </div>
 
       <div

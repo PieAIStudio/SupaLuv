@@ -290,6 +290,17 @@ export function VisualNovelPrototype(props: VisualNovelPrototypeProps) {
             seenChoiceLabels={r.seenLabels}
             aiSlot={r.isGuestSpectator ? undefined : r.frame.aiSlot}
             aiMode={r.isGuestSpectator ? Boolean(r.frame.panelAiMode) : r.frame.aiPlaying}
+            dialogueVoiceButton={
+              r.isGuestSpectator
+                ? undefined
+                : {
+                    visible: r.frame.dialogueVoiceButton.visible,
+                    disabled: r.frame.dialogueVoiceButton.disabled,
+                    tooltip: r.frame.dialogueVoiceButton.tooltipKey
+                      ? t(r.frame.dialogueVoiceButton.tooltipKey)
+                      : null,
+                  }
+            }
             oracleOptions={r.decisionOracle.options}
             oracleGuessLabel={r.decisionOracle.guessLabel}
             onOracleGuess={r.decisionOracle.onGuess}

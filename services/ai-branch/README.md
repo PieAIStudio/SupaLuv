@@ -37,36 +37,36 @@ Last reviewed: 2026-07-17 (against source in this tree).
 
 ## HTTP surface (from `routeTable.ts`)
 
-| Method   | Path                                                       | Notes                                           |
-| -------- | ---------------------------------------------------------- | ----------------------------------------------- |
-| GET      | `/health`, `/`                                             | Health snapshot (model, TTS, wallet flags)      |
-| GET      | `/wallet/balance`                                          | Auth required                                   |
-| POST     | `/tts/preview`                                             | Auth; catalog `previewId` only; not billed      |
-| POST     | `/tts/synthesize`                                          | Auth; free-form text only if env allows (below) |
-| POST     | `/ai/branch`, `/`                                          | Auth + reserve/settle when metering on          |
-| GET/POST | `/choice-stats`, `/choice-stats/record`                    | Aggregate choice counts                         |
-| *        | `/ai/characters/*`, `/ai/endings/sessions/*`, spend routes | Commercial modules via `commercialRouteRuntime` |
+| Method   | Path                                                       | Notes                                                                      |
+| -------- | ---------------------------------------------------------- | -------------------------------------------------------------------------- |
+| GET      | `/health`, `/`                                             | Health snapshot; `tts.providers` + `tts.freeformEnabled` (capability only) |
+| GET      | `/wallet/balance`                                          | Auth required                                                              |
+| POST     | `/tts/preview`                                             | Auth; catalog `previewId` only; not billed                                 |
+| POST     | `/tts/synthesize`                                          | Auth; free-form text only if env allows (below)                            |
+| POST     | `/ai/branch`, `/`                                          | Auth + reserve/settle when metering on                                     |
+| GET/POST | `/choice-stats`, `/choice-stats/record`                    | Aggregate choice counts                                                    |
+| *        | `/ai/characters/*`, `/ai/endings/sessions/*`, spend routes | Commercial modules via `commercialRouteRuntime`                            |
 
 ## Env switches (code defaults)
 
-| Variable                                                | Default / rule                    | Meaning in code                                                                                |
-| ------------------------------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `SUPALUV_TTS_ALLOW_FREEFORM`                            | **off** unless exactly `"1"`      | When unset/≠`1`, `/tts/synthesize` without a valid `previewId` returns 400: free-form disabled |
-| `SUPALUV_WALLET_OPTIONAL`                               | off unless `"1"`                  | If wallet secrets missing: optional mode allows unmetered local use; otherwise spend denied    |
-| `SWIMMER_CORE_SUPABASE_URL` + `SWIMMER_CORE_SECRET_KEY` | required for meter                | Only credentials that enable `walletMeter` / commercial settle                                 |
-| `OPENROUTER_API_KEY`                                    | required for generation           | Branch / ending model calls                                                                    |
-| `SUPALUV_OPENROUTER_MODEL`                              | `google/gemini-3.5-flash`         | Branch model id                                                                                |
-| `SUPALUV_THINKING_LEVEL`                                | `high`                            | Exposed in health + branch call options                                                        |
-| `SUPALUV_AI_BRANCH_COST_BATTERIES`                      | `1`                               | Batteries reserved per branch                                                                  |
-| `SUPALUV_TTS_COST_BATTERIES`                            | `0`                               | Batteries reserved per paid TTS                                                                |
-| `SUPALUV_SIGNUP_GRANT_BATTERIES`                        | `0` (off)                         | Idempotent signup grant when balance empty                                                     |
-| `SUPALUV_TTS_DEFAULT_LANG`                              | `zh-CN`                           | Default TTS language                                                                           |
-| `SUPALUV_AI_BRANCH_PORT` / `PORT`                       | `8787`                            | Listen port                                                                                    |
-| `SUPALUV_AI_BRANCH_HOST`                                | `127.0.0.1`                       | Listen host                                                                                    |
-| `SUPALUV_SERVER_ENV_FILE` / `SUPALUV_PUBLIC_ENV_FILE`   | optional                          | Override default `~/PieAI/.secrets/supaluv/local.{server,public}.env`                          |
-| `SIGHTENGINE_API_USER` + `SIGHTENGINE_API_SECRET`       | optional                          | Extra moderation backend for safety gate                                                       |
-| `SUPALUV_CHARACTER_IMAGE_PROVIDER`                      | `openrouter` (or unset); `gemini` | Character image provider selection                                                             |
-| `GEMINI_API_KEY`                                        | when provider needs it            | Character image / review                                                                       |
+| Variable                                                | Default / rule                    | Meaning in code                                                                                                          |
+| ------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `SUPALUV_TTS_ALLOW_FREEFORM`                            | **off** unless exactly `"1"`      | When unset/≠`1`, free-form synthesize returns 400; `/health` reports `tts.freeformEnabled: false` so clients can degrade |
+| `SUPALUV_WALLET_OPTIONAL`                               | off unless `"1"`                  | If wallet secrets missing: optional mode allows unmetered local use; otherwise spend denied                              |
+| `SWIMMER_CORE_SUPABASE_URL` + `SWIMMER_CORE_SECRET_KEY` | required for meter                | Only credentials that enable `walletMeter` / commercial settle                                                           |
+| `OPENROUTER_API_KEY`                                    | required for generation           | Branch / ending model calls                                                                                              |
+| `SUPALUV_OPENROUTER_MODEL`                              | `google/gemini-3.5-flash`         | Branch model id                                                                                                          |
+| `SUPALUV_THINKING_LEVEL`                                | `high`                            | Exposed in health + branch call options                                                                                  |
+| `SUPALUV_AI_BRANCH_COST_BATTERIES`                      | `1`                               | Batteries reserved per branch                                                                                            |
+| `SUPALUV_TTS_COST_BATTERIES`                            | `0`                               | Batteries reserved per paid TTS                                                                                          |
+| `SUPALUV_SIGNUP_GRANT_BATTERIES`                        | `0` (off)                         | Idempotent signup grant when balance empty                                                                               |
+| `SUPALUV_TTS_DEFAULT_LANG`                              | `zh-CN`                           | Default TTS language                                                                                                     |
+| `SUPALUV_AI_BRANCH_PORT` / `PORT`                       | `8787`                            | Listen port                                                                                                              |
+| `SUPALUV_AI_BRANCH_HOST`                                | `127.0.0.1`                       | Listen host                                                                                                              |
+| `SUPALUV_SERVER_ENV_FILE` / `SUPALUV_PUBLIC_ENV_FILE`   | optional                          | Override default `~/PieAI/.secrets/supaluv/local.{server,public}.env`                                                    |
+| `SIGHTENGINE_API_USER` + `SIGHTENGINE_API_SECRET`       | optional                          | Extra moderation backend for safety gate                                                                                 |
+| `SUPALUV_CHARACTER_IMAGE_PROVIDER`                      | `openrouter` (or unset); `gemini` | Character image provider selection                                                                                       |
+| `GEMINI_API_KEY`                                        | when provider needs it            | Character image / review                                                                                                 |
 
 Server vs public env boundary: `localServerEnv.ts` rejects `VITE_*` in server
 files and non-`VITE_*` in public files.

@@ -1,11 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   canPlayDialogueVoiceResult,
   canStartDialogueVoiceRequest,
+  dialogueVoiceButtonState,
 } from "../audio/dialogueVoiceGate";
 import type { DialogueVoicePlaybackGuardApi } from "../audio/dialogueVoicePlaybackGuard";
 import { DialogueVoiceSession } from "../audio/dialogueVoiceSession";
 import { gameAudio } from "../audio/gameAudio";
+import { getCachedTtsCapability, loadTtsCapability } from "../audio/ttsCapability";
 import { hasMixedTtsRoutes, planBrowserTtsSegments } from "../audio/ttsSegmentation";
 
 interface UseDialogueVoiceOptions {
@@ -28,9 +30,18 @@ interface UseDialogueVoiceOptions {
   readonly lineKey: string;
 }
 
+export interface DialogueVoiceUiState {
+  /** null while health capability is loading. */
+  readonly freeformEnabled: boolean | null;
+  readonly buttonDisabled: boolean;
+  readonly buttonVisible: boolean;
+  readonly buttonTooltipKey: "play.voiceBudgetCharging" | null;
+}
+
 /**
- * Speak the current dialogue line via dual TTS edge when logged in.
- * Failures are silent — subtitles remain the source of truth.
+ * Speak the current dialogue line via dual TTS edge when logged in and free-form
+ * TTS is enabled server-side. Failures are silent — subtitles remain the source
+ * of truth. When free-form is off, no synthesize request is made (no 400 spam).
  *
  * Master mute and voice volume=0 abort the active session so a late network
  * completion cannot resurrect audio or imply a delivered billable clip.
@@ -50,17 +61,49 @@ export function useDialogueVoice({
   language = "zh-CN",
   emotion,
   lineKey,
-}: UseDialogueVoiceOptions): void {
+}: UseDialogueVoiceOptions): DialogueVoiceUiState {
   const sessionRef = useRef(new DialogueVoiceSession());
   const voiceEnabled = voiceVolume > 0;
   // Live volume for late-completion gates without re-running the effect on gain.
   const voiceVolumeRef = useRef(voiceVolume);
   voiceVolumeRef.current = voiceVolume;
 
+  const [freeformEnabled, setFreeformEnabled] = useState<boolean | null>(() => {
+    const existing = getCachedTtsCapability();
+    return existing ? existing.freeformEnabled : null;
+  });
+
+  // One-shot capability probe (module-cached). Fail-closed → freeform false.
+  useEffect(() => {
+    const existing = getCachedTtsCapability();
+    if (existing) {
+      setFreeformEnabled(existing.freeformEnabled);
+      return;
+    }
+    const ac = new AbortController();
+    void loadTtsCapability(ac.signal)
+      .then((cap) => {
+        if (!ac.signal.aborted) {
+          setFreeformEnabled(cap.freeformEnabled);
+        }
+      })
+      .catch(() => {
+        if (!ac.signal.aborted) {
+          setFreeformEnabled(false);
+        }
+      });
+    return () => ac.abort();
+  }, []);
+
   useEffect(() => {
     const session = sessionRef.current;
     session.cancel();
     gameAudio.stopVoice();
+
+    // Wait for capability before any synthesize attempt (avoids 400 log spam).
+    if (freeformEnabled === null) {
+      return;
+    }
 
     const token = accessToken;
     const volumeAtStart = voiceVolumeRef.current;
@@ -74,6 +117,7 @@ export function useDialogueVoice({
         hasText: Boolean(text.trim()),
         productMuted: gameAudio.isMuted(),
         voiceVolume: volumeAtStart,
+        freeformEnabled,
       });
 
     const segments = planBrowserTtsSegments(text, language);
@@ -160,6 +204,7 @@ export function useDialogueVoice({
     dialogueVoiceRunKey,
     enabled,
     emotion,
+    freeformEnabled,
     isSignedIn,
     language,
     lineKey,
@@ -168,4 +213,12 @@ export function useDialogueVoice({
     text,
     voiceEnabled,
   ]);
+
+  const button = dialogueVoiceButtonState({ freeformEnabled });
+  return {
+    freeformEnabled,
+    buttonDisabled: button.disabled,
+    buttonVisible: button.visible,
+    buttonTooltipKey: button.tooltipKey,
+  };
 }

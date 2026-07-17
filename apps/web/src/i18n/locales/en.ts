@@ -638,6 +638,9 @@ export const en: MessageTree = {
     exitFullscreen: "Exit fullscreen",
     soundOn: "Sound on",
     soundOff: "Sound off",
+    voiceLine: "Line voice",
+    voiceBudgetCharging:
+      "Voice budget still charging — subtitles first. Fixed previews in Settings still work.",
     history: "History",
     system: "System",
     storyMode: "Story mode",

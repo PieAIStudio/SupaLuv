@@ -573,6 +573,8 @@ export const zhCN: MessageTree = {
     exitFullscreen: "退出全屏",
     soundOn: "声音开",
     soundOff: "声音关",
+    voiceLine: "对白语音",
+    voiceBudgetCharging: "语音预算还在充电，对白先看字幕。设置里仍可试听固定样句。",
     history: "历史",
     system: "系统",
     storyMode: "剧情模式",
