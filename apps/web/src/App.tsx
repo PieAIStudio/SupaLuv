@@ -20,6 +20,7 @@ import { createStorySession } from "./story/session/createStorySession";
 import { loadStoryRuntime } from "./story/session/storyRuntime";
 import { useStorySession } from "./story/session/useStorySession";
 import { AtomicLoadingOverlay } from "./loading/AtomicLoadingOverlay";
+import { LoadingDwellCurtain } from "./loading/LoadingDwellCurtain";
 import {
   CASTING_CRITICAL_ASSETS,
   preloadDecodedImages,
@@ -444,6 +445,7 @@ export function App() {
         ) : bootDone ? (
           <AtomicLoadingOverlay kind="title" archiveIds={unlocks.archive} />
         ) : null}
+        <LoadingDwellCurtain />
       </main>
     );
   }
@@ -589,6 +591,7 @@ export function App() {
           archiveIds={unlocks.archive}
         />
       ) : null}
+      <LoadingDwellCurtain />
     </main>
   );
 }

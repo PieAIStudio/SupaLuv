@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ATOMIC_LOADING_DELAY_MS } from "./atomicLoading";
+import { cancelLoadingReveal, reportLoadingRevealed, reportLoadingUnmounted } from "./loadingDwell";
+import { pickLoadingPoster } from "./loadingPosters";
 import "./loadingExperience.css";
 
 export type AtomicLoadingKind = "title" | "casting" | "story" | "chapter" | "retry";
@@ -167,6 +169,13 @@ export function AtomicLoadingOverlay({
   const copy = COPY[kind];
   const dossiers = useMemo(() => dossiersFor(kind, archiveIds), [archiveIds, kind]);
   const dossier = dossiers[dossierIndex % dossiers.length] ?? RECOVERY_DOSSIER;
+  // One poster per overlay life — swapping stills mid-load reads as a glitch.
+  const chosenPoster = useMemo(() => (error ? null : pickLoadingPoster(kind)), [error, kind]);
+  const [posterFailed, setPosterFailed] = useState(false);
+  useEffect(() => {
+    setPosterFailed(false);
+  }, [chosenPoster]);
+  const poster = posterFailed ? null : chosenPoster;
 
   useEffect(() => {
     setDossierIndex(0);
@@ -181,6 +190,20 @@ export function AtomicLoadingOverlay({
     const timer = window.setTimeout(() => setRevealed(true), delayMs);
     return () => window.clearTimeout(timer);
   }, [delayMs, error, kind]);
+
+  // Minimum-dwell bookkeeping: only a *revealed*, non-error visual owes dwell
+  // time. The curtain (mounted at App root) finishes any unmet remainder.
+  useEffect(() => {
+    if (error) {
+      cancelLoadingReveal();
+      return;
+    }
+    if (revealed) {
+      reportLoadingRevealed(kind, poster?.src ?? null);
+    }
+  }, [error, kind, poster, revealed]);
+
+  useEffect(() => () => reportLoadingUnmounted(), []);
 
   if (!error && !revealed) {
     return (
@@ -197,11 +220,21 @@ export function AtomicLoadingOverlay({
       className="atomic-loading"
       data-testid={`atomic-loading-${kind}`}
       data-motion="ambient"
+      data-poster={poster ? "true" : undefined}
       role={error ? "alert" : "status"}
       aria-busy={!error}
       aria-live={error ? "assertive" : "polite"}
       aria-labelledby="atomic-loading-title"
     >
+      {poster ? (
+        <img
+          className="atomic-loading-poster"
+          src={poster.src}
+          alt=""
+          aria-hidden="true"
+          onError={() => setPosterFailed(true)}
+        />
+      ) : null}
       <div className="atomic-loading-backdrop" aria-hidden="true" />
       <section className="atomic-loading-card">
         <p className="atomic-loading-eyebrow">{copy.eyebrow}</p>

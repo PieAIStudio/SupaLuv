@@ -91,6 +91,78 @@
   cursor: pointer;
 }
 
+/* —— Cinematic poster treatment —— */
+.atomic-loading-poster {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: atomic-loading-kenburns 14s ease-out forwards;
+}
+
+/* With a poster, the backdrop becomes a readability scrim, not a wall. */
+.atomic-loading[data-poster="true"] .atomic-loading-backdrop {
+  background: linear-gradient(
+    180deg,
+    rgba(5, 6, 10, 0.18) 0%,
+    rgba(5, 6, 10, 0.05) 45%,
+    rgba(5, 6, 10, 0.82) 100%
+  );
+  backdrop-filter: none;
+}
+
+/* Card yields the frame to the still: slim strip pinned to the lower-left. */
+.atomic-loading[data-poster="true"] {
+  place-items: end start;
+  padding: clamp(1rem, 4vw, 2.2rem);
+}
+
+.atomic-loading[data-poster="true"] .atomic-loading-card {
+  width: min(26rem, 100%);
+  gap: 0.5rem;
+  padding: 1rem 1.2rem;
+  border-color: rgba(255, 220, 190, 0.12);
+  background: rgba(13, 15, 22, 0.62);
+  backdrop-filter: blur(10px);
+}
+
+.atomic-loading[data-poster="true"] .atomic-loading-card h2 {
+  font-size: 1.15rem;
+}
+
+.atomic-loading[data-poster="true"] .atomic-loading-body,
+.atomic-loading[data-poster="true"] .atomic-loading-tip {
+  display: none;
+}
+
+.atomic-loading[data-poster="true"] .atomic-loading-dossier {
+  padding: 0.55rem 0.75rem;
+}
+
+/* Dwell curtain: pure poster moment while the minimum display time runs out. */
+.atomic-loading-curtain-meter {
+  position: absolute;
+  inset-inline: 0;
+  bottom: clamp(1rem, 4vw, 2rem);
+  display: grid;
+  justify-items: center;
+}
+
+.atomic-loading-curtain-meter .atomic-loading-meter {
+  width: min(16rem, 60%);
+}
+
+@keyframes atomic-loading-kenburns {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 @keyframes atomic-loading-scan {
   from {
     transform: translateX(-120%);

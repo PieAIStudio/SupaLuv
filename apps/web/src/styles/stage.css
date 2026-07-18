@@ -305,9 +305,10 @@
 }
 
 /*
- * Story text scrolls only when truly long.
- * Hide scrollbar chrome by default so it never "flashes" next to the continue ▼.
- * Reveal a thin dark bar only on hover/focus when the box can scroll.
+ * Story text scrolls only when truly long (wheel / trackpad / touch).
+ * The scrollbar NEVER renders: a hover-revealed bar steals width from the
+ * text column and reflows every line (the "text jitter" bug). Overflow
+ * affordance is the continue ▼, not scrollbar chrome.
  */
 .vn-stage .story-copy {
   position: relative;
@@ -318,36 +319,11 @@
   padding-right: 0.35em;
   padding-bottom: 1.15em; /* room for absolute continue ▼ — keeps it out of text flow */
   scrollbar-width: none;
-  scrollbar-color: transparent transparent;
-}
-
-.vn-stage .story-copy:hover,
-.vn-stage .story-copy:focus-within {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
 }
 
 .vn-stage .story-copy::-webkit-scrollbar {
   width: 0;
-  background: transparent;
-}
-
-.vn-stage .story-copy:hover::-webkit-scrollbar,
-.vn-stage .story-copy:focus-within::-webkit-scrollbar {
-  width: 5px;
-}
-
-.vn-stage .story-copy::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: transparent;
-}
-
-.vn-stage .story-copy:hover::-webkit-scrollbar-thumb,
-.vn-stage .story-copy:focus-within::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.28);
-}
-
-.vn-stage .story-copy::-webkit-scrollbar-track {
+  height: 0;
   background: transparent;
 }
 

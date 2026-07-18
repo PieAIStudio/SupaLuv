@@ -39,6 +39,53 @@
     radial-gradient(ellipse at 50% 80%, rgba(240, 164, 106, 0.12), transparent 55%);
 }
 
+/* Language entry lives on the very first screen: each option names itself in
+   its own language, so a player who reads nothing else still finds home. */
+.boot-splash-locales {
+  position: absolute;
+  top: max(0.9rem, env(safe-area-inset-top));
+  right: max(1rem, env(safe-area-inset-right));
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: default;
+}
+
+.boot-splash-locales-icon {
+  font-size: 0.95rem;
+  opacity: 0.75;
+}
+
+.boot-splash-locale {
+  padding: 0.42rem 0.85rem;
+  border: 1px solid rgba(255, 235, 215, 0.32);
+  border-radius: 999px;
+  background: rgba(10, 12, 18, 0.5);
+  color: rgba(255, 244, 232, 0.85);
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.boot-splash-locale:hover {
+  border-color: rgba(255, 210, 170, 0.65);
+}
+
+.boot-splash-locale[data-active="true"] {
+  border-color: rgba(255, 196, 150, 0.9);
+  background: rgba(232, 160, 106, 0.28);
+  color: #fff6ee;
+  font-weight: 700;
+}
+
+.boot-splash-locale:focus-visible {
+  outline: 2px solid #ffd0ac;
+  outline-offset: 2px;
+}
+
 .boot-splash-copy {
   position: relative;
   z-index: 1;

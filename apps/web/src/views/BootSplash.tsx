@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { gameAudio } from "../audio/gameAudio";
-import { useLocale } from "../i18n";
+import { LOCALE_META, useLocale } from "../i18n";
 import { preloadDecodedImage } from "../loading/atomicLoading";
 
 interface BootSplashProps {
@@ -23,7 +23,10 @@ function ageConfirmed(): boolean {
 }
 
 export function BootSplash({ onEnter, busy = false }: BootSplashProps) {
-  const { t } = useLocale();
+  const { t, locale, setLocale } = useLocale();
+  // Each language names itself so a player who reads nothing else on screen
+  // still finds their own. Unready locales stay hidden until translated.
+  const localeOptions = LOCALE_META.filter((meta) => meta.ready);
   const [artReady, setArtReady] = useState(false);
   const [showAgeGate, setShowAgeGate] = useState(false);
   const proceed = useCallback(() => {
@@ -107,6 +110,29 @@ export function BootSplash({ onEnter, busy = false }: BootSplashProps) {
         <div className="boot-splash-art boot-splash-art-fallback" aria-hidden="true" />
       )}
       <div className="boot-splash-scrim" aria-hidden="true" />
+      <div
+        className="boot-splash-locales"
+        data-testid="boot-splash-locales"
+        role="group"
+        aria-label="Language"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <span className="boot-splash-locales-icon" aria-hidden="true">
+          🌐
+        </span>
+        {localeOptions.map((meta) => (
+          <button
+            key={meta.id}
+            type="button"
+            className="boot-splash-locale"
+            data-active={meta.id === locale ? "true" : undefined}
+            lang={meta.id}
+            onClick={() => setLocale(meta.id)}
+          >
+            {meta.nativeLabel}
+          </button>
+        ))}
+      </div>
       <div className="boot-splash-copy">
         <p className="boot-splash-eyebrow">{t("boot.eyebrow")}</p>
         <h1 className="boot-splash-title">{t("boot.title")}</h1>
