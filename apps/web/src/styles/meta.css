@@ -968,6 +968,42 @@
   animation: ai-wait-pulse 1.4s ease-in-out infinite;
 }
 
+/* Heartbeat Engine wait interstitial — decorative world copy under AI wait */
+.ai-wait-interstitial {
+  margin: 0.3rem 0 0;
+  padding: 0.4rem 0.6rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(140, 180, 220, 0.16);
+  background: rgba(6, 10, 20, 0.58);
+  pointer-events: none;
+}
+
+.ai-wait-interstitial-line {
+  margin: 0;
+  font-family: var(--supaluv-font-sans);
+  font-size: clamp(0.64rem, 1.5vw, 0.74rem);
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: rgba(188, 204, 224, 0.7);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.ai-wait-interstitial-line.is-visible {
+  opacity: 1;
+}
+
+.ai-ending-experience .ai-wait-interstitial {
+  margin-top: 0.55rem;
+}
+
 .ai-choice-error {
   margin: 0.25rem 0 0;
   color: rgba(255, 180, 160, 0.85);
