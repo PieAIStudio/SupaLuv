@@ -9,6 +9,15 @@ import type {
   NarrativeGraphPlayerSkeleton,
   NarrativeSourceRange,
 } from "@supaluv/shared/narrative-graph";
+import { mergeAssetCatalog, parseRuntimeLedgerCsv, type CreatorAssetRecord } from "./assetCatalog";
+import { loadCastingDesk, type CastingDeskPayload } from "./castingData";
+import {
+  CREATOR_TASK_DEFS,
+  createTaskLock,
+  isCreatorTaskId,
+  runCreatorTask,
+  type CreatorTaskId,
+} from "./creatorTasks";
 import { runContentTypecheckGate, runCreatorPipeline, type PipelineLogEvent } from "./creatorPipeline";
 import {
   applySceneFieldUpdates,
@@ -24,6 +33,7 @@ const PLAYER_GRAPH_PATH = "packages/content/generated/narrative-graph-player.jso
 const STORY_CATALOG_PATH = "packages/content/catalog/story-catalog.json";
 const CHARACTER_REGISTRY_PATH = "packages/content/characters/registry.ts";
 const VISUAL_INTAKE_PATH = "packages/content/assets/VISUAL-ASSET-INTAKE.json";
+const RUNTIME_LEDGER_PATH = "packages/content/assets/RUNTIME-ASSET-LEDGER.csv";
 const MANIFEST_DIR = "packages/content/manifests";
 
 export type CreatorStudioErrorCode =
@@ -37,6 +47,7 @@ export type CreatorStudioErrorCode =
   | "TOPOLOGY_CHANGED"
   | "VALIDATION_FAILED"
   | "SCENE_NOT_FOUND"
+  | "TASK_BUSY"
   | "SAVE_FAILED";
 
 export class CreatorStudioError extends Error {
@@ -125,6 +136,19 @@ interface StoryCatalogFile {
 
 interface VisualIntakeFile {
   readonly assets?: readonly { readonly id?: string }[];
+}
+
+interface IntakeAssetRow {
+  readonly id?: string;
+  readonly kind?: string;
+  readonly path?: string;
+  readonly qualityStatus?: string;
+  readonly rightsStatus?: string;
+  readonly bytes?: number;
+  readonly notes?: string;
+  readonly fileStatus?: string;
+  readonly sha256?: string;
+  readonly requiredForProduction?: boolean;
 }
 
 function sha256(value: string | Uint8Array): string {
@@ -488,10 +512,15 @@ async function validateRealCandidate(
   }
 }
 
+export interface CreatorAssetsPayload {
+  readonly assets: readonly CreatorAssetRecord[];
+  readonly kinds: readonly string[];
+}
+
 export function createCreatorStudioService(options: CreatorStudioServiceOptions) {
   const repoRoot = resolve(options.repoRoot);
   const validateCandidate = options.validateCandidate ?? validateRealCandidate;
-  let pipelineRunning = false;
+  const taskLock = createTaskLock();
 
   return {
     async getGraph(): Promise<CreatorGraphEnvelope> {
@@ -500,6 +529,27 @@ export function createCreatorStudioService(options: CreatorStudioServiceOptions)
 
     async getSceneMeta(): Promise<CreatorSceneMeta> {
       return loadSceneMeta(repoRoot);
+    },
+
+    async getAssets(): Promise<CreatorAssetsPayload> {
+      const [intakeRaw, ledgerText] = await Promise.all([
+        readJson<{ readonly assets?: readonly IntakeAssetRow[] }>(join(repoRoot, VISUAL_INTAKE_PATH)),
+        readFile(join(repoRoot, RUNTIME_LEDGER_PATH), "utf8"),
+      ]);
+      const assets = mergeAssetCatalog(intakeRaw.assets ?? [], parseRuntimeLedgerCsv(ledgerText));
+      const kinds = [...new Set(assets.map((asset) => asset.kind))].sort();
+      return { assets, kinds };
+    },
+
+    async getCasting(): Promise<CastingDeskPayload> {
+      return loadCastingDesk({ repoRoot });
+    },
+
+    listTasks() {
+      return {
+        tasks: CREATOR_TASK_DEFS,
+        busyTask: taskLock.busyTask,
+      };
     },
 
     async saveScene(request: CreatorSceneSaveRequest): Promise<CreatorSceneMeta> {
@@ -578,18 +628,35 @@ export function createCreatorStudioService(options: CreatorStudioServiceOptions)
     },
 
     async runPipeline(onEvent?: (event: PipelineLogEvent) => void) {
-      if (pipelineRunning) {
+      if (!taskLock.tryAcquire("pipeline")) {
         throw new CreatorStudioError(
-          "VALIDATION_FAILED",
-          "已有校验管线在运行，请稍后再试。",
+          "TASK_BUSY",
+          `已有任务在运行（${taskLock.busyTask}），请稍后再试。`,
           409,
         );
       }
-      pipelineRunning = true;
       try {
         return await runCreatorPipeline(repoRoot, onEvent);
       } finally {
-        pipelineRunning = false;
+        taskLock.release("pipeline");
+      }
+    },
+
+    async runTask(taskId: CreatorTaskId, onEvent?: (event: PipelineLogEvent) => void) {
+      if (!isCreatorTaskId(taskId)) {
+        throw new CreatorStudioError("INVALID_REQUEST", `未知任务：${String(taskId)}`, 400);
+      }
+      if (!taskLock.tryAcquire(taskId)) {
+        throw new CreatorStudioError(
+          "TASK_BUSY",
+          `已有任务在运行（${taskLock.busyTask}），请稍后再试。`,
+          409,
+        );
+      }
+      try {
+        return await runCreatorTask(repoRoot, taskId, onEvent);
+      } finally {
+        taskLock.release(taskId);
       }
     },
 

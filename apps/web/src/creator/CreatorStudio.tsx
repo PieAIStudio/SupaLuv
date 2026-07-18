@@ -27,10 +27,16 @@ import {
   type CreatorSceneMeta,
   type PipelineLogEvent,
 } from "./api";
+import { AssetBay } from "./AssetBay";
+import { CastingDesk } from "./CastingDesk";
 import { CreatorGraphNode, type CreatorFlowNode } from "./CreatorGraphNode";
 import { analyzeCreatorGraph, findShortestPath, layoutCreatorGraph } from "./graphModel";
+import { appendPipelineLog, PipelineLogPanel } from "./PipelineLogPanel";
 import { SceneInspector } from "./SceneInspector";
+import { TaskConsole } from "./TaskConsole";
 import "../styles/creator-studio.css";
+
+type StudioModule = "map" | "assets" | "cast" | "tasks";
 
 interface CreatorStudioProps {
   readonly storyId: string;
@@ -109,9 +115,9 @@ export default function CreatorStudio({
   const [pipelineBusy, setPipelineBusy] = useState(false);
   const [pipelineLog, setPipelineLog] = useState("");
   const [pipelineOk, setPipelineOk] = useState<boolean | null>(null);
+  const [studioModule, setStudioModule] = useState<StudioModule>("map");
   const searchRef = useRef<HTMLInputElement>(null);
   const flowRef = useRef<ReactFlowInstance<CreatorFlowNode, Edge> | null>(null);
-  const logEndRef = useRef<HTMLPreElement>(null);
 
   const currentNodeId = currentSceneId ? `${storyId}#scene:${currentSceneId}` : null;
 
@@ -300,25 +306,8 @@ export default function CreatorStudio({
     }
   }, [canSave, editorValue, envelope, selectedLine, selectedNodeId]);
 
-  const appendPipelineLog = useCallback((event: PipelineLogEvent) => {
-    setPipelineLog((prev) => {
-      if (event.type === "step_start") {
-        return `${prev}\n▶ ${event.step}: ${event.command}\n`;
-      }
-      if (event.type === "stdout" || event.type === "stderr") {
-        return `${prev}${event.chunk}`;
-      }
-      if (event.type === "step_end") {
-        return `${prev}${event.ok ? "✓" : "✗"} ${event.step} (exit ${event.exitCode ?? "?"})\n`;
-      }
-      if (event.type === "done" || event.type === "result") {
-        return `${prev}\n${event.ok ? "管线完成" : "管线失败"}\n`;
-      }
-      if (event.type === "error") {
-        return `${prev}\n错误：${event.message}\n`;
-      }
-      return prev;
-    });
+  const onPipelineEvent = useCallback((event: PipelineLogEvent) => {
+    setPipelineLog((prev) => appendPipelineLog(prev, event));
   }, []);
 
   const runPipeline = useCallback(async () => {
@@ -327,25 +316,21 @@ export default function CreatorStudio({
     setPipelineOk(null);
     setPipelineLog("开始一键校验：compile-ink → generate-narrative-graph → typecheck\n");
     try {
-      const result = await runCreatorPipeline(appendPipelineLog);
+      const result = await runCreatorPipeline(onPipelineEvent);
       setPipelineOk(result.ok);
       if (result.ok) {
         await loadGraph();
       }
     } catch (error) {
       setPipelineOk(false);
-      appendPipelineLog({
+      onPipelineEvent({
         type: "error",
         message: error instanceof Error ? error.message : String(error),
       });
     } finally {
       setPipelineBusy(false);
     }
-  }, [appendPipelineLog, loadGraph, pipelineBusy]);
-
-  useEffect(() => {
-    logEndRef.current?.scrollTo({ top: logEndRef.current.scrollHeight });
-  }, [pipelineLog]);
+  }, [loadGraph, onPipelineEvent, pipelineBusy]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -386,48 +371,84 @@ export default function CreatorStudio({
           <span className="creator-local-stamp">LOCAL CUT</span>
           <div>
             <p>仅本地开发 · Ink 是唯一剧情拓扑真相</p>
-            <h2>创作地图</h2>
+            <h2>Creator Studio</h2>
           </div>
         </div>
         <div className="creator-header-metrics">
-          <span>
-            <strong>{graph?.nodes.length ?? 0}</strong> 节点
-          </span>
-          <span>
-            <strong>{graph?.edges.length ?? 0}</strong> 边
-          </span>
-          <span className={issueCount ? "has-issues" : ""}>
-            <strong>{issueCount}</strong> 异常
-          </span>
-          <span>
-            REV <code data-testid="creator-revision">{graph?.revision ?? "loading"}</code>
-          </span>
+          {studioModule === "map" ? (
+            <>
+              <span>
+                <strong>{graph?.nodes.length ?? 0}</strong> 节点
+              </span>
+              <span>
+                <strong>{graph?.edges.length ?? 0}</strong> 边
+              </span>
+              <span className={issueCount ? "has-issues" : ""}>
+                <strong>{issueCount}</strong> 异常
+              </span>
+              <span>
+                REV <code data-testid="creator-revision">{graph?.revision ?? "loading"}</code>
+              </span>
+            </>
+          ) : (
+            <span className="creator-module-hint">
+              {studioModule === "assets"
+                ? "资产湾 · 只读三账"
+                : studioModule === "cast"
+                  ? "选角台 · 立绘与音色"
+                  : "任务台 · AI 控制台"}
+            </span>
+          )}
         </div>
         <div className="creator-header-actions">
-          <button
-            type="button"
-            className={`creator-pipeline-button${pipelineOk === false ? " is-failed" : ""}${pipelineOk === true ? " is-ok" : ""}`}
-            data-testid="creator-run-pipeline"
-            disabled={pipelineBusy}
-            onClick={() => void runPipeline()}
-          >
-            {pipelineBusy ? "校验中…" : "编译+图生成+校验"}
-          </button>
+          {studioModule === "map" ? (
+            <button
+              type="button"
+              className={`creator-pipeline-button${pipelineOk === false ? " is-failed" : ""}${pipelineOk === true ? " is-ok" : ""}`}
+              data-testid="creator-run-pipeline"
+              disabled={pipelineBusy}
+              onClick={() => void runPipeline()}
+            >
+              {pipelineBusy ? "校验中…" : "编译+图生成+校验"}
+            </button>
+          ) : null}
           <button type="button" className="creator-close" onClick={onClose}>
             关闭 <kbd>Esc</kbd>
           </button>
         </div>
       </header>
 
-      {pipelineLog ? (
-        <div className="creator-pipeline-log-wrap" data-testid="creator-pipeline-log">
-          <pre ref={logEndRef} className="creator-pipeline-log">
-            {pipelineLog}
-          </pre>
-        </div>
-      ) : null}
+      <nav className="creator-module-tabs" aria-label="Studio 模块">
+        {(
+          [
+            ["map", "创作地图"],
+            ["assets", "资产湾"],
+            ["cast", "选角台"],
+            ["tasks", "任务台"],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            className={studioModule === id ? "is-active" : ""}
+            data-testid={`creator-tab-${id}`}
+            aria-current={studioModule === id ? "page" : undefined}
+            onClick={() => setStudioModule(id)}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
 
-      {loadError ? (
+      {studioModule === "map" && pipelineLog ? <PipelineLogPanel log={pipelineLog} /> : null}
+
+      {studioModule === "assets" ? (
+        <AssetBay />
+      ) : studioModule === "cast" ? (
+        <CastingDesk />
+      ) : studioModule === "tasks" ? (
+        <TaskConsole />
+      ) : loadError ? (
         <section className="creator-load-failure" role="alert">
           <h3>本地图读取失败</h3>
           <p>{loadError}</p>
