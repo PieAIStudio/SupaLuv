@@ -76,23 +76,27 @@ const buildRouter = () =>
       police_officer: "CwhRBWXzGAHq8TQ4Fs17",
       courier: "CwhRBWXzGAHq8TQ4Fs17",
     },
+    // Chinese-lane casting (MiniMax system voices, each verified live 2026-07-18).
+    // Principals get distinct voices; walk-ons may share. Casting intent:
+    // narrator = dry audiobook deadpan for the black-humor VO; zhuzhu is sweeter
+    // than chen_jia on purpose (robot copy reads "too perfect", near-Chenjia).
     chineseVoiceMap: {
       suming: "male-qn-qingse",
-      leo: "male-qn-qingse",
-      narrator: "male-qn-qingse",
-      staff_worker: "male-qn-qingse",
-      staff_lead: "male-qn-qingse",
-      test_ai: "female-shaonv",
-      chen_jia: "female-shaonv",
-      shi_peixin: "female-shaonv",
-      shop_owner: "female-shaonv",
+      leo: "male-qn-jingying",
+      narrator: "audiobook_male_1",
+      staff_worker: "male-qn-daxuesheng",
+      staff_lead: "presenter_male",
+      test_ai: "lovely_girl",
+      chen_jia: "female-yujie",
+      shi_peixin: "female-chengshu",
+      shop_owner: "audiobook_female_1",
       lin_xiaotang: "female-shaonv",
-      zhou_lu: "female-shaonv",
-      zhu_zhu: "female-shaonv",
-      huang_laotai: "female-shaonv",
-      grid_worker: "male-qn-qingse",
-      police_officer: "male-qn-qingse",
-      courier: "male-qn-qingse",
+      zhou_lu: "audiobook_female_2",
+      zhu_zhu: "female-tianmei",
+      huang_laotai: "audiobook_female_1",
+      grid_worker: "male-qn-daxuesheng",
+      police_officer: "male-qn-badao",
+      courier: "audiobook_male_2",
     },
   });
 
