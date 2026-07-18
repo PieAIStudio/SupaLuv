@@ -42,5 +42,5 @@ Normal documents use:
 draft -> active -> completed -> stable -> superseded -> archived
 ```
 
-Durable decisions use the Matt-compatible `docs/adr/**` surface and stay
-outside the Doc Gov schema. Do not duplicate them in another decision folder.
+Durable decisions use the governed `docs/adr/**` surface and the decision
+lifecycle. Do not duplicate them in another decision folder.
