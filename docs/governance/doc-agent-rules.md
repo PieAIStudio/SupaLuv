@@ -58,8 +58,8 @@ draft -> active -> completed -> stable -> superseded -> archived
 
 `completed` is for finished execution records or specs that should no longer appear in active folders.
 
-Durable decisions belong only in `docs/adr/**`. They use Matt's concise ADR
-format and remain outside the Doc Gov status machine.
+Durable decisions belong only in `docs/adr/**`. They use the governed decision
+frontmatter and decision lifecycle; do not duplicate them elsewhere.
 
 ## Upstream Rule
 

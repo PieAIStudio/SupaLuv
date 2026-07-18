@@ -57,7 +57,7 @@ project-specific AI development habits live.
 | Project AI development practices | `docs/policy/best-practice-for-this-project.md` |
 | Current work index | `docs/reference/execution/current-work.md` |
 | Product or world truth | `docs/canon/` |
-| Durable decisions | `docs/adr/`, the single Matt-compatible decision surface |
+| Durable decisions | `docs/adr/`, governed decision records |
 | Active implementation work | `docs/plans/active/` |
 | Completed proof records | `docs/plans/completed/` |
 | Reusable project learnings | `docs/reference/learnings/**` as governed reference documents |
@@ -69,14 +69,14 @@ System rules go here. Project-specific rules go to `docs/policy/`.
 
 ## Governed Scope
 
-By default, doc-gov governs Markdown under `docs/**` and AI entry files such as
-`AGENTS.md`.
+By default, doc-gov governs Markdown under `docs/**` and the project AI entry
+contract. `AGENTS.md` is the canonical project router; compatibility entry and
+skill roots must follow `docs/governance/ssot-v1.1.md`.
 
 It does not govern every Markdown file in the repository. Markdown under
 product packages, workbenches, prompt libraries, source folders, or asset
 folders can be product artifacts. Keep those files where the product package
 expects them unless a project explicitly opts them into doc-gov.
 
-Matt-native files under `docs/adr/**` and `docs/agents/**` are not governed docs
-by default. `docs/adr/**` is nevertheless the only durable decision surface;
-do not copy ADRs into a second PGS decision directory.
+Decision records under `docs/adr/**` are governed documents. Do not copy them
+into a second PGS decision directory.
