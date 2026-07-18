@@ -1,4 +1,5 @@
 import { GameButton, GameCallout, GamePanel } from "@pieai/swimmer-ui-kit";
+import { AiWaitInterstitial } from "../../ai/AiWaitInterstitial";
 import type { AiChoiceSlotState } from "../../ai/aiBranchTypes";
 import { useLocale } from "../../i18n";
 import type { InkStorySnapshot } from "../../story/inkStoryRunner";
@@ -63,7 +64,7 @@ export function DialoguePanel({
   onAdvanceAi,
   onRequestAuth,
 }: DialoguePanelProps) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const hasOracleChoices =
     isComplete && !aiMode && oracleOptions.length > 0 && onOracleGuess !== undefined;
   return (
@@ -229,15 +230,18 @@ export function DialoguePanel({
           ) : null}
 
           {aiSlot?.status === "loading" ? (
-            <GameButton
-              type="button"
-              className="choice-button ai-choice-button is-waiting"
-              variant="ghost"
-              disabled
-              data-testid="ai-choice-waiting"
-            >
-              <span className="choice-label">{aiSlot.waitLabel}</span>
-            </GameButton>
+            <>
+              <GameButton
+                type="button"
+                className="choice-button ai-choice-button is-waiting"
+                variant="ghost"
+                disabled
+                data-testid="ai-choice-waiting"
+              >
+                <span className="choice-label">{aiSlot.waitLabel}</span>
+              </GameButton>
+              <AiWaitInterstitial locale={locale} />
+            </>
           ) : null}
 
           {aiSlot?.status === "needs_auth" ? (
