@@ -7,6 +7,7 @@ import {
   type CreatorSaveRequest,
   type CreatorSceneSaveRequest,
 } from "./creatorStudioServer";
+import { isCreatorTaskId } from "./creatorTasks";
 import type { SceneEditableFields } from "./sceneManifestEdit";
 
 type CreatorStudioService = ReturnType<typeof createCreatorStudioService>;
@@ -95,6 +96,55 @@ export function createCreatorStudioRequestHandler(service: CreatorStudioService)
         writeJson(response, 200, await service.getSceneMeta());
         return;
       }
+      if (pathname === `${BASE_PATH}/assets` && request.method === "GET") {
+        writeJson(response, 200, await service.getAssets());
+        return;
+      }
+      if (pathname === `${BASE_PATH}/casting` && request.method === "GET") {
+        writeJson(response, 200, await service.getCasting());
+        return;
+      }
+      if (pathname === `${BASE_PATH}/tasks` && request.method === "GET") {
+        writeJson(response, 200, service.listTasks());
+        return;
+      }
+      if (pathname === `${BASE_PATH}/task` && request.method === "POST") {
+        const body = await readJsonBody(request);
+        const taskId =
+          body && typeof body === "object" && "taskId" in body
+            ? (body as { readonly taskId?: unknown }).taskId
+            : undefined;
+        if (!isCreatorTaskId(taskId)) {
+          throw new CreatorStudioError(
+            "INVALID_REQUEST",
+            "taskId 必须是 asset-audit | auto-player | voice-reconcile。",
+            400,
+          );
+        }
+        // Delay NDJSON headers until the exclusive lock is acquired so TASK_BUSY
+        // can still return a real HTTP 409 JSON body.
+        let streaming = false;
+        const beginStream = () => {
+          if (streaming) return;
+          streaming = true;
+          response.statusCode = 200;
+          response.setHeader("content-type", "application/x-ndjson; charset=utf-8");
+          response.setHeader("cache-control", "no-store");
+          response.setHeader("transfer-encoding", "chunked");
+        };
+        const result = await service.runTask(taskId, (event) => {
+          beginStream();
+          writeNdjson(response, event);
+        });
+        beginStream();
+        writeNdjson(response, {
+          type: "result",
+          ok: result.ok,
+          steps: result.steps.map((s) => s.step),
+        });
+        response.end();
+        return;
+      }
       if (pathname === `${BASE_PATH}/save` && request.method === "POST") {
         const body = await readJsonBody(request);
         if (!isSaveRequest(body)) {
@@ -125,14 +175,25 @@ export function createCreatorStudioRequestHandler(service: CreatorStudioService)
       if (pathname === `${BASE_PATH}/pipeline` && request.method === "POST") {
         // Drain body if present, then stream NDJSON logs.
         await readJsonBody(request).catch(() => ({}));
-        response.statusCode = 200;
-        response.setHeader("content-type", "application/x-ndjson; charset=utf-8");
-        response.setHeader("cache-control", "no-store");
-        response.setHeader("transfer-encoding", "chunked");
+        let streaming = false;
+        const beginStream = () => {
+          if (streaming) return;
+          streaming = true;
+          response.statusCode = 200;
+          response.setHeader("content-type", "application/x-ndjson; charset=utf-8");
+          response.setHeader("cache-control", "no-store");
+          response.setHeader("transfer-encoding", "chunked");
+        };
         const result = await service.runPipeline((event) => {
+          beginStream();
           writeNdjson(response, event);
         });
-        writeNdjson(response, { type: "result", ok: result.ok, steps: result.steps.map((s) => s.step) });
+        beginStream();
+        writeNdjson(response, {
+          type: "result",
+          ok: result.ok,
+          steps: result.steps.map((s) => s.step),
+        });
         response.end();
         return;
       }

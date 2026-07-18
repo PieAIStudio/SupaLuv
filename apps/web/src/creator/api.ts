@@ -54,6 +54,64 @@ export type PipelineLogEvent =
   | { readonly type: "result"; readonly ok: boolean; readonly steps: readonly string[] }
   | { readonly type: "error"; readonly code?: string; readonly message: string };
 
+export interface CreatorAssetRecord {
+  readonly id: string;
+  readonly kind: string;
+  readonly path: string;
+  readonly publicPath: string | null;
+  readonly qualityStatus: string;
+  readonly rightsStatus: string;
+  readonly bytes: number | null;
+  readonly notes: string;
+  readonly sources: readonly ("intake" | "ledger")[];
+  readonly sha256: string | null;
+  readonly fileStatus: string | null;
+  readonly ledgerReleaseStatus: string | null;
+  readonly ledgerSource: string | null;
+}
+
+export interface CreatorAssetsPayload {
+  readonly assets: readonly CreatorAssetRecord[];
+  readonly kinds: readonly string[];
+}
+
+export interface CastingPortrait {
+  readonly stem: string;
+  readonly fileName: string;
+  readonly publicPath: string;
+}
+
+export interface CastingCharacter {
+  readonly id: string;
+  readonly name: string;
+  readonly description: string;
+  readonly side: string;
+  readonly defaultPortrait: string;
+  readonly voiceId: string | null;
+  readonly portraits: readonly CastingPortrait[];
+  readonly previewVoicePath: string | null;
+  readonly previewVoiceKey: string | null;
+}
+
+export interface CastingDeskPayload {
+  readonly characters: readonly CastingCharacter[];
+  readonly voiceMap: Readonly<Record<string, string>>;
+  readonly castIndexSource: "memory" | "static" | "generated";
+}
+
+export type CreatorTaskId = "asset-audit" | "auto-player" | "voice-reconcile";
+
+export interface CreatorTaskDef {
+  readonly id: CreatorTaskId;
+  readonly label: string;
+  readonly description: string;
+}
+
+export interface CreatorTasksPayload {
+  readonly tasks: readonly CreatorTaskDef[];
+  readonly busyTask: string | null;
+}
+
 export class CreatorApiError extends Error {
   readonly code: string;
   readonly status: number;
@@ -112,14 +170,11 @@ export function saveCreatorScene(payload: CreatorSceneSavePayload): Promise<Crea
   });
 }
 
-export async function runCreatorPipeline(
+async function readNdjsonStream(
+  response: Response,
   onEvent: (event: PipelineLogEvent) => void,
+  fallbackStep: string,
 ): Promise<{ readonly ok: boolean }> {
-  const response = await fetch("/__creator-studio/pipeline", {
-    method: "POST",
-    headers: { accept: "application/x-ndjson", "content-type": "application/json" },
-    body: "{}",
-  });
   if (!response.ok || !response.body) {
     const body: unknown = await response.json().catch(() => null);
     const failure =
@@ -128,7 +183,7 @@ export async function runCreatorPipeline(
         : null;
     throw new CreatorApiError(
       failure?.code ?? "REQUEST_FAILED",
-      failure?.message ?? `管线请求失败（HTTP ${response.status}）。`,
+      failure?.message ?? `请求失败（HTTP ${response.status}）。`,
       response.status,
     );
   }
@@ -152,7 +207,7 @@ export async function runCreatorPipeline(
           ok = event.ok;
         }
       } catch {
-        onEvent({ type: "stderr", step: "pipeline", chunk: `${line}\n` });
+        onEvent({ type: "stderr", step: fallbackStep, chunk: `${line}\n` });
       }
     }
   }
@@ -168,6 +223,41 @@ export async function runCreatorPipeline(
     }
   }
   return { ok };
+}
+
+export function fetchCreatorAssets(): Promise<CreatorAssetsPayload> {
+  return requestCreator<CreatorAssetsPayload>("/__creator-studio/assets", { cache: "no-store" });
+}
+
+export function fetchCreatorCasting(): Promise<CastingDeskPayload> {
+  return requestCreator<CastingDeskPayload>("/__creator-studio/casting", { cache: "no-store" });
+}
+
+export function fetchCreatorTasks(): Promise<CreatorTasksPayload> {
+  return requestCreator<CreatorTasksPayload>("/__creator-studio/tasks", { cache: "no-store" });
+}
+
+export async function runCreatorPipeline(
+  onEvent: (event: PipelineLogEvent) => void,
+): Promise<{ readonly ok: boolean }> {
+  const response = await fetch("/__creator-studio/pipeline", {
+    method: "POST",
+    headers: { accept: "application/x-ndjson", "content-type": "application/json" },
+    body: "{}",
+  });
+  return readNdjsonStream(response, onEvent, "pipeline");
+}
+
+export async function runCreatorTask(
+  taskId: CreatorTaskId,
+  onEvent: (event: PipelineLogEvent) => void,
+): Promise<{ readonly ok: boolean }> {
+  const response = await fetch("/__creator-studio/task", {
+    method: "POST",
+    headers: { accept: "application/x-ndjson", "content-type": "application/json" },
+    body: JSON.stringify({ taskId }),
+  });
+  return readNdjsonStream(response, onEvent, taskId);
 }
 
 /** Build a same-origin preview URL reusing prop-stage-fixture jumpTo. */
