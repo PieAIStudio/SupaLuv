@@ -19,11 +19,17 @@ import type {
 import {
   CreatorApiError,
   fetchCreatorGraph,
+  fetchCreatorSceneMeta,
+  openScenePreview,
+  runCreatorPipeline,
   saveCreatorSource,
   type CreatorGraphEnvelope,
+  type CreatorSceneMeta,
+  type PipelineLogEvent,
 } from "./api";
 import { CreatorGraphNode, type CreatorFlowNode } from "./CreatorGraphNode";
 import { analyzeCreatorGraph, findShortestPath, layoutCreatorGraph } from "./graphModel";
+import { SceneInspector } from "./SceneInspector";
 import "../styles/creator-studio.css";
 
 interface CreatorStudioProps {
@@ -44,6 +50,7 @@ const ALL = "all";
 function chapterLabel(chapterId: string): string {
   if (chapterId === "draft-ch01") return "第一章";
   if (chapterId === "draft-ch02") return "第二章";
+  if (chapterId === "draft-ch03") return "第三章";
   return chapterId;
 }
 
@@ -89,6 +96,7 @@ export default function CreatorStudio({
   onClose,
 }: CreatorStudioProps) {
   const [envelope, setEnvelope] = useState<CreatorGraphEnvelope | null>(null);
+  const [sceneMeta, setSceneMeta] = useState<CreatorSceneMeta | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [chapterFilter, setChapterFilter] = useState(ALL);
@@ -98,16 +106,21 @@ export default function CreatorStudio({
   const [selectedLine, setSelectedLine] = useState<NarrativeGraphDialogueLine | null>(null);
   const [editorValue, setEditorValue] = useState("");
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ tone: "idle", message: "" });
+  const [pipelineBusy, setPipelineBusy] = useState(false);
+  const [pipelineLog, setPipelineLog] = useState("");
+  const [pipelineOk, setPipelineOk] = useState<boolean | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const flowRef = useRef<ReactFlowInstance<CreatorFlowNode, Edge> | null>(null);
+  const logEndRef = useRef<HTMLPreElement>(null);
 
   const currentNodeId = currentSceneId ? `${storyId}#scene:${currentSceneId}` : null;
 
   const loadGraph = useCallback(async () => {
     setLoadError(null);
     try {
-      const next = await fetchCreatorGraph();
+      const [next, meta] = await Promise.all([fetchCreatorGraph(), fetchCreatorSceneMeta()]);
       setEnvelope(next);
+      setSceneMeta(meta);
       setSelectedNodeId((prior) =>
         prior && next.graph.nodes.some((node) => node.id === prior)
           ? prior
@@ -151,6 +164,7 @@ export default function CreatorStudio({
     () => [...new Set(graph?.nodes.map((node) => node.chapterId) ?? [])].sort(),
     [graph],
   );
+  const rejoinSceneOptions = useMemo(() => sceneMeta?.sceneIds ?? [], [sceneMeta]);
 
   const visibleGraphNodes = useMemo(() => {
     if (!graph || !analysis) return [];
@@ -173,6 +187,10 @@ export default function CreatorStudio({
     [visibleGraphNodes],
   );
 
+  const previewScene = useCallback((sceneId: string) => {
+    openScenePreview(sceneId);
+  }, []);
+
   const nodes = useMemo<CreatorFlowNode[]>(() => {
     if (!analysis) return [];
     return visibleGraphNodes.map((node) => ({
@@ -191,9 +209,18 @@ export default function CreatorStudio({
         isOnPath: pathNodes.has(node.id),
         isUnreachable: analysis.unreachableNodeIds.has(node.id),
         isDeadEnd: analysis.deadEndNodeIds.has(node.id),
+        onPreview: previewScene,
       },
     }));
-  }, [analysis, currentNodeId, pathNodes, positions, selectedNodeId, visibleGraphNodes]);
+  }, [
+    analysis,
+    currentNodeId,
+    pathNodes,
+    positions,
+    previewScene,
+    selectedNodeId,
+    visibleGraphNodes,
+  ]);
 
   const edges = useMemo<Edge[]>(() => {
     if (!graph) return [];
@@ -273,6 +300,53 @@ export default function CreatorStudio({
     }
   }, [canSave, editorValue, envelope, selectedLine, selectedNodeId]);
 
+  const appendPipelineLog = useCallback((event: PipelineLogEvent) => {
+    setPipelineLog((prev) => {
+      if (event.type === "step_start") {
+        return `${prev}\n▶ ${event.step}: ${event.command}\n`;
+      }
+      if (event.type === "stdout" || event.type === "stderr") {
+        return `${prev}${event.chunk}`;
+      }
+      if (event.type === "step_end") {
+        return `${prev}${event.ok ? "✓" : "✗"} ${event.step} (exit ${event.exitCode ?? "?"})\n`;
+      }
+      if (event.type === "done" || event.type === "result") {
+        return `${prev}\n${event.ok ? "管线完成" : "管线失败"}\n`;
+      }
+      if (event.type === "error") {
+        return `${prev}\n错误：${event.message}\n`;
+      }
+      return prev;
+    });
+  }, []);
+
+  const runPipeline = useCallback(async () => {
+    if (pipelineBusy) return;
+    setPipelineBusy(true);
+    setPipelineOk(null);
+    setPipelineLog("开始一键校验：compile-ink → generate-narrative-graph → typecheck\n");
+    try {
+      const result = await runCreatorPipeline(appendPipelineLog);
+      setPipelineOk(result.ok);
+      if (result.ok) {
+        await loadGraph();
+      }
+    } catch (error) {
+      setPipelineOk(false);
+      appendPipelineLog({
+        type: "error",
+        message: error instanceof Error ? error.message : String(error),
+      });
+    } finally {
+      setPipelineBusy(false);
+    }
+  }, [appendPipelineLog, loadGraph, pipelineBusy]);
+
+  useEffect(() => {
+    logEndRef.current?.scrollTo({ top: logEndRef.current.scrollHeight });
+  }, [pipelineLog]);
+
   useEffect(() => {
     if (!isOpen) return;
     const keydown = (event: KeyboardEvent) => {
@@ -329,10 +403,29 @@ export default function CreatorStudio({
             REV <code data-testid="creator-revision">{graph?.revision ?? "loading"}</code>
           </span>
         </div>
-        <button type="button" className="creator-close" onClick={onClose}>
-          关闭 <kbd>Esc</kbd>
-        </button>
+        <div className="creator-header-actions">
+          <button
+            type="button"
+            className={`creator-pipeline-button${pipelineOk === false ? " is-failed" : ""}${pipelineOk === true ? " is-ok" : ""}`}
+            data-testid="creator-run-pipeline"
+            disabled={pipelineBusy}
+            onClick={() => void runPipeline()}
+          >
+            {pipelineBusy ? "校验中…" : "编译+图生成+校验"}
+          </button>
+          <button type="button" className="creator-close" onClick={onClose}>
+            关闭 <kbd>Esc</kbd>
+          </button>
+        </div>
       </header>
+
+      {pipelineLog ? (
+        <div className="creator-pipeline-log-wrap" data-testid="creator-pipeline-log">
+          <pre ref={logEndRef} className="creator-pipeline-log">
+            {pipelineLog}
+          </pre>
+        </div>
+      ) : null}
 
       {loadError ? (
         <section className="creator-load-failure" role="alert">
@@ -344,7 +437,7 @@ export default function CreatorStudio({
         </section>
       ) : !graph || !analysis ? (
         <div className="creator-loading" role="status">
-          正在装载两章 creator graph…
+          正在装载创作地图与场景 manifest…
         </div>
       ) : (
         <div className="creator-studio-grid">
@@ -470,15 +563,16 @@ export default function CreatorStudio({
           <section className="creator-inspector" aria-label="节点详情">
             {selectedNode ? (
               <>
-                <div className="creator-inspector-heading" data-testid="creator-selected-node">
-                  <div>
-                    <span>
-                      {chapterLabel(selectedNode.chapterId)} · {kindLabel(selectedNode.kind)}
-                    </span>
-                    <h3>{selectedNode.title}</h3>
-                  </div>
-                  <code>{selectedNode.stableSceneId}</code>
-                </div>
+                <SceneInspector
+                  sceneId={selectedNode.stableSceneId}
+                  chapterId={selectedNode.chapterId}
+                  chapterLabel={chapterLabel(selectedNode.chapterId)}
+                  kindLabel={kindLabel(selectedNode.kind)}
+                  title={selectedNode.title}
+                  meta={sceneMeta}
+                  onMetaChange={setSceneMeta}
+                  rejoinSceneOptions={rejoinSceneOptions}
+                />
                 <dl className="creator-node-facts">
                   <div>
                     <dt>稳定 ID</dt>

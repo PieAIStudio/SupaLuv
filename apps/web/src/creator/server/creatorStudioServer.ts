@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import { createRequire } from "node:module";
 import { pathToFileURL } from "node:url";
-import { mkdtemp, readFile, rename, rm, writeFile } from "node:fs/promises";
+import { access, mkdtemp, readdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { basename, dirname, isAbsolute, join, normalize, relative, resolve, sep } from "node:path";
 import { tmpdir } from "node:os";
 import type {
@@ -9,10 +9,22 @@ import type {
   NarrativeGraphPlayerSkeleton,
   NarrativeSourceRange,
 } from "@supaluv/shared/narrative-graph";
+import { runContentTypecheckGate, runCreatorPipeline, type PipelineLogEvent } from "./creatorPipeline";
+import {
+  applySceneFieldUpdates,
+  listSceneIds,
+  parseSceneCard,
+  SceneManifestEditError,
+  type ParsedSceneCard,
+  type SceneEditableFields,
+} from "./sceneManifestEdit";
 
 const CREATOR_GRAPH_PATH = "packages/content/generated/narrative-graph-creator.json";
 const PLAYER_GRAPH_PATH = "packages/content/generated/narrative-graph-player.json";
 const STORY_CATALOG_PATH = "packages/content/catalog/story-catalog.json";
+const CHARACTER_REGISTRY_PATH = "packages/content/characters/registry.ts";
+const VISUAL_INTAKE_PATH = "packages/content/assets/VISUAL-ASSET-INTAKE.json";
+const MANIFEST_DIR = "packages/content/manifests";
 
 export type CreatorStudioErrorCode =
   | "INVALID_REQUEST"
@@ -24,6 +36,7 @@ export type CreatorStudioErrorCode =
   | "COMPILE_FAILED"
   | "TOPOLOGY_CHANGED"
   | "VALIDATION_FAILED"
+  | "SCENE_NOT_FOUND"
   | "SAVE_FAILED";
 
 export class CreatorStudioError extends Error {
@@ -52,6 +65,31 @@ export interface CreatorSaveRequest {
   readonly replacement: string;
 }
 
+export interface CreatorSceneSaveRequest {
+  readonly sceneId: string;
+  readonly chapterId: string;
+  readonly sourceHash: string;
+  readonly fields: SceneEditableFields;
+}
+
+export interface CreatorSceneMeta {
+  readonly speakers: readonly string[];
+  readonly artKeys: readonly string[];
+  readonly videoKeys: readonly string[];
+  readonly sceneIds: readonly string[];
+  readonly scenes: Readonly<
+    Record<
+      string,
+      ParsedSceneCard & {
+        readonly chapterId: string;
+        readonly file: string;
+        readonly sourceHash: string;
+      }
+    >
+  >;
+  readonly manifests: Readonly<Record<string, { readonly hash: string }>>;
+}
+
 export interface CreatorCandidateInput {
   readonly repoRoot: string;
   readonly file: string;
@@ -78,7 +116,15 @@ interface CreatorStudioServiceOptions {
 }
 
 interface StoryCatalogFile {
-  readonly productionChapters?: readonly { readonly inkFile?: string }[];
+  readonly productionChapters?: readonly {
+    readonly id?: string;
+    readonly inkFile?: string;
+    readonly manifestFile?: string;
+  }[];
+}
+
+interface VisualIntakeFile {
+  readonly assets?: readonly { readonly id?: string }[];
 }
 
 function sha256(value: string | Uint8Array): string {
@@ -113,6 +159,111 @@ async function loadAllowlistedInkFiles(repoRoot: string): Promise<readonly strin
     );
   }
   return files.map((file) => `packages/content/ink/${file}`);
+}
+
+async function loadProductionManifestMap(
+  repoRoot: string,
+): Promise<ReadonlyMap<string, { readonly chapterId: string; readonly file: string }>> {
+  const catalog = await readJson<StoryCatalogFile>(join(repoRoot, STORY_CATALOG_PATH));
+  const map = new Map<string, { chapterId: string; file: string }>();
+  for (const chapter of catalog.productionChapters ?? []) {
+    if (!chapter.id || !chapter.manifestFile) continue;
+    const file = `${MANIFEST_DIR}/${chapter.manifestFile}`;
+    map.set(chapter.id, { chapterId: chapter.id, file });
+  }
+  if (map.size === 0) {
+    throw new CreatorStudioError(
+      "VALIDATION_FAILED",
+      "story-catalog.json 没有可用于场景检查器的 production manifest。",
+      500,
+    );
+  }
+  return map;
+}
+
+async function loadSpeakerOptions(repoRoot: string): Promise<string[]> {
+  const source = await readFile(join(repoRoot, CHARACTER_REGISTRY_PATH), "utf8");
+  const blockMatch = /export const CHARACTER_BY_NAME[\s\S]*?=\s*\{([\s\S]*?)\n\};/.exec(source);
+  const block = blockMatch?.[1] ?? source;
+  const names = new Set<string>();
+  const keyPattern = /^\s*(?:([A-Za-z_\u4e00-\u9fff][\w\u4e00-\u9fff]*)|"([^"]+)"|'([^']+)')\s*:/gm;
+  let match: RegExpExecArray | null;
+  while ((match = keyPattern.exec(block))) {
+    const name = match[1] ?? match[2] ?? match[3];
+    if (name) names.add(name);
+  }
+  // Task contract: always expose 旁白 / 系统 even if registry drifts.
+  names.add("旁白");
+  names.add("系统");
+  return [...names].sort((a, b) => a.localeCompare(b, "zh-Hans"));
+}
+
+async function loadArtKeys(repoRoot: string): Promise<string[]> {
+  const intake = await readJson<VisualIntakeFile>(join(repoRoot, VISUAL_INTAKE_PATH));
+  const ids = (intake.assets ?? [])
+    .map((asset) => asset.id)
+    .filter((id): id is string => Boolean(id));
+  return [...new Set(ids)].sort();
+}
+
+async function loadVideoKeys(repoRoot: string): Promise<string[]> {
+  const videoDir = join(repoRoot, "apps/web/public/assets/video");
+  try {
+    await access(videoDir);
+  } catch {
+    return [];
+  }
+  const entries = await readdir(videoDir);
+  return entries
+    .filter((name) => name.endsWith(".mp4"))
+    .map((name) => name.replace(/\.mp4$/i, ""))
+    .sort();
+}
+
+async function loadSceneMeta(repoRoot: string): Promise<CreatorSceneMeta> {
+  const manifestMap = await loadProductionManifestMap(repoRoot);
+  const [speakers, artKeys, videoKeys] = await Promise.all([
+    loadSpeakerOptions(repoRoot),
+    loadArtKeys(repoRoot),
+    loadVideoKeys(repoRoot),
+  ]);
+  const scenes: Record<
+    string,
+    ParsedSceneCard & { chapterId: string; file: string; sourceHash: string }
+  > = {};
+  const manifests: Record<string, { hash: string }> = {};
+  const sceneIds: string[] = [];
+
+  for (const entry of manifestMap.values()) {
+    const absolute = join(repoRoot, entry.file);
+    const bytes = await readFile(absolute);
+    const source = bytes.toString("utf8");
+    const hash = sha256(bytes);
+    manifests[entry.file] = { hash };
+    for (const sceneId of listSceneIds(source)) {
+      sceneIds.push(sceneId);
+      try {
+        const card = parseSceneCard(source, sceneId);
+        scenes[sceneId] = {
+          ...card,
+          chapterId: entry.chapterId,
+          file: entry.file,
+          sourceHash: hash,
+        };
+      } catch {
+        // Skip unparseable fragments (e.g. type import ids); only real scene cards matter.
+      }
+    }
+  }
+
+  return {
+    speakers,
+    artKeys,
+    videoKeys,
+    sceneIds: [...new Set(sceneIds)].sort(),
+    scenes,
+    manifests,
+  };
 }
 
 async function loadEnvelope(repoRoot: string): Promise<CreatorGraphEnvelope> {
@@ -340,10 +491,106 @@ async function validateRealCandidate(
 export function createCreatorStudioService(options: CreatorStudioServiceOptions) {
   const repoRoot = resolve(options.repoRoot);
   const validateCandidate = options.validateCandidate ?? validateRealCandidate;
+  let pipelineRunning = false;
 
   return {
     async getGraph(): Promise<CreatorGraphEnvelope> {
       return loadEnvelope(repoRoot);
+    },
+
+    async getSceneMeta(): Promise<CreatorSceneMeta> {
+      return loadSceneMeta(repoRoot);
+    },
+
+    async saveScene(request: CreatorSceneSaveRequest): Promise<CreatorSceneMeta> {
+      if (!request.sceneId?.trim() || !request.chapterId?.trim() || !request.sourceHash) {
+        throw new CreatorStudioError("INVALID_REQUEST", "场景保存请求字段不完整。", 400);
+      }
+      if (!request.fields || typeof request.fields !== "object") {
+        throw new CreatorStudioError("INVALID_REQUEST", "缺少 fields。", 400);
+      }
+
+      const manifestMap = await loadProductionManifestMap(repoRoot);
+      const entry = manifestMap.get(request.chapterId);
+      if (!entry) {
+        throw new CreatorStudioError(
+          "INVALID_PATH",
+          `章节 ${request.chapterId} 不在 production catalog 中。`,
+          403,
+        );
+      }
+      const absolute = resolve(repoRoot, entry.file);
+      if (!isInsideRoot(repoRoot, absolute)) {
+        throw new CreatorStudioError("INVALID_PATH", "manifest 路径非法。", 403);
+      }
+
+      const currentBytes = await readFile(absolute);
+      if (sha256(currentBytes) !== request.sourceHash) {
+        throw new CreatorStudioError(
+          "HASH_CONFLICT",
+          "场景 manifest 已被其他修改覆盖。刷新后再编辑，当前磁盘内容未改动。",
+          409,
+        );
+      }
+
+      const currentSource = currentBytes.toString("utf8");
+      let candidateSource: string;
+      try {
+        candidateSource = applySceneFieldUpdates(currentSource, request.sceneId, request.fields);
+      } catch (error) {
+        if (error instanceof SceneManifestEditError) {
+          throw new CreatorStudioError(
+            error.code === "SCENE_NOT_FOUND" ? "SCENE_NOT_FOUND" : "VALIDATION_FAILED",
+            error.message,
+            error.code === "SCENE_NOT_FOUND" ? 404 : 422,
+          );
+        }
+        throw error;
+      }
+
+      if (candidateSource === currentSource) {
+        return loadSceneMeta(repoRoot);
+      }
+
+      // Write first, gate with content typecheck, roll back on failure.
+      await writeFile(absolute, candidateSource, "utf8");
+      try {
+        const gate = await runContentTypecheckGate(repoRoot);
+        if (!gate.ok) {
+          await writeFile(absolute, currentSource, "utf8");
+          throw new CreatorStudioError(
+            "VALIDATION_FAILED",
+            `场景 manifest 校验失败，已回滚：${gate.stderr || gate.stdout || "typecheck failed"}`.slice(
+              0,
+              2000,
+            ),
+            422,
+          );
+        }
+      } catch (error) {
+        if (!(error instanceof CreatorStudioError)) {
+          await writeFile(absolute, currentSource, "utf8");
+        }
+        throw error;
+      }
+
+      return loadSceneMeta(repoRoot);
+    },
+
+    async runPipeline(onEvent?: (event: PipelineLogEvent) => void) {
+      if (pipelineRunning) {
+        throw new CreatorStudioError(
+          "VALIDATION_FAILED",
+          "已有校验管线在运行，请稍后再试。",
+          409,
+        );
+      }
+      pipelineRunning = true;
+      try {
+        return await runCreatorPipeline(repoRoot, onEvent);
+      } finally {
+        pipelineRunning = false;
+      }
     },
 
     async save(request: CreatorSaveRequest): Promise<CreatorGraphEnvelope> {

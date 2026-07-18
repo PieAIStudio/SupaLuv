@@ -10,6 +10,7 @@ export interface CreatorGraphNodeData extends Record<string, unknown> {
   readonly isOnPath: boolean;
   readonly isUnreachable: boolean;
   readonly isDeadEnd: boolean;
+  readonly onPreview?: (sceneId: string) => void;
 }
 
 export type CreatorFlowNode = Node<CreatorGraphNodeData, "creator">;
@@ -40,6 +41,19 @@ export function CreatorGraphNode({ data }: NodeProps<CreatorFlowNode>) {
           {data.isUnreachable ? <span>不可达</span> : null}
           {data.isDeadEnd ? <span>断路</span> : null}
         </div>
+      ) : null}
+      {data.onPreview ? (
+        <button
+          type="button"
+          className="creator-node-preview"
+          data-testid={`creator-node-preview-${data.stableSceneId}`}
+          onClick={(event) => {
+            event.stopPropagation();
+            data.onPreview?.(data.stableSceneId);
+          }}
+        >
+          从此场景预览
+        </button>
       ) : null}
       <Handle type="source" position={Position.Right} isConnectable={false} />
     </article>
