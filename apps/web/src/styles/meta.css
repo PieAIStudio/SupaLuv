@@ -653,8 +653,18 @@
   font-size: 0.8rem;
 }
 
-/* Cinema override for brand GameCallout on dark stage */
+/* UIKit's base .game-ui-callout is an absolutely-positioned nowrap bubble
+   (tooltip styling). Everywhere this app uses it as an in-flow note it must
+   be re-anchored and allowed to wrap, or it floats over neighboring controls
+   and swallows their clicks (bit us in the choice stack). */
+.settings-panel .game-ui-callout {
+  position: static;
+  white-space: normal;
+}
+
 .vn-stage .ai-battery-pitch.game-ui-callout {
+  position: static;
+  white-space: normal;
   margin: 0.35rem 0 0;
   border-color: rgba(232, 160, 106, 0.35);
   background: rgba(40, 24, 14, 0.72);

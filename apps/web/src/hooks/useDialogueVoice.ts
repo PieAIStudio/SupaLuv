@@ -100,13 +100,10 @@ export function useDialogueVoice({
     session.cancel();
     gameAudio.stopVoice();
 
-    // Wait for capability before any synthesize attempt (avoids 400 log spam).
-    if (freeformEnabled === null) {
-      return;
-    }
-
     const token = accessToken;
     const volumeAtStart = voiceVolumeRef.current;
+    // Runtime TTS needs auth + server freeform (probe may still be in flight;
+    // treat unknown as off — no 400 spam, and pregen below never needed it).
     const startOk =
       Boolean(token) &&
       canStartDialogueVoiceRequest({
@@ -117,12 +114,20 @@ export function useDialogueVoice({
         hasText: Boolean(text.trim()),
         productMuted: gameAudio.isMuted(),
         voiceVolume: volumeAtStart,
-        freeformEnabled,
+        freeformEnabled: freeformEnabled === true,
       });
+    // Pre-generated clips are static assets: guests hear authored lines with
+    // no auth, no server, no per-line spend. Only local playback gates apply.
+    const pregenOk =
+      enabled &&
+      !masterMuted &&
+      Boolean(text.trim()) &&
+      !gameAudio.isMuted() &&
+      volumeAtStart > 0;
 
     const segments = planBrowserTtsSegments(text, language);
     const segmentsOk = segments.length > 0 && !hasMixedTtsRoutes(segments);
-    const requestEligible = startOk && segmentsOk;
+    const requestEligible = (startOk || pregenOk) && segmentsOk;
 
     // Always claim so volume-zero can suppress; only begin when opportunity is open.
     if (
@@ -136,8 +141,7 @@ export function useDialogueVoice({
       return;
     }
 
-    // claimLine is true only when requestEligible was true (token + segments ready).
-    const safeToken = token as string;
+    // claimLine is true only when requestEligible was true (segments ready).
     const routedLanguage = segments[0]?.language ?? language;
     const routedText = segments
       .map((segment) => segment.text)
@@ -146,8 +150,8 @@ export function useDialogueVoice({
 
     const ticket = session.begin();
 
-    void import("../audio/ttsClient")
-      .then(({ requestDialogueTts, speakerToCharacterId }) => {
+    void Promise.all([import("../audio/ttsClient"), import("../audio/pregenVoice")])
+      .then(async ([{ requestDialogueTts, speakerToCharacterId }, pregen]) => {
         const liveVolume = voiceVolumeRef.current;
         if (
           !canPlayDialogueVoiceResult({
@@ -162,12 +166,26 @@ export function useDialogueVoice({
           return null;
         }
 
+        const characterId = speakerToCharacterId(speaker);
+
+        // Authored lines ship as static clips — try the bank before runtime TTS.
+        if (pregenOk) {
+          const key = pregen.pregenVoiceKey(characterId, routedLanguage, routedText);
+          const catalog = await pregen.loadPregenVoiceCatalog();
+          if (catalog.has(key)) {
+            return pregen.fetchPregenClipBase64(key, ticket.controller.signal);
+          }
+        }
+
+        if (!startOk || !token) {
+          return null;
+        }
         return requestDialogueTts({
           text: routedText,
           language: routedLanguage,
-          characterId: speakerToCharacterId(speaker),
+          characterId,
           emotion,
-          accessToken: safeToken,
+          accessToken: token,
           signal: ticket.controller.signal,
         });
       })

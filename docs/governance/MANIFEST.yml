@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-18T05:14:07.318Z
+generated_at: 2026-07-18T06:37:21.105Z
 generator_version: doc-gov@0.8.0
-docs_count: 44
+docs_count: 45
 docs:
   - id: ADR-0001
     path: docs/adr/0001-web-first-react-ink-baseline.md
@@ -298,6 +298,13 @@ docs:
     canonical: true
     last_reviewed: 2026-07-16
     pinned: true
+  - id: SPEC-0004
+    path: docs/specs/active/SPEC-0004-creator-studio-product.md
+    type: spec
+    status: active
+    canonical: true
+    last_reviewed: 2026-07-18
+    pinned: false
   - id: SPEC-0001
     path: docs/specs/completed/SPEC-0001-chapter-01-trial-pipeline.md
     type: spec
