@@ -6,6 +6,7 @@ import {
   GameTextArea,
 } from "@pieai/swimmer-ui-kit";
 import { useState } from "react";
+import { AiWaitInterstitial } from "../ai/AiWaitInterstitial";
 import { useAuth } from "../auth/AuthContext";
 import { useAiEndingSession } from "../ai-ending/useAiEndingSession";
 import type { StoryCharacterBindings } from "../characters/characterPackTypes";
@@ -21,7 +22,7 @@ export function AiEndingExperience({
   onClose: () => void;
 }) {
   const auth = useAuth();
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const ending = useAiEndingSession({ getAccessToken: auth.getAccessToken, characterBindings });
   const [freeText, setFreeText] = useState("");
   const busy = ending.status === "loading";
@@ -50,6 +51,7 @@ export function AiEndingExperience({
             >
               {busy ? t("aiEnding.planning") : t("aiEnding.start")}
             </GameButton>
+            {busy ? <AiWaitInterstitial locale={locale} /> : null}
           </div>
         ) : (
           <>
@@ -102,6 +104,7 @@ export function AiEndingExperience({
                 >
                   {t("aiEnding.submit")}
                 </GameButton>
+                {busy ? <AiWaitInterstitial locale={locale} /> : null}
               </div>
             ) : (
               <div className="ai-ending-terminal">
