@@ -5,7 +5,7 @@ import type {
 } from "@supaluv/shared/narrative-graph";
 
 export const CREATOR_NODE_WIDTH = 244;
-export const CREATOR_NODE_HEIGHT = 112;
+export const CREATOR_NODE_HEIGHT = 132;
 
 export interface CreatorGraphAnalysis {
   readonly unreachableNodeIds: ReadonlySet<string>;

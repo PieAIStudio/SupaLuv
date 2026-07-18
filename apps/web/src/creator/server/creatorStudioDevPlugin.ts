@@ -5,13 +5,15 @@ import {
   CreatorStudioError,
   createCreatorStudioService,
   type CreatorSaveRequest,
+  type CreatorSceneSaveRequest,
 } from "./creatorStudioServer";
+import type { SceneEditableFields } from "./sceneManifestEdit";
 
 type CreatorStudioService = ReturnType<typeof createCreatorStudioService>;
 type Next = (error?: unknown) => void;
 
 const BASE_PATH = "/__creator-studio";
-const MAX_BODY_BYTES = 64 * 1024;
+const MAX_BODY_BYTES = 256 * 1024;
 
 function writeJson(response: ServerResponse, status: number, value: unknown): void {
   response.statusCode = status;
@@ -31,10 +33,13 @@ async function readJsonBody(request: IncomingMessage): Promise<unknown> {
     }
     chunks.push(bytes);
   }
+  if (chunks.length === 0) {
+    return {};
+  }
   try {
     return JSON.parse(Buffer.concat(chunks).toString("utf8"));
   } catch {
-    throw new CreatorStudioError("INVALID_REQUEST", "保存请求不是有效 JSON。", 400);
+    throw new CreatorStudioError("INVALID_REQUEST", "请求不是有效 JSON。", 400);
   }
 }
 
@@ -51,6 +56,22 @@ function isSaveRequest(value: unknown): value is CreatorSaveRequest {
     typeof request.sourceRange?.startLine === "number" &&
     typeof request.sourceRange?.endLine === "number"
   );
+}
+
+function isSceneSaveRequest(value: unknown): value is CreatorSceneSaveRequest {
+  if (!value || typeof value !== "object") return false;
+  const request = value as Partial<CreatorSceneSaveRequest>;
+  return (
+    typeof request.sceneId === "string" &&
+    typeof request.chapterId === "string" &&
+    typeof request.sourceHash === "string" &&
+    Boolean(request.fields) &&
+    typeof request.fields === "object"
+  );
+}
+
+function writeNdjson(response: ServerResponse, value: unknown): void {
+  response.write(`${JSON.stringify(value)}\n`);
 }
 
 export function createCreatorStudioRequestHandler(service: CreatorStudioService) {
@@ -70,6 +91,10 @@ export function createCreatorStudioRequestHandler(service: CreatorStudioService)
         writeJson(response, 200, await service.getGraph());
         return;
       }
+      if (pathname === `${BASE_PATH}/scene-meta` && request.method === "GET") {
+        writeJson(response, 200, await service.getSceneMeta());
+        return;
+      }
       if (pathname === `${BASE_PATH}/save` && request.method === "POST") {
         const body = await readJsonBody(request);
         if (!isSaveRequest(body)) {
@@ -78,10 +103,53 @@ export function createCreatorStudioRequestHandler(service: CreatorStudioService)
         writeJson(response, 200, await service.save(body));
         return;
       }
+      if (pathname === `${BASE_PATH}/save-scene` && request.method === "POST") {
+        const body = await readJsonBody(request);
+        if (!isSceneSaveRequest(body)) {
+          throw new CreatorStudioError("INVALID_REQUEST", "场景保存请求字段不完整。", 400);
+        }
+        // Narrow fields to known keys only.
+        const fields = body.fields as SceneEditableFields;
+        writeJson(
+          response,
+          200,
+          await service.saveScene({
+            sceneId: body.sceneId,
+            chapterId: body.chapterId,
+            sourceHash: body.sourceHash,
+            fields,
+          }),
+        );
+        return;
+      }
+      if (pathname === `${BASE_PATH}/pipeline` && request.method === "POST") {
+        // Drain body if present, then stream NDJSON logs.
+        await readJsonBody(request).catch(() => ({}));
+        response.statusCode = 200;
+        response.setHeader("content-type", "application/x-ndjson; charset=utf-8");
+        response.setHeader("cache-control", "no-store");
+        response.setHeader("transfer-encoding", "chunked");
+        const result = await service.runPipeline((event) => {
+          writeNdjson(response, event);
+        });
+        writeNdjson(response, { type: "result", ok: result.ok, steps: result.steps.map((s) => s.step) });
+        response.end();
+        return;
+      }
       writeJson(response, 404, {
         error: { code: "INVALID_REQUEST", message: "Creator Studio route 不存在。" },
       });
     } catch (error) {
+      // If headers already sent (pipeline stream), just end.
+      if (response.headersSent) {
+        writeNdjson(response, {
+          type: "error",
+          code: error instanceof CreatorStudioError ? error.code : "SAVE_FAILED",
+          message: error instanceof Error ? error.message : String(error),
+        });
+        response.end();
+        return;
+      }
       const failure =
         error instanceof CreatorStudioError
           ? error
@@ -97,6 +165,31 @@ export function createCreatorStudioRequestHandler(service: CreatorStudioService)
   };
 }
 
+/** Dev-only bootstrap: auto-jump after prop-stage-fixture exposes jumpTo. */
+const PREVIEW_BOOTSTRAP = `
+<script type="module">
+(() => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const scene = params.get("creator-preview-scene");
+    if (!scene || !params.has("prop-stage-fixture")) return;
+    const started = Date.now();
+    const timer = window.setInterval(() => {
+      const api = window.__SUPALUV_PROP_STAGE_TEST__;
+      if (api && typeof api.jumpTo === "function") {
+        try { api.jumpTo(scene); } catch (e) { console.warn("[creator-preview]", e); }
+        window.clearInterval(timer);
+        return;
+      }
+      if (Date.now() - started > 180000) window.clearInterval(timer);
+    }, 400);
+  } catch (e) {
+    console.warn("[creator-preview] bootstrap failed", e);
+  }
+})();
+</script>
+`;
+
 export function createCreatorStudioDevPlugin(options: { readonly repoRoot: string }): Plugin {
   const service = createCreatorStudioService({ repoRoot: options.repoRoot });
   const handler = createCreatorStudioRequestHandler(service);
@@ -105,6 +198,12 @@ export function createCreatorStudioDevPlugin(options: { readonly repoRoot: strin
     apply: "serve",
     configureServer(server) {
       server.middlewares.use(handler);
+    },
+    transformIndexHtml(html) {
+      if (html.includes("creator-preview-scene")) {
+        return html;
+      }
+      return html.replace("</body>", `${PREVIEW_BOOTSTRAP}</body>`);
     },
     handleHotUpdate({ file }) {
       const relativeFile = relative(options.repoRoot, file).split(sep).join("/");
