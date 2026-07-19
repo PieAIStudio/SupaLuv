@@ -40,7 +40,7 @@ export const en: MessageTree = {
     eyebrow: "INTERACTIVE CINEMA",
     logo: "SupaLuv",
     tagline: "It won’t judge you. The questionnaire might.",
-    sub: "Black-humor sex comedy · local saves · 16:9 stage · BGM",
+    sub: "Black-humor sex comedy · local saves · 16:9 stage · stage beds",
     newGame: "New game",
     continue: "Continue",
     slots: "Load / slots",
@@ -231,7 +231,7 @@ export const en: MessageTree = {
   },
   gallery: {
     title: "Gallery",
-    lead: "Unlocks while you play or hear tracks. Tap a track to preview.",
+    lead: "Unlocks while you play or hear stage beds. Tap a bed to preview.",
     images: "Still CG",
     videos: "Video / Event CG",
     audio: "Music collection",
@@ -246,7 +246,7 @@ export const en: MessageTree = {
     noImages: "No images yet",
     noImagesDescription: "Images appear here after you enter a scene that uses them.",
     noAudio: "No music yet",
-    noAudioDescription: "Title, scene, and chapter-end tracks appear here after you hear them.",
+    noAudioDescription: "Title, scene, and chapter-end beds appear here after you hear them.",
     records: {
       "protocol-terms": {
         title: "Protocol terms",

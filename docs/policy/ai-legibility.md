@@ -80,4 +80,4 @@ Owner 决策（2026-07-19）：SupaLuv 的游戏与 Creator Studio 都是 AI 时
 任务日志、五个子项目边界的 AGENTS.md 入口、Studio 自描述端点与首次冷启动
 实测（改 speaker 闭环）。v2 修订后的缺口：describe 迁移为标准 OpenAPI 3.1
 （同一注册表生成）、五类任务冷启动复测、localhost 绑定与输入校验核查、
-术语统一执行（bgm/bed 双轨清理）。
+术语表 SSOT：`packages/content/AGENTS.md`（含 bgmKey↔bed 与 B 级冻结契约）。

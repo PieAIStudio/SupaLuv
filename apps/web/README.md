@@ -82,7 +82,7 @@ JSON; chapter checkpoints advance along that chain. Chapter 3 ends as
 | Surface audio chrome         | `views/play/experience/usePlaySurfaceAudio.ts` (beds stay in `useStageMedia`)                 |
 | Path-memory play facts       | `views/play/experience/usePlayPathTelemetry.ts`                                               |
 | Host/guest choice + RPS open | `views/play/hooks/usePlayChoiceFlow.ts` (owned via decision experience)                       |
-| Cutscene / BGM / SFX timing  | `views/play/hooks/useStageMedia.ts`                                                           |
+| Cutscene / stage beds / SFX timing | `views/play/hooks/useStageMedia.ts`                                                       |
 | Shared cursor / touch focus  | `coplay/pointerPolicy.ts` + `views/play/hooks/useCoPlayPointers.ts`                           |
 | Save / resume / chapter flow | `story/session/*` + `persistence/gameSave.ts` + `saveWriter.ts`                               |
 | Save schema                  | `persistence/gameSave.ts` + `saveWriter.ts` + tests                                           |

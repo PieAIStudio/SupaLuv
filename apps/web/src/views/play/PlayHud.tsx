@@ -15,7 +15,7 @@ interface PlayHudProps {
   readonly showDevTools: boolean;
   readonly storyId: StoryId;
   readonly storyLabel: string;
-  /** Current exclusive BGM key (stable id). */
+  /** Current stage bed id (stable catalog id: music or ambient). */
   readonly nowPlayingBedId?: string | null;
   readonly isFullscreen: boolean;
   readonly muted: boolean;

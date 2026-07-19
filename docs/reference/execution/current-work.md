@@ -67,7 +67,7 @@ related:
 
 | 发布门 | 状态与证据 |
 | --- | --- |
-| 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、BGM/ambient/SFX 和长文本节奏任务；对白 TTS 本地全链路已打通（游客登录→逐句 MiniMax 合成 200）；朱珠已按小说真相重制入库（2026-07-18，脸=近陈佳的机器人版，ch03 揭晓场景浏览器实证）；立绘上台标准已定（ADR-0006 amendment：无框合成+落地锚定，visual-contract 机器强制）；AI 支线触发点已恢复（小说重转时丢失，三章各一处，2026-07-18 真实 Gemini 生成+回归主线实证）；男款大力 v2 候选已按 owner 方向产出于 `Temp/dali-robot-v2-2026-07-18/`，等 owner 目选且大力尚无剧情戏份 |
+| 正式内容与视听 | 未完成；`PLAN-0005` Stage 3 仍有正式资产、stage beds（music/ambient）/SFX 和长文本节奏任务；对白 TTS 本地全链路已打通（游客登录→逐句 MiniMax 合成 200）；朱珠已按小说真相重制入库（2026-07-18，脸=近陈佳的机器人版，ch03 揭晓场景浏览器实证）；立绘上台标准已定（ADR-0006 amendment：无框合成+落地锚定，visual-contract 机器强制）；AI 支线触发点已恢复（小说重转时丢失，三章各一处，2026-07-18 真实 Gemini 生成+回归主线实证）；男款大力 v2 候选已按 owner 方向产出于 `Temp/dali-robot-v2-2026-07-18/`，等 owner 目选且大力尚无剧情戏份 |
 | 发行级试玩 | 未完成；独立 critic pass 与第二轮选择感/视听/地图/存档/失败恢复试玩仍未关闭 |
 | 真实服务验收 | 基本完成；本地真实调用证据已取得（auth/AI 支线/TTS/钱包 fail-closed/存储，见 `.scratch/director/playtest/2026-07-16/live-service-proof.md`）；2026-07-18 生产站云端 co-play 已实证（Supabase Realtime 全通）；Preview 验收通过（登录墙已关，匿名冒烟零错误）；owner 口头批准后 2026-07-18 已两次发布 Production（`pnpm vercel deploy --prod`，home 200 / health 200 / 新资产在线）；AI 支线浏览器全链路已实证（needs_battery 拦截 + unmetered 本地档生成 200 + 回归主线）；**发布纪律（2026-07-18 事故后确立）：GitHub push 会触发 Vercel 自动生产部署，任何 push 都等于发生产；本地 main 必须与 origin/main 保持同步，否则外部合并（如治理升级 PR）会用旧代码顶掉生产**（当日事故：origin 落后 94 提交，PGS 0.8.0 合并把生产退回旧版，已合并回推修复）；全角色中文配音已选角（MiniMax 16 音色逐一活体验证，主角色独立音色+旁白独立音色，本地对白合成 200 实证；生产 `SUPALUV_TTS_ALLOW_FREEFORM` 仍关闭，开启需 owner 成本决策）；**预生成配音库已上线**（2026-07-18：三章 136 条唯一台词离线合成入库 `apps/web/public/assets/voice/`，客户端先查静态库再考虑实时 TTS，游客在生产可听配音且零 AI 消耗；无后端纯前端环境浏览器实证静态 mp3 200 播放；工具 `tools/voice-pregen/generate.ts`，Ink 文本改动后需重跑；规模化后语音库应迁对象存储） |
 

@@ -27,8 +27,12 @@ export interface PrototypeSceneCard {
   readonly title: string;
   readonly purpose: string;
   readonly visualPlaceholder: string;
+  /**
+   * Logical place token (e.g. `office-night`). Distinct from `artKey` file stem
+   * (often `bg-office-night`). Contract field — do not rename.
+   */
   readonly backgroundKey?: string;
-  /** Public art id under /assets/scenes/{artKey}.jpg when present. */
+  /** Scene still stem under /assets/scenes/{artKey}.jpg when present. Canonical visual key. */
   readonly artKey?: string;
   /** Restrained still-image motion used instead of identity-breaking prerendered human video. */
   readonly stageMotion?: "slow_push" | "drift" | "flash";
@@ -42,8 +46,9 @@ export interface PrototypeSceneCard {
   /** Companion display name when dual portraits are active. */
   readonly companionSpeaker?: string;
   /**
-   * Legacy single bed id under /assets/audio/bgm/{bgmKey}.mp3.
-   * Runtime classifies into music vs ambient (soft-piano → music; others → ambient).
+   * Legacy single **bed** id (contract field name frozen as `bgmKey`).
+   * File path: `/assets/audio/bgm/{bgmKey}.mp3`. Runtime concept is bed.
+   * Classifies into music vs ambient when dedicated keys are absent.
    */
   readonly bgmKey?: string;
   /** Explicit melodic bed (optional; overrides bgmKey classification for music). */
