@@ -1,5 +1,5 @@
 import { makeActionIdempotencyKey } from "../../services/ai-branch/src/actionIdentity";
-import { characterGenerationRequestSchema } from "../../services/ai-branch/src/characterSchemas";
+import { characterGenerationRequestSchema } from "../../services/ai-branch/src/character/characterSchemas";
 import { describe, expect, it } from "vitest";
 
 const validRequest = {

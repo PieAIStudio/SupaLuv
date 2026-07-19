@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
-import { sendJson } from "./httpUtils.js";
-import type { SpendReceiptInput, SpendReceiptReader } from "./persistence/index.js";
+import type { AuthGateFailure, AuthGateResult } from "../authGate.js";
+import { sendJson } from "../httpUtils.js";
+import type { SpendReceiptInput, SpendReceiptReader } from "../persistence/index.js";
 
 type VerifyAuth = (
   authorizationHeader: string | undefined,

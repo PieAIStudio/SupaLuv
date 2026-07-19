@@ -42,7 +42,7 @@ manifest 只做呈现映射。转换是"改编"不是"搬运"：小说散文 →
 - 新说话角色必须在 `packages/content/characters/registry.ts` 登记；没有立绘就用 `demo-ui` 占位，
   **严禁复用别的角色的脸**（真人上传身份泄漏风险，2026-07-16 已出过 P1）。
 - 主角命名走 displayNames 规范名（当前男主 苏明 / 女主 石佩欣）；改名系统依赖正文用规范名。
-- 新角色补 `apps/web/src/audio/ttsClient.ts` 与 `services/ai-branch/src/ttsRoute.ts` 的别名映射。
+- 新角色补 `apps/web/src/audio/ttsClient.ts` 与 `services/ai-branch/src/tts/ttsRoute.ts` 的别名映射。
 
 ### 5. 工件落地与注册
 按 `references/pipeline.md` 的清单逐项落地：ink → manifest → chapter module → index.ts 注册 →

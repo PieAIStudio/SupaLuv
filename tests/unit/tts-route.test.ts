@@ -4,7 +4,7 @@ import {
   planDialogueTtsSegments,
   resolveTtsCharacterId,
   toSafeTtsSynthesizeResult,
-} from "../../services/ai-branch/src/ttsRoute";
+} from "../../services/ai-branch/src/tts/ttsRoute";
 
 describe("dual TTS route", () => {
   it("sends Chinese locales to the Chinese lane", () => {

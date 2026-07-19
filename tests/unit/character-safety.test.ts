@@ -7,7 +7,7 @@ import {
   GEMINI_ADULT_PRESENTATION_MODEL,
   type GeminiAdultReviewClient,
   type GeneratedAdultPresentationReviewer,
-} from "../../services/ai-branch/src/characterSafety";
+} from "../../services/ai-branch/src/character/characterSafety";
 
 const image = { bytes: Buffer.from("image"), mimeType: "image/jpeg" as const };
 

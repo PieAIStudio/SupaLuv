@@ -6,19 +6,19 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { isPermittedStoryId } from "@supaluv/shared/choice-stats-catalog";
 import { verifyBearerToken } from "./authGate.js";
-import { characterProviderHealthSnapshot } from "./characterProviderConfig.js";
-import { handleCharacterAssetRoute } from "./characterAssetService.js";
-import { handleCharacterPackRoute } from "./characterRoutes.js";
+import { characterProviderHealthSnapshot } from "./character/characterProviderConfig.js";
+import { handleCharacterAssetRoute } from "./character/characterAssetService.js";
+import { handleCharacterPackRoute } from "./character/characterRoutes.js";
 import { getCommercialRouteRuntime } from "./commercialRouteRuntime.js";
-import { handleEndingRoute } from "./endingRoutes.js";
-import { handleSpendRoute } from "./spendRoutes.js";
-import { getCountsForStory, recordChoice } from "./choiceStatsStore.js";
-import type { AiBranchRequestBody } from "./branchTypes.js";
+import { handleEndingRoute } from "./ending/endingRoutes.js";
+import { handleSpendRoute } from "./wallet/spendRoutes.js";
+import { getCountsForStory, recordChoice } from "./branch/choiceStatsStore.js";
+import type { AiBranchRequestBody } from "./branch/branchTypes.js";
 import { generateAiBranch } from "./handler.js";
 import { hasOpenRouterKey, readBody, sendJson } from "./httpUtils.js";
 import { reviewAiBranchRequest, reviewAiBranchResponse } from "./safetyGate.js";
-import { listPreviewIds, resolvePreviewPhrase } from "./ttsCatalog.js";
-import { isTtsFreeformEnabled, synthesizeDialogue, ttsHealthSnapshot } from "./ttsRoute.js";
+import { listPreviewIds, resolvePreviewPhrase } from "./tts/ttsCatalog.js";
+import { isTtsFreeformEnabled, synthesizeDialogue, ttsHealthSnapshot } from "./tts/ttsRoute.js";
 import {
   AI_BRANCH_COST_BATTERIES,
   TTS_COST_BATTERIES,
@@ -31,7 +31,7 @@ import {
   settleReservation,
   walletMeterConfigured,
   walletOptionalMode,
-} from "./walletMeter.js";
+} from "./wallet/walletMeter.js";
 
 const commercialRuntime = getCommercialRouteRuntime();
 

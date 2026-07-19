@@ -9,7 +9,7 @@ import {
   getCountsForStory,
   recordChoice,
   resetChoiceStatsForTesting,
-} from "../../services/ai-branch/src/choiceStatsStore.js";
+} from "../../services/ai-branch/src/branch/choiceStatsStore.js";
 import { sendJson } from "../../services/ai-branch/src/httpUtils.js";
 import { handleAiBranchRequest } from "../../services/ai-branch/src/routeTable.js";
 import { normalizeAiBranchServiceUrl } from "../../services/ai-branch/src/serviceMount.js";

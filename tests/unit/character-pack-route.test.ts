@@ -3,11 +3,11 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   handleCharacterPackRoute,
   type CharacterPackRouteDependencies,
-} from "../../services/ai-branch/src/characterRoutes";
+} from "../../services/ai-branch/src/character/characterRoutes";
 import {
   CharacterGenerationBusyError,
   CharacterGenerationPaymentError,
-} from "../../services/ai-branch/src/characterGenerationService";
+} from "../../services/ai-branch/src/character/characterGenerationService";
 import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index";
 
 let server: Server | undefined;

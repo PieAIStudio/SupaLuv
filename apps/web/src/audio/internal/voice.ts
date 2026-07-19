@@ -5,8 +5,8 @@
 import { createEngineHowl, panForSpeaker, stopAndUnload } from "../howlerEngine";
 import { mimeToHowlerFormat } from "./helpers";
 import { applyBedMix, resolveMix } from "./mix";
-import { unlock } from "./core";
 import { VOICE_DUCK_ATTACK_MS, VOICE_DUCK_RELEASE_MS, type GameAudioRuntime } from "./runtime";
+import { unlock } from "./unlock";
 
 export function stopVoice(rt: GameAudioRuntime): void {
   const hadActiveVoice = rt.voiceActive || Boolean(rt.voiceHowl || rt.voiceObjectUrl);

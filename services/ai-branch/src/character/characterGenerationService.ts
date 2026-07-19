@@ -1,12 +1,12 @@
 import { randomUUID } from "node:crypto";
 import { INITIAL_CHARACTER_MOOD_KEYS, type CharacterKind } from "@supaluv/shared/character-pack";
-import { makeActionIdempotencyKey } from "./actionIdentity.js";
+import { makeActionIdempotencyKey } from "../actionIdentity.js";
 import type { CharacterAssetBinaryStorage } from "./characterAssetService.js";
 import { CHARACTER_ASSET_BUCKET } from "./characterAssetService.js";
 import type { CharacterImageProvider } from "./characterImageProvider.js";
 import type { CharacterSafety } from "./characterSafety.js";
-import type { CharacterGenerationStore } from "./persistence/characterGenerationStore.js";
-import type { GeneratedAssetRecord, GenerationActionKind } from "./persistence/types.js";
+import type { CharacterGenerationStore } from "../persistence/characterGenerationStore.js";
+import type { GeneratedAssetRecord, GenerationActionKind } from "../persistence/types.js";
 
 export interface CharacterGenerationWallet {
   reserve(input: {

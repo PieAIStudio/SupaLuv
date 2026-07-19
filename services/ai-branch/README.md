@@ -4,14 +4,14 @@ Server edge for constrained AI side branches, TTS, wallet metering, character
 packs/references, and AI ending sessions. Product docs live under `docs/**`;
 this file is a **handoff map for the next AI/human** working in this package.
 
-Last reviewed: 2026-07-17 (against source in this tree).
+Last reviewed: 2026-07-19 (domain dir grouping).
 
 ## Responsibility
 
 - HTTP API for AI branch generation, preview/catalog TTS, wallet balance,
   commercial character/ending/spend routes.
 - Auth via bearer JWT (`authGate.ts`); commercial wallet via service_role only
-  (`walletMeter.ts` + `commercialServerConfig.ts`).
+  (`wallet/walletMeter.ts` + `commercialServerConfig.ts`).
 - Content safety on AI branch input/output (`safetyGate.ts`).
 
 ## Not responsible
@@ -26,11 +26,12 @@ Last reviewed: 2026-07-17 (against source in this tree).
 | `src/server.ts`                 | Load secret/public env files, listen, dispatch only — no product logic       |
 | `src/routeTable.ts`             | All HTTP endpoints (`handleAiBranchRequest`)                                 |
 | `src/handler.ts`                | `generateAiBranch`: prefer Mastra path, fall back to direct OpenRouter       |
-| `src/mastraBranch.ts`           | Mastra agent + zod-shaped branch JSON (choiceLabel / beats / rejoin)         |
+| `src/branch/`                   | Side-branch types, prompts, Mastra gen, choice-stats store                   |
+| `src/character/`                | Pack generation, image providers, safety, asset routes                       |
+| `src/ending/`                   | Final-chapter session, prompts, schemas, routes                              |
+| `src/tts/`                      | Dual-locale TTS + preview catalog                                            |
+| `src/wallet/`                   | Battery meter + spend receipt routes                                         |
 | `src/safetyGate.ts`             | Pre/post moderation for AI branch text (SwimmerAIKit + optional Sightengine) |
-| `src/walletMeter.ts`            | service_role reserve / commit / refund / settle; open only if optional mode  |
-| `src/ttsRoute.ts`               | Dual-locale TTS synthesize via SwimmerAIKit; lazy router after env load      |
-| `src/ttsCatalog.ts`             | Trusted preview phrase ids (`zh_preview` / `en_preview`, …)                  |
 | `src/persistence/`              | Commercial domain stores (character / ending / spend reader); see its README |
 | `src/commercialRouteRuntime.ts` | Lazy wire-up of character/ending/spend deps from credentials                 |
 | `src/authGate.ts`               | Verify `Authorization: Bearer` against Swimmer Core publishable key          |

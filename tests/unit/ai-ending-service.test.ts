@@ -1,14 +1,14 @@
 import { describe, expect, it, vi } from "vitest";
 import type { AiEndingContract } from "@supaluv/shared";
-import { parseEndingSegment } from "../../services/ai-branch/src/endingSchemas";
-import { buildEndingMessages } from "../../services/ai-branch/src/endingPrompts";
-import { createEndingGenerator, type EndingAgent } from "../../services/ai-branch/src/mastraEnding";
+import { parseEndingSegment } from "../../services/ai-branch/src/ending/endingSchemas";
+import { buildEndingMessages } from "../../services/ai-branch/src/ending/endingPrompts";
+import { createEndingGenerator, type EndingAgent } from "../../services/ai-branch/src/ending/mastraEnding";
 import {
   createEndingSessionService,
   EndingPaymentError,
-} from "../../services/ai-branch/src/endingSessionService";
+} from "../../services/ai-branch/src/ending/endingSessionService";
 import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index";
-import type { CharacterGenerationWallet } from "../../services/ai-branch/src/characterGenerationService";
+import type { CharacterGenerationWallet } from "../../services/ai-branch/src/character/characterGenerationService";
 
 const contract: AiEndingContract = {
   id: "ending-1",

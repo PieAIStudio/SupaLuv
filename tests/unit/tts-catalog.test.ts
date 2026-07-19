@@ -3,7 +3,7 @@ import {
   listPreviewIds,
   listPreviewSequence,
   resolvePreviewPhrase,
-} from "../../services/ai-branch/src/ttsCatalog";
+} from "../../services/ai-branch/src/tts/ttsCatalog";
 
 describe("tts catalog", () => {
   it("publishes a stable, ordered Leo bilingual audition", () => {

@@ -4,7 +4,7 @@ import {
   createConfiguredOpenRouterCharacterImageProvider,
   createOpenRouterCharacterImageProvider,
   type OpenRouterImageClient,
-} from "../../services/ai-branch/src/openRouterCharacterImageProvider";
+} from "../../services/ai-branch/src/character/openRouterCharacterImageProvider";
 
 const generated = Buffer.from("openrouter-generated-image");
 const reference = {

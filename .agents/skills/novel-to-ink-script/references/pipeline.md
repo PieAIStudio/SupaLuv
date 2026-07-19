@@ -61,7 +61,7 @@ export const compiled = compiled;
 ## 7. 语音映射（两处都要）
 
 - `apps/web/src/audio/ttsClient.ts`：中文名/拼音 → voice id。
-- `services/ai-branch/src/ttsRoute.ts`：CoreTtsCharacterId union + aliases + 两个 voiceMap（西文/中文 lane）。
+- `services/ai-branch/src/tts/ttsRoute.ts`：CoreTtsCharacterId union + aliases + 两个 voiceMap（西文/中文 lane）。
 
 ## 8. 互动组件映射（仅当新增互动类型）
 

@@ -16,7 +16,7 @@ import { randomUUID } from "node:crypto";
 import {
   commercialServerCredentialsConfigured,
   resolveCommercialServerCredentials,
-} from "./commercialServerConfig.js";
+} from "../commercialServerConfig.js";
 
 const POWER_PER_BATTERY = 100;
 

@@ -93,8 +93,8 @@ JSON; chapter checkpoints advance along that chain. Chapter 3 ends as
 | Settings → audio gains       | `audio/syncGameAudioFromSettings.ts` (owned by `App`; settings UI may preview optimistically) |
 | Battery pitch / spend client | `commerce/aiBatteryPitch.ts` + `commerce/aiSpendClient.ts`                                    |
 | AI edge HTTP                 | `services/ai-branch/src/routeTable.ts` (not `server.ts`)                                      |
-| Wallet reserve/commit        | `services/ai-branch/src/walletMeter.ts`                                                       |
-| TTS fixed phrases            | `services/ai-branch/src/ttsCatalog.ts`                                                        |
+| Wallet reserve/commit        | `services/ai-branch/src/wallet/walletMeter.ts`                                                       |
+| TTS fixed phrases            | `services/ai-branch/src/tts/ttsCatalog.ts`                                                        |
 | Story content                | **`packages/content`**                                                                        |
 
 ## AI edge map (`services/ai-branch`)

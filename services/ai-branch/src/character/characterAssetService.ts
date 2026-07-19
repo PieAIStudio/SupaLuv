@@ -3,15 +3,15 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { CharacterImageInput } from "./characterImageProvider.js";
-import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
+import type { AuthGateFailure, AuthGateResult } from "../authGate.js";
 import {
   CHARACTER_IMAGE_MIME_TYPES,
   MAX_CHARACTER_REFERENCE_BYTES,
   MAX_CHARACTER_REFERENCES,
 } from "./characterSchemas.js";
-import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
-import type { CharacterGenerationStore } from "./persistence/characterGenerationStore.js";
-import type { ReferenceAssetRecord } from "./persistence/index.js";
+import { readBody, RequestBodyTooLargeError, sendJson } from "../httpUtils.js";
+import type { CharacterGenerationStore } from "../persistence/characterGenerationStore.js";
+import type { ReferenceAssetRecord } from "../persistence/index.js";
 
 export const CHARACTER_ASSET_BUCKET = "supaluv-character-assets";
 export const CHARACTER_ASSET_BODY_LIMIT_BYTES = 64 * 1024;

@@ -41,7 +41,7 @@ npx tsx tools/voice-pregen/generate.ts --chapter=draft-ch01
 npx tsx tools/voice-pregen/generate.ts
 ```
 
-中文选角读 `services/ai-branch/src/ttsRoute.ts` 的 `CHINESE_VOICE_MAP`。
+中文选角读 `services/ai-branch/src/tts/ttsRoute.ts` 的 `CHINESE_VOICE_MAP`。
 
 ### portrait-matte
 
