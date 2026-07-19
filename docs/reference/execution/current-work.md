@@ -28,7 +28,7 @@ related:
 | --- | --- |
 | 配置的生产入口 | <https://supaluv.pieaistudio.com> |
 | 默认内容 | `draft-ch01` → `draft-ch02` → `draft-ch03`；三章按 supa-luv-v2 小说重转，仍是 noncanonical 草稿，不是冻结终稿 |
-| active work | `SPEC-0003`、`PLAN-0005` 与 `SPEC-0004`（Creator Studio 产品线，owner 2026-07-18 指定为重点）；不要创建竞争规格，也不要把 completed/archive 改回 active |
+| active work | `SPEC-0003`、`PLAN-0005` 与 `SPEC-0004`（Creator Studio 产品线，owner 2026-07-18 指定为重点）；`ADR-0008` AI 本地化管线（P0 三章英文 Ink 已合并，待 P0b 运行时按语言选剧本、P1 英文真选角+预生成语音库）；不要创建竞争规格，也不要把 completed/archive 改回 active |
 | 阶段判断 | 产品骨架与关键技术链路已存在，但正式内容、完整视听和发行验收尚未完成 |
 
 正式内容到位后应填入现有 Ink / scene manifest / asset 管线，不为每一章重做应用外壳。
