@@ -392,8 +392,8 @@ export function ChapterEndCard({
             </p>
           ) : null}
 
-          {path?.pathHint ? (
-            <p className="chapter-end-path-hint">
+          {path ? (
+            <p className="chapter-end-path-hint" data-testid="ending-path-fact">
               {usedAi ? t("chapterEnd.pathAi") : t("chapterEnd.pathAuthor")}
             </p>
           ) : null}

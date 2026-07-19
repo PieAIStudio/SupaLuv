@@ -12,6 +12,12 @@ export interface AiBranchRequestBody {
   };
   readonly authoredChoiceLabels: readonly string[];
   readonly meters?: { mianzi: number; ai_score: number };
+  /**
+   * UI locale for generated choice labels + beat prose.
+   * `en` / `en-*` → English; anything else defaults to zh-CN.
+   * Optional for backward compatibility with older clients.
+   */
+  readonly locale?: string;
 }
 
 export interface AiBranchBeat {

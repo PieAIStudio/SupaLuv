@@ -141,7 +141,7 @@ describe("Round 16 prop cut-in catalog and runtime boundary", () => {
     expect(componentSource).toContain("closeButtonRef.current?.focus()");
     expect(componentSource).toContain('event.key !== "Escape"');
     expect(componentSource).toContain("onError={() => setImageFailed(true)}");
-    expect(componentSource).toContain("definition.accessibleText");
+    expect(componentSource).toContain("localized.accessibleText");
     expect(runtimeSource).toContain(
       "activeCutscene: Boolean(activeCutscene) || propCutIn.requested",
     );

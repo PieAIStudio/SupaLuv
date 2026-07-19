@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { gameAudio } from "../audio/gameAudio";
+import { useLocale } from "../i18n";
 import type { InkStorySnapshot } from "../story/inkStoryRunner";
 import {
   emotionCalibrationLevels,
@@ -9,6 +10,7 @@ import {
 } from "./emotionCalibration";
 import { findStoryInteractionChoice } from "./storyInteractionRegistry";
 import type { ActiveStoryInteraction } from "./types";
+import { useInteractionKeyboard } from "./useInteractionKeyboard";
 
 interface EmotionCalibrationInteractionProps {
   readonly active: ActiveStoryInteraction;
@@ -29,15 +31,18 @@ export function EmotionCalibrationInteraction({
   paused,
   onChoose,
 }: EmotionCalibrationInteractionProps) {
+  const { t } = useLocale();
   const sample = emotionCalibrationSamples[active.stepIndex];
   const panelRef = useRef<HTMLElement | null>(null);
   const timerRef = useRef<number | null>(null);
   const [feedback, setFeedback] = useState<SelectionFeedback | null>(null);
 
-  const expectedLabel = useMemo(
-    () => emotionCalibrationLevels.find((level) => level.id === sample?.expectedLevel)?.label ?? "",
-    [sample?.expectedLevel],
-  );
+  const expectedLabel = useMemo(() => {
+    if (!sample) {
+      return "";
+    }
+    return t(`interaction.emotion.level.${sample.expectedLevel}.label`);
+  }, [sample, t]);
 
   useEffect(() => {
     setFeedback(null);
@@ -85,13 +90,13 @@ export function EmotionCalibrationInteraction({
           level,
           correct,
           message: correct
-            ? "校准一致 · 样本已入列"
-            : `已记录你的判断 · 系统基准：${expectedLabel}`,
+            ? t("interaction.emotion.feedbackMatch")
+            : t("interaction.emotion.feedbackRecorded").replace("{label}", expectedLabel),
         },
         760,
       );
     },
-    [commitChoice, expectedLabel, sample],
+    [commitChoice, expectedLabel, sample, t],
   );
 
   const skip = useCallback(() => {
@@ -103,15 +108,39 @@ export function EmotionCalibrationInteraction({
       {
         level: null,
         correct: null,
-        message: "已保留人工判断 · 主测照常继续",
+        message: t("interaction.emotion.feedbackSkip"),
       },
       480,
     );
-  }, [commitChoice, sample]);
+  }, [commitChoice, sample, t]);
+
+  const disabled = paused || Boolean(feedback);
+  const onKeyboard = useCallback(
+    (key: string) => {
+      if (disabled) {
+        return false;
+      }
+      const level = emotionCalibrationLevels.find((entry) => entry.key === key);
+      if (level) {
+        selectLevel(level.id);
+        return true;
+      }
+      if (key.toLowerCase() === "s") {
+        skip();
+        return true;
+      }
+      return false;
+    },
+    [disabled, selectLevel, skip],
+  );
+  useInteractionKeyboard(!disabled, onKeyboard);
 
   if (!sample) {
     return null;
   }
+
+  const sampleIndex = active.stepIndex + 1;
+  const sampleLetter = String.fromCharCode(64 + sampleIndex); // A/B/C
 
   return (
     <section
@@ -120,37 +149,29 @@ export function EmotionCalibrationInteraction({
       aria-labelledby="emotion-calibration-title"
       aria-describedby="emotion-calibration-instructions"
       data-testid="emotion-calibration"
-      data-step={active.stepIndex + 1}
+      data-step={sampleIndex}
       tabIndex={-1}
-      onKeyDown={(event) => {
-        if (paused || feedback) {
-          return;
-        }
-        const level = emotionCalibrationLevels.find((entry) => entry.key === event.key);
-        if (level) {
-          event.preventDefault();
-          selectLevel(level.id);
-        } else if (event.key.toLowerCase() === "s") {
-          event.preventDefault();
-          skip();
-        }
-      }}
     >
       <div className="emotion-calibration-scanline" aria-hidden="true" />
       <header className="emotion-calibration-header">
         <div>
-          <p className="emotion-calibration-kicker">HEARTSYNC · 质检终端 04</p>
-          <h2 id="emotion-calibration-title">{active.definition.title}</h2>
+          <p className="emotion-calibration-kicker">{t("interaction.emotion.kicker")}</p>
+          <h2 id="emotion-calibration-title">{t("interaction.emotion.title")}</h2>
         </div>
-        <div className="emotion-calibration-status" aria-label="本地预写样本，不会联网">
+        <div className="emotion-calibration-status" aria-label={t("interaction.emotion.localOnly")}>
           <span aria-hidden="true" />
-          本地样本
+          {t("interaction.emotion.localOnly")}
         </div>
       </header>
 
-      <div className="emotion-calibration-progress" aria-label={`进度 ${active.stepIndex + 1}/3`}>
+      <div
+        className="emotion-calibration-progress"
+        aria-label={t("interaction.progressLabel")
+          .replace("{step}", String(sampleIndex))
+          .replace("{total}", String(active.definition.stepCount))}
+      >
         <span>
-          SAMPLE {String(active.stepIndex + 1).padStart(2, "0")} /{" "}
+          SAMPLE {String(sampleIndex).padStart(2, "0")} /{" "}
           {String(active.definition.stepCount).padStart(2, "0")}
         </span>
         <div className="emotion-calibration-progress-rail" aria-hidden="true">
@@ -161,32 +182,41 @@ export function EmotionCalibrationInteraction({
       </div>
 
       <div className="emotion-calibration-sample" data-testid="emotion-calibration-sample">
-        <p className="emotion-calibration-sender">{sample.sender} · 预写虚构聊天</p>
-        <blockquote>{sample.message}</blockquote>
+        <p className="emotion-calibration-sender">
+          {t("interaction.emotion.sampleSender")
+            .replace("{letter}", sampleLetter)
+            .replace("{n}", String(sampleIndex))}
+        </p>
+        <blockquote>{t(`interaction.emotion.sample.${sample.id}`)}</blockquote>
       </div>
 
       <p id="emotion-calibration-instructions" className="emotion-calibration-instructions">
-        判断这条消息的情绪波动。按 1 / 2 / 3，或直接点击；S 跳过，不影响主线。
+        {t("interaction.emotion.instructions")}
       </p>
 
-      <div className="emotion-calibration-levels" aria-label="情绪档位">
-        {emotionCalibrationLevels.map((level) => (
-          <button
-            key={level.id}
-            type="button"
-            className={feedback?.level === level.id ? "is-selected" : undefined}
-            data-testid={`emotion-level-${level.id}`}
-            disabled={paused || Boolean(feedback)}
-            aria-keyshortcuts={level.key}
-            onClick={() => selectLevel(level.id)}
-          >
-            <span className="emotion-calibration-key">{level.key}</span>
-            <span>
-              <strong>{level.label}</strong>
-              <small>{level.description}</small>
-            </span>
-          </button>
-        ))}
+      <div className="emotion-calibration-levels" aria-label={t("interaction.emotion.levelsLabel")}>
+        {emotionCalibrationLevels.map((level) => {
+          const label = t(`interaction.emotion.level.${level.id}.label`);
+          const description = t(`interaction.emotion.level.${level.id}.description`);
+          return (
+            <button
+              key={level.id}
+              type="button"
+              className={feedback?.level === level.id ? "is-selected" : undefined}
+              data-testid={`emotion-level-${level.id}`}
+              disabled={disabled}
+              aria-label={`${label} — ${description}`}
+              aria-keyshortcuts={level.key}
+              onClick={() => selectLevel(level.id)}
+            >
+              <span className="emotion-calibration-key">{level.key}</span>
+              <span>
+                <strong>{label}</strong>
+                <small>{description}</small>
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       <footer className="emotion-calibration-footer">
@@ -195,17 +225,17 @@ export function EmotionCalibrationInteraction({
           aria-live="polite"
           data-testid="emotion-feedback"
         >
-          {feedback?.message ?? "系统基准只用于校准，不评价玩家。"}
+          {feedback?.message ?? t("interaction.emotion.feedbackIdle")}
         </p>
         <button
           type="button"
           className="emotion-calibration-skip"
           data-testid="emotion-calibration-skip"
-          disabled={paused || Boolean(feedback)}
+          disabled={disabled}
           aria-keyshortcuts="S"
           onClick={skip}
         >
-          跳过校准 <span>S</span>
+          {t("interaction.emotion.skip")} <span>S</span>
         </button>
       </footer>
     </section>

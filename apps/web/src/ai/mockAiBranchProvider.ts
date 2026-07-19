@@ -5,7 +5,7 @@ import type { AiBranchProvider, AiBranchRequest, AiBranchResult } from "./aiBran
  * Proves UX: wait → AI choice → short side beats → forced rejoin.
  * Live path later: server using @pieai/swimmer-ai-kit OpenRouter + moderation.
  */
-const VARIANTS: readonly Omit<AiBranchResult, "rejoinSceneId" | "provider">[] = [
+const VARIANTS_ZH: readonly Omit<AiBranchResult, "rejoinSceneId" | "provider">[] = [
   {
     choiceLabel: "把文件夹藏进 node_modules，谁会翻那里",
     beats: [
@@ -58,12 +58,68 @@ const VARIANTS: readonly Omit<AiBranchResult, "rejoinSceneId" | "provider">[] = 
   },
 ];
 
-function pickVariant(seed: string): (typeof VARIANTS)[number] {
+const VARIANTS_EN: readonly Omit<AiBranchResult, "rejoinSceneId" | "provider">[] = [
+  {
+    choiceLabel: "Hide the folder in node_modules — who digs there",
+    beats: [
+      {
+        speaker: "苏明",
+        text: "He creates node_modules/.cache/not_for_review. Not a crime. Dependency management.",
+        artKey: "bg-office-night",
+        portraitKey: "suming-panic",
+        mood: "panic",
+      },
+      {
+        speaker: "旁白",
+        text: "Three seconds later the phone buzzes. Property never audits your npm tree—only your packages.",
+        artKey: "bg-office-night",
+        portraitKey: "suming-shame",
+        mood: "shame",
+      },
+    ],
+  },
+  {
+    choiceLabel: "Rename it: warmth_sample_final_FINAL_v3",
+    beats: [
+      {
+        speaker: "苏明",
+        text: "He saves the line under a respectable sample name. The screen looks like a compliance performance.",
+        artKey: "bg-office-night",
+        portraitKey: "suming-restless",
+        mood: "restless",
+      },
+      {
+        speaker: "旁白",
+        text: "Show over. The real push lights up in his pocket—property SMS is more punctual than any FINAL.",
+        artKey: "bg-office-night",
+        portraitKey: "suming-shame",
+        mood: "shame",
+      },
+    ],
+  },
+  {
+    choiceLabel: "Screenshot, then blur it—call it redaction",
+    beats: [
+      {
+        speaker: "苏明",
+        text: "Gaussian blur over the keywords. Privacy engineering, he tells himself. Not guilt.",
+        artKey: "bg-office-night",
+        portraitKey: "suming-panic",
+        mood: "panic",
+      },
+    ],
+  },
+];
+
+function pickVariant(
+  seed: string,
+  variants: readonly Omit<AiBranchResult, "rejoinSceneId" | "provider">[],
+): (typeof variants)[number] {
   let hash = 0;
   for (let i = 0; i < seed.length; i += 1) {
     hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
   }
-  return VARIANTS[hash % VARIANTS.length]!;
+  return variants[hash % variants.length]!;
 }
 
 function delay(ms: number, signal?: AbortSignal): Promise<void> {
@@ -92,8 +148,11 @@ export function createMockAiBranchProvider(): AiBranchProvider {
       // Simulate network + model latency so "等待灵感" is visible.
       await delay(900 + Math.floor(Math.random() * 700), request.signal);
 
+      const english = Boolean(request.locale?.toLowerCase().startsWith("en"));
+      const variants = english ? VARIANTS_EN : VARIANTS_ZH;
       const variant = pickVariant(
         `${request.storyId}:${request.sceneId}:${request.authoredChoiceLabels.join("|")}`,
+        variants,
       );
       const artPool = request.config.artPool ?? [];
       const portraitPool = request.config.portraitPool ?? [];

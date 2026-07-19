@@ -145,6 +145,7 @@ export function HousingHotspotsInteraction({
               className={`housing-hotspot housing-hotspot-${entry.id}${done ? " is-done" : ""}${current ? " is-current" : ""}`}
               data-testid={`housing-hotspot-${entry.id}`}
               disabled={disabled || !current}
+              aria-label={t(`interaction.housing.hotspot.${entry.id}`)}
               aria-keyshortcuts={String(index + 1)}
               aria-pressed={done}
               onClick={() => inspect(entry.id)}

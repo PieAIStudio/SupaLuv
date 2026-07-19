@@ -50,6 +50,7 @@ async function requestRemote(endpoint: string, request: AiBranchRequest): Promis
       config: request.config,
       authoredChoiceLabels: request.authoredChoiceLabels,
       meters: request.meters,
+      locale: request.locale,
     }),
     signal: request.signal,
   });

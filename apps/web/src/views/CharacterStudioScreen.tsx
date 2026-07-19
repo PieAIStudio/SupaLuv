@@ -6,7 +6,7 @@ import {
   GameProgress,
   GameTextArea,
 } from "@pieai/swimmer-ui-kit";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { useLocale } from "../i18n";
 import { createCharacterPackClient } from "../characters/characterPackClient";
@@ -217,6 +217,18 @@ export function CharacterStudioScreen({
 }) {
   const auth = useAuth();
   const { t } = useLocale();
+  const slotDisplayName = useCallback(
+    (item: CharacterStudioSlot) => {
+      if (item.id === "lead_suming") {
+        return t("characterStudio.nameSuMing", item.name);
+      }
+      if (item.id === "lead_zhou_lu") {
+        return t("characterStudio.nameShiPeixin", item.name);
+      }
+      return item.name;
+    },
+    [t],
+  );
   const client = useMemo(
     () => createCharacterPackClient({ getAccessToken: auth.getAccessToken }),
     [auth.getAccessToken],
@@ -402,7 +414,7 @@ export function CharacterStudioScreen({
             key={item.id}
             className={index === slotIndex ? "is-active" : works[item.id] ? "is-done" : ""}
           >
-            {index + 1}. {item.name}
+            {index + 1}. {slotDisplayName(item)}
           </span>
         ))}
       </div>
@@ -418,9 +430,9 @@ export function CharacterStudioScreen({
           </span>
           <img
             src={work.base?.url ?? slot.official}
-            alt={`${slot.name} ${t("characterStudio.previewAlt")}`}
+            alt={`${slotDisplayName(slot)} ${t("characterStudio.previewAlt")}`}
           />
-          <strong>{slot.name}</strong>
+          <strong>{slotDisplayName(slot)}</strong>
           <small>
             {work.base ? t("characterStudio.baseWaiting") : t("characterStudio.officialDefault")}
           </small>
@@ -430,7 +442,7 @@ export function CharacterStudioScreen({
           <h2>
             {work.base
               ? t("characterStudio.approvalTitle")
-              : `${t("characterStudio.customize")} ${slot.name}`}
+              : `${t("characterStudio.customize")} ${slotDisplayName(slot)}`}
           </h2>
           <p className="character-studio-scroll-note" data-testid="character-studio-scroll-note">
             {t("characterStudio.scrollNote")}

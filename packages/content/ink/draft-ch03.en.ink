@@ -94,6 +94,7 @@ Personality page was dense sliders: compliance, attachment, cleanliness, control
 = q1
 # scene:dch03_mobile_questionnaire
 # interaction:mobile-questionnaire-v1
+# interaction-variant:matching
 # interaction-step:1
 Phone questionnaire 1/3 · Neighbor tolerance.
 + [Average # choice:mobile_questionnaire_q1_average]
@@ -124,6 +125,7 @@ Phone questionnaire 1/3 · Neighbor tolerance.
 = q2
 # scene:dch03_mobile_questionnaire
 # interaction:mobile-questionnaire-v1
+# interaction-variant:matching
 # interaction-step:2
 Phone questionnaire 2/3 · Mind highly humanlike devices?
 + [Mind # choice:mobile_questionnaire_q2_mind]
@@ -148,6 +150,7 @@ Phone questionnaire 2/3 · Mind highly humanlike devices?
 = q3
 # scene:dch03_mobile_questionnaire
 # interaction:mobile-questionnaire-v1
+# interaction-variant:matching
 # interaction-step:3
 Phone questionnaire 3/3 · Private room.
 + [Have a private room # choice:mobile_questionnaire_q3_yes]
@@ -403,6 +406,7 @@ Three activation-code stickers on the box sides, company typeface like a registe
 = q1
 # scene:dch03_robot_barcode
 # interaction:barcode-sweep-v1
+# interaction-variant:activation
 # interaction-step:1
 Unbox activation 1/3 · Main-unit outer activation code.
 + [Scan this one # choice:barcode_sweep_q1_ok]
@@ -418,6 +422,7 @@ Unbox activation 1/3 · Main-unit outer activation code.
 = q2
 # scene:dch03_robot_barcode
 # interaction:barcode-sweep-v1
+# interaction-variant:activation
 # interaction-step:2
 Unbox activation 2/3 · Limb-box QA code.
 + [Scan this one # choice:barcode_sweep_q2_ok]
@@ -433,6 +438,7 @@ Unbox activation 2/3 · Limb-box QA code.
 = q3
 # scene:dch03_robot_barcode
 # interaction:barcode-sweep-v1
+# interaction-variant:activation
 # interaction-step:3
 Unbox activation 3/3 · Head-box binding pre-auth code.
 + [Scan this one # choice:barcode_sweep_q3_ok]
