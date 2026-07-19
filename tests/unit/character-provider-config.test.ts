@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   characterProviderHealthSnapshot,
   createConfiguredCharacterProviders,
-} from "../../services/ai-branch/src/characterProviderConfig";
+} from "../../services/ai-branch/src/character/characterProviderConfig";
 
 afterEach(() => vi.unstubAllEnvs());
 

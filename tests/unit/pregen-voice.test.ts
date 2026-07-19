@@ -8,7 +8,7 @@ import {
   pregenVoiceUrl,
 } from "../../apps/web/src/audio/pregenVoice";
 import { planBrowserTtsSegments } from "../../apps/web/src/audio/ttsSegmentation";
-import { ENGLISH_VOICE_MAP } from "../../services/ai-branch/src/ttsRoute";
+import { ENGLISH_VOICE_MAP } from "../../services/ai-branch/src/tts/ttsRoute";
 
 /**
  * Runtime language string for pregen keys — must match useNarrativePlayback:

@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { z } from "zod";
-import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
+import type { AuthGateFailure, AuthGateResult } from "../authGate.js";
 import {
   CharacterAssetStorageError,
   CHARACTER_ASSET_BODY_LIMIT_BYTES,
@@ -13,8 +13,8 @@ import {
   type CharacterGenerationService,
 } from "./characterGenerationService.js";
 import { CharacterSafetyError } from "./characterSafety.js";
-import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
-import type { CharacterGenerationStore } from "./persistence/characterGenerationStore.js";
+import { readBody, RequestBodyTooLargeError, sendJson } from "../httpUtils.js";
+import type { CharacterGenerationStore } from "../persistence/characterGenerationStore.js";
 
 const stableId = z
   .string()

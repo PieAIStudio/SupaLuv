@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
-import { CharacterImageProviderError } from "../../services/ai-branch/src/characterImageProvider";
+import { CharacterImageProviderError } from "../../services/ai-branch/src/character/characterImageProvider";
 import {
   GEMINI_CHARACTER_IMAGE_MODEL,
   createGeminiCharacterImageProvider,
   type GeminiImageInteractionClient,
-} from "../../services/ai-branch/src/geminiCharacterImageProvider";
+} from "../../services/ai-branch/src/character/geminiCharacterImageProvider";
 
 const png = Buffer.from("safe-generated-image");
 

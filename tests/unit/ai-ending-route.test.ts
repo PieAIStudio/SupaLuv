@@ -3,8 +3,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   handleEndingRoute,
   type EndingRouteDependencies,
-} from "../../services/ai-branch/src/endingRoutes";
-import { EndingPaymentError } from "../../services/ai-branch/src/endingSessionService";
+} from "../../services/ai-branch/src/ending/endingRoutes";
+import { EndingPaymentError } from "../../services/ai-branch/src/ending/endingSessionService";
 import {
   createInMemoryPersistenceModules,
   EndingVersionConflictError,

@@ -11,7 +11,7 @@ import {
   settleReservation,
   walletMeterConfigured,
   walletOptionalMode,
-} from "../../services/ai-branch/src/walletMeter";
+} from "../../services/ai-branch/src/wallet/walletMeter";
 
 const rpc =
   vi.fn<

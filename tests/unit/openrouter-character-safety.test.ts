@@ -4,7 +4,7 @@ import {
   createConfiguredOpenRouterAdultPresentationReviewer,
   createOpenRouterGeneratedAdultPresentationReviewer,
   type OpenRouterAdultReviewClient,
-} from "../../services/ai-branch/src/openRouterCharacterSafety";
+} from "../../services/ai-branch/src/character/openRouterCharacterSafety";
 
 const image = { bytes: Buffer.from("generated-adult-character"), mimeType: "image/png" as const };
 

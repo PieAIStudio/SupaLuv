@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
-import type { CharacterSafety } from "../../services/ai-branch/src/characterSafety";
-import type { CharacterImageProvider } from "../../services/ai-branch/src/characterImageProvider";
-import type { CharacterAssetBinaryStorage } from "../../services/ai-branch/src/characterAssetService";
+import type { CharacterSafety } from "../../services/ai-branch/src/character/characterSafety";
+import type { CharacterImageProvider } from "../../services/ai-branch/src/character/characterImageProvider";
+import type { CharacterAssetBinaryStorage } from "../../services/ai-branch/src/character/characterAssetService";
 import {
   CharacterGenerationBusyError,
   createCharacterGenerationService,
   type CharacterGenerationWallet,
-} from "../../services/ai-branch/src/characterGenerationService";
+} from "../../services/ai-branch/src/character/characterGenerationService";
 import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index";
 
 const reference = { bytes: Buffer.from("reference"), mimeType: "image/jpeg" as const };

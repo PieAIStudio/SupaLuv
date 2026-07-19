@@ -1,11 +1,11 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { ch01Scenes } from "@supaluv/content/ch01-scenes";
 import { z } from "zod";
-import type { AuthGateFailure, AuthGateResult } from "./authGate.js";
+import type { AuthGateFailure, AuthGateResult } from "../authGate.js";
 import { EndingPaymentError, type EndingSessionService } from "./endingSessionService.js";
-import { readBody, RequestBodyTooLargeError, sendJson } from "./httpUtils.js";
-import type { EndingSessionStore } from "./persistence/endingSessionStore.js";
-import { EndingVersionConflictError } from "./persistence/index.js";
+import { readBody, RequestBodyTooLargeError, sendJson } from "../httpUtils.js";
+import type { EndingSessionStore } from "../persistence/endingSessionStore.js";
+import { EndingVersionConflictError } from "../persistence/index.js";
 
 const BODY_LIMIT = 64 * 1024;
 const stableId = z.string().trim().min(1).max(128);

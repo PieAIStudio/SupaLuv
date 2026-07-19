@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { handleCharacterAssetRoute } from "../../services/ai-branch/src/characterAssetService.js";
-import { handleCharacterPackRoute } from "../../services/ai-branch/src/characterRoutes.js";
+import { handleCharacterAssetRoute } from "../../services/ai-branch/src/character/characterAssetService.js";
+import { handleCharacterPackRoute } from "../../services/ai-branch/src/character/characterRoutes.js";
 import {
   createCommercialRouteRuntime,
   getCommercialRouteRuntime,
@@ -12,13 +12,13 @@ import {
   commercialServerCredentialsConfigured,
   resolveCommercialServerCredentials,
 } from "../../services/ai-branch/src/commercialServerConfig.js";
-import { handleEndingRoute } from "../../services/ai-branch/src/endingRoutes.js";
+import { handleEndingRoute } from "../../services/ai-branch/src/ending/endingRoutes.js";
 import { sendJson } from "../../services/ai-branch/src/httpUtils.js";
 import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index.js";
 import { handleAiBranchRequest } from "../../services/ai-branch/src/routeTable.js";
 import { normalizeAiBranchServiceUrl } from "../../services/ai-branch/src/serviceMount.js";
-import { handleSpendRoute } from "../../services/ai-branch/src/spendRoutes.js";
-import { walletMeterConfigured } from "../../services/ai-branch/src/walletMeter.js";
+import { handleSpendRoute } from "../../services/ai-branch/src/wallet/spendRoutes.js";
+import { walletMeterConfigured } from "../../services/ai-branch/src/wallet/walletMeter.js";
 
 let server: Server | undefined;
 
@@ -252,7 +252,7 @@ describe("commercial route runtime composition", () => {
     const stripComments = (source: string) =>
       source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
     for (const name of [
-      "walletMeter.ts",
+      "wallet/walletMeter.ts",
       "commercialRouteRuntime.ts",
       "commercialServerConfig.ts",
     ]) {
@@ -261,7 +261,7 @@ describe("commercial route runtime composition", () => {
       expect(code).not.toContain("VITE_SUPABASE_URL");
       expect(code).not.toContain("SUPABASE_SERVICE_ROLE_KEY");
     }
-    const walletSource = readFileSync(join(root, "walletMeter.ts"), "utf8");
+    const walletSource = readFileSync(join(root, "wallet/walletMeter.ts"), "utf8");
     expect(walletSource).toContain("resolveCommercialServerCredentials");
     expect(walletSource).toContain("settleReservation");
     const configSource = readFileSync(join(root, "commercialServerConfig.ts"), "utf8");
@@ -455,11 +455,11 @@ describe("commercial route runtime composition", () => {
   it("deletes old per-module configured caches and duplicated env reads", () => {
     const root = join(process.cwd(), "services/ai-branch/src");
     const targets = [
-      "characterAssetService.ts",
-      "characterRoutes.ts",
-      "endingRoutes.ts",
-      "spendRoutes.ts",
-    ] as const;
+      "character/characterAssetService.ts",
+      "character/characterRoutes.ts",
+      "ending/endingRoutes.ts",
+      "wallet/spendRoutes.ts",
+    ] as const
 
     let processEnvCount = 0;
     let configuredCacheCount = 0;

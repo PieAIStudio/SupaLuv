@@ -6,7 +6,7 @@ import {
   handleCharacterAssetRoute,
   type CharacterAssetStorage,
   type CharacterAssetRouteDependencies,
-} from "../../services/ai-branch/src/characterAssetService";
+} from "../../services/ai-branch/src/character/characterAssetService";
 import { createInMemoryPersistenceModules } from "../../services/ai-branch/src/persistence/index";
 
 let server: Server | undefined;

@@ -293,7 +293,7 @@ export async function loadCastingDesk(options: CastingLoadOptions): Promise<Cast
     ? { ...options.voiceMapOverride }
     : {};
   if (!options.voiceMapOverride) {
-    const ttsSource = await readFile(join(repoRoot, "services/ai-branch/src/ttsRoute.ts"), "utf8");
+    const ttsSource = await readFile(join(repoRoot, "services/ai-branch/src/tts/ttsRoute.ts"), "utf8");
     voiceMap = parseChineseVoiceMap(ttsSource);
   }
 

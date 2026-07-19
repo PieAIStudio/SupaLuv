@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { groupSpendReceipts } from "../../services/ai-branch/src/spendRoutes";
+import { groupSpendReceipts } from "../../services/ai-branch/src/wallet/spendRoutes";
 
 const receipts = [
   {

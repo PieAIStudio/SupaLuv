@@ -23,17 +23,17 @@ import {
   type CharacterAssetBinaryStorage,
   type CharacterAssetRouteDependencies,
   type CharacterAssetStorage,
-} from "./characterAssetService.js";
+} from "./character/characterAssetService.js";
 import {
   createCharacterGenerationService,
   type CharacterGenerationWallet,
-} from "./characterGenerationService.js";
-import { createCharacterSafety } from "./characterSafety.js";
-import { createConfiguredCharacterProviders } from "./characterProviderConfig.js";
-import type { CharacterPackRouteDependencies } from "./characterRoutes.js";
-import type { EndingRouteDependencies } from "./endingRoutes.js";
-import { createEndingSessionService } from "./endingSessionService.js";
-import { createConfiguredEndingGenerator } from "./mastraEnding.js";
+} from "./character/characterGenerationService.js";
+import { createCharacterSafety } from "./character/characterSafety.js";
+import { createConfiguredCharacterProviders } from "./character/characterProviderConfig.js";
+import type { CharacterPackRouteDependencies } from "./character/characterRoutes.js";
+import type { EndingRouteDependencies } from "./ending/endingRoutes.js";
+import { createEndingSessionService } from "./ending/endingSessionService.js";
+import { createConfiguredEndingGenerator } from "./ending/mastraEnding.js";
 import { resolveCommercialServerCredentials } from "./commercialServerConfig.js";
 import {
   createInMemoryPersistenceModules,
@@ -41,7 +41,7 @@ import {
   type PersistenceModules,
   type SpendReceiptReader,
 } from "./persistence/index.js";
-import { commitReservation, refundReservation, reserveBatteries } from "./walletMeter.js";
+import { commitReservation, refundReservation, reserveBatteries } from "./wallet/walletMeter.js";
 
 export type CommercialRouteEnv = {
   readonly nodeEnv?: string;

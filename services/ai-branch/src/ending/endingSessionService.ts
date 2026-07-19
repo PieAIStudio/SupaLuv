@@ -4,11 +4,11 @@ import type {
   AiEndingPlayerAction,
   AiEndingSegment,
 } from "@supaluv/shared/ai-ending";
-import { makeActionIdempotencyKey } from "./actionIdentity.js";
-import type { CharacterGenerationWallet } from "./characterGenerationService.js";
+import { makeActionIdempotencyKey } from "../actionIdentity.js";
+import type { CharacterGenerationWallet } from "../character/characterGenerationService.js";
 import type { EndingGenerator } from "./mastraEnding.js";
-import type { EndingSessionStore } from "./persistence/endingSessionStore.js";
-import type { EndingSessionRecord } from "./persistence/types.js";
+import type { EndingSessionStore } from "../persistence/endingSessionStore.js";
+import type { EndingSessionRecord } from "../persistence/types.js";
 
 export interface EndingSafety {
   reviewInput(action: AiEndingPlayerAction): Promise<void>;

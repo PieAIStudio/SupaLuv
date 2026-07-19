@@ -33,7 +33,7 @@ import {
   CHINESE_VOICE_MAP,
   ENGLISH_VOICE_MAP,
   type EnglishVoiceCast,
-} from "../../services/ai-branch/src/ttsRoute";
+} from "../../services/ai-branch/src/tts/ttsRoute";
 import { draftCh01Scenes } from "../../packages/content/manifests/draft-ch01-scenes";
 import { draftCh02Scenes } from "../../packages/content/manifests/draft-ch02-scenes";
 import { draftCh03Scenes } from "../../packages/content/manifests/draft-ch03-scenes";
@@ -89,7 +89,7 @@ Outputs:
                                              from directory listing)
 
 Casting SSOT:
-  zh-CN → CHINESE_VOICE_MAP in services/ai-branch/src/ttsRoute.ts
+  zh-CN → CHINESE_VOICE_MAP in services/ai-branch/src/tts/ttsRoute.ts
   en    → ENGLISH_VOICE_MAP (voice_id + speed + pitch) in the same file
           (export only; not wired into runtime TTS routing — that is P2)
 

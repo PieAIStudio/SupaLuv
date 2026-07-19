@@ -3,7 +3,7 @@ import {
   hasMixedTtsRoutes,
   planBrowserTtsSegments,
 } from "../../apps/web/src/audio/ttsSegmentation";
-import { planDialogueTtsSegments } from "../../services/ai-branch/src/ttsRoute";
+import { planDialogueTtsSegments } from "../../services/ai-branch/src/tts/ttsRoute";
 import {
   TTS_FRAGMENT_ROUTING_FIXTURES,
   TTS_ROUTING_FIXTURES,
