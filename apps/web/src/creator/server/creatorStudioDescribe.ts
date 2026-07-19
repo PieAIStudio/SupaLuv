@@ -13,9 +13,10 @@ export const CREATOR_STUDIO_BASE_PATH = "/__creator-studio";
 
 export type CreatorStudioHttpMethod = "GET" | "POST";
 
-/** Canonical mounted routes. Handler must implement every entry; describe must document every entry. */
+/** Canonical mounted routes. Handler must implement every entry; openapi must document every entry. */
 export const CREATOR_STUDIO_ROUTE_REGISTRY = [
   { method: "GET", path: `${CREATOR_STUDIO_BASE_PATH}/describe` },
+  { method: "GET", path: `${CREATOR_STUDIO_BASE_PATH}/openapi.json` },
   { method: "GET", path: `${CREATOR_STUDIO_BASE_PATH}/graph` },
   { method: "GET", path: `${CREATOR_STUDIO_BASE_PATH}/scene-meta` },
   { method: "GET", path: `${CREATOR_STUDIO_BASE_PATH}/assets` },
@@ -147,18 +148,34 @@ const TASK_BUSY_ERROR: CreatorStudioErrorSemantics = {
 
 /**
  * Full endpoint documentation. Must cover exactly CREATOR_STUDIO_ROUTE_REGISTRY
- * (enforced by unit test + buildCreatorStudioDescribe assertion).
+ * (enforced by unit test + buildCreatorStudioOpenApi / assertEndpointsCoverRegistry).
  */
 export const CREATOR_STUDIO_ENDPOINT_SPECS: readonly CreatorStudioEndpointSpec[] = [
   {
     method: "GET",
     path: `${CREATOR_STUDIO_BASE_PATH}/describe`,
-    purpose: "返回本 Studio 的完整自描述 JSON（本文件）。冷启动 AI 的唯一机读入口。",
+    purpose:
+      "薄壳自描述：product 一句话 + howToStart + openapiUrl。完整契约见 GET /openapi.json（OpenAPI 3.1）。旧字段 endpoints/workflows 等已 deprecated。",
     requestBody: null,
     response: {
       contentType: "application/json",
       shape:
-        "{ schemaVersion, product, basePath, devOnly, endpoints[], workflows[], invariants[], errorCodes[], taskDefs[] }",
+        "{ schemaVersion: 2, product, basePath, devOnly, howToStart, openapiUrl, deprecatedFields[], endpoints? (deprecated), workflows? (deprecated), ... }",
+    },
+    errors: [],
+  },
+  {
+    method: "GET",
+    path: `${CREATOR_STUDIO_BASE_PATH}/openapi.json`,
+    purpose:
+      "标准 OpenAPI 3.1 文档（paths/operations/requestBody/response JSON Schema、x-destructive、x-idempotent、错误码 responses、x-supaluv-workflows / x-supaluv-invariants）。冷启动 AI 的主入口。",
+    requestBody: null,
+    response: {
+      contentType: "application/json",
+      shape:
+        "OpenAPI 3.1 document: { openapi: \"3.1.0\", info, servers, paths, components.schemas, x-supaluv-workflows, x-supaluv-invariants, x-supaluv-error-codes, x-supaluv-task-defs }",
+      notes:
+        "由 CREATOR_STUDIO_ENDPOINT_SPECS 同一注册表生成；新路由未注册必被单测抓到。五类冷启动任务：读取 / 修改 / 冲突 / 非法输入 / 回滚，见 x-supaluv-workflows。",
     },
     errors: [],
   },
@@ -474,41 +491,54 @@ export const CREATOR_STUDIO_ENDPOINT_SPECS: readonly CreatorStudioEndpointSpec[]
 export const CREATOR_STUDIO_WORKFLOWS: readonly CreatorStudioWorkflow[] = [
   {
     id: "edit-scene-speaker",
-    title: "改一个场景的 speaker 并保存",
+    title: "五类冷启动：读 / 改 speaker / 冲突 / 非法输入 / 回滚",
     summary:
-      "先 GET scene-meta 取合法值与 hash，再 POST save-scene；遇 409/HASH_CONFLICT 刷新后重试。",
+      "只凭 openapi.json：GET scene-meta 读取 → POST save-scene 修改 → 过期 hash 得 HASH_CONFLICT → 缺字段/假 sceneId 得 4xx → 再 POST 还原并确认一致。",
     steps: [
       {
         step: 1,
-        action: "读取场景元数据",
+        action: "读取：列出某场景当前字段",
         method: "GET",
         path: `${CREATOR_STUDIO_BASE_PATH}/scene-meta`,
         detail:
-          "curl -sS http://127.0.0.1:<port>/__creator-studio/scene-meta。从 JSON 中取：scenes[\"dch01_s005\"].chapterId、.sourceHash、.speaker；确认目标 speaker 在 speakers[] 内（如「系统」「旁白」）。",
+          "curl -sS http://127.0.0.1:<port>/__creator-studio/scene-meta。从 JSON 取 scenes[\"dch01_s005\"]（或任意 sceneIds[] 项）的 chapterId、sourceHash、speaker、artKey 等；合法 speaker 在 speakers[]。",
       },
       {
         step: 2,
-        action: "保存 speaker 字段",
+        action: "修改：改 speaker 并确认落盘",
         method: "POST",
         path: `${CREATOR_STUDIO_BASE_PATH}/save-scene`,
         detail: `curl -sS -X POST http://127.0.0.1:<port>/__creator-studio/save-scene \\
   -H 'content-type: application/json' \\
   -d '{"sceneId":"dch01_s005","chapterId":"<from step1>","sourceHash":"<from step1>","fields":{"speaker":"系统"}}'
-成功时 HTTP 200，body 为刷新后的 scene-meta；scenes[sceneId].speaker 应为新值。服务端会 typecheck，失败则回滚并 422 VALIDATION_FAILED。`,
+成功 HTTP 200，body 为刷新后的 scene-meta；scenes[sceneId].speaker 为新值，sourceHash 已变。服务端 typecheck 失败则回滚并 422 VALIDATION_FAILED。x-destructive: true。`,
       },
       {
         step: 3,
-        action: "处理 HASH_CONFLICT",
-        detail:
-          "若 HTTP 409 且 error.code === \"HASH_CONFLICT\"：不要重放旧 sourceHash。重新执行 step 1 取新 hash，再 step 2。磁盘在冲突时未改动。",
-      },
-      {
-        step: 4,
-        action: "（可选）改回原 speaker",
+        action: "冲突：用过期 hash 提交",
         method: "POST",
         path: `${CREATOR_STUDIO_BASE_PATH}/save-scene`,
         detail:
-          "用 step 2 成功响应里的新 sourceHash，再 POST fields.speaker 为原值（如「旁白」）。每次成功保存后 hash 都会变。",
+          "用 step1 的旧 sourceHash 再 POST（任意合法 fields）。期望 HTTP 409，error.code === \"HASH_CONFLICT\"，磁盘未改。恢复：重新 GET /scene-meta 取新 sourceHash 后再写。",
+      },
+      {
+        step: 4,
+        action: "非法输入：缺字段 / 假 sceneId",
+        method: "POST",
+        path: `${CREATOR_STUDIO_BASE_PATH}/save-scene`,
+        detail: `缺字段：curl -sS -X POST .../save-scene -H 'content-type: application/json' -d '{"sceneId":"x"}'
+→ 400 INVALID_REQUEST（机器可读 error.code）。
+假 sceneId：带齐全字段与当前合法 sourceHash，sceneId 用 "no_such_scene_zzz"
+→ 404 SCENE_NOT_FOUND。
+超长字符串 / 错类型同样 400 INVALID_REQUEST，不会 500 或静默成功。`,
+      },
+      {
+        step: 5,
+        action: "回滚：还原 speaker 并确认与初始一致",
+        method: "POST",
+        path: `${CREATOR_STUDIO_BASE_PATH}/save-scene`,
+        detail:
+          "GET scene-meta 取当前 sourceHash，POST fields.speaker 为 step1 记录的原值。再 GET 确认 scenes[sceneId].speaker 与初始一致。每次成功保存后 hash 都会变，必须用最新 sourceHash。",
       },
     ],
   },
@@ -581,23 +611,43 @@ export const CREATOR_STUDIO_INVARIANTS: readonly string[] = [
 export const CREATOR_STUDIO_PRODUCT = [
   "SupaLuv Creator Studio 是本地 dev-only 创作表面：在浏览器里看剧情图、改场景 manifest 字段、改白名单 Ink 对白，并触发编译/校验任务。",
   "唯一真相源原则：Ink 源文件是剧情拓扑（节点/choice/divert）的真相；scene manifest 是场景表现（speaker/artKey/videoKey/aiBranch 等）的真相；生成的 narrative graph 与 compiled JSON 是派生产物，不能当作可手改 SSOT。",
-  "本 describe 文档由服务端常量结构生成，与路由注册表同源；不要依赖会漂移的平行文档。",
+  "完整 HTTP 契约以 GET /__creator-studio/openapi.json（OpenAPI 3.1，与路由注册表同源生成）为准；describe 仅为薄壳入口。",
 ].join(" ");
 
+/** Fields kept on describe for one release; remove in next major. */
+export const CREATOR_STUDIO_DESCRIBE_DEPRECATED_FIELDS = [
+  "endpoints",
+  "workflows",
+  "invariants",
+  "errorCodes",
+  "taskDefs",
+  "errorResponseShape",
+] as const;
+
 export interface CreatorStudioDescribeDocument {
-  readonly schemaVersion: 1;
+  readonly schemaVersion: 2;
   readonly product: string;
   readonly basePath: string;
   readonly devOnly: true;
   readonly howToStart: string;
+  /** Primary machine-readable contract (OpenAPI 3.1). */
+  readonly openapiUrl: string;
+  readonly deprecatedFields: readonly (typeof CREATOR_STUDIO_DESCRIBE_DEPRECATED_FIELDS)[number][];
+  readonly deprecationNotice: string;
+  /** @deprecated Use openapiUrl — removed next major. */
   readonly endpoints: readonly CreatorStudioEndpointSpec[];
+  /** @deprecated Use openapi x-supaluv-workflows — removed next major. */
   readonly workflows: readonly CreatorStudioWorkflow[];
+  /** @deprecated Use openapi x-supaluv-invariants — removed next major. */
   readonly invariants: readonly string[];
+  /** @deprecated Use openapi x-supaluv-error-codes — removed next major. */
   readonly errorCodes: readonly {
     readonly code: CreatorStudioErrorCode;
     readonly typicalHttpStatus: string;
   }[];
+  /** @deprecated Use openapi x-supaluv-task-defs — removed next major. */
   readonly taskDefs: typeof CREATOR_TASK_DEFS;
+  /** @deprecated Use openapi components.schemas.ErrorBody — removed next major. */
   readonly errorResponseShape: string;
 }
 
@@ -620,16 +670,24 @@ function assertEndpointsCoverRegistry(
   }
 }
 
-/** Build the machine-readable Studio manual (same object GET /describe returns). */
+/**
+ * Thin describe shell for GET /describe.
+ * Full contract: GET /openapi.json (OpenAPI 3.1, same registry SSOT).
+ * Deprecated fields retained for one major; do not add new consumers.
+ */
 export function buildCreatorStudioDescribe(): CreatorStudioDescribeDocument {
   assertEndpointsCoverRegistry(CREATOR_STUDIO_ENDPOINT_SPECS);
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     product: CREATOR_STUDIO_PRODUCT,
     basePath: CREATOR_STUDIO_BASE_PATH,
     devOnly: true,
     howToStart:
-      "仓库根目录：pnpm --filter @supaluv/web dev（默认 http://127.0.0.1:5173）。仅 dev server 暴露本 API；先 GET /__creator-studio/describe。",
+      "仓库根目录：pnpm --filter @supaluv/web dev（默认 http://127.0.0.1:5173，仅绑定 localhost）。仅 dev server 暴露本 API。先 GET /__creator-studio/openapi.json 读完整契约与 x-supaluv-workflows，再按 workflow 用 curl 操作。",
+    openapiUrl: `${CREATOR_STUDIO_BASE_PATH}/openapi.json`,
+    deprecatedFields: CREATOR_STUDIO_DESCRIBE_DEPRECATED_FIELDS,
+    deprecationNotice:
+      "endpoints / workflows / invariants / errorCodes / taskDefs / errorResponseShape 已迁入 OpenAPI 3.1（openapiUrl）。下个大版本将从 /describe 删除；新集成请只读 openapi.json。",
     endpoints: CREATOR_STUDIO_ENDPOINT_SPECS,
     workflows: CREATOR_STUDIO_WORKFLOWS,
     invariants: CREATOR_STUDIO_INVARIANTS,

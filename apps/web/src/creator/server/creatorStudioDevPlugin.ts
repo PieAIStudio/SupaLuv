@@ -6,14 +6,17 @@ import {
   CREATOR_STUDIO_BASE_PATH,
   CREATOR_STUDIO_ROUTE_REGISTRY,
 } from "./creatorStudioDescribe";
+import { buildCreatorStudioOpenApi, CREATOR_STUDIO_OPENAPI_PATH } from "./creatorStudioOpenApi";
 import {
   CreatorStudioError,
   createCreatorStudioService,
-  type CreatorSaveRequest,
-  type CreatorSceneSaveRequest,
 } from "./creatorStudioServer";
-import { isCreatorTaskId } from "./creatorTasks";
-import type { SceneEditableFields } from "./sceneManifestEdit";
+import {
+  parseInkSaveRequest,
+  parsePipelineRequest,
+  parseSceneSaveRequest,
+  parseTaskRequest,
+} from "./creatorStudioRequestValidation";
 
 type CreatorStudioService = ReturnType<typeof createCreatorStudioService>;
 type Next = (error?: unknown) => void;
@@ -22,7 +25,7 @@ const BASE_PATH = CREATOR_STUDIO_BASE_PATH;
 const MAX_BODY_BYTES = 256 * 1024;
 
 /**
- * Routes this handler implements. Same registry as describe catalog —
+ * Routes this handler implements. Same registry as openapi catalog —
  * unit tests assert the two stay equal via CREATOR_STUDIO_ROUTE_REGISTRY.
  */
 export const CREATOR_STUDIO_MOUNTED_ROUTES = CREATOR_STUDIO_ROUTE_REGISTRY;
@@ -55,33 +58,6 @@ async function readJsonBody(request: IncomingMessage): Promise<unknown> {
   }
 }
 
-function isSaveRequest(value: unknown): value is CreatorSaveRequest {
-  if (!value || typeof value !== "object") return false;
-  const request = value as Partial<CreatorSaveRequest>;
-  return (
-    typeof request.file === "string" &&
-    typeof request.revision === "string" &&
-    typeof request.sourceHash === "string" &&
-    typeof request.originalText === "string" &&
-    typeof request.replacement === "string" &&
-    Boolean(request.sourceRange) &&
-    typeof request.sourceRange?.startLine === "number" &&
-    typeof request.sourceRange?.endLine === "number"
-  );
-}
-
-function isSceneSaveRequest(value: unknown): value is CreatorSceneSaveRequest {
-  if (!value || typeof value !== "object") return false;
-  const request = value as Partial<CreatorSceneSaveRequest>;
-  return (
-    typeof request.sceneId === "string" &&
-    typeof request.chapterId === "string" &&
-    typeof request.sourceHash === "string" &&
-    Boolean(request.fields) &&
-    typeof request.fields === "object"
-  );
-}
-
 function writeNdjson(response: ServerResponse, value: unknown): void {
   response.write(`${JSON.stringify(value)}\n`);
 }
@@ -101,6 +77,13 @@ export function createCreatorStudioRequestHandler(service: CreatorStudioService)
     try {
       if (pathname === `${BASE_PATH}/describe` && request.method === "GET") {
         writeJson(response, 200, buildCreatorStudioDescribe());
+        return;
+      }
+      if (
+        (pathname === CREATOR_STUDIO_OPENAPI_PATH || pathname === `${BASE_PATH}/openapi.json`) &&
+        request.method === "GET"
+      ) {
+        writeJson(response, 200, buildCreatorStudioOpenApi());
         return;
       }
       if (pathname === `${BASE_PATH}/graph` && request.method === "GET") {
@@ -125,17 +108,7 @@ export function createCreatorStudioRequestHandler(service: CreatorStudioService)
       }
       if (pathname === `${BASE_PATH}/task` && request.method === "POST") {
         const body = await readJsonBody(request);
-        const taskId =
-          body && typeof body === "object" && "taskId" in body
-            ? (body as { readonly taskId?: unknown }).taskId
-            : undefined;
-        if (!isCreatorTaskId(taskId)) {
-          throw new CreatorStudioError(
-            "INVALID_REQUEST",
-            "taskId 必须是 asset-audit | auto-player | voice-reconcile。",
-            400,
-          );
-        }
+        const { taskId } = parseTaskRequest(body);
         // Delay NDJSON headers until the exclusive lock is acquired so TASK_BUSY
         // can still return a real HTTP 409 JSON body.
         let streaming = false;
@@ -162,34 +135,19 @@ export function createCreatorStudioRequestHandler(service: CreatorStudioService)
       }
       if (pathname === `${BASE_PATH}/save` && request.method === "POST") {
         const body = await readJsonBody(request);
-        if (!isSaveRequest(body)) {
-          throw new CreatorStudioError("INVALID_REQUEST", "保存请求字段不完整。", 400);
-        }
-        writeJson(response, 200, await service.save(body));
+        const saveRequest = parseInkSaveRequest(body);
+        writeJson(response, 200, await service.save(saveRequest));
         return;
       }
       if (pathname === `${BASE_PATH}/save-scene` && request.method === "POST") {
         const body = await readJsonBody(request);
-        if (!isSceneSaveRequest(body)) {
-          throw new CreatorStudioError("INVALID_REQUEST", "场景保存请求字段不完整。", 400);
-        }
-        // Narrow fields to known keys only.
-        const fields = body.fields as SceneEditableFields;
-        writeJson(
-          response,
-          200,
-          await service.saveScene({
-            sceneId: body.sceneId,
-            chapterId: body.chapterId,
-            sourceHash: body.sourceHash,
-            fields,
-          }),
-        );
+        const sceneRequest = parseSceneSaveRequest(body);
+        writeJson(response, 200, await service.saveScene(sceneRequest));
         return;
       }
       if (pathname === `${BASE_PATH}/pipeline` && request.method === "POST") {
-        // Drain body if present, then stream NDJSON logs.
-        await readJsonBody(request).catch(() => ({}));
+        const body = await readJsonBody(request);
+        parsePipelineRequest(body);
         let streaming = false;
         const beginStream = () => {
           if (streaming) return;

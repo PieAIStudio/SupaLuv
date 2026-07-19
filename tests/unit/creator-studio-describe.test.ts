@@ -2,6 +2,7 @@ import { EventEmitter } from "node:events";
 import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { Validator } from "@seriousme/openapi-schema-validator";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   buildCreatorStudioDescribe,
@@ -10,6 +11,11 @@ import {
   creatorStudioRouteKey,
   listCreatorStudioRouteKeys,
 } from "../../apps/web/src/creator/server/creatorStudioDescribe";
+import {
+  buildCreatorStudioOpenApi,
+  endpointIsDestructive,
+  endpointIsIdempotent,
+} from "../../apps/web/src/creator/server/creatorStudioOpenApi";
 import {
   createCreatorStudioRequestHandler,
   CREATOR_STUDIO_MOUNTED_ROUTES,
@@ -142,72 +148,110 @@ afterEach(async () => {
   await Promise.all(tempRoots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
 });
 
-describe("Creator Studio describe catalog", () => {
+describe("Creator Studio OpenAPI catalog", () => {
   it("covers every mounted route in the route registry (and no extras)", () => {
-    const describe = buildCreatorStudioDescribe();
-    const describeKeys = describe.endpoints
-      .map((endpoint) => creatorStudioRouteKey(endpoint.method, endpoint.path))
+    const openapi = buildCreatorStudioOpenApi();
+    const openapiKeys = Object.entries(openapi.paths)
+      .flatMap(([path, methods]) =>
+        Object.keys(methods).map((method) => creatorStudioRouteKey(method.toUpperCase(), path)),
+      )
       .sort();
     const registryKeys = listCreatorStudioRouteKeys().sort();
     const mountedKeys = CREATOR_STUDIO_MOUNTED_ROUTES.map((route) =>
       creatorStudioRouteKey(route.method, route.path),
     ).sort();
+    const endpointKeys = CREATOR_STUDIO_ENDPOINT_SPECS.map((endpoint) =>
+      creatorStudioRouteKey(endpoint.method, endpoint.path),
+    ).sort();
 
-    expect(describeKeys).toEqual(registryKeys);
+    expect(openapiKeys).toEqual(registryKeys);
     expect(mountedKeys).toEqual(registryKeys);
+    expect(endpointKeys).toEqual(registryKeys);
     expect(CREATOR_STUDIO_ENDPOINT_SPECS).toHaveLength(CREATOR_STUDIO_ROUTE_REGISTRY.length);
   });
 
-  it("documents required product, workflows, and invariants for cold agents", () => {
-    const describe = buildCreatorStudioDescribe();
-    expect(describe.schemaVersion).toBe(1);
-    expect(describe.devOnly).toBe(true);
-    expect(describe.product).toMatch(/Ink/);
-    expect(describe.product).toMatch(/manifest/i);
-    expect(describe.basePath).toBe("/__creator-studio");
+  it("is a valid OpenAPI 3.1 document (schema validator)", async () => {
+    const openapi = buildCreatorStudioOpenApi();
+    expect(openapi.openapi).toBe("3.1.0");
+    expect(openapi.info.title).toMatch(/Creator Studio/i);
+    expect(openapi["x-supaluv-workflows"].length).toBeGreaterThanOrEqual(3);
+    expect(openapi["x-supaluv-invariants"].some((line) => /typecheck|回滚/.test(line))).toBe(true);
+    expect(openapi["x-supaluv-task-defs"]).toEqual(CREATOR_TASK_DEFS);
+    expect(openapi["x-supaluv-dev-only"]).toBe(true);
 
-    const workflowIds = describe.workflows.map((workflow) => workflow.id);
-    expect(workflowIds).toEqual(
-      expect.arrayContaining([
-        "edit-scene-speaker",
-        "run-pipeline-stream",
-        "list-assets-and-casting",
-      ]),
-    );
-    expect(describe.workflows.length).toBeGreaterThanOrEqual(3);
+    const saveScene = openapi.paths["/__creator-studio/save-scene"]?.post as {
+      "x-destructive"?: boolean;
+      "x-idempotent"?: boolean;
+      responses?: Record<string, unknown>;
+    };
+    expect(saveScene?.["x-destructive"]).toBe(true);
+    expect(saveScene?.["x-idempotent"]).toBe(false);
+    expect(saveScene?.responses?.["409"]).toBeTruthy();
+    expect(saveScene?.responses?.["400"]).toBeTruthy();
 
-    expect(describe.invariants.some((line) => /typecheck|回滚/.test(line))).toBe(true);
-    expect(describe.invariants.some((line) => /dev-only|production/.test(line))).toBe(true);
-    expect(describe.invariants.some((line) => /TASK_BUSY|排他/.test(line))).toBe(true);
+    const sceneMeta = openapi.paths["/__creator-studio/scene-meta"]?.get as {
+      "x-destructive"?: boolean;
+      "x-idempotent"?: boolean;
+    };
+    expect(sceneMeta?.["x-destructive"]).toBe(false);
+    expect(sceneMeta?.["x-idempotent"]).toBe(true);
 
-    expect(describe.taskDefs).toEqual(CREATOR_TASK_DEFS);
-    expect(describe.endpoints.find((e) => e.path.endsWith("/save-scene"))?.requestBody?.fields).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ name: "sceneId", required: true }),
-        expect.objectContaining({ name: "sourceHash", required: true }),
-        expect.objectContaining({ name: "fields", required: true }),
-      ]),
-    );
+    const validator = new Validator();
+    const result = await validator.validate(openapi as never);
+    expect(result.valid, JSON.stringify(result.errors ?? [], null, 2)).toBe(true);
   });
 
-  it("GET /describe returns the catalog through the request handler", async () => {
+  it("annotates destructive / idempotent consistently with helpers", () => {
+    for (const spec of CREATOR_STUDIO_ENDPOINT_SPECS) {
+      expect(endpointIsDestructive(spec)).toBe(spec.method === "POST");
+      expect(endpointIsIdempotent(spec)).toBe(spec.method === "GET");
+    }
+  });
+
+  it("GET /openapi.json returns the document through the request handler", async () => {
     const repoRoot = await createMinimalFixture();
     const service = createCreatorStudioService({ repoRoot });
     const handler = createCreatorStudioRequestHandler(service);
-    const result = await invokeHandler(handler, "GET", "/__creator-studio/describe");
+    const result = await invokeHandler(handler, "GET", "/__creator-studio/openapi.json");
     expect(result.statusCode).toBe(200);
     expect(result.contentType).toMatch(/application\/json/);
-    const body = JSON.parse(result.body) as ReturnType<typeof buildCreatorStudioDescribe>;
-    expect(body.endpoints.map((e) => creatorStudioRouteKey(e.method, e.path)).sort()).toEqual(
-      listCreatorStudioRouteKeys().sort(),
+    const body = JSON.parse(result.body) as ReturnType<typeof buildCreatorStudioOpenApi>;
+    expect(body.openapi).toBe("3.1.0");
+    const pathKeys = Object.entries(body.paths)
+      .flatMap(([path, methods]) =>
+        Object.keys(methods).map((method) => creatorStudioRouteKey(method.toUpperCase(), path)),
+      )
+      .sort();
+    expect(pathKeys).toEqual(listCreatorStudioRouteKeys().sort());
+  });
+
+  it("GET /describe is a thin shell pointing at openapi.json (deprecated fields retained)", async () => {
+    const describe = buildCreatorStudioDescribe();
+    expect(describe.schemaVersion).toBe(2);
+    expect(describe.devOnly).toBe(true);
+    expect(describe.product).toMatch(/Ink/);
+    expect(describe.openapiUrl).toBe("/__creator-studio/openapi.json");
+    expect(describe.howToStart).toMatch(/openapi\.json/);
+    expect(describe.deprecatedFields).toEqual(
+      expect.arrayContaining(["endpoints", "workflows", "invariants"]),
     );
+    expect(describe.deprecationNotice).toMatch(/下个大版本/);
+    // Deprecated payload still present for one major.
+    expect(describe.endpoints.length).toBe(CREATOR_STUDIO_ROUTE_REGISTRY.length);
+    expect(describe.workflows.some((w) => w.id === "edit-scene-speaker")).toBe(true);
+
+    const repoRoot = await createMinimalFixture();
+    const handler = createCreatorStudioRequestHandler(createCreatorStudioService({ repoRoot }));
+    const result = await invokeHandler(handler, "GET", "/__creator-studio/describe");
+    expect(result.statusCode).toBe(200);
+    const body = JSON.parse(result.body) as ReturnType<typeof buildCreatorStudioDescribe>;
+    expect(body.openapiUrl).toBe("/__creator-studio/openapi.json");
   });
 
   it("handler implements every registry route (never 404 for registered mounts)", async () => {
     const repoRoot = await createMinimalFixture();
     const service = createCreatorStudioService({
       repoRoot,
-      // Ink save path is not exercised beyond routing; avoid real inkjs compile.
       validateCandidate: async () => {
         throw new Error("not used in route coverage");
       },
@@ -238,16 +282,109 @@ describe("Creator Studio describe catalog", () => {
                 : "{}"
           : undefined;
 
-      // Pipeline/task acquire exclusive lock and may run long — only assert routing for
-      // read endpoints + describe; for mutating POSTs we still expect non-404 if body valid.
       if (route.path.endsWith("/pipeline") || route.path.endsWith("/task")) {
-        // Skip executing long-running jobs in unit coverage; presence is asserted via
-        // registry ↔ describe equality. Routing smoke for these would need lock mocks.
         continue;
       }
 
       const result = await invokeHandler(handler, route.method, route.path, body);
       expect(result.statusCode, `${route.method} ${route.path}`).not.toBe(404);
     }
+  });
+
+  it("rejects illegal save-scene / task bodies with 4xx machine-readable codes", async () => {
+    const repoRoot = await createMinimalFixture();
+    const handler = createCreatorStudioRequestHandler(
+      createCreatorStudioService({ repoRoot }),
+    );
+
+    const missing = await invokeHandler(
+      handler,
+      "POST",
+      "/__creator-studio/save-scene",
+      JSON.stringify({ sceneId: "dch01_s001" }),
+    );
+    expect(missing.statusCode).toBe(400);
+    expect(JSON.parse(missing.body).error.code).toBe("INVALID_REQUEST");
+
+    const wrongType = await invokeHandler(
+      handler,
+      "POST",
+      "/__creator-studio/save-scene",
+      JSON.stringify({
+        sceneId: 123,
+        chapterId: "draft-ch01",
+        sourceHash: "0".repeat(64),
+        fields: { speaker: "旁白" },
+      }),
+    );
+    expect(wrongType.statusCode).toBe(400);
+    expect(JSON.parse(wrongType.body).error.code).toBe("INVALID_REQUEST");
+
+    const tooLong = await invokeHandler(
+      handler,
+      "POST",
+      "/__creator-studio/save-scene",
+      JSON.stringify({
+        sceneId: "x".repeat(200),
+        chapterId: "draft-ch01",
+        sourceHash: "0".repeat(64),
+        fields: { speaker: "旁白" },
+      }),
+    );
+    expect(tooLong.statusCode).toBe(400);
+    expect(JSON.parse(tooLong.body).error.code).toBe("INVALID_REQUEST");
+
+    const fakeScene = await invokeHandler(
+      handler,
+      "POST",
+      "/__creator-studio/save-scene",
+      JSON.stringify({
+        sceneId: "no_such_scene_zzz",
+        chapterId: "draft-ch01",
+        sourceHash: "0".repeat(64),
+        fields: { speaker: "旁白" },
+      }),
+    );
+    // Hash is wrong first, or scene not found after hash match — with fake hash we get conflict.
+    // Use real hash from meta.
+    const metaResult = await invokeHandler(handler, "GET", "/__creator-studio/scene-meta");
+    const meta = JSON.parse(metaResult.body) as {
+      scenes: Record<string, { chapterId: string; sourceHash: string }>;
+    };
+    const realHash = Object.values(meta.scenes)[0]?.sourceHash ?? "0".repeat(64);
+    const fakeScene2 = await invokeHandler(
+      handler,
+      "POST",
+      "/__creator-studio/save-scene",
+      JSON.stringify({
+        sceneId: "no_such_scene_zzz",
+        chapterId: "draft-ch01",
+        sourceHash: realHash,
+        fields: { speaker: "旁白" },
+      }),
+    );
+    expect(fakeScene2.statusCode).toBe(404);
+    expect(JSON.parse(fakeScene2.body).error.code).toBe("SCENE_NOT_FOUND");
+    // Also ensure the conflict path is 4xx not 500
+    expect(fakeScene.statusCode).toBeGreaterThanOrEqual(400);
+    expect(fakeScene.statusCode).toBeLessThan(500);
+
+    const badTask = await invokeHandler(
+      handler,
+      "POST",
+      "/__creator-studio/task",
+      JSON.stringify({ taskId: "not-a-real-task" }),
+    );
+    expect(badTask.statusCode).toBe(400);
+    expect(JSON.parse(badTask.body).error.code).toBe("INVALID_REQUEST");
+
+    const missingTask = await invokeHandler(
+      handler,
+      "POST",
+      "/__creator-studio/task",
+      JSON.stringify({}),
+    );
+    expect(missingTask.statusCode).toBe(400);
+    expect(JSON.parse(missingTask.body).error.code).toBe("INVALID_REQUEST");
   });
 });
