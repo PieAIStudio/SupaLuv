@@ -27,6 +27,72 @@ const FROZEN_PROP_IDS = [
   "prop-approval-sms",
 ] as const;
 
+const runtimeLedgerPath = path.join(
+  workspaceRoot,
+  "packages/content/assets/RUNTIME-ASSET-LEDGER.csv",
+);
+const provenanceDir = path.join(workspaceRoot, "packages/content/assets/provenance");
+
+/**
+ * Historical AI-generated ledger assets that predate POLICY-AI-ASSET-PROVENANCE.
+ * Explicit allow-list only — do not invent prompts for these; fill provenance later.
+ * New `*_generated_*` assets must NOT be added here; they need provenance/<id>.md.
+ */
+const PROVENANCE_BACKFILL_WHITELIST = [
+  // BGM (pre-policy Lyria3 deliveries)
+  "chapter-end",
+  "lonely-pad",
+  "night-ambient",
+  "soft-piano",
+  "title-theme",
+  // Portraits / UI / scenes / props / loading posters (pre-policy)
+  "demo-ui",
+  "lin-neutral",
+  "suming-base",
+  "suming-committed",
+  "suming-lonely",
+  "suming-panic",
+  "suming-restless",
+  "suming-shame",
+  "suming-tempted",
+  "suming-uncanny",
+  "zhou-neutral",
+  "shipeixin-hurt",
+  "shipeixin-guarded",
+  "shipeixin-calm-smile",
+  "bg-lobby-white",
+  "bg-office-night",
+  "bg-product-page",
+  "bg-rental-room",
+  "boot-splash",
+  "prop-protocol-terms",
+  "prop-barcode-shift",
+  "prop-rental-receipt",
+  "prop-application-nda",
+  "prop-approval-sms",
+  "leo-neutral",
+  "leo-annoyed",
+  "chenjia-neutral",
+  "shopowner-neutral",
+  "staff-neutral",
+  "stafflead-neutral",
+  "zhuzhu-neutral",
+  "huanglaotai-neutral",
+  "police-neutral",
+  "gridworker-neutral",
+  "courier-neutral",
+  "loading-poster-01-upbeat",
+  "loading-poster-02-upbeat",
+  "loading-poster-03-tender",
+  "loading-poster-04-tender",
+  "loading-poster-05-tense",
+  "loading-poster-06-tense",
+  "loading-poster-07-melancholy",
+  "loading-poster-08-melancholy",
+  "loading-poster-09-uncanny",
+  "loading-poster-10-uncanny",
+] as const;
+
 interface AuditIssue {
   readonly assetId: string;
   readonly path: string | null;
@@ -223,6 +289,68 @@ async function loadAuditModule(): Promise<{
 }
 
 describe("two-chapter visual asset intake", () => {
+  it("requires provenance records for AI-generated ledger assets (policy allow-list for backlog)", async () => {
+    const csv = await fs.readFile(runtimeLedgerPath, "utf8");
+    const rows = csv
+      .trim()
+      .split("\n")
+      .slice(1)
+      .map((line) => {
+        const parts = line.split(",");
+        const assetId = parts[0] ?? "";
+        const source = parts[4] ?? "";
+        return { assetId, source };
+      })
+      .filter((row) => row.assetId.length > 0);
+    const generated = rows.filter(
+      (row) => /_generated_/u.test(row.source) || /^ai_/u.test(row.source),
+    );
+    expect(generated.length).toBeGreaterThan(0);
+
+    const whitelist = new Set<string>(PROVENANCE_BACKFILL_WHITELIST);
+    const missing: string[] = [];
+    const unexpectedWhitelist: string[] = [];
+
+    for (const row of generated) {
+      const assetId = row.assetId;
+      const provenancePath = path.join(provenanceDir, `${assetId}.md`);
+      let hasProvenance = false;
+      try {
+        await fs.access(provenancePath);
+        hasProvenance = true;
+      } catch {
+        hasProvenance = false;
+      }
+
+      if (hasProvenance) {
+        if (whitelist.has(assetId)) {
+          unexpectedWhitelist.push(assetId);
+        }
+        continue;
+      }
+      if (!whitelist.has(assetId)) {
+        missing.push(`${assetId} (source=${row.source})`);
+      }
+    }
+
+    expect(missing, `AI-generated assets missing provenance/<id>.md: ${missing.join(", ")}`).toEqual(
+      [],
+    );
+    // Keep whitelist honest: once a record exists, drop it from the allow-list.
+    expect(
+      unexpectedWhitelist,
+      `provenance exists but still whitelisted (remove from allow-list): ${unexpectedWhitelist.join(", ")}`,
+    ).toEqual([]);
+
+    // New BGM intake under POLICY-AI-ASSET-PROVENANCE must keep real records.
+    for (const requiredId of ["empty-floor", "under-floorboards"] as const) {
+      const body = await fs.readFile(path.join(provenanceDir, `${requiredId}.md`), "utf8");
+      expect(body).toMatch(new RegExp(`assetId:\\s*${requiredId}`));
+      expect(body).toMatch(/# Prompt \(verbatim\)/);
+      expect(body).toMatch(/sourceUrl:\s*https:\/\/gemini\.google\.com\//);
+    }
+  });
+
   it("validates every present visual and keeps real missing deliveries explicit", async () => {
     const result = await runAudit(["--mode=intake"]);
 
@@ -244,7 +372,8 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.checks.dimensions).toBe(80);
     expect(result.report.checks.sha256).toBe(80);
     expect(result.report.checks.attribution).toBe(81);
-    expect(result.report.checks.runtimeLedgerRows).toBe(56);
+    // +empty-floor +under-floorboards (audio ledger-only; visual intake count unchanged)
+    expect(result.report.checks.runtimeLedgerRows).toBe(58);
     expect(result.report.checks.rightsEvidence).toBe(0);
     expect(result.report.checks.gapResolutions).toBe(0);
     expect(result.report.checks.productionTruth).toBe(49);
