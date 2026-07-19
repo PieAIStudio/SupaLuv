@@ -20,8 +20,11 @@ const { Compiler } = require("inkjs/full");
 /** Production + selectable-dev fixtures that ship as precompiled JSON. */
 const DEFAULT_INK = [
   "draft-ch01.ink",
+  "draft-ch01.en.ink",
   "draft-ch02.ink",
+  "draft-ch02.en.ink",
   "draft-ch03.ink",
+  "draft-ch03.en.ink",
   "prototype-act1.ink",
   "chapter-01-trial.ink",
 ];

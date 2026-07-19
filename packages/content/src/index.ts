@@ -137,9 +137,28 @@ const metaById = new Map<StoryCatalogId, StoryCatalogMeta>(
   storyCatalog.map((entry) => [entry.id, entry]),
 );
 
+/**
+ * Content locale for compiled Ink selection.
+ * UI locales other than zh-CN currently resolve to English when a translation exists.
+ */
+export type StoryContentLocale = "zh-CN" | "en";
+
+export function resolveStoryContentLocale(locale?: string | null): StoryContentLocale {
+  if (!locale) {
+    return "zh-CN";
+  }
+  const normalized = locale.trim().toLowerCase();
+  if (normalized === "zh-cn" || normalized.startsWith("zh")) {
+    return "zh-CN";
+  }
+  return "en";
+}
+
 type ChapterModule = {
   readonly scenes: readonly PrototypeSceneCard[];
   readonly compiled: unknown;
+  /** English compiled Ink JSON when a translation ships; omit → fall back to Chinese. */
+  readonly compiledEn?: unknown;
 };
 
 const chapterLoaders: Record<StoryCatalogId, () => Promise<ChapterModule>> = {
@@ -150,7 +169,12 @@ const chapterLoaders: Record<StoryCatalogId, () => Promise<ChapterModule>> = {
   "chapter-01-trial": () => import("./chapters/chapter-01-trial"),
 };
 
-const chapterCache = new Map<StoryCatalogId, LoadedStoryChapter>();
+/** Cache key is `${storyId}::${contentLocale}` so zh/en payloads coexist. */
+const chapterCache = new Map<string, LoadedStoryChapter>();
+
+function chapterCacheKey(id: StoryCatalogId, contentLocale: StoryContentLocale): string {
+  return `${id}::${contentLocale}`;
+}
 
 export function isProductionStoryId(id: string): id is StoryCatalogId {
   return productionStoryCatalog.some((entry) => entry.id === id);
@@ -175,35 +199,62 @@ export function getStoryCatalogEntry(id: StoryCatalogId): StoryCatalogMeta {
 
 /**
  * Async load of one chapter's compiled Ink + presentation scenes.
- * Cached after first load; does not pull other chapters.
+ * Cached per (chapter, content locale). English requests fall back to Chinese
+ * when that chapter has no `compiledEn` (e.g. prototype-act1).
  */
-export async function loadStoryChapter(id: StoryCatalogId): Promise<LoadedStoryChapter> {
-  const cached = chapterCache.get(id);
+export async function loadStoryChapter(
+  id: StoryCatalogId,
+  locale: string = "zh-CN",
+): Promise<LoadedStoryChapter> {
+  const contentLocale = resolveStoryContentLocale(locale);
+  const cacheKey = chapterCacheKey(id, contentLocale);
+  const cached = chapterCache.get(cacheKey);
   if (cached) {
     return cached;
   }
   const meta = getStoryCatalogMeta(id);
   const mod = await chapterLoaders[id]();
+  const compiledPayload =
+    contentLocale === "en" && mod.compiledEn !== undefined ? mod.compiledEn : mod.compiled;
   const loaded: LoadedStoryChapter = {
     meta,
     scenes: mod.scenes,
-    compiledStoryJson: asCompiledJson(mod.compiled),
+    compiledStoryJson: asCompiledJson(compiledPayload),
   };
-  chapterCache.set(id, loaded);
+  chapterCache.set(cacheKey, loaded);
   return loaded;
 }
 
-/** Sync read of a previously loaded chapter (throws if not loaded). */
-export function getLoadedStoryChapter(id: StoryCatalogId): LoadedStoryChapter {
-  const cached = chapterCache.get(id);
+/** Sync read of a previously loaded chapter (throws if not loaded for that locale). */
+export function getLoadedStoryChapter(
+  id: StoryCatalogId,
+  locale: string = "zh-CN",
+): LoadedStoryChapter {
+  const cached = getCachedStoryChapter(id, locale);
   if (!cached) {
-    throw new Error(`Story chapter "${id}" is not loaded yet. Call loadStoryChapter first.`);
+    throw new Error(
+      `Story chapter "${id}" (${resolveStoryContentLocale(locale)}) is not loaded yet. Call loadStoryChapter first.`,
+    );
   }
   return cached;
 }
 
-export function getCachedStoryChapter(id: StoryCatalogId): LoadedStoryChapter | null {
-  return chapterCache.get(id) ?? null;
+/**
+ * Sync peek of a cached chapter.
+ * When locale is omitted, prefers zh-CN then any loaded locale (scenes are shared).
+ */
+export function getCachedStoryChapter(
+  id: StoryCatalogId,
+  locale?: string,
+): LoadedStoryChapter | null {
+  if (locale !== undefined) {
+    return chapterCache.get(chapterCacheKey(id, resolveStoryContentLocale(locale))) ?? null;
+  }
+  return (
+    chapterCache.get(chapterCacheKey(id, "zh-CN")) ??
+    chapterCache.get(chapterCacheKey(id, "en")) ??
+    null
+  );
 }
 
 /** Test helper: clear chapter payload cache between cases. */
@@ -228,7 +279,11 @@ export {
   type PropCutInDefinition,
   type PropCutInId,
 } from "./propCatalog";
-export { CHARACTER_BY_NAME, resolveCharacter } from "../characters/registry";
+export {
+  CHARACTER_BY_NAME,
+  resolveCharacter,
+  resolveCharacterDisplayName,
+} from "../characters/registry";
 export type { CharacterDef, PortraitSide } from "../characters/registry";
 export { CHARACTER_SLOTS, INITIAL_CHARACTER_MOODS } from "../characters/slots";
 

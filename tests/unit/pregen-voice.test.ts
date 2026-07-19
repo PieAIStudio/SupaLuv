@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   fnv1a64Hex,
@@ -5,6 +7,16 @@ import {
   pregenVoiceKey,
   pregenVoiceUrl,
 } from "../../apps/web/src/audio/pregenVoice";
+import { planBrowserTtsSegments } from "../../apps/web/src/audio/ttsSegmentation";
+import { ENGLISH_VOICE_MAP } from "../../services/ai-branch/src/ttsRoute";
+
+/**
+ * Runtime language string for pregen keys — must match useNarrativePlayback:
+ *   language: locale === "zh-CN" ? "zh-CN" : "en"
+ */
+function runtimeDialogueLanguage(locale: string): "zh-CN" | "en" {
+  return locale === "zh-CN" ? "zh-CN" : "en";
+}
 
 describe("pregen voice key contract", () => {
   it("collapses whitespace so chunk-join differences never miss the bank", () => {
@@ -30,5 +42,62 @@ describe("pregen voice key contract", () => {
 
   it("derives clip urls from the key", () => {
     expect(pregenVoiceUrl("abc123")).toBe("/assets/voice/abc123.mp3");
+  });
+
+  it("pins runtime locale → pregen language string used in keys", () => {
+    // tool --language=en and English UI locale must hash with "en", never "en-US".
+    expect(runtimeDialogueLanguage("zh-CN")).toBe("zh-CN");
+    expect(runtimeDialogueLanguage("en")).toBe("en");
+    expect(runtimeDialogueLanguage("ja")).toBe("en");
+    const sample = "When the chat log is scored, it gets deleted.";
+    const segments = planBrowserTtsSegments(sample, "en");
+    expect(segments.length).toBeGreaterThan(0);
+    expect(segments[0]?.language).toBe("en");
+    const key = pregenVoiceKey("staff_worker", segments[0]!.language, sample);
+    expect(key).toBe(pregenVoiceKey("staff_worker", "en", sample));
+    expect(key).not.toBe(pregenVoiceKey("staff_worker", "zh-CN", sample));
+  });
+
+  it("ships a catalog that coexists zh and en keys after pregen", () => {
+    const catalogPath = resolve(process.cwd(), "apps/web/public/assets/voice/catalog.json");
+    const catalog = JSON.parse(readFileSync(catalogPath, "utf8")) as {
+      version: number;
+      keys: string[];
+    };
+    expect(catalog.version).toBe(1);
+    // Baseline zh bank is 136 unique lines; en expands the catalog further.
+    expect(catalog.keys.length).toBeGreaterThanOrEqual(136);
+    for (const key of catalog.keys) {
+      expect(key).toMatch(/^[0-9a-f]{16}$/);
+    }
+  });
+
+  it("ENGLISH_VOICE_MAP covers every Chinese-lane cast id used offline", () => {
+    const required = [
+      "narrator",
+      "suming",
+      "leo",
+      "chen_jia",
+      "shi_peixin",
+      "zhu_zhu",
+      "test_ai",
+      "staff_worker",
+      "staff_lead",
+      "grid_worker",
+      "police_officer",
+      "courier",
+      "shop_owner",
+      "huang_laotai",
+      "lin_xiaotang",
+      "zhou_lu",
+    ];
+    for (const id of required) {
+      const cast = ENGLISH_VOICE_MAP[id];
+      expect(cast, id).toBeDefined();
+      if (!cast) continue;
+      expect(cast.voice_id.length).toBeGreaterThan(0);
+      expect(typeof cast.speed).toBe("number");
+      expect(typeof cast.pitch).toBe("number");
+    }
   });
 });

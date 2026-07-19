@@ -59,7 +59,11 @@ export function resolveRevealedDialogueEntry(input: {
     speaker: input.displaySpeaker,
     meta: input.aiPlaying ? copy.aiBranch : (input.sceneTitle ?? input.snapshotSceneId ?? ""),
     text: input.displayText,
-    kind: input.aiPlaying ? "mystery" : input.displaySpeaker === "旁白" ? "system" : "human",
+    kind: input.aiPlaying
+      ? "mystery"
+      : input.displaySpeaker === "旁白" || input.displaySpeaker === "Narrator"
+        ? "system"
+        : "human",
   };
 }
 

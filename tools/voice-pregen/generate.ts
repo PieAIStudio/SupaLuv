@@ -9,7 +9,13 @@
  * browser (apps/web/src/audio/pregenVoice.ts) computes the same key and
  * plays the static clip before ever considering runtime TTS.
  *
- * Run:  npx tsx tools/voice-pregen/generate.ts [--dry-run] [--chapter=draft-ch01]
+ * Key contract language must match apps/web useDialogueVoice:
+ *   zh-CN locale → "zh-CN"
+ *   any other UI locale → "en"
+ *
+ * Run:
+ *   npx tsx tools/voice-pregen/generate.ts [--dry-run] [--dump] [--help]
+ *     [--language=zh-CN|en] [--chapter=draft-ch01]
  */
 import { createRequire } from "node:module";
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -23,7 +29,11 @@ import {
 } from "../../apps/web/src/audio/ttsSegmentation";
 import { speakerToCharacterId } from "../../apps/web/src/audio/ttsClient";
 import { normalizeVoiceText, pregenVoiceKey } from "../../apps/web/src/audio/pregenVoice";
-import { CHINESE_VOICE_MAP } from "../../services/ai-branch/src/ttsRoute";
+import {
+  CHINESE_VOICE_MAP,
+  ENGLISH_VOICE_MAP,
+  type EnglishVoiceCast,
+} from "../../services/ai-branch/src/ttsRoute";
 import { draftCh01Scenes } from "../../packages/content/manifests/draft-ch01-scenes";
 import { draftCh02Scenes } from "../../packages/content/manifests/draft-ch02-scenes";
 import { draftCh03Scenes } from "../../packages/content/manifests/draft-ch03-scenes";
@@ -31,8 +41,13 @@ import { draftCh03Scenes } from "../../packages/content/manifests/draft-ch03-sce
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "../..");
 const OUT_DIR = join(REPO_ROOT, "apps/web/public/assets/voice");
-const LANGUAGE = "zh-CN";
 const MAX_STATES_PER_CHAPTER = 3000;
+
+/**
+ * Must stay byte-identical to useNarrativePlayback:
+ *   language: locale === "zh-CN" ? "zh-CN" : "en"
+ */
+export type PregenLanguage = "zh-CN" | "en";
 
 const require = createRequire(resolve(REPO_ROOT, "apps/web/package.json"));
 const { Story } = require("inkjs");
@@ -47,6 +62,62 @@ const CHAPTERS: Record<string, readonly SceneLike[]> = {
   "draft-ch02": draftCh02Scenes as readonly SceneLike[],
   "draft-ch03": draftCh03Scenes as readonly SceneLike[],
 };
+
+function printHelp(): void {
+  console.log(`Offline dialogue voice bank generator (MiniMax t2a_v2).
+
+Usage:
+  npx tsx tools/voice-pregen/generate.ts [options]
+
+Options:
+  --language=zh-CN|en   Content language for compiled Ink + key + language_boost.
+                        Default: zh-CN.
+                        en walks packages/content/compiled/<chapter>.en.json
+                        (falls back to <chapter>.json only if .en is missing —
+                        production drafts always ship .en after P0b).
+                        Key language string is "zh-CN" or "en" — must match
+                        useDialogueVoice routedLanguage for that UI locale.
+  --chapter=<id>        Only one chapter (draft-ch01 | draft-ch02 | draft-ch03).
+                        Default: all three production drafts.
+  --dry-run             Collect lines, print counts + samples; no API calls.
+  --dump                Print full JSON array of unique lines and exit.
+  --help                Show this help.
+
+Outputs:
+  apps/web/public/assets/voice/<fnv1a64-key>.mp3
+  apps/web/public/assets/voice/catalog.json  (all languages co-exist; rebuilt
+                                             from directory listing)
+
+Casting SSOT:
+  zh-CN → CHINESE_VOICE_MAP in services/ai-branch/src/ttsRoute.ts
+  en    → ENGLISH_VOICE_MAP (voice_id + speed + pitch) in the same file
+          (export only; not wired into runtime TTS routing — that is P2)
+
+Env:
+  ~/PieAI/.secrets/supaluv/local.server.env  (MINIMAX_API_KEY, optional MINIMAX_BASE_URL)
+`);
+}
+
+function parseLanguage(argv: readonly string[]): PregenLanguage {
+  const raw = argv.find((arg) => arg.startsWith("--language="))?.split("=")[1]?.trim();
+  if (!raw || raw === "zh-CN" || raw === "zh") {
+    return "zh-CN";
+  }
+  if (raw === "en" || raw === "en-US" || raw === "english") {
+    return "en";
+  }
+  throw new Error(`Unsupported --language=${raw}; use zh-CN or en`);
+}
+
+/** Compiled Ink path: en prefers `.en.json`, falls back to zh base. */
+function compiledInkPath(chapterId: string, language: PregenLanguage): string {
+  const base = join(REPO_ROOT, "packages/content/compiled", `${chapterId}.json`);
+  if (language === "zh-CN") {
+    return base;
+  }
+  const enPath = join(REPO_ROOT, "packages/content/compiled", `${chapterId}.en.json`);
+  return existsSync(enPath) ? enPath : base;
+}
 
 function loadEnv(): Record<string, string> {
   const envPath = join(homedir(), "PieAI", ".secrets", "supaluv", "local.server.env");
@@ -95,10 +166,15 @@ interface CollectedLine {
   readonly text: string;
   readonly chapterId: string;
   readonly sceneId: string | null;
+  readonly language: PregenLanguage;
 }
 
-function collectChapterLines(chapterId: string): CollectedLine[] {
-  const compiled = readFileSync(join(REPO_ROOT, "packages/content/compiled", `${chapterId}.json`), "utf8");
+function collectChapterLines(chapterId: string, language: PregenLanguage): CollectedLine[] {
+  const compiledPath = compiledInkPath(chapterId, language);
+  if (!existsSync(compiledPath)) {
+    throw new Error(`Missing compiled ink: ${compiledPath}`);
+  }
+  const compiled = readFileSync(compiledPath, "utf8");
   const scenes = CHAPTERS[chapterId] ?? [];
   const speakerByScene = new Map(scenes.map((scene) => [scene.id, scene.speaker ?? "旁白"]));
 
@@ -130,13 +206,15 @@ function collectChapterLines(chapterId: string): CollectedLine[] {
     if (chunk.text.length > 0) {
       const speaker = (carriedSceneId ? speakerByScene.get(carriedSceneId) : undefined) ?? "旁白";
       const characterId = speakerToCharacterId(speaker);
-      const segments = planBrowserTtsSegments(chunk.text, LANGUAGE);
+      const segments = planBrowserTtsSegments(chunk.text, language);
       if (segments.length > 0 && !hasMixedTtsRoutes(segments)) {
         const routedText = segments
           .map((segment) => segment.text)
           .join(" ")
           .slice(0, 480);
-        const key = pregenVoiceKey(characterId, LANGUAGE, routedText);
+        // routedLanguage from segments[0] matches useDialogueVoice key path.
+        const routedLanguage = (segments[0]?.language ?? language) as PregenLanguage;
+        const key = pregenVoiceKey(characterId, routedLanguage, routedText);
         if (!lines.has(key)) {
           lines.set(key, {
             key,
@@ -144,6 +222,7 @@ function collectChapterLines(chapterId: string): CollectedLine[] {
             text: normalizeVoiceText(routedText),
             chapterId,
             sceneId: carriedSceneId,
+            language: routedLanguage,
           });
         }
       }
@@ -175,12 +254,38 @@ function collectChapterLines(chapterId: string): CollectedLine[] {
   return [...lines.values()];
 }
 
+function resolveChineseVoice(characterId: string): { voiceId: string; speed: number; pitch: number } {
+  return {
+    voiceId: CHINESE_VOICE_MAP[characterId] ?? "male-qn-qingse",
+    speed: 1,
+    pitch: 0,
+  };
+}
+
+function resolveEnglishVoice(characterId: string): EnglishVoiceCast {
+  return (
+    ENGLISH_VOICE_MAP[characterId] ?? {
+      voice_id: "English_Trustworthy_Man",
+      speed: 1,
+      pitch: 0,
+    }
+  );
+}
+
 async function synthesize(
   env: Record<string, string>,
-  voiceId: string,
+  language: PregenLanguage,
+  characterId: string,
   text: string,
 ): Promise<Buffer> {
   const baseUrl = (env.MINIMAX_BASE_URL ?? "https://api.minimaxi.com").replace(/\/$/, "");
+  const languageBoost = language === "en" ? "English" : "Chinese";
+  const voice =
+    language === "en" ? resolveEnglishVoice(characterId) : resolveChineseVoice(characterId);
+  const voiceId = language === "en" ? (voice as EnglishVoiceCast).voice_id : (voice as { voiceId: string }).voiceId;
+  const speed = language === "en" ? (voice as EnglishVoiceCast).speed : (voice as { speed: number }).speed;
+  const pitch = language === "en" ? (voice as EnglishVoiceCast).pitch : (voice as { pitch: number }).pitch;
+
   const response = await fetch(`${baseUrl}/v1/t2a_v2`, {
     method: "POST",
     headers: {
@@ -191,9 +296,9 @@ async function synthesize(
       model: "speech-02-turbo",
       text,
       stream: false,
-      language_boost: "Chinese",
+      language_boost: languageBoost,
       output_format: "hex",
-      voice_setting: { voice_id: voiceId, speed: 1, vol: 1, pitch: 0 },
+      voice_setting: { voice_id: voiceId, speed, vol: 1, pitch },
       audio_setting: { sample_rate: 32000, bitrate: 64000, format: "mp3", channel: 1 },
     }),
   });
@@ -210,13 +315,23 @@ async function synthesize(
 }
 
 async function main() {
+  if (process.argv.includes("--help") || process.argv.includes("-h")) {
+    printHelp();
+    return;
+  }
+
+  const language = parseLanguage(process.argv);
   const dryRun = process.argv.includes("--dry-run");
   const onlyChapter = process.argv.find((arg) => arg.startsWith("--chapter="))?.split("=")[1];
   const chapterIds = onlyChapter ? [onlyChapter] : Object.keys(CHAPTERS);
 
+  console.log(`language=${language} chapters=${chapterIds.join(",")}`);
+
   const all: CollectedLine[] = [];
   for (const chapterId of chapterIds) {
-    const lines = collectChapterLines(chapterId);
+    const path = compiledInkPath(chapterId, language);
+    console.log(`[${chapterId}] ink=${path}`);
+    const lines = collectChapterLines(chapterId, language);
     console.log(`[${chapterId}] unique voiced chunks: ${lines.length}`);
     all.push(...lines);
   }
@@ -231,7 +346,7 @@ async function main() {
 
   if (dryRun) {
     for (const line of [...unique.values()].slice(0, 5)) {
-      console.log(`  sample [${line.characterId}] ${line.text.slice(0, 60)}…`);
+      console.log(`  sample [${line.characterId}|${line.language}] ${line.text.slice(0, 60)}…`);
     }
     return;
   }
@@ -247,11 +362,10 @@ async function main() {
       skipped += 1;
       continue;
     }
-    const voiceId = CHINESE_VOICE_MAP[line.characterId] ?? "male-qn-qingse";
     let done = false;
     for (let attempt = 0; attempt < 4 && !done; attempt += 1) {
       try {
-        const audio = await synthesize(env, voiceId, line.text);
+        const audio = await synthesize(env, language, line.characterId, line.text);
         writeFileSync(outPath, audio);
         generated += 1;
         done = true;
@@ -278,6 +392,7 @@ async function main() {
   }
 
   // Catalog is derived from the directory so it always matches shipped files.
+  // zh + en clips coexist; never wipe the other language's keys.
   const keys = readdirSync(OUT_DIR)
     .filter((file) => file.endsWith(".mp3"))
     .map((file) => file.replace(/\.mp3$/, ""))
