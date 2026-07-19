@@ -9,13 +9,15 @@ import {
   createEngineHowl,
   setGlobalReverbWet,
   setHowlerMasterMute,
-  unlockHowler,
 } from "../howlerEngine";
 import { cancelFadingBeds, stopAllBeds } from "./beds";
 import { applyBedMix, resolveMix, resumeBedsIfAllowed } from "./mix";
 import type { AudioPlaybackSnapshot, GameAudioRuntime } from "./runtime";
 import { stopSfx } from "./sfx";
+import { unlock } from "./unlock";
 import { stopVoice } from "./voice";
+
+export { unlock };
 
 export function isMuted(rt: GameAudioRuntime): boolean {
   return rt.muted;
@@ -98,19 +100,6 @@ export function setMuted(rt: GameAudioRuntime, next: boolean): void {
     rt.ambientHowl?.pause();
     return;
   }
-  applyBedMix(rt);
-  resumeBedsIfAllowed(rt);
-}
-
-export function unlock(rt: GameAudioRuntime): void {
-  if (rt.unlocked) {
-    return;
-  }
-  rt.unlocked = true;
-  unlockHowler();
-  // Re-assert product mute after context unlock; unlock must never unmute.
-  setHowlerMasterMute(rt.muted);
-  setGlobalReverbWet(rt.reverbAmount);
   applyBedMix(rt);
   resumeBedsIfAllowed(rt);
 }
