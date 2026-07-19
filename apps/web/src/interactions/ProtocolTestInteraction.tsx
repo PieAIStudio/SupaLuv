@@ -4,6 +4,7 @@ import type { InkStorySnapshot } from "../story/inkStoryRunner";
 import { protocolTestClauses, type ProtocolTestResponse } from "./protocolTest";
 import type { ActiveStoryInteraction } from "./types";
 import { useInteractionChoiceCommit } from "./useInteractionChoiceCommit";
+import { useInteractionKeyboard } from "./useInteractionKeyboard";
 
 interface ProtocolTestInteractionProps {
   readonly active: ActiveStoryInteraction;
@@ -33,7 +34,7 @@ export function ProtocolTestInteraction({
 
   const respond = useCallback(
     (response: ProtocolTestResponse) => {
-      if (!clause || busy || feedback) {
+      if (!clause || busy || feedback || paused) {
         return;
       }
       const choiceId = response === "skip" ? clause.skipChoiceId : clause.choiceIds[response];
@@ -50,15 +51,41 @@ export function ProtocolTestInteraction({
         response === "model" ? "notify-soft" : "ui-choice",
       );
     },
-    [busy, clause, commitChoice, feedback, t],
+    [busy, clause, commitChoice, feedback, paused, t],
   );
+
+  const step = active.stepIndex + 1;
+  const disabled = paused || busy || Boolean(feedback);
+
+  const onKeyboard = useCallback(
+    (key: string) => {
+      if (disabled) {
+        return false;
+      }
+      if (key === "1") {
+        respond("literal");
+        return true;
+      }
+      if (key === "2") {
+        respond("model");
+        return true;
+      }
+      if (key.toLowerCase() === "s") {
+        respond("skip");
+        return true;
+      }
+      return false;
+    },
+    [disabled, respond],
+  );
+  useInteractionKeyboard(!disabled, onKeyboard);
 
   if (!clause) {
     return null;
   }
 
-  const step = active.stepIndex + 1;
-  const disabled = paused || busy || Boolean(feedback);
+  const literalLabel = t("interaction.protocol.literal");
+  const modelLabel = t("interaction.protocol.model");
 
   return (
     <section
@@ -70,21 +97,6 @@ export function ProtocolTestInteraction({
       data-story-interaction-id={active.definition.id}
       data-step={step}
       tabIndex={-1}
-      onKeyDown={(event) => {
-        if (disabled) {
-          return;
-        }
-        if (event.key === "1") {
-          event.preventDefault();
-          respond("literal");
-        } else if (event.key === "2") {
-          event.preventDefault();
-          respond("model");
-        } else if (event.key.toLowerCase() === "s") {
-          event.preventDefault();
-          respond("skip");
-        }
-      }}
     >
       <header className="story-interaction-header">
         <div>
@@ -125,21 +137,23 @@ export function ProtocolTestInteraction({
           type="button"
           data-testid="protocol-literal"
           disabled={disabled}
+          aria-label={literalLabel}
           aria-keyshortcuts="1"
           onClick={() => respond("literal")}
         >
           <span className="story-interaction-key">1</span>
-          <span>{t("interaction.protocol.literal")}</span>
+          <span>{literalLabel}</span>
         </button>
         <button
           type="button"
           data-testid="protocol-model"
           disabled={disabled}
+          aria-label={modelLabel}
           aria-keyshortcuts="2"
           onClick={() => respond("model")}
         >
           <span className="story-interaction-key">2</span>
-          <span>{t("interaction.protocol.model")}</span>
+          <span>{modelLabel}</span>
         </button>
       </div>
 

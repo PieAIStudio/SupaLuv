@@ -94,6 +94,7 @@ VAR barcode_sweep_q3 = "unanswered"
 = q1
 # scene:dch03_mobile_questionnaire
 # interaction:mobile-questionnaire-v1
+# interaction-variant:matching
 # interaction-step:1
 手机问卷 1/3 · 邻居容忍度。
 + [一般 # choice:mobile_questionnaire_q1_average]
@@ -124,6 +125,7 @@ VAR barcode_sweep_q3 = "unanswered"
 = q2
 # scene:dch03_mobile_questionnaire
 # interaction:mobile-questionnaire-v1
+# interaction-variant:matching
 # interaction-step:2
 手机问卷 2/3 · 是否介意设备高度拟人。
 + [介意 # choice:mobile_questionnaire_q2_mind]
@@ -148,6 +150,7 @@ VAR barcode_sweep_q3 = "unanswered"
 = q3
 # scene:dch03_mobile_questionnaire
 # interaction:mobile-questionnaire-v1
+# interaction-variant:matching
 # interaction-step:3
 手机问卷 3/3 · 独立房间。
 + [有独立房间 # choice:mobile_questionnaire_q3_yes]
@@ -403,6 +406,7 @@ VAR barcode_sweep_q3 = "unanswered"
 = q1
 # scene:dch03_robot_barcode
 # interaction:barcode-sweep-v1
+# interaction-variant:activation
 # interaction-step:1
 开箱激活 1/3 · 主机箱外激活码。
 + [扫过这一单 # choice:barcode_sweep_q1_ok]
@@ -418,6 +422,7 @@ VAR barcode_sweep_q3 = "unanswered"
 = q2
 # scene:dch03_robot_barcode
 # interaction:barcode-sweep-v1
+# interaction-variant:activation
 # interaction-step:2
 开箱激活 2/3 · 肢体箱质检码。
 + [扫过这一单 # choice:barcode_sweep_q2_ok]
@@ -433,6 +438,7 @@ VAR barcode_sweep_q3 = "unanswered"
 = q3
 # scene:dch03_robot_barcode
 # interaction:barcode-sweep-v1
+# interaction-variant:activation
 # interaction-step:3
 开箱激活 3/3 · 头箱绑定预授权码。
 + [扫过这一单 # choice:barcode_sweep_q3_ok]

@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocale } from "../i18n";
 import type { InkStorySnapshot } from "../story/inkStoryRunner";
-import { barcodeSweepRounds } from "./barcodeSweep";
+import { resolveBarcodeSweepPayload } from "./barcodeSweep";
 import type { ActiveStoryInteraction } from "./types";
 import { useInteractionChoiceCommit } from "./useInteractionChoiceCommit";
+import { useInteractionKeyboard } from "./useInteractionKeyboard";
 
 interface BarcodeSweepInteractionProps {
   readonly active: ActiveStoryInteraction;
@@ -19,11 +20,13 @@ export function BarcodeSweepInteraction({
   onChoose,
 }: BarcodeSweepInteractionProps) {
   const { t } = useLocale();
-  const round = barcodeSweepRounds[active.stepIndex];
+  const payload = useMemo(() => resolveBarcodeSweepPayload(active.variant), [active.variant]);
+  const round = payload.rounds[active.stepIndex];
   const panelRef = useRef<HTMLElement | null>(null);
   const [nextIndex, setNextIndex] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
   const { busy, commitChoice } = useInteractionChoiceCommit(snapshot, paused, onChoose);
+  const i18nPrefix = `interaction.barcode.variant.${payload.variant}`;
 
   useEffect(() => {
     setNextIndex(0);
@@ -75,12 +78,33 @@ export function BarcodeSweepInteraction({
     [busy, completeRound, nextIndex, paused, round, t],
   );
 
+  const step = active.stepIndex + 1;
+  const finished = Boolean(round && nextIndex >= round.segments.length);
+  const disabled = paused || busy || finished;
+
+  const onKeyboard = useCallback(
+    (key: string) => {
+      if (paused || busy || !round) {
+        return false;
+      }
+      if (key === "1" || key === "2" || key === "3") {
+        const map = { "1": "a", "2": "b", "3": "c" } as const;
+        tapSegment(map[key]);
+        return true;
+      }
+      if (key.toLowerCase() === "s") {
+        skip();
+        return true;
+      }
+      return false;
+    },
+    [busy, paused, round, skip, tapSegment],
+  );
+  useInteractionKeyboard(!paused && !busy, onKeyboard);
+
   if (!round) {
     return null;
   }
-
-  const step = active.stepIndex + 1;
-  const disabled = paused || busy || Boolean(feedback && nextIndex >= round.segments.length);
 
   return (
     <section
@@ -90,26 +114,14 @@ export function BarcodeSweepInteraction({
       aria-describedby="barcode-sweep-instructions"
       data-testid="barcode-sweep"
       data-story-interaction-id={active.definition.id}
+      data-interaction-variant={payload.variant}
       data-step={step}
       tabIndex={-1}
-      onKeyDown={(event) => {
-        if (paused || busy) {
-          return;
-        }
-        if (event.key === "1" || event.key === "2" || event.key === "3") {
-          event.preventDefault();
-          const map = { "1": "a", "2": "b", "3": "c" } as const;
-          tapSegment(map[event.key]);
-        } else if (event.key.toLowerCase() === "s") {
-          event.preventDefault();
-          skip();
-        }
-      }}
     >
       <header className="story-interaction-header">
         <div>
-          <p className="story-interaction-kicker">{t("interaction.barcode.kicker")}</p>
-          <h2 id="barcode-sweep-title">{t("interaction.barcode.title")}</h2>
+          <p className="story-interaction-kicker">{t(`${i18nPrefix}.kicker`)}</p>
+          <h2 id="barcode-sweep-title">{t(`${i18nPrefix}.title`)}</h2>
         </div>
         <div className="story-interaction-status">{t("interaction.barcode.localOnly")}</div>
       </header>
@@ -125,7 +137,7 @@ export function BarcodeSweepInteraction({
           SCAN {String(step).padStart(2, "0")} / 03 · SEG {Math.min(nextIndex + 1, 3)}/3
         </span>
         <div className="story-interaction-progress-rail" aria-hidden="true">
-          {barcodeSweepRounds.map((entry, index) => (
+          {payload.rounds.map((entry, index) => (
             <i key={entry.id} className={index <= active.stepIndex ? "is-active" : undefined} />
           ))}
         </div>
@@ -133,7 +145,7 @@ export function BarcodeSweepInteraction({
 
       <div className="barcode-sweep-product" data-testid="barcode-sweep-product">
         <p className="barcode-sweep-product-name">
-          {t(`interaction.barcode.product.${round.productKey}`)}
+          {t(`${i18nPrefix}.product.${round.productKey}`)}
         </p>
         <div className="barcode-sweep-bars" aria-hidden="true">
           {round.segments.map((segment, index) => (
@@ -150,11 +162,11 @@ export function BarcodeSweepInteraction({
             />
           ))}
         </div>
-        <p className="barcode-sweep-hint">{t("interaction.barcode.sequenceHint")}</p>
+        <p className="barcode-sweep-hint">{t(`${i18nPrefix}.sequenceHint`)}</p>
       </div>
 
       <p id="barcode-sweep-instructions" className="story-interaction-instructions">
-        {t("interaction.barcode.instructions")}
+        {t(`${i18nPrefix}.instructions`)}
       </p>
 
       <footer className="story-interaction-footer">

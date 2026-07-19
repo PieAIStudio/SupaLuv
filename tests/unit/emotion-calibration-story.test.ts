@@ -41,6 +41,7 @@ describe("draft chapter 1 emotion calibration", () => {
     expect(resolveStoryInteraction(snapshot)).toEqual({
       definition: expect.objectContaining({ id: "emotion-calibration-v1" }),
       stepIndex: 0,
+      variant: null,
     });
     expect(snapshot.choices.map((choice) => choice.choiceId)).toEqual([
       "emotion_calibration_q1_calm",

@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { PropCutInDefinition } from "@supaluv/content";
 import { useLocale } from "../../i18n";
+import { localizePropCutIn } from "../../i18n/propCutInLocale";
 
 interface PropCutInProps {
   readonly definition: PropCutInDefinition;
@@ -9,7 +10,8 @@ interface PropCutInProps {
 }
 
 export function PropCutIn({ definition, onDismiss, onRestoreFocus }: PropCutInProps) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  const localized = useMemo(() => localizePropCutIn(definition, locale), [definition, locale]);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const onDismissRef = useRef(onDismiss);
@@ -76,16 +78,16 @@ export function PropCutIn({ definition, onDismiss, onRestoreFocus }: PropCutInPr
       className="prop-cutin-dialog"
       role="dialog"
       aria-modal="true"
-      aria-labelledby={`prop-cutin-title-${definition.id}`}
-      aria-describedby={`prop-cutin-text-${definition.id}`}
+      aria-labelledby={`prop-cutin-title-${localized.id}`}
+      aria-describedby={`prop-cutin-text-${localized.id}`}
       data-testid="prop-cutin-dialog"
-      data-prop-id={definition.id}
+      data-prop-id={localized.id}
       data-image-status={imageFailed ? "failed" : "ready"}
     >
       <div className="prop-cutin-frame">
         <header className="prop-cutin-chrome">
           <span className="prop-cutin-badge">{t("propCutIn.badge")}</span>
-          <h2 id={`prop-cutin-title-${definition.id}`}>{definition.title}</h2>
+          <h2 id={`prop-cutin-title-${localized.id}`}>{localized.title}</h2>
           <button
             ref={closeButtonRef}
             type="button"
@@ -100,22 +102,22 @@ export function PropCutIn({ definition, onDismiss, onRestoreFocus }: PropCutInPr
         <div className="prop-cutin-visual" data-testid="prop-cutin-visual">
           {!imageFailed ? (
             <img
-              src={definition.imageUrl}
-              alt={definition.altText}
+              src={localized.imageUrl}
+              alt={localized.altText}
               onError={() => setImageFailed(true)}
               data-testid="prop-cutin-image"
             />
           ) : (
             <div className="prop-cutin-fallback" data-testid="prop-cutin-fallback" role="status">
               <strong>{t("propCutIn.loadFailed")}</strong>
-              <span>{definition.title}</span>
+              <span>{localized.title}</span>
             </div>
           )}
         </div>
 
         <section className="prop-cutin-transcript" aria-label={t("propCutIn.fullText")}>
           <span>{t("propCutIn.fullText")}</span>
-          <p id={`prop-cutin-text-${definition.id}`}>{definition.accessibleText}</p>
+          <p id={`prop-cutin-text-${localized.id}`}>{localized.accessibleText}</p>
         </section>
       </div>
     </dialog>

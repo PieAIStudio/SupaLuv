@@ -20,7 +20,7 @@ describe("resolveEndingPath", () => {
       usedAiBranch: true,
       pathHint: ENDING_PATH_HINT_AI,
     });
-    expect(ENDING_PATH_HINT_AI).toBe("本局走过 AI 灵感旁支，并汇合作者主线。");
+    expect(ENDING_PATH_HINT_AI).toBe("本局包含 AI 支线");
   });
 
   it("uses exact Chinese pathHint for author-only runs", () => {

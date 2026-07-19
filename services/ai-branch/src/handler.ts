@@ -53,6 +53,7 @@ async function generateAiBranchViaOpenRouter(
     portraitPool,
     speakerPool,
     meters: body.meters,
+    locale: body.locale,
   });
 
   const result = await requestOpenRouterChatCompletion({

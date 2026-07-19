@@ -2,6 +2,7 @@ import { GameButton, GameCallout, GamePanel } from "@pieai/swimmer-ui-kit";
 import { AiWaitInterstitial } from "../../ai/AiWaitInterstitial";
 import type { AiChoiceSlotState } from "../../ai/aiBranchTypes";
 import { useLocale } from "../../i18n";
+import { resolveSceneChipTitle } from "../../i18n/sceneShortTitlesEn";
 import type { InkStorySnapshot } from "../../story/inkStoryRunner";
 import {
   AUTHORED_CHOICES_LABEL_ID,
@@ -67,6 +68,7 @@ export function DialoguePanel({
   const { t, locale } = useLocale();
   const hasOracleChoices =
     isComplete && !aiMode && oracleOptions.length > 0 && onOracleGuess !== undefined;
+  const chipTitle = resolveSceneChipTitle(sceneId, locale, sceneTitle);
   return (
     <GamePanel
       className={`dialogue-box${hasOracleChoices ? " has-oracle" : ""}`}
@@ -75,7 +77,7 @@ export function DialoguePanel({
     >
       <div className="dialogue-meta">
         <p className="scene-chip">
-          {sceneTitle}
+          {chipTitle}
           {aiMode ? ` · ${t("play.aiBranch")}` : ""}
         </p>
         <div className="nameplate-row">
