@@ -1704,6 +1704,30 @@ export async function auditAssetIntake({
   };
 }
 
+function printHelp() {
+  process.stdout.write(`Usage: node tools/asset-audit.mjs [options]
+
+Validate visual intake + runtime asset ledger (structure, coverage, quality).
+production mode also reports release blockers.
+
+Options:
+  --mode <intake|production>   Audit mode (default: intake). Also --mode=...
+  --manifest <path>             VISUAL-ASSET-INTAKE.json path
+                                (default: packages/content/assets/VISUAL-ASSET-INTAKE.json)
+  --runtime-ledger <path|none>  RUNTIME-ASSET-LEDGER.csv path, or "none" to skip
+                                (default: packages/content/assets/RUNTIME-ASSET-LEDGER.csv)
+  --workspace-root <path>       Workspace root (default: cwd)
+  --json                        Print full JSON report to stdout
+  --report <path>               Write JSON report to this path
+  --help, -h                    Show this help
+
+Examples:
+  pnpm assets:intake
+  pnpm assets:production
+  node tools/asset-audit.mjs --mode=intake --json --report .scratch/asset-audit-intake.json
+`);
+}
+
 function parseArgs(argv) {
   const options = {
     mode: "intake",
@@ -1712,10 +1736,12 @@ function parseArgs(argv) {
     workspaceRoot: process.cwd(),
     json: false,
     reportPath: null,
+    help: false,
   };
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
-    if (arg === "--json") options.json = true;
+    if (arg === "--help" || arg === "-h") options.help = true;
+    else if (arg === "--json") options.json = true;
     else if (arg === "--mode") options.mode = argv[++index];
     else if (arg.startsWith("--mode=")) options.mode = arg.slice("--mode=".length);
     else if (arg === "--manifest") options.manifestPath = argv[++index];
@@ -1748,6 +1774,11 @@ function formatHumanReport(report) {
 
 async function runCli() {
   const options = parseArgs(process.argv.slice(2));
+  if (options.help) {
+    printHelp();
+    process.exitCode = 0;
+    return;
+  }
   const report = await auditAssetIntake(options);
   const output = options.json ? `${JSON.stringify(report, null, 2)}\n` : formatHumanReport(report);
   if (options.reportPath) {
