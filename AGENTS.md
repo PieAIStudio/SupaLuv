@@ -92,6 +92,10 @@ Runtime source/config wins for executable behavior after code exists; docs expla
 - Keep the authored story and metadata portable enough to migrate to Unity, Godot, Ren'Py, or another engine later.
 - Do not let platform ambitions block the first 20-30 minute playable prototype.
 - Do not treat draft discussion briefs as final implementation specs.
+- Every new feature must stay AI-legible per `docs/policy/ai-legibility.md`:
+  new surfaces need an entry file or self-describe API, acceptance includes a
+  cold-agent test, and AI-generated assets need provenance records per
+  `docs/policy/ai-asset-provenance.md`.
 
 ## Verification
 
