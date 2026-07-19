@@ -110,15 +110,24 @@ async function revealAndChooseFirst(page: Page): Promise<boolean> {
 
 async function openPlayerPath(page: Page): Promise<void> {
   await dismissPropCutInIfVisible(page);
+  // After continue/restore, LoadingDwellCurtain (z-index 100, full viewport) can
+  // still be up for LOADING_MIN_DWELL_MS. force:true would hit the curtain DIV
+  // instead of the toggle and never open the menu — wait for the event anchor.
+  await expect(page.getByTestId("loading-dwell-curtain")).toHaveCount(0);
   const systemMenu = page.getByTestId("system-menu");
+  const toggle = page.getByTestId("system-menu-toggle");
   // Toggle is a binary open/close control — only click when the menu is closed.
+  // Do not use force:true: actionability must wait until nothing intercepts hits.
   if (!(await systemMenu.isVisible().catch(() => false))) {
-    await page.getByTestId("system-menu-toggle").click({ force: true });
+    await expect(toggle).toBeVisible();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
   }
   await expect(systemMenu).toBeVisible();
   await expect(page.getByTestId("player-path-menu-button")).toBeVisible();
   await expect(page.getByTestId("creator-map-menu-button")).toHaveCount(0);
-  await page.getByTestId("player-path-menu-button").click({ force: true });
+  await page.getByTestId("player-path-menu-button").click();
   await expect(page.getByTestId("player-path-panel")).toBeVisible();
 }
 
@@ -424,16 +433,18 @@ test("我的路线 records two choices, shows gray alternatives, survives refres
 
   await page.getByRole("button", { name: "关闭" }).click();
   await page.setViewportSize({ width: 1440, height: 900 });
+  await expect(page.getByTestId("loading-dwell-curtain")).toHaveCount(0);
   const systemMenu = page.getByTestId("system-menu");
   if (!(await systemMenu.isVisible().catch(() => false))) {
-    await page.getByTestId("system-menu-toggle").click({ force: true });
+    await page.getByTestId("system-menu-toggle").click();
   }
-  await page.getByTestId("save-button").click({ force: true });
+  await page.getByTestId("save-button").click();
   await expect(page.getByTestId("save-toast")).toBeVisible();
 
   await page.reload();
   await page.getByTestId("title-continue").click();
   await expect(page.getByTestId("game-viewport")).toBeVisible();
+  // openPlayerPath waits for loading-dwell-curtain (post-continue min dwell).
   await openPlayerPath(page);
   await page.getByRole("tab", { name: "图形视图" }).click();
   await expect(page.locator(".player-path-edge--selected").first()).toBeVisible();
