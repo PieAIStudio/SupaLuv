@@ -44,6 +44,7 @@
     "@pieai/pro-gov": "0.8.0",
     "@pieai/swimmer-ai-kit": "0.3.0",
     "@playwright/test": "1.61.1",
+    "@seriousme/openapi-schema-validator": "2.9.0",
     "@types/node": "24.13.2",
     "lefthook": "2.1.9",
     "oxfmt": "0.58.0",

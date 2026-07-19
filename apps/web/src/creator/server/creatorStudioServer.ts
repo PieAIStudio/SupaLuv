@@ -624,6 +624,18 @@ export function createCreatorStudioService(options: CreatorStudioServiceOptions)
         throw error;
       }
 
+      // Structured audit trail for disk-writing save-scene (principle 8).
+      console.info(
+        JSON.stringify({
+          type: "creator-studio-save-scene",
+          ts: new Date().toISOString(),
+          sceneId: request.sceneId,
+          chapterId: request.chapterId,
+          fields: Object.keys(request.fields),
+          sourceHashPrefix: request.sourceHash.slice(0, 8),
+        }),
+      );
+
       return loadSceneMeta(repoRoot);
     },
 
