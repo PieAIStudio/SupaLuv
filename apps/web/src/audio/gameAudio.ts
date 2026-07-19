@@ -29,7 +29,6 @@ import * as voice from "./internal/voice";
 export type {
   AudioPlaybackSnapshot,
   GameBedKey,
-  GameBgmKey,
   GameSfxKey,
   StageBedPlaybackResult,
   StageBedSelectionInput,
@@ -69,10 +68,6 @@ export class GameAudioController {
     return core.getReverbAmount(this.rt);
   }
 
-  getBgmVolume(): number {
-    return core.getBgmVolume(this.rt);
-  }
-
   getPlaybackSnapshot() {
     return core.getPlaybackSnapshot(this.rt);
   }
@@ -95,10 +90,6 @@ export class GameAudioController {
 
   setReverbAmount(next: number): void {
     core.setReverbAmount(this.rt, next);
-  }
-
-  setBgmVolume(next: number): void {
-    core.setBgmVolume(this.rt, next);
   }
 
   setMuted(next: boolean): void {
@@ -141,10 +132,6 @@ export class GameAudioController {
     beds.playBed(this.rt, key);
   }
 
-  playBgm(key: GameBedKey | null | undefined): void {
-    beds.playBgm(this.rt, key);
-  }
-
   playMusic(key: GameBedKey | null | undefined): void {
     beds.playMusic(this.rt, key);
   }
@@ -169,14 +156,6 @@ export class GameAudioController {
     beds.resumeBedsAfterCutscene(this.rt);
   }
 
-  pauseBgmForCutscene(): void {
-    beds.pauseBedsForCutscene(this.rt);
-  }
-
-  resumeBgmAfterCutscene(): void {
-    beds.resumeBedsAfterCutscene(this.rt);
-  }
-
   stopMusic(): void {
     beds.stopMusic(this.rt);
   }
@@ -185,12 +164,13 @@ export class GameAudioController {
     beds.stopAmbient(this.rt);
   }
 
-  stopSfx(): void {
-    sfx.stopSfx(this.rt);
+  /** Stop both stage bed buses (music + ambient). */
+  stopAllBeds(): void {
+    beds.stopAllBeds(this.rt);
   }
 
-  stopBgm(): void {
-    beds.stopBgm(this.rt);
+  stopSfx(): void {
+    sfx.stopSfx(this.rt);
   }
 
   stopAll(): void {

@@ -1,6 +1,7 @@
 /**
  * Human-facing bed catalog for HUD / gallery.
- * Runtime still uses stable kebab ids under /assets/audio/bgm/.
+ * Concept = bed (runtime). Manifest may still author via frozen field `bgmKey`.
+ * Asset folder `/assets/audio/bgm/` is a frozen layout path, not a second concept.
  */
 
 export interface BedCatalogEntry {

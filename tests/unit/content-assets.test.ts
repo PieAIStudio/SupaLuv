@@ -39,7 +39,7 @@ const provenanceDir = path.join(workspaceRoot, "packages/content/assets/provenan
  * New `*_generated_*` assets must NOT be added here; they need provenance/<id>.md.
  */
 const PROVENANCE_BACKFILL_WHITELIST = [
-  // BGM (pre-policy Lyria3 deliveries)
+  // Stage beds (pre-policy Lyria3 deliveries; folder still /audio/bgm/)
   "chapter-end",
   "lonely-pad",
   "night-ambient",
@@ -342,7 +342,7 @@ describe("two-chapter visual asset intake", () => {
       `provenance exists but still whitelisted (remove from allow-list): ${unexpectedWhitelist.join(", ")}`,
     ).toEqual([]);
 
-    // New BGM intake under POLICY-AI-ASSET-PROVENANCE must keep real records.
+    // New bed (audio_bgm kind) intake under POLICY-AI-ASSET-PROVENANCE must keep real records.
     for (const requiredId of ["empty-floor", "under-floorboards"] as const) {
       const body = await fs.readFile(path.join(provenanceDir, `${requiredId}.md`), "utf8");
       expect(body).toMatch(new RegExp(`assetId:\\s*${requiredId}`));

@@ -7,11 +7,11 @@ Served as static files at `/assets/**` by the Vite web app.
 ```text
 assets/
   audio/
-    bgm/          # loopable beds — id = filename without .mp3
+    bgm/          # loopable beds (folder name frozen; concept = bed)
     sfx/          # one-shots
-    voice/        # reserved: per-line VO / TTS cache later
-  portraits/      # character stills (official packs)
-  scenes/         # background stills
+    voice/        # pregen dialogue clips (see pregenVoiceKey contract)
+  portraits/      # character stills (official packs; portraitKey stems)
+  scenes/         # scene stills (artKey stems)
   video/          # Event CG / cutscenes
 ```
 
@@ -19,15 +19,16 @@ assets/
 
 1. **Stable IDs, not pretty titles.** Runtime keys are `kebab-case` (`title-theme`,
    `night-ambient`). Human titles live in attribution docs.
-2. **Channel by folder + key class**, not by volume slider. Music vs ambient is
-   decided in `gameAudio.ts` (`MUSIC_KEYS` / `AMBIENT_KEYS`).
-3. **Content references IDs only.** Ink/scene manifests use `bgmKey` /
-   `musicKey` / `ambientKey` / `sfxKey`. Never hardcode `/assets/...` in story.
+2. **Channel by bed kind**, not by volume slider. Music vs ambient is decided in
+   `apps/web/src/audio/audioCatalog.ts` (`AudioBedKind`).
+3. **Content references IDs only.** Ink/scene manifests use `bgmKey` (legacy
+   single bed) / `musicKey` / `ambientKey` / `sfxKey`. Runtime concept is **bed**.
+   Never hardcode `/assets/...` in story.
 4. **Replace in place when re-skinning.** Same ID, new file → no code change.
 5. **Staging:** drop raw exports in repo-root `Temp/` first, then copy here with
    the final ID. Do not ship `Temp/` in production builds (gitignored).
 
-## Current BGM IDs (Ch01)
+## Current bed IDs (Ch01)
 
 | ID              | Channel | Role                         |
 | --------------- | ------- | ---------------------------- |

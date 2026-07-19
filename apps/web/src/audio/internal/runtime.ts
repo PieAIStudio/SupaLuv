@@ -11,8 +11,8 @@ export const VOICE_DUCK_ATTACK_MS = 160;
 export const VOICE_DUCK_RELEASE_MS = 260;
 
 export type GameSfxKey = AudioSfxId | string;
+/** Runtime bed id (music or ambient). Manifest may still author via legacy `bgmKey`. */
 export type GameBedKey = AudioBedId | string;
-export type GameBgmKey = GameBedKey;
 export type { AudioBedKind };
 
 export interface StageBedSelectionInput {

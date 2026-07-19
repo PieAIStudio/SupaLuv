@@ -92,15 +92,6 @@ export function playBed(rt: GameAudioRuntime, key: GameBedKey | null | undefined
   emitNowPlaying(rt);
 }
 
-export function playBgm(rt: GameAudioRuntime, key: GameBedKey | null | undefined): void {
-  if (!key) {
-    fadeStopMusic(rt);
-    fadeStopAmbient(rt);
-    return;
-  }
-  playExclusiveBed(rt, key);
-}
-
 export function playMusic(rt: GameAudioRuntime, key: GameBedKey | null | undefined): void {
   const entry = resolveBedCatalogEntry(key);
   if (!entry || entry.kind !== "music") {
@@ -172,7 +163,8 @@ export function stopAmbient(rt: GameAudioRuntime): void {
   emitNowPlaying(rt);
 }
 
-export function stopBgm(rt: GameAudioRuntime): void {
+/** Stop both stage bed buses (music + ambient). */
+export function stopAllBeds(rt: GameAudioRuntime): void {
   stopMusic(rt);
   stopAmbient(rt);
 }

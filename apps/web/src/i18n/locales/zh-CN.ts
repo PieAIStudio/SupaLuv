@@ -38,7 +38,7 @@ export const zhCN: MessageTree = {
     eyebrow: "互动影游",
     logo: "超级爱人",
     tagline: "它不会评判你，问卷可不一定。",
-    sub: "黑色幽默性喜剧 · 本地存档 · 16:9 影游舞台 · 有 BGM",
+    sub: "黑色幽默性喜剧 · 本地存档 · 16:9 影游舞台 · 有配乐",
     newGame: "新的游戏",
     continue: "继续最新",
     slots: "读档 / 存档槽",
@@ -234,7 +234,7 @@ export const zhCN: MessageTree = {
     noImages: "还没有图片",
     noImagesDescription: "进入带场景图的节点后会出现在这里。",
     noAudio: "还没有配乐",
-    noAudioDescription: "听过标题、场景或章末 BGM 后会出现在这里。",
+    noAudioDescription: "听过标题、场景或章末配乐后会出现在这里。",
     records: {
       "protocol-terms": {
         title: "协议条款",

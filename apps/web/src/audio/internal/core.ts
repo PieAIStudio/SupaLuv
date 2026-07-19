@@ -11,7 +11,7 @@ import {
   setHowlerMasterMute,
   unlockHowler,
 } from "../howlerEngine";
-import { cancelFadingBeds, stopBgm } from "./beds";
+import { cancelFadingBeds, stopAllBeds } from "./beds";
 import { applyBedMix, resolveMix, resumeBedsIfAllowed } from "./mix";
 import type { AudioPlaybackSnapshot, GameAudioRuntime } from "./runtime";
 import { stopSfx } from "./sfx";
@@ -43,10 +43,6 @@ export function getVoiceVolume(rt: GameAudioRuntime): number {
 
 export function getReverbAmount(rt: GameAudioRuntime): number {
   return rt.reverbAmount;
-}
-
-export function getBgmVolume(rt: GameAudioRuntime): number {
-  return rt.musicVolume;
 }
 
 export function getPlaybackSnapshot(rt: GameAudioRuntime): AudioPlaybackSnapshot {
@@ -87,10 +83,6 @@ export function setVoiceVolume(rt: GameAudioRuntime, next: number): void {
 export function setReverbAmount(rt: GameAudioRuntime, next: number): void {
   rt.reverbAmount = clamp01(next);
   setGlobalReverbWet(rt.reverbAmount);
-}
-
-export function setBgmVolume(rt: GameAudioRuntime, next: number): void {
-  setMusicVolume(rt, next);
 }
 
 export function setMuted(rt: GameAudioRuntime, next: boolean): void {
@@ -134,7 +126,7 @@ export function preload(): void {
 
 export function stopAll(rt: GameAudioRuntime): void {
   stopVoice(rt);
-  stopBgm(rt);
+  stopAllBeds(rt);
   stopSfx(rt);
   rt.cutscenePaused = false;
 }
