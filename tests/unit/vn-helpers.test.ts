@@ -38,6 +38,8 @@ describe("vnHelpers", () => {
     expect(isContinueOnly(snap({ choices: [{ index: 0, text: "继续" }] }))).toBe(true);
     expect(isContinueOnly(snap({ choices: [{ index: 0, text: "……继续" }] }))).toBe(true);
     expect(isContinueOnly(snap({ choices: [{ index: 0, text: "继续下单流程" }] }))).toBe(true);
+    expect(isContinueOnly(snap({ choices: [{ index: 0, text: "Continue" }] }))).toBe(true);
+    expect(isContinueOnly(snap({ choices: [{ index: 0, text: "continue" }] }))).toBe(true);
     expect(
       isContinueOnly(snap({ choices: [{ index: 0, text: "立刻删掉，假装什么都没发生" }] })),
     ).toBe(false);
@@ -56,6 +58,7 @@ describe("vnHelpers", () => {
   it("matches continue choice labels", () => {
     expect(isContinueChoiceText("支付")).toBe(true);
     expect(isContinueChoiceText(" 打开演示对话 ")).toBe(true);
+    expect(isContinueChoiceText("Continue")).toBe(true);
     expect(isContinueChoiceText("先截图备份")).toBe(false);
   });
 });

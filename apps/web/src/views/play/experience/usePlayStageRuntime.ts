@@ -325,13 +325,36 @@ export function usePlayStageRuntime(input: {
     gameAudio.resumeBedsAfterCutscene();
   }, [ensureAudioUnlocked, setActiveCutscene]);
 
+  /**
+   * Dialogue surface click / Space / Enter:
+   * 1) typewriter incomplete → reveal full text immediately (voice keeps playing)
+   * 2) text complete + AI branch → advance AI beat
+   * 3) text complete + single continue-like choice → advance
+   * Multi-option beats never auto-fire from this path (digits still choose).
+   */
   const handleDialogueActivate = useCallback(() => {
     ensureAudioUnlocked();
     if (!frame.typewriterComplete) {
       revealDialogue();
       gameAudio.playSfx("ui-click", 0.35);
+      return;
     }
-  }, [ensureAudioUnlocked, frame.typewriterComplete, revealDialogue]);
+    if (frame.aiPlaying) {
+      advanceAi();
+      return;
+    }
+    if (!snapshot.isEnded && isContinueOnly(snapshot)) {
+      handleChoose(0);
+    }
+  }, [
+    advanceAi,
+    ensureAudioUnlocked,
+    frame.aiPlaying,
+    frame.typewriterComplete,
+    handleChoose,
+    revealDialogue,
+    snapshot,
+  ]);
 
   const pointerMode = usePointerPresenceMode();
   const showRemoteCursors = shouldShowRemoteCursors(pointerMode);

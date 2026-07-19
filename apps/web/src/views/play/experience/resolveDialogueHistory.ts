@@ -50,14 +50,17 @@ export function resolveRevealedDialogueEntry(input: {
   readonly displaySpeaker: string;
   readonly displayText: string;
   readonly aiPlaying: boolean;
-  readonly sceneTitle: string | null | undefined;
-  readonly snapshotSceneId: string | null;
+  /** @deprecated Scene titles no longer appear in history; kept for call-site stability. */
+  readonly sceneTitle?: string | null | undefined;
+  readonly snapshotSceneId?: string | null;
   readonly copy?: DialogueHistoryCopy;
 }): DialogueHistoryEntryDraft {
   const copy = input.copy ?? DEFAULT_DIALOGUE_HISTORY_COPY;
   return {
     speaker: input.displaySpeaker,
-    meta: input.aiPlaying ? copy.aiBranch : (input.sceneTitle ?? input.snapshotSceneId ?? ""),
+    // Scene-chip titles were redundant with body text — keep speaker + body only.
+    // AI branch still surfaces a small meta tag so branch lines stay identifiable.
+    meta: input.aiPlaying ? copy.aiBranch : "",
     text: input.displayText,
     kind: input.aiPlaying
       ? "mystery"

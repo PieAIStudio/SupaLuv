@@ -600,7 +600,8 @@
   }
 
   .vn-stage .game-ui-panel.dialogue-box {
-    max-height: 78%;
+    /* Still face-guard on short stages; slightly roomier than the 45% default. */
+    max-height: min(52%, 18em);
   }
 
   .vn-stage .choice-stack {
