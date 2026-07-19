@@ -98,14 +98,15 @@ describe("ADR-0007 meter threshold echoes", () => {
       mianzi: 50,
       ai_score: 85,
     });
-    robotHigh.jumpTo("dch03_s025");
+    // Long-press choice is on s027; eyes-open + meter wake echoes live on s028
+    robotHigh.jumpTo("dch03_s028");
     expect(robotHigh.getSnapshot().text).toContain("顺从度滑块");
 
     const robotLow = await createInkStoryRunnerForId("draft-ch03", undefined, {
       mianzi: 50,
       ai_score: 18,
     });
-    robotLow.jumpTo("dch03_s025");
+    robotLow.jumpTo("dch03_s028");
     expect(robotLow.getSnapshot().text).toContain("观察档");
   });
 });

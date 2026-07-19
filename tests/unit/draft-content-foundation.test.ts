@@ -870,7 +870,8 @@ describe("required narrative facts reachable", () => {
       "双方自愿",
       "情绪波动：优",
       "九百",
-      "石家小楼",
+      // ch01 ends on Leo housing hook only; 石家小楼 arrival is ch02 (novel SSOT)
+      "加微信",
       "陈佳",
       "雷欧",
       "优质样本",

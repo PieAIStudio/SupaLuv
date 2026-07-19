@@ -1841,7 +1841,7 @@
           {
             "fact": "a1",
             "sourceSnippet": "“嗯。”AI 停了一下，这次没有急着接话，像是在",
-            "targetSnippet": "“嗯。”AI 停了一下，这次没有急着接话，像是在"
+            "targetSnippet": "“嗯。”AI 停了一下，这次没有急着接话，“其实我想说一件事"
           }
         ],
         "pacingRationale": "小说段落压成舞台 beat，保留关键物证与人物态度，去掉重复内心水段。"
