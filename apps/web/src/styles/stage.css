@@ -228,14 +228,26 @@
   z-index: 1;
 }
 
-/* Classic VN: HUD top, portrait above dialogue, dialogue bottom strip. */
+/*
+ * Classic VN: HUD top, portrait above dialogue, dialogue bottom strip.
+ *
+ * HUD single-line contract (never wrap): flex nowrap + proportional shrink.
+ * Degradation order when width is tight (also enforced by @container below):
+ *   1) hide meter percentage numbers
+ *   2) now-playing chip → ♪ only (full title on hover/title/aria)
+ *   3) HUD action buttons → icon-only (labels remain aria-label/title)
+ *   4) last resort: hide mode badge / chapter label (functional chrome stays)
+ */
 .vn-hud {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 0.5em;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: clamp(0.25em, 0.6cqw, 0.5em);
   z-index: 4;
-  padding: 0.2em 0.15em;
+  padding: 0.15em 0.1em;
+  min-width: 0;
+  font-size: clamp(0.72rem, 1.15cqw, 1rem);
 }
 
 /* Keep the open system menu above the dialogue surface so every menu item is
@@ -248,22 +260,46 @@
 .hud-right {
   display: flex;
   align-items: center;
-  gap: 0.6em;
-  flex-wrap: wrap;
+  gap: clamp(0.3em, 0.7cqw, 0.6em);
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.hud-left {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.hud-right {
+  flex: 0 1 auto;
+  justify-content: flex-end;
+}
+
+.hud-action-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.2em, 0.5cqw, 0.45em);
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.hud-action-btn .hud-action-icon {
+  display: none;
 }
 
 .meter-rail {
   display: flex;
-  gap: 0.75em;
+  gap: clamp(0.35em, 0.7cqw, 0.75em);
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .meter-block {
   display: grid;
-  gap: 0.25em;
-  min-width: 8.5em;
-  padding: 0.35em 0.55em;
+  gap: 0.18em;
+  min-width: clamp(5.2em, 9cqw, 8.5em);
+  padding: clamp(0.18em, 0.35cqw, 0.35em) clamp(0.35em, 0.55cqw, 0.55em);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0.85em;
   background: rgba(8, 10, 16, 0.5);
@@ -272,12 +308,13 @@
 .meter-label {
   color: rgba(255, 245, 236, 0.72);
   font-family: var(--supaluv-font-sans);
-  font-size: 0.7em;
+  font-size: clamp(0.58em, 0.85cqw, 0.7em);
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .vn-stage .game-ui-progress {
-  min-width: 7.5em;
+  min-width: clamp(4.5em, 7.5cqw, 7.5em);
 }
 
 .vn-stage .game-ui-panel.dialogue-box,
@@ -290,11 +327,15 @@
   margin-top: 0;
   width: 100%;
   max-width: none;
-  /* Tall enough for 4 options + short story on 1280×720-class stages. */
-  max-height: min(72%, 32em);
-  min-height: 9em;
+  /*
+   * Face-guard: cap panel so long prose + multi-choice cannot bury portraits
+   * on 1280×720-class stages (critic: Shi Peixin door Q&A). ~45% of stage height.
+   * Overflow lives in .story-copy; choice-stack stays in the fixed auto row.
+   */
+  max-height: min(45%, 20em);
+  min-height: 7.5em;
   justify-self: stretch;
-  padding: 0.65em 0.9em 0.75em;
+  padding: 0.55em 0.85em 0.65em;
   overflow: hidden;
   border-color: rgba(255, 255, 255, 0.14);
   border-radius: 0.9em;
@@ -305,10 +346,8 @@
 }
 
 /*
- * Story text scrolls only when truly long (wheel / trackpad / touch).
- * The scrollbar NEVER renders: a hover-revealed bar steals width from the
- * text column and reflows every line (the "text jitter" bug). Overflow
- * affordance is the continue ▼, not scrollbar chrome.
+ * Story text scrolls when long. Thin scrollbar (matches choice-stack); gutter
+ * is reserved so the bar does not reflow the text column (jitter bug).
  */
 .vn-stage .story-copy {
   position: relative;
@@ -316,14 +355,23 @@
   max-height: none;
   overflow-x: hidden;
   overflow-y: auto;
-  padding-right: 0.35em;
+  padding-right: 0.45em;
   padding-bottom: 1.15em; /* room for absolute continue ▼ — keeps it out of text flow */
-  scrollbar-width: none;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 220, 180, 0.35) transparent;
 }
 
 .vn-stage .story-copy::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 6px;
+}
+
+.vn-stage .story-copy::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 220, 180, 0.35);
+}
+
+.vn-stage .story-copy::-webkit-scrollbar-track {
   background: transparent;
 }
 
@@ -366,7 +414,12 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
   background: rgba(8, 10, 16, 0.42);
-  max-width: 18em;
+  max-width: min(18em, 22cqw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .vn-stage-actors {
@@ -451,6 +504,16 @@
   .portrait-image {
     height: 52cqh;
     mask-image: linear-gradient(to bottom, #000 82%, transparent 99%);
+  }
+}
+
+/*
+ * Face-guard companion: with dialogue capped at ~45%, a slight actor-band
+ * lift keeps faces above the panel on 1280×720-class stages without JS measure.
+ */
+@container stage (max-height: 720px) {
+  .vn-stage-actors {
+    top: 8%;
   }
 }
 
@@ -1084,6 +1147,11 @@
   padding-right: 0.25em;
 }
 
+/* Scene titles no longer fill history meta; hide empty meta chips. */
+.history-drawer .game-ui-history-entry-header span:empty {
+  display: none;
+}
+
 .history-empty {
   margin: 0.5em 0;
   color: rgba(255, 245, 236, 0.65);
@@ -1249,7 +1317,6 @@
 }
 
 .prototype-badge,
-.scene-chip,
 .mood-chip {
   display: inline-flex;
   align-items: center;
@@ -1260,6 +1327,31 @@
   color: rgba(255, 246, 237, 0.92);
   font-size: 0.78em;
   letter-spacing: 0.04em;
+}
+
+/* Ghost-style AI branch badge — sits next to the speaker nameplate. */
+.ai-branch-badge {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0.28em 0.65em;
+  border: 1px solid rgba(255, 210, 160, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 230, 200, 0.92);
+  font-family: var(--supaluv-font-sans);
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.nameplate-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .hud-button {
@@ -1368,7 +1460,7 @@
 }
 
 .dialogue-meta {
-  margin-bottom: 0.9em;
+  margin-bottom: 0.45em;
 }
 
 .nameplate {
@@ -1396,9 +1488,74 @@
 }
 
 /*
- * SW-006 — short landscape phones: the default HUD wraps to two rows and
- * eats nearly half the 16:9 stage. Compact everything onto one thin row;
- * the music chip is nonessential chrome and yields first.
+ * HUD width degradation (stage container units). Order documented on .vn-hud.
+ * Targets approximate stage widths 1024 / 900 / 768.
+ */
+@container stage (max-width: 1024px) {
+  /* 1) hide percentage numbers */
+  .vn-hud .game-ui-progress-value {
+    display: none;
+  }
+
+  .meter-block {
+    min-width: 5.6em;
+  }
+
+  .vn-stage .game-ui-progress {
+    min-width: 5em;
+  }
+
+  .vn-hud .game-ui-button {
+    min-height: 1.85em;
+    padding: 0.25em 0.55em;
+    font-size: 0.85em;
+  }
+}
+
+@container stage (max-width: 900px) {
+  /* 2) now-playing → ♪ only */
+  .now-playing-chip .now-playing-label {
+    display: none;
+  }
+
+  .now-playing-chip {
+    max-width: none;
+    padding: 0.28rem 0.5rem;
+  }
+
+  .player-story-label,
+  .hud-select-label {
+    max-width: 9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@container stage (max-width: 768px) {
+  /* 3) action buttons icon-only */
+  .hud-action-btn .hud-action-label {
+    display: none;
+  }
+
+  .hud-action-btn .hud-action-icon {
+    display: inline;
+  }
+
+  .vn-hud .hud-action-btn.game-ui-button {
+    min-width: 2.1em;
+    padding: 0.25em 0.45em;
+  }
+
+  /* 4) mode badge yields before functional chrome */
+  .vn-hud [data-testid="prototype-badge"] {
+    display: none;
+  }
+}
+
+/*
+ * SW-006 — short landscape phones: keep the single-row HUD; drop decorative
+ * chrome so functional buttons stay inside the stage clip.
  */
 @media (max-height: 430px) and (orientation: landscape) {
   .vn-hud {
@@ -1413,8 +1570,6 @@
     min-width: 0;
   }
 
-  /* Decorative chrome yields first so every functional button stays inside
-     the stage clip: music chip, mode badge, chapter label. */
   .now-playing-chip,
   .vn-hud [data-testid="prototype-badge"],
   .vn-hud .hud-select-label.player-story-label {

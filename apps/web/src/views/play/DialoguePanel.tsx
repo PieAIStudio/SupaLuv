@@ -2,7 +2,6 @@ import { GameButton, GameCallout, GamePanel } from "@pieai/swimmer-ui-kit";
 import { AiWaitInterstitial } from "../../ai/AiWaitInterstitial";
 import type { AiChoiceSlotState } from "../../ai/aiBranchTypes";
 import { useLocale } from "../../i18n";
-import { resolveSceneChipTitle } from "../../i18n/sceneShortTitlesEn";
 import type { InkStorySnapshot } from "../../story/inkStoryRunner";
 import {
   AUTHORED_CHOICES_LABEL_ID,
@@ -18,7 +17,6 @@ export interface OracleOptionView {
 }
 
 interface DialoguePanelProps {
-  readonly sceneTitle: string;
   readonly speaker: string;
   readonly sceneId: string | null;
   readonly visibleText: string;
@@ -46,7 +44,6 @@ interface DialoguePanelProps {
 }
 
 export function DialoguePanel({
-  sceneTitle,
   speaker,
   sceneId,
   visibleText,
@@ -68,7 +65,6 @@ export function DialoguePanel({
   const { t, locale } = useLocale();
   const hasOracleChoices =
     isComplete && !aiMode && oracleOptions.length > 0 && onOracleGuess !== undefined;
-  const chipTitle = resolveSceneChipTitle(sceneId, locale, sceneTitle);
   return (
     <GamePanel
       className={`dialogue-box${hasOracleChoices ? " has-oracle" : ""}`}
@@ -76,14 +72,17 @@ export function DialoguePanel({
       data-testid="dialogue-box"
     >
       <div className="dialogue-meta">
-        <p className="scene-chip">
-          {chipTitle}
-          {aiMode ? ` · ${t("play.aiBranch")}` : ""}
-        </p>
         <div className="nameplate-row">
-          <h1 id="prototype-title" className="nameplate">
-            {speaker}
-          </h1>
+          <div className="nameplate-cluster">
+            <h1 id="prototype-title" className="nameplate">
+              {speaker}
+            </h1>
+            {aiMode ? (
+              <span className="ai-branch-badge" data-testid="ai-branch-badge">
+                {t("play.aiBranch")}
+              </span>
+            ) : null}
+          </div>
           {dialogueVoiceButton?.visible ? (
             <GameButton
               type="button"

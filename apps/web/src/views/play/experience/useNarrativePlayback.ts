@@ -116,6 +116,8 @@ export function useNarrativePlayback(input: {
     clear: clearHistory,
   } = useDialogueLog(identity.storyId);
 
+  // Text speed is settings-only: never derive cadence from voice duration.
+  // "fast" stays ~instant; voice may still be speaking after full reveal.
   const typewriterOpts = textSpeedToTypewriter(playback.textSpeed);
   const {
     visibleText,

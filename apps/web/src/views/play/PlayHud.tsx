@@ -78,6 +78,9 @@ export function PlayHud({
         ? "开发模式"
         : "Developer mode"
       : t("play.storyMode");
+  const bedName = nowPlayingBedId ? bedLabel(nowPlayingBedId, locale) : null;
+  const fullscreenLabel = isFullscreen ? t("play.exitFullscreen") : t("play.fullscreen");
+  const soundLabel = muted ? t("play.soundOff") : t("play.soundOn");
   return (
     <header className={`vn-hud${systemOpen ? " is-system-open" : ""}`}>
       <div className="hud-left">
@@ -102,13 +105,17 @@ export function PlayHud({
             {t("play.saved")}
           </span>
         ) : null}
-        {nowPlayingBedId ? (
+        {nowPlayingBedId && bedName ? (
           <span
             className="now-playing-chip"
             data-testid="now-playing"
-            title={bedLabel(nowPlayingBedId, locale)}
+            title={bedName}
+            aria-label={bedName}
           >
-            ♪ {bedLabel(nowPlayingBedId, locale)}
+            <span className="now-playing-icon" aria-hidden="true">
+              ♪
+            </span>
+            <span className="now-playing-label">{bedName}</span>
           </span>
         ) : null}
       </div>
@@ -136,31 +143,51 @@ export function PlayHud({
             {storyLabel}
           </span>
         )}
-        <GameButton
-          type="button"
-          variant="ghost"
-          onClick={onToggleFullscreen}
-          data-testid="fullscreen-toggle"
-        >
-          {isFullscreen ? t("play.exitFullscreen") : t("play.fullscreen")}
-        </GameButton>
-        <GameButton
-          type="button"
-          variant="ghost"
-          onClick={onToggleMute}
-          data-testid="mute-toggle"
-          aria-pressed={muted}
-        >
-          {muted ? t("play.soundOff") : t("play.soundOn")}
-        </GameButton>
-        <GameButton
-          type="button"
-          variant="ghost"
-          onClick={onOpenHistory}
-          data-testid="history-toggle"
-        >
-          {t("play.history")}
-        </GameButton>
+        <div className="hud-action-group" data-testid="hud-action-group">
+          <GameButton
+            type="button"
+            variant="ghost"
+            className="hud-action-btn"
+            onClick={onToggleFullscreen}
+            data-testid="fullscreen-toggle"
+            title={fullscreenLabel}
+            aria-label={fullscreenLabel}
+          >
+            <span className="hud-action-label">{fullscreenLabel}</span>
+            <span className="hud-action-icon" aria-hidden="true">
+              {isFullscreen ? "⛶" : "⛶"}
+            </span>
+          </GameButton>
+          <GameButton
+            type="button"
+            variant="ghost"
+            className="hud-action-btn"
+            onClick={onToggleMute}
+            data-testid="mute-toggle"
+            aria-pressed={muted}
+            title={soundLabel}
+            aria-label={soundLabel}
+          >
+            <span className="hud-action-label">{soundLabel}</span>
+            <span className="hud-action-icon" aria-hidden="true">
+              {muted ? "🔇" : "🔊"}
+            </span>
+          </GameButton>
+          <GameButton
+            type="button"
+            variant="ghost"
+            className="hud-action-btn"
+            onClick={onOpenHistory}
+            data-testid="history-toggle"
+            title={t("play.history")}
+            aria-label={t("play.history")}
+          >
+            <span className="hud-action-label">{t("play.history")}</span>
+            <span className="hud-action-icon" aria-hidden="true">
+              ≡
+            </span>
+          </GameButton>
+        </div>
         <div className="system-menu-wrap">
           <GameButton
             type="button"
@@ -168,6 +195,8 @@ export function PlayHud({
             onClick={onToggleSystem}
             data-testid="system-menu-toggle"
             aria-expanded={systemOpen}
+            title={t("play.system")}
+            aria-label={t("play.system")}
           >
             {t("play.system")}
           </GameButton>

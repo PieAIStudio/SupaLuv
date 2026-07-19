@@ -278,7 +278,6 @@ export function VisualNovelPrototype(props: VisualNovelPrototypeProps) {
 
         {!r.activeStoryInteraction && !r.decisionEnding.dialogueYieldsToEnding ? (
           <DialoguePanel
-            sceneTitle={r.frame.sceneTitle}
             speaker={r.frame.displaySpeaker}
             sceneId={r.isGuestSpectator ? r.frame.remoteSceneId : snapshot.sceneId}
             visibleText={r.isGuestSpectator ? r.frame.displayText : r.frame.visibleText}

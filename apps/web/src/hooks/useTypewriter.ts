@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 interface UseTypewriterOptions {
   readonly text: string;
@@ -16,6 +16,9 @@ interface UseTypewriterResult {
 /**
  * Lightweight dialogue reveal. No third-party typewriter lib needed —
  * the only requirement is "show text gradually, click to skip".
+ *
+ * Pace comes only from settings (charsPerTick / tickMs). Voice playback must
+ * never clamp this cadence; revealAll finishes the line without stopping audio.
  */
 export function useTypewriter({
   text,
@@ -44,9 +47,13 @@ export function useTypewriter({
   const visibleText = useMemo(() => text.slice(0, visibleCount), [text, visibleCount]);
   const isComplete = !enabled || visibleCount >= text.length;
 
+  const revealAll = useCallback(() => {
+    setVisibleCount(text.length);
+  }, [text.length]);
+
   return {
     visibleText,
     isComplete,
-    revealAll: () => setVisibleCount(text.length),
+    revealAll,
   };
 }
