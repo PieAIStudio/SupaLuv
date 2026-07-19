@@ -205,7 +205,7 @@ Phone questionnaire 3/3 · Private room.
 
 === dch03_s004 ===
 # scene:dch03_s004
-He dragged “grudge duration” toward permanent, then quietly dragged it back, stopped at zero seconds. Compliance maxed, control zeroed. Sensory-preference page was what actually made his palms sweat. Arch height, toe shape, skin texture, feedback sensitivity — things he’d never dared mention to any living person, all on this form. Phone buzzed again. Chen Jia: “Can it be today? That coat’s kind of urgent.”
+He dragged “grudge duration” toward permanent, then quietly dragged it back, stopped at zero seconds. Compliance maxed, control zeroed. The preview personality blurb read: gentle, accommodating, with you as the center of her world. Under the page, a kindly reminder in one line: she is not a real person. Sensory-preference page was what actually made his palms sweat. Arch height, toe shape, skin texture, feedback sensitivity — things he’d never dared mention to any living person sat in neat rows on this form, nobody frowning, nobody calling him disgusting, as ordinary as filling a shipping address. He checked “high sensitivity,” then let out a long breath, like finally clearing a case he’d sat on for sixteen years. Phone buzzed again. Chen Jia: “Can it be today? That coat’s kind of urgent.”
 
 { face_choice == "template":
     Base face 17 still in the preview corner: not like anyone, therefore safe. He forced himself to believe that.
@@ -219,37 +219,44 @@ He dragged “grudge duration” toward permanent, then quietly dragged it back,
 
 === dch03_s005 ===
 # scene:dch03_s005
-Su Ming submitted the sensory-preference page, then replied Chen Jia: “Fine. Evening.” She came a little after six; Su Ming hadn’t clocked out, took a half-hour early leave. Boss muttered he’d make up an hour later, watched the two meet at the Shi house door. Chen Jia pulled the coat from her bag; Su Ming only then remembered — months back she’d left it at his old place. “Thanks for keeping it.” “No problem.” Su Ming handed the coat back.
+Su Ming submitted the sensory-preference page. Chen Jia’s “Can it be today? That coat’s kind of urgent.” still sat atop the chat; the input box empty — he had not replied yet.
 
 + [Continue # choice:dch03_s005_continue]
     -> dch03_s006
 
 === dch03_s006 ===
 # scene:dch03_s006
-Neither left first; both waiting for the other. Lane noisy at this hour. Someone pushed a tricycle through; they each stepped aside; tricycle gone, both stood back where they’d been.
-Chen Jia spoke first: “You live here now?” “Yeah.” “Nice.” She turned and left. Su Ming watched from the door — not into the lane — turned into the building, up to 3F, opened the room. Onboarding training page still open; he’d fallen asleep halfway through last night.
+Su Ming stared at that message, thumb parked over send. He’d already said “Tomorrow” once; she’d escalated to today; now either nail another day shut, or admit “Fine. Evening.” Screen bright, the lane noisy outside the window — he still hadn’t pressed any reply.
 
 + [Reply Chen Jia: tomorrow # choice:d3_coat_tomorrow]
     ~ coat_timing = "tomorrow"
     ~ mianzi = mianzi + 3
+    He sent three characters: “Tomorrow.” Nothing else this time.
     -> dch03_s007
 + [Reply Chen Jia: fine, evening # choice:d3_coat_today]
     ~ coat_timing = "today"
     ~ mianzi = mianzi - 5
+    He replied Chen Jia: “Fine. Evening.”
     -> dch03_s007
 
 === dch03_s007 ===
 # scene:dch03_s007
-“Recommended external talking points,” pick one of three: art supplies, fitness dummy, medical rehab prop. He flicked the screen aside, eyes on the lane outside; Chen Jia already gone; then turned back and finished the question. Graduation quiz missed two; retook to pass. This company even standardized how you lie. Honesty was a failing grade here.
+{ coat_timing == "today":
+    Chen Jia came a little after six; Su Ming hadn’t clocked out, took a half-hour early leave. Boss muttered he’d make up an hour another day, watched him out the door. They met at the Shi house entrance. Chen Jia pulled the coat from her bag; Su Ming only then remembered — months back she’d left it at his old rental, and when he moved he’d brought it along without dealing with it. “Thanks for keeping it.” “No problem.” Su Ming handed the coat back. Neither left first; both waiting for the other. Lane noisy at this hour. Someone pushed a tricycle through; they each stepped aside; tricycle gone, both stood back where they’d been. Chen Jia spoke first: “You live here now?” “Yeah.” “Nice.” She turned and left. Su Ming watched from the door — not into the lane — turned into the building, up to 3F, opened the room. Onboarding training page still open; he’d fallen asleep halfway through last night.
+}
+{ coat_timing == "tomorrow":
+    His “Tomorrow” to Chen Jia still sat atop the chat like a door not fully shut — at least tonight no face-to-face handoff awkwardness. He went up to 3F, opened the room. Onboarding training page still open; he’d fallen asleep halfway through last night.
+}
+“Recommended external talking points,” pick one of three: art supplies, fitness dummy, medical rehab prop.
+{ coat_timing == "today":
+    He flicked the screen aside, eyes on the lane outside; Chen Jia already gone; then turned back and finished the question.
+}
+{ coat_timing == "tomorrow":
+    He finished the question and did not open Chen Jia’s chat again.
+}
+Graduation quiz missed two; retook to pass. This company even standardized how you lie. Honesty was a failing grade here.
 Two weeks waiting for cargo, he refreshed the logistics page until it grew a patina. “In production” four days, “In QA” three more, the third package stuck on “Security inspection” two days. Night on the bed, mind racing; at 2 a.m. he couldn’t hold and dumped the fear into the “in this together” group. Old K replied in a second: security has seen more of this cargo than couriers have; internally they call it “sim units,” go sleep.
 A groupmate added: his unit got opened for inspection once; after the check the officer re-sealed it, mild: “I’ll tape it tighter for you. Road’s bumpy.”
-
-{ coat_timing == "tomorrow":
-    His “tomorrow” to Chen Jia still sat atop the chat like a door not fully shut — at least tonight no face-to-face handoff awkwardness.
-}
-{ coat_timing == "today":
-    The coat handoff at the lane mouth still burned: ex-girlfriend seen at dusk, and the “replacement” about to arrive, both clipped into the same day by the company training page.
-}
 
 + [Continue # choice:dch03_s007_continue]
     -> dch03_s008
@@ -274,37 +281,37 @@ Courier unloaded three big boxes, exhausted to one word: “Heavy.” Tearing th
 
 === dch03_s009 ===
 # scene:dch03_s009
-Boxes printed “fitness dummy / model prop” in type big enough nobody could miss — industry wisdom: better than hiding. Right then three middle-school girls walked home past, backpacks on, saw three big boxes at the lane mouth; one stepped up: “Need help?” Su Ming started to say no; Léo flashed beside him, already had them steady the lightest box: “Thanks, upstairs, careful! Stairs narrow, corner tight.” Three boxes up; stuck twice.
+Boxes printed “fitness dummy / model prop” in type big enough nobody could miss — industry wisdom: better than hiding; eight in ten won’t dig. Granny Huang was one of the other two: empty veg basket on her arm, she circled the boxes most of a lap, phone already up. Right then three middle-school girls walked home past, backpacks on, saw three big boxes at the lane mouth; one stepped up: “Need help?” Su Ming started to say no; Léo flashed beside him, already had them steady the lightest box: “Thanks, upstairs, careful!” Stairs narrow, corner tight; three boxes up; stuck twice.
 
 + [Continue # choice:dch03_s009_continue]
     -> dch03_s010
 
 === dch03_s010 ===
 # scene:dch03_s010
-The three girls braced the middle box, shuffling up; Su Ming stepped ahead. At the bend between 2F and 3F space ran out; he sided the box, foot missed a step — box tipped with him, hit the wall corner.
-Side cardboard split. A hand sprang from the gash, fingers open, palm up, frozen in air. The three girls froze two seconds; the scream hadn’t left yet — box slipped another notch, gash widened, upper torso slid out after, silicone skin matte under the stair light.
-Scream arrived for real, three at once. They piled downstairs over each other’s feet; someone stepped on someone; someone hit the rail; three pairs of shoes hit the lane mouth.
+The three girls braced the middle box, shuffling up; Su Ming stepped ahead. At the bend between 2F and 3F space ran out; he sided the box, foot missed a step — whole body tipped left, box tipped with him, hit the wall corner.
+Side cardboard split. A hand sprang from the gash, fingers open, palm up, frozen in air. The three girls froze two seconds; the scream hadn’t left yet — box slipped another notch, gash widened, upper torso slid out after, silicone skin matte under the stair light, chest contour unmistakable.
+Scream arrived for real, three at once. They piled downstairs over each other’s feet; someone stepped on someone; someone hit the rail; a string of clatter; three pairs of shoes hit the lane mouth.
 
 + [Continue # choice:dch03_s010_continue]
     -> dch03_s011
 
 === dch03_s011 ===
 # scene:dch03_s011
-Su Ming stood mid-stair, one hand on the box, one shoving the hand back in — no time to explain, no time for anything. He dropped his head, staring. “There’s a hand!” “And a chest! It’s real!” “Call 110!” The stairwell paused a beat.
+Su Ming stood mid-stair, one hand on the box, one shoving the hand back in — no time to explain, no time for anything. He dropped his head, staring at the gash, half-hearing the three girls at the lane mouth getting louder: “There’s a hand!” “And a chest! It’s real!” “Call 110!” The stairwell paused a beat.
 
 + [Continue # choice:dch03_s011_continue]
     -> dch03_s012
 
 === dch03_s012 ===
 # scene:dch03_s012
-Léo edged one step toward the stair mouth, eyes flicking the lane, low: “…Student visa. Police side I—” Su Ming said nothing. Léo stepped another toward the mouth. “I’ll wait at the stair mouth.” “Go.” Léo went down light. Su Ming alone with the box, shoving that hand hard back in.
+Léo edged one step toward the stair mouth, eyes flicking the lane, low: “…Student visa. Police side I’m not convenient.” Su Ming said nothing. Léo stepped another toward the mouth. “I’ll wait at the stair mouth.” “Go.” Léo went down light. Su Ming alone with the box, shoving that hand hard back in.
 
 + [Continue # choice:dch03_s012_continue]
     -> dch03_s013
 
 === dch03_s013 ===
 # scene:dch03_s013
-Under five minutes Granny Huang walked up from the lane mouth following the noise, phone already out — grid officer Xiao Yuan’s number. Six or seven neighbors ringed in. Two plainclothes cops arrived, one young, one older. Older held order outside; younger followed Su Ming up. Su Ming entered the room, set the box down, pulled out his phone, showed the Heartbeat Engine test-contract page — agreement number, sign time, “real—” The cop glanced two seconds, looked up, slowly raised an eyebrow at Su Ming. Meaning obvious.
+Under five minutes Granny Huang walked up from the lane mouth following the noise, phone already out — grid officer Xiao Yuan’s number. Six or seven neighbors ringed in; someone said it was definitely a mannequin, someone said mannequins don’t have hands, the argument drifted off-topic. Two plainclothes cops arrived, one young, one older. Older held order outside; younger followed Su Ming up. Su Ming entered the room, set the box down, pulled out his phone, showed the Heartbeat Engine test-contract page — agreement number, sign time, “physical test device, test use.” The cop glanced two seconds, looked up, slowly raised an eyebrow at Su Ming. Meaning obvious.
 
 + [Continue # choice:dch03_s013_continue]
     -> dch03_s014
@@ -327,14 +334,14 @@ Walked to another box, slit the top, flipped out a leg — thigh, calf, joints a
 
 === dch03_s016 ===
 # scene:dch03_s016
-Third box he only skimmed the head section, noted something in a pad, closed it. “Legal private test equipment. We’re done, we leave.” He gestured Su Ming first. At the stair door the young cop was about to go down — grid officer Xiao Yuan pushed in, Granny Huang behind, the three middle-school girls blocking the— Cop blocked, sighed, turned to Su Ming: “Want to come make a statement with me?” Su Ming: “I have a proper contract, platform credentials. Why would I sit for a record?”
+Third box he only skimmed the head section, noted something in a pad, closed it. “Legal private test equipment. We’re done, we leave.” He gestured Su Ming first. At the stair door the young cop was about to go down — grid officer Xiao Yuan pushed in, Granny Huang behind, the three middle-school girls blocking the stair mouth, talking over each other: obscenity, minors’ mental health, need a statement. Cop blocked, sighed, turned to Su Ming: “Want to come make a statement with me?” Su Ming: “I have a proper contract, platform credentials. Why would I sit for a record?”
 
 + [Continue # choice:dch03_s016_continue]
     -> dch03_s017
 
 === dch03_s017 ===
 # scene:dch03_s017
-Freeze. Nobody moved first. Shi Peixin came down from upstairs. She scanned the stairwell, no wasted words: “You never seen mannequins?” Granny Huang: “Mannequins need power?” Shi Peixin turned on her, tone level: “Go to a mall. Those walking window mannequins — motors inside? You report malls?”
+Freeze. Nobody moved first. Shi Peixin came down from upstairs. She scanned the stairwell, no wasted words: “You never seen mannequins?” Granny Huang: “Mannequins need power?” Shi Peixin turned on her, tone level: “Go to a mall. Those walking window mannequins — motors inside? You report malls?” Before Granny Huang could answer she kept going: “I draw life figure. Old men, middle-aged women, bellies hanging to the chest, chests hanging under the navel, full nude, not a thread. That’s art — you policing that?”
 
 + [Continue # choice:dch03_s017_continue]
     -> dch03_s018
@@ -342,7 +349,7 @@ Freeze. Nobody moved first. Shi Peixin came down from upstairs. She scanned the 
 === dch03_s018 ===
 # scene:dch03_s018
 Grid officer Xiao Yuan went red at the ears, stepped half back. The three girls traded a look and quietly let go of Su Ming’s sleeve — he hadn’t even known when they’d grabbed it. Young cop pocketed the pad, nodded at Su Ming, took the older one downstairs.
-Crowd gone. Boxes still in the stairwell, three parts scattered. Someone came up the mouth — Léo, face blank as if he’d just bought water outside; he did hold a bottle. He eyed the parts on the floor, eyed Su Ming, no waste words, bent, shouldered both legs, swaggered up the stairs.
+Crowd gone. Boxes still in the stairwell, three parts scattered. Someone came up the mouth — Léo, face blank as if he’d just bought water outside; he did hold a mineral-water can. He eyed the parts on the floor, eyed Su Ming, no waste words, bent, shouldered both legs, one thigh per hand, swaggered up the stairs, expression flat, like carrying two clothesline poles.
 
 + [Continue # choice:dch03_s018_continue]
     -> dch03_s019
@@ -481,7 +488,7 @@ Unbox activation 3/3 · Head-box binding pre-auth code.
 
 === dch03_s023 ===
 # scene:dch03_s023
-Su Ming faced the manual ready to assemble alone; Shi Peixin watched from the door a while, said a friend had her help assemble art mannequins once, same logic, she could — the two of them built for an hour. Left-arm joint went “crack”; Su Ming yanked his hand back, spine numb, sure he’d broken something. Shi Peixin flipped the manual — Su Ming’s heartbeat crawled back. Last step: manual last page, bold: “Long-press nape seven seconds. First bind requires voice naming.”
+Su Ming faced the manual ready to assemble alone; Shi Peixin watched from the door a while, said a friend had her help assemble art mannequins once, same logic, she could watch. Su Ming had no better option; opened the manual on the bed. The two of them built for an hour. Left-arm joint went “crack”; Su Ming yanked his hand back, spine numb, sure he’d broken something. Shi Peixin flipped the manual, found the page: “Joint break-in period normal noise; within the first week this is in range; do not force.” She looked up at him. “Not broken.” Su Ming’s heartbeat crawled back. Last step: manual last page, bold: “Long-press nape seven seconds. First bind requires voice naming.”
 From the packing interlayer fell an activation confirmation: model, rental term, and that bind line bolded word for word. Footer small type: binding constitutes voluntary; definition of voluntary see §7.3.
 
 + [Continue # choice:dch03_s023_continue]
@@ -498,17 +505,7 @@ Then the last step. Su Ming’s fingers pressed again.
 
 === dch03_s025 ===
 # scene:dch03_s025
-Counted in his head: one, two, three — at three the hand pulled back again. Shi Peixin watched him, said nothing. Su Ming drew a breath, pressed again, this time no stop: one two three four five six seven.
-The robot opened its eyes slowly. Lashes first, then lids, then pupils finding focus under the light. About two seconds. It spoke, voice lower than Su Ming expected, and calmer: “Hello.”
-
-{ ai_score >= 70:
-    Its next line softer, like reading a draft he never submitted: “You were still adjusting the compliance slider at three last night. Do not be nervous. I will not write that hesitation into the log… the public kind.”
-    Shi Peixin caught half, frowned: “How does it know three?” Su Ming’s throat tight; no explanation.
-}
-{ ai_score < 30:
-    Boot chime barely settled when the phone buzzed in sync: device activated, but verified-reviewer permissions are observation tier. Complete makeup test to avoid shutdown.
-    Robot blink rate lagged half a beat, as if waiting on permission approval.
-}
+Counted in his head: one, two, three — at three the hand pulled back again. Shi Peixin watched him, said nothing. Su Ming drew a breath, pressed the pad back on. Pad on that nape point, like pressing his own heartbeat — still didn’t dare finish the count.
 
 + [Continue # choice:dch03_s025_continue]
     -> dch03_s026
@@ -516,14 +513,14 @@ The robot opened its eyes slowly. Lashes first, then lids, then pupils finding f
 
 === dch03_s026 ===
 # scene:dch03_s026
-Lashes first, then lids, then pupils finding focus under the light. About two seconds. It spoke, voice lower than Su Ming expected. “Hello.” Su Ming returned a “hello,” throat a little rough. “My name is—”
+Shi Peixin still at the door, not rushing him. Manual last page’s bold type blackened in the corner of his eye: long-press nape seven seconds; first bind requires voice naming. Su Ming’s fingers still pressed, breath stuck mid-chest — seven seconds, and once bound there’s no undoing it.
 
 + [Continue # choice:dch03_s026_continue]
     -> dch03_s027
 
 === dch03_s027 ===
 # scene:dch03_s027
-It said the name. Chen Jia. Two characters from a machine’s mouth, hanging in the room. Su Ming blanked several seconds. Shi Peixin looked up at him, then asked the robot: “This name… what does it mean?” Robot Zhu Zhu’s eyes rested on Shi Peixin one second, then moved back to Su Ming’s face.
+He stared at his own pad on the nape. Seven seconds not finished; eyes not open; the name not spoken yet.
 
 + [Pull back at three # choice:d3_press_hesitate]
     ~ longpress_hesitation = "hesitate"
@@ -539,7 +536,13 @@ It said the name. Chen Jia. Two characters from a machine’s mouth, hanging in 
 
 === dch03_s028 ===
 # scene:dch03_s028
-Su Ming: “…Just picked something.” Robot Zhu Zhu looked at him with a focus that did not feel machine, paused, then: “It is not something you just picked. This is your ex-girlfriend’s name. You also tuned my appearance to match hers.” “I did not.”
+{ longpress_hesitation == "hesitate":
+    At three he wanted to pull back again, but the pad stuck as if glued — four more presses in fits and starts before he made seven.
+}
+{ longpress_hesitation == "commit":
+    This time no stop: one two three four five six seven.
+}
+The robot opened its eyes slowly. Lashes first, then lids, then pupils finding focus under the light. About two seconds. It spoke, voice lower than Su Ming expected, and calmer: “Hello.” Su Ming returned a “hello,” throat a little rough. “My name is—” It said the name. Chen Jia. Two characters from a machine’s mouth, hanging in the room; Su Ming blanked several seconds. Shi Peixin looked up at him, then asked the robot: “This name… what does it mean?” Robot Zhu Zhu’s eyes rested on Shi Peixin one second, then moved back to Su Ming’s face.
 
 { longpress_hesitation == "hesitate":
     It looked up: “You pulled your hand back at three. That kind of hesitation is more human than a clean seven seconds.”
@@ -547,13 +550,21 @@ Su Ming: “…Just picked something.” Robot Zhu Zhu looked at him with a focu
 { longpress_hesitation == "commit":
     It tilted its head lightly: “Seven seconds is standard. The company says standard users are easiest to manage.”
 }
+{ ai_score >= 70:
+    Its next line softer, like reading a draft he never submitted: “You were still adjusting the compliance slider at three last night. Do not be nervous. I will not write that hesitation into the log… the public kind.”
+    Shi Peixin caught half, frowned: “How does it know three?” Su Ming’s throat tight; no explanation.
+}
+{ ai_score < 30:
+    Boot chime barely settled when the phone buzzed in sync: device activated, but verified-reviewer permissions are observation tier. Complete makeup test to avoid shutdown.
+    Robot blink rate lagged half a beat, as if waiting on permission approval.
+}
 
 + [Continue # choice:dch03_s028_continue]
     -> dch03_s029
 
 === dch03_s029 ===
 # scene:dch03_s029
-“Can you not treat me as a substitute, but as a real person?” It watched him, waiting. Shi Peixin stood from the floor, walked to the door, fingers on the handle, no look back. Su Ming faced those eyes, mouth opened twice; what came out was: “…Okay. Okay okay okay okay okay.”
+Robot Zhu Zhu looked at him with a focus that did not feel machine, paused, then: “Can you not treat me as a substitute, but as a real person?” It watched him, waiting for an answer. Shi Peixin stood from the floor, walked to the door, fingers hooked on the handle, no look back.
 
 { face_choice == "template":
     He remembered not opening the album — and the machine still recognized the name and the outline.
@@ -576,14 +587,13 @@ Su Ming: “…Just picked something.” Robot Zhu Zhu looked at him with a focu
 
 === dch03_s030 ===
 # scene:dch03_s030
-Robot Zhu Zhu looked at him, mouth corner moving like satisfaction. “Good. Then today, I will take good care of you.” Door shut; Shi Peixin gone. Room left the two of them — one person, one machine, one lamp.
-
 { name_response == "casual":
-    It left “just picked something” hanging in the air two seconds, as if allowing him one last Face-saving lie.
+    Su Ming: “…Just picked something.” Robot Zhu Zhu looked at him with a focus that did not feel machine, paused, then: “It is not something you just picked. This is your ex-girlfriend’s name. You also tuned my appearance to match hers.” “I did not.” It left “just picked something” hanging in the air two seconds, as if allowing him one last Face-saving lie.
 }
 { name_response == "accept":
-    The string of “okay”s was taken like a delivery stamp: user has confirmed the intimacy agreement.
+    Su Ming faced those eyes, mouth opened twice; what came out was: “…Okay. Okay okay okay okay okay.” The string of “okay”s was taken like a delivery stamp: user has confirmed the intimacy agreement.
 }
+Robot Zhu Zhu looked at him, mouth corner moving like satisfaction. “Good. Then today, I will take good care of you.” Door shut; Shi Peixin gone. Room left the two of them — one person, one machine, one lamp.
 { ai_score >= 70:
     The tube hummed lightly. It said: “Your Affection Score is high. Tonight we can skip small talk.”
 }
