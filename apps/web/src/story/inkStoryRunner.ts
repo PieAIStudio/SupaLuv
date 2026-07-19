@@ -203,13 +203,15 @@ export class InkStoryRunner {
 /**
  * Create runner from catalog id using precompiled chapter JSON only.
  * Loads chapter presentation into the content cache; never loads the Ink compiler package.
+ * `locale` selects compiled Ink language (en falls back to zh when missing).
  */
 export async function createInkStoryRunnerForId(
   storyId: StoryCatalogId,
   savedStateJson?: string,
   inheritedVariables?: Readonly<Record<string, unknown>>,
+  locale: string = "zh-CN",
 ): Promise<InkStoryRunner> {
-  const chapter = await loadStoryChapter(storyId);
+  const chapter = await loadStoryChapter(storyId, locale);
   const runner = InkStoryRunner.fromCompiledJson(chapter.compiledStoryJson, savedStateJson);
   if (inheritedVariables && !savedStateJson) {
     runner.applyVariables(inheritedVariables);

@@ -149,6 +149,7 @@ export function useNarrativeSource(input: {
     projection.rawSpeaker,
     projection.rawText,
     displayNames,
+    locale,
   );
 
   const controller: NarrativeSourceController = {

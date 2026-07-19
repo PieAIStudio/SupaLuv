@@ -103,6 +103,38 @@ export const CHINESE_VOICE_MAP: Readonly<Record<string, string>> = {
   courier: "audiobook_male_2",
 };
 
+/**
+ * English-lane casting for offline pregen (MiniMax English system voices).
+ * voice_id strings must match the MiniMax catalog exactly (error 2054 on mismatch).
+ *
+ * P1 SSOT for tools/voice-pregen --language=en. NOT wired into runtime dual-TTS
+ * routing yet (no ElevenLabs key for Western freeform; runtime EN TTS is P2).
+ */
+export interface EnglishVoiceCast {
+  readonly voice_id: string;
+  readonly speed: number;
+  readonly pitch: number;
+}
+
+export const ENGLISH_VOICE_MAP: Readonly<Record<string, EnglishVoiceCast>> = {
+  narrator: { voice_id: "English_Trustworthy_Man", speed: 1.0, pitch: 0 },
+  suming: { voice_id: "English_Gentle-voiced_man", speed: 1.02, pitch: 0 },
+  leo: { voice_id: "English_Gentle-voiced_man", speed: 0.95, pitch: -2 },
+  chen_jia: { voice_id: "English_Graceful_Lady", speed: 1.0, pitch: 0 },
+  shi_peixin: { voice_id: "English_Whispering_girl", speed: 1.0, pitch: 0 },
+  zhu_zhu: { voice_id: "English_Whispering_girl", speed: 0.9, pitch: -1 },
+  test_ai: { voice_id: "English_Whispering_girl", speed: 1.05, pitch: 3 },
+  staff_worker: { voice_id: "English_Diligent_Man", speed: 1.05, pitch: 1 },
+  staff_lead: { voice_id: "English_Diligent_Man", speed: 0.95, pitch: -2 },
+  grid_worker: { voice_id: "English_Diligent_Man", speed: 1.0, pitch: 3 },
+  police_officer: { voice_id: "English_Aussie_Bloke", speed: 1.0, pitch: -1 },
+  courier: { voice_id: "English_Aussie_Bloke", speed: 1.1, pitch: 2 },
+  shop_owner: { voice_id: "English_Graceful_Lady", speed: 1.05, pitch: 2 },
+  huang_laotai: { voice_id: "English_Graceful_Lady", speed: 0.88, pitch: -3 },
+  lin_xiaotang: { voice_id: "English_Whispering_girl", speed: 1.08, pitch: 2 },
+  zhou_lu: { voice_id: "English_Graceful_Lady", speed: 0.95, pitch: -1 },
+};
+
 /** Free-form `/tts/synthesize` (dialogue lines) — off unless env is exactly `"1"`. */
 export function isTtsFreeformEnabled(): boolean {
   return process.env.SUPALUV_TTS_ALLOW_FREEFORM === "1";

@@ -56,6 +56,11 @@ export type StorySessionDependencies = Readonly<{
    * Presentation-only (toast/sfx); not part of the public StorySession API.
    */
   readonly onUnlocksGained?: (gained: number, unlocks: GalleryUnlocks) => void;
+  /**
+   * Content locale for compiled Ink selection (ADR-0008).
+   * Language only affects display text source; saves stay structure-compatible.
+   */
+  readonly getContentLocale?: () => string;
 }>;
 
 function unlockCount(unlocks: GalleryUnlocks): number {
@@ -87,6 +92,9 @@ export function createStorySession(deps: StorySessionDependencies = {}): StorySe
   const evaluateCompatibility = deps.evaluateCompatibility ?? evaluateSaveCompatibility;
   const refreshCharacterBindings = deps.refreshCharacterBindings ?? defaultRefresh;
   const onUnlocksGained = deps.onUnlocksGained;
+  const getContentLocale = deps.getContentLocale ?? (() => "zh-CN");
+  /** Last locale used to build the active runner — used to skip no-op reloads. */
+  let activeContentLocale = getContentLocale();
 
   let state: StorySessionState = {
     storyId: defaultStoryId,
@@ -181,10 +189,17 @@ export function createStorySession(deps: StorySessionDependencies = {}): StorySe
 
   async function startNew(bindings: StoryCharacterBindings = {}): Promise<void> {
     const runtime = await loadCandidateRuntime();
-    const nextRunner = await runtime.createInkStoryRunnerForId(defaultStoryId);
+    const locale = getContentLocale();
+    const nextRunner = await runtime.createInkStoryRunnerForId(
+      defaultStoryId,
+      undefined,
+      undefined,
+      locale,
+    );
     const nextSnapshot = nextRunner.getSnapshot();
     // Presentation readiness gate: reject before any publish on failure.
     await preloadPresentation(runtime, defaultStoryId, nextSnapshot.sceneId);
+    activeContentLocale = locale;
     const nextUnlocks = applySceneUnlocks(
       EMPTY_UNLOCKS,
       runtime,
@@ -215,9 +230,16 @@ export function createStorySession(deps: StorySessionDependencies = {}): StorySe
 
   async function startGuestShell(): Promise<void> {
     const runtime = await loadCandidateRuntime();
-    const nextRunner = await runtime.createInkStoryRunnerForId(defaultStoryId);
+    const locale = getContentLocale();
+    const nextRunner = await runtime.createInkStoryRunnerForId(
+      defaultStoryId,
+      undefined,
+      undefined,
+      locale,
+    );
     const nextSnapshot = nextRunner.getSnapshot();
     await preloadPresentation(runtime, defaultStoryId, nextSnapshot.sceneId);
+    activeContentLocale = locale;
     // Guest shell is inert for authored saves — no writeStorySave, no unlock reset.
     commitReady(runtime, {
       ...state,
@@ -260,12 +282,16 @@ export function createStorySession(deps: StorySessionDependencies = {}): StorySe
     }
 
     const runtime = await loadCandidateRuntime();
+    const locale = getContentLocale();
     const nextRunner = await runtime.createInkStoryRunnerForId(
       compatibility.storyId,
       save.inkStateJson,
+      undefined,
+      locale,
     );
     const restored = restoreSnapshotFromSave(nextRunner.getSnapshot(), save.presentation);
     await preloadPresentation(runtime, compatibility.storyId, restored.sceneId);
+    activeContentLocale = locale;
 
     const pack = legacyPortraitPack ?? { byStem: {}, byLead: {} };
     const savedBindings = save.characterBindings ?? legacyPortraitBindings(pack, save.savedAt);
@@ -297,13 +323,16 @@ export function createStorySession(deps: StorySessionDependencies = {}): StorySe
   ): Promise<void> {
     const runtime = await loadCandidateRuntime();
     const nextInherited = inherited ?? inheritedVariables;
+    const locale = getContentLocale();
     const nextRunner = await runtime.createInkStoryRunnerForId(
       nextStoryId,
       undefined,
       nextInherited,
+      locale,
     );
     const nextSnapshot = nextRunner.getSnapshot();
     await preloadPresentation(runtime, nextStoryId, nextSnapshot.sceneId);
+    activeContentLocale = locale;
     const nextUnlocks = applySceneUnlocks(
       state.unlocks,
       runtime,
@@ -448,6 +477,53 @@ export function createStorySession(deps: StorySessionDependencies = {}): StorySe
     }
   }
 
+  /**
+   * Rebuild the active runner for a new UI locale without rewriting saves.
+   * Topology-compatible translations share ink state; current presentation is
+   * restored when the reloaded snapshot text is empty (typical at a choice gate).
+   */
+  async function reloadForContentLocale(locale: string): Promise<void> {
+    const { runner, storyId, snapshot, unlocks, characterBindings, activeManualSlot } = state;
+    if (!runner || !snapshot) {
+      activeContentLocale = locale;
+      return;
+    }
+    if (locale === activeContentLocale) {
+      return;
+    }
+    const runtime = activeRuntime ?? (await loadCandidateRuntime());
+    const inkState = runner.exportStateJson();
+    const nextRunner = await runtime.createInkStoryRunnerForId(
+      storyId,
+      inkState,
+      undefined,
+      locale,
+    );
+    const nextRaw = nextRunner.getSnapshot();
+    // At a choice boundary ink continues with empty text; keep visible line.
+    // Choice labels come from the new locale's compiled Ink when present.
+    const nextSnapshot = restoreSnapshotFromSave(nextRaw, {
+      sceneId: snapshot.sceneId,
+      text: snapshot.text,
+      tags: [...snapshot.tags],
+      choices: snapshot.choices,
+      isEnded: snapshot.isEnded,
+      meters: snapshot.meters,
+    });
+    await preloadPresentation(runtime, storyId, nextSnapshot.sceneId);
+    activeContentLocale = locale;
+    commitReady(runtime, {
+      storyId,
+      runner: nextRunner,
+      snapshot: nextSnapshot,
+      unlocks,
+      characterBindings,
+      activeManualSlot,
+      revision: state.revision + 1,
+      continueBlockedMessage: null,
+    });
+  }
+
   return {
     getState,
     subscribe,
@@ -465,5 +541,6 @@ export function createStorySession(deps: StorySessionDependencies = {}): StorySe
     addUnlocks,
     updateCharacterBindings,
     clearContinueBlocked,
+    reloadForContentLocale,
   };
 }

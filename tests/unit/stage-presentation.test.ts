@@ -14,6 +14,19 @@ describe("stagePresentation", () => {
     });
   });
 
+  it("uses registry enName for English locale when player did not rename", () => {
+    const defaults = { suming: "苏明", lin_xiaotang: "石佩欣" };
+    expect(mapDialogueForPlayer("苏明", "Hello.", defaults, "en")).toEqual({
+      speaker: "Su Ming",
+      text: "Hello.",
+    });
+    expect(mapDialogueForPlayer("旁白", "VO.", defaults, "en").speaker).toBe("Narrator");
+    expect(mapDialogueForPlayer("工作人员", "Hi.", defaults, "en").speaker).toBe("Staff");
+    expect(mapDialogueForPlayer("系统", "OK.", defaults, "en").speaker).toBe("System");
+    // zh-CN keeps Chinese nameplates
+    expect(mapDialogueForPlayer("苏明", "你好。", defaults, "zh-CN").speaker).toBe("苏明");
+  });
+
   it("binds the cast actor by canonical name only, never by NPC placeholder stems", () => {
     const bindings = {
       lead_zhou_lu: {

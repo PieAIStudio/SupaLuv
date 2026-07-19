@@ -47,4 +47,9 @@ export interface StorySession {
   addUnlocks(partial: Partial<GalleryUnlocks>): GalleryUnlocks;
   updateCharacterBindings(bindings: StoryCharacterBindings): void;
   clearContinueBlocked(): void;
+  /**
+   * Hot-swap compiled Ink language for the active runner (ADR-0008).
+   * Does not rewrite save slots; ink state topology is shared across locales.
+   */
+  reloadForContentLocale(locale: string): Promise<void>;
 }

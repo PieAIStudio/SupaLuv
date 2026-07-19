@@ -38,14 +38,18 @@ export function listSelectableStoryIds(includeDev: boolean): readonly StoryId[] 
 /**
  * Ensure chapter presentation + compiled JSON are loaded into the content cache.
  * Call from async story actions (new game / continue / chapter advance) — never from render.
+ * `locale` selects compiled Ink language (en falls back to zh when missing).
  */
-export async function ensureStoryLoaded(storyId: StoryId): Promise<LoadedStoryChapter> {
-  return loadStoryChapter(storyId);
+export async function ensureStoryLoaded(
+  storyId: StoryId,
+  locale: string = "zh-CN",
+): Promise<LoadedStoryChapter> {
+  return loadStoryChapter(storyId, locale);
 }
 
-export function getStoryDefinition(storyId: StoryId): StoryDefinition {
+export function getStoryDefinition(storyId: StoryId, locale?: string): StoryDefinition {
   const meta = getStoryCatalogMeta(storyId);
-  const loaded = getCachedStoryChapter(storyId);
+  const loaded = getCachedStoryChapter(storyId, locale);
   if (!loaded) {
     throw new Error(
       `Story presentation for "${storyId}" is not loaded. Call ensureStoryLoaded / createInkStoryRunnerForId first.`,

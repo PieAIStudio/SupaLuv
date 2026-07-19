@@ -15,6 +15,7 @@ import { useAuth } from "../../../auth/AuthContext";
 import { useFullscreen } from "../../../hooks/useFullscreen";
 import { usePlayInput } from "../../../hooks/usePlayInput";
 import { usePointerPresenceMode } from "../../../hooks/usePointerPresenceMode";
+import { useLocale } from "../../../i18n";
 import { resolveStoryInteraction } from "../../../interactions/storyInteractionRegistry";
 import type { DisplayNameMap } from "../../../persistence/displayNames";
 import type { PortraitPackState } from "../../../persistence/portraitPack";
@@ -94,6 +95,7 @@ export function usePlayStageRuntime(input: {
   } = input;
 
   const auth = useAuth();
+  const { locale } = useLocale();
   const stageRootRef = useRef<HTMLDivElement | null>(null);
   const propReopenRef = useRef<HTMLButtonElement | null>(null);
   const { isFullscreen, toggleFullscreen } = useFullscreen(stageRootRef);
@@ -297,6 +299,7 @@ export function usePlayStageRuntime(input: {
     displayNames,
     portraitPack,
     characterBindings,
+    locale,
   );
 
   useEffect(() => {

@@ -128,11 +128,14 @@ export function App() {
 
   const showUnlockToastRef = useRef(showUnlockToast);
   showUnlockToastRef.current = showUnlockToast;
+  const localeRef = useRef(locale);
+  localeRef.current = locale;
 
   const session = useMemo(
     () =>
       createStorySession({
         preloadPresentation: preloadStoryPresentation,
+        getContentLocale: () => localeRef.current,
         refreshCharacterBindings: (bindings) =>
           refreshCharacterBindingUrls(
             bindings,
@@ -147,6 +150,13 @@ export function App() {
       }),
     [],
   );
+
+  // ADR-0008: hot-swap compiled Ink language when UI locale changes mid-run.
+  useEffect(() => {
+    void session.reloadForContentLocale(locale).catch(() => {
+      // Fail soft — keep prior runner; next start/resume picks the new locale.
+    });
+  }, [locale, session]);
   const story = useStorySession(session);
   const {
     storyId,

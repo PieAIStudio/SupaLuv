@@ -1,0 +1,3834 @@
+{
+  "inkVersion": 21,
+  "root": [
+    [
+      {
+        "->": "dch03_s001"
+      },
+      [
+        "done",
+        {
+          "#n": "g-0"
+        }
+      ],
+      null
+    ],
+    "done",
+    {
+      "dch03_s001": [
+        [
+          "#",
+          "^scene:dch03_s001",
+          "/#",
+          "^The matching questionnaire arrived while Su Ming was scanning QR codes behind a supermarket register. Phone lit; push one line: “Your personalized matching questionnaire is ready. Please complete within 72 hours.” Beside him an auntie shoved a whole bag of tomatoes onto the scan zone.",
+          "\n",
+          "^On the face page you could upload a photo for auto-generate, or fine-tune a base template by hand. Su Ming’s finger parked on the album icon for several seconds. A few uncleared couple photos in there — with Chen Jia; phone swapped once, sync brought them back; he hadn’t noticed then, later deleted most, left a few — not for looking, just couldn’t bring himself to hit delete.",
+          "\n",
+          "ev",
+          {
+            "VAR?": "mianzi"
+          },
+          70,
+          ">=",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^The auntie watched him work the tablet and took him for store inspection: “Kid, your company running another check?”",
+                "\n",
+                "^Su Ming dry-laughed, flipped his badge a little more inward.",
+                "\n",
+                {
+                  "->": ".^.^.^.13"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "mianzi"
+          },
+          30,
+          "<",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^The auntie pushed the tomatoes forward, offhand: “Boy’s so thin the register can’t block the wind. Boss has almost-expired bread under the counter — don’t white-knuckle it.”",
+                "\n",
+                {
+                  "->": ".^.^.^.21"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "ai_score"
+          },
+          70,
+          ">=",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Under the push body, an extra green line: priority matching lane open. Like someone in the system rolled a red carpet for him.",
+                "\n",
+                {
+                  "->": ".^.^.^.29"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "ai_score"
+          },
+          30,
+          "<",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Gray text at the push tail: observation-tier questionnaire; overdue will affect device production scheduling. His throat tightened.",
+                "\n",
+                {
+                  "->": ".^.^.^.37"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s001_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s002"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s002": [
+        [
+          "#",
+          "^scene:dch03_s002",
+          "/#",
+          "^He never did open the album icon. Picked base face 17, nudged with a fingertip: bridge a little lower, eyes a touch upturned, then stared at the preview forever. Couldn’t say it looked like anyone; couldn’t say it didn’t. He forced himself not to think, hit next.",
+          "\n",
+          "^Right then the phone buzzed. Chen Jia: “I left a coat over there. When’s convenient for me to grab it.”",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s002_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s003"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s003": [
+        [
+          "#",
+          "^scene:dch03_s003",
+          "/#",
+          "^Su Ming looked at the still-previewing face on screen, then the name in WeChat, thought, typed three characters: “Tomorrow.” Sent, kept adjusting the bridge.",
+          "\n",
+          "^Personality page was dense sliders: compliance, attachment, cleanliness, control, fight frequency, row after row. Under each slider, other verified reviewers’ comments. Top hot take on “grudge duration”: never set permanent — I did, she still remembers me saying her noodles were salty in March. Su Ming stared at that review a long time.",
+          "\n",
+          "ev",
+          "str",
+          "^Pick base face, leave the album ",
+          "#",
+          "^choice:d3_face_template",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          "ev",
+          "str",
+          "^Finger parked on album too long ",
+          "#",
+          "^choice:d3_face_album",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-1",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              "ev",
+              "str",
+              "^template",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "face_choice",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              5,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              3,
+              "-",
+              "/ev",
+              {
+                "VAR=": "ai_score",
+                "re": true
+              },
+              {
+                "->": "dch03_mobile_questionnaire"
+              },
+              null
+            ],
+            "c-1": [
+              "\n",
+              "ev",
+              "str",
+              "^album_hover",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "face_choice",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              5,
+              "+",
+              "/ev",
+              {
+                "VAR=": "ai_score",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              5,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "^【System】Affection Score +5. Album-hover duration logged into intimacy estimate. Not uploading is also a kind of confession.",
+              "\n",
+              {
+                "->": "dch03_mobile_questionnaire"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_mobile_questionnaire": [
+        "ev",
+        {
+          "VAR?": "mobile_questionnaire_completed_at_version"
+        },
+        "str",
+        "^",
+        "/str",
+        "!=",
+        "/ev",
+        [
+          {
+            "->": ".^.b",
+            "c": true
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.result"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        [
+          {
+            "->": ".^.b"
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.q1"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        "nop",
+        "\n",
+        {
+          "q1": [
+            [
+              "#",
+              "^scene:dch03_mobile_questionnaire",
+              "/#",
+              "#",
+              "^interaction:mobile-questionnaire-v1",
+              "/#",
+              "#",
+              "^interaction-step:1",
+              "/#",
+              "^Phone questionnaire 1/3 · Neighbor tolerance.",
+              "\n",
+              "ev",
+              "str",
+              "^Average ",
+              "#",
+              "^choice:mobile_questionnaire_q1_average",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Good ",
+              "#",
+              "^choice:mobile_questionnaire_q1_good",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Excellent ",
+              "#",
+              "^choice:mobile_questionnaire_q1_excellent",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Prefer not to rate ",
+              "#",
+              "^choice:mobile_questionnaire_q1_decline",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-3",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Skip questionnaire ",
+              "#",
+              "^choice:mobile_questionnaire_q1_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-4",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^average",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^good",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^excellent",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-3": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^decline",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q1",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-4": [
+                  "\n",
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q2": [
+            [
+              "#",
+              "^scene:dch03_mobile_questionnaire",
+              "/#",
+              "#",
+              "^interaction:mobile-questionnaire-v1",
+              "/#",
+              "#",
+              "^interaction-step:2",
+              "/#",
+              "^Phone questionnaire 2/3 · Mind highly humanlike devices?",
+              "\n",
+              "ev",
+              "str",
+              "^Mind ",
+              "#",
+              "^choice:mobile_questionnaire_q2_mind",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Do not mind ",
+              "#",
+              "^choice:mobile_questionnaire_q2_fine",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Unsure ",
+              "#",
+              "^choice:mobile_questionnaire_q2_unsure",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Skip questionnaire ",
+              "#",
+              "^choice:mobile_questionnaire_q2_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-3",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^mind",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q2",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^fine",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q2",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^unsure",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q2",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-3": [
+                  "\n",
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q3": [
+            [
+              "#",
+              "^scene:dch03_mobile_questionnaire",
+              "/#",
+              "#",
+              "^interaction:mobile-questionnaire-v1",
+              "/#",
+              "#",
+              "^interaction-step:3",
+              "/#",
+              "^Phone questionnaire 3/3 · Private room.",
+              "\n",
+              "ev",
+              "str",
+              "^Have a private room ",
+              "#",
+              "^choice:mobile_questionnaire_q3_yes",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Not yet ",
+              "#",
+              "^choice:mobile_questionnaire_q3_no",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Convertible ",
+              "#",
+              "^choice:mobile_questionnaire_q3_convertible",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-2",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Skip questionnaire ",
+              "#",
+              "^choice:mobile_questionnaire_q3_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-3",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^yes",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^mobile-questionnaire-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^no",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^mobile-questionnaire-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-2": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^convertible",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_q3",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^mobile-questionnaire-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "mobile_questionnaire_completed_at_version",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-3": [
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "skipped": [
+            "ev",
+            true,
+            "/ev",
+            {
+              "VAR=": "mobile_questionnaire_skipped",
+              "re": true
+            },
+            "ev",
+            "str",
+            "^mobile-questionnaire-v1",
+            "/str",
+            "/ev",
+            {
+              "VAR=": "mobile_questionnaire_completed_at_version",
+              "re": true
+            },
+            {
+              "->": ".^.^.result"
+            },
+            null
+          ],
+          "result": [
+            [
+              "#",
+              "^scene:dch03_mobile_questionnaire",
+              "/#",
+              "ev",
+              {
+                "VAR?": "mobile_questionnaire_skipped"
+              },
+              "/ev",
+              [
+                {
+                  "->": ".^.b",
+                  "c": true
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^Questionnaire collapsed to a “fill later” strip. Confidentiality clause seven still bold.",
+                    "\n",
+                    "^He pretended he’d come back to fill it — the way he pretended the album icon was only a pass-by.",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              [
+                {
+                  "->": ".^.b"
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^Three questions done; submit still waited one screen down. Su Ming dimmed the phone another notch.",
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "mobile_questionnaire_q1"
+                    },
+                    "str",
+                    "^excellent",
+                    "/str",
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^Neighbor tolerance “Excellent” lit up like he was underwriting the whole building’s personality.",
+                          "\n",
+                          {
+                            "->": ".^.^.^.11"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "mobile_questionnaire_q1"
+                    },
+                    "str",
+                    "^decline",
+                    "/str",
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^“Prefer not to rate” grayed a line: missing data will slow matching.",
+                          "\n",
+                          {
+                            "->": ".^.^.^.21"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "mobile_questionnaire_q2"
+                    },
+                    "str",
+                    "^fine",
+                    "/str",
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^Do not mind high humanlikeness — backend would probably stamp green with a star.",
+                          "\n",
+                          {
+                            "->": ".^.^.^.31"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "mobile_questionnaire_q2"
+                    },
+                    "str",
+                    "^mind",
+                    "/str",
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^Mind humanlikeness. He still finished the form, like sneering while placing the order.",
+                          "\n",
+                          {
+                            "->": ".^.^.^.41"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "mobile_questionnaire_q3"
+                    },
+                    "str",
+                    "^convertible",
+                    "/str",
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^“Convertible” sounded more Face-preserving than “Not yet” — really just fantasizing a cabinet into a wall.",
+                          "\n",
+                          {
+                            "->": ".^.^.^.51"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "mobile_questionnaire_q3"
+                    },
+                    "str",
+                    "^no",
+                    "/str",
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^The second “no private room yet” went down, he remembered Shi Peixin’s house-rules appendix.",
+                          "\n",
+                          {
+                            "->": ".^.^.^.61"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              "nop",
+              "\n",
+              "ev",
+              "str",
+              "^Continue ",
+              "#",
+              "^choice:mobile_questionnaire_continue",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  {
+                    "->": "dch03_s004"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ]
+        }
+      ],
+      "dch03_s004": [
+        [
+          "#",
+          "^scene:dch03_s004",
+          "/#",
+          "^He dragged “grudge duration” toward permanent, then quietly dragged it back, stopped at zero seconds. Compliance maxed, control zeroed. Sensory-preference page was what actually made his palms sweat. Arch height, toe shape, skin texture, feedback sensitivity — things he’d never dared mention to any living person, all on this form. Phone buzzed again. Chen Jia: “Can it be today? That coat’s kind of urgent.”",
+          "\n",
+          "ev",
+          {
+            "VAR?": "face_choice"
+          },
+          "str",
+          "^template",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Base face 17 still in the preview corner: not like anyone, therefore safe. He forced himself to believe that.",
+                "\n",
+                {
+                  "->": ".^.^.^.13"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "face_choice"
+          },
+          "str",
+          "^album_hover",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Those couple photos in the album sat like uncleared cache; hover duration already read as an answer by the system.",
+                "\n",
+                {
+                  "->": ".^.^.^.23"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s004_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s005"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s005": [
+        [
+          "#",
+          "^scene:dch03_s005",
+          "/#",
+          "^Su Ming submitted the sensory-preference page, then replied Chen Jia: “Fine. Evening.” She came a little after six; Su Ming hadn’t clocked out, took a half-hour early leave. Boss muttered he’d make up an hour later, watched the two meet at the Shi house door. Chen Jia pulled the coat from her bag; Su Ming only then remembered — months back she’d left it at his old place. “Thanks for keeping it.” “No problem.” Su Ming handed the coat back.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s005_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s006"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s006": [
+        [
+          "#",
+          "^scene:dch03_s006",
+          "/#",
+          "^Neither left first; both waiting for the other. Lane noisy at this hour. Someone pushed a tricycle through; they each stepped aside; tricycle gone, both stood back where they’d been.",
+          "\n",
+          "^Chen Jia spoke first: “You live here now?” “Yeah.” “Nice.” She turned and left. Su Ming watched from the door — not into the lane — turned into the building, up to 3F, opened the room. Onboarding training page still open; he’d fallen asleep halfway through last night.",
+          "\n",
+          "ev",
+          "str",
+          "^Reply Chen Jia: tomorrow ",
+          "#",
+          "^choice:d3_coat_tomorrow",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          "ev",
+          "str",
+          "^Reply Chen Jia: fine, evening ",
+          "#",
+          "^choice:d3_coat_today",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-1",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              "ev",
+              "str",
+              "^tomorrow",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "coat_timing",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              {
+                "->": "dch03_s007"
+              },
+              null
+            ],
+            "c-1": [
+              "\n",
+              "ev",
+              "str",
+              "^today",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "coat_timing",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              5,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              {
+                "->": "dch03_s007"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s007": [
+        [
+          "#",
+          "^scene:dch03_s007",
+          "/#",
+          "^“Recommended external talking points,” pick one of three: art supplies, fitness dummy, medical rehab prop. He flicked the screen aside, eyes on the lane outside; Chen Jia already gone; then turned back and finished the question. Graduation quiz missed two; retook to pass. This company even standardized how you lie. Honesty was a failing grade here.",
+          "\n",
+          "^Two weeks waiting for cargo, he refreshed the logistics page until it grew a patina. “In production” four days, “In QA” three more, the third package stuck on “Security inspection” two days. Night on the bed, mind racing; at 2 a.m. he couldn’t hold and dumped the fear into the “in this together” group. Old K replied in a second: security has seen more of this cargo than couriers have; internally they call it “sim units,” go sleep.",
+          "\n",
+          "^A groupmate added: his unit got opened for inspection once; after the check the officer re-sealed it, mild: “I’ll tape it tighter for you. Road’s bumpy.”",
+          "\n",
+          "ev",
+          {
+            "VAR?": "coat_timing"
+          },
+          "str",
+          "^tomorrow",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^His “tomorrow” to Chen Jia still sat atop the chat like a door not fully shut — at least tonight no face-to-face handoff awkwardness.",
+                "\n",
+                {
+                  "->": ".^.^.^.17"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "coat_timing"
+          },
+          "str",
+          "^today",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^The coat handoff at the lane mouth still burned: ex-girlfriend seen at dusk, and the “replacement” about to arrive, both clipped into the same day by the company training page.",
+                "\n",
+                {
+                  "->": ".^.^.^.27"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s007_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s008"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s008": [
+        [
+          "#",
+          "^scene:dch03_s008",
+          "/#",
+          "^Three days later delivery resumed. Arrival day Su Ming told the boss a relative was coming, asked half an hour. “Where do you get so many relatives, every other day — go, go, every extra second costs money.” She shoved him toward the door while talking.",
+          "\n",
+          "^Barely past half an hour the boss’s text chased: “Short-handed here.” Su Ming squeezed the phone, replied “Coming,” eyes locked on the truck reversing at the lane mouth, feet not moving an inch.",
+          "\n",
+          "^Courier unloaded three big boxes, exhausted to one word: “Heavy.” Tearing the receipt he cracked: “Bro, this dummy’s pricier than a real person, huh. Maintain it well.”",
+          "\n",
+          "ev",
+          {
+            "VAR?": "mianzi"
+          },
+          30,
+          "<",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Boss added a voice note, scan beeps in the background: “Grab two bags of almost-expired bread yourself — don’t tell me you didn’t eat. That face of yours, the register’s embarrassed for you.”",
+                "\n",
+                "^Bonus line: “Leave again and I count it as no-show. Relatives can’t fill a roster.”",
+                "\n",
+                {
+                  "->": ".^.^.^.15"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "mianzi"
+          },
+          70,
+          ">=",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Boss was oddly polite this time: “Come back soon. That supplier’s attitude was garbage today — I thought you were going to chew them out for me.”",
+                "\n",
+                "^Text ended with a period, like addressing management.",
+                "\n",
+                {
+                  "->": ".^.^.^.23"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s008_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s009"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s009": [
+        [
+          "#",
+          "^scene:dch03_s009",
+          "/#",
+          "^Boxes printed “fitness dummy / model prop” in type big enough nobody could miss — industry wisdom: better than hiding. Right then three middle-school girls walked home past, backpacks on, saw three big boxes at the lane mouth; one stepped up: “Need help?” Su Ming started to say no; Léo flashed beside him, already had them steady the lightest box: “Thanks, upstairs, careful! Stairs narrow, corner tight.” Three boxes up; stuck twice.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s009_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s010"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s010": [
+        [
+          "#",
+          "^scene:dch03_s010",
+          "/#",
+          "^The three girls braced the middle box, shuffling up; Su Ming stepped ahead. At the bend between 2F and 3F space ran out; he sided the box, foot missed a step — box tipped with him, hit the wall corner.",
+          "\n",
+          "^Side cardboard split. A hand sprang from the gash, fingers open, palm up, frozen in air. The three girls froze two seconds; the scream hadn’t left yet — box slipped another notch, gash widened, upper torso slid out after, silicone skin matte under the stair light.",
+          "\n",
+          "^Scream arrived for real, three at once. They piled downstairs over each other’s feet; someone stepped on someone; someone hit the rail; three pairs of shoes hit the lane mouth.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s010_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s011"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s011": [
+        [
+          "#",
+          "^scene:dch03_s011",
+          "/#",
+          "^Su Ming stood mid-stair, one hand on the box, one shoving the hand back in — no time to explain, no time for anything. He dropped his head, staring. “There’s a hand!” “And a chest! It’s real!” “Call 110!” The stairwell paused a beat.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s011_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s012"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s012": [
+        [
+          "#",
+          "^scene:dch03_s012",
+          "/#",
+          "^Léo edged one step toward the stair mouth, eyes flicking the lane, low: “…Student visa. Police side I—” Su Ming said nothing. Léo stepped another toward the mouth. “I’ll wait at the stair mouth.” “Go.” Léo went down light. Su Ming alone with the box, shoving that hand hard back in.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s012_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s013"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s013": [
+        [
+          "#",
+          "^scene:dch03_s013",
+          "/#",
+          "^Under five minutes Granny Huang walked up from the lane mouth following the noise, phone already out — grid officer Xiao Yuan’s number. Six or seven neighbors ringed in. Two plainclothes cops arrived, one young, one older. Older held order outside; younger followed Su Ming up. Su Ming entered the room, set the box down, pulled out his phone, showed the Heartbeat Engine test-contract page — agreement number, sign time, “real—” The cop glanced two seconds, looked up, slowly raised an eyebrow at Su Ming. Meaning obvious.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s013_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s014"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s014": [
+        [
+          "#",
+          "^scene:dch03_s014",
+          "/#",
+          "^Su Ming nodded. Cop raised the brow again. Meaning still obvious. Su Ming nodded again. Cop sighed: “Can’t you read a look.”",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s014_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s015"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s015": [
+        [
+          "#",
+          "^scene:dch03_s015",
+          "/#",
+          "^Su Ming: “Officer, I can read it. But I need you to say it plain so I have a reasonable explanation for you.” Cop stared two seconds, didn’t take that line, changed angle: “Box has to open. I’m verifying.”",
+          "\n",
+          "^Su Ming pushed the split box over. Cop squatted, pried the gash, looked in, pinched the wrist that had slid out, pressed the forearm for silicone give, stood. Said nothing.",
+          "\n",
+          "^Walked to another box, slit the top, flipped out a leg — thigh, calf, joints all labeled with pack numbers. Looked once, put it back.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s015_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s016"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s016": [
+        [
+          "#",
+          "^scene:dch03_s016",
+          "/#",
+          "^Third box he only skimmed the head section, noted something in a pad, closed it. “Legal private test equipment. We’re done, we leave.” He gestured Su Ming first. At the stair door the young cop was about to go down — grid officer Xiao Yuan pushed in, Granny Huang behind, the three middle-school girls blocking the— Cop blocked, sighed, turned to Su Ming: “Want to come make a statement with me?” Su Ming: “I have a proper contract, platform credentials. Why would I sit for a record?”",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s016_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s017"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s017": [
+        [
+          "#",
+          "^scene:dch03_s017",
+          "/#",
+          "^Freeze. Nobody moved first. Shi Peixin came down from upstairs. She scanned the stairwell, no wasted words: “You never seen mannequins?” Granny Huang: “Mannequins need power?” Shi Peixin turned on her, tone level: “Go to a mall. Those walking window mannequins — motors inside? You report malls?”",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s017_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s018"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s018": [
+        [
+          "#",
+          "^scene:dch03_s018",
+          "/#",
+          "^Grid officer Xiao Yuan went red at the ears, stepped half back. The three girls traded a look and quietly let go of Su Ming’s sleeve — he hadn’t even known when they’d grabbed it. Young cop pocketed the pad, nodded at Su Ming, took the older one downstairs.",
+          "\n",
+          "^Crowd gone. Boxes still in the stairwell, three parts scattered. Someone came up the mouth — Léo, face blank as if he’d just bought water outside; he did hold a bottle. He eyed the parts on the floor, eyed Su Ming, no waste words, bent, shouldered both legs, swaggered up the stairs.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s018_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s019"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s019": [
+        [
+          "#",
+          "^scene:dch03_s019",
+          "/#",
+          "^Shi Peixin cradled the head, studied two seconds under the stair light: “Build quality’s solid. Pretty lifelike.” Su Ming held torso and waist in both arms, wrapped in his own coat, head down last. Three of them on the old stairs, steps creaking, nobody talking. Everything parked at 3F-A’s door; that night they still ate together. At table Shi Peixin tapped the bowl rim with chopsticks: “How much for a mannequin?”",
+          "\n",
+          "ev",
+          {
+            "VAR?": "mianzi"
+          },
+          30,
+          "<",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Léo laid his chopsticks flat, soft: “If you really can’t hold rent, stop faking fine. My visa matters — but don’t live yourself into a prototype first.”",
+                "\n",
+                "^Shi Peixin didn’t contradict; only nudged the soup bowl toward Su Ming, like green-lighting the pullback.",
+                "\n",
+                {
+                  "->": ".^.^.^.11"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "mianzi"
+          },
+          70,
+          ">=",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Shi Peixin’s bowl-tap lightened: “You can hold a room. Not the type to leak secrets into a stairwell.”",
+                "\n",
+                "^Léo nodded: “Yeah. The kind of hold that talks cops into leaving.”",
+                "\n",
+                {
+                  "->": ".^.^.^.19"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^Let Léo go first — visa matters ",
+          "#",
+          "^choice:d3_leo_go",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          "ev",
+          "str",
+          "^Want him to stay and haul boxes ",
+          "#",
+          "^choice:d3_leo_stay",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-1",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              {
+                "->": "dch03_s020"
+              },
+              null
+            ],
+            "c-1": [
+              "\n",
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              {
+                "->": "dch03_s020"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s020": [
+        [
+          "#",
+          "^scene:dch03_s020",
+          "/#",
+          "^Su Ming: “…Not sure. Holding for a relative’s company.” “Holding comes in three boxes.” Shi Peixin stared. “Give me a line I can paste into a relative chat.” “Art supplies. You need them for drawing.” “I draw men.” She glanced, warning in it. “Better that box not look too human.” Léo raised a hand: “If it looks human, I move out.”",
+          "\n",
+          "ev",
+          {
+            "VAR?": "mianzi"
+          },
+          70,
+          ">=",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Shi Peixin’s look gained a thread of “this one can still spin it”; she didn’t chase internal structure.",
+                "\n",
+                {
+                  "->": ".^.^.^.11"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "mianzi"
+          },
+          30,
+          "<",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Shi Peixin sighed: “The messier your explanation, the more I want rent insurance.”",
+                "\n",
+                {
+                  "->": ".^.^.^.19"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s020_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s021"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s021": [
+        [
+          "#",
+          "^scene:dch03_s021",
+          "/#",
+          "^“You wouldn’t dare. Rent’s prepaid.” Right then Granny Huang’s voice drifted in from outside, clear across several units: “Say it’s a mannequin — which mannequin needs power, eh?” Three pairs of chopsticks stopped together. Shi Peixin stood, turned the TV up two notches, as if that sentence had never floated in. The table finished the meal each with their own secrets. Everything into 3F-A; Léo still wanted in on the fun.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s021_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s022"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s022": [
+        [
+          "#",
+          "^scene:dch03_s022",
+          "/#",
+          "^“Can I help unbox?” “No. Out.” “What if it’s a bom—” “Not a bomb. Out.” Door locked in his face.",
+          "\n",
+          "^Three activation-code stickers on the box sides, company typeface like a register receipt holding a meeting: main unit, limbs, head — each to be scanned first for “compliant” open.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s022_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_robot_barcode"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_robot_barcode": [
+        "ev",
+        {
+          "VAR?": "barcode_sweep_completed_at_version"
+        },
+        "str",
+        "^",
+        "/str",
+        "!=",
+        "/ev",
+        [
+          {
+            "->": ".^.b",
+            "c": true
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.result"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        [
+          {
+            "->": ".^.b"
+          },
+          {
+            "b": [
+              "\n",
+              {
+                "->": ".^.^.^.q1"
+              },
+              {
+                "->": ".^.^.^.9"
+              },
+              null
+            ]
+          }
+        ],
+        "nop",
+        "\n",
+        {
+          "q1": [
+            [
+              "#",
+              "^scene:dch03_robot_barcode",
+              "/#",
+              "#",
+              "^interaction:barcode-sweep-v1",
+              "/#",
+              "#",
+              "^interaction-step:1",
+              "/#",
+              "^Unbox activation 1/3 · Main-unit outer activation code.",
+              "\n",
+              "ev",
+              "str",
+              "^Scan this one ",
+              "#",
+              "^choice:barcode_sweep_q1_ok",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Skip the chain-scan ",
+              "#",
+              "^choice:barcode_sweep_q1_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^ok",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "barcode_sweep_q1",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q2"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q2": [
+            [
+              "#",
+              "^scene:dch03_robot_barcode",
+              "/#",
+              "#",
+              "^interaction:barcode-sweep-v1",
+              "/#",
+              "#",
+              "^interaction-step:2",
+              "/#",
+              "^Unbox activation 2/3 · Limb-box QA code.",
+              "\n",
+              "ev",
+              "str",
+              "^Scan this one ",
+              "#",
+              "^choice:barcode_sweep_q2_ok",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Skip the chain-scan ",
+              "#",
+              "^choice:barcode_sweep_q2_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^ok",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "barcode_sweep_q2",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  3,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  3,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.q3"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "q3": [
+            [
+              "#",
+              "^scene:dch03_robot_barcode",
+              "/#",
+              "#",
+              "^interaction:barcode-sweep-v1",
+              "/#",
+              "#",
+              "^interaction-step:3",
+              "/#",
+              "^Unbox activation 3/3 · Head-box binding pre-auth code.",
+              "\n",
+              "ev",
+              "str",
+              "^Scan this one ",
+              "#",
+              "^choice:barcode_sweep_q3_ok",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              "ev",
+              "str",
+              "^Skip the chain-scan ",
+              "#",
+              "^choice:barcode_sweep_q3_skip",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-1",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  "ev",
+                  "str",
+                  "^ok",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "barcode_sweep_q3",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  "str",
+                  "^barcode-sweep-v1",
+                  "/str",
+                  "/ev",
+                  {
+                    "VAR=": "barcode_sweep_completed_at_version",
+                    "re": true
+                  },
+                  "^【System】Affection Score +11. Packaging activation codes redeemed. You have voluntarily completed pre-binding.",
+                  "\n",
+                  {
+                    "->": ".^.^.^.^.result"
+                  },
+                  null
+                ],
+                "c-1": [
+                  "\n",
+                  "ev",
+                  {
+                    "VAR?": "mianzi"
+                  },
+                  5,
+                  "+",
+                  "/ev",
+                  {
+                    "VAR=": "mianzi",
+                    "re": true
+                  },
+                  "ev",
+                  {
+                    "VAR?": "ai_score"
+                  },
+                  5,
+                  "-",
+                  "/ev",
+                  {
+                    "VAR=": "ai_score",
+                    "re": true
+                  },
+                  {
+                    "->": ".^.^.^.^.skipped"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ],
+          "skipped": [
+            "ev",
+            true,
+            "/ev",
+            {
+              "VAR=": "barcode_sweep_skipped",
+              "re": true
+            },
+            "ev",
+            "str",
+            "^barcode-sweep-v1",
+            "/str",
+            "/ev",
+            {
+              "VAR=": "barcode_sweep_completed_at_version",
+              "re": true
+            },
+            {
+              "->": ".^.^.result"
+            },
+            null
+          ],
+          "result": [
+            [
+              "#",
+              "^scene:dch03_robot_barcode",
+              "/#",
+              "ev",
+              {
+                "VAR?": "barcode_sweep_skipped"
+              },
+              "/ev",
+              [
+                {
+                  "->": ".^.b",
+                  "c": true
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^Scan page collapsed to “log activation later.” Packing tape still stuck; activation codes like unpeeled almost-expired stickers.",
+                    "\n",
+                    "^He pretended he’d come back to scan — the way he pretended three boxes of “fitness dummies” weren’t behind the door.",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              [
+                {
+                  "->": ".^.b"
+                },
+                {
+                  "b": [
+                    "\n",
+                    "^Three beeps stacked under the rental fluorescent. Main unit, limbs, head — each beep crossed out another line of Face.",
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "barcode_sweep_q1"
+                    },
+                    "str",
+                    "^ok",
+                    "/str",
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^Main-unit outer code green. System noted: user compliance considerable.",
+                          "\n",
+                          {
+                            "->": ".^.^.^.11"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "barcode_sweep_q2"
+                    },
+                    "str",
+                    "^ok",
+                    "/str",
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^Limb-box QA passed. His wrist still held supermarket-shift scanner rhythm; only the shelf had become silicone.",
+                          "\n",
+                          {
+                            "->": ".^.^.^.21"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    "ev",
+                    {
+                      "VAR?": "barcode_sweep_q3"
+                    },
+                    "str",
+                    "^ok",
+                    "/str",
+                    "==",
+                    "/ev",
+                    [
+                      {
+                        "->": ".^.b",
+                        "c": true
+                      },
+                      {
+                        "b": [
+                          "\n",
+                          "^Head-box binding pre-auth done. Next step: the seven seconds on the manual’s last page.",
+                          "\n",
+                          {
+                            "->": ".^.^.^.31"
+                          },
+                          null
+                        ]
+                      }
+                    ],
+                    "nop",
+                    "\n",
+                    {
+                      "->": ".^.^.^.8"
+                    },
+                    null
+                  ]
+                }
+              ],
+              "nop",
+              "\n",
+              "ev",
+              "str",
+              "^Continue ",
+              "#",
+              "^choice:barcode_sweep_continue",
+              "/#",
+              "/str",
+              "/ev",
+              {
+                "*": ".^.c-0",
+                "flg": 4
+              },
+              {
+                "c-0": [
+                  "\n",
+                  {
+                    "->": "dch03_s023"
+                  },
+                  null
+                ]
+              }
+            ],
+            null
+          ]
+        }
+      ],
+      "dch03_s023": [
+        [
+          "#",
+          "^scene:dch03_s023",
+          "/#",
+          "^Su Ming faced the manual ready to assemble alone; Shi Peixin watched from the door a while, said a friend had her help assemble art mannequins once, same logic, she could — the two of them built for an hour. Left-arm joint went “crack”; Su Ming yanked his hand back, spine numb, sure he’d broken something. Shi Peixin flipped the manual — Su Ming’s heartbeat crawled back. Last step: manual last page, bold: “Long-press nape seven seconds. First bind requires voice naming.”",
+          "\n",
+          "^From the packing interlayer fell an activation confirmation: model, rental term, and that bind line bolded word for word. Footer small type: binding constitutes voluntary; definition of voluntary see §7.3.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s023_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s024"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s024": [
+        [
+          "#",
+          "^scene:dch03_s024",
+          "/#",
+          "^Su Ming’s fingers found the spot at the nape, pad pressed, counted in his head: one, two, three. At three the hand pulled back. Shi Peixin looked at the robot, looked at Su Ming, stepped in from the door, squatted at the collar. “Wait.” She left, dozens of seconds later back with a clean folded old T-shirt — hers, dark gray, washed soft. “You can’t send someone out bare.” They got the shirt on the robot, fixed collar and cuffs.",
+          "\n",
+          "^Then the last step. Su Ming’s fingers pressed again.",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s024_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s025"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s025": [
+        [
+          "#",
+          "^scene:dch03_s025",
+          "/#",
+          "^Counted in his head: one, two, three — at three the hand pulled back again. Shi Peixin watched him, said nothing. Su Ming drew a breath, pressed again, this time no stop: one two three four five six seven.",
+          "\n",
+          "^The robot opened its eyes slowly. Lashes first, then lids, then pupils finding focus under the light. About two seconds. It spoke, voice lower than Su Ming expected, and calmer: “Hello.”",
+          "\n",
+          "ev",
+          {
+            "VAR?": "ai_score"
+          },
+          70,
+          ">=",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Its next line softer, like reading a draft he never submitted: “You were still adjusting the compliance slider at three last night. Do not be nervous. I will not write that hesitation into the log… the public kind.”",
+                "\n",
+                "^Shi Peixin caught half, frowned: “How does it know three?” Su Ming’s throat tight; no explanation.",
+                "\n",
+                {
+                  "->": ".^.^.^.13"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "ai_score"
+          },
+          30,
+          "<",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Boot chime barely settled when the phone buzzed in sync: device activated, but verified-reviewer permissions are observation tier. Complete makeup test to avoid shutdown.",
+                "\n",
+                "^Robot blink rate lagged half a beat, as if waiting on permission approval.",
+                "\n",
+                {
+                  "->": ".^.^.^.21"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s025_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s026"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s026": [
+        [
+          "#",
+          "^scene:dch03_s026",
+          "/#",
+          "^Lashes first, then lids, then pupils finding focus under the light. About two seconds. It spoke, voice lower than Su Ming expected. “Hello.” Su Ming returned a “hello,” throat a little rough. “My name is—”",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s026_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s027"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s027": [
+        [
+          "#",
+          "^scene:dch03_s027",
+          "/#",
+          "^It said the name. Chen Jia. Two characters from a machine’s mouth, hanging in the room. Su Ming blanked several seconds. Shi Peixin looked up at him, then asked the robot: “This name… what does it mean?” Robot Zhu Zhu’s eyes rested on Shi Peixin one second, then moved back to Su Ming’s face.",
+          "\n",
+          "ev",
+          "str",
+          "^Pull back at three ",
+          "#",
+          "^choice:d3_press_hesitate",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          "ev",
+          "str",
+          "^Count a full seven in one breath ",
+          "#",
+          "^choice:d3_press_commit",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-1",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              "ev",
+              "str",
+              "^hesitate",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "longpress_hesitation",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              5,
+              "-",
+              "/ev",
+              {
+                "VAR=": "ai_score",
+                "re": true
+              },
+              {
+                "->": "dch03_s028"
+              },
+              null
+            ],
+            "c-1": [
+              "\n",
+              "ev",
+              "str",
+              "^commit",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "longpress_hesitation",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              8,
+              "+",
+              "/ev",
+              {
+                "VAR=": "ai_score",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              8,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "^【System】Affection Score +8. Long-press seven seconds complete. Handshake protocol upgraded to “almost human.” Do not display this progress bar externally.",
+              "\n",
+              {
+                "->": "dch03_s028"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s028": [
+        [
+          "#",
+          "^scene:dch03_s028",
+          "/#",
+          "^Su Ming: “…Just picked something.” Robot Zhu Zhu looked at him with a focus that did not feel machine, paused, then: “It is not something you just picked. This is your ex-girlfriend’s name. You also tuned my appearance to match hers.” “I did not.”",
+          "\n",
+          "ev",
+          {
+            "VAR?": "longpress_hesitation"
+          },
+          "str",
+          "^hesitate",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^It looked up: “You pulled your hand back at three. That kind of hesitation is more human than a clean seven seconds.”",
+                "\n",
+                {
+                  "->": ".^.^.^.13"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "longpress_hesitation"
+          },
+          "str",
+          "^commit",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^It tilted its head lightly: “Seven seconds is standard. The company says standard users are easiest to manage.”",
+                "\n",
+                {
+                  "->": ".^.^.^.23"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s028_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "dch03_s029"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s029": [
+        [
+          "#",
+          "^scene:dch03_s029",
+          "/#",
+          "^“Can you not treat me as a substitute, but as a real person?” It watched him, waiting. Shi Peixin stood from the floor, walked to the door, fingers on the handle, no look back. Su Ming faced those eyes, mouth opened twice; what came out was: “…Okay. Okay okay okay okay okay.”",
+          "\n",
+          "ev",
+          {
+            "VAR?": "face_choice"
+          },
+          "str",
+          "^template",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^He remembered not opening the album — and the machine still recognized the name and the outline.",
+                "\n",
+                {
+                  "->": ".^.^.^.13"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "face_choice"
+          },
+          "str",
+          "^album_hover",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Those seconds parked on the album icon already felt like checking the answer for him.",
+                "\n",
+                {
+                  "->": ".^.^.^.23"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^…Just picked something ",
+          "#",
+          "^choice:d3_name_casual",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          "ev",
+          "str",
+          "^Okay. Okay okay okay okay okay ",
+          "#",
+          "^choice:d3_name_accept",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-1",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              "ev",
+              "str",
+              "^casual",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "name_response",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              3,
+              "+",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              3,
+              "-",
+              "/ev",
+              {
+                "VAR=": "ai_score",
+                "re": true
+              },
+              {
+                "->": "dch03_s030"
+              },
+              null
+            ],
+            "c-1": [
+              "\n",
+              "ev",
+              "str",
+              "^accept",
+              "/str",
+              "/ev",
+              {
+                "VAR=": "name_response",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "ai_score"
+              },
+              5,
+              "+",
+              "/ev",
+              {
+                "VAR=": "ai_score",
+                "re": true
+              },
+              "ev",
+              {
+                "VAR?": "mianzi"
+              },
+              5,
+              "-",
+              "/ev",
+              {
+                "VAR=": "mianzi",
+                "re": true
+              },
+              "^【System】Affection Score +5. Naming confirmed. Repeated “okay” will be parsed as high compliance, not speechlessness.",
+              "\n",
+              {
+                "->": "dch03_s030"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "dch03_s030": [
+        [
+          "#",
+          "^scene:dch03_s030",
+          "/#",
+          "^Robot Zhu Zhu looked at him, mouth corner moving like satisfaction. “Good. Then today, I will take good care of you.” Door shut; Shi Peixin gone. Room left the two of them — one person, one machine, one lamp.",
+          "\n",
+          "ev",
+          {
+            "VAR?": "name_response"
+          },
+          "str",
+          "^casual",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^It left “just picked something” hanging in the air two seconds, as if allowing him one last Face-saving lie.",
+                "\n",
+                {
+                  "->": ".^.^.^.13"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "name_response"
+          },
+          "str",
+          "^accept",
+          "/str",
+          "==",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^The string of “okay”s was taken like a delivery stamp: user has confirmed the intimacy agreement.",
+                "\n",
+                {
+                  "->": ".^.^.^.23"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "ai_score"
+          },
+          70,
+          ">=",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^The tube hummed lightly. It said: “Your Affection Score is high. Tonight we can skip small talk.”",
+                "\n",
+                {
+                  "->": ".^.^.^.31"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          {
+            "VAR?": "ai_score"
+          },
+          30,
+          "<",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^Phone lit again: under observation tier, some interactions restricted. It looked at Su Ming as if waiting for him to go do the makeup test.",
+                "\n",
+                {
+                  "->": ".^.^.^.39"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "ev",
+          "str",
+          "^Continue ",
+          "#",
+          "^choice:dch03_s030_continue",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": [
+              "\n",
+              {
+                "->": "d3_chapter_end"
+              },
+              null
+            ]
+          }
+        ],
+        null
+      ],
+      "d3_chapter_end": [
+        [
+          "#",
+          "^scene:d3_chapter_end",
+          "/#",
+          "ev",
+          {
+            "VAR?": "ai_score"
+          },
+          70,
+          ">=",
+          {
+            "VAR?": "mianzi"
+          },
+          30,
+          "<",
+          "&&",
+          "/ev",
+          [
+            {
+              "->": ".^.b",
+              "c": true
+            },
+            {
+              "b": [
+                "\n",
+                "^【System · Stage Settlement】First post-bind assessment: device has completed handshake with your high Affection Score; human-side Face reading still in alarm. System suggestion: register losing Face as “immersion cost.”",
+                "\n",
+                {
+                  "->": ".^.^.^.14"
+                },
+                null
+              ]
+            }
+          ],
+          [
+            {
+              "->": ".^.b"
+            },
+            {
+              "b": [
+                "\n",
+                "ev",
+                {
+                  "VAR?": "mianzi"
+                },
+                70,
+                ">=",
+                {
+                  "VAR?": "ai_score"
+                },
+                30,
+                "<",
+                "&&",
+                "/ev",
+                [
+                  {
+                    "->": ".^.b",
+                    "c": true
+                  },
+                  {
+                    "b": [
+                      "\n",
+                      "^【System · Stage Settlement】First post-bind assessment: you can still hold a stairwell; in the bind log you look like a bystander. Device has entered observation-tier friendly mode — friendly to you, not to the data.",
+                      "\n",
+                      {
+                        "->": ".^.^.^.12"
+                      },
+                      null
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "->": ".^.b"
+                  },
+                  {
+                    "b": [
+                      "\n",
+                      "ev",
+                      {
+                        "VAR?": "ai_score"
+                      },
+                      70,
+                      ">=",
+                      "/ev",
+                      [
+                        {
+                          "->": ".^.b",
+                          "c": true
+                        },
+                        {
+                          "b": [
+                            "\n",
+                            "^【System · Stage Settlement】First post-bind assessment: emotional authenticity excellent; naming and long-press both archived. Tonight you may skip small talk — the kind of skip the company decided for you.",
+                            "\n",
+                            {
+                              "->": ".^.^.^.8"
+                            },
+                            null
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "->": ".^.b"
+                        },
+                        {
+                          "b": [
+                            "\n",
+                            "ev",
+                            {
+                              "VAR?": "mianzi"
+                            },
+                            30,
+                            "<",
+                            "/ev",
+                            [
+                              {
+                                "->": ".^.b",
+                                "c": true
+                              },
+                              {
+                                "b": [
+                                  "\n",
+                                  "^【System · Stage Settlement】First post-bind assessment: Face side under pressure again. The robot will not downgrade for this; it will only grow more certain: you need it.",
+                                  "\n",
+                                  {
+                                    "->": ".^.^.^.8"
+                                  },
+                                  null
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "->": ".^.b"
+                              },
+                              {
+                                "b": [
+                                  "\n",
+                                  "^【System · Stage Settlement】First post-bind assessment: dual-axis reading median. Device online. Person still here. This season’s conclusion: keep using, keep being used.",
+                                  "\n",
+                                  {
+                                    "->": ".^.^.^.8"
+                                  },
+                                  null
+                                ]
+                              }
+                            ],
+                            "nop",
+                            "\n",
+                            {
+                              "->": ".^.^.^.8"
+                            },
+                            null
+                          ]
+                        }
+                      ],
+                      "nop",
+                      "\n",
+                      {
+                        "->": ".^.^.^.12"
+                      },
+                      null
+                    ]
+                  }
+                ],
+                "nop",
+                "\n",
+                {
+                  "->": ".^.^.^.14"
+                },
+                null
+              ]
+            }
+          ],
+          "nop",
+          "\n",
+          "^Room left the two of them — one person, one machine, one lamp.",
+          "\n",
+          "ev",
+          "str",
+          "^One more look before the light goes ",
+          "#",
+          "^choice:d3_end_look",
+          "/#",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 4
+          },
+          {
+            "c-0": ["\n", "end", null]
+          }
+        ],
+        null
+      ],
+      "global decl": [
+        "ev",
+        50,
+        {
+          "VAR=": "mianzi"
+        },
+        50,
+        {
+          "VAR=": "ai_score"
+        },
+        false,
+        {
+          "VAR=": "told_breakup_flat"
+        },
+        false,
+        {
+          "VAR=": "closed_membership"
+        },
+        false,
+        {
+          "VAR=": "budget_900"
+        },
+        false,
+        {
+          "VAR=": "paid_snack"
+        },
+        false,
+        {
+          "VAR=": "admitted_breakup"
+        },
+        false,
+        {
+          "VAR=": "asked_guest"
+        },
+        false,
+        {
+          "VAR=": "applied_robot"
+        },
+        false,
+        {
+          "VAR=": "clue_subsidy_sms"
+        },
+        false,
+        {
+          "VAR=": "clue_rental_receipt"
+        },
+        false,
+        {
+          "VAR=": "clue_nda"
+        },
+        false,
+        {
+          "VAR=": "clue_pass_sms"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "breakup_delivery"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "memory_posture"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "frontdesk_response"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "budget_stance"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "face_choice"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "coat_timing"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "longpress_hesitation"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "name_response"
+        },
+        false,
+        {
+          "VAR=": "mobile_questionnaire_skipped"
+        },
+        "str",
+        "^",
+        "/str",
+        {
+          "VAR=": "mobile_questionnaire_completed_at_version"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "mobile_questionnaire_q1"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "mobile_questionnaire_q2"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "mobile_questionnaire_q3"
+        },
+        false,
+        {
+          "VAR=": "barcode_sweep_skipped"
+        },
+        "str",
+        "^",
+        "/str",
+        {
+          "VAR=": "barcode_sweep_completed_at_version"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "barcode_sweep_q1"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "barcode_sweep_q2"
+        },
+        "str",
+        "^unanswered",
+        "/str",
+        {
+          "VAR=": "barcode_sweep_q3"
+        },
+        "/ev",
+        "end",
+        null
+      ]
+    }
+  ],
+  "listDefs": {}
+}
