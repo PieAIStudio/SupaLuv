@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-19T02:26:26.584Z
+generated_at: 2026-07-19T02:38:09.974Z
 generator_version: doc-gov@0.8.0
-docs_count: 47
+docs_count: 48
 docs:
   - id: ADR-0001
     path: docs/adr/0001-web-first-react-ink-baseline.md
@@ -53,6 +53,13 @@ docs:
     canonical: true
     last_reviewed: 2026-07-17
     pinned: false
+  - id: ADR-0008
+    path: docs/adr/0008-ai-native-multilingual-localization.md
+    type: decision
+    status: accepted
+    canonical: true
+    last_reviewed: 2026-07-19
+    pinned: true
   - id: PLAN-0001
     path: docs/archive/2026-q3-plan/PLAN-0001-react-inkjs-pixivn-spike.md
     type: archive
