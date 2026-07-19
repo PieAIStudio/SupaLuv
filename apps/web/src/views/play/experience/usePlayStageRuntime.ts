@@ -326,35 +326,20 @@ export function usePlayStageRuntime(input: {
   }, [ensureAudioUnlocked, setActiveCutscene]);
 
   /**
-   * Dialogue surface click / Space / Enter:
-   * 1) typewriter incomplete → reveal full text immediately (voice keeps playing)
-   * 2) text complete + AI branch → advance AI beat
-   * 3) text complete + single continue-like choice → advance
-   * Multi-option beats never auto-fire from this path (digits still choose).
+   * Dialogue surface activation (pointer click, or Space/Enter while typing):
+   * typewriter incomplete → reveal full text immediately (voice keeps playing).
+   * Pointer clicks never advance a completed beat — advancing stays on the
+   * explicit continue choice and the keyboard continue path
+   * (handleKeyboardContinue via usePlayInput), so scroll/selection clicks and
+   * double-clicks cannot skip beats.
    */
   const handleDialogueActivate = useCallback(() => {
     ensureAudioUnlocked();
     if (!frame.typewriterComplete) {
       revealDialogue();
       gameAudio.playSfx("ui-click", 0.35);
-      return;
     }
-    if (frame.aiPlaying) {
-      advanceAi();
-      return;
-    }
-    if (!snapshot.isEnded && isContinueOnly(snapshot)) {
-      handleChoose(0);
-    }
-  }, [
-    advanceAi,
-    ensureAudioUnlocked,
-    frame.aiPlaying,
-    frame.typewriterComplete,
-    handleChoose,
-    revealDialogue,
-    snapshot,
-  ]);
+  }, [ensureAudioUnlocked, frame.typewriterComplete, revealDialogue]);
 
   const pointerMode = usePointerPresenceMode();
   const showRemoteCursors = shouldShowRemoteCursors(pointerMode);
