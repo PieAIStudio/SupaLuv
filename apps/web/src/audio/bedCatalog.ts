@@ -19,6 +19,8 @@ const ENGLISH_ROLES: Readonly<Record<string, string>> = {
   "chapter-end": "Chapter-end afterglow",
   "night-ambient": "Office / public",
   "lonely-pad": "Apartment / private",
+  "empty-floor": "Uncanny / corporate presence",
+  "under-floorboards": "Tense / confrontation",
 };
 
 export const BED_CATALOG: readonly BedCatalogEntry[] = [
@@ -50,6 +52,18 @@ export const BED_CATALOG: readonly BedCatalogEntry[] = [
     id: "lonely-pad",
     title: "Half Empty Teacups",
     role: "公寓/私密",
+    kind: "ambient",
+  },
+  {
+    id: "empty-floor",
+    title: "The Empty Floor",
+    role: "诡异/公司在场",
+    kind: "ambient",
+  },
+  {
+    id: "under-floorboards",
+    title: "Under the Floorboards",
+    role: "紧张/对峙",
     kind: "ambient",
   },
 ] as const;

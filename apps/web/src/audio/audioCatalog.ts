@@ -67,6 +67,22 @@ export const AUDIO_BED_CATALOG = [
     fadeInMs: 700,
     fadeOutMs: 800,
   },
+  {
+    id: "empty-floor",
+    kind: "ambient",
+    src: "/assets/audio/bgm/empty-floor.mp3",
+    loop: true,
+    fadeInMs: 650,
+    fadeOutMs: 750,
+  },
+  {
+    id: "under-floorboards",
+    kind: "ambient",
+    src: "/assets/audio/bgm/under-floorboards.mp3",
+    loop: true,
+    fadeInMs: 550,
+    fadeOutMs: 700,
+  },
 ] as const satisfies readonly AudioBedCatalogEntry[];
 
 export const AUDIO_SFX_CATALOG = [
