@@ -126,8 +126,8 @@ h3 {
 .mermaid-preview,
 .dialogue-subtitle,
 .standee-caption,
-.scene-chip,
-.mood-chip {
+.mood-chip,
+.ai-branch-badge {
   font-family: var(--supaluv-font-sans);
 }
 

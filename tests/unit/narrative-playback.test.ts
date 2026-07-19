@@ -328,7 +328,7 @@ describe("resolveDialogueHistory", () => {
       }),
     ).toEqual({
       speaker: "旁白",
-      meta: "天台",
+      meta: "",
       text: "夜色",
       kind: "system",
     });

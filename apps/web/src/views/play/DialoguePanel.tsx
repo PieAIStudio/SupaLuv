@@ -17,7 +17,6 @@ export interface OracleOptionView {
 }
 
 interface DialoguePanelProps {
-  readonly sceneTitle: string;
   readonly speaker: string;
   readonly sceneId: string | null;
   readonly visibleText: string;
@@ -45,7 +44,6 @@ interface DialoguePanelProps {
 }
 
 export function DialoguePanel({
-  sceneTitle,
   speaker,
   sceneId,
   visibleText,
@@ -74,14 +72,17 @@ export function DialoguePanel({
       data-testid="dialogue-box"
     >
       <div className="dialogue-meta">
-        <p className="scene-chip">
-          {sceneTitle}
-          {aiMode ? ` · ${t("play.aiBranch")}` : ""}
-        </p>
         <div className="nameplate-row">
-          <h1 id="prototype-title" className="nameplate">
-            {speaker}
-          </h1>
+          <div className="nameplate-cluster">
+            <h1 id="prototype-title" className="nameplate">
+              {speaker}
+            </h1>
+            {aiMode ? (
+              <span className="ai-branch-badge" data-testid="ai-branch-badge">
+                {t("play.aiBranch")}
+              </span>
+            ) : null}
+          </div>
           {dialogueVoiceButton?.visible ? (
             <GameButton
               type="button"

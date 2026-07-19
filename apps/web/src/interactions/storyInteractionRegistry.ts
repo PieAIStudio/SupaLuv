@@ -8,6 +8,8 @@ import type { ActiveStoryInteraction, StoryInteractionDefinition } from "./types
 
 const INTERACTION_TAG_PREFIX = "interaction:";
 const INTERACTION_STEP_TAG_PREFIX = "interaction-step:";
+/** Per-scene content payload; omit for type default (backward compatible). */
+const INTERACTION_VARIANT_TAG_PREFIX = "interaction-variant:";
 
 const registry = new Map<string, StoryInteractionDefinition>();
 
@@ -50,9 +52,14 @@ export function resolveStoryInteraction(
     return null;
   }
 
+  const variantTag = snapshot.tags.find((tag) => tag.startsWith(INTERACTION_VARIANT_TAG_PREFIX));
+  const variantRaw = variantTag?.slice(INTERACTION_VARIANT_TAG_PREFIX.length).trim() ?? "";
+  const variant = variantRaw.length > 0 ? variantRaw : null;
+
   return {
     definition,
     stepIndex: authoredStep - 1,
+    variant,
   };
 }
 

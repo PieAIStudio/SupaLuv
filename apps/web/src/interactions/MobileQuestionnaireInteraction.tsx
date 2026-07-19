@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocale } from "../i18n";
 import type { InkStorySnapshot } from "../story/inkStoryRunner";
-import { mobileQuestionnaireQuestions } from "./mobileQuestionnaire";
+import { resolveMobileQuestionnairePayload } from "./mobileQuestionnaire";
 import type { ActiveStoryInteraction } from "./types";
 import { useInteractionChoiceCommit } from "./useInteractionChoiceCommit";
+import { useInteractionKeyboard } from "./useInteractionKeyboard";
 
 interface MobileQuestionnaireInteractionProps {
   readonly active: ActiveStoryInteraction;
@@ -19,10 +20,15 @@ export function MobileQuestionnaireInteraction({
   onChoose,
 }: MobileQuestionnaireInteractionProps) {
   const { t } = useLocale();
-  const question = mobileQuestionnaireQuestions[active.stepIndex];
+  const payload = useMemo(
+    () => resolveMobileQuestionnairePayload(active.variant),
+    [active.variant],
+  );
+  const question = payload.questions[active.stepIndex];
   const panelRef = useRef<HTMLElement | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const { busy, commitChoice } = useInteractionChoiceCommit(snapshot, paused, onChoose);
+  const i18nPrefix = `interaction.mobile.variant.${payload.variant}`;
 
   useEffect(() => {
     setFeedback(null);
@@ -39,12 +45,12 @@ export function MobileQuestionnaireInteraction({
       setFeedback(
         t("interaction.mobile.feedbackPicked").replace(
           "{option}",
-          t(`interaction.mobile.option.${question.questionKey}.${optionId}`),
+          t(`${i18nPrefix}.option.${question.questionKey}.${optionId}`),
         ),
       );
       commitChoice(choiceId, 560, "notify-soft");
     },
-    [busy, commitChoice, feedback, paused, question, t],
+    [busy, commitChoice, feedback, i18nPrefix, paused, question, t],
   );
 
   const skip = useCallback(() => {
@@ -55,12 +61,33 @@ export function MobileQuestionnaireInteraction({
     commitChoice(question.skipChoiceId, 420, "ui-choice");
   }, [busy, commitChoice, feedback, paused, question, t]);
 
+  const step = active.stepIndex + 1;
+  const disabled = paused || busy || Boolean(feedback);
+
+  const onKeyboard = useCallback(
+    (key: string) => {
+      if (disabled || !question) {
+        return false;
+      }
+      const index = Number(key) - 1;
+      if (index >= 0 && index < question.options.length) {
+        const option = question.options[index]!;
+        answer(option.choiceId, option.id);
+        return true;
+      }
+      if (key.toLowerCase() === "s") {
+        skip();
+        return true;
+      }
+      return false;
+    },
+    [answer, disabled, question, skip],
+  );
+  useInteractionKeyboard(!disabled, onKeyboard);
+
   if (!question) {
     return null;
   }
-
-  const step = active.stepIndex + 1;
-  const disabled = paused || busy || Boolean(feedback);
 
   return (
     <section
@@ -70,27 +97,14 @@ export function MobileQuestionnaireInteraction({
       aria-describedby="mobile-questionnaire-instructions"
       data-testid="mobile-questionnaire"
       data-story-interaction-id={active.definition.id}
+      data-interaction-variant={payload.variant}
       data-step={step}
       tabIndex={-1}
-      onKeyDown={(event) => {
-        if (disabled) {
-          return;
-        }
-        const index = Number(event.key) - 1;
-        if (index >= 0 && index < question.options.length) {
-          event.preventDefault();
-          const option = question.options[index]!;
-          answer(option.choiceId, option.id);
-        } else if (event.key.toLowerCase() === "s") {
-          event.preventDefault();
-          skip();
-        }
-      }}
     >
       <header className="story-interaction-header">
         <div>
-          <p className="story-interaction-kicker">{t("interaction.mobile.kicker")}</p>
-          <h2 id="mobile-questionnaire-title">{t("interaction.mobile.title")}</h2>
+          <p className="story-interaction-kicker">{t(`${i18nPrefix}.kicker`)}</p>
+          <h2 id="mobile-questionnaire-title">{t(`${i18nPrefix}.title`)}</h2>
         </div>
         <div className="story-interaction-status">{t("interaction.mobile.localOnly")}</div>
       </header>
@@ -104,40 +118,44 @@ export function MobileQuestionnaireInteraction({
       >
         <span>Q {String(step).padStart(2, "0")} / 03</span>
         <div className="story-interaction-progress-rail" aria-hidden="true">
-          {mobileQuestionnaireQuestions.map((entry, index) => (
+          {payload.questions.map((entry, index) => (
             <i key={entry.id} className={index <= active.stepIndex ? "is-active" : undefined} />
           ))}
         </div>
       </div>
 
       <div className="mobile-questionnaire-phone" data-testid="mobile-questionnaire-phone">
-        <p className="mobile-questionnaire-app">{t("interaction.mobile.appLabel")}</p>
+        <p className="mobile-questionnaire-app">{t(`${i18nPrefix}.appLabel`)}</p>
         <h3 className="mobile-questionnaire-prompt">
-          {t(`interaction.mobile.question.${question.questionKey}`)}
+          {t(`${i18nPrefix}.question.${question.questionKey}`)}
         </h3>
         <div
           className="mobile-questionnaire-options"
           role="group"
           aria-label={t("interaction.mobile.optionsLabel")}
         >
-          {question.options.map((option, index) => (
-            <button
-              key={option.id}
-              type="button"
-              data-testid={`mobile-option-${option.id}`}
-              disabled={disabled}
-              aria-keyshortcuts={String(index + 1)}
-              onClick={() => answer(option.choiceId, option.id)}
-            >
-              <span className="story-interaction-key">{index + 1}</span>
-              <span>{t(`interaction.mobile.option.${question.questionKey}.${option.id}`)}</span>
-            </button>
-          ))}
+          {question.options.map((option, index) => {
+            const label = t(`${i18nPrefix}.option.${question.questionKey}.${option.id}`);
+            return (
+              <button
+                key={option.id}
+                type="button"
+                data-testid={`mobile-option-${option.id}`}
+                disabled={disabled}
+                aria-label={label}
+                aria-keyshortcuts={String(index + 1)}
+                onClick={() => answer(option.choiceId, option.id)}
+              >
+                <span className="story-interaction-key">{index + 1}</span>
+                <span>{label}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <p id="mobile-questionnaire-instructions" className="story-interaction-instructions">
-        {t("interaction.mobile.instructions")}
+        {t(`${i18nPrefix}.instructions`)}
       </p>
 
       <footer className="story-interaction-footer">

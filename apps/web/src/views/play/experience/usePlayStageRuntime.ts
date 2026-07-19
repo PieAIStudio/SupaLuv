@@ -325,6 +325,14 @@ export function usePlayStageRuntime(input: {
     gameAudio.resumeBedsAfterCutscene();
   }, [ensureAudioUnlocked, setActiveCutscene]);
 
+  /**
+   * Dialogue surface activation (pointer click, or Space/Enter while typing):
+   * typewriter incomplete → reveal full text immediately (voice keeps playing).
+   * Pointer clicks never advance a completed beat — advancing stays on the
+   * explicit continue choice and the keyboard continue path
+   * (handleKeyboardContinue via usePlayInput), so scroll/selection clicks and
+   * double-clicks cannot skip beats.
+   */
   const handleDialogueActivate = useCallback(() => {
     ensureAudioUnlocked();
     if (!frame.typewriterComplete) {

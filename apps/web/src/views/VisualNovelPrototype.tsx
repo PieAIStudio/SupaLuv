@@ -54,7 +54,12 @@ export function VisualNovelPrototype(props: VisualNovelPrototypeProps) {
   } = props;
   const { t } = useLocale();
   const pendingRobotSlots = pendingRobotSlotsForScene(storyId, snapshot.sceneId, characterBindings);
-  const storyLabel = getStoryDefinition(storyId).label;
+  const storyLabelKey = `chapterLabel.${storyId}`;
+  const storyLabelTranslated = t(storyLabelKey);
+  const storyLabel =
+    storyLabelTranslated !== storyLabelKey
+      ? storyLabelTranslated
+      : getStoryDefinition(storyId).label;
   const playerMode = getStoryDefinition(storyId).role === "production";
   const debugToolsAvailable =
     import.meta.env.DEV && new URLSearchParams(window.location.search).get("debug") === "1";
@@ -273,7 +278,6 @@ export function VisualNovelPrototype(props: VisualNovelPrototypeProps) {
 
         {!r.activeStoryInteraction && !r.decisionEnding.dialogueYieldsToEnding ? (
           <DialoguePanel
-            sceneTitle={r.frame.sceneTitle}
             speaker={r.frame.displaySpeaker}
             sceneId={r.isGuestSpectator ? r.frame.remoteSceneId : snapshot.sceneId}
             visibleText={r.isGuestSpectator ? r.frame.displayText : r.frame.visibleText}

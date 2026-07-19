@@ -176,16 +176,32 @@
 
 /* —— Now playing chips —— */
 .now-playing-chip {
-  max-width: min(18rem, 42vw);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  max-width: min(18rem, 28cqw);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex-shrink: 1;
+  min-width: 0;
   padding: 0.28rem 0.65rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 210, 160, 0.28);
   background: rgba(10, 12, 18, 0.72);
   color: rgba(255, 230, 200, 0.92);
-  font-size: 0.72rem;
+  font-size: clamp(0.62rem, 0.95cqw, 0.72rem);
+}
+
+.now-playing-icon {
+  flex-shrink: 0;
+}
+
+.now-playing-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 /* —— Gallery audio play —— */

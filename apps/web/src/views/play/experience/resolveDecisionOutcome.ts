@@ -10,10 +10,10 @@ import type { EndingPathMeta } from "../../ChapterEndCard";
 import type { OracleOptionView } from "../DialoguePanel";
 import type { StatsDecisionDef } from "../../../stats/choiceStatsTypes";
 
-/** Exact Chinese copy for chapter-clear / end-card path hint (AI branch used). */
-export const ENDING_PATH_HINT_AI = "本局走过 AI 灵感旁支，并汇合作者主线。";
+/** Canonical zh path fact (AI branch used). Display layer also uses i18n chapterEnd.pathAi. */
+export const ENDING_PATH_HINT_AI = "本局包含 AI 支线";
 
-/** Exact Chinese copy for chapter-clear / end-card path hint (author options only). */
+/** Canonical zh path fact (author options only). Display layer also uses i18n chapterEnd.pathAuthor. */
 export const ENDING_PATH_HINT_AUTHOR = "本局仅走作者预写选项。";
 
 export function resolveEndingPath(usedAiBranch: boolean): EndingPathMeta {

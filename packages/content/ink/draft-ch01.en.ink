@@ -266,14 +266,15 @@ What Su Ming trusted was never “absolutely wiped clean.” It was “the bones
 
 === dch01_s004 ===
 # scene:dch01_s004
-The door shut. The foam swallowed the outside. A woman’s voice rose in the headset, sweet in the exact right dose — not cloying, half call center, half almost-lover. Su Ming took a deep breath.
+The door shut. The foam swallowed every outside sound. A woman’s voice rose in the headset, sweet in the exact right dose — not cloying, half call center, half almost-lover: “Hi there. How’s your day going?”
+Su Ming took a deep breath.
 
 + [Continue # choice:dch01_s004_continue]
     -> dch01_s005
 
 === dch01_s005 ===
 # scene:dch01_s005
-Not his first test. Last month he’d fabricated “workplace humiliation” and the system graded “emotional volatility: excellent.” He already knew the pattern: need peaks and valleys, concrete detail, never open too smooth. This time he wanted a warm stretch first — the drop sold better that way.
+Not his first test. Last month he’d fabricated “workplace humiliation” — the client-yell-until-he-cried bit — and the system graded “emotional volatility: excellent,” tier jumped one level. He’d already mapped the pattern: need peaks and valleys, concrete detail, never open too smooth. This time he wanted a warm stretch first — the drop sold better that way.
 “It was fine,” he leaned into the chairback, performing the ease of memory, “Last weekend I took my girlfriend out to eat. She likes dumping chili into everything. The boiled beef she ordered burned my eyes out, and she laughed at me for not handling it. Pretty fun day.”
 
 + [Continue # choice:dch01_s005_continue]
@@ -288,7 +289,7 @@ The headset offered no sympathy. Silence held about three seconds — a beat lon
 
 === dch01_s007 ===
 # scene:dch01_s007
-“According to your previous record,” the AI said, still sweet, but with a steadiness that sat wrong in the ear, “you once stated—” Su Ming’s finger paused. “You must have that wrong.”
+“According to your previous record,” the AI said, still sweet, but with a steadiness that sat wrong in the ear, “you once expressed dissatisfaction with your partner — is that the same person you described today?”
 Su Ming’s finger paused.
 “You must have that wrong.”
 
@@ -304,7 +305,8 @@ Su Ming’s finger paused.
 
 === dch01_s008 ===
 # scene:dch01_s008
-“Your emotional indicators today show a contradiction.” The AI paused a beat, as if fetching a file, then went on, “The system will flag this session—” Su Ming sat up straighter, voice shifting without asking: “If I end early, do I lose pay?” “Yes.”
+“Your emotional indicators today show a contradiction.” The AI paused a beat, as if fetching a file, then went on, “The system will flag this session as low-efficiency input. This session’s subsidy may be affected. To maintain your tier, please provide more authentic emotional input.”
+Su Ming sat up straighter, voice shifting without asking: “If I end early, do I lose pay?”
 “Yes.”
 
 + [Continue # choice:dch01_s008_continue]
@@ -312,7 +314,9 @@ Su Ming’s finger paused.
 
 === dch01_s009 ===
 # scene:dch01_s009
-Short. Unambiguous. Like driving a nail. Su Ming pressed his palm on his knee. He ran the numbers in his head — a habit of years, no thinking required, the digits did it themselves. “Please rest assured,” the AI’s voice went soft again, with a tenderness that had been designed on purpose, “this test booth is confidential end to end. Your conversation will not be—” Next door, QA’s door sat ajar by a crack.
+Short. Unambiguous. Like driving a nail. Su Ming pressed his palm on his knee. He ran the numbers in his head — a habit of years, no thinking required, the digits did it themselves: rent, the money for his dad, supermarket wages — every one of them worth more than this scrap of Face.
+“Please rest assured,” the AI’s voice went soft again, with a tenderness that had been designed on purpose, “this test booth is confidential end to end. Your conversation will not be accessed by any external personnel.”
+Next door, QA’s door sat ajar by a crack.
 
 + [Continue # choice:dch01_s009_continue]
     -> dch01_s010
@@ -347,7 +351,6 @@ The recruiting copy was polite: strong emotional expression, deep product iterat
 
 === dch01_s012 ===
 # scene:dch01_s012
-“…Fine. I’ll talk.” His tone loosened, like small talk. “But this is about a friend of mine — he broke up yesterday.”
 { breakup_delivery == "flat":
     “…Fine. I’ll talk.” His tone loosened, like small talk. “But this is about a friend of mine — he broke up yesterday.”
 }
@@ -370,7 +373,8 @@ On a corridor chair sat a foreign guy, early twenties, backpack still on, crumpl
 
 === dch01_s014 ===
 # scene:dch01_s014
-After dinner last night, Chen Jia grabbed the last rib first, held it up like a trophy. Sauce smeared her mouth corner; Su Ming reached with his chopsticks to help — at times like that there wasn’t much to say, and anything would do. She leaned on his shoulder scrolling; he glanced at her screen, “You’re watching that blogger again,” she hummed without explaining, pressed tighter into his shoulder. Nights like this weren’t common these two years, but they weren’t zero either.
+After dinner last night, Chen Jia grabbed the last rib first, held it up on her chopsticks like a trophy. Sauce smeared her mouth corner; Su Ming reached with his chopsticks to scrape it off; she twisted away, he still got it, she called him meddling — and the corner of her mouth still curved up.
+At times like that there wasn’t much to say, and anything would do. She leaned on his shoulder scrolling; he glanced at her screen, “You’re watching that blogger again,” she hummed without explaining, pressed tighter into his shoulder. Nights like this weren’t common these two years, but they weren’t zero either.
 
 + [Remember that dinner a little clearer # choice:d1_pace_a2]
     ~ ai_score = ai_score + 5
@@ -384,16 +388,16 @@ After dinner last night, Chen Jia grabbed the last rib first, held it up like a 
 
 === dch01_s015 ===
 # scene:dch01_s015
-They carried that leftover warmth inside. Lights stayed on — nobody moved to kill them. Heat in the room; nobody wanted to interrupt; everybody was willing to keep going. At times like that Su Ming usually had a switch in his head he called “normal person” — press it and it held for half a day. Last night that switch, for once, didn’t hold.
+They carried that leftover warmth inside. Lights stayed on — nobody moved to kill them. Heat in the room; nobody wanted to interrupt; everybody was willing to keep going.
+At times like that Su Ming usually had a switch in his head he called “normal person” — press it and it held for half a day. He’d first noticed he wasn’t quite like other people at twelve; for sixteen years that switch had shoved the thought back down again and again. Last night that switch, for once, didn’t hold.
 
 + [Continue # choice:dch01_s015_continue]
     -> dch01_s016
 
 === dch01_s016 ===
 # scene:dch01_s016
-Halfway through, he lowered his head. He still couldn’t say how it happened — his eyes landed on Chen Jia’s feet, and his mouth followed. By the time he noticed, what was already in his mouth — Chen Jia felt it. She froze first, motion stopped, breath skipped a beat, then, very slowly, turned to look at him. They held the stare. Lights still on. No other sound in the room. Su Ming could see the expression on her face clearly — not anger, something pure, total, before either of them spoke.
-Halfway through, he lowered his head.
-They held the stare.
+Halfway through, he lowered his head. He still couldn’t say how it happened — his eyes landed on Chen Jia’s feet, and his mouth followed. By the time he noticed, what was in his mouth was already her toes.
+Chen Jia felt it. She froze first, motion stopped, breath skipped a beat, then, very slowly, turned to look at him. They held the stare. Lights still on. No other sound in the room. Su Ming could see the expression on her face clearly — not anger, pure confusion that hadn’t had time to become anger, like watching a magic trick she completely failed to understand.
 Neither spoke first.
 
 + [Continue # choice:dch01_s016_continue]
@@ -401,12 +405,8 @@ Neither spoke first.
 
 === dch01_s017 ===
 # scene:dch01_s017
-“…What are you doing.” Her voice was light and slow, as if asking too fast would make the answer worse, like a teacher asking a student what they were just doing. Su Ming had already let go. “Oh,” he said. “I don’t know either.” Pause. “Instinct?” Silence.
-“…What are you doing.”
-Su Ming had already let go.
-Pause.
-“Instinct?”
-Silence.
+“…What are you doing.” Her voice was light and slow, as if asking too fast would make the answer worse — like a teacher asking a student what they were just doing. Not a cross-examination. Real confusion.
+Su Ming had already let go. “Oh,” he said. “I don’t know either.” Pause. “Instinct?” Silence.
 
 + [(In the memory) bury face in palms # choice:d1_memory_shame]
     ~ memory_posture = "shame"
@@ -422,29 +422,25 @@ Silence.
 
 === dch01_s018 ===
 # scene:dch01_s018
-“Let go of my foot.” Su Ming released. “Wait — you’re mad?” Chen Jia didn’t answer. She drew her foot back slowly, pulled the blanket over her legs, eyes back on the ceiling. “Forget it. Not tonight.”
-That was how the night ended. Door shut, the lock loud and clear — slamming is temper; locking is a decision already made. Su Ming lay on the sofa. Phone lit and died seven, eight times. He drafted zero messages.
-“Let go of my foot.”
-“Forget it,” she said. “Not tonight.”
-Not that he’d thought of the right words and refused them — he hadn’t thought of any. Everything stuck in his throat. Every line was wrong. None came out.
+“Let go of my foot.” Su Ming released. “Wait — you’re mad?” Chen Jia didn’t answer. She drew her foot back slowly, pulled the blanket over her legs, eyes back on the ceiling. “Forget it,” she said. “Not tonight.”
+Su Ming sat there, said nothing. Not that he’d thought of the right words and refused them — he hadn’t thought of any. Everything stuck in his throat. Every line was wrong. None came out.
+That was how the night ended. Chen Jia went into the bedroom. Door shut, the lock loud and clear — slamming is temper; locking is a decision already made. Su Ming lay on the sofa. Phone lit and died seven, eight times. He drafted zero messages.
 
 + [Continue # choice:dch01_s018_continue]
     -> dch01_s019
 
 === dch01_s019 ===
 # scene:dch01_s019
-They fought the next day. The fuse was a text. Su Ming’s phone lit on the table; Chen Jia glanced: Heartbeat Engine, test session confirmed, registration successful, bring ID. “You signed up for that test?” “Pays well,” Su Ming didn’t look up. “One session equals three days at the supermarket.” “You’re testing AI.” Something in her tone. “You still buy that.” “Buy what. It’s a side job.” “That kind of side job,” Chen Jia said, “chatting feelings, being an emotion sample — you think that’s solid? Can you find something with a future?” Su Ming flipped the phone face-down. “Faster money than the futures you mean.” Both knew this wasn’t about the side job.
-“You signed up for that test?”
-“Buy what. It’s a side job.”
+They fought the next day. The fuse was a text. Su Ming’s phone lit on the table; Chen Jia glanced: Heartbeat Engine, test session confirmed, registration successful, bring ID.
+“You signed up for that test?” “Pays well,” Su Ming didn’t look up. “One session equals three days at the supermarket.” “You’re testing AI.” Something in her tone. “You still buy that.” “Buy what. It’s a side job.” “That kind of side job,” Chen Jia said, “chatting feelings, being an emotion sample — you think that’s solid? Can you find something with a future?” Su Ming flipped the phone face-down. “Faster money than the futures you mean.” Both knew this wasn’t about the side job.
 
 + [Continue # choice:dch01_s019_continue]
     -> dch01_s020
 
 === dch01_s020 ===
 # scene:dch01_s020
-Words piled up. Eventually Chen Jia dragged in last night — “And yesterday you…” She paused, hunting an accurate word, “You—” The smile left Su Ming’s face. “What do you mean, something wrong in my head.” “That,” she said. “Not normal—” “Who says not normal,” he cut in. “It’s a kink. Normal. People have it.” “People having it doesn’t mean—” “Doesn’t mean what,” Su Ming stood, louder, “You’re saying I’m sick in the head?” “I didn’t say sick in the head. I said—”
-The smile left Su Ming’s face.
-“People having it doesn’t mean—”
+Words piled up. Eventually Chen Jia dragged in last night — “And yesterday you…” She paused, hunting an accurate word, “That kink of yours — have you ever thought there might be something wrong in your head.”
+The smile left Su Ming’s face. “What do you mean, something wrong in my head.” “That,” she said. “Not normal—” “Who says not normal,” he cut in. “It’s a kink. Normal. People have it.” “People having it doesn’t mean—” “Doesn’t mean what,” Su Ming stood, louder, “You’re saying I’m sick in the head?” “I didn’t say sick in the head. I said—” “That’s exactly what you meant!”
 
 + [Argue through the heat # choice:d1_pace_a3]
     ~ mianzi = mianzi + 5
@@ -456,13 +452,9 @@ The smile left Su Ming’s face.
 
 === dch01_s021 ===
 # scene:dch01_s021
-From kink to side job, from side job to him not improving, from not improving to her meddling too much. Su Ming’s Face-saving streak flared — “Fine, we’re done, who cares” left his mouth and sealed his own exit.
+They were fully fighting now — from kink to side job, from side job to him not improving, from not improving to her meddling too much. Su Ming’s Face-saving streak flared — “Fine, we’re done, who cares” left his mouth and sealed his own exit.
 Then Chen Jia stopped fighting. She just paused, sat back down, took a deep breath, like setting something down. “I’ve thought about this a long time,” she said, flat. “I don’t think we fit.”
 “…Meaning what? Breakup?” “Yes.” One word. Not a temper line. Not bait for more fighting. Just the result. Su Ming opened his mouth. Sixteen years of explanations, at this joint, refused to come out.
-“So that’s what you meant!”
-Then Chen Jia stopped fighting.
-Su Ming: “…Meaning what? Breakup?”
-“Yes.”
 
 + [Continue # choice:dch01_s021_continue]
     -> dch01_s022
@@ -476,14 +468,17 @@ This morning he went into the bedroom for a charger. Chen Jia’s face blank, on
 
 === dch01_s023 ===
 # scene:dch01_s023
-“He sounds,” the AI said, “like he’s white-knuckling it. Your friend — how does he feel now?” Su Ming leaned into the chair. “Maybe… pretty rough.” “Mm.” The AI paused, not rushing this time, as if choosing words, “Actually I want to say something, about your friend’s situation—” Su Ming said nothing. “But I think it may not be only this one thing.” The AI went on, even, earnest, “When intimacy is out of sync—” Su Ming stared at the progress bar in the tablet’s corner, unmoving. “So you mean,” he asked, “they were right to split?”
+“He sounds,” the AI said, “like he’s white-knuckling it. Your friend — how does he feel now?” Su Ming leaned into the chair. “Maybe… pretty rough.”
+“Mm.” The AI paused, not rushing this time. “Actually I want to say something, about your friend’s situation — a kink by itself isn’t a problem. As long as it doesn’t cause harm, there’s no real right or wrong.” Su Ming said nothing.
+“But I think it may not be only this one thing.” The AI went on, even. “Out-of-sync intimacy is one layer; underneath there’s often a mismatch in life expectations and where each person sits. Stack both layers and that’s the real problem.” Su Ming stared at the progress bar in the tablet’s corner, unmoving. “So you mean,” he asked, “they were right to split?”
 
 + [Continue # choice:dch01_s023_continue]
     -> dch01_s024
 
 === dch01_s024 ===
 # scene:dch01_s024
-“I can’t evaluate that,” the AI said, “but if the other party is still willing to talk, room to adapt actually exists.” Su Ming hmmed, didn’t chase it. He thought for a second — first time the headset said something he couldn’t skip past. Not because the machine understood anything. Because those few — The end-of-test chime rang, crisp, affectless.
+“I can’t evaluate that,” the AI said, “but if the other party is still willing to talk, room to adapt actually exists.” Su Ming hmmed, didn’t chase it. He thought for a second — first time the headset said something he couldn’t skip past. Not because the machine understood anything. Because those few lines would land the same place anywhere.
+The end-of-test chime rang, crisp, affectless.
 
 + [Continue # choice:dch01_s024_continue]
     -> dch01_s025
@@ -511,21 +506,24 @@ Staff started the report in spreadsheet-voice: Session so-and-so emotional authe
 
 === dch01_s026 ===
 # scene:dch01_s026
-“Mr. Su Ming,” she read this line with no change in tone, “today narrated a friend’s private experience. Highest emotional authenticity score—” Su Ming listened, didn’t move. He ran that sentence through his head again. “Wait.” He stood. Voice not loud, but the debrief zone went quiet at once. “How do you know I said it was my friend’s? Weren’t you already—” Flagged as a premium sample.
+“Mr. Su Ming,” she read this line with no change in tone, “today narrated a friend’s private experience. Highest emotional authenticity score of the day, extremely high training value — flagged as a premium sample.”
+Su Ming listened, didn’t move. He ran that sentence through his head again. “Wait.” He stood. Voice not loud, but the debrief zone went quiet at once. “How do you know I said it was my friend’s? Weren’t you not supposed to be listening?”
 
 + [Continue # choice:dch01_s026_continue]
     -> dch01_s027
 
 === dch01_s027 ===
 # scene:dch01_s027
-The staffer flipped the tablet. “Protocol page three, on-site QA clause—” Su Ming didn’t let her finish. He turned and scanned the dozen people: a few heads down in phones, a few eyes drifting, one twisted toward the window — they’d all heard. From the start. Su Ming sat again. The chair made no sound. He didn’t open his mouth.
+The staffer flipped the tablet. “Protocol page three, on-site QA clause—” Su Ming didn’t let her finish. He turned and scanned the dozen people: a few heads down in phones, a few eyes drifting, one twisted toward the night outside the window. Nobody laughed. Nobody jumped in. Just that uniform, professional silence.
+They’d all heard. From the start. Su Ming sat again. The chair made no sound. He didn’t open his mouth.
 
 + [Continue # choice:dch01_s027_continue]
     -> dch01_s028
 
 === dch01_s028 ===
 # scene:dch01_s028
-“I want to see your manager.” Staff said the manager was in a meeting; wait. Su Ming waited. Corridor chairs were hard plastic; after a while his lower back ached. He sat with his phone, nothing to look at, flipped to the subsidy tier table, stared two — Down the hall, two people in gray workwear shoved a person-tall silver case into the freight elevator. A label stuck on it, letters clear enough: prototype, this side up, Hardware.
+“I want to see your manager.” Staff said the manager was in a meeting; wait. Su Ming waited. Corridor chairs were hard plastic; after a while his lower back ached. He sat with his phone, nothing to look at, flipped to the subsidy tier table, stared two seconds, put the phone down.
+Down the hall, two people in gray workwear shoved a person-tall silver case into the freight elevator. A label stuck on it, letters clear enough: prototype, this side up, Hardware Dept. Su Ming looked twice — since when did this building have a Hardware Dept? Half a second later he let it go.
 
 + [Continue # choice:dch01_s028_continue]
     -> dch01_s029
@@ -533,7 +531,7 @@ The staffer flipped the tablet. “Protocol page three, on-site QA clause—” 
 === dch01_s029 ===
 # scene:dch01_s029
 About twenty minutes later the manager came out. Beside him a foreign guy — backpack still on, today’s queue ticket still hanging — clearly just finished too. They met in the corridor, not friends, just the same traffic.
-Su Ming stopped the manager and said it: protocol, listening, the promised confidentiality. The manager listened patiently. When Su Ming finished he pulled out a tablet and pointed clause by clause, tone level — clearly not his first time handling this.
+Su Ming stopped the manager and dumped it all: protocol, listening, the promised confidentiality. The manager listened patiently. When Su Ming finished he pulled out a tablet and pointed clause by clause, tone level — clearly not his first time handling this. “If you feel today’s service fell short of expectations, we can terminate by mutual agreement, both parties voluntary,” he said. “Subsidy settles by today’s actual session. No further impact.”
 
 + [Hear Léo mutter beside you first # choice:d1_watch_leo]
     ~ leo_response = "watch"
@@ -548,8 +546,6 @@ Su Ming stopped the manager and said it: protocol, listening, the promised confi
 === dch01_s030 ===
 # scene:dch01_s030
 Finished talking, he turned and left. Su Ming stood still. That “mutual consent” sat on his tongue; he swallowed it — he’d heard the line more than once today. His phone buzzed.
-Finished talking, he turned and left.
-His phone buzzed.
 
 + [Do the math on rent and subsidy # choice:d1_calc_money]
     ~ frontdesk_response = "calculate"
@@ -593,17 +589,16 @@ His phone buzzed.
 
 === dch01_s032 ===
 # scene:dch01_s032
-Someone nearby said low: “The company doesn’t shortchange dedicated verified reviewers.” Team lead, same professional smile welded to the face. Su Ming’s teeth ground. The words circled his mouth twice and went back down: “…Forget it. I’ve got things.” He didn’t delete the subsidy text — evidence or scar, unclear, either way it stayed. He couldn’t bear to hit delete. “Hi.”
-“Hi.”
+Someone nearby said low: “The company doesn’t shortchange dedicated verified reviewers.” Team lead, same professional smile welded to the face. Su Ming’s teeth ground. The words circled his mouth twice and went back down: “…Forget it. I’ve got things.” He didn’t delete the subsidy text — evidence or scar, unclear, either way it stayed. He couldn’t bear to hit delete.
 
 + [Continue # choice:dch01_s032_continue]
     -> dch01_s033
 
 === dch01_s033 ===
 # scene:dch01_s033
-The foreign guy walked over. Chinese slow but clear: “I’m Léo. Léo. I’m also…” He pointed down the corridor. “Su Ming.” Su Ming didn’t add much. “Today at the debrief,” Léo gestured, “I heard — your friend’s thing.” He paused, clearly hunting the right shape. “Mm,” Su Ming said. “What do you think.” “You thought I work for them?” Léo caught it. “You don’t?”
-“Su Ming.” Su Ming didn’t add much.
-“You don’t?”
+“Hi.” The foreign guy walked over from the side. Chinese slow but clear: “I’m Léo. Léo. I’m also…” He pointed at the test-booth doors lining the corridor. “Testing. English session.”
+“Su Ming.” Su Ming didn’t add much. “Today at the debrief,” Léo gestured, “I heard — your friend’s thing.” He paused, clearly hunting the right shape. “I think this… not good. Privacy.”
+“Mm,” Su Ming said. “What do you think.” “You thought I work for them?” Léo caught it. “You don’t?”
 
 { mianzi < 30:
     Léo looked at him twice, assessing someone about to fold: “Your face… like the system just closed your tab. About rent — don’t white-knuckle a loan.”
@@ -617,7 +612,9 @@ The foreign guy walked over. Chinese slow but clear: “I’m Léo. Léo. I’m 
 
 === dch01_s034 ===
 # scene:dch01_s034
-“I’m not.” Léo shook his head. “Same as you. Testing. But,” he paused, thought, “foreigners willing to do this — rare.” Su Ming stared two seconds. “So your contract also says no listening?” “Right.” Su Ming thought, then laughed — first real laugh of the day, dry but real. “Damn,” he said. “With a face like yours, I—” Léo didn’t fully catch it, but he heard the goodwill and grinned along.
+“I’m not.” Léo shook his head. “Same as you. Testing. But,” he paused, thought, “foreigners willing to do this are rare. So the contract they gave me isn’t the same as yours — they can’t listen to me live. It’s in the contract.”
+Su Ming stared two seconds. “So only your contract says no listening?” “Right.” Su Ming thought, then laughed — first real laugh of the day, dry but real. “Damn,” he said. “With a face like yours, I could make more too.”
+Léo didn’t fully catch it, but he heard the goodwill and grinned along.
 
 + [Continue # choice:dch01_s034_continue]
     -> dch01_s035
@@ -640,7 +637,6 @@ The foreign guy walked over. Chinese slow but clear: “I’m Léo. Léo. I’m 
 === dch01_s036 ===
 # scene:dch01_s036
 “My building,” Léo said, “has a room. Not expensive. Big.” He pulled out his phone. “Add WeChat? You look.” Su Ming eyed him, took the phone, scanned the code. “Okay,” he said. “I’ll look.”
-“Okay,” he said. “I’ll look.”
 
 + [Continue # choice:dch01_s036_continue]
     -> d1_chapter_end
@@ -665,6 +661,5 @@ The foreign guy walked over. Chinese slow but clear: “I’m Léo. Léo. I’m 
         }
     }
 }
-Navigation led them into the winding old lane. The Shi house still farther in, yellow light leaking through window cracks.
-+ [Enter the lane # choice:d1_go_housing]
++ [We'll see # choice:d1_go_housing]
     -> END

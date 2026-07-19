@@ -93,7 +93,9 @@ export function useAiBranchSlot({
 
     const controller = new AbortController();
     abortRef.current = controller;
-    const waitLabel = cfg.waitLabel ?? "灵感生成中…";
+    const waitLabel = locale.startsWith("en")
+      ? "Inspiration loading…"
+      : (cfg.waitLabel ?? "灵感生成中…");
     setSlot({ status: "loading", waitLabel });
 
     trackEvent({ name: "ai_branch_requested", storyId, sceneId });
@@ -111,6 +113,7 @@ export function useAiBranchSlot({
         config: cfg,
         authoredChoiceLabels: labels,
         meters: meterSnap,
+        locale,
         accessToken: token,
         signal: controller.signal,
       })

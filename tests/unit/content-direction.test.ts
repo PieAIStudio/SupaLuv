@@ -387,7 +387,8 @@ describe("Round 15 choice echoes", () => {
     expect(s031.text).toContain(path.echoes.p01);
     expect(s031.text).toContain(path.echoes.p04);
     chooseById(chapter1, path.chapter1Choices[5]!);
-    expect(advanceToScene(chapter1, "d1_chapter_end").text).toContain("旧巷");
+    // ch01 end is stage settlement only (no alley flash-forward; 石家 is ch02)
+    expect(advanceToScene(chapter1, "d1_chapter_end").text).toContain("初见绩效");
     finishChapter(chapter1);
 
     const inheritedNames = getStoryCatalogMeta("draft-ch01").inheritVariableNames;

@@ -12,7 +12,9 @@ interface UsePlayInputOptions {
 
 /**
  * Commercial VN keyboard feel:
- * - Space / Enter: finish typewriter, then advance continue-only beats
+ * - Space / Enter: finish typewriter; if text already complete, advance
+ *   continue-only / AI-continue beats (same as clicking the dialogue surface)
+ * - Multi-option beats: Space/Enter do not pick a branch (digit keys remain)
  * - Escape: close drawers / menus
  */
 export function usePlayInput({

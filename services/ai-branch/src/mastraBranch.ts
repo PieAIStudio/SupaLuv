@@ -79,6 +79,7 @@ export async function generateAiBranchWithMastra(
     portraitPool,
     speakerPool,
     meters: body.meters,
+    locale: body.locale,
   });
 
   const system = messages.find((m) => m.role === "system")?.content ?? "";
@@ -101,11 +102,16 @@ export async function generateAiBranchWithMastra(
         }
       : undefined;
 
+  const locale = body.locale?.toLowerCase() ?? "";
+  const jsonOnlyReminder = locale.startsWith("en")
+    ? "Output a single JSON object only. No markdown."
+    : "只输出一个 JSON 对象，不要 markdown。";
+
   const response = await agent.generate(
     [
       {
         role: "user",
-        content: `${user}\n\n只输出一个 JSON 对象，不要 markdown。`,
+        content: `${user}\n\n${jsonOnlyReminder}`,
       },
     ],
     {
