@@ -2,6 +2,11 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { relative, sep } from "node:path";
 import type { Plugin } from "vite";
 import {
+  buildCreatorStudioDescribe,
+  CREATOR_STUDIO_BASE_PATH,
+  CREATOR_STUDIO_ROUTE_REGISTRY,
+} from "./creatorStudioDescribe";
+import {
   CreatorStudioError,
   createCreatorStudioService,
   type CreatorSaveRequest,
@@ -13,8 +18,14 @@ import type { SceneEditableFields } from "./sceneManifestEdit";
 type CreatorStudioService = ReturnType<typeof createCreatorStudioService>;
 type Next = (error?: unknown) => void;
 
-const BASE_PATH = "/__creator-studio";
+const BASE_PATH = CREATOR_STUDIO_BASE_PATH;
 const MAX_BODY_BYTES = 256 * 1024;
+
+/**
+ * Routes this handler implements. Same registry as describe catalog —
+ * unit tests assert the two stay equal via CREATOR_STUDIO_ROUTE_REGISTRY.
+ */
+export const CREATOR_STUDIO_MOUNTED_ROUTES = CREATOR_STUDIO_ROUTE_REGISTRY;
 
 function writeJson(response: ServerResponse, status: number, value: unknown): void {
   response.statusCode = status;
@@ -88,6 +99,10 @@ export function createCreatorStudioRequestHandler(service: CreatorStudioService)
     }
 
     try {
+      if (pathname === `${BASE_PATH}/describe` && request.method === "GET") {
+        writeJson(response, 200, buildCreatorStudioDescribe());
+        return;
+      }
       if (pathname === `${BASE_PATH}/graph` && request.method === "GET") {
         writeJson(response, 200, await service.getGraph());
         return;
