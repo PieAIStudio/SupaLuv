@@ -66,8 +66,8 @@ importers:
         specifier: 0.4.0
         version: 0.4.0(@supabase/supabase-js@2.110.3)
       '@pieai/swimmer-ui-kit':
-        specifier: 1.1.0
-        version: 1.1.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: 1.2.0
+        version: 1.2.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@supabase/supabase-js':
         specifier: 2.110.3
         version: 2.110.3
@@ -1876,8 +1876,8 @@ packages:
     peerDependencies:
       '@supabase/supabase-js': ^2.0.0
 
-  '@pieai/swimmer-ui-kit@1.1.0':
-    resolution: {integrity: sha512-MsP9fOMdwb8yfFgYSipyXfzv6jr2pbxrDLiKLVWrJ5Cuh2kxefsXMvUvsVo4OK2hWghVaa4gy3FsxcXcd29xng==}
+  '@pieai/swimmer-ui-kit@1.2.0':
+    resolution: {integrity: sha512-QTgfvQdIB0GuoCK+5cCq/9xHoXPPA1ul0pzlK/xiJEXMxXWYJQ/EemcfDkt99EGAGPcl5ifVBj2/EkRvWOr6jQ==}
     engines: {node: '>=24 <25'}
     hasBin: true
     peerDependencies:
@@ -6768,7 +6768,7 @@ snapshots:
     dependencies:
       '@supabase/supabase-js': 2.110.3
 
-  '@pieai/swimmer-ui-kit@1.1.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@pieai/swimmer-ui-kit@1.2.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)

@@ -14,7 +14,7 @@
     "@fontsource-variable/noto-sans-sc": "^5.2.10",
     "@fontsource-variable/noto-serif-sc": "^5.2.10",
     "@pieai/swimmer-backend-client": "0.4.0",
-    "@pieai/swimmer-ui-kit": "1.1.0",
+    "@pieai/swimmer-ui-kit": "1.2.0",
     "@supabase/supabase-js": "2.110.3",
     "@supaluv/content": "workspace:*",
     "@supaluv/shared": "workspace:*",
