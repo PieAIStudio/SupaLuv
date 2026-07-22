@@ -3,11 +3,7 @@
  * Extracted so voice can unlock without importing core (breaks core↔voice cycle).
  */
 
-import {
-  setGlobalReverbWet,
-  setHowlerMasterMute,
-  unlockHowler,
-} from "../howlerEngine";
+import { setGlobalReverbWet, setHowlerMasterMute, unlockHowler } from "../howlerEngine";
 import { applyBedMix, resumeBedsIfAllowed } from "./mix";
 import type { GameAudioRuntime } from "./runtime";
 

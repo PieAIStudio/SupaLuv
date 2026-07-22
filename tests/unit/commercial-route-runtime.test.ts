@@ -459,7 +459,7 @@ describe("commercial route runtime composition", () => {
       "character/characterRoutes.ts",
       "ending/endingRoutes.ts",
       "wallet/spendRoutes.ts",
-    ] as const
+    ] as const;
 
     let processEnvCount = 0;
     let configuredCacheCount = 0;

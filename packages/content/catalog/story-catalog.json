@@ -11,10 +11,19 @@
   "productionChapters": [
     {
       "id": "draft-ch01",
-      "label": "第01章 · 你有病吧",
+      "labels": {
+        "zh-CN": "第01章 · 你有病吧",
+        "en": "Chapter 01 · What Is Wrong With You"
+      },
       "packageId": "draft-2026-07",
       "chapterIndex": 1,
       "role": "production",
+      "features": {
+        "comedyMeters": true
+      },
+      "voice": {
+        "languages": ["zh-CN", "en"]
+      },
       "checkpoint": {
         "kind": "next_chapter",
         "nextChapterId": "draft-ch02"
@@ -43,10 +52,19 @@
     },
     {
       "id": "draft-ch02",
-      "label": "第02章 · 她不会评判你",
+      "labels": {
+        "zh-CN": "第02章 · 她不会评判你",
+        "en": "Chapter 02 · She Won't Judge You"
+      },
       "packageId": "draft-2026-07",
       "chapterIndex": 2,
       "role": "production",
+      "features": {
+        "comedyMeters": true
+      },
+      "voice": {
+        "languages": ["zh-CN", "en"]
+      },
       "checkpoint": {
         "kind": "next_chapter",
         "nextChapterId": "draft-ch03"
@@ -75,10 +93,19 @@
     },
     {
       "id": "draft-ch03",
-      "label": "第03章 · 长按七秒",
+      "labels": {
+        "zh-CN": "第03章 · 长按七秒",
+        "en": "Chapter 03 · Press Seven Seconds"
+      },
       "packageId": "draft-2026-07",
       "chapterIndex": 3,
       "role": "production",
+      "features": {
+        "comedyMeters": true
+      },
+      "voice": {
+        "languages": ["zh-CN", "en"]
+      },
       "checkpoint": {
         "kind": "draft_end"
       },
@@ -108,10 +135,21 @@
   "devChapters": [
     {
       "id": "prototype-act1",
-      "label": "Prototype Act 1 · Comedy Beat Lab",
+      "labels": {
+        "zh-CN": "Prototype Act 1 · 喜剧节拍实验室",
+        "en": "Prototype Act 1 · Comedy Beat Lab"
+      },
       "packageId": "dev-prototype",
       "chapterIndex": 1,
       "role": "dev",
+      "features": {
+        "comedyMeters": true
+      },
+      "voice": {
+        "languages": []
+      },
+      "inkFile": "prototype-act1.ink",
+      "manifestFile": "prototype-scenes.ts",
       "checkpoint": {
         "kind": "ai_ending_allowed"
       },
@@ -119,10 +157,21 @@
     },
     {
       "id": "chapter-01-trial",
-      "label": "Chapter 01 Trial / 管线dummy",
+      "labels": {
+        "zh-CN": "Chapter 01 Trial / 管线 dummy",
+        "en": "Chapter 01 Trial / Pipeline Dummy"
+      },
       "packageId": "dev-trial",
       "chapterIndex": 1,
       "role": "dev",
+      "features": {
+        "comedyMeters": true
+      },
+      "voice": {
+        "languages": []
+      },
+      "inkFile": "chapter-01-trial.ink",
+      "manifestFile": "chapter-01-trial-scenes.ts",
       "checkpoint": {
         "kind": "ai_ending_allowed"
       },

@@ -22,11 +22,6 @@ export const en: MessageTree = {
     musicUnlocked: "Music added to gallery",
     placeholderLocale: "This language is a placeholder; falling back to English.",
   },
-  chapterLabel: {
-    "draft-ch01": "Chapter 01 · What Is Wrong With You",
-    "draft-ch02": "Chapter 02 · She Won't Judge You",
-    "draft-ch03": "Chapter 03 · Press Seven Seconds",
-  },
   boot: {
     eyebrow: "SupaLuv · Interactive Cinema",
     title: "SupaLuv",
@@ -41,7 +36,7 @@ export const en: MessageTree = {
     minorHint: "If you are under 18, please close this page.",
   },
   title: {
-    badge: "SupaLuv · Three-Chapter Draft Playtest",
+    badge: "SupaLuv · Current Draft Playtest",
     eyebrow: "INTERACTIVE CINEMA",
     logo: "SupaLuv",
     tagline: "It won’t judge you. The questionnaire might.",
@@ -61,7 +56,7 @@ export const en: MessageTree = {
     notSignedIn: "Not signed in · AI needs account",
     guestLogin: "Guest sign-in",
     footnote: "Play: Space / Enter advance · Esc closes menus · Fullscreen fills 16:9",
-    credits: "SupaLuv · three-chapter draft · local saves · AI requires login",
+    credits: "SupaLuv · current draft · local saves · AI requires login",
     dismiss: "Got it",
     primaryActions: "Primary actions",
     newGameConfirm:
@@ -296,7 +291,8 @@ export const en: MessageTree = {
       sample: {
         "calibration-sample-01": "Report received. Thanks. Talk tomorrow.",
         "calibration-sample-02": "It's fine. You're busy. I'm used to waiting.",
-        "calibration-sample-03": "Use 'for your own good' one more time and I'm changing the locks.",
+        "calibration-sample-03":
+          "Use 'for your own good' one more time and I'm changing the locks.",
       },
       level: {
         calm: { label: "Calm", description: "Clear message, no visible pull." },
@@ -489,8 +485,7 @@ export const en: MessageTree = {
     savesAuto: "Autosave updates during play and powers Continue on the title screen.",
     savesManual: "Three manual slots are available from the system menu and title screen.",
     savesGallery: "Scene art, Event CG, and music unlock as you play.",
-    footer:
-      "SupaLuv · three-chapter draft · noncanonical · adult black comedy, not a porn generator.",
+    footer: "SupaLuv · current draft · noncanonical · adult black comedy, not a porn generator.",
   },
   achievements: {
     title: "Achievements",
@@ -510,7 +505,7 @@ export const en: MessageTree = {
       first_manual_save: { title: "Dignity backup", description: "Create a manual save." },
       ch01_clear: {
         title: "Initial review passed",
-        description: "Complete the current three-chapter draft.",
+        description: "Complete the current draft package.",
       },
       high_ai_score: {
         title: "KPI overclocked",
@@ -680,7 +675,7 @@ export const en: MessageTree = {
     narrator: "Narrator",
     replayChoice: "Play again",
     titleChoice: "Return to title",
-    clipboardDraftTitle: "SupaLuv · three-chapter draft · binding endpoint",
+    clipboardDraftTitle: "SupaLuv · current draft · binding endpoint",
     clipboardApplication: "Binding complete · 90-day test · day 1",
     clipboardNext: "Seven seconds · bound. Day one starts with tonight's lamp.",
     clipboardEndingTitle: "SupaLuv · chapter ending",

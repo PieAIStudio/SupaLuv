@@ -1,3 +1,4 @@
+import { storyCatalog } from "@supaluv/content";
 import type { InkStorySnapshot } from "../../../story/inkStoryRunner";
 import type { StoryId } from "../../../story/storyMapAdapter";
 
@@ -13,13 +14,7 @@ const CONTINUE_CHOICE_RE =
   /^(继续|……继续|继续下单流程|回家|回自己房间|去物业|支付|确认地址，进入支付|打开匿名论坛|点进产品页|打开演示对话|躺着听世界运转|continue)$/i;
 
 export function storyHasComedyMeters(storyId: StoryId): boolean {
-  return (
-    storyId === "draft-ch01" ||
-    storyId === "draft-ch02" ||
-    storyId === "draft-ch03" ||
-    storyId === "prototype-act1" ||
-    storyId === "chapter-01-trial"
-  );
+  return storyCatalog.find((candidate) => candidate.id === storyId)?.features.comedyMeters ?? false;
 }
 
 /**

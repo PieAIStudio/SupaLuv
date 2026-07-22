@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-19T02:38:09.974Z
+generated_at: 2026-07-22T16:16:20.428Z
 generator_version: doc-gov@0.8.0
-docs_count: 48
+docs_count: 49
 docs:
   - id: ADR-0001
     path: docs/adr/0001-web-first-react-ink-baseline.md
@@ -184,7 +184,7 @@ docs:
     type: plan
     status: active
     canonical: true
-    last_reviewed: 2026-07-16
+    last_reviewed: 2026-07-22
     pinned: true
   - id: PLAN-0003
     path: docs/plans/completed/PLAN-0003-ch01-polish-loops.md
@@ -254,7 +254,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-18
+    last_reviewed: 2026-07-22
     pinned: true
   - id: REF-VERCEL-PREVIEW-RUNBOOK
     path: docs/reference/execution/vercel-preview-runbook.md
@@ -276,6 +276,13 @@ docs:
     status: stable
     canonical: true
     last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-LEARNING-WORKFLOW-ISSUES-BIND-REVIEWED-GENERATION-PLANS-TO-REQUESTS-BINARIES-AND-GOVERNANCE
+    path: docs/reference/learnings/workflow-issues/bind-reviewed-generation-plans-to-requests-binaries-and-governance.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-22
     pinned: false
   - id: REF-LEARNING-WORKFLOW-ISSUES-MAKE-CHECKED-IN-GENERATORS-EMIT-REPOSITORY-FORMATTED-ARTIFACTS
     path: docs/reference/learnings/workflow-issues/make-checked-in-generators-emit-repository-formatted-artifacts.md

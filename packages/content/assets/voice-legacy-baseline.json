@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "created": "2026-07-22",
+  "purpose": "Freeze the exact unprovenanced legacy voice debt without waiving provenance policy; sync may reduce this set but must never add to it.",
+  "unregisteredCount": 286,
+  "contentDigest": "fd1738ecf11ce3f10da00ddbddd7a1b251a05d1225d119056925382f1dc35116"
+}

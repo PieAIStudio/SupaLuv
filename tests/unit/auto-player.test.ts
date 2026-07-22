@@ -38,6 +38,9 @@ type AutoPlayerModule = {
     results: ChapterRunResult[];
   };
   lineDiffCount: (a: string, b: string) => number;
+  AI_SCORE_KEYWORDS: readonly string[];
+  MIANZI_KEYWORDS: readonly string[];
+  DEFAULT_CHAPTERS: readonly string[];
   PERSONA_IDS: readonly string[];
   MAX_STEPS: number;
 };
@@ -59,8 +62,18 @@ async function loadEngine(): Promise<AutoPlayerModule> {
 
 describe("auto-player persona traversal engine", () => {
   it("runs all three personas through draft-ch01 to normal termination", async () => {
-    const { runChapter, PERSONA_IDS, MAX_STEPS } = await loadEngine();
+    const {
+      runChapter,
+      PERSONA_IDS,
+      DEFAULT_CHAPTERS,
+      MAX_STEPS,
+      MIANZI_KEYWORDS,
+      AI_SCORE_KEYWORDS,
+    } = await loadEngine();
     expect(PERSONA_IDS).toEqual(["mianzi", "ai_score", "skipper"]);
+    expect(DEFAULT_CHAPTERS).toEqual(["draft-ch01", "draft-ch02", "draft-ch03"]);
+    expect(MIANZI_KEYWORDS).toContain("体面");
+    expect(AI_SCORE_KEYWORDS).toContain("数满七秒");
 
     for (const personaId of PERSONA_IDS) {
       const result = runChapter({

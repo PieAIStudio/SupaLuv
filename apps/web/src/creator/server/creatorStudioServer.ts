@@ -18,7 +18,11 @@ import {
   runCreatorTask,
   type CreatorTaskId,
 } from "./creatorTasks";
-import { runContentTypecheckGate, runCreatorPipeline, type PipelineLogEvent } from "./creatorPipeline";
+import {
+  runContentTypecheckGate,
+  runCreatorPipeline,
+  type PipelineLogEvent,
+} from "./creatorPipeline";
 import {
   applySceneFieldUpdates,
   listSceneIds,
@@ -533,7 +537,9 @@ export function createCreatorStudioService(options: CreatorStudioServiceOptions)
 
     async getAssets(): Promise<CreatorAssetsPayload> {
       const [intakeRaw, ledgerText] = await Promise.all([
-        readJson<{ readonly assets?: readonly IntakeAssetRow[] }>(join(repoRoot, VISUAL_INTAKE_PATH)),
+        readJson<{ readonly assets?: readonly IntakeAssetRow[] }>(
+          join(repoRoot, VISUAL_INTAKE_PATH),
+        ),
         readFile(join(repoRoot, RUNTIME_LEDGER_PATH), "utf8"),
       ]);
       const assets = mergeAssetCatalog(intakeRaw.assets ?? [], parseRuntimeLedgerCsv(ledgerText));

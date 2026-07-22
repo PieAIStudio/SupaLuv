@@ -5,7 +5,10 @@ import type { PropCutInDefinition, PropCutInId } from "@supaluv/content";
  * provided; accessible text is full translation of zh source (no fact add/drop).
  */
 const PROP_EN: Readonly<
-  Record<PropCutInId, { readonly title: string; readonly accessibleText: string; readonly altText: string }>
+  Record<
+    PropCutInId,
+    { readonly title: string; readonly accessibleText: string; readonly altText: string }
+  >
 > = {
   "prop-protocol-terms": {
     title: "Emotional Authenticity Test Protocol · Page 3",

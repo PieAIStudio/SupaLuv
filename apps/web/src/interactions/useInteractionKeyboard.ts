@@ -7,10 +7,7 @@ import { useEffect } from "react";
  * after dismiss (protocol-test is the known case). Listen on window while the
  * interaction is armed so 1/2/3/S work without the panel owning document focus.
  */
-export function useInteractionKeyboard(
-  enabled: boolean,
-  handler: (key: string) => boolean,
-): void {
+export function useInteractionKeyboard(enabled: boolean, handler: (key: string) => boolean): void {
   useEffect(() => {
     if (!enabled) {
       return;

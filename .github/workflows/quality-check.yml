@@ -65,6 +65,9 @@ jobs:
       - name: Verify code
         run: pnpm verify
 
+      - name: Verify generators left the checkout clean (tracked and untracked)
+        run: test -z "$(git status --porcelain --untracked-files=all)"
+
       - name: Verify governed assets
         run: pnpm assets:check
 
@@ -97,6 +100,9 @@ jobs:
 
       - name: Run full cloud-independent checks
         run: pnpm cloud:check
+
+      - name: Verify generators left the checkout clean (tracked and untracked)
+        run: test -z "$(git status --porcelain --untracked-files=all)"
 
       - name: Prepare non-secret Vercel build metadata
         run: |

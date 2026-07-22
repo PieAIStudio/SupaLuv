@@ -17,11 +17,9 @@ const CATALOG_PATH = join(REPO_ROOT, "packages/content/catalog/story-catalog.jso
 const require = createRequire(resolve(REPO_ROOT, "apps/web/package.json"));
 const { Story } = require("inkjs");
 
-export const DEFAULT_CHAPTERS = Object.freeze([
-  "draft-ch01",
-  "draft-ch02",
-  "draft-ch03",
-]);
+export const DEFAULT_CHAPTERS = Object.freeze(
+  (loadStoryCatalog().productionChapters ?? []).map((chapter) => chapter.id),
+);
 
 /** Hard step cap so a content cycle never hangs the tool. */
 export const MAX_STEPS = 5000;
@@ -60,9 +58,7 @@ export function loadStoryCatalog() {
 export function inheritVariableNamesFor(chapterId) {
   const catalog = loadStoryCatalog();
   const chapter = (catalog.productionChapters ?? []).find((c) => c.id === chapterId);
-  return Array.isArray(chapter?.inheritVariableNames)
-    ? [...chapter.inheritVariableNames]
-    : [];
+  return Array.isArray(chapter?.inheritVariableNames) ? [...chapter.inheritVariableNames] : [];
 }
 
 /**
@@ -305,8 +301,7 @@ export function runChapter(options) {
     // Drain text to next choice boundary or END.
     while (story.canContinue) {
       const line = story.Continue() ?? "";
-      const path =
-        story.state.currentPathString ?? story.state.previousPathString ?? null;
+      const path = story.state.currentPathString ?? story.state.previousPathString ?? null;
       const knotId = knotIdFromPath(path);
       openKnot(knotId);
       // Preserve original line breaks inside a Continue() chunk; record non-empty lines.
@@ -336,8 +331,7 @@ export function runChapter(options) {
     }
 
     // Ensure a section exists for the choice menu.
-    const menuPath =
-      story.state.currentPathString ?? story.state.previousPathString ?? null;
+    const menuPath = story.state.currentPathString ?? story.state.previousPathString ?? null;
     openKnot(knotIdFromPath(menuPath));
 
     const selectedIndex = persona.pick(choices);
@@ -379,9 +373,7 @@ export function runChapter(options) {
   const finalVars = snapshotVariables(story);
   const inheritNames = inheritVariableNamesFor(chapterId);
   const exportedVars =
-    inheritNames.length > 0
-      ? exportVariables(story, inheritNames)
-      : { ...finalVars };
+    inheritNames.length > 0 ? exportVariables(story, inheritNames) : { ...finalVars };
 
   const transcriptMarkdown = formatTranscript({
     personaId,
@@ -468,9 +460,7 @@ export function formatTranscript(args) {
       lines.push(`### VAR Δ`);
       lines.push(``);
       for (const change of step.varDiff) {
-        lines.push(
-          `- \`${change.name}\`: ${formatVar(change.from)} → ${formatVar(change.to)}`,
-        );
+        lines.push(`- \`${change.name}\`: ${formatVar(change.from)} → ${formatVar(change.to)}`);
       }
       lines.push(``);
     }
@@ -598,11 +588,7 @@ export function runAll(options) {
   };
 
   mkdirSync(outDir, { recursive: true });
-  writeFileSync(
-    join(outDir, "summary.json"),
-    `${JSON.stringify(summary, null, 2)}\n`,
-    "utf8",
-  );
+  writeFileSync(join(outDir, "summary.json"), `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 
   return { summary, results };
 }

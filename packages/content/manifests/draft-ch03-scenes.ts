@@ -53,12 +53,7 @@ export const draftCh03Scenes = [
       context:
         "机器人定制页选脸环节：作者两支是「选基础脸别开相册」和「手指在相册上停太久」。请给黑色喜剧第三条：更自欺欺人的操作（比如把模板脸往某个方向微调又不承认），不色情。短选项文案+1-2句对白后必须回到问卷流程。",
       artPool: ["bg-product-page", "bg-rental-room"],
-      portraitPool: [
-        "suming-shame",
-        "suming-tempted",
-        "suming-restless",
-        "suming-uncanny",
-      ],
+      portraitPool: ["suming-shame", "suming-tempted", "suming-restless", "suming-uncanny"],
       speakerPool: ["苏明", "旁白"],
     },
     noncanonical: true,

@@ -3,7 +3,9 @@
 This directory separates three facts that must not be conflated:
 
 - `RUNTIME-ASSET-LEDGER.csv` fingerprints files already loaded by the runtime, including audio.
-- `VISUAL-ASSET-INTAKE.json` records the two draft chapters' visual intake candidates, present files, known missing files, provenance, structured rights review records, and release status.
+- `VISUAL-ASSET-INTAKE.json` records the current three-chapter production package's visual intake candidates, present files, known missing files, provenance, structured rights review records, and release status.
+- `voice-legacy-baseline.json` freezes the exact key/hash/byte digest of the 286 historical voice files that still lack per-asset provenance. It prevents this debt from growing or drifting; it is not a policy exception or release clearance.
+- `provenance/voice-<key>.md` is created transactionally for every newly synthesized static voice clip, together with its runtime-ledger row.
 - `ATTRIBUTION.md` explains the human-readable provenance and unresolved rights evidence.
 
 Ink and scene manifests remain the story and presentation topology. Production necessity is derived from independent truth sources: scene manifests, the frozen current-character mapping backed by the runtime registry, the archive record contract, the formal Su Ming portrait-matte allowlist, the boot runtime source, and the runtime asset ledger. The visual intake references those stable IDs and paths; it must not become a second scene graph, character registry, or authority that can opt required work out of release review.

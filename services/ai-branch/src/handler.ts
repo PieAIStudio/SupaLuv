@@ -1,9 +1,17 @@
 import { requestOpenRouterChatCompletion } from "@pieai/swimmer-ai-kit";
-import type { AiBranchBeat, AiBranchRequestBody, AiBranchResponseBody } from "./branch/branchTypes.js";
+import type {
+  AiBranchBeat,
+  AiBranchRequestBody,
+  AiBranchResponseBody,
+} from "./branch/branchTypes.js";
 import { generateAiBranchWithMastra } from "./branch/mastraBranch.js";
 import { buildAiBranchMessages } from "./branch/prompts.js";
 
-export type { AiBranchBeat, AiBranchRequestBody, AiBranchResponseBody } from "./branch/branchTypes.js";
+export type {
+  AiBranchBeat,
+  AiBranchRequestBody,
+  AiBranchResponseBody,
+} from "./branch/branchTypes.js";
 
 function asString(value: unknown, fallback = ""): string {
   return typeof value === "string" ? value.trim() : fallback;

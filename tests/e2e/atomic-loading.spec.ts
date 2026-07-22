@@ -7,6 +7,22 @@ const THRESHOLD_MS = 400;
 const TITLE_ASSET_DELAY_MS = 1_100;
 const CASTING_ASSET_DELAY_MS = 1_200;
 
+test.beforeEach(async ({ page }) => {
+  await page.route("**/api/ai/health", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        ok: true,
+        tts: {
+          providers: { elevenlabs: false, minimax: false },
+          freeformEnabled: false,
+        },
+      }),
+    }),
+  );
+});
+
 type FrameSample = {
   at: number;
   boot: boolean;

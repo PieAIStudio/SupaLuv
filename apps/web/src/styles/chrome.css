@@ -67,7 +67,9 @@
   font-size: 0.82rem;
   cursor: pointer;
   backdrop-filter: blur(8px);
-  transition: background 160ms ease, border-color 160ms ease;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
 }
 
 .boot-splash-locale:hover {

@@ -68,11 +68,14 @@ export function CastingDesk() {
   }
 
   return (
-    <section className="creator-module-panel creator-casting-desk" data-testid="creator-casting-desk">
+    <section
+      className="creator-module-panel creator-casting-desk"
+      data-testid="creator-casting-desk"
+    >
       <div className="creator-module-toolbar">
         <span className="creator-module-meta">
-          {payload.characters.length} 角色 · 音色来自 CHINESE_VOICE_MAP · 试听来自预生成语音库
-          （{payload.castIndexSource}）
+          {payload.characters.length} 角色 · 音色来自 CHINESE_VOICE_MAP · 试听来自预生成语音库 （
+          {payload.castIndexSource}）
         </span>
         <span className="creator-module-meta">只读 · 改音色是 P2</span>
       </div>
@@ -117,18 +120,12 @@ export function CastingDesk() {
                   className="creator-cast-preview-button"
                   disabled={!canPreview}
                   title={
-                    canPreview
-                      ? `试听 ${character.previewVoiceKey}`
-                      : "该角色没有预生成语音条目"
+                    canPreview ? `试听 ${character.previewVoiceKey}` : "该角色没有预生成语音条目"
                   }
                   onClick={() => playPreview(character)}
                   data-testid={`creator-cast-preview-${character.id}`}
                 >
-                  {!canPreview
-                    ? "无预生成"
-                    : playingId === character.id
-                      ? "播放中…"
-                      : "试听"}
+                  {!canPreview ? "无预生成" : playingId === character.id ? "播放中…" : "试听"}
                 </button>
               </div>
             </article>

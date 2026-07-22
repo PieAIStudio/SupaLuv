@@ -145,10 +145,7 @@ export function matchPortraitToCharacter(
     )
     .filter(({ prefix }) => fileStem === prefix || fileStem.startsWith(`${prefix}-`))
     .sort(
-      (a, b) =>
-        b.score - a.score ||
-        b.ownership - a.ownership ||
-        a.aliasPenalty - b.aliasPenalty,
+      (a, b) => b.score - a.score || b.ownership - a.ownership || a.aliasPenalty - b.aliasPenalty,
     );
   return ranked[0]?.id ?? null;
 }
@@ -273,8 +270,10 @@ export interface CastingLoadOptions {
   readonly voiceMapOverride?: Readonly<Record<string, string>>;
 }
 
-let cachedCastIndex: { readonly index: Record<string, string>; readonly source: "generated" } | null =
-  null;
+let cachedCastIndex: {
+  readonly index: Record<string, string>;
+  readonly source: "generated";
+} | null = null;
 
 /** Reset in-memory cast-index cache (tests). */
 export function resetCastIndexCache(): void {
@@ -293,7 +292,10 @@ export async function loadCastingDesk(options: CastingLoadOptions): Promise<Cast
     ? { ...options.voiceMapOverride }
     : {};
   if (!options.voiceMapOverride) {
-    const ttsSource = await readFile(join(repoRoot, "services/ai-branch/src/tts/ttsRoute.ts"), "utf8");
+    const ttsSource = await readFile(
+      join(repoRoot, "services/ai-branch/src/tts/ttsRoute.ts"),
+      "utf8",
+    );
     voiceMap = parseChineseVoiceMap(ttsSource);
   }
 

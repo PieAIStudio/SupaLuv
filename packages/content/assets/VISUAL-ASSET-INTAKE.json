@@ -1,21 +1,11 @@
 {
   "schemaVersion": 2,
   "catalogId": "draft-2026-07-visual-intake",
-  "chapters": [
-    "draft-ch01",
-    "draft-ch02"
-  ],
+  "chapters": ["draft-ch01", "draft-ch02", "draft-ch03"],
   "contracts": {
     "background-web-16x9": {
-      "allowedExtensions": [
-        ".jpg",
-        ".jpeg",
-        ".webp"
-      ],
-      "allowedMimeTypes": [
-        "image/jpeg",
-        "image/webp"
-      ],
+      "allowedExtensions": [".jpg", ".jpeg", ".webp"],
+      "allowedMimeTypes": ["image/jpeg", "image/webp"],
       "dimensions": {
         "minWidth": 1280,
         "maxWidth": 1920,
@@ -29,15 +19,8 @@
       "magentaCheck": false
     },
     "ui-still-web-16x9": {
-      "allowedExtensions": [
-        ".jpg",
-        ".jpeg",
-        ".webp"
-      ],
-      "allowedMimeTypes": [
-        "image/jpeg",
-        "image/webp"
-      ],
+      "allowedExtensions": [".jpg", ".jpeg", ".webp"],
+      "allowedMimeTypes": ["image/jpeg", "image/webp"],
       "dimensions": {
         "minWidth": 1280,
         "maxWidth": 1920,
@@ -51,14 +34,8 @@
       "magentaCheck": false
     },
     "portrait-runtime-2x3": {
-      "allowedExtensions": [
-        ".png",
-        ".webp"
-      ],
-      "allowedMimeTypes": [
-        "image/png",
-        "image/webp"
-      ],
+      "allowedExtensions": [".png", ".webp"],
+      "allowedMimeTypes": ["image/png", "image/webp"],
       "dimensions": {
         "minWidth": 832,
         "maxWidth": 832,
@@ -73,14 +50,8 @@
       "maxVisibleMagentaRatio": 0.0005
     },
     "portrait-placeholder-2x3": {
-      "allowedExtensions": [
-        ".png",
-        ".webp"
-      ],
-      "allowedMimeTypes": [
-        "image/png",
-        "image/webp"
-      ],
+      "allowedExtensions": [".png", ".webp"],
+      "allowedMimeTypes": ["image/png", "image/webp"],
       "dimensions": {
         "minWidth": 640,
         "maxWidth": 640,
@@ -95,17 +66,8 @@
       "maxVisibleMagentaRatio": 0.0005
     },
     "character-reference-2x3": {
-      "allowedExtensions": [
-        ".jpg",
-        ".jpeg",
-        ".png",
-        ".webp"
-      ],
-      "allowedMimeTypes": [
-        "image/jpeg",
-        "image/png",
-        "image/webp"
-      ],
+      "allowedExtensions": [".jpg", ".jpeg", ".png", ".webp"],
+      "allowedMimeTypes": ["image/jpeg", "image/png", "image/webp"],
       "dimensions": {
         "minWidth": 832,
         "maxWidth": 832,
@@ -119,14 +81,8 @@
       "magentaCheck": false
     },
     "prop-ui-web-16x9": {
-      "allowedExtensions": [
-        ".png",
-        ".webp"
-      ],
-      "allowedMimeTypes": [
-        "image/png",
-        "image/webp"
-      ],
+      "allowedExtensions": [".png", ".webp"],
+      "allowedMimeTypes": ["image/png", "image/webp"],
       "dimensions": {
         "minWidth": 1280,
         "maxWidth": 1920,
@@ -147,9 +103,7 @@
       "id": "bg-office-night",
       "kind": "background",
       "contract": "background-web-16x9",
-      "usage": [
-        "draft-ch01 backgroundKey=office-night"
-      ],
+      "usage": ["draft-ch01 backgroundKey=office-night"],
       "path": "apps/web/public/assets/scenes/bg-office-night.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -168,10 +122,7 @@
       "id": "bg-lobby-white",
       "kind": "background",
       "contract": "background-web-16x9",
-      "usage": [
-        "draft-ch01 backgroundKey=lobby-white",
-        "draft-ch02 backgroundKey=lobby-white"
-      ],
+      "usage": ["draft-ch01 backgroundKey=lobby-white", "draft-ch02 backgroundKey=lobby-white"],
       "path": "apps/web/public/assets/scenes/bg-lobby-white.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -190,10 +141,7 @@
       "id": "bg-product-page",
       "kind": "background",
       "contract": "background-web-16x9",
-      "usage": [
-        "draft-ch01 backgroundKey=product-page",
-        "draft-ch02 backgroundKey=product-page"
-      ],
+      "usage": ["draft-ch01 backgroundKey=product-page", "draft-ch02 backgroundKey=product-page"],
       "path": "apps/web/public/assets/scenes/bg-product-page.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -212,10 +160,7 @@
       "id": "bg-rental-room",
       "kind": "background",
       "contract": "background-web-16x9",
-      "usage": [
-        "draft-ch01 backgroundKey=rental-room",
-        "draft-ch02 backgroundKey=rental-room"
-      ],
+      "usage": ["draft-ch01 backgroundKey=rental-room", "draft-ch02 backgroundKey=rental-room"],
       "path": "apps/web/public/assets/scenes/bg-rental-room.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -234,9 +179,7 @@
       "id": "boot-splash",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "shared click-to-start and audio-unlock gate"
-      ],
+      "usage": ["shared click-to-start and audio-unlock gate"],
       "path": "apps/web/public/assets/ui/boot-splash.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -255,9 +198,7 @@
       "id": "demo-ui",
       "kind": "portrait",
       "contract": "portrait-placeholder-2x3",
-      "usage": [
-        "draft-ch01 placeholder for staff and AI speakers"
-      ],
+      "usage": ["draft-ch01 placeholder for staff and AI speakers"],
       "path": "apps/web/public/assets/portraits/demo-ui.png",
       "fileStatus": "present",
       "qualityStatus": "legacy_only",
@@ -276,9 +217,7 @@
       "id": "lin-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "legacy character 林晓棠 only"
-      ],
+      "usage": ["legacy character 林晓棠 only"],
       "path": "apps/web/public/assets/portraits/lin-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "legacy_only",
@@ -319,9 +258,7 @@
       "id": "suming-base",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "main-character base portrait and fallback"
-      ],
+      "usage": ["main-character base portrait and fallback"],
       "path": "apps/web/public/assets/portraits/suming-base.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -362,9 +299,7 @@
       "id": "suming-lonely",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "main-character mood library"
-      ],
+      "usage": ["main-character mood library"],
       "path": "apps/web/public/assets/portraits/suming-lonely.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -383,9 +318,7 @@
       "id": "suming-panic",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "main-character mood library"
-      ],
+      "usage": ["main-character mood library"],
       "path": "apps/web/public/assets/portraits/suming-panic.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -404,9 +337,7 @@
       "id": "suming-restless",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "main-character mood library"
-      ],
+      "usage": ["main-character mood library"],
       "path": "apps/web/public/assets/portraits/suming-restless.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -425,10 +356,7 @@
       "id": "suming-shame",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch01 portraitKey=suming-shame",
-        "draft-ch02 portraitKey=suming-shame"
-      ],
+      "usage": ["draft-ch01 portraitKey=suming-shame", "draft-ch02 portraitKey=suming-shame"],
       "path": "apps/web/public/assets/portraits/suming-shame.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -447,9 +375,7 @@
       "id": "suming-tempted",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "main-character mood library"
-      ],
+      "usage": ["main-character mood library"],
       "path": "apps/web/public/assets/portraits/suming-tempted.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -468,9 +394,7 @@
       "id": "suming-uncanny",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "main-character mood library"
-      ],
+      "usage": ["main-character mood library"],
       "path": "apps/web/public/assets/portraits/suming-uncanny.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -489,9 +413,7 @@
       "id": "suming-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "character=suming identity reference"
-      ],
+      "usage": ["character=suming identity reference"],
       "path": "packages/content/characters/suming/refs/base.jpg",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -510,9 +432,7 @@
       "id": "suming-ref-committed",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "source reference for suming-committed"
-      ],
+      "usage": ["source reference for suming-committed"],
       "path": "packages/content/characters/suming/refs/committed-raw.jpg",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -531,9 +451,7 @@
       "id": "suming-ref-lonely",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "source reference for suming-lonely"
-      ],
+      "usage": ["source reference for suming-lonely"],
       "path": "packages/content/characters/suming/refs/lonely-raw.jpg",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -552,9 +470,7 @@
       "id": "suming-ref-panic",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "source reference for suming-panic"
-      ],
+      "usage": ["source reference for suming-panic"],
       "path": "packages/content/characters/suming/refs/panic-raw.jpg",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -573,9 +489,7 @@
       "id": "suming-ref-restless",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "source reference for suming-restless"
-      ],
+      "usage": ["source reference for suming-restless"],
       "path": "packages/content/characters/suming/refs/restless-raw.jpg",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -594,9 +508,7 @@
       "id": "suming-ref-shame",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "source reference for suming-shame"
-      ],
+      "usage": ["source reference for suming-shame"],
       "path": "packages/content/characters/suming/refs/shame-raw.jpg",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -615,9 +527,7 @@
       "id": "suming-ref-tempted",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "source reference for suming-tempted"
-      ],
+      "usage": ["source reference for suming-tempted"],
       "path": "packages/content/characters/suming/refs/tempted-raw.jpg",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -636,9 +546,7 @@
       "id": "suming-ref-uncanny",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "source reference for suming-uncanny"
-      ],
+      "usage": ["source reference for suming-uncanny"],
       "path": "packages/content/characters/suming/refs/uncanny-raw.jpg",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -657,9 +565,7 @@
       "id": "lin-xiaotang-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "legacy character 林晓棠 identity reference"
-      ],
+      "usage": ["legacy character 林晓棠 identity reference"],
       "path": "packages/content/characters/lin_xiaotang/refs/base.jpg",
       "fileStatus": "present",
       "qualityStatus": "legacy_only",
@@ -672,15 +578,13 @@
         "owner": "project",
         "evidence": "legacy character pack; not a draft-2026-07 production source"
       },
-      "notes": "Inventoried because the binary exists; excluded from current two-chapter production."
+      "notes": "Inventoried because the binary exists; excluded from the current production package."
     },
     {
       "id": "zhou-lu-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "legacy character 周鹿 identity reference"
-      ],
+      "usage": ["legacy character 周鹿 identity reference"],
       "path": "packages/content/characters/zhou_lu/refs/base.jpg",
       "fileStatus": "present",
       "qualityStatus": "legacy_only",
@@ -693,17 +597,13 @@
         "owner": "project",
         "evidence": "legacy character pack; not a draft-2026-07 production source"
       },
-      "notes": "Inventoried because the binary exists; excluded from current two-chapter production."
+      "notes": "Inventoried because the binary exists; excluded from the current production package."
     },
     {
       "id": "leo-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch01 speaker=雷欧",
-        "draft-ch02 speaker=雷欧",
-        "draft-ch03 speaker=雷欧"
-      ],
+      "usage": ["draft-ch01 speaker=雷欧", "draft-ch02 speaker=雷欧", "draft-ch03 speaker=雷欧"],
       "path": "apps/web/public/assets/portraits/leo-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -722,9 +622,7 @@
       "id": "chen-jia-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "character identity / matte source for chenjia-neutral"
-      ],
+      "usage": ["character identity / matte source for chenjia-neutral"],
       "path": "packages/content/characters/npc/refs/chenjia-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -743,9 +641,7 @@
       "id": "leo-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "character identity / matte source for leo-neutral"
-      ],
+      "usage": ["character identity / matte source for leo-neutral"],
       "path": "packages/content/characters/npc/refs/leo-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -764,9 +660,7 @@
       "id": "shi-peixin-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "character=shi_peixin identity reference"
-      ],
+      "usage": ["character=shi_peixin identity reference"],
       "path": null,
       "fileStatus": "missing",
       "qualityStatus": "missing",
@@ -785,9 +679,7 @@
       "id": "staff-worker-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "character identity / matte source for staff-neutral"
-      ],
+      "usage": ["character identity / matte source for staff-neutral"],
       "path": "packages/content/characters/npc/refs/staff-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -806,9 +698,7 @@
       "id": "staff-lead-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "character identity / matte source for stafflead-neutral"
-      ],
+      "usage": ["character identity / matte source for stafflead-neutral"],
       "path": "packages/content/characters/npc/refs/stafflead-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -827,9 +717,7 @@
       "id": "shop-owner-ref-base",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "character identity / matte source for shopowner-neutral"
-      ],
+      "usage": ["character identity / matte source for shopowner-neutral"],
       "path": "packages/content/characters/npc/refs/shopowner-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -848,9 +736,7 @@
       "id": "prop-protocol-terms",
       "kind": "prop_ui",
       "contract": "prop-ui-web-16x9",
-      "usage": [
-        "draft-ch01 scene=dch01_protocol_test still cut-in and archive=protocol-terms"
-      ],
+      "usage": ["draft-ch01 scene=dch01_protocol_test still cut-in and archive=protocol-terms"],
       "path": "apps/web/public/assets/props/prop-protocol-terms.png",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -870,9 +756,7 @@
       "id": "prop-barcode-shift",
       "kind": "prop_ui",
       "contract": "prop-ui-web-16x9",
-      "usage": [
-        "draft-ch02 scene=dch02_barcode_sweep still cut-in and archive=barcode-shift"
-      ],
+      "usage": ["draft-ch02 scene=dch02_barcode_sweep still cut-in and archive=barcode-shift"],
       "path": "apps/web/public/assets/props/prop-barcode-shift.png",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -892,9 +776,7 @@
       "id": "prop-rental-receipt",
       "kind": "prop_ui",
       "contract": "prop-ui-web-16x9",
-      "usage": [
-        "draft-ch02 scene=dch02_s020 still cut-in and archive=rental-receipt"
-      ],
+      "usage": ["draft-ch02 scene=dch02_s020 still cut-in and archive=rental-receipt"],
       "path": "apps/web/public/assets/props/prop-rental-receipt.png",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -914,9 +796,7 @@
       "id": "prop-application-nda",
       "kind": "prop_ui",
       "contract": "prop-ui-web-16x9",
-      "usage": [
-        "draft-ch02 scene=dch02_s037 still cut-in and archive=application-nda"
-      ],
+      "usage": ["draft-ch02 scene=dch02_s037 still cut-in and archive=application-nda"],
       "path": "apps/web/public/assets/props/prop-application-nda.png",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -936,9 +816,7 @@
       "id": "prop-approval-sms",
       "kind": "prop_ui",
       "contract": "prop-ui-web-16x9",
-      "usage": [
-        "draft-ch02 scene=dch02_s040 still cut-in and archive=approval-sms"
-      ],
+      "usage": ["draft-ch02 scene=dch02_s040 still cut-in and archive=approval-sms"],
       "path": "apps/web/public/assets/props/prop-approval-sms.png",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1026,9 +904,7 @@
       "id": "suming-ref-base-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for suming-base"
-      ],
+      "usage": ["matte source for suming-base"],
       "path": "packages/content/characters/suming/refs/base-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1047,9 +923,7 @@
       "id": "suming-ref-committed-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for suming-committed"
-      ],
+      "usage": ["matte source for suming-committed"],
       "path": "packages/content/characters/suming/refs/committed-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1068,9 +942,7 @@
       "id": "suming-ref-lonely-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for suming-lonely"
-      ],
+      "usage": ["matte source for suming-lonely"],
       "path": "packages/content/characters/suming/refs/lonely-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1089,9 +961,7 @@
       "id": "suming-ref-panic-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for suming-panic"
-      ],
+      "usage": ["matte source for suming-panic"],
       "path": "packages/content/characters/suming/refs/panic-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1110,9 +980,7 @@
       "id": "suming-ref-restless-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for suming-restless"
-      ],
+      "usage": ["matte source for suming-restless"],
       "path": "packages/content/characters/suming/refs/restless-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1131,9 +999,7 @@
       "id": "suming-ref-shame-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for suming-shame"
-      ],
+      "usage": ["matte source for suming-shame"],
       "path": "packages/content/characters/suming/refs/shame-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1152,9 +1018,7 @@
       "id": "suming-ref-tempted-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for suming-tempted"
-      ],
+      "usage": ["matte source for suming-tempted"],
       "path": "packages/content/characters/suming/refs/tempted-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1173,9 +1037,7 @@
       "id": "suming-ref-uncanny-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for suming-uncanny"
-      ],
+      "usage": ["matte source for suming-uncanny"],
       "path": "packages/content/characters/suming/refs/uncanny-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1194,9 +1056,7 @@
       "id": "shipeixin-ref-neutral-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for zhou-neutral"
-      ],
+      "usage": ["matte source for zhou-neutral"],
       "path": "packages/content/characters/shipeixin/refs/neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1215,9 +1075,7 @@
       "id": "shipeixin-ref-calm-smile-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for shipeixin-calm-smile"
-      ],
+      "usage": ["matte source for shipeixin-calm-smile"],
       "path": "packages/content/characters/shipeixin/refs/calm-smile-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1236,9 +1094,7 @@
       "id": "shipeixin-ref-guarded-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for shipeixin-guarded"
-      ],
+      "usage": ["matte source for shipeixin-guarded"],
       "path": "packages/content/characters/shipeixin/refs/guarded-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1257,9 +1113,7 @@
       "id": "shipeixin-ref-hurt-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for shipeixin-hurt"
-      ],
+      "usage": ["matte source for shipeixin-hurt"],
       "path": "packages/content/characters/shipeixin/refs/hurt-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1278,9 +1132,7 @@
       "id": "prop-coat-sms",
       "kind": "prop_ui",
       "contract": "prop-ui-web-16x9",
-      "usage": [
-        "draft-ch03 scene=dch03_s002 still cut-in"
-      ],
+      "usage": ["draft-ch03 scene=dch03_s002 still cut-in"],
       "path": "apps/web/public/assets/props/prop-coat-sms.png",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1303,9 +1155,7 @@
       "id": "prop-activation-confirm",
       "kind": "prop_ui",
       "contract": "prop-ui-web-16x9",
-      "usage": [
-        "draft-ch03 scene=dch03_robot_barcode still cut-in"
-      ],
+      "usage": ["draft-ch03 scene=dch03_robot_barcode still cut-in"],
       "path": "apps/web/public/assets/props/prop-activation-confirm.png",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1328,9 +1178,7 @@
       "id": "leo-annoyed",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch01 mood variant for 雷欧"
-      ],
+      "usage": ["draft-ch01 mood variant for 雷欧"],
       "path": "apps/web/public/assets/portraits/leo-annoyed.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1349,9 +1197,7 @@
       "id": "chenjia-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch01 speaker=陈佳"
-      ],
+      "usage": ["draft-ch01 speaker=陈佳"],
       "path": "apps/web/public/assets/portraits/chenjia-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1370,9 +1216,7 @@
       "id": "shopowner-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch02 speaker=老板娘"
-      ],
+      "usage": ["draft-ch02 speaker=老板娘"],
       "path": "apps/web/public/assets/portraits/shopowner-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1391,9 +1235,7 @@
       "id": "staff-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch01 speaker=工作人员"
-      ],
+      "usage": ["draft-ch01 speaker=工作人员"],
       "path": "apps/web/public/assets/portraits/staff-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1412,9 +1254,7 @@
       "id": "stafflead-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch01 speaker=小组长"
-      ],
+      "usage": ["draft-ch01 speaker=小组长"],
       "path": "apps/web/public/assets/portraits/stafflead-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1433,9 +1273,7 @@
       "id": "zhuzhu-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch03 speaker=朱珠"
-      ],
+      "usage": ["draft-ch03 speaker=朱珠"],
       "path": "apps/web/public/assets/portraits/zhuzhu-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1454,9 +1292,7 @@
       "id": "huanglaotai-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch03 speaker=黄老太"
-      ],
+      "usage": ["draft-ch03 speaker=黄老太"],
       "path": "apps/web/public/assets/portraits/huanglaotai-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1475,9 +1311,7 @@
       "id": "police-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch03 speaker=警察"
-      ],
+      "usage": ["draft-ch03 speaker=警察"],
       "path": "apps/web/public/assets/portraits/police-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1496,9 +1330,7 @@
       "id": "gridworker-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch03 speaker=网格员"
-      ],
+      "usage": ["draft-ch03 speaker=网格员"],
       "path": "apps/web/public/assets/portraits/gridworker-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1517,9 +1349,7 @@
       "id": "courier-neutral",
       "kind": "portrait",
       "contract": "portrait-runtime-2x3",
-      "usage": [
-        "draft-ch03 speaker=快递员"
-      ],
+      "usage": ["draft-ch03 speaker=快递员"],
       "path": "apps/web/public/assets/portraits/courier-neutral.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1538,9 +1368,7 @@
       "id": "leo-annoyed-ref-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for leo-annoyed"
-      ],
+      "usage": ["matte source for leo-annoyed"],
       "path": "packages/content/characters/npc/refs/leo-annoyed-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1559,9 +1387,7 @@
       "id": "zhuzhu-neutral-ref-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for zhuzhu-neutral"
-      ],
+      "usage": ["matte source for zhuzhu-neutral"],
       "path": "packages/content/characters/npc/refs/zhuzhu-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1580,9 +1406,7 @@
       "id": "huanglaotai-neutral-ref-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for huanglaotai-neutral"
-      ],
+      "usage": ["matte source for huanglaotai-neutral"],
       "path": "packages/content/characters/npc/refs/huanglaotai-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1601,9 +1425,7 @@
       "id": "police-neutral-ref-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for police-neutral"
-      ],
+      "usage": ["matte source for police-neutral"],
       "path": "packages/content/characters/npc/refs/police-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1622,9 +1444,7 @@
       "id": "gridworker-neutral-ref-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for gridworker-neutral"
-      ],
+      "usage": ["matte source for gridworker-neutral"],
       "path": "packages/content/characters/npc/refs/gridworker-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1643,9 +1463,7 @@
       "id": "courier-neutral-ref-green",
       "kind": "character_reference",
       "contract": "character-reference-2x3",
-      "usage": [
-        "matte source for courier-neutral"
-      ],
+      "usage": ["matte source for courier-neutral"],
       "path": "packages/content/characters/npc/refs/courier-neutral-green.png",
       "fileStatus": "present",
       "qualityStatus": "production_ready",
@@ -1664,9 +1482,7 @@
       "id": "loading-poster-01-upbeat",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (upbeat)"
-      ],
+      "usage": ["loading screen atmosphere poster (upbeat)"],
       "path": "apps/web/public/assets/ui/loading/poster-01-upbeat.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1685,9 +1501,7 @@
       "id": "loading-poster-02-upbeat",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (upbeat)"
-      ],
+      "usage": ["loading screen atmosphere poster (upbeat)"],
       "path": "apps/web/public/assets/ui/loading/poster-02-upbeat.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1706,9 +1520,7 @@
       "id": "loading-poster-03-tender",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (tender)"
-      ],
+      "usage": ["loading screen atmosphere poster (tender)"],
       "path": "apps/web/public/assets/ui/loading/poster-03-tender.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1727,9 +1539,7 @@
       "id": "loading-poster-04-tender",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (tender)"
-      ],
+      "usage": ["loading screen atmosphere poster (tender)"],
       "path": "apps/web/public/assets/ui/loading/poster-04-tender.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1748,9 +1558,7 @@
       "id": "loading-poster-05-tense",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (tense)"
-      ],
+      "usage": ["loading screen atmosphere poster (tense)"],
       "path": "apps/web/public/assets/ui/loading/poster-05-tense.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1769,9 +1577,7 @@
       "id": "loading-poster-06-tense",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (tense)"
-      ],
+      "usage": ["loading screen atmosphere poster (tense)"],
       "path": "apps/web/public/assets/ui/loading/poster-06-tense.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1790,9 +1596,7 @@
       "id": "loading-poster-07-melancholy",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (melancholy)"
-      ],
+      "usage": ["loading screen atmosphere poster (melancholy)"],
       "path": "apps/web/public/assets/ui/loading/poster-07-melancholy.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1811,9 +1615,7 @@
       "id": "loading-poster-08-melancholy",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (melancholy)"
-      ],
+      "usage": ["loading screen atmosphere poster (melancholy)"],
       "path": "apps/web/public/assets/ui/loading/poster-08-melancholy.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1832,9 +1634,7 @@
       "id": "loading-poster-09-uncanny",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (uncanny)"
-      ],
+      "usage": ["loading screen atmosphere poster (uncanny)"],
       "path": "apps/web/public/assets/ui/loading/poster-09-uncanny.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1853,9 +1653,7 @@
       "id": "loading-poster-10-uncanny",
       "kind": "ui_still",
       "contract": "ui-still-web-16x9",
-      "usage": [
-        "loading screen atmosphere poster (uncanny)"
-      ],
+      "usage": ["loading screen atmosphere poster (uncanny)"],
       "path": "apps/web/public/assets/ui/loading/poster-10-uncanny.jpg",
       "fileStatus": "present",
       "qualityStatus": "prototype_only",
@@ -1876,8 +1674,8 @@
       "id": "gap-background-shot-list",
       "status": "open",
       "requiredForProduction": true,
-      "reason": "The two chapters currently reuse four coarse prototype backgrounds; an author/art-director-approved production shot list is not frozen.",
-      "currentFallback": "Existing scene manifest background keys keep both draft chapters playable without changing story topology.",
+      "reason": "The current production package reuses four coarse prototype backgrounds; an author/art-director-approved production shot list is not frozen.",
+      "currentFallback": "Existing scene manifest background keys keep all production chapters playable without changing story topology.",
       "resolution": "Freeze the production shot list, then add one stable asset record per approved background without editing authored prose in this intake pass."
     },
     {

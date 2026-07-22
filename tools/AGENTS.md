@@ -33,15 +33,27 @@ pnpm auto-player --persona mianzi --out /tmp/ap --chapter draft-ch01
 
 ### voice-pregen
 
-离线遍历编译后 Ink，按运行时分句规则生成对白语音库到 `apps/web/public/assets/voice/`（需 server env 中的 TTS 密钥）。
+离线遍历编译后 Ink，按运行时分句规则生成对白语音库到 `apps/web/public/assets/voice/`。
+只有实际合成缺失音频时才需要 server env 中的 TTS 密钥；计划、dry-run 与零缺失同步不需要。
 
 ```bash
-npx tsx tools/voice-pregen/generate.ts --dry-run
-npx tsx tools/voice-pregen/generate.ts --chapter=draft-ch01
-npx tsx tools/voice-pregen/generate.ts
+pnpm voice:plan
+pnpm voice:plan --language=en
+pnpm voice:plan --language=all # 付费/写入前必须审这份全局计划并复制 planDigest
+pnpm exec tsx tools/voice-pregen/generate.ts --dry-run --chapter=draft-ch01
+# 零缺失也要提交刚审过的全局计划指纹：
+pnpm voice:sync --expected-missing=0 --expected-plan-digest=<SHA256>
+# 只有全局计划显示确有缺失时，才显式接受条数、具体计划与最高预算：
+pnpm voice:sync --expected-missing=N --expected-plan-digest=<SHA256> --max-cost-usd=X --operator=<stable-id>
 ```
 
 中文选角读 `services/ai-branch/src/tts/ttsRoute.ts` 的 `CHINESE_VOICE_MAP`。
+英文离线选角读同文件的 `ENGLISH_VOICE_MAP`。无参数执行会拒绝；`--plan` / `--dry-run`
+只读，`--sync` 固定覆盖所有已配置语言/章节，才可能调用付费接口；具体文本/选角/volume/缺失/
+孤儿/catalog、完整 MP3 hash 与 32kHz/64kbps/mono 元数据、资产账本、逐资产 provenance 或
+历史债摘要任一漂移，及预算超限、并发同步或残缺全局库，都会在 API 或 catalog 激活前失败。
+付费生成还要求 `--operator` 写入 provenance。MP3、账本、provenance、历史债摘要和 catalog
+按 catalog 激活点组成可回滚事务；catalog 激活后才移除已不再引用的孤儿。
 
 ### portrait-matte
 

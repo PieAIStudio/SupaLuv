@@ -168,7 +168,7 @@ carry the story. They do block a formal visual-production release gate.
 
 ## Unresolved production evidence
 
-- The two-chapter production background shot list is not yet frozen; the four
+- The three-chapter production background shot list is not yet frozen; the four
   coarse draft backgrounds must not be mistaken for a complete shot package.
 - A per-character NPC mood matrix is not yet approved; only the minimum neutral
   IDs are reserved.

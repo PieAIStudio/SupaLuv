@@ -3,11 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.9.0",
-  "engines": {
-    "node": ">=24 <25",
-    "pnpm": ">=11.9.0 <12"
-  },
   "scripts": {
     "dev": "pnpm dev:web",
     "dev:web": "pnpm --filter @supaluv/web dev",
@@ -18,6 +13,9 @@
     "build:vercel": "vercel build --standalone",
     "verify:vercel-output": "node tools/verify-vercel-output.mjs",
     "auto-player": "node tools/auto-player/cli.mjs",
+    "content:fidelity": "pnpm --filter @supaluv/content fidelity",
+    "voice:plan": "tsx tools/voice-pregen/generate.ts --plan",
+    "voice:sync": "tsx tools/voice-pregen/generate.ts --sync",
     "measure:bundle": "node tools/measure-web-bundle.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "check:budgets": "node tools/check-file-budgets.mjs",
@@ -36,8 +34,8 @@
     "pro-gov": "pro-gov",
     "docs:check": "pnpm pro-gov doctor && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor",
     "governance:check": "pnpm docs:check",
-    "cloud:check": "pnpm governance:check && pnpm format:check && pnpm lint && pnpm assets:check && pnpm typecheck && pnpm test && pnpm build",
-    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
+    "cloud:check": "pnpm governance:check && pnpm format:check && pnpm lint && pnpm assets:check && pnpm content:fidelity && pnpm typecheck && pnpm test && pnpm build",
+    "verify": "pnpm content:fidelity && pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
   },
   "devDependencies": {
     "@pieai/doc-gov": "0.8.0",
@@ -47,11 +45,17 @@
     "@seriousme/openapi-schema-validator": "2.9.0",
     "@types/node": "24.13.2",
     "lefthook": "2.1.9",
+    "music-metadata": "11.14.0",
     "oxfmt": "0.58.0",
     "oxlint": "1.73.0",
     "sharp": "0.35.3",
     "typescript": "6.0.3",
     "vercel": "55.0.0",
     "vitest": "4.1.10"
-  }
+  },
+  "engines": {
+    "node": ">=24 <25",
+    "pnpm": ">=11.9.0 <12"
+  },
+  "packageManager": "pnpm@11.9.0"
 }

@@ -1,4 +1,5 @@
 import { GameBadge, GameButton, GameProgress } from "@pieai/swimmer-ui-kit";
+import { getStoryLabel, storyCatalog } from "@supaluv/content";
 import { bedLabel } from "../../audio/bedCatalog";
 import { useLocale } from "../../i18n";
 import type { ManualSlotId } from "../../persistence/gameSave";
@@ -131,11 +132,11 @@ export function PlayHud({
               value={storyId}
               onChange={(event) => onStoryChange(event.target.value as StoryId)}
             >
-              <option value="draft-ch01">第01章 · 你有病吧</option>
-              <option value="draft-ch02">第02章 · 她不会评判你</option>
-              <option value="draft-ch03">第03章 · 长按七秒</option>
-              <option value="prototype-act1">Prototype Act 1</option>
-              <option value="chapter-01-trial">Chapter 01 Trial</option>
+              {storyCatalog.map((entry) => (
+                <option key={entry.id} value={entry.id}>
+                  {getStoryLabel(entry.id, locale)}
+                </option>
+              ))}
             </select>
           </label>
         ) : (

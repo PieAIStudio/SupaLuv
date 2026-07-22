@@ -51,6 +51,9 @@ const CHAPTERS = storyCatalog.productionChapters.map((chapter) => {
         `(${chapter.packageId} !== ${PACKAGE_ID})`,
     );
   }
+  if (!chapter.labels?.["zh-CN"] || !chapter.labels?.en) {
+    throw new Error(`story-catalog.json production chapter ${chapter.id} missing bilingual labels`);
+  }
   return {
     storyId: chapter.id,
     chapterId: chapter.id,
@@ -58,7 +61,7 @@ const CHAPTERS = storyCatalog.productionChapters.map((chapter) => {
     inkFile: chapter.inkFile,
     manifestFile: chapter.manifestFile,
     checkpoint: chapter.checkpoint,
-    label: chapter.label,
+    label: chapter.labels["zh-CN"],
   };
 });
 

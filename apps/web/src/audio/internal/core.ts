@@ -5,11 +5,7 @@
 
 import { AUDIO_BED_CATALOG, AUDIO_SFX_CATALOG } from "../audioCatalog";
 import { clamp01 } from "../audioMixState";
-import {
-  createEngineHowl,
-  setGlobalReverbWet,
-  setHowlerMasterMute,
-} from "../howlerEngine";
+import { createEngineHowl, setGlobalReverbWet, setHowlerMasterMute } from "../howlerEngine";
 import { cancelFadingBeds, stopAllBeds } from "./beds";
 import { applyBedMix, resolveMix, resumeBedsIfAllowed } from "./mix";
 import type { AudioPlaybackSnapshot, GameAudioRuntime } from "./runtime";

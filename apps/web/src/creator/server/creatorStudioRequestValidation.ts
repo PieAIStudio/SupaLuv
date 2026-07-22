@@ -3,7 +3,11 @@
  * Machine-readable 4xx only — never silent success or uncaught 500 for bad input.
  */
 
-import { CreatorStudioError, type CreatorSaveRequest, type CreatorSceneSaveRequest } from "./creatorStudioServer";
+import {
+  CreatorStudioError,
+  type CreatorSaveRequest,
+  type CreatorSceneSaveRequest,
+} from "./creatorStudioServer";
 import { isCreatorTaskId, type CreatorTaskId } from "./creatorTasks";
 import type { SceneAiBranchFields, SceneEditableFields } from "./sceneManifestEdit";
 
@@ -38,11 +42,7 @@ function requireNonEmptyString(value: unknown, name: string, maxLen: number): st
   return value;
 }
 
-function optionalStringField(
-  value: unknown,
-  name: string,
-  maxLen: number,
-): string | undefined {
+function optionalStringField(value: unknown, name: string, maxLen: number): string | undefined {
   if (value === undefined) return undefined;
   return requireNonEmptyString(value, name, maxLen);
 }
@@ -53,13 +53,29 @@ function parseAiBranch(value: unknown): SceneAiBranchFields | null {
   if (obj.enabled !== true) {
     throw new CreatorStudioError("INVALID_REQUEST", "fields.aiBranch.enabled 必须为 true。", 400);
   }
-  const rejoinSceneId = requireNonEmptyString(obj.rejoinSceneId, "fields.aiBranch.rejoinSceneId", MAX_ID_LEN);
+  const rejoinSceneId = requireNonEmptyString(
+    obj.rejoinSceneId,
+    "fields.aiBranch.rejoinSceneId",
+    MAX_ID_LEN,
+  );
   const context = requireNonEmptyString(obj.context, "fields.aiBranch.context", MAX_TEXT_LEN);
-  const waitLabel = optionalStringField(obj.waitLabel, "fields.aiBranch.waitLabel", MAX_FIELD_STRING);
+  const waitLabel = optionalStringField(
+    obj.waitLabel,
+    "fields.aiBranch.waitLabel",
+    MAX_FIELD_STRING,
+  );
   let maxAiBeats: number | undefined;
   if (obj.maxAiBeats !== undefined) {
-    if (typeof obj.maxAiBeats !== "number" || !Number.isInteger(obj.maxAiBeats) || obj.maxAiBeats < 1) {
-      throw new CreatorStudioError("INVALID_REQUEST", "fields.aiBranch.maxAiBeats 必须是正整数。", 400);
+    if (
+      typeof obj.maxAiBeats !== "number" ||
+      !Number.isInteger(obj.maxAiBeats) ||
+      obj.maxAiBeats < 1
+    ) {
+      throw new CreatorStudioError(
+        "INVALID_REQUEST",
+        "fields.aiBranch.maxAiBeats 必须是正整数。",
+        400,
+      );
     }
     maxAiBeats = obj.maxAiBeats;
   }
@@ -69,7 +85,11 @@ function parseAiBranch(value: unknown): SceneAiBranchFields | null {
   for (const key of ["artPool", "portraitPool", "speakerPool"] as const) {
     if (obj[key] === undefined) continue;
     if (!Array.isArray(obj[key]) || obj[key].some((item) => typeof item !== "string")) {
-      throw new CreatorStudioError("INVALID_REQUEST", `fields.aiBranch.${key} 必须是字符串数组。`, 400);
+      throw new CreatorStudioError(
+        "INVALID_REQUEST",
+        `fields.aiBranch.${key} 必须是字符串数组。`,
+        400,
+      );
     }
     stringPools[key] = obj[key] as readonly string[];
   }
@@ -153,11 +173,7 @@ export function parseTaskRequest(body: unknown): { readonly taskId: CreatorTaskI
     throw new CreatorStudioError("INVALID_REQUEST", "taskId 必须是字符串。", 400);
   }
   if (obj.taskId.length > MAX_ID_LEN) {
-    throw new CreatorStudioError(
-      "INVALID_REQUEST",
-      `taskId 超过最大长度 ${MAX_ID_LEN}。`,
-      400,
-    );
+    throw new CreatorStudioError("INVALID_REQUEST", `taskId 超过最大长度 ${MAX_ID_LEN}。`, 400);
   }
   if (!isCreatorTaskId(obj.taskId)) {
     throw new CreatorStudioError(
@@ -219,14 +235,26 @@ export function parseInkSaveRequest(body: unknown): CreatorSaveRequest {
     throw new CreatorStudioError("INVALID_REQUEST", "replacement 超过最大长度。", 400);
   }
   const range = requireObject(obj.sourceRange, "sourceRange");
-  if (typeof range.startLine !== "number" || !Number.isInteger(range.startLine) || range.startLine < 1) {
-    throw new CreatorStudioError("INVALID_REQUEST", "sourceRange.startLine 必须是 ≥1 的整数。", 400);
+  if (
+    typeof range.startLine !== "number" ||
+    !Number.isInteger(range.startLine) ||
+    range.startLine < 1
+  ) {
+    throw new CreatorStudioError(
+      "INVALID_REQUEST",
+      "sourceRange.startLine 必须是 ≥1 的整数。",
+      400,
+    );
   }
   if (typeof range.endLine !== "number" || !Number.isInteger(range.endLine) || range.endLine < 1) {
     throw new CreatorStudioError("INVALID_REQUEST", "sourceRange.endLine 必须是 ≥1 的整数。", 400);
   }
   if (range.endLine < range.startLine) {
-    throw new CreatorStudioError("INVALID_REQUEST", "sourceRange.endLine 不能小于 startLine。", 400);
+    throw new CreatorStudioError(
+      "INVALID_REQUEST",
+      "sourceRange.endLine 不能小于 startLine。",
+      400,
+    );
   }
   return {
     file,

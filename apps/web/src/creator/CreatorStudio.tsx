@@ -16,6 +16,7 @@ import type {
   NarrativeGraphDialogueLine,
   NarrativeNodeKind,
 } from "@supaluv/shared/narrative-graph";
+import { storyCatalog } from "@supaluv/content";
 import {
   CreatorApiError,
   fetchCreatorGraph,
@@ -52,12 +53,10 @@ interface SaveStatus {
 
 const nodeTypes = { creator: CreatorGraphNode };
 const ALL = "all";
+const chapterLabels = new Map<string, string>(storyCatalog.map((entry) => [entry.id, entry.label]));
 
 function chapterLabel(chapterId: string): string {
-  if (chapterId === "draft-ch01") return "第一章";
-  if (chapterId === "draft-ch02") return "第二章";
-  if (chapterId === "draft-ch03") return "第三章";
-  return chapterId;
+  return chapterLabels.get(chapterId) ?? chapterId;
 }
 
 function kindLabel(kind: NarrativeNodeKind): string {

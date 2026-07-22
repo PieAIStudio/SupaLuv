@@ -43,7 +43,7 @@ export const ACHIEVEMENT_DEFS: readonly AchievementDef[] = [
   {
     id: "ch01_clear",
     title: "初审通过",
-    description: "完成当前三章草稿。",
+    description: "完成当前草稿包。",
   },
   {
     id: "high_ai_score",

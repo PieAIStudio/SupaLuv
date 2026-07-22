@@ -6,6 +6,18 @@ import type {
   StorySeedManifest,
 } from "@supaluv/shared";
 import storyCatalogJson from "../catalog/story-catalog.json";
+import {
+  DEFAULT_STORY_ID as GENERATED_DEFAULT_STORY_ID,
+  DEFAULT_STORY_PACKAGE_ID as GENERATED_DEFAULT_STORY_PACKAGE_ID,
+  DEV_STORY_CATALOG_IDS,
+  PRODUCTION_STORY_CATALOG_IDS,
+  STORY_CATALOG_IDS,
+  type ProductionStoryCatalogId,
+  type StoryCatalogId,
+  type StoryPackageId,
+} from "./story-catalog.generated";
+
+export type { ProductionStoryCatalogId, StoryCatalogId, StoryPackageId };
 
 export const superLoverSeedManifest = {
   id: "super-lover-p0-seed",
@@ -25,14 +37,6 @@ export const superLoverSeedManifest = {
   },
 } satisfies StorySeedManifest;
 
-/** Production + dev selectable story ids. Legacy ch01 is intentionally excluded. */
-export type StoryCatalogId =
-  | "draft-ch01"
-  | "draft-ch02"
-  | "draft-ch03"
-  | "prototype-act1"
-  | "chapter-01-trial";
-
 /** Retired production demo id — kept for save incompatibility detection only. */
 export type RetiredStoryId = "ch01";
 
@@ -40,10 +44,51 @@ export type AnyKnownStoryId = StoryCatalogId | RetiredStoryId;
 
 export const RETIRED_STORY_IDS = ["ch01"] as const satisfies readonly RetiredStoryId[];
 
+function assertStringArrayEquals(
+  label: string,
+  actual: readonly string[],
+  expected: readonly string[],
+): void {
+  if (
+    actual.length !== expected.length ||
+    actual.some((value, index) => value !== expected[index])
+  ) {
+    throw new Error(
+      `story-catalog.json: ${label} disagrees with story-catalog.generated.ts; regenerate catalog types`,
+    );
+  }
+}
+
+assertStringArrayEquals(
+  "production chapter ids",
+  storyCatalogJson.productionChapters.map((entry) => entry.id),
+  PRODUCTION_STORY_CATALOG_IDS,
+);
+assertStringArrayEquals(
+  "dev chapter ids",
+  storyCatalogJson.devChapters.map((entry) => entry.id),
+  DEV_STORY_CATALOG_IDS,
+);
+if (storyCatalogJson.defaultPackageId !== GENERATED_DEFAULT_STORY_PACKAGE_ID) {
+  throw new Error(
+    "story-catalog.json: defaultPackageId disagrees with story-catalog.generated.ts; regenerate catalog types",
+  );
+}
+
+const storyCatalogIdSet: ReadonlySet<string> = new Set(STORY_CATALOG_IDS);
+const productionStoryCatalogIdSet: ReadonlySet<string> = new Set(PRODUCTION_STORY_CATALOG_IDS);
+
+function isStoryCatalogId(id: string): id is StoryCatalogId {
+  return storyCatalogIdSet.has(id);
+}
+
 /** Data-only catalog SSOT shared with the Node NarrativeGraph generator. */
 export const storyCatalogDocument = storyCatalogJson;
 
-export const DEFAULT_STORY_PACKAGE_ID = storyCatalogJson.defaultPackageId as "draft-2026-07";
+export const DEFAULT_STORY_PACKAGE_ID = GENERATED_DEFAULT_STORY_PACKAGE_ID;
+
+/** Locale variants that authored chapter packages may ship. */
+export type StoryContentLocale = "zh-CN" | "en";
 
 /**
  * Lightweight catalog metadata only — no compiled JSON, raw Ink, or scene arrays.
@@ -51,10 +96,18 @@ export const DEFAULT_STORY_PACKAGE_ID = storyCatalogJson.defaultPackageId as "dr
  */
 export interface StoryCatalogMeta {
   readonly id: StoryCatalogId;
+  /** Default zh-CN label retained for backward-compatible internal consumers. */
   readonly label: string;
+  readonly labels: Readonly<Record<StoryContentLocale, string>>;
   readonly packageId: string;
   readonly chapterIndex: number;
   readonly role: StoryCatalogRole;
+  readonly features: {
+    readonly comedyMeters: boolean;
+  };
+  readonly voiceLanguages: readonly StoryContentLocale[];
+  readonly inkFile: string;
+  readonly manifestFile: string;
   readonly checkpoint: ChapterCheckpoint;
   readonly inheritVariableNames: readonly string[];
 }
@@ -81,22 +134,80 @@ function asCompiledJson(value: unknown): string {
   return typeof value === "string" ? value : JSON.stringify(value);
 }
 
+function toStoryCatalogRole(role: string, entryId: string): StoryCatalogRole {
+  if (role === "production" || role === "dev" || role === "legacy") {
+    return role;
+  }
+  throw new Error(`story-catalog.json: ${entryId} has unsupported role ${JSON.stringify(role)}`);
+}
+
+function toStoryContentLocale(language: string, entryId: string): StoryContentLocale {
+  if (language === "zh-CN" || language === "en") {
+    return language;
+  }
+  throw new Error(
+    `story-catalog.json: ${entryId} has unsupported voice language ${JSON.stringify(language)}`,
+  );
+}
+
+function toChapterCheckpoint(
+  checkpoint: { readonly kind: string; readonly nextChapterId?: string },
+  entryId: string,
+): ChapterCheckpoint {
+  if (checkpoint.kind === "next_chapter") {
+    if (!checkpoint.nextChapterId || !isStoryCatalogId(checkpoint.nextChapterId)) {
+      throw new Error(
+        `story-catalog.json: ${entryId} next_chapter checkpoint must target a registered chapter`,
+      );
+    }
+    return { kind: checkpoint.kind, nextChapterId: checkpoint.nextChapterId };
+  }
+  if (checkpoint.kind === "draft_end" || checkpoint.kind === "ai_ending_allowed") {
+    return { kind: checkpoint.kind };
+  }
+  throw new Error(
+    `story-catalog.json: ${entryId} has unsupported checkpoint kind ${JSON.stringify(checkpoint.kind)}`,
+  );
+}
+
 function toCatalogMeta(entry: {
   readonly id: string;
-  readonly label: string;
+  readonly labels: Readonly<Record<StoryContentLocale, string>>;
   readonly packageId: string;
   readonly chapterIndex: number;
   readonly role: string;
+  readonly features: { readonly comedyMeters: boolean };
+  readonly voice: { readonly languages: readonly string[] };
+  readonly inkFile: string;
+  readonly manifestFile: string;
   readonly checkpoint: { readonly kind: string; readonly nextChapterId?: string };
   readonly inheritVariableNames: readonly string[];
 }): StoryCatalogMeta {
+  if (!isStoryCatalogId(entry.id)) {
+    throw new Error(
+      `story-catalog.json: ${entry.id} is absent from story-catalog.generated.ts; regenerate catalog types`,
+    );
+  }
+  if (!entry.labels["zh-CN"] || !entry.labels.en) {
+    throw new Error(`story-catalog.json: ${entry.id} must define zh-CN and en labels`);
+  }
+  const role = toStoryCatalogRole(entry.role, entry.id);
+  const voiceLanguages = entry.voice.languages.map((language) =>
+    toStoryContentLocale(language, entry.id),
+  );
+  const checkpoint = toChapterCheckpoint(entry.checkpoint, entry.id);
   return {
-    id: entry.id as StoryCatalogId,
-    label: entry.label,
+    id: entry.id,
+    label: entry.labels["zh-CN"],
+    labels: entry.labels,
     packageId: entry.packageId,
     chapterIndex: entry.chapterIndex,
-    role: entry.role as StoryCatalogRole,
-    checkpoint: entry.checkpoint as ChapterCheckpoint,
+    role,
+    features: entry.features,
+    voiceLanguages,
+    inkFile: entry.inkFile,
+    manifestFile: entry.manifestFile,
+    checkpoint,
     inheritVariableNames: entry.inheritVariableNames,
   };
 }
@@ -117,11 +228,16 @@ export const storyCatalog: readonly StoryCatalogMeta[] = [
 ] as const;
 
 const defaultPackage =
-  storyCatalogJson.packages.find((pkg) => pkg.packageId === storyCatalogJson.defaultPackageId) ??
-  storyCatalogJson.packages[0];
+  storyCatalogJson.packages.find((pkg) => pkg.packageId === GENERATED_DEFAULT_STORY_PACKAGE_ID) ??
+  null;
 
 if (!defaultPackage) {
   throw new Error("story-catalog.json: missing default package");
+}
+if (defaultPackage.startChapterId !== GENERATED_DEFAULT_STORY_ID) {
+  throw new Error(
+    "story-catalog.json: default startChapterId disagrees with story-catalog.generated.ts; regenerate catalog types",
+  );
 }
 
 export const draft2026Package: StoryPackageMeta = {
@@ -131,17 +247,11 @@ export const draft2026Package: StoryPackageMeta = {
   chapterIds: defaultPackage.chapterIds,
 };
 
-export const DEFAULT_STORY_ID: StoryCatalogId = defaultPackage.startChapterId as StoryCatalogId;
+export const DEFAULT_STORY_ID = GENERATED_DEFAULT_STORY_ID;
 
 const metaById = new Map<StoryCatalogId, StoryCatalogMeta>(
   storyCatalog.map((entry) => [entry.id, entry]),
 );
-
-/**
- * Content locale for compiled Ink selection.
- * UI locales other than zh-CN currently resolve to English when a translation exists.
- */
-export type StoryContentLocale = "zh-CN" | "en";
 
 export function resolveStoryContentLocale(locale?: string | null): StoryContentLocale {
   if (!locale) {
@@ -154,6 +264,10 @@ export function resolveStoryContentLocale(locale?: string | null): StoryContentL
   return "en";
 }
 
+export function getStoryLabel(id: StoryCatalogId, locale?: string | null): string {
+  return getStoryCatalogMeta(id).labels[resolveStoryContentLocale(locale)];
+}
+
 type ChapterModule = {
   readonly scenes: readonly PrototypeSceneCard[];
   readonly compiled: unknown;
@@ -161,13 +275,14 @@ type ChapterModule = {
   readonly compiledEn?: unknown;
 };
 
-const chapterLoaders: Record<StoryCatalogId, () => Promise<ChapterModule>> = {
-  "draft-ch01": () => import("./chapters/draft-ch01"),
-  "draft-ch02": () => import("./chapters/draft-ch02"),
-  "draft-ch03": () => import("./chapters/draft-ch03"),
-  "prototype-act1": () => import("./chapters/prototype-act1"),
-  "chapter-01-trial": () => import("./chapters/chapter-01-trial"),
-};
+/**
+ * Vite supports one-level variable dynamic imports. Keeping chapter modules named
+ * after their catalog ids means catalog registration no longer needs a second
+ * hand-maintained loader map; the explicit `.ts` suffix also works under tsx.
+ */
+function loadChapterModule(id: StoryCatalogId): Promise<ChapterModule> {
+  return import(`./chapters/${id}.ts`) as Promise<ChapterModule>;
+}
 
 /** Cache key is `${storyId}::${contentLocale}` so zh/en payloads coexist. */
 const chapterCache = new Map<string, LoadedStoryChapter>();
@@ -176,8 +291,8 @@ function chapterCacheKey(id: StoryCatalogId, contentLocale: StoryContentLocale):
   return `${id}::${contentLocale}`;
 }
 
-export function isProductionStoryId(id: string): id is StoryCatalogId {
-  return productionStoryCatalog.some((entry) => entry.id === id);
+export function isProductionStoryId(id: string): id is ProductionStoryCatalogId {
+  return productionStoryCatalogIdSet.has(id);
 }
 
 export function isRetiredStoryId(id: string): id is RetiredStoryId {
@@ -213,7 +328,7 @@ export async function loadStoryChapter(
     return cached;
   }
   const meta = getStoryCatalogMeta(id);
-  const mod = await chapterLoaders[id]();
+  const mod = await loadChapterModule(id);
   const compiledPayload =
     contentLocale === "en" && mod.compiledEn !== undefined ? mod.compiledEn : mod.compiled;
   const loaded: LoadedStoryChapter = {

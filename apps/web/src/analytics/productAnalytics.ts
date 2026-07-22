@@ -7,6 +7,7 @@ export type AnalyticsEvent =
   | { name: "app_open" }
   | { name: "title_new_game" }
   | { name: "title_continue" }
+  | { name: "chapter_started"; storyId: string }
   | {
       name: "choice_made";
       storyId: string;
@@ -34,6 +35,7 @@ const ALLOWLIST: Record<AnalyticsEventName, readonly string[]> = {
   app_open: [],
   title_new_game: [],
   title_continue: [],
+  chapter_started: ["storyId"],
   choice_made: ["storyId", "sceneId", "source", "choiceId"],
   ai_branch_requested: ["storyId", "sceneId"],
   ai_branch_ready: ["storyId", "sceneId", "provider"],
@@ -118,6 +120,22 @@ export function trackEvent(event: AnalyticsEvent): void {
   } catch {
     // analytics must never break product
   }
+}
+
+/**
+ * Run one chapter-starting operation and emit exactly one success event.
+ * Rejected/throwing operations and results rejected by `didStart` emit nothing.
+ */
+export async function runTrackedChapterStart<Result>(
+  start: () => Promise<Result>,
+  getStoryId: () => string,
+  didStart: (result: Result) => boolean = () => true,
+): Promise<Result> {
+  const result = await start();
+  if (didStart(result)) {
+    trackEvent({ name: "chapter_started", storyId: getStoryId() });
+  }
+  return result;
 }
 
 /** Test seam */

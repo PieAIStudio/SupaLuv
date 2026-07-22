@@ -73,13 +73,17 @@ export function normalizeAssetKind(kind: string | undefined, path: string): stri
   return raw || "other";
 }
 
-export function isAudioAsset(record: Pick<CreatorAssetRecord, "kind" | "path" | "publicPath">): boolean {
+export function isAudioAsset(
+  record: Pick<CreatorAssetRecord, "kind" | "path" | "publicPath">,
+): boolean {
   if (record.kind === "audio") return true;
   const path = record.publicPath ?? record.path;
   return /\.(mp3|ogg|wav|m4a)$/i.test(path);
 }
 
-export function isImageAsset(record: Pick<CreatorAssetRecord, "kind" | "path" | "publicPath">): boolean {
+export function isImageAsset(
+  record: Pick<CreatorAssetRecord, "kind" | "path" | "publicPath">,
+): boolean {
   if (isAudioAsset(record)) return false;
   const path = record.publicPath ?? record.path;
   return /\.(png|jpe?g|webp|gif|avif)$/i.test(path);
@@ -87,7 +91,10 @@ export function isImageAsset(record: Pick<CreatorAssetRecord, "kind" | "path" | 
 
 /** Parse RUNTIME-ASSET-LEDGER.csv text (header + rows). */
 export function parseRuntimeLedgerCsv(csvText: string): LedgerRow[] {
-  const lines = csvText.replace(/^\uFEFF/, "").split(/\r?\n/).filter((line) => line.trim().length > 0);
+  const lines = csvText
+    .replace(/^\uFEFF/, "")
+    .split(/\r?\n/)
+    .filter((line) => line.trim().length > 0);
   if (lines.length <= 1) return [];
   const rows: LedgerRow[] = [];
   for (const line of lines.slice(1)) {

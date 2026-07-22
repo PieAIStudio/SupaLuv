@@ -293,9 +293,7 @@ describe("Creator Studio OpenAPI catalog", () => {
 
   it("rejects illegal save-scene / task bodies with 4xx machine-readable codes", async () => {
     const repoRoot = await createMinimalFixture();
-    const handler = createCreatorStudioRequestHandler(
-      createCreatorStudioService({ repoRoot }),
-    );
+    const handler = createCreatorStudioRequestHandler(createCreatorStudioService({ repoRoot }));
 
     const missing = await invokeHandler(
       handler,

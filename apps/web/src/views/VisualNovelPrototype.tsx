@@ -52,14 +52,9 @@ export function VisualNovelPrototype(props: VisualNovelPrototypeProps) {
     onAutoPlayChange,
     onMasterMutedChange,
   } = props;
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
   const pendingRobotSlots = pendingRobotSlotsForScene(storyId, snapshot.sceneId, characterBindings);
-  const storyLabelKey = `chapterLabel.${storyId}`;
-  const storyLabelTranslated = t(storyLabelKey);
-  const storyLabel =
-    storyLabelTranslated !== storyLabelKey
-      ? storyLabelTranslated
-      : getStoryDefinition(storyId).label;
+  const storyLabel = getStoryDefinition(storyId).labels[locale === "zh-CN" ? "zh-CN" : "en"];
   const playerMode = getStoryDefinition(storyId).role === "production";
   const debugToolsAvailable =
     import.meta.env.DEV && new URLSearchParams(window.location.search).get("debug") === "1";
