@@ -4,68 +4,169 @@
   "placement": "registry",
   "bundleIds": [
     "base-governance",
-    "frontend-app"
+    "frontend-app",
+    "taste-design"
   ],
+  "registryProvenance": {
+    "schema": "agent-assets-registry",
+    "version": 1,
+    "hash": "sha256:015f790718f00608c6e34c28889ef5fc22ac6519288312e80fb2b58969848c5b",
+    "assetCount": 22
+  },
   "assets": [
     {
       "id": "npx-skills/agent-browser",
       "sourcePath": "skills/npx-skills/.agents/skills/agent-browser",
-      "contentHash": "sha256:ecc7641aea05f85ca3b11e7759d32aaf52fe05946ab4b63739c7bf78a41237a2",
+      "delivery": "symlink",
+      "contentHash": "sha256:a674b7d81066e3cc471a7512ddb4ae724418cbfefa75cbb050b0dc430e4d57a0",
       "targetPath": ".agents/skills/agent-browser"
     },
     {
       "id": "npx-skills/frontend-design",
       "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
+      "delivery": "symlink",
       "contentHash": "sha256:665c585455decbcb02116bc928adf5148b9cd0f67b7eb4908c8c0d647c00f68a",
       "targetPath": ".agents/skills/frontend-design"
     },
     {
       "id": "npx-skills/impeccable",
       "sourcePath": "skills/npx-skills/.agents/skills/impeccable",
-      "contentHash": "sha256:c805d991346c3831a1c04908311d7b0c48cb00c00772e669ea3252fec47bc2e2",
+      "delivery": "symlink",
+      "contentHash": "sha256:16f7f1f484ab99c1149d2decd6c7e830849072dfa1057d6324af8bba84965a9d",
       "targetPath": ".agents/skills/impeccable"
     },
     {
       "id": "npx-skills/ui-ux-pro-max",
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
-      "contentHash": "sha256:48131e13c54e2c443abb2de3a6e359aee461f39fdce1c9cf578fd59873741755",
+      "delivery": "symlink",
+      "contentHash": "sha256:6503364c204a3a10e3cf80e3a53323e9ab581b6d06550c3cc893cdcf1206f048",
       "targetPath": ".agents/skills/ui-ux-pro-max"
-    },
-    {
-      "id": "pie-commands/generate-handoff",
-      "sourcePath": "commands/pie-commands/generate-handoff.md",
-      "contentHash": "sha256:438266546b6e4880a83b681684b47e2515f82a9c6f49dacf0a22809db0c8815d",
-      "targetPath": ".pro-gov/agent-assets/commands/generate-handoff.md"
     },
     {
       "id": "pie-rules/ai-in-the-loop",
       "sourcePath": "rules/pie-rules/ai-in-the-loop.md",
-      "contentHash": "sha256:493f4308d121d6fdca667b0312809cb68dca0055825b42c187781cbed267f02f",
-      "targetPath": ".pro-gov/agent-assets/rules/ai-in-the-loop.md"
+      "delivery": "snapshot",
+      "contentHash": "sha256:344eba8c3b1f3130ed33e4b6a4511a332e2ca477e6a40ad7d4c73006197f5445",
+      "targetPath": "docs/policy/shared-rules/ai-in-the-loop.md"
+    },
+    {
+      "id": "pie-rules/brand-kit-first",
+      "sourcePath": "rules/pie-rules/brand-kit-first.md",
+      "delivery": "snapshot",
+      "contentHash": "sha256:db55812e9d198c45e5fc9e934f7b783fe74c5cd53d91ab347ea2e939b435123f",
+      "targetPath": "docs/policy/shared-rules/brand-kit-first.md"
     },
     {
       "id": "pie-rules/clean-image-generation-rules",
       "sourcePath": "rules/pie-rules/clean-image-generation-rules.md",
-      "contentHash": "sha256:d77fc3823e7406036550b0b13a921e4c5a579011a5023ecaacfd2fb6fa456b86",
-      "targetPath": ".pro-gov/agent-assets/rules/clean-image-generation-rules.md"
-    },
-    {
-      "id": "pie-rules/rule-evolution-methodology",
-      "sourcePath": "rules/pie-rules/rule-evolution-methodology.md",
-      "contentHash": "sha256:694758a2f3ce15ffc9f38c5a0e6fe6696bfb8128b952afec6c0963cc803f5b9c",
-      "targetPath": ".pro-gov/agent-assets/rules/rule-evolution-methodology.md"
+      "delivery": "snapshot",
+      "contentHash": "sha256:cd6a79b9971af50003812b498827837ca5c2c284d5b2c95ad3bbf3778483f74a",
+      "targetPath": "docs/policy/shared-rules/clean-image-generation-rules.md"
     },
     {
       "id": "pie-skills/experience-capture",
       "sourcePath": "skills/pie-skills/experience-capture",
+      "delivery": "symlink",
       "contentHash": "sha256:7e721266aa5bb311c9e66b887046270cd29cb6125a4fa3c103471d775aa40d65",
       "targetPath": ".agents/skills/experience-capture"
     },
     {
       "id": "pie-skills/screenwalk",
       "sourcePath": "skills/pie-skills/screenwalk",
+      "delivery": "symlink",
       "contentHash": "sha256:4d2ccbffdba26191cfc1b64d4f070c351f34a729e9ffb28c7dca00759a4837f7",
       "targetPath": ".agents/skills/screenwalk"
+    },
+    {
+      "id": "third-party-skills/brandkit",
+      "sourcePath": "skills/third-party-without-npx-skills/brandkit",
+      "delivery": "symlink",
+      "contentHash": "sha256:66c068d44001b4e6354c09e4b799f908ed1a7003211c7e7295331c122bea9f02",
+      "targetPath": ".agents/manual-skills/brandkit"
+    },
+    {
+      "id": "third-party-skills/design-taste-frontend",
+      "sourcePath": "skills/third-party-without-npx-skills/design-taste-frontend",
+      "delivery": "symlink",
+      "contentHash": "sha256:32134157d57314d41e794e71014c853b24f16f20e396944e47ccc76f96fa01b0",
+      "targetPath": ".agents/manual-skills/design-taste-frontend"
+    },
+    {
+      "id": "third-party-skills/design-taste-frontend-v1",
+      "sourcePath": "skills/third-party-without-npx-skills/design-taste-frontend-v1",
+      "delivery": "symlink",
+      "contentHash": "sha256:8dbcb90df1b95f2c4af24575aa0dfeb55c8eb504d301e8bf09cb0444f6780333",
+      "targetPath": ".agents/manual-skills/design-taste-frontend-v1"
+    },
+    {
+      "id": "third-party-skills/full-output-enforcement",
+      "sourcePath": "skills/third-party-without-npx-skills/full-output-enforcement",
+      "delivery": "symlink",
+      "contentHash": "sha256:933b89da884015e2a4189417fd2dad62610c9aeb1c80d0166567354594836b1c",
+      "targetPath": ".agents/manual-skills/full-output-enforcement"
+    },
+    {
+      "id": "third-party-skills/gpt-taste",
+      "sourcePath": "skills/third-party-without-npx-skills/gpt-taste",
+      "delivery": "symlink",
+      "contentHash": "sha256:2699f333a4cf2c43ef49b7cdf66674b5a19d05c1ca6a9a848dd4ec0acc41984d",
+      "targetPath": ".agents/manual-skills/gpt-taste"
+    },
+    {
+      "id": "third-party-skills/high-end-visual-design",
+      "sourcePath": "skills/third-party-without-npx-skills/high-end-visual-design",
+      "delivery": "symlink",
+      "contentHash": "sha256:49c7b83a53374522fc0603e5b0d8bd2eadc1ad819356f4b56f08f5e73d91ee2d",
+      "targetPath": ".agents/manual-skills/high-end-visual-design"
+    },
+    {
+      "id": "third-party-skills/image-to-code",
+      "sourcePath": "skills/third-party-without-npx-skills/image-to-code",
+      "delivery": "symlink",
+      "contentHash": "sha256:ce9e7282b05e6cf247352c0f68953b943755899eb14a2198d72c97c6e5ffa807",
+      "targetPath": ".agents/manual-skills/image-to-code"
+    },
+    {
+      "id": "third-party-skills/imagegen-frontend-mobile",
+      "sourcePath": "skills/third-party-without-npx-skills/imagegen-frontend-mobile",
+      "delivery": "symlink",
+      "contentHash": "sha256:9d08a2fd4f71d9fa9f6808506fed4a8231ab451e2016570ab80514074571c64a",
+      "targetPath": ".agents/manual-skills/imagegen-frontend-mobile"
+    },
+    {
+      "id": "third-party-skills/imagegen-frontend-web",
+      "sourcePath": "skills/third-party-without-npx-skills/imagegen-frontend-web",
+      "delivery": "symlink",
+      "contentHash": "sha256:d5215faecc59120b499726e2c0d6fd802d47f7f69c9243e328120b4759ed8f60",
+      "targetPath": ".agents/manual-skills/imagegen-frontend-web"
+    },
+    {
+      "id": "third-party-skills/industrial-brutalist-ui",
+      "sourcePath": "skills/third-party-without-npx-skills/industrial-brutalist-ui",
+      "delivery": "symlink",
+      "contentHash": "sha256:d915c228e1fd8ff18f9f417ddfff605f045a15acb85e15906dcb347ba6e2c941",
+      "targetPath": ".agents/manual-skills/industrial-brutalist-ui"
+    },
+    {
+      "id": "third-party-skills/minimalist-ui",
+      "sourcePath": "skills/third-party-without-npx-skills/minimalist-ui",
+      "delivery": "symlink",
+      "contentHash": "sha256:0b63afb03f68657b51042d075b0a7f8c2362bdb5bb1f77caab99693e90c91e21",
+      "targetPath": ".agents/manual-skills/minimalist-ui"
+    },
+    {
+      "id": "third-party-skills/redesign-existing-projects",
+      "sourcePath": "skills/third-party-without-npx-skills/redesign-existing-projects",
+      "delivery": "symlink",
+      "contentHash": "sha256:f6b0637adf3481f0fbd23a365a8e0773ed82b322c1df78a40d7a8b4cda65c9e3",
+      "targetPath": ".agents/manual-skills/redesign-existing-projects"
+    },
+    {
+      "id": "third-party-skills/stitch-design-taste",
+      "sourcePath": "skills/third-party-without-npx-skills/stitch-design-taste",
+      "delivery": "symlink",
+      "contentHash": "sha256:e37419c24236cf2d983dcd39feb1907733a43f9567f8e5ad095d4c539ed851ba",
+      "targetPath": ".agents/manual-skills/stitch-design-taste"
     }
   ]
 }
