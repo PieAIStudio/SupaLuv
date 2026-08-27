@@ -3,6 +3,7 @@ import {
   commercialServerCredentialsConfigured,
   resolveCommercialServerCredentials,
 } from "../../services/ai-branch/src/commercialServerConfig";
+import type { CommercialServerCredentialSource } from "../../services/ai-branch/src/commercialServerConfig";
 import {
   commitReservation,
   getWalletBalance,
@@ -300,13 +301,14 @@ describe("commercial server credential resolver", () => {
     expect(commercialServerCredentialsConfigured()).toBe(true);
   });
 
-  it("prefers canonical server variables over the former SwimmerCore aliases", () => {
-    const resolved = resolveCommercialServerCredentials({
+  it("ignores former SwimmerCore aliases when canonical server variables are set", () => {
+    const source = {
       SWIMMER_BACKEND_SECRET_KEY: "backend-secret",
       SWIMMER_BACKEND_SUPABASE_URL: "https://backend.invalid",
       SWIMMER_CORE_SECRET_KEY: "legacy-secret",
       SWIMMER_CORE_SUPABASE_URL: "https://legacy.invalid",
-    });
+    } as unknown as CommercialServerCredentialSource;
+    const resolved = resolveCommercialServerCredentials(source);
 
     expect(resolved).toEqual({
       supabaseUrl: "https://backend.invalid",
@@ -314,16 +316,13 @@ describe("commercial server credential resolver", () => {
     });
   });
 
-  it("keeps the former SwimmerCore server variables as a temporary fallback", () => {
+  it("rejects former SwimmerCore server variables without canonical credentials", () => {
     stubUnconfiguredCommercialEnv();
     vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", CANONICAL_URL);
     vi.stubEnv("SWIMMER_CORE_SECRET_KEY", CANONICAL_KEY);
 
-    expect(walletMeterConfigured()).toBe(true);
-    expect(resolveCommercialServerCredentials()).toEqual({
-      supabaseUrl: CANONICAL_URL,
-      serviceRoleKey: CANONICAL_KEY,
-    });
+    expect(walletMeterConfigured()).toBe(false);
+    expect(resolveCommercialServerCredentials()).toBeNull();
   });
 
   it("keeps optional-wallet skip behavior when metering is unconfigured", async () => {

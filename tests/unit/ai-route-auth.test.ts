@@ -80,7 +80,7 @@ describe("AI route authentication order", () => {
     expect(response.status).toBe(401);
     expect(body.error).toMatch(/auth|authorization/i);
     expect(body.error).not.toMatch(
-      /configured|SwimmerBackend|SwimmerCore|URL|key|OPENROUTER|\/Users\/|\.secrets/i,
+      /configured|SwimmerBackend|URL|key|OPENROUTER|\/Users\/|\.secrets/i,
     );
   });
 

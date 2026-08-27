@@ -5,9 +5,6 @@
  * - SWIMMER_BACKEND_SUPABASE_URL
  * - SWIMMER_BACKEND_SECRET_KEY
  *
- * The former SWIMMER_CORE_* names remain temporary compatibility aliases while
- * deployments rotate their environment names.
- *
  * Browser-prefixed and generic service-role aliases are intentionally ignored.
  * Used by wallet metering and commercial route runtime so both agree on
  * configured vs unconfigured state.
@@ -24,9 +21,6 @@ export type CommercialServerCredentials = {
 export type CommercialServerCredentialSource = {
   readonly SWIMMER_BACKEND_SUPABASE_URL?: string;
   readonly SWIMMER_BACKEND_SECRET_KEY?: string;
-  /** Temporary compatibility aliases for the former shared-platform name. */
-  readonly SWIMMER_CORE_SUPABASE_URL?: string;
-  readonly SWIMMER_CORE_SECRET_KEY?: string;
 };
 
 /**
@@ -36,10 +30,8 @@ export type CommercialServerCredentialSource = {
 export function resolveCommercialServerCredentials(
   source: CommercialServerCredentialSource = process.env,
 ): CommercialServerCredentials | null {
-  const supabaseUrl =
-    firstDefinedEnv(source, ["SWIMMER_BACKEND_SUPABASE_URL", "SWIMMER_CORE_SUPABASE_URL"]) ?? "";
-  const serviceRoleKey =
-    firstDefinedEnv(source, ["SWIMMER_BACKEND_SECRET_KEY", "SWIMMER_CORE_SECRET_KEY"]) ?? "";
+  const supabaseUrl = firstDefinedEnv(source, ["SWIMMER_BACKEND_SUPABASE_URL"]) ?? "";
+  const serviceRoleKey = firstDefinedEnv(source, ["SWIMMER_BACKEND_SECRET_KEY"]) ?? "";
   if (!supabaseUrl || !serviceRoleKey) {
     return null;
   }

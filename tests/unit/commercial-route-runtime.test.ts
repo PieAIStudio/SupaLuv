@@ -247,7 +247,7 @@ describe("commercial route runtime composition", () => {
     );
   });
 
-  it("keeps compatibility aliases in one resolver and rejects browser/generic server aliases", () => {
+  it("keeps the canonical resolver and rejects browser/generic server aliases", () => {
     const root = join(process.cwd(), "services/ai-branch/src");
     const stripComments = (source: string) =>
       source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
@@ -267,8 +267,8 @@ describe("commercial route runtime composition", () => {
     const configSource = readFileSync(join(root, "commercialServerConfig.ts"), "utf8");
     expect(configSource).toContain("SWIMMER_BACKEND_SUPABASE_URL");
     expect(configSource).toContain("SWIMMER_BACKEND_SECRET_KEY");
-    expect(configSource).toContain("SWIMMER_CORE_SUPABASE_URL");
-    expect(configSource).toContain("SWIMMER_CORE_SECRET_KEY");
+    expect(configSource).not.toContain("SWIMMER_CORE_SUPABASE_URL");
+    expect(configSource).not.toContain("SWIMMER_CORE_SECRET_KEY");
   });
 
   it("retries shared construction after a transient factory failure", () => {
@@ -461,7 +461,7 @@ describe("commercial route runtime composition", () => {
       "character/characterRoutes.ts",
       "ending/endingRoutes.ts",
       "wallet/spendRoutes.ts",
-    ] as const
+    ] as const;
 
     let processEnvCount = 0;
     let configuredCacheCount = 0;

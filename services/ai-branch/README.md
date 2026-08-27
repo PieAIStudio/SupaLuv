@@ -50,24 +50,24 @@ Last reviewed: 2026-07-19 (domain dir grouping).
 
 ## Env switches (code defaults)
 
-| Variable                                                | Default / rule                    | Meaning in code                                                                                                          |
-| ------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `SUPALUV_TTS_ALLOW_FREEFORM`                            | **off** unless exactly `"1"`      | When unset/≠`1`, free-form synthesize returns 400; `/health` reports `tts.freeformEnabled: false` so clients can degrade |
-| `SUPALUV_WALLET_OPTIONAL`                               | off unless `"1"`                  | If wallet secrets missing: optional mode allows unmetered local use; otherwise spend denied                              |
-| `SWIMMER_BACKEND_SUPABASE_URL` + `SWIMMER_BACKEND_SECRET_KEY` | required for meter                | Canonical credentials that enable `walletMeter` / commercial settle; former `SWIMMER_CORE_*` names remain temporary fallbacks |
-| `OPENROUTER_API_KEY`                                    | required for generation           | Branch / ending model calls                                                                                              |
-| `SUPALUV_OPENROUTER_MODEL`                              | `google/gemini-3.5-flash`         | Branch model id                                                                                                          |
-| `SUPALUV_THINKING_LEVEL`                                | `high`                            | Exposed in health + branch call options                                                                                  |
-| `SUPALUV_AI_BRANCH_COST_BATTERIES`                      | `1`                               | Batteries reserved per branch                                                                                            |
-| `SUPALUV_TTS_COST_BATTERIES`                            | `0`                               | Batteries reserved per paid TTS                                                                                          |
-| `SUPALUV_SIGNUP_GRANT_BATTERIES`                        | `0` (off)                         | Idempotent signup grant when balance empty                                                                               |
-| `SUPALUV_TTS_DEFAULT_LANG`                              | `zh-CN`                           | Default TTS language                                                                                                     |
-| `SUPALUV_AI_BRANCH_PORT` / `PORT`                       | `8787`                            | Listen port                                                                                                              |
-| `SUPALUV_AI_BRANCH_HOST`                                | `127.0.0.1`                       | Listen host                                                                                                              |
-| `SUPALUV_SERVER_ENV_FILE` / `SUPALUV_PUBLIC_ENV_FILE`   | optional                          | Override default `~/PieAI/.secrets/supaluv/local.{server,public}.env`                                                    |
-| `SIGHTENGINE_API_USER` + `SIGHTENGINE_API_SECRET`       | optional                          | Extra moderation backend for safety gate                                                                                 |
-| `SUPALUV_CHARACTER_IMAGE_PROVIDER`                      | `openrouter` (or unset); `gemini` | Character image provider selection                                                                                       |
-| `GEMINI_API_KEY`                                        | when provider needs it            | Character image / review                                                                                                 |
+| Variable                                                      | Default / rule                    | Meaning in code                                                                                                          |
+| ------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `SUPALUV_TTS_ALLOW_FREEFORM`                                  | **off** unless exactly `"1"`      | When unset/≠`1`, free-form synthesize returns 400; `/health` reports `tts.freeformEnabled: false` so clients can degrade |
+| `SUPALUV_WALLET_OPTIONAL`                                     | off unless `"1"`                  | If wallet secrets missing: optional mode allows unmetered local use; otherwise spend denied                              |
+| `SWIMMER_BACKEND_SUPABASE_URL` + `SWIMMER_BACKEND_SECRET_KEY` | required for meter                | Canonical credentials that enable `walletMeter` / commercial settle                                                      |
+| `OPENROUTER_API_KEY`                                          | required for generation           | Branch / ending model calls                                                                                              |
+| `SUPALUV_OPENROUTER_MODEL`                                    | `google/gemini-3.5-flash`         | Branch model id                                                                                                          |
+| `SUPALUV_THINKING_LEVEL`                                      | `high`                            | Exposed in health + branch call options                                                                                  |
+| `SUPALUV_AI_BRANCH_COST_BATTERIES`                            | `1`                               | Batteries reserved per branch                                                                                            |
+| `SUPALUV_TTS_COST_BATTERIES`                                  | `0`                               | Batteries reserved per paid TTS                                                                                          |
+| `SUPALUV_SIGNUP_GRANT_BATTERIES`                              | `0` (off)                         | Idempotent signup grant when balance empty                                                                               |
+| `SUPALUV_TTS_DEFAULT_LANG`                                    | `zh-CN`                           | Default TTS language                                                                                                     |
+| `SUPALUV_AI_BRANCH_PORT` / `PORT`                             | `8787`                            | Listen port                                                                                                              |
+| `SUPALUV_AI_BRANCH_HOST`                                      | `127.0.0.1`                       | Listen host                                                                                                              |
+| `SUPALUV_SERVER_ENV_FILE` / `SUPALUV_PUBLIC_ENV_FILE`         | optional                          | Override default `~/PieAI/.secrets/supaluv/local.{server,public}.env`                                                    |
+| `SIGHTENGINE_API_USER` + `SIGHTENGINE_API_SECRET`             | optional                          | Extra moderation backend for safety gate                                                                                 |
+| `SUPALUV_CHARACTER_IMAGE_PROVIDER`                            | `openrouter` (or unset); `gemini` | Character image provider selection                                                                                       |
+| `GEMINI_API_KEY`                                              | when provider needs it            | Character image / review                                                                                                 |
 
 Server vs public env boundary: `localServerEnv.ts` rejects `VITE_*` in server
 files and non-`VITE_*` in public files.

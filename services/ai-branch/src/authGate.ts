@@ -34,16 +34,12 @@ export async function verifyBearerToken(
     firstDefinedEnv(process.env, [
       "SWIMMER_BACKEND_SUPABASE_URL",
       "VITE_SWIMMER_BACKEND_SUPABASE_URL",
-      "SWIMMER_CORE_SUPABASE_URL",
-      "VITE_SWIMMER_CORE_SUPABASE_URL",
       "VITE_SUPABASE_URL",
     ]) ?? "";
   const key =
     firstDefinedEnv(process.env, [
       "SWIMMER_BACKEND_PUBLISHABLE_KEY",
       "VITE_SWIMMER_BACKEND_PUBLISHABLE_KEY",
-      "SWIMMER_CORE_PUBLISHABLE_KEY",
-      "VITE_SWIMMER_CORE_PUBLISHABLE_KEY",
       "VITE_SUPABASE_ANON_KEY",
     ]) ?? "";
 
