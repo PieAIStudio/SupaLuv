@@ -1,11 +1,11 @@
 /**
- * SwimmerCore wallet metering (service_role only).
+ * SwimmerBackend wallet metering (service_role only).
  * 100 power units = 1 battery.
  *
- * When SWIMMER_CORE_SECRET_KEY is missing, metering is "open" only if
+ * When SWIMMER_BACKEND_SECRET_KEY is missing, metering is "open" only if
  * SUPALUV_WALLET_OPTIONAL=1 (local framework); otherwise AI/TTS spend is denied.
  *
- * Credentials: SWIMMER_CORE_SUPABASE_URL + SWIMMER_CORE_SECRET_KEY only
+ * Credentials: SWIMMER_BACKEND_SUPABASE_URL + SWIMMER_BACKEND_SECRET_KEY
  * (see commercialServerConfig.ts). Browser VITE_* keys and generic service-role
  * aliases do not enable metering.
  */
@@ -164,7 +164,7 @@ export async function reserveBatteries(
     return {
       ok: false,
       code: "METER_UNAVAILABLE",
-      message: "Wallet metering not configured (need SWIMMER_CORE_SECRET_KEY)",
+      message: "Wallet metering not configured (need SWIMMER_BACKEND_SECRET_KEY)",
     };
   }
 

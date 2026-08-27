@@ -51,15 +51,15 @@ test("missing local env files are optional", () => {
 });
 
 test("server may load browser-safe config without accepting private keys", () => {
-  const publicPath = tempEnv("VITE_SWIMMER_CORE_SUPABASE_URL=https://example.test\n");
-  const mixedPath = tempEnv("VITE_POSTHOG_KEY=public\nSWIMMER_CORE_SECRET_KEY=private\n");
+  const publicPath = tempEnv("VITE_SWIMMER_BACKEND_SUPABASE_URL=https://example.test\n");
+  const mixedPath = tempEnv("VITE_POSTHOG_KEY=public\nSWIMMER_BACKEND_SECRET_KEY=private\n");
   const env: Record<string, string | undefined> = {};
 
   assert.equal(loadPublicEnvFileForServer(publicPath, env), true);
-  assert.equal(env.VITE_SWIMMER_CORE_SUPABASE_URL, "https://example.test");
+  assert.equal(env.VITE_SWIMMER_BACKEND_SUPABASE_URL, "https://example.test");
   assert.throws(
     () => loadPublicEnvFileForServer(mixedPath, {}),
-    /Public env file must not contain SWIMMER_CORE_SECRET_KEY/,
+    /Public env file must not contain SWIMMER_BACKEND_SECRET_KEY/,
   );
 });
 

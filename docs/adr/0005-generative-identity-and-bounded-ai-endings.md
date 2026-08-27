@@ -89,7 +89,7 @@ boundaries.
   retired.
 - SwimmerAIKit needs a generic adult-reference assessment seam using visual age
   evidence; this work must merge to its main branch before SupaLuv consumes it.
-- SwimmerCore needs SupaLuv-owned private product data for reference assets,
+- SwimmerBackend needs SupaLuv-owned private product data for reference assets,
   character packs, ending sessions, checkpoints, and AI spend receipts; wallet
   truth remains in shared core wallet RPCs.
 - Exact battery prices remain configuration, not this decision.

@@ -1,6 +1,7 @@
 /**
- * SwimmerCore browser env for SupaLuv.
- * Prefer VITE_SWIMMER_CORE_*; fall back to legacy VITE_SUPABASE_* for co-play.
+ * SwimmerBackend browser env for SupaLuv.
+ * Prefer VITE_SWIMMER_BACKEND_*; keep the former SwimmerCore names and the
+ * generic Supabase names as temporary compatibility fallbacks.
  */
 
 export interface SwimmerBrowserEnv {
@@ -10,11 +11,13 @@ export interface SwimmerBrowserEnv {
 
 export function readSwimmerBrowserEnv(): SwimmerBrowserEnv | null {
   const url = (
+    (import.meta.env.VITE_SWIMMER_BACKEND_SUPABASE_URL as string | undefined) ||
     (import.meta.env.VITE_SWIMMER_CORE_SUPABASE_URL as string | undefined) ||
     (import.meta.env.VITE_SUPABASE_URL as string | undefined) ||
     ""
   ).trim();
   const publishableKey = (
+    (import.meta.env.VITE_SWIMMER_BACKEND_PUBLISHABLE_KEY as string | undefined) ||
     (import.meta.env.VITE_SWIMMER_CORE_PUBLISHABLE_KEY as string | undefined) ||
     (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) ||
     ""

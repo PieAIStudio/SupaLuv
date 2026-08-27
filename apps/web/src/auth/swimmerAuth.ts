@@ -1,5 +1,5 @@
 /**
- * SwimmerCore Auth client for SupaLuv (Supabase Auth on shared project).
+ * SwimmerBackend Auth client for SupaLuv (Supabase Auth on shared project).
  * Session required for AI branch / future battery spend.
  *
  * Product owns browser client creation (URL + publishable key). Auth operations
@@ -95,11 +95,13 @@ export async function getUser(): Promise<User | null> {
   return session?.user ?? null;
 }
 
-/** One-tap guest identity on SwimmerCore (still a real account row). */
+/** One-tap guest identity on SwimmerBackend (still a real account row). */
 export async function signInAnonymously(): Promise<Session> {
   const auth = getAuthClient();
   if (!auth) {
-    throw new Error("SwimmerCore 未配置：请设置 VITE_SWIMMER_CORE_SUPABASE_URL / PUBLISHABLE_KEY");
+    throw new Error(
+      "SwimmerBackend 未配置：请设置 VITE_SWIMMER_BACKEND_SUPABASE_URL / PUBLISHABLE_KEY",
+    );
   }
   const record = await auth.signInAnonymously();
   if (!record) {
@@ -115,7 +117,7 @@ export async function signInAnonymously(): Promise<Session> {
 export async function signInWithEmail(email: string, password: string): Promise<Session> {
   const auth = getAuthClient();
   if (!auth) {
-    throw new Error("SwimmerCore 未配置");
+    throw new Error("SwimmerBackend 未配置");
   }
   // Product policy: try sign-in, then sign-up. Shared client keeps those actions separate.
   try {

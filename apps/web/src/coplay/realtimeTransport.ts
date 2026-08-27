@@ -14,11 +14,13 @@ let sharedClient: SupabaseClient | null = null;
 
 function readRealtimeEnv(): { url: string; key: string } | null {
   const url = (
+    (import.meta.env.VITE_SWIMMER_BACKEND_SUPABASE_URL as string | undefined) ||
     (import.meta.env.VITE_SWIMMER_CORE_SUPABASE_URL as string | undefined) ||
     (import.meta.env.VITE_SUPABASE_URL as string | undefined) ||
     ""
   ).trim();
   const key = (
+    (import.meta.env.VITE_SWIMMER_BACKEND_PUBLISHABLE_KEY as string | undefined) ||
     (import.meta.env.VITE_SWIMMER_CORE_PUBLISHABLE_KEY as string | undefined) ||
     (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) ||
     ""

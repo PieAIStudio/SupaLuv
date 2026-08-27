@@ -164,11 +164,12 @@ export function createCommercialRouteRuntime(
 
   function credentials(): { readonly url: string; readonly key: string } | null {
     // Deterministic tests inject via options.env (supabaseUrl / serviceRoleKey).
-    // Live paths use resolveCommercialServerCredentials (canonical vars only).
+    // Live paths use resolveCommercialServerCredentials (canonical vars first,
+    // with the former SwimmerCore names kept as a temporary fallback).
     const snapshot = env();
     const resolved = resolveCommercialServerCredentials({
-      SWIMMER_CORE_SUPABASE_URL: snapshot.supabaseUrl,
-      SWIMMER_CORE_SECRET_KEY: snapshot.serviceRoleKey,
+      SWIMMER_BACKEND_SUPABASE_URL: snapshot.supabaseUrl,
+      SWIMMER_BACKEND_SECRET_KEY: snapshot.serviceRoleKey,
     });
     if (!resolved) return null;
     return { url: resolved.supabaseUrl, key: resolved.serviceRoleKey };

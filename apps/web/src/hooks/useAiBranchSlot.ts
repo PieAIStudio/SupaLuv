@@ -27,7 +27,7 @@ interface UseAiBranchSlotOptions {
 
 /**
  * One AI generation per scene identity (requestKey).
- * Requires SwimmerCore session — no silent mock bypass for unauthenticated players.
+ * Requires a SwimmerBackend session — no silent mock bypass for unauthenticated players.
  * No free AI quota when battery balance is known and empty.
  */
 export function useAiBranchSlot({

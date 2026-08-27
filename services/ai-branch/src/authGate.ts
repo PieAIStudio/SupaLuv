@@ -15,7 +15,7 @@ export interface AuthGateFailure {
 }
 
 /**
- * Verify SwimmerCore JWT from Authorization: Bearer …
+ * Verify a SwimmerBackend JWT from Authorization: Bearer …
  * Uses the shared SwimmerBackend online verifier with a publishable key — no
  * service_role in this path. Online verification rejects revoked sessions.
  */
@@ -32,12 +32,16 @@ export async function verifyBearerToken(
 
   const url =
     firstDefinedEnv(process.env, [
+      "SWIMMER_BACKEND_SUPABASE_URL",
+      "VITE_SWIMMER_BACKEND_SUPABASE_URL",
       "SWIMMER_CORE_SUPABASE_URL",
       "VITE_SWIMMER_CORE_SUPABASE_URL",
       "VITE_SUPABASE_URL",
     ]) ?? "";
   const key =
     firstDefinedEnv(process.env, [
+      "SWIMMER_BACKEND_PUBLISHABLE_KEY",
+      "VITE_SWIMMER_BACKEND_PUBLISHABLE_KEY",
       "SWIMMER_CORE_PUBLISHABLE_KEY",
       "VITE_SWIMMER_CORE_PUBLISHABLE_KEY",
       "VITE_SUPABASE_ANON_KEY",

@@ -8,8 +8,8 @@ describe("SwimmerBackend auth gate", () => {
   const provider = { auth: { getUser } };
 
   beforeEach(() => {
-    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "https://auth.invalid");
-    vi.stubEnv("SWIMMER_CORE_PUBLISHABLE_KEY", "publishable-test-key");
+    vi.stubEnv("SWIMMER_BACKEND_SUPABASE_URL", "https://auth.invalid");
+    vi.stubEnv("SWIMMER_BACKEND_PUBLISHABLE_KEY", "publishable-test-key");
     getUser.mockReset();
   });
 

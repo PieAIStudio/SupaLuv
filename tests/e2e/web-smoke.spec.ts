@@ -466,6 +466,7 @@ test("settings expose only player-ready controls and copy", async ({ page }) => 
     "骨架",
     "后续接线",
     "swimmercore",
+    "swimmerbackend",
   ]) {
     expect(settingsText).not.toContain(forbidden);
   }

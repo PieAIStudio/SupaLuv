@@ -34,8 +34,12 @@ const REFUND_ENTRY_ID = "33333333-3333-4333-8333-333333333333";
 
 /** Isolate commercial-related env via Vitest stubs (restored by unstubAllEnvs). */
 function stubUnconfiguredCommercialEnv(): void {
+  vi.stubEnv("SWIMMER_BACKEND_SUPABASE_URL", "");
+  vi.stubEnv("SWIMMER_BACKEND_SECRET_KEY", "");
   vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "");
   vi.stubEnv("SWIMMER_CORE_SECRET_KEY", "");
+  vi.stubEnv("VITE_SWIMMER_BACKEND_SUPABASE_URL", "");
+  vi.stubEnv("VITE_SWIMMER_BACKEND_PUBLISHABLE_KEY", "");
   vi.stubEnv("VITE_SWIMMER_CORE_SUPABASE_URL", "");
   vi.stubEnv("VITE_SUPABASE_URL", "");
   vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "");
@@ -45,8 +49,8 @@ function stubUnconfiguredCommercialEnv(): void {
 describe("wallet settlement errors", () => {
   beforeEach(() => {
     stubUnconfiguredCommercialEnv();
-    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", CANONICAL_URL);
-    vi.stubEnv("SWIMMER_CORE_SECRET_KEY", CANONICAL_KEY);
+    vi.stubEnv("SWIMMER_BACKEND_SUPABASE_URL", CANONICAL_URL);
+    vi.stubEnv("SWIMMER_BACKEND_SECRET_KEY", CANONICAL_KEY);
     rpc.mockReset();
     schema.mockClear();
     rpc.mockResolvedValue({ data: {}, error: null });
@@ -248,8 +252,8 @@ describe("commercial server credential resolver", () => {
 
   it("trims whitespace from canonical URL and secret key", () => {
     const resolved = resolveCommercialServerCredentials({
-      SWIMMER_CORE_SUPABASE_URL: `  ${CANONICAL_URL}  `,
-      SWIMMER_CORE_SECRET_KEY: `  ${CANONICAL_KEY}  `,
+      SWIMMER_BACKEND_SUPABASE_URL: `  ${CANONICAL_URL}  `,
+      SWIMMER_BACKEND_SECRET_KEY: `  ${CANONICAL_KEY}  `,
     });
     expect(resolved).toEqual({
       supabaseUrl: CANONICAL_URL,
@@ -260,18 +264,18 @@ describe("commercial server credential resolver", () => {
   it("requires both canonical values", () => {
     expect(
       resolveCommercialServerCredentials({
-        SWIMMER_CORE_SUPABASE_URL: CANONICAL_URL,
+        SWIMMER_BACKEND_SUPABASE_URL: CANONICAL_URL,
       }),
     ).toBeNull();
     expect(
       resolveCommercialServerCredentials({
-        SWIMMER_CORE_SECRET_KEY: CANONICAL_KEY,
+        SWIMMER_BACKEND_SECRET_KEY: CANONICAL_KEY,
       }),
     ).toBeNull();
     expect(
       resolveCommercialServerCredentials({
-        SWIMMER_CORE_SUPABASE_URL: "   ",
-        SWIMMER_CORE_SECRET_KEY: CANONICAL_KEY,
+        SWIMMER_BACKEND_SUPABASE_URL: "   ",
+        SWIMMER_BACKEND_SECRET_KEY: CANONICAL_KEY,
       }),
     ).toBeNull();
     expect(commercialServerCredentialsConfigured({})).toBe(false);
@@ -279,7 +283,7 @@ describe("commercial server credential resolver", () => {
 
   it("does not enable wallet metering from VITE or generic aliases alone", () => {
     stubUnconfiguredCommercialEnv();
-    vi.stubEnv("VITE_SWIMMER_CORE_SUPABASE_URL", CANONICAL_URL);
+    vi.stubEnv("VITE_SWIMMER_BACKEND_SUPABASE_URL", CANONICAL_URL);
     vi.stubEnv("VITE_SUPABASE_URL", CANONICAL_URL);
     vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", CANONICAL_KEY);
 
@@ -289,11 +293,37 @@ describe("commercial server credential resolver", () => {
 
   it("enables metering only when both canonical server variables are set", () => {
     stubUnconfiguredCommercialEnv();
-    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", ` ${CANONICAL_URL} `);
-    vi.stubEnv("SWIMMER_CORE_SECRET_KEY", ` ${CANONICAL_KEY} `);
+    vi.stubEnv("SWIMMER_BACKEND_SUPABASE_URL", ` ${CANONICAL_URL} `);
+    vi.stubEnv("SWIMMER_BACKEND_SECRET_KEY", ` ${CANONICAL_KEY} `);
 
     expect(walletMeterConfigured()).toBe(true);
     expect(commercialServerCredentialsConfigured()).toBe(true);
+  });
+
+  it("prefers canonical server variables over the former SwimmerCore aliases", () => {
+    const resolved = resolveCommercialServerCredentials({
+      SWIMMER_BACKEND_SECRET_KEY: "backend-secret",
+      SWIMMER_BACKEND_SUPABASE_URL: "https://backend.invalid",
+      SWIMMER_CORE_SECRET_KEY: "legacy-secret",
+      SWIMMER_CORE_SUPABASE_URL: "https://legacy.invalid",
+    });
+
+    expect(resolved).toEqual({
+      supabaseUrl: "https://backend.invalid",
+      serviceRoleKey: "backend-secret",
+    });
+  });
+
+  it("keeps the former SwimmerCore server variables as a temporary fallback", () => {
+    stubUnconfiguredCommercialEnv();
+    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", CANONICAL_URL);
+    vi.stubEnv("SWIMMER_CORE_SECRET_KEY", CANONICAL_KEY);
+
+    expect(walletMeterConfigured()).toBe(true);
+    expect(resolveCommercialServerCredentials()).toEqual({
+      supabaseUrl: CANONICAL_URL,
+      serviceRoleKey: CANONICAL_KEY,
+    });
   });
 
   it("keeps optional-wallet skip behavior when metering is unconfigured", async () => {

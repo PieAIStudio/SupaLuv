@@ -37,7 +37,7 @@ SupaLuv 已用 Web 技术完成可部署、可游玩的产品闭环。早期方�
 - 使用 React、Vite、TypeScript 作为 Web 应用和表现层基线。
 - 使用 Ink / InkJS 作为人类作者主线剧情格式和运行时桥梁。
 - 场景清单承载背景、立绘、音频、镜头提示和 AI 权限，不把这些职责塞进原始小说文本。
-- AI 调用通过产品服务端、SwimmerAIKit 和 SwimmerCore 边界完成，不让浏览器直连密钥。
+- AI 调用通过产品服务端、SwimmerAIKit 和 SwimmerBackend 边界完成，不让浏览器直连密钥。
 - 当前不引入 PixiVN、Unity、Godot、Ren'Py 或自研叙事引擎。
 - 不以包含主要人物固定面孔的预渲染视频作为产品路径；采用可定制立绘与静态电影化演出。
 - Web 优先。桌面、移动端或商店包装只在内容与 Web 留存得到验证后推进。

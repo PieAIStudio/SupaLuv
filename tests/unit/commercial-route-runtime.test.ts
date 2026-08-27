@@ -111,8 +111,8 @@ function testRuntime(overrides: Parameters<typeof createCommercialRouteRuntime>[
 
 describe("commercial route runtime composition", () => {
   it("keeps commercial construction lazy: importing routeTable does not need database credentials", async () => {
-    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "");
-    vi.stubEnv("SWIMMER_CORE_SECRET_KEY", "");
+    vi.stubEnv("SWIMMER_BACKEND_SUPABASE_URL", "");
+    vi.stubEnv("SWIMMER_BACKEND_SECRET_KEY", "");
     vi.stubEnv("OPENROUTER_API_KEY", "");
 
     // The already-loaded route table remains usable without commercial secrets.
@@ -207,9 +207,9 @@ describe("commercial route runtime composition", () => {
   });
 
   it("agrees with walletMeter on configured vs unconfigured commercial credentials", () => {
-    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "");
-    vi.stubEnv("SWIMMER_CORE_SECRET_KEY", "");
-    vi.stubEnv("VITE_SWIMMER_CORE_SUPABASE_URL", "https://vite.invalid");
+    vi.stubEnv("SWIMMER_BACKEND_SUPABASE_URL", "");
+    vi.stubEnv("SWIMMER_BACKEND_SECRET_KEY", "");
+    vi.stubEnv("VITE_SWIMMER_BACKEND_SUPABASE_URL", "https://vite.invalid");
     vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "generic-service-role");
 
     expect(resolveCommercialServerCredentials()).toBeNull();
@@ -221,11 +221,11 @@ describe("commercial route runtime composition", () => {
       /Spend analysis database credentials are required/,
     );
 
-    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "  https://core.invalid  ");
-    vi.stubEnv("SWIMMER_CORE_SECRET_KEY", "  secret-key  ");
+    vi.stubEnv("SWIMMER_BACKEND_SUPABASE_URL", "  https://backend.invalid  ");
+    vi.stubEnv("SWIMMER_BACKEND_SECRET_KEY", "  secret-key  ");
 
     expect(resolveCommercialServerCredentials()).toEqual({
-      supabaseUrl: "https://core.invalid",
+      supabaseUrl: "https://backend.invalid",
       serviceRoleKey: "secret-key",
     });
     expect(walletMeterConfigured()).toBe(true);
@@ -247,7 +247,7 @@ describe("commercial route runtime composition", () => {
     );
   });
 
-  it("does not resolve commercial credentials from deprecated aliases in source", () => {
+  it("keeps compatibility aliases in one resolver and rejects browser/generic server aliases", () => {
     const root = join(process.cwd(), "services/ai-branch/src");
     const stripComments = (source: string) =>
       source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
@@ -257,7 +257,7 @@ describe("commercial route runtime composition", () => {
       "commercialServerConfig.ts",
     ]) {
       const code = stripComments(readFileSync(join(root, name), "utf8"));
-      expect(code).not.toContain("VITE_SWIMMER_CORE_SUPABASE_URL");
+      expect(code).not.toContain("VITE_SWIMMER_BACKEND_SUPABASE_URL");
       expect(code).not.toContain("VITE_SUPABASE_URL");
       expect(code).not.toContain("SUPABASE_SERVICE_ROLE_KEY");
     }
@@ -265,6 +265,8 @@ describe("commercial route runtime composition", () => {
     expect(walletSource).toContain("resolveCommercialServerCredentials");
     expect(walletSource).toContain("settleReservation");
     const configSource = readFileSync(join(root, "commercialServerConfig.ts"), "utf8");
+    expect(configSource).toContain("SWIMMER_BACKEND_SUPABASE_URL");
+    expect(configSource).toContain("SWIMMER_BACKEND_SECRET_KEY");
     expect(configSource).toContain("SWIMMER_CORE_SUPABASE_URL");
     expect(configSource).toContain("SWIMMER_CORE_SECRET_KEY");
   });
@@ -301,8 +303,8 @@ describe("commercial route runtime composition", () => {
     if (!address || typeof address === "string") throw new Error("missing port");
     const base = `http://127.0.0.1:${address.port}`;
 
-    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "");
-    vi.stubEnv("SWIMMER_CORE_SECRET_KEY", "");
+    vi.stubEnv("SWIMMER_BACKEND_SUPABASE_URL", "");
+    vi.stubEnv("SWIMMER_BACKEND_SECRET_KEY", "");
     vi.stubEnv("OPENROUTER_API_KEY", "");
 
     const unauthBranch = await fetch(`${base}/ai/branch`, {

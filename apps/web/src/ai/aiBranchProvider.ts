@@ -8,7 +8,7 @@ import type {
 
 /**
  * Prefer live edge (SwimmerAIKit + OpenRouter via services/ai-branch).
- * Live path requires SwimmerCore access token (Authorization Bearer).
+ * Live path requires a SwimmerBackend access token (Authorization Bearer).
  * Mock only when explicitly forced (dev) — not used as silent auth bypass.
  *
  * Dev default endpoint: `/api/ai/branch` (Vite proxy → localhost:8787)

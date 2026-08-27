@@ -4,6 +4,11 @@ interface ImportMetaEnv {
   readonly VITE_POSTHOG_KEY?: string;
   readonly VITE_POSTHOG_HOST?: string;
   readonly VITE_ENABLE_POSTHOG?: string;
+  readonly VITE_SWIMMER_BACKEND_SUPABASE_URL?: string;
+  readonly VITE_SWIMMER_BACKEND_PUBLISHABLE_KEY?: string;
+  /** Temporary compatibility aliases for the former shared-platform name. */
+  readonly VITE_SWIMMER_CORE_SUPABASE_URL?: string;
+  readonly VITE_SWIMMER_CORE_PUBLISHABLE_KEY?: string;
   readonly VITE_SUPABASE_URL?: string;
   readonly VITE_SUPABASE_ANON_KEY?: string;
   /** Optional deployment/test override: `broadcast` or `realtime`. */

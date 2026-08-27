@@ -29,7 +29,7 @@ export interface AiBranchRequest {
   readonly meters?: { mianzi: number; ai_score: number };
   /** UI locale forwarded to the edge so generated prose matches the player language. */
   readonly locale?: string;
-  /** SwimmerCore access token — required for live AI (server enforces). */
+  /** SwimmerBackend access token — required for live AI (server enforces). */
   readonly accessToken?: string | null;
   readonly signal?: AbortSignal;
 }

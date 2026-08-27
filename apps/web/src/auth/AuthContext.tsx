@@ -26,7 +26,7 @@ export interface AuthState {
   readonly batteries: number | null;
   readonly busy: boolean;
   readonly error: string | null;
-  /** True when a SwimmerCore session exists (anonymous counts). */
+  /** True when a SwimmerBackend session exists (anonymous counts). */
   readonly isSignedIn: boolean;
   signInGuest: () => Promise<void>;
   signInEmail: (email: string, password: string) => Promise<void>;

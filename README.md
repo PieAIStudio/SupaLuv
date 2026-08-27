@@ -18,7 +18,7 @@ Supa 卡牌游戏，也不包含 Boss Race 或多人对战规则。
 - React + Vite + TypeScript：Web 应用与界面
 - Ink / InkJS：作者主线剧情
 - Mastra + SwimmerAIKit：受约束 AI 剧情与生成能力
-- SwimmerCore / SwimmerClient：账号、钱包、存储与服务边界
+- SwimmerBackend / `@pieai/swimmer-backend-client`：账号、钱包、存储与服务边界
 - SwimmerUIKit：共享品牌组件；产品页面组合和游戏视觉留在本仓库
 - OpenRouter：当前模型路由；图片生成使用 Gemini 模型
 

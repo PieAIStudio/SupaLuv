@@ -38,7 +38,7 @@ related:
 Web 玩家端
   -> SupaLuv ai-branch 服务（鉴权、schema、审核、计费）
     -> SwimmerAIKit / OpenRouter 模型
-    -> SwimmerCore 钱包与产品数据
+    -> SwimmerBackend 钱包与产品数据
   <- 结构化、审核通过且已持久化的结果
 ```
 
@@ -57,8 +57,8 @@ Web 玩家端
 
 ## 不可破坏的约束
 
-- 浏览器只调用产品服务，不能拿到 OpenRouter、审核、SwimmerCore 服务密钥。
-- 服务端验证 SwimmerCore Bearer session；付费 AI 不允许匿名绕过钱包。
+- 浏览器只调用产品服务，不能拿到 OpenRouter、审核、SwimmerBackend 服务密钥。
+- 服务端验证 SwimmerBackend Bearer session；付费 AI 不允许匿名绕过钱包。
 - 所有自由输入先审，模型输出在交付前再审；不允许未成年人真人、裸体或色情生成。
 - 输出必须通过结构化 schema；无效、失败或未交付结果退款且不进入消费明细。
 - AI 支线返回的 `rejoinSceneId` 必须与作者配置一致，浏览器也要防御性校验。

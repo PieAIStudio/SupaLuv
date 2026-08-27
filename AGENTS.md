@@ -8,7 +8,7 @@
 - **Adopted profile**: `engineering-runtime`
 - **Product type**: independent AI-assisted interactive cinema / visual-novel-like game
 - **Source IP**: 超级爱人
-- **Current stack**: React, Vite, TypeScript, Ink / InkJS, still-first cinema staging, Mastra + SwimmerAIKit AI service, SwimmerCore account/wallet/storage, OpenRouter model routing
+- **Current stack**: React, Vite, TypeScript, Ink / InkJS, still-first cinema staging, Mastra + SwimmerAIKit AI service, SwimmerBackend account/wallet/storage, OpenRouter model routing
 - **Not part of**: Supa card game, Boss Race, card rules, multiplayer match loop
 
 ## Startup Reading

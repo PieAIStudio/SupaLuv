@@ -59,11 +59,14 @@ Never print or commit values. Preview and Production need:
 - AI and safety: `OPENROUTER_API_KEY`, `SUPALUV_OPENROUTER_MODEL`,
   `SUPALUV_THINKING_LEVEL`, `SIGHTENGINE_API_USER`,
   `SIGHTENGINE_API_SECRET`.
-- SwimmerCore browser/auth: `VITE_SWIMMER_CORE_SUPABASE_URL`,
-  `VITE_SWIMMER_CORE_PUBLISHABLE_KEY` and their server equivalents.
-- Wallet server: product-specific `SWIMMER_CORE_SECRET_KEY` plus
+- SwimmerBackend browser/auth: `VITE_SWIMMER_BACKEND_SUPABASE_URL`,
+  `VITE_SWIMMER_BACKEND_PUBLISHABLE_KEY` and their server equivalents.
+- Wallet server: product-specific `SWIMMER_BACKEND_SECRET_KEY` plus
   `SUPALUV_SWIMMER_APP_ID=supaluv`. Do not reuse a test key or another product's
   secret key.
+- During the environment rollout, the former `SWIMMER_CORE_*` and
+  `VITE_SWIMMER_CORE_*` names remain accepted as compatibility aliases; new
+  deployments should use the `SWIMMER_BACKEND_*` names.
 - TTS: `ELEVENLABS_API_KEY`, `MINIMAX_API_KEY`, `MINIMAX_BASE_URL`,
   `MINIMAX_GROUP_ID`, `SUPALUV_TTS_DEFAULT_LANG`.
 - Product analytics: `VITE_ENABLE_POSTHOG`, `VITE_POSTHOG_KEY`,

@@ -46,8 +46,8 @@ describe("AI route authentication order", () => {
 
   it("rejects unauthenticated AI generation before reporting provider configuration", async () => {
     vi.stubEnv("OPENROUTER_API_KEY", "");
-    vi.stubEnv("SWIMMER_CORE_SUPABASE_URL", "");
-    vi.stubEnv("SWIMMER_CORE_PUBLISHABLE_KEY", "");
+    vi.stubEnv("SWIMMER_BACKEND_SUPABASE_URL", "");
+    vi.stubEnv("SWIMMER_BACKEND_PUBLISHABLE_KEY", "");
 
     server = createServer(async (req, res) => {
       const handled = await handleAiBranchRequest(
@@ -80,7 +80,7 @@ describe("AI route authentication order", () => {
     expect(response.status).toBe(401);
     expect(body.error).toMatch(/auth|authorization/i);
     expect(body.error).not.toMatch(
-      /configured|SwimmerCore|URL|key|OPENROUTER|\/Users\/|\.secrets/i,
+      /configured|SwimmerBackend|SwimmerCore|URL|key|OPENROUTER|\/Users\/|\.secrets/i,
     );
   });
 
