@@ -12,11 +12,11 @@ importers:
   .:
     devDependencies:
       '@pieai/doc-gov':
-        specifier: 0.9.8
-        version: 0.9.8
+        specifier: 0.9.9
+        version: 0.9.9
       '@pieai/pro-gov':
-        specifier: 0.9.8
-        version: 0.9.8
+        specifier: 0.9.9
+        version: 0.9.9
       '@pieai/swimmer-ai-kit':
         specifier: 0.3.0
         version: 0.3.0
@@ -1862,13 +1862,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@pieai/doc-gov@0.9.8':
-    resolution: {integrity: sha512-NkWmjx+JYt/JqSrXprmNrr5TWrVqBg7kGpujvfWxPm6RCChL9GNqIH4OJ8K3vwTgSeRDHnqq5YMbfbj/Fpfo6w==}
+  '@pieai/doc-gov@0.9.9':
+    resolution: {integrity: sha512-QhbvkLqNEr4z7cnphxS671fuZtUB5/3jYuwM8aABuD9gnIkpGzB+r8CayyAi4lHtRCpraZyw9HNL/1CDJPjxAQ==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
-  '@pieai/pro-gov@0.9.8':
-    resolution: {integrity: sha512-ILzHlLW47CezdxjY5+PNBxAu9ENJAYuK+CXKgF5jPZ7orwlKv0cSQCKzPstbulaloK0N7TMDgAqhqqc0AbwSuw==}
+  '@pieai/pro-gov@0.9.9':
+    resolution: {integrity: sha512-cKxDYBcyOAVzUjt9KhKIz/IdLY58U3yhaFX7N6F4u5GcIQ1G4xvolDLkSk3kCY426x0K7gGWsIJfiIf5Wo768A==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
@@ -4979,6 +4979,7 @@ packages:
 
   stream-to-promise@2.2.0:
     resolution: {integrity: sha512-HAGUASw8NT0k8JvIVutB2Y/9iBk7gpgEyAudXwNJmZERdMITGdajOa4VJfD/kNiA3TppQpTP4J+CtcHwdzKBAw==}
+    deprecated: Deprecated. Use node:stream/promises and node:stream/consumers instead.
 
   streamx@2.28.0:
     resolution: {integrity: sha512-1Yowhzjf0ivGMrTIkY9hav5TxobO9qIVqUE41fiCGMGgc3CLlf4MY+9AHmZqBWgDTue0fY9zWjYFVyf6Diuobw==}
@@ -5053,6 +5054,7 @@ packages:
   tar@7.5.7:
     resolution: {integrity: sha512-fov56fJiRuThVFXD6o6/Q354S7pnWMJIVlDBYijsTNx6jKSE4pvrDTs6lUnmGvNyfJwFQQwWy3owKz1ucIhveQ==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   teex@1.0.1:
     resolution: {integrity: sha512-eYE6iEI62Ni1H8oIa7KlDU6uQBtqr4Eajni3wX7rpfXD8ysFx8z0+dri+KWEPWpBsxXfxu58x/0jvTVT1ekOSg==}
@@ -6796,11 +6798,11 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.73.0':
     optional: true
 
-  '@pieai/doc-gov@0.9.8': {}
+  '@pieai/doc-gov@0.9.9': {}
 
-  '@pieai/pro-gov@0.9.8':
+  '@pieai/pro-gov@0.9.9':
     dependencies:
-      '@pieai/doc-gov': 0.9.8
+      '@pieai/doc-gov': 0.9.9
 
   '@pieai/swimmer-ai-kit@0.3.0': {}
 
