@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
 generated_at: 2026-08-25T16:30:14.907Z
-generator_version: doc-gov@0.9.5
-docs_count: 53
+generator_version: doc-gov@0.9.8
+docs_count: 54
 docs:
   - id: ADR-0001
     path: docs/adr/0001-web-first-react-ink-baseline.md
@@ -240,10 +240,17 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-08-22
+    last_reviewed: 2026-08-28
     pinned: true
   - id: POLICY-SHARED-CLEAN-IMAGE-GENERATION
     path: docs/policy/shared-rules/clean-image-generation-rules.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-17
+    pinned: false
+  - id: POLICY-SHARED-PIE-PRODUCT-TECHNOLOGY
+    path: docs/policy/shared-rules/pie-product-technology-stack.md
     type: policy
     status: stable
     canonical: true

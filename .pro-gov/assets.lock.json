@@ -45,21 +45,21 @@
     {
       "id": "pie-rules/ai-in-the-loop",
       "sourcePath": "rules/pie-rules/ai-in-the-loop.md",
-      "delivery": "snapshot",
+      "delivery": "symlink",
       "contentHash": "sha256:344eba8c3b1f3130ed33e4b6a4511a332e2ca477e6a40ad7d4c73006197f5445",
       "targetPath": "docs/policy/shared-rules/ai-in-the-loop.md"
     },
     {
       "id": "pie-rules/brand-kit-first",
       "sourcePath": "rules/pie-rules/brand-kit-first.md",
-      "delivery": "snapshot",
-      "contentHash": "sha256:db55812e9d198c45e5fc9e934f7b783fe74c5cd53d91ab347ea2e939b435123f",
+      "delivery": "symlink",
+      "contentHash": "sha256:30bb78d836e5bc3ef478f132fd0363bad2bb88398892e46ce5c579e7701a2529",
       "targetPath": "docs/policy/shared-rules/brand-kit-first.md"
     },
     {
       "id": "pie-rules/clean-image-generation-rules",
       "sourcePath": "rules/pie-rules/clean-image-generation-rules.md",
-      "delivery": "snapshot",
+      "delivery": "symlink",
       "contentHash": "sha256:cd6a79b9971af50003812b498827837ca5c2c284d5b2c95ad3bbf3778483f74a",
       "targetPath": "docs/policy/shared-rules/clean-image-generation-rules.md"
     },

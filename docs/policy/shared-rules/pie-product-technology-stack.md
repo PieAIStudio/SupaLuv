@@ -1,1 +1,1 @@
-../../../../HQ/docs/canon/pie-product-technology-stack.md
+../../../../ProjectGovernanceSystem/agent-assets/rules/pie-rules/pie-product-technology-stack.md
