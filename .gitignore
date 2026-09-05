@@ -36,3 +36,5 @@ Temp/
 # Reproducible products live outside scratch/evidence workbenches
 tmp/
 artifacts/quality-loop/tmp/
+
+.agents/manual-skills/

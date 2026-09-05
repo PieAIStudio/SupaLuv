@@ -1,1 +1,1 @@
-/Users/yuanfei/PieAI/ProjectGovernanceSystem/agent-assets/rules/pie-rules/ai-in-the-loop.md
+../../../../ProjectGovernanceSystem/agent-assets/rules/pie-rules/ai-in-the-loop.md

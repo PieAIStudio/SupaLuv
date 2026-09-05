@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-19T02:38:09.974Z
-generator_version: doc-gov@0.8.0
-docs_count: 48
+generated_at: 2026-09-05T16:11:53.628Z
+generator_version: doc-gov@0.9.10
+docs_count: 51
 docs:
   - id: ADR-0001
     path: docs/adr/0001-web-first-react-ink-baseline.md
@@ -221,6 +221,27 @@ docs:
     canonical: true
     last_reviewed: 2026-07-15
     pinned: true
+  - id: POLICY-SHARED-AI-IN-THE-LOOP
+    path: docs/policy/shared-rules/ai-in-the-loop.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-17
+    pinned: false
+  - id: POLICY-SHARED-BRAND-KIT-FIRST
+    path: docs/policy/shared-rules/brand-kit-first.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-28
+    pinned: true
+  - id: POLICY-SHARED-CLEAN-IMAGE-GENERATION
+    path: docs/policy/shared-rules/clean-image-generation-rules.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-17
+    pinned: false
   - id: REF-AI-CONSTRAINED-BRANCH
     path: docs/reference/architecture/ai-constrained-branch.md
     type: reference
