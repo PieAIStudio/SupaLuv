@@ -1,34 +1,21 @@
 {
   "schemaVersion": 1,
   "host": "codex",
+  "scope": "project",
   "placement": "registry",
   "bundleIds": [
     "base-governance",
-    "frontend-app",
-    "taste-design"
+    "frontend-app"
   ],
   "assetIds": [
-    "npx-skills/agent-browser",
     "npx-skills/frontend-design",
     "npx-skills/impeccable",
     "npx-skills/ui-ux-pro-max",
     "pie-rules/ai-in-the-loop",
     "pie-rules/brand-kit-first",
     "pie-rules/clean-image-generation-rules",
+    "pie-skills/devspace-feedback-loop",
     "pie-skills/experience-capture",
-    "pie-skills/screenwalk",
-    "third-party-skills/brandkit",
-    "third-party-skills/design-taste-frontend",
-    "third-party-skills/design-taste-frontend-v1",
-    "third-party-skills/full-output-enforcement",
-    "third-party-skills/gpt-taste",
-    "third-party-skills/high-end-visual-design",
-    "third-party-skills/image-to-code",
-    "third-party-skills/imagegen-frontend-mobile",
-    "third-party-skills/imagegen-frontend-web",
-    "third-party-skills/industrial-brutalist-ui",
-    "third-party-skills/minimalist-ui",
-    "third-party-skills/redesign-existing-projects",
-    "third-party-skills/stitch-design-taste"
+    "pie-skills/screenwalk"
   ]
 }

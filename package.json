@@ -38,8 +38,8 @@
     "verify": "pnpm content:fidelity && pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
   },
   "devDependencies": {
-    "@pieai/doc-gov": "0.9.9",
-    "@pieai/pro-gov": "0.9.9",
+    "@pieai/doc-gov": "0.9.10",
+    "@pieai/pro-gov": "0.9.10",
     "@pieai/swimmer-ai-kit": "0.3.0",
     "@playwright/test": "1.61.1",
     "@seriousme/openapi-schema-validator": "2.9.0",
