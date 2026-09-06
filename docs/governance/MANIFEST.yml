@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-05T17:53:46.389Z
+generated_at: 2026-09-06T01:22:25.542Z
 generator_version: doc-gov@0.9.10
 docs_count: 53
 docs:
@@ -149,7 +149,7 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-07-16
+    last_reviewed: 2026-08-17
     pinned: true
   - id: REF-DOC-GOVERNANCE-BOUNDARY
     path: docs/governance/boundary.md
