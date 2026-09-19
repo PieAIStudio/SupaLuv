@@ -4,7 +4,7 @@ import {
   resolveTtsRoute,
   type TtsLocaleRoute,
   type TtsSynthesizeResult,
-} from "@pieai/swimmer-ai-kit/tts";
+} from "@pieai/swimmer-ai-provider-kit/tts";
 
 export type CoreTtsCharacterId =
   | "suming"

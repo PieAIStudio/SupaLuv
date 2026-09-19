@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   classifyTextByLocalRules,
   parseAdultReferenceDecision,
-} from "@pieai/swimmer-ai-kit/content-safety";
+} from "@pieai/swimmer-ai-provider-kit/content-safety";
 
 describe("AIKit content safety for SupaLuv tone", () => {
   it("allows sex-comedy banter", () => {

@@ -1,5 +1,5 @@
 import { Agent } from "@mastra/core/agent";
-import { createOpenRouterModel } from "@pieai/swimmer-ai-kit";
+import { createOpenRouterModel } from "@pieai/swimmer-ai-provider-kit";
 import { z } from "zod";
 import type {
   AiEndingContract,

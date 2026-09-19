@@ -1,4 +1,4 @@
-import { requestOpenRouterChatCompletion } from "@pieai/swimmer-ai-kit";
+import { requestOpenRouterChatCompletion } from "@pieai/swimmer-ai-provider-kit";
 import type {
   AiBranchBeat,
   AiBranchRequestBody,

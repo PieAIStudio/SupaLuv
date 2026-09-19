@@ -14,7 +14,7 @@ import {
   ADULT_COMEDY_MODERATION_POLICY,
   createContentModerationProvider,
   type ContentModerationProvider,
-} from "@pieai/swimmer-ai-kit/content-safety";
+} from "@pieai/swimmer-ai-provider-kit/content-safety";
 import { verifyBearerToken } from "./authGate.js";
 import {
   CharacterAssetStorageError,

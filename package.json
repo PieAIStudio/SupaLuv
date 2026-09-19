@@ -40,7 +40,7 @@
   "devDependencies": {
     "@pieai/doc-gov": "0.9.11",
     "@pieai/pro-gov": "0.9.11",
-    "@pieai/swimmer-ai-kit": "0.3.0",
+    "@pieai/swimmer-ai-provider-kit": "0.13.0",
     "@playwright/test": "1.61.1",
     "@seriousme/openapi-schema-validator": "2.9.0",
     "@types/node": "24.13.2",
