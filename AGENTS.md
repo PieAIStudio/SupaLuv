@@ -117,9 +117,49 @@ Preview/Production proof; mocks do not prove service integration.
 
 <!-- PGS-ROUTER:END -->
 
+## Three-Stage Delivery
+
+<!-- PGS-DELIVERY:THREE-STAGE -->
+
+1. **Edit locally.** Run relevant local checks with isolated data and mocks; do
+   not start paid external validation during ordinary development.
+2. **Verify, then push.** Pass the checks appropriate to the changed surface
+   before pushing. Ordinary push/PR saves code; it must not start hosted Actions
+   or Vercel preview/production deployments.
+3. **Release explicitly.** A release request may continue through cloud acceptance
+   and publication within the agreed budget. Check credentials, environment and
+   candidate readiness first; failed or missing required evidence blocks release.
+   Publish only the tested source/artifact. Reuse results only while source,
+   dependencies, relevant environment and retained artifacts remain valid.
+
+An explicitly requested preview/staging acceptance belongs to stage 3. An edit
+or push request stops at stage 2. Do not relabel routine saves as release requests.
+Repeated failures require a smaller reproducer, logs and a relevant fix or new
+evidence before rerunning; do not loop whole suites or silently raise budgets.
+Keep existing release/security gates and production runtime monitoring. These
+rules govern engineering validation, not separately authorized creative production.
+
+
 ## Upstream Rule
 
 Do not locally invent doc-gov core changes such as new document statuses,
 frontmatter schema, lifecycle rules, shared agents-routing rules, or shared AI
 rules. If such a change seems necessary, propose it in the Project Governance
 System upstream repository first.
+
+## Website Release Entry
+
+Only after an explicit website release request and the relevant local gates:
+
+1. Use a clean, committed candidate. Run required manual Actions acceptance for
+   that exact commit, if the project requires it; failure blocks publication.
+2. Confirm Vercel binding to `supaluv` (`pie-0f420159`); use
+   `vercel link --project supaluv --scope pie-0f420159` if unbound.
+3. Create a production-configured candidate with
+   `vercel deploy --prod --skip-domain --yes --scope pie-0f420159`.
+   This is paid release work; it must not run during ordinary edit/push.
+4. Verify the returned deployment URL with the project's smoke checks, then
+   `vercel promote <verified-deployment-url> --scope pie-0f420159`.
+   Promote that artifact; do not rebuild, guess a URL, or promote after failure.
+
+Existing package publishing or backend migration gates remain separate.
