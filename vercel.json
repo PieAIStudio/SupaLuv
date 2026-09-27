@@ -3,15 +3,21 @@
   "rewrites": [
     {
       "source": "/api",
-      "destination": { "service": "ai-branch" }
+      "destination": {
+        "service": "ai-branch"
+      }
     },
     {
       "source": "/api/(.*)",
-      "destination": { "service": "ai-branch" }
+      "destination": {
+        "service": "ai-branch"
+      }
     },
     {
       "source": "/(.*)",
-      "destination": { "service": "web" }
+      "destination": {
+        "service": "web"
+      }
     }
   ],
   "services": {
@@ -50,5 +56,8 @@
       "framework": "node",
       "entrypoint": "src/server.ts"
     }
+  },
+  "git": {
+    "deploymentEnabled": false
   }
 }

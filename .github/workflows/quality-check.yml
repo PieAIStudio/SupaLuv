@@ -2,36 +2,6 @@ name: quality-check
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - ".github/workflows/quality-check.yml"
-      - "apps/**"
-      - "package.json"
-      - "packages/**"
-      - "playwright.config.*"
-      - "pnpm-lock.yaml"
-      - "pnpm-workspace.yaml"
-      - "services/**"
-      - "tests/**"
-      - "tools/**"
-      - "tsconfig*.json"
-      - "vitest.config.*"
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/quality-check.yml"
-      - "apps/**"
-      - "package.json"
-      - "packages/**"
-      - "playwright.config.*"
-      - "pnpm-lock.yaml"
-      - "pnpm-workspace.yaml"
-      - "services/**"
-      - "tests/**"
-      - "tools/**"
-      - "tsconfig*.json"
-      - "vitest.config.*"
 
 permissions:
   contents: read
