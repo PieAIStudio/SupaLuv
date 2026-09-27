@@ -2,15 +2,10 @@
   "schemaVersion": 1,
   "host": "codex",
   "scope": "project",
-  "placement": "registry",
-  "bundleIds": [
-    "base-governance",
-    "frontend-app"
-  ],
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:6489b4f85dce29eed76cf3763308b8e0f11dccfd55af5ebe045dfb7422ed38ea",
+    "hash": "sha256:0d7060359dbd0fe58f666765e23531a54b1b792106ad129a95f856a35fa45b41",
     "assetCount": 9
   },
   "assets": [
@@ -19,6 +14,7 @@
       "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
       "delivery": "symlink",
       "contentHash": "sha256:7e9c2af00fd5b3144f49ce6fb1b16037b392ab9c2f049423b0b6114d99381ba2",
+      "placement": "auto",
       "targetPath": ".agents/skills/frontend-design"
     },
     {
@@ -26,6 +22,7 @@
       "sourcePath": "skills/npx-skills/.agents/skills/impeccable",
       "delivery": "symlink",
       "contentHash": "sha256:2c68070631f0c376794820c90f0a9e71b069f67905c76c2e72d472d51b4c146a",
+      "placement": "auto",
       "targetPath": ".agents/skills/impeccable"
     },
     {
@@ -33,41 +30,43 @@
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
       "delivery": "symlink",
       "contentHash": "sha256:f66b17600aed03da23e2f038c5ffe4bf96c8227522339439dd5720b48d3a5824",
+      "placement": "auto",
       "targetPath": ".agents/skills/ui-ux-pro-max"
     },
     {
       "id": "pie-rules/ai-in-the-loop",
       "sourcePath": "rules/pie-rules/ai-in-the-loop.md",
       "delivery": "symlink",
-      "contentHash": "sha256:344eba8c3b1f3130ed33e4b6a4511a332e2ca477e6a40ad7d4c73006197f5445",
+      "contentHash": "sha256:727495c221692756143191b66bace38d8da0bf720ac4e2b668a8f04a2ea68910",
       "targetPath": "docs/policy/shared-rules/ai-in-the-loop.md"
     },
     {
       "id": "pie-rules/brand-kit-first",
       "sourcePath": "rules/pie-rules/brand-kit-first.md",
       "delivery": "symlink",
-      "contentHash": "sha256:30bb78d836e5bc3ef478f132fd0363bad2bb88398892e46ce5c579e7701a2529",
+      "contentHash": "sha256:7f4a7a9e694cda67dd184247f7a4d11cfb423937d1d52f09c5baaeec62c0183c",
       "targetPath": "docs/policy/shared-rules/brand-kit-first.md"
     },
     {
       "id": "pie-rules/clean-image-generation-rules",
       "sourcePath": "rules/pie-rules/clean-image-generation-rules.md",
       "delivery": "symlink",
-      "contentHash": "sha256:cd6a79b9971af50003812b498827837ca5c2c284d5b2c95ad3bbf3778483f74a",
+      "contentHash": "sha256:3642eb50666795d9bed4b835d74bae9c1c729d70ac11156a7280132b3b24efc8",
       "targetPath": "docs/policy/shared-rules/clean-image-generation-rules.md"
     },
     {
-      "id": "pie-skills/devspace-feedback-loop",
-      "sourcePath": "skills/pie-skills/devspace-feedback-loop",
+      "id": "pie-rules/document-convergence",
+      "sourcePath": "rules/pie-rules/document-convergence.md",
       "delivery": "symlink",
-      "contentHash": "sha256:f22d07af485a672c82c9ba8854b962dc284ce345f6bdff2cce01356cbb350c08",
-      "targetPath": ".agents/manual-skills/devspace-feedback-loop"
+      "contentHash": "sha256:5eaa98718bfa92fadf3a972fd43434e07b7baf5a47e0b9f22f397a3d2e6037e6",
+      "targetPath": "docs/policy/shared-rules/document-convergence.md"
     },
     {
       "id": "pie-skills/experience-capture",
       "sourcePath": "skills/pie-skills/experience-capture",
       "delivery": "symlink",
       "contentHash": "sha256:7e721266aa5bb311c9e66b887046270cd29cb6125a4fa3c103471d775aa40d65",
+      "placement": "auto",
       "targetPath": ".agents/skills/experience-capture"
     },
     {
@@ -75,6 +74,7 @@
       "sourcePath": "skills/pie-skills/screenwalk",
       "delivery": "symlink",
       "contentHash": "sha256:4d2ccbffdba26191cfc1b64d4f070c351f34a729e9ffb28c7dca00759a4837f7",
+      "placement": "auto",
       "targetPath": ".agents/skills/screenwalk"
     }
   ]
