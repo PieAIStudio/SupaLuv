@@ -16,11 +16,7 @@ pinned: false
 related:
   - REF-OWNER-APPROVED-AUDIT-EXTRACT-2026-07
   - REF-CURRENT-WORK
-archive_reason: >
-  External review mixed strong UX/engineering evidence with rejected commercial
-  prescriptions (buy-the-story pricing, free AI, freeze all systems). Owner
-  approved extract lives at docs/reference/strategy/owner-approved-audit-extract-2026-07.md.
-  Full text kept only as historical process record — not AI startup truth.
+archive_reason: "External review mixed strong UX/engineering evidence with rejected commercial prescriptions (buy-the-story pricing, free AI, freeze all systems). Owner approved extract lives at docs/reference/strategy/owner-approved-audit-extract-2026-07.md. Full text kept only as historical process record — not AI startup truth."
 ---
 
 # SupaLuv 商业完成态审计（2026-07）— ARCHIVED

@@ -1,21 +1,39 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "host": "codex",
   "scope": "project",
-  "placement": "registry",
-  "bundleIds": [
-    "base-governance",
-    "frontend-app"
-  ],
-  "assetIds": [
-    "npx-skills/frontend-design",
-    "npx-skills/impeccable",
-    "npx-skills/ui-ux-pro-max",
-    "pie-rules/ai-in-the-loop",
-    "pie-rules/brand-kit-first",
-    "pie-rules/clean-image-generation-rules",
-    "pie-skills/devspace-feedback-loop",
-    "pie-skills/experience-capture",
-    "pie-skills/screenwalk"
+  "assets": [
+    {
+      "id": "npx-skills/frontend-design",
+      "placement": "auto"
+    },
+    {
+      "id": "npx-skills/impeccable",
+      "placement": "auto"
+    },
+    {
+      "id": "npx-skills/ui-ux-pro-max",
+      "placement": "auto"
+    },
+    {
+      "id": "pie-rules/ai-in-the-loop"
+    },
+    {
+      "id": "pie-rules/brand-kit-first"
+    },
+    {
+      "id": "pie-rules/clean-image-generation-rules"
+    },
+    {
+      "id": "pie-rules/document-convergence"
+    },
+    {
+      "id": "pie-skills/experience-capture",
+      "placement": "auto"
+    },
+    {
+      "id": "pie-skills/screenwalk",
+      "placement": "auto"
+    }
   ]
 }
