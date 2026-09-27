@@ -115,6 +115,20 @@ git diff --check
 For AI, moderation, wallet, storage, or deployment changes, add a minimal live
 Preview/Production proof; mocks do not prove service integration.
 
+## Credentials And Local Environment
+
+For credentials, login or local environment files, first read
+`<portfolio-root>/.secrets/README.md`, then
+`docs/policy/shared-rules/cloud-platform-access.md`. Use the project's existing
+adapter and recorded central location; do not assume secrets belong in this repository.
+
+## Document Convergence
+
+When creating docs, changing documented truth, or completing a feature/phase,
+read `docs/policy/shared-rules/document-convergence.md` and reconcile the affected
+facts and references. Preserve decision rationale and original evidence; do not
+turn routine development into a whole-repository cleanup.
+
 <!-- PGS-ROUTER:END -->
 
 ## Three-Stage Delivery
