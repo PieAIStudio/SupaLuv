@@ -141,7 +141,10 @@ test("AI branch wait shows Heartbeat Engine interstitial under mock delay", asyn
     if (await ready.isVisible().catch(() => false)) {
       break;
     }
-    await page.getByTestId("story-copy").click().catch(() => undefined);
+    await page
+      .getByTestId("story-copy")
+      .click()
+      .catch(() => undefined);
     await page.waitForTimeout(120);
   }
 

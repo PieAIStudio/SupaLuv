@@ -1,16 +1,22 @@
 {
   "id": "draft-2026-07",
   "importedAt": "2026-07-16",
-  "note": "draft01 byte-identical to novel-v2 ch01; draft02 is novel-v2 ch02 after oxfmt-stable whitespace normalize.",
+  "coverageUpdatedAt": "2026-07-22",
+  "note": "draft01 and draft03 are byte-identical to novel-v2 ch01/ch03; draft02 is novel-v2 ch02 after oxfmt-stable whitespace normalization.",
   "coverageMappingDigest": {
     "algorithm": "sha256",
-    "entryCount": 290,
-    "value": "691b1e8f207fdade749dd63cdeff2ae3e635648a1649767d664cac1e81d1a144"
+    "contractVersion": 2,
+    "entryCount": 434,
+    "value": "5767e022d51836d5314455d7c646a9556daf4ec7b5b4a065047ded78bcda03df"
   },
   "sources": [
     {
       "id": "draft01",
       "relativePath": "draft01.md",
+      "chapterId": "draft-ch01",
+      "inkFile": "draft-ch01.ink",
+      "bodyParagraphCount": 142,
+      "structureBlockCount": 10,
       "originalAbsolutePath": "/Users/yuanfei/PieAI/SupaLuv/Temp/novel-v2-2026-07-16/ch01.md",
       "sha256": "84349750a806a57dfdb4fa4cf0cb6eb583171c22b51ce87be5fc9e8feb3a0292",
       "title": "第一章 你有病吧"
@@ -18,9 +24,24 @@
     {
       "id": "draft02",
       "relativePath": "draft02.md",
+      "chapterId": "draft-ch02",
+      "inkFile": "draft-ch02.ink",
+      "bodyParagraphCount": 148,
+      "structureBlockCount": 11,
       "originalAbsolutePath": "/Users/yuanfei/PieAI/SupaLuv/Temp/novel-v2-2026-07-16/ch02.oxfmt.md",
       "sha256": "1d88bdab9a8d8999576c4fd1390124b819b2f9a579fc94cec8256cc864d6f437",
       "title": "第二章 她不会评判你"
+    },
+    {
+      "id": "draft03",
+      "relativePath": "draft03.md",
+      "chapterId": "draft-ch03",
+      "inkFile": "draft-ch03.ink",
+      "bodyParagraphCount": 144,
+      "structureBlockCount": 12,
+      "originalAbsolutePath": "/Users/yuanfei/PieAI/SupaLuv/Temp/novel-v2-2026-07-16/ch03.md",
+      "sha256": "eb9d4866d41f3b7a9abf3afc3099fa505b99efa6229a17a2a63923de865b34c0",
+      "title": "第三章 长按七秒"
     }
   ]
 }

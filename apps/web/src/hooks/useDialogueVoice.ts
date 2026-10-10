@@ -119,11 +119,7 @@ export function useDialogueVoice({
     // Pre-generated clips are static assets: guests hear authored lines with
     // no auth, no server, no per-line spend. Only local playback gates apply.
     const pregenOk =
-      enabled &&
-      !masterMuted &&
-      Boolean(text.trim()) &&
-      !gameAudio.isMuted() &&
-      volumeAtStart > 0;
+      enabled && !masterMuted && Boolean(text.trim()) && !gameAudio.isMuted() && volumeAtStart > 0;
 
     const segments = planBrowserTtsSegments(text, language);
     const segmentsOk = segments.length > 0 && !hasMixedTtsRoutes(segments);

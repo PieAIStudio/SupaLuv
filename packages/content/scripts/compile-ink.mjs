@@ -14,20 +14,27 @@ const packageRoot = resolve(__dirname, "..");
 const repoRoot = resolve(packageRoot, "../..");
 const inkDir = join(packageRoot, "ink");
 const outDir = join(packageRoot, "compiled");
+const catalogPath = join(packageRoot, "catalog", "story-catalog.json");
 const require = createRequire(resolve(packageRoot, "../../apps/web/package.json"));
 const { Compiler } = require("inkjs/full");
 
-/** Production + selectable-dev fixtures that ship as precompiled JSON. */
-const DEFAULT_INK = [
-  "draft-ch01.ink",
-  "draft-ch01.en.ink",
-  "draft-ch02.ink",
-  "draft-ch02.en.ink",
-  "draft-ch03.ink",
-  "draft-ch03.en.ink",
-  "prototype-act1.ink",
-  "chapter-01-trial.ink",
-];
+/** Production + selectable-dev fixtures derived from the runtime catalog. */
+function catalogInkTargets() {
+  const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+  const targets = [];
+  for (const chapter of [...(catalog.productionChapters ?? []), ...(catalog.devChapters ?? [])]) {
+    const base = chapter.inkFile ?? `${chapter.id}.ink`;
+    if (!existsSync(join(inkDir, base))) {
+      throw new Error(`Catalog chapter ${chapter.id} is missing Ink source ${base}`);
+    }
+    targets.push(base);
+    const translated = base.replace(/\.ink$/u, ".en.ink");
+    if (existsSync(join(inkDir, translated))) {
+      targets.push(translated);
+    }
+  }
+  return [...new Set(targets)];
+}
 
 function formatWithOxfmt(filePath) {
   const oxfmtBin = resolve(repoRoot, "node_modules/.bin/oxfmt");
@@ -41,7 +48,7 @@ mkdirSync(outDir, { recursive: true });
 
 const targets = process.argv.includes("--all")
   ? readdirSync(inkDir).filter((name) => name.endsWith(".ink"))
-  : DEFAULT_INK;
+  : catalogInkTargets();
 
 const written = [];
 let failed = 0;

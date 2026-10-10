@@ -6,7 +6,7 @@
 import { createServer } from "node:http";
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { firstDefinedEnv } from "@pieai/swimmer-ai-kit/env";
+import { firstDefinedEnv } from "@pieai/swimmer-ai-provider-kit/env";
 import { hasOpenRouterKey, sendJson } from "./httpUtils.js";
 import { loadPublicEnvFileForServer, loadServerEnvFile } from "./localServerEnv.js";
 import { handleAiBranchRequest } from "./routeTable.js";

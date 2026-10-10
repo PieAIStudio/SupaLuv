@@ -3,7 +3,7 @@ import type { AiBranchProvider, AiBranchRequest, AiBranchResult } from "./aiBran
 /**
  * Local demo provider — no API keys.
  * Proves UX: wait → AI choice → short side beats → forced rejoin.
- * Live path later: server using @pieai/swimmer-ai-kit OpenRouter + moderation.
+ * Live path later: server using @pieai/swimmer-ai-provider-kit OpenRouter + moderation.
  */
 const VARIANTS_ZH: readonly Omit<AiBranchResult, "rejoinSceneId" | "provider">[] = [
   {

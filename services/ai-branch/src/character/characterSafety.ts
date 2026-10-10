@@ -2,7 +2,7 @@ import type {
   ContentModerationProvider,
   SafetyDecision,
   VisualModerationAsset,
-} from "@pieai/swimmer-ai-kit/content-safety";
+} from "@pieai/swimmer-ai-provider-kit/content-safety";
 import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 import type { CharacterImageInput } from "./characterImageProvider.js";

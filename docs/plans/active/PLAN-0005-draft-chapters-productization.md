@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: ai-assisted
 created: 2026-07-12
-last_reviewed: 2026-07-16
+last_reviewed: 2026-07-22
 domain: execution
 tags:
   - narrative
@@ -22,7 +22,7 @@ related:
 
 ## Goal
 
-以 `SPEC-0003` 为冻结规格，把两章草稿替换为可玩的默认内容，同时交付共享剧情图、
+以 `SPEC-0003` 为冻结规格，把当前三章草稿替换为可玩的默认内容，同时交付共享剧情图、
 游戏式加载、首个剧情小游戏和每轮真实试玩证据。
 
 ## Dependency map
@@ -37,11 +37,13 @@ related:
 
 ### Stage 1 · Content foundation (serial)
 
-- [x] 固化两份 source snapshot、hash 和 coverage ledger schema。
+- [x] 固化三份 source snapshot、hash、reviewed override 与 coverage digest schema。
 - [x] 退休旧 Demo 默认故事与冲突人物/事件引用，并给旧存档明确提示。
 - [x] 通用化 story catalog、chapter checkpoint、runner 和跨章存档。
 - [x] 完整编写第一章 Ink、scene manifest 与来源覆盖映射。
 - [x] 完整编写第二章 Ink、scene manifest 与来源覆盖映射。
+- [x] 完整注册第三章 Ink、scene manifest、英文轨与来源覆盖映射。
+- [x] 交付三章双语运行时保真闸门，拒绝 dead Ink 文本与漂移 adaptation receipt 伪造。
 - [x] 注册陈佳、雷欧、石佩欣及所需 NPC/声线稳定 ID。
 - [x] 建来源覆盖、图可达性、manifest 对齐、章间变量与旧 ID 清理测试。
 - [x] 用占位资产跑通两章至少两条差异路径。
@@ -63,12 +65,14 @@ related:
 ### Stage 3 · Art, audio, and content polish
 
 - [x] 冻结 Round 15 演出圣经：13 个 sequence、8 个回响槽、视觉 shot/mood/prop 表、分层音频与正文语音经济。
-- [ ] 为两章制作并登记背景、道具 UI、NPC/主角情绪立绘和授权/hash。
+- [ ] 为三章制作并登记背景、道具 UI、NPC/主角情绪立绘和授权/hash。
 - [x] 修复苏明 6 张残留洋红底的立绘，并增加透明蒙版像素门禁与舞台截图回归。
-- [ ] 配置核心角色 TTS，完成雷欧中英路由、取消、跳过和混音 ducking。
+- [ ] 配置核心角色 TTS，完成雷欧中英路由、取消、跳过和混音 ducking（双语静态库与离线选角已完成；英文实时 TTS 路由及发布抽检未关闭）。
 - [ ] 配置 sequence 级 BGM、ambient 和 SFX，移除错用旧 Demo 音画。
 - [x] 商品化选角与窄屏菜单：上传控件本地化、移动横屏可达性和清晰视觉层级。
 - [ ] 校准长文本节拍、镜头变化、选项回响和小游戏出现频率。
+- [ ] 在第 4–18 章批量大资产生成前，由 owner 决定对象存储/CDN 的 URL、hash、缓存、回滚与构建校验契约并立 ADR。
+- [ ] 为历史语音补正式 legacy exception 或可证明的迁移记录；禁止为缺失历史信息补造 prompt。
 
 ### Stage 4 · Verification and release
 
@@ -77,6 +81,7 @@ related:
 - [ ] 第二轮 playtest：选择感、视听、地图、存档与失败恢复。
 - [x] 截至 Round 14 的最新组合态 release ladder：格式、lint、资产 intake、类型、514 个单测、29 个 E2E、构建、Vercel Services 输出和治理检查通过。
 - [ ] Production 最小试玩（真实 AI、审核、钱包和存储）仍需发布门单独验收。
+- [ ] **blocked：缺第四章草稿**；收到后执行 ≤5 工作日、owner ≤1 决策日的双语有声章节计时演习。
 - [ ] 更新 SSOT；完成后归档计划/规格并清理所有分支/worktree。
 
 ## Round 6 evidence
@@ -114,6 +119,27 @@ related:
 manifest 自证 `resolved`。组合态额外修复两处 lint、六个格式问题和过宽 E2E route mock。
 最终证据：83 个测试文件、514 个单测、29/29 E2E、普通构建、Vercel Services 输出合同、
 `docs:check` 与 `git diff --check` 全部通过；正式资产仍按设计阻断，不等于 Stage 3 完成。
+
+## Round 15 evidence
+
+2026-07-22 完成“当前三章内容管线就绪”收口：`story-catalog.json` 成为章节、双语标签、
+能力、语音语言与文件名的目录 SSOT；所有生产章节通过冷加载注册测试，资产审计也从该目录
+反推范围。来源覆盖拆成 434 条派生 ledger 与 117 条带 `sourceHash` 的 reviewed override，
+digest v2 覆盖完整 adaptation receipt；双语 fidelity gate 用 Ink 实际输出 witness 验证原稿、
+可达 scene、choice 与 terminal，dead branch 对抗测试证明“源码里出现过”不能冒充玩家可见。
+终审又抓出两条重复原文错图并修正，新增 literal occurrence 容量与原稿邻接约束，防止多个
+source occurrence 复用同一 witness 或在多个候选 scene 中选错语境。
+
+语音工具改为只读计划或显式全局 `--sync`，付费模式需要预期缺失数、绑定文本/选角/volume/
+完整 MP3 hash 与元数据/孤儿/catalog/账本/provenance/历史债摘要的具体计划 digest 和最高预算；
+写入会同步维护 MP3、账本、逐字 provenance、历史债摘要与 catalog，以 catalog 激活为提交点并
+在普通失败时回滚整组资产。回归测试覆盖无参数拒绝、计划只读、菜单指纹、binary/digest 漂移、
+scoped sync 拒绝、事务故障注入与零成本同步。安全同步零 API 调用清理 2 个孤儿并保留 288 条
+双语静态语音。本轮新增 2 条生成语音已登记 hash 与逐资产溯源；其余 286 条历史债只做不可增长/
+不可漂移的摘要冻结，不冒充正式 provenance。分析 helper 保证成功一次、blocked/throw 零次，App 的
+new/resume/advance/manual load 四类路径均已接线；注册逻辑不再暗赠电池。以上是管线就绪，
+不代表第四章吞吐演习、正式小说、正式视听、独立 critic、生产 PostHog 证据或 Production
+发布门已经完成。
 
 ## Release gates
 

@@ -89,43 +89,6 @@ export async function getWalletBalance(
   }
 }
 
-/**
- * One-time signup grant so fresh accounts can actually taste the AI hook.
- * Off unless SUPALUV_SIGNUP_GRANT_BATTERIES > 0 (owner enables via env; the
- * amount is a product decision, not a code default). Safe to call on every
- * balance read: the per-user idempotency key makes the ledger write once-only.
- */
-export function signupGrantBatteries(): number {
-  const parsed = Number(process.env.SUPALUV_SIGNUP_GRANT_BATTERIES ?? "0");
-  return Number.isSafeInteger(parsed) && parsed > 0 ? parsed : 0;
-}
-
-export async function maybeGrantSignupBatteries(
-  userId: string,
-  client?: SupabaseClient,
-): Promise<boolean> {
-  const batteries = signupGrantBatteries();
-  if (batteries <= 0) {
-    return false;
-  }
-  const wallet = walletClient(client);
-  if (!wallet) {
-    return false;
-  }
-  try {
-    await wallet.grant({
-      amountPowerUnits: String(batteries * POWER_PER_BATTERY),
-      idempotencyKey: `signup_grant:v1:${userId}`,
-      kind: "earn",
-      metadata: { reason: "signup_grant", batteries },
-      userId,
-    });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 export interface ReserveResult {
   readonly ok: true;
   readonly reservationId: string;

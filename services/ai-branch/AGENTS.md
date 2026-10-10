@@ -32,19 +32,19 @@ pnpm dev:ai
 
 ## 主要路由 / 模块（指路）
 
-| 文件 | 职责 |
-| --- | --- |
-| `src/server.ts` | 读 env、listen；无产品逻辑 |
-| `src/routeTable.ts` | 全部 HTTP 路由分发 |
-| `src/handler.ts` / `src/branch/mastraBranch.ts` | AI 支线生成 |
-| `src/branch/prompts.ts` | 支线 system/user 提示；`locale`（`en*`→英文，否则中文） |
-| `src/safetyGate.ts` | 支线入出审核 |
-| `src/wallet/walletMeter.ts` | 钱包 reserve/settle/refund |
-| `src/tts/ttsRoute.ts` / `src/tts/ttsCatalog.ts` | TTS 合成与预览 catalog |
-| `src/authGate.ts` | Bearer JWT |
-| `src/commercialRouteRuntime.ts` + `character/` / `ending/` / `wallet/spendRoutes.ts` | 商业角色 / 结局 / spend |
-| `src/persistence/` | 持久化实现（见该目录 README） |
-| `src/{character,ending,branch,tts,wallet}/` | 领域子目录（各有短 `AGENTS.md`） |
+| 文件                                                                                 | 职责                                                    |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------- |
+| `src/server.ts`                                                                      | 读 env、listen；无产品逻辑                              |
+| `src/routeTable.ts`                                                                  | 全部 HTTP 路由分发                                      |
+| `src/handler.ts` / `src/branch/mastraBranch.ts`                                      | AI 支线生成                                             |
+| `src/branch/prompts.ts`                                                              | 支线 system/user 提示；`locale`（`en*`→英文，否则中文） |
+| `src/safetyGate.ts`                                                                  | 支线入出审核                                            |
+| `src/wallet/walletMeter.ts`                                                          | 钱包 reserve/settle/refund                              |
+| `src/tts/ttsRoute.ts` / `src/tts/ttsCatalog.ts`                                      | TTS 合成与预览 catalog                                  |
+| `src/authGate.ts`                                                                    | Bearer JWT                                              |
+| `src/commercialRouteRuntime.ts` + `character/` / `ending/` / `wallet/spendRoutes.ts` | 商业角色 / 结局 / spend                                 |
+| `src/persistence/`                                                                   | 持久化实现（见该目录 README）                           |
+| `src/{character,ending,branch,tts,wallet}/`                                          | 领域子目录（各有短 `AGENTS.md`）                        |
 
 HTTP 路径一览以 `routeTable.ts` 与 README 表为准，不在此复述实现。
 

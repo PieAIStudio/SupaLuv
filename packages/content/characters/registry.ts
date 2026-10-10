@@ -172,10 +172,7 @@ const NAMEPLATE_ONLY: Readonly<Record<string, { zh: string; en: string }>> = {
  * Locale-aware nameplate for an authored (Chinese) speaker string.
  * Player display-name overrides are applied separately by the play layer.
  */
-export function resolveCharacterDisplayName(
-  speaker: string | undefined,
-  locale: string,
-): string {
+export function resolveCharacterDisplayName(speaker: string | undefined, locale: string): string {
   if (!speaker) {
     return "";
   }

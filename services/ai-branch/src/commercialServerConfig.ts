@@ -10,7 +10,7 @@
  * configured vs unconfigured state.
  */
 
-import { firstDefinedEnv } from "@pieai/swimmer-ai-kit/env";
+import { firstDefinedEnv } from "@pieai/swimmer-ai-provider-kit/env";
 
 export type CommercialServerCredentials = {
   readonly supabaseUrl: string;

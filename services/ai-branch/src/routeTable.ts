@@ -24,8 +24,6 @@ import {
   TTS_COST_BATTERIES,
   commitReservation,
   getWalletBalance,
-  maybeGrantSignupBatteries,
-  signupGrantBatteries,
   refundReservation,
   reserveBatteries,
   settleReservation,
@@ -144,13 +142,7 @@ export async function handleAiBranchRequest(
         });
         return true;
       }
-      let balance = await getWalletBalance(auth.userId);
-      // Empty wallet: attempt the idempotent signup grant, then re-read.
-      if ((!balance || balance.availablePowerUnits === 0) && signupGrantBatteries() > 0) {
-        if (await maybeGrantSignupBatteries(auth.userId)) {
-          balance = await getWalletBalance(auth.userId);
-        }
-      }
+      const balance = await getWalletBalance(auth.userId);
       if (!balance) {
         sendJson(res, 200, { batteries: 0, available: true, reason: "empty_or_app_missing" });
         return true;

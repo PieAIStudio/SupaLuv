@@ -6,22 +6,22 @@
 
 Ink 只打类型与步号，**展示文案不在 Ink 正文**：
 
-| Tag | 含义 |
-| --- | --- |
-| `# interaction:<id>` | 注册表 id，如 `mobile-questionnaire-v1` |
-| `# interaction-step:N` | 1-based 步号 |
-| `# interaction-variant:<name>` | **可选** per-scene 载荷名 |
+| Tag                            | 含义                                    |
+| ------------------------------ | --------------------------------------- |
+| `# interaction:<id>`           | 注册表 id，如 `mobile-questionnaire-v1` |
+| `# interaction-step:N`         | 1-based 步号                            |
+| `# interaction-variant:<name>` | **可选** per-scene 载荷名               |
 
 解析：`resolveStoryInteraction` → `ActiveStoryInteraction.variant`（缺省为 `null`）。
 
 ### 已登记 variant
 
-| type | variant | 用途 |
-| --- | --- | --- |
-| `mobile-questionnaire` | *(null / default)* | ch02 邻居容忍度申请问卷 |
-| `mobile-questionnaire` | `matching` | ch03 个性化匹配问卷 |
-| `barcode-sweep` | *(null / default)* | ch02 超市临期货练习 |
-| `barcode-sweep` | `activation` | ch03 心动引擎开箱激活码 |
+| type                   | variant            | 用途                    |
+| ---------------------- | ------------------ | ----------------------- |
+| `mobile-questionnaire` | _(null / default)_ | ch02 邻居容忍度申请问卷 |
+| `mobile-questionnaire` | `matching`         | ch03 个性化匹配问卷     |
+| `barcode-sweep`        | _(null / default)_ | ch02 超市临期货练习     |
+| `barcode-sweep`        | `activation`       | ch03 心动引擎开箱激活码 |
 
 载荷表：`mobileQuestionnaire.ts` / `barcodeSweep.ts` 的 `resolve*Payload(variant)`。  
 **choiceId 拓扑跨 variant 共用**（Ink 选项 id 不变）；只换 i18n 键与 product/question 展示。

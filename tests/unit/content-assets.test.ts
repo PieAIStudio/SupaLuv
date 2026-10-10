@@ -10,6 +10,7 @@ import { afterEach, describe, expect, it } from "vitest";
 const workspaceRoot = path.resolve(import.meta.dirname, "../..");
 const auditScript = path.join(workspaceRoot, "tools/asset-audit.mjs");
 const intakePath = path.join(workspaceRoot, "packages/content/assets/VISUAL-ASSET-INTAKE.json");
+const storyCatalogPath = path.join(workspaceRoot, "packages/content/catalog/story-catalog.json");
 const scratchRoot = path.join(workspaceRoot, ".scratch/content-assets-tests");
 const rightsEvidenceRoot = path.join(workspaceRoot, "packages/content/assets/rights-evidence");
 const releaseEvidenceRoot = path.join(workspaceRoot, "packages/content/assets/release-evidence");
@@ -288,7 +289,18 @@ async function loadAuditModule(): Promise<{
   };
 }
 
-describe("two-chapter visual asset intake", () => {
+describe("production-catalog visual asset intake", () => {
+  it("keeps intake chapter scope aligned with the production story catalog", async () => {
+    const [intake, storyCatalog] = await Promise.all([
+      fs.readFile(intakePath, "utf8").then((body) => JSON.parse(body)),
+      fs.readFile(storyCatalogPath, "utf8").then((body) => JSON.parse(body)),
+    ]);
+
+    expect(intake.chapters).toEqual(
+      storyCatalog.productionChapters.map((chapter: { id: string }) => chapter.id),
+    );
+  });
+
   it("requires provenance records for AI-generated ledger assets (policy allow-list for backlog)", async () => {
     const csv = await fs.readFile(runtimeLedgerPath, "utf8");
     const rows = csv
@@ -333,9 +345,10 @@ describe("two-chapter visual asset intake", () => {
       }
     }
 
-    expect(missing, `AI-generated assets missing provenance/<id>.md: ${missing.join(", ")}`).toEqual(
-      [],
-    );
+    expect(
+      missing,
+      `AI-generated assets missing provenance/<id>.md: ${missing.join(", ")}`,
+    ).toEqual([]);
     // Keep whitelist honest: once a record exists, drop it from the allow-list.
     expect(
       unexpectedWhitelist,
@@ -364,7 +377,7 @@ describe("two-chapter visual asset intake", () => {
       present: 80,
       missing: 1,
       openGaps: 3,
-      releaseBlockers: 49,
+      releaseBlockers: 50,
     });
     expect(result.report.checks.stableIds).toBe(81);
     expect(result.report.checks.fileExistence).toBe(80);
@@ -372,11 +385,21 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.checks.dimensions).toBe(80);
     expect(result.report.checks.sha256).toBe(80);
     expect(result.report.checks.attribution).toBe(81);
-    // +empty-floor +under-floorboards (audio ledger-only; visual intake count unchanged)
-    expect(result.report.checks.runtimeLedgerRows).toBe(58);
+    // Audio rows are ledger-only; visual intake count remains unchanged.
+    expect(result.report.checks.runtimeLedgerRows).toBe(60);
     expect(result.report.checks.rightsEvidence).toBe(0);
     expect(result.report.checks.gapResolutions).toBe(0);
-    expect(result.report.checks.productionTruth).toBe(49);
+    expect(result.report.checks.productionTruth).toBe(50);
+    expect(result.report.releaseBlockers).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          assetId: "bg-product-page",
+          truthSources: expect.arrayContaining([
+            "packages/content/manifests/draft-ch03-scenes.ts:artKey",
+          ]),
+        }),
+      ]),
+    );
     // 12 lead + 11 NPC ADR-0006 CG portraits share the calibrated green matte gate.
     expect(result.report.checks.portraitMatte).toBe(23);
     expect(result.report.checks.reverseCoverage).toBeGreaterThan(0);
@@ -420,7 +443,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.report.pass).toBe(false);
     expect(result.report.decision).toBe("blocked");
     expect(result.report.errors).toEqual([]);
-    expect(result.report.summary.releaseBlockers).toBe(49);
+    expect(result.report.summary.releaseBlockers).toBe(50);
     expect(result.report.releaseBlockers.map((blocker) => blocker.assetId)).toEqual(
       expect.arrayContaining([
         "bg-office-night",
@@ -555,7 +578,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.exitCode).toBe(1);
     expect(result.report.decision).toBe("blocked");
     expect(result.report.errors).toEqual([]);
-    expect(result.report.summary.releaseBlockers).toBe(49);
+    expect(result.report.summary.releaseBlockers).toBe(50);
     expect(result.report.checks.portraitMatte).toBe(23);
     for (const requiredId of [
       "suming-shame",
@@ -735,8 +758,8 @@ describe("two-chapter visual asset intake", () => {
     ]);
 
     expect(result.exitCode).toBe(1);
-    expect(result.report.summary.releaseBlockers).toBe(49);
-    expect(result.report.checks.productionTruth).toBe(49);
+    expect(result.report.summary.releaseBlockers).toBe(50);
+    expect(result.report.checks.productionTruth).toBe(50);
     for (const gapId of [
       "gap-background-shot-list",
       "gap-npc-mood-matrix",
@@ -1041,7 +1064,7 @@ describe("two-chapter visual asset intake", () => {
     expect(result.stderr).not.toMatch(/asset audit crashed|Error:/i);
     const report = JSON.parse(await fs.readFile(reportPath, "utf8")) as AuditReport;
     expect(report.pass).toBe(true);
-    expect(report.summary.releaseBlockers).toBe(49);
+    expect(report.summary.releaseBlockers).toBe(50);
   }, 60_000);
 
   it("fails reverse coverage when a frozen missing delivery is deleted from intake", async () => {

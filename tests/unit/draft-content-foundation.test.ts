@@ -20,9 +20,40 @@ import {
   normalizeSubstantiveText,
   validateAdaptationReceipt,
   validateCoverageMappingDigest,
+  validateExactOccurrenceMappings,
 } from "../../packages/content/scripts/coverage-contract.mjs";
 
 const ROOT = resolve(import.meta.dirname, "../..");
+const SOURCE_PACKAGE_DIR = resolve(ROOT, "packages/content/sources/draft-2026-07");
+
+type SourceManifestEntry = {
+  id: string;
+  relativePath: string;
+  originalAbsolutePath: string;
+  sha256: string;
+  title: string;
+  chapterId: string;
+  inkFile: string;
+  bodyParagraphCount: number;
+  structureBlockCount: number;
+};
+
+type SourceManifest = {
+  id: string;
+  coverageMappingDigest: {
+    algorithm: "sha256";
+    contractVersion: 2;
+    entryCount: number;
+    value: string;
+  };
+  sources: SourceManifestEntry[];
+};
+
+function readSourceManifest(): SourceManifest {
+  return JSON.parse(
+    readFileSync(resolve(SOURCE_PACKAGE_DIR, "SOURCE-MANIFEST.json"), "utf8"),
+  ) as SourceManifest;
+}
 
 const ALLOWED_STATUSES = [
   "verbatim-dialogue",
@@ -68,6 +99,56 @@ function isStructureBlock(paragraph: string): boolean {
   }
   return /^[—\-–]{2,}$/u.test(trimmed);
 }
+
+describe("exact source occurrence mapping", () => {
+  it("does not let duplicate source paragraphs consume one Ink occurrence", () => {
+    const inkSource = `=== scene_a ===\n# scene:scene_a\n“对。”\n\n=== scene_b ===\n# scene:scene_b\n“对。”\n`;
+    const paragraph = "“对。”";
+    const result = validateExactOccurrenceMappings({
+      entries: [
+        {
+          id: "p001",
+          chapterId: "chapter",
+          sceneId: "scene_a",
+          textHash: sha256Text(paragraph),
+          status: "narrated",
+        },
+        {
+          id: "p002",
+          chapterId: "chapter",
+          sceneId: "scene_a",
+          textHash: sha256Text(paragraph),
+          status: "narrated",
+        },
+      ],
+      sourceParagraphs: [paragraph, paragraph],
+      inkSource,
+    });
+
+    expect(result.ok).toBe(false);
+    expect(result.errors.join("\n")).toContain("reuse 1 literal occurrence");
+  });
+
+  it("rejects an ambiguous exact match that breaks source adjacency", () => {
+    const repeated = "机器人看着他。";
+    const inkSource = `=== scene_a ===\n# scene:scene_a\n${repeated}\n\n=== scene_b ===\n# scene:scene_b\n前文。\n${repeated}\n后文。\n`;
+    const paragraphs = ["前文。", repeated, "后文。"];
+    const result = validateExactOccurrenceMappings({
+      entries: paragraphs.map((paragraph, index) => ({
+        id: `p00${index + 1}`,
+        chapterId: "chapter",
+        sceneId: index === 1 ? "scene_a" : "scene_b",
+        textHash: sha256Text(paragraph),
+        status: "narrated",
+      })),
+      sourceParagraphs: paragraphs,
+      inkSource,
+    });
+
+    expect(result.ok).toBe(false);
+    expect(result.errors.join("\n")).toContain("breaks source adjacency");
+  });
+});
 
 function parseBodyParagraphs(raw: string): string[] {
   return parseSourceBlocks(raw).filter((block) => !isStructureBlock(block));
@@ -162,7 +243,19 @@ function runGeneratorFixture(
   mutate: (fixture: {
     ledger: { entries: CoverageEntry[] };
     manifest: Record<string, unknown>;
+    overrides: {
+      entries: Record<
+        string,
+        {
+          sourceHash: string;
+          sceneId: string;
+          status?: string;
+          adaptationReceipt?: AdaptationReceipt;
+        }
+      >;
+    };
   }) => void,
+  mutateFiles?: (fixture: { contentRoot: string }) => void,
 ) {
   const fixtureRoot = mkdtempSync(join(tmpdir(), "supaluv-content-contract-"));
   const contentRoot = resolve(fixtureRoot, "packages/content");
@@ -175,11 +268,25 @@ function runGeneratorFixture(
     }
     const ledgerPath = resolve(contentRoot, "ledgers/draft-2026-07-coverage.json");
     const manifestPath = resolve(contentRoot, "sources/draft-2026-07/SOURCE-MANIFEST.json");
+    const overridesPath = resolve(contentRoot, "ledgers/draft-2026-07-coverage-overrides.json");
     const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as { entries: CoverageEntry[] };
     const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as Record<string, unknown>;
-    mutate({ ledger, manifest });
+    const overrides = JSON.parse(readFileSync(overridesPath, "utf8")) as {
+      entries: Record<
+        string,
+        {
+          sourceHash: string;
+          sceneId: string;
+          status?: string;
+          adaptationReceipt?: AdaptationReceipt;
+        }
+      >;
+    };
+    mutate({ ledger, manifest, overrides });
     writeFileSync(ledgerPath, `${JSON.stringify(ledger, null, 2)}\n`, "utf8");
     writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+    writeFileSync(overridesPath, `${JSON.stringify(overrides, null, 2)}\n`, "utf8");
+    mutateFiles?.({ contentRoot });
     const before = readFileSync(ledgerPath);
     const result = spawnSync(
       process.execPath,
@@ -228,16 +335,17 @@ function walkToEnd(
 }
 
 describe("draft-2026-07 source snapshots", () => {
-  const manifestPath = resolve(ROOT, "packages/content/sources/draft-2026-07/SOURCE-MANIFEST.json");
-  const draft01Path = resolve(ROOT, "packages/content/sources/draft-2026-07/draft01.md");
-  const draft02Path = resolve(ROOT, "packages/content/sources/draft-2026-07/draft02.md");
   it("keeps body bytes identical to manifest hashes (snapshot is CI SSOT)", () => {
-    const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
-      coverageMappingDigest: { algorithm: "sha256"; entryCount: number; value: string };
-      sources: Array<{ relativePath: string; sha256: string; originalAbsolutePath: string }>;
-    };
+    const manifest = readSourceManifest();
+    const registeredSnapshots = manifest.sources.map((source) => source.relativePath).sort();
+    const diskSnapshots = readdirSync(SOURCE_PACKAGE_DIR)
+      .filter((file) => /^draft\d+\.md$/u.test(file))
+      .sort();
+    expect(registeredSnapshots).toEqual(diskSnapshots);
+    expect(manifest.sources.map((source) => source.id)).toEqual(["draft01", "draft02", "draft03"]);
+
     for (const source of manifest.sources) {
-      const bodyPath = resolve(ROOT, "packages/content/sources/draft-2026-07", source.relativePath);
+      const bodyPath = resolve(SOURCE_PACKAGE_DIR, source.relativePath);
       const body = readFileSync(bodyPath);
       expect(sha256Buffer(body)).toBe(source.sha256);
       // Optional local check when original Temp drafts exist; CI must not depend on them.
@@ -246,44 +354,67 @@ describe("draft-2026-07 source snapshots", () => {
         expect(Buffer.compare(body, readFileSync(source.originalAbsolutePath))).toBe(0);
       }
     }
-    expect(existsSync(draft01Path)).toBe(true);
-    expect(existsSync(draft02Path)).toBe(true);
     const ledger = JSON.parse(
       readFileSync(resolve(ROOT, "packages/content/ledgers/draft-2026-07-coverage.json"), "utf8"),
     ) as { entries: CoverageEntry[] };
+    const expectedEntries = manifest.sources.reduce(
+      (sum, source) => sum + source.bodyParagraphCount,
+      0,
+    );
     expect(manifest.coverageMappingDigest.algorithm).toBe("sha256");
-    expect(manifest.coverageMappingDigest.entryCount).toBe(290);
+    expect(manifest.coverageMappingDigest.contractVersion).toBe(2);
+    expect(manifest.coverageMappingDigest.entryCount).toBe(expectedEntries);
     expect(manifest.coverageMappingDigest.value).toBe(computeCoverageMappingDigest(ledger.entries));
   });
 });
 
 describe("draft-2026-07 coverage ledger (real source)", () => {
   const ledgerPath = resolve(ROOT, "packages/content/ledgers/draft-2026-07-coverage.json");
+  const manifest = readSourceManifest();
   const draft01Path = resolve(ROOT, "packages/content/sources/draft-2026-07/draft01.md");
-  const draft02Path = resolve(ROOT, "packages/content/sources/draft-2026-07/draft02.md");
-  const inkByChapter: Record<string, string> = {
-    "draft-ch01": readInkSource("packages/content/ink/draft-ch01.ink"),
-    "draft-ch02": readInkSource("packages/content/ink/draft-ch02.ink"),
-    "draft-ch03": readInkSource("packages/content/ink/draft-ch03.ink"),
-  };
-  const playableByChapter: Record<string, string> = {
-    "draft-ch01": stripInkComments(inkByChapter["draft-ch01"]!),
-    "draft-ch02": stripInkComments(inkByChapter["draft-ch02"]!),
-    "draft-ch03": stripInkComments(inkByChapter["draft-ch03"]!),
-  };
+  const bodyBySource = Object.fromEntries(
+    manifest.sources.map((source) => [
+      source.id,
+      parseBodyParagraphs(readFileSync(resolve(SOURCE_PACKAGE_DIR, source.relativePath), "utf8")),
+    ]),
+  ) as Record<string, string[]>;
+  const structureBySource = Object.fromEntries(
+    manifest.sources.map((source) => [
+      source.id,
+      parseStructureBlocks(readFileSync(resolve(SOURCE_PACKAGE_DIR, source.relativePath), "utf8")),
+    ]),
+  ) as Record<string, string[]>;
+  const inkByChapter = Object.fromEntries(
+    manifest.sources.map((source) => [
+      source.chapterId,
+      readInkSource(`packages/content/ink/${source.inkFile}`),
+    ]),
+  ) as Record<string, string>;
+  const playableByChapter = Object.fromEntries(
+    Object.entries(inkByChapter).map(([chapterId, inkSource]) => [
+      chapterId,
+      stripInkComments(inkSource),
+    ]),
+  ) as Record<string, string>;
+  const expectedBodyCount = manifest.sources.reduce(
+    (sum, source) => sum + source.bodyParagraphCount,
+    0,
+  );
+  const expectedStructureCount = manifest.sources.reduce(
+    (sum, source) => sum + source.structureBlockCount,
+    0,
+  );
 
-  it("re-parses snapshots to 142 + 148 = 290 body paragraphs and 21 structure blocks", () => {
-    const draft01Body = parseBodyParagraphs(readFileSync(draft01Path, "utf8"));
-    const draft02Body = parseBodyParagraphs(readFileSync(draft02Path, "utf8"));
-    const draft01Struct = parseStructureBlocks(readFileSync(draft01Path, "utf8"));
-    const draft02Struct = parseStructureBlocks(readFileSync(draft02Path, "utf8"));
-    expect(draft01Body.length).toBe(142);
-    expect(draft02Body.length).toBe(148);
-    expect(draft01Body.length + draft02Body.length).toBe(290);
-    expect(draft01Struct.length + draft02Struct.length).toBe(21);
+  it("re-parses every registered snapshot to its manifest-pinned body and structure counts", () => {
+    for (const source of manifest.sources) {
+      expect(bodyBySource[source.id]?.length).toBe(source.bodyParagraphCount);
+      expect(structureBySource[source.id]?.length).toBe(source.structureBlockCount);
+    }
+    expect(expectedBodyCount).toBe(434);
+    expect(expectedStructureCount).toBe(33);
   });
 
-  it("ledger entries are exactly 290 and 1:1 with re-parsed source ids/hashes", () => {
+  it("ledger entries are 1:1 with every registered source id and paragraph hash", () => {
     const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
       allowedStatuses: string[];
       structure: Array<{ id: string; textHash: string; sourceId: string }>;
@@ -291,21 +422,13 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     };
 
     expect(ledger.allowedStatuses).toEqual([...ALLOWED_STATUSES]);
-    expect(ledger.entries.length).toBe(290);
-    expect(ledger.structure.length).toBe(21);
-
-    const bodyBySource: Record<string, string[]> = {
-      draft01: parseBodyParagraphs(readFileSync(draft01Path, "utf8")),
-      draft02: parseBodyParagraphs(readFileSync(draft02Path, "utf8")),
-    };
-    const structureBySource: Record<string, string[]> = {
-      draft01: parseStructureBlocks(readFileSync(draft01Path, "utf8")),
-      draft02: parseStructureBlocks(readFileSync(draft02Path, "utf8")),
-    };
+    expect(ledger.entries.length).toBe(expectedBodyCount);
+    expect(ledger.structure.length).toBe(expectedStructureCount);
 
     const entryIds = new Set<string>();
     const entryHashes = new Set<string>();
-    for (const sourceId of ["draft01", "draft02"] as const) {
+    for (const source of manifest.sources) {
+      const sourceId = source.id;
       const bodies = bodyBySource[sourceId]!;
       const sourceEntries = ledger.entries.filter((entry) => entry.sourceId === sourceId);
       expect(sourceEntries.length).toBe(bodies.length);
@@ -332,7 +455,7 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
       expect(entry.status).not.toBe("structural");
       expect(entry.status).not.toBe("pending");
       expect(entry.status).not.toBe("omitted");
-      expect(entry.chapterId === "draft-ch01" || entry.chapterId === "draft-ch02").toBe(true);
+      expect(manifest.sources.some((source) => source.chapterId === entry.chapterId)).toBe(true);
       expect(entry.sceneId).toBeTruthy();
       expect(entry.beatId).toBeTruthy();
       if (entry.status === "approved-adaptation") {
@@ -346,11 +469,6 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
   it("playable coverage ignores comments; adaptations use receipts; non-adapted stay exact", () => {
     const ledger = JSON.parse(readFileSync(ledgerPath, "utf8")) as {
       entries: CoverageEntry[];
-    };
-
-    const bodyBySource: Record<string, string[]> = {
-      draft01: parseBodyParagraphs(readFileSync(draft01Path, "utf8")),
-      draft02: parseBodyParagraphs(readFileSync(draft02Path, "utf8")),
     };
 
     let paragraphMissing = 0;
@@ -392,7 +510,17 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     expect(dialogueMisses).toEqual([]);
     expect(paragraphMissing).toBe(0);
     expect(dialogueMissing).toBe(0);
-    expect(adaptations.length).toBe(100);
+    expect(adaptations.length).toBe(109);
+    expect(
+      Object.fromEntries(
+        manifest.sources.map((source) => [
+          source.id,
+          ledger.entries.filter(
+            (entry) => entry.sourceId === source.id && entry.status === "approved-adaptation",
+          ).length,
+        ]),
+      ),
+    ).toEqual({ draft01: 47, draft02: 53, draft03: 9 });
 
     const dialogueEntries = ledger.entries.filter(
       (entry) => entry.status === "verbatim-dialogue" && entry.dialogueQuotes.length > 0,
@@ -507,9 +635,19 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     expect(digestValidation.ok).toBe(false);
     expect(digestValidation.errors.join(" ")).toContain("digest mismatch");
 
+    const receiptTampered = structuredClone(ledger.entries);
+    const receiptTamperedEntry = receiptTampered.find((entry) => entry.id === sample.id)!;
+    receiptTamperedEntry.adaptationReceipt = {
+      ...receiptTamperedEntry.adaptationReceipt!,
+      pacingRationale: `${receiptTamperedEntry.adaptationReceipt!.pacingRationale}（未审查改动）`,
+    };
+    expect(computeCoverageMappingDigest(receiptTampered)).not.toBe(
+      computeCoverageMappingDigest(ledger.entries),
+    );
+
     const driftValidation = validateCoverageMappingDigest(ledger.entries, {
       algorithm: "sha256",
-      entryCount: 290,
+      entryCount: expectedBodyCount,
       value: "0".repeat(64),
     });
     expect(driftValidation.ok).toBe(false);
@@ -682,8 +820,10 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
   });
 
   it("generator fails closed without rewriting the ledger for bad receipts or digest drift", () => {
-    const badReceipt = runGeneratorFixture(({ ledger }) => {
-      const entry = ledger.entries.find((candidate) => candidate.status === "approved-adaptation")!;
+    const badReceipt = runGeneratorFixture(({ overrides }) => {
+      const entry = Object.values(overrides.entries).find(
+        (candidate) => candidate.status === "approved-adaptation",
+      )!;
       entry.adaptationReceipt = {
         ...(entry.adaptationReceipt as AdaptationReceipt),
         factMappings: undefined,
@@ -693,9 +833,19 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
     });
     expect(badReceipt.result.status).not.toBe(0);
     expect(`${badReceipt.result.stdout}${badReceipt.result.stderr}`).toContain(
-      "Invalid approved-adaptation receipts",
+      "invalid approved-adaptation receipt",
     );
     expect(badReceipt.unchanged).toBe(true);
+
+    const shiftedOverride = runGeneratorFixture(({ overrides }) => {
+      const entry = Object.values(overrides.entries)[0]!;
+      entry.sourceHash = "0".repeat(64);
+    });
+    expect(shiftedOverride.result.status).not.toBe(0);
+    expect(`${shiftedOverride.result.stdout}${shiftedOverride.result.stderr}`).toContain(
+      "override sourceHash",
+    );
+    expect(shiftedOverride.unchanged).toBe(true);
 
     const digestDrift = runGeneratorFixture(({ manifest }) => {
       const anchor = manifest.coverageMappingDigest as { value: string };
@@ -706,10 +856,116 @@ describe("draft-2026-07 coverage ledger (real source)", () => {
       "coverage mapping digest mismatch",
     );
     expect(digestDrift.unchanged).toBe(true);
+
+    const unregisteredSnapshot = runGeneratorFixture(
+      () => undefined,
+      ({ contentRoot }) => {
+        writeFileSync(
+          resolve(contentRoot, "sources/draft-2026-07/draft99.md"),
+          "# 未登记章节\n\n这份快照不应被静默忽略。\n",
+          "utf8",
+        );
+      },
+    );
+    expect(unregisteredSnapshot.result.status).not.toBe(0);
+    expect(`${unregisteredSnapshot.result.stdout}${unregisteredSnapshot.result.stderr}`).toContain(
+      "source snapshot registration mismatch",
+    );
+    expect(unregisteredSnapshot.unchanged).toBe(true);
   });
 });
 
 describe("draft catalog and legacy retirement", () => {
+  it("keeps checked-in catalog ids and defaults mechanically synchronized with JSON", async () => {
+    const catalog = JSON.parse(
+      readFileSync(resolve(ROOT, "packages/content/catalog/story-catalog.json"), "utf8"),
+    ) as {
+      defaultPackageId: string;
+      packages: { packageId: string; startChapterId: string }[];
+      productionChapters: { id: string }[];
+      devChapters: { id: string }[];
+    };
+    const generated = await import("../../packages/content/src/story-catalog.generated");
+    const defaultPackage = catalog.packages.find(
+      (entry) => entry.packageId === catalog.defaultPackageId,
+    );
+
+    expect(generated.PRODUCTION_STORY_CATALOG_IDS).toEqual(
+      catalog.productionChapters.map((entry) => entry.id),
+    );
+    expect(generated.DEV_STORY_CATALOG_IDS).toEqual(catalog.devChapters.map((entry) => entry.id));
+    expect(generated.STORY_CATALOG_IDS).toEqual([
+      ...catalog.productionChapters.map((entry) => entry.id),
+      ...catalog.devChapters.map((entry) => entry.id),
+    ]);
+    expect(generated.DEFAULT_STORY_PACKAGE_ID).toBe(catalog.defaultPackageId);
+    expect(generated.DEFAULT_STORY_ID).toBe(defaultPackage?.startChapterId);
+
+    const check = spawnSync(
+      process.execPath,
+      [resolve(ROOT, "packages/content/scripts/generate-story-catalog-types.mjs"), "--check"],
+      { cwd: ROOT, encoding: "utf8" },
+    );
+    expect(`${check.stdout}${check.stderr}`).toContain("generated types are current");
+    expect(check.status).toBe(0);
+  });
+
+  it("adds a future catalog chapter deterministically and rejects a stale generated file", () => {
+    const fixtureRoot = mkdtempSync(join(tmpdir(), "supaluv-story-catalog-types-"));
+    const contentRoot = resolve(fixtureRoot, "packages/content");
+    try {
+      mkdirSync(resolve(contentRoot, "scripts"), { recursive: true });
+      mkdirSync(resolve(contentRoot, "catalog"), { recursive: true });
+      mkdirSync(resolve(contentRoot, "src"), { recursive: true });
+      cpSync(
+        resolve(ROOT, "packages/content/scripts/generate-story-catalog-types.mjs"),
+        resolve(contentRoot, "scripts/generate-story-catalog-types.mjs"),
+      );
+      const catalog = JSON.parse(
+        readFileSync(resolve(ROOT, "packages/content/catalog/story-catalog.json"), "utf8"),
+      ) as {
+        packages: { packageId: string; chapterIds: string[] }[];
+        productionChapters: { id: string }[];
+      };
+      const futureChapter = { ...catalog.productionChapters.at(-1), id: "draft-ch04" };
+      catalog.productionChapters.push(futureChapter);
+      catalog.packages[0]?.chapterIds.push(futureChapter.id);
+      writeFileSync(
+        resolve(contentRoot, "catalog/story-catalog.json"),
+        `${JSON.stringify(catalog, null, 2)}\n`,
+        "utf8",
+      );
+
+      const scriptPath = resolve(contentRoot, "scripts/generate-story-catalog-types.mjs");
+      const firstRun = spawnSync(process.execPath, [scriptPath], {
+        cwd: fixtureRoot,
+        encoding: "utf8",
+      });
+      expect(firstRun.status).toBe(0);
+      const outputPath = resolve(contentRoot, "src/story-catalog.generated.ts");
+      const firstOutput = readFileSync(outputPath, "utf8");
+      expect(firstOutput).toContain('"draft-ch04"');
+
+      const secondRun = spawnSync(process.execPath, [scriptPath], {
+        cwd: fixtureRoot,
+        encoding: "utf8",
+      });
+      expect(secondRun.status).toBe(0);
+      expect(readFileSync(outputPath, "utf8")).toBe(firstOutput);
+
+      writeFileSync(outputPath, "// stale\n", "utf8");
+      const staleCheck = spawnSync(process.execPath, [scriptPath, "--check"], {
+        cwd: fixtureRoot,
+        encoding: "utf8",
+      });
+      expect(staleCheck.status).not.toBe(0);
+      expect(`${staleCheck.stdout}${staleCheck.stderr}`).toContain("is stale");
+      expect(readFileSync(outputPath, "utf8")).toBe("// stale\n");
+    } finally {
+      rmSync(fixtureRoot, { recursive: true, force: true });
+    }
+  });
+
   it("defaults to draft-ch01 and does not expose retired ch01 in production catalog", async () => {
     const content = await import("@supaluv/content");
     expect(content.DEFAULT_STORY_ID).toBe("draft-ch01");
@@ -737,7 +993,22 @@ describe("draft catalog and legacy retirement", () => {
       expect("compiledStoryJson" in entry).toBe(false);
       expect("inkSource" in entry).toBe(false);
       expect("scenes" in entry).toBe(false);
-      expect(entry.id).toMatch(/^draft-ch0[123]$/);
+      expect(entry.labels["zh-CN"]).toBeTruthy();
+      expect(entry.labels.en).toBeTruthy();
+      expect(entry.inkFile).toBe(`${entry.id}.ink`);
+      expect(entry.manifestFile).toBe(`${entry.id}-scenes.ts`);
+      expect(entry.voiceLanguages).toEqual(["zh-CN", "en"]);
+    }
+  });
+
+  it("cold-loads every registered chapter module without a second loader registry", async () => {
+    const content = await import("@supaluv/content");
+    content.clearStoryChapterCache();
+    for (const entry of content.storyCatalog) {
+      const chapter = await content.loadStoryChapter(entry.id);
+      expect(chapter.meta.id).toBe(entry.id);
+      expect(chapter.scenes.length).toBeGreaterThan(0);
+      expect(chapter.compiledStoryJson.length).toBeGreaterThan(100);
     }
   });
 });
@@ -936,12 +1207,13 @@ describe("production graph excludes raw draft source and inkjs/full", () => {
     }
     expect(runner).toMatch(/from\s+["']inkjs["']/);
     expect(runner).not.toMatch(/from\s+["']inkjs\/full["']/);
-    expect(index).toMatch(/import\("\.\/chapters\/draft-ch01"\)/);
-    expect(index).toMatch(/import\("\.\/chapters\/draft-ch02"\)/);
+    expect(index).toContain("import(`./chapters/${id}.ts`)");
+    expect(index).not.toMatch(/const\s+chapterLoaders\s*=/);
   });
 
-  it("production chapter modules ship compiled JSON only (no raw ink)", () => {
-    for (const chapter of ["draft-ch01", "draft-ch02", "draft-ch03"] as const) {
+  it("production chapter modules ship compiled JSON only (no raw ink)", async () => {
+    const content = await import("@supaluv/content");
+    for (const { id: chapter } of content.productionStoryCatalog) {
       const mod = readFileSync(
         resolve(ROOT, `packages/content/src/chapters/${chapter}.ts`),
         "utf8",

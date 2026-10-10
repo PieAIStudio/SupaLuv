@@ -4,6 +4,181 @@ export function sha256Text(text) {
   return createHash("sha256").update(text, "utf8").digest("hex");
 }
 
+export function parseSourceBlocks(raw) {
+  if (typeof raw !== "string") {
+    return [];
+  }
+  return raw
+    .replace(/\r\n/g, "\n")
+    .split(/\n\s*\n+/)
+    .map((block) =>
+      block
+        .split("\n")
+        .map((line) => line.trimEnd())
+        .join("\n")
+        .trim(),
+    )
+    .filter(Boolean);
+}
+
+export function isSourceStructureBlock(paragraph) {
+  if (typeof paragraph !== "string") {
+    return false;
+  }
+  const lines = paragraph
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (lines.length === 1 && lines[0].startsWith("#")) {
+    return true;
+  }
+  const trimmed = paragraph.trim();
+  if (trimmed === "——" || trimmed === "---" || trimmed === "***") {
+    return true;
+  }
+  return /^[—\-–]{2,}$/u.test(trimmed);
+}
+
+export function stripInkLineComments(inkSource) {
+  if (typeof inkSource !== "string") {
+    return "";
+  }
+  return inkSource
+    .split("\n")
+    .filter((line) => !/^\s*\/\//.test(line))
+    .join("\n");
+}
+
+/**
+ * Return each declared `# scene:` together with the Ink knot that owns it.
+ * A knot may repeat the same scene tag across stitches; those bodies are
+ * combined so source-to-scene inference stays deterministic.
+ */
+export function listInkScenes(inkSource) {
+  if (typeof inkSource !== "string") {
+    return [];
+  }
+  const knotMatches = Array.from(inkSource.matchAll(/^===\s+([a-z0-9_]+)\s+===\s*$/gm));
+  const byScene = new Map();
+
+  for (const [index, match] of knotMatches.entries()) {
+    const knotId = match[1];
+    const start = (match.index ?? 0) + match[0].length;
+    const end = knotMatches[index + 1]?.index ?? inkSource.length;
+    const body = inkSource.slice(start, end);
+    const sceneIds = new Set(
+      Array.from(body.matchAll(/^# scene:([^\n]+)\s*$/gm), (sceneMatch) =>
+        sceneMatch[1]?.trim(),
+      ).filter(Boolean),
+    );
+    for (const sceneId of sceneIds) {
+      const existing = byScene.get(sceneId);
+      if (existing) {
+        existing.bodies.push(body);
+        existing.knotIds.push(knotId);
+      } else {
+        byScene.set(sceneId, { sceneId, bodies: [body], knotIds: [knotId] });
+      }
+    }
+  }
+
+  return Array.from(byScene.values());
+}
+
+export function findExactSourceSceneIds(inkSource, sourceParagraph) {
+  if (typeof sourceParagraph !== "string" || sourceParagraph.length === 0) {
+    return [];
+  }
+  return listInkScenes(stripInkLineComments(inkSource))
+    .filter((scene) => scene.bodies.some((body) => body.includes(sourceParagraph)))
+    .map((scene) => scene.sceneId);
+}
+
+function countNonOverlappingOccurrences(text, needle) {
+  if (!needle) {
+    return 0;
+  }
+  let count = 0;
+  let cursor = 0;
+  while (cursor <= text.length - needle.length) {
+    const found = text.indexOf(needle, cursor);
+    if (found < 0) {
+      break;
+    }
+    count += 1;
+    cursor = found + needle.length;
+  }
+  return count;
+}
+
+/**
+ * Prevent multiple source paragraphs from consuming one literal Ink occurrence,
+ * and require an ambiguous exact match to stay adjacent to its source neighbours.
+ */
+export function validateExactOccurrenceMappings({ entries, sourceParagraphs, inkSource }) {
+  const errors = [];
+  if (!Array.isArray(entries) || !Array.isArray(sourceParagraphs)) {
+    return { ok: false, errors: ["exact occurrence validation requires array inputs"] };
+  }
+  if (entries.length !== sourceParagraphs.length) {
+    errors.push(
+      `exact occurrence validation count mismatch: entries=${entries.length} source=${sourceParagraphs.length}`,
+    );
+  }
+
+  const scenes = new Map(
+    listInkScenes(stripInkLineComments(inkSource)).map((scene) => [scene.sceneId, scene]),
+  );
+  const demands = new Map();
+
+  for (const [index, entry] of entries.entries()) {
+    if (!entry || entry.status === "approved-adaptation") {
+      continue;
+    }
+    const paragraph = sourceParagraphs[index];
+    if (typeof paragraph !== "string" || !entry.sceneId) {
+      continue;
+    }
+    const candidates = findExactSourceSceneIds(inkSource, paragraph);
+    if (candidates.length > 1) {
+      const neighbourSceneIds = new Set(
+        [entries[index - 1]?.sceneId, entries[index + 1]?.sceneId].filter(Boolean),
+      );
+      if (neighbourSceneIds.size > 0 && !neighbourSceneIds.has(entry.sceneId)) {
+        errors.push(
+          `${entry.id}: ambiguous exact scene ${entry.sceneId} breaks source adjacency; ` +
+            `neighbours=[${[...neighbourSceneIds].join(", ")}] candidates=[${candidates.join(", ")}]`,
+        );
+      }
+    }
+
+    const demandKey = `${entry.textHash ?? sha256Text(paragraph)}\u0000${entry.sceneId}`;
+    const demand = demands.get(demandKey) ?? {
+      paragraph,
+      sceneId: entry.sceneId,
+      entryIds: [],
+    };
+    demand.entryIds.push(entry.id);
+    demands.set(demandKey, demand);
+  }
+
+  for (const demand of demands.values()) {
+    const scene = scenes.get(demand.sceneId);
+    const capacity = (scene?.bodies ?? []).reduce(
+      (sum, body) => sum + countNonOverlappingOccurrences(body, demand.paragraph),
+      0,
+    );
+    if (demand.entryIds.length > capacity) {
+      errors.push(
+        `${demand.entryIds.join(",")}: ${demand.entryIds.length} exact source paragraphs reuse ` +
+          `${capacity} literal occurrence(s) in ${demand.sceneId}`,
+      );
+    }
+  }
+
+  return { ok: errors.length === 0, errors };
+}
+
 export function normalizeSubstantiveText(value) {
   if (typeof value !== "string") {
     return "";
@@ -23,9 +198,55 @@ export function isPlaceholderText(value) {
   return /^(?:x+|(?:todo|tbd|pending)+)$/i.test(normalized);
 }
 
-export function computeCoverageMappingDigest(entries) {
+function legacyCoverageMappingDigest(entries) {
   const payload = entries
     .map((entry) => `${entry.id}:${entry.chapterId}:${entry.sceneId}`)
+    .join("\n");
+  return sha256Text(payload);
+}
+
+function canonicalAdaptationReceipt(receipt) {
+  if (!receipt) {
+    return null;
+  }
+  return {
+    sourceHash: receipt.sourceHash ?? receipt.textHash ?? null,
+    sceneId: receipt.sceneId ?? null,
+    factMappings: (receipt.factMappings ?? []).map((mapping) => ({
+      fact: mapping.fact ?? null,
+      sourceSnippet: mapping.sourceSnippet ?? null,
+      targetSnippet: mapping.targetSnippet ?? null,
+    })),
+    pacingRationale: receipt.pacingRationale ?? null,
+  };
+}
+
+/**
+ * v2 protects the complete reviewed coverage contract, not only scene ids.
+ * Version 1 remains readable solely to migrate the previously pinned anchor.
+ */
+export function computeCoverageMappingDigest(entries, contractVersion = 2) {
+  if (contractVersion === 1) {
+    return legacyCoverageMappingDigest(entries);
+  }
+  if (contractVersion !== 2) {
+    throw new Error(`Unsupported coverage digest contract version: ${String(contractVersion)}`);
+  }
+  const payload = entries
+    .map((entry) =>
+      JSON.stringify({
+        id: entry.id,
+        sourceId: entry.sourceId ?? null,
+        paragraphIndex: entry.paragraphIndex ?? null,
+        textHash: entry.textHash ?? null,
+        chapterId: entry.chapterId,
+        sceneId: entry.sceneId ?? null,
+        status: entry.status ?? null,
+        notes: entry.notes ?? "",
+        dialogueQuotes: entry.dialogueQuotes ?? [],
+        adaptationReceipt: canonicalAdaptationReceipt(entry.adaptationReceipt),
+      }),
+    )
     .join("\n");
   return sha256Text(payload);
 }
@@ -44,7 +265,14 @@ export function validateCoverageMappingDigest(entries, anchor) {
       `coverage mapping entry count mismatch: anchor=${anchor.entryCount} ledger=${entries.length}`,
     );
   }
-  const actualDigest = computeCoverageMappingDigest(entries);
+  const contractVersion = anchor.contractVersion ?? 1;
+  if (contractVersion !== 1 && contractVersion !== 2) {
+    errors.push(`unsupported coverage digest contract version: ${String(contractVersion)}`);
+  }
+  const actualDigest = computeCoverageMappingDigest(
+    entries,
+    contractVersion === 1 || contractVersion === 2 ? contractVersion : 2,
+  );
   if (anchor.value !== actualDigest) {
     errors.push(
       `coverage mapping digest mismatch: anchor=${String(anchor.value)} ledger=${actualDigest}`,

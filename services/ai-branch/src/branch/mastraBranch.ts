@@ -1,5 +1,5 @@
 import { Agent } from "@mastra/core/agent";
-import { createOpenRouterModel } from "@pieai/swimmer-ai-kit";
+import { createOpenRouterModel } from "@pieai/swimmer-ai-provider-kit";
 import { z } from "zod";
 import { buildAiBranchMessages } from "./prompts.js";
 import type { AiBranchRequestBody, AiBranchResponseBody } from "./branchTypes.js";

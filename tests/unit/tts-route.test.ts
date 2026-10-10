@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { resolveTtsRoute } from "@pieai/swimmer-ai-kit/tts";
+import { resolveTtsRoute } from "@pieai/swimmer-ai-provider-kit/tts";
 import {
   planDialogueTtsSegments,
   resolveTtsCharacterId,

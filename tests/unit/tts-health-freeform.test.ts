@@ -3,7 +3,10 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { sendJson } from "../../services/ai-branch/src/httpUtils.js";
 import { handleAiBranchRequest } from "../../services/ai-branch/src/routeTable.js";
 import { normalizeAiBranchServiceUrl } from "../../services/ai-branch/src/serviceMount.js";
-import { isTtsFreeformEnabled, ttsHealthSnapshot } from "../../services/ai-branch/src/tts/ttsRoute.js";
+import {
+  isTtsFreeformEnabled,
+  ttsHealthSnapshot,
+} from "../../services/ai-branch/src/tts/ttsRoute.js";
 
 let server: Server | undefined;
 

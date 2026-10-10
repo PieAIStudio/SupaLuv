@@ -72,6 +72,7 @@ describe("NarrativeGraph catalog SSOT", () => {
       }>;
       productionChapters: Array<{
         id: string;
+        labels: { "zh-CN": string; en: string };
         packageId: string;
         chapterIndex: number;
         checkpoint: { kind: string; nextChapterId?: string };
@@ -92,6 +93,9 @@ describe("NarrativeGraph catalog SSOT", () => {
     );
     expect(content.productionStoryCatalog.map((entry) => entry.checkpoint)).toEqual(
       catalog.productionChapters.map((chapter) => chapter.checkpoint),
+    );
+    expect(content.productionStoryCatalog.map((entry) => entry.labels)).toEqual(
+      catalog.productionChapters.map((chapter) => chapter.labels),
     );
     expect(creator.packageId).toBe(catalog.defaultPackageId);
     expect(player.packageId).toBe(catalog.defaultPackageId);

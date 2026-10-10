@@ -1,10 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  CreatorApiError,
-  openScenePreview,
-  saveCreatorScene,
-  type CreatorSceneMeta,
-} from "./api";
+import { CreatorApiError, openScenePreview, saveCreatorScene, type CreatorSceneMeta } from "./api";
 import type { SceneAiBranchFields } from "./server/sceneManifestEdit";
 
 interface SceneInspectorProps {
@@ -58,10 +53,7 @@ function splitList(value: string): string[] {
     .filter(Boolean);
 }
 
-function draftFromMeta(
-  sceneId: string,
-  meta: CreatorSceneMeta | null,
-): DraftState {
+function draftFromMeta(sceneId: string, meta: CreatorSceneMeta | null): DraftState {
   const scene = meta?.scenes[sceneId];
   if (!scene) return { ...EMPTY_DRAFT, rejoinSceneId: sceneId };
   const ai = scene.aiBranch;
@@ -133,7 +125,10 @@ export function SceneInspector({
       if (draft.aiEnabled) {
         const maxAiBeats = Number(draft.maxAiBeats);
         if (!draft.rejoinSceneId.trim() || !draft.context.trim()) {
-          setStatus({ tone: "error", message: "开启 AI 支线时必须填写 rejoinSceneId 与 context。" });
+          setStatus({
+            tone: "error",
+            message: "开启 AI 支线时必须填写 rejoinSceneId 与 context。",
+          });
           return;
         }
         aiBranch = {

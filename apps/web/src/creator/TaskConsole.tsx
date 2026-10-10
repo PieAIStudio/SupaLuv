@@ -81,7 +81,10 @@ export function TaskConsole() {
   }
 
   return (
-    <section className="creator-module-panel creator-task-console" data-testid="creator-task-console">
+    <section
+      className="creator-module-panel creator-task-console"
+      data-testid="creator-task-console"
+    >
       <div className="creator-module-toolbar">
         <span className="creator-module-meta">
           AI 控制台 v1 · 复用 NDJSON 流式管线 · 同一时间只跑一个任务

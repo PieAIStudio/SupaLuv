@@ -4,6 +4,19 @@ const PATH_MEMORY_KEY = "supaluv.path-memory.v2";
 const FUTURE_SENTINEL = "初审通过";
 
 async function prepareNewGame(page: Page): Promise<void> {
+  await page.route("**/api/ai/health", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        ok: true,
+        tts: {
+          providers: { elevenlabs: false, minimax: false },
+          freeformEnabled: false,
+        },
+      }),
+    }),
+  );
   await page.route("**/api/choice-stats**", (route) =>
     route.fulfill({ status: 200, contentType: "application/json", body: '{"counts":{}}' }),
   );

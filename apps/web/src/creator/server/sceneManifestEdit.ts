@@ -85,10 +85,7 @@ export function findSceneObjectRange(
   source: string,
   sceneId: string,
 ): { readonly start: number; readonly end: number } {
-  const idPattern = new RegExp(
-    `\\bid\\s*:\\s*(["'])${escapeRegExp(sceneId)}\\1`,
-    "m",
-  );
+  const idPattern = new RegExp(`\\bid\\s*:\\s*(["'])${escapeRegExp(sceneId)}\\1`, "m");
   const idMatch = idPattern.exec(source);
   if (!idMatch || idMatch.index === undefined) {
     throw new SceneManifestEditError("SCENE_NOT_FOUND", `场景 ${sceneId} 不在该 manifest 中。`);
@@ -118,7 +115,9 @@ function decodeJsString(raw: string): string {
       return JSON.parse(raw) as string;
     }
     if (raw.startsWith("'")) {
-      return JSON.parse(`"${raw.slice(1, -1).replace(/\\'/g, "'").replace(/"/g, '\\"')}"`) as string;
+      return JSON.parse(
+        `"${raw.slice(1, -1).replace(/\\'/g, "'").replace(/"/g, '\\"')}"`,
+      ) as string;
     }
   } catch {
     // fall through
@@ -275,7 +274,9 @@ function formatAiBranch(aiBranch: SceneAiBranchFields, indent: string): string {
   if (aiBranch.portraitPool && aiBranch.portraitPool.length > 0) {
     const items = aiBranch.portraitPool.map((v) => encodeJsString(v)).join(",\n" + inner + "  ");
     if (aiBranch.portraitPool.length <= 3) {
-      lines.push(`${inner}portraitPool: [${aiBranch.portraitPool.map((v) => encodeJsString(v)).join(", ")}],`);
+      lines.push(
+        `${inner}portraitPool: [${aiBranch.portraitPool.map((v) => encodeJsString(v)).join(", ")}],`,
+      );
     } else {
       lines.push(`${inner}portraitPool: [`);
       lines.push(`${inner}  ${items},`);

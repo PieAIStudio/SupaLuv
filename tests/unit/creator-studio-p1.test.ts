@@ -120,9 +120,9 @@ export const CHINESE_VOICE_MAP: Readonly<Record<string, string>> = {
     expect(groups.get("staff_worker")?.map((p) => p.stem)).toEqual(["staff-neutral"]);
     expect(groups.get("staff_lead")?.map((p) => p.stem)).toEqual(["stafflead-neutral"]);
     expect(matchPortraitToCharacter("stafflead-neutral", characters)).toBe("staff_lead");
-    expect(portraitPrefixesFor(characters.find((c) => c.id === "staff_lead")!).includes("stafflead")).toBe(
-      true,
-    );
+    expect(
+      portraitPrefixesFor(characters.find((c) => c.id === "staff_lead")!).includes("stafflead"),
+    ).toBe(true);
   });
 
   it("assigns suming-* plates to suming, not narrator alias", () => {

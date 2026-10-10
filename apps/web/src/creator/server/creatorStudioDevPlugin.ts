@@ -7,10 +7,7 @@ import {
   CREATOR_STUDIO_ROUTE_REGISTRY,
 } from "./creatorStudioDescribe";
 import { buildCreatorStudioOpenApi, CREATOR_STUDIO_OPENAPI_PATH } from "./creatorStudioOpenApi";
-import {
-  CreatorStudioError,
-  createCreatorStudioService,
-} from "./creatorStudioServer";
+import { CreatorStudioError, createCreatorStudioService } from "./creatorStudioServer";
 import {
   parseInkSaveRequest,
   parsePipelineRequest,

@@ -55,7 +55,7 @@ export function AssetBay() {
     void load();
   }, [load]);
 
-  const assets = payload?.assets ?? [];
+  const assets = useMemo(() => payload?.assets ?? [], [payload]);
   const kinds = payload?.kinds ?? [];
 
   const filtered = useMemo(() => {
@@ -63,7 +63,14 @@ export function AssetBay() {
     return assets.filter((asset) => {
       if (kindFilter !== ALL && asset.kind !== kindFilter) return false;
       if (!q) return true;
-      return [asset.id, asset.path, asset.notes, asset.kind, asset.qualityStatus, asset.rightsStatus]
+      return [
+        asset.id,
+        asset.path,
+        asset.notes,
+        asset.kind,
+        asset.qualityStatus,
+        asset.rightsStatus,
+      ]
         .join("\n")
         .toLocaleLowerCase()
         .includes(q);
@@ -167,9 +174,7 @@ export function AssetBay() {
               </div>
             </button>
           ))}
-          {filtered.length === 0 ? (
-            <p className="creator-empty-copy">没有匹配的资产。</p>
-          ) : null}
+          {filtered.length === 0 ? <p className="creator-empty-copy">没有匹配的资产。</p> : null}
         </div>
 
         <aside className="creator-asset-detail" aria-label="资产详情">
@@ -212,7 +217,9 @@ export function AssetBay() {
                 <div>
                   <dt>qualityStatus</dt>
                   <dd>
-                    <span className={`creator-status-chip is-${statusTone(selected.qualityStatus)}`}>
+                    <span
+                      className={`creator-status-chip is-${statusTone(selected.qualityStatus)}`}
+                    >
                       {selected.qualityStatus}
                     </span>
                   </dd>

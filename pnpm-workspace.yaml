@@ -21,5 +21,5 @@ minimumReleaseAgeExclude:
   - '@supabase/realtime-js@2.110.3'
   - '@supabase/storage-js@2.110.3'
   - '@supabase/supabase-js@2.110.3'
-  - '@pieai/swimmer-ai-kit@0.3.0'
   - '@pieai/swimmer-backend-client@0.4.0'
+  - '@pieai/swimmer-ai-provider-kit@0.13.0'

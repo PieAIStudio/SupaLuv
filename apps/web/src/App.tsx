@@ -1,5 +1,5 @@
 import { lazy, startTransition, Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { trackEvent } from "./analytics/productAnalytics";
+import { runTrackedChapterStart, trackEvent } from "./analytics/productAnalytics";
 import { bedLabel } from "./audio/bedCatalog";
 import { DialogueVoicePlaybackGuard } from "./audio/dialogueVoicePlaybackGuard";
 import { gameAudio } from "./audio/gameAudio";
@@ -317,7 +317,10 @@ export function App() {
     if (coPlayConfig?.role === "guest") {
       setCoPlayConfig(null);
     }
-    await session.startNew(bindings);
+    await runTrackedChapterStart(
+      () => session.startNew(bindings),
+      () => session.getState().storyId,
+    );
     setScreen("play");
   }
 
@@ -329,7 +332,10 @@ export function App() {
     tryAchievement("first_play");
     // Host reuses current session bindings (pre-refactor persistSave capture),
     // unlike solo casting which supplies newly selected bindings.
-    await session.startNew(session.getState().characterBindings);
+    await runTrackedChapterStart(
+      () => session.startNew(session.getState().characterBindings),
+      () => session.getState().storyId,
+    );
     setScreen("play");
   }
 
@@ -354,7 +360,11 @@ export function App() {
     gameAudio.unlock();
     trackEvent({ name: "title_continue" });
     tryAchievement("first_play");
-    const result = await session.resume(slotId, portraitPack);
+    const result = await runTrackedChapterStart(
+      () => session.resume(slotId, portraitPack),
+      () => session.getState().storyId,
+      (resumeResult) => resumeResult === "ready",
+    );
     if (result === "blocked") {
       const message = session.getState().continueBlockedMessage;
       if (message) {
@@ -418,7 +428,11 @@ export function App() {
     // Synchronous classification against the warm session runtime (exact pre-refactor).
     if (session.canAdvanceToNextChapter()) {
       runStoryAction(async () => {
-        await session.advanceToNextChapter();
+        await runTrackedChapterStart(
+          () => session.advanceToNextChapter(),
+          () => session.getState().storyId,
+          (didAdvance) => didAdvance,
+        );
       }, "chapter");
       return;
     }
@@ -551,7 +565,12 @@ export function App() {
                 showUnlockToast(`${t("common.musicUnlocked")}: ${bedLabel(bedId, locale)}`);
               }}
               onStoryChange={(nextStoryId) =>
-                runStoryAction(() => session.loadChapter(nextStoryId), "chapter")
+                runStoryAction(async () => {
+                  await runTrackedChapterStart(
+                    () => session.loadChapter(nextStoryId),
+                    () => session.getState().storyId,
+                  );
+                }, "chapter")
               }
               onChoose={handleChoose}
               onJumpTo={handleJumpTo}

@@ -2,7 +2,10 @@ import { describe, expect, it, vi } from "vitest";
 import type { AiEndingContract } from "@supaluv/shared";
 import { parseEndingSegment } from "../../services/ai-branch/src/ending/endingSchemas";
 import { buildEndingMessages } from "../../services/ai-branch/src/ending/endingPrompts";
-import { createEndingGenerator, type EndingAgent } from "../../services/ai-branch/src/ending/mastraEnding";
+import {
+  createEndingGenerator,
+  type EndingAgent,
+} from "../../services/ai-branch/src/ending/mastraEnding";
 import {
   createEndingSessionService,
   EndingPaymentError,

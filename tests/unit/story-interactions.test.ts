@@ -210,11 +210,7 @@ describe("interaction variant payloads", () => {
     const matching = resolveMobileQuestionnairePayload("matching");
     expect(matching.variant).toBe("matching");
     expect(matching.questions).toHaveLength(3);
-    expect(matching.questions.map((q) => q.questionKey)).toEqual([
-      "humanlike",
-      "grudge",
-      "makeup",
-    ]);
+    expect(matching.questions.map((q) => q.questionKey)).toEqual(["humanlike", "grudge", "makeup"]);
     // Same choice topology as default (Ink frozen).
     expect(matching.questions[0]?.options.map((o) => o.choiceId)).toEqual(
       resolveMobileQuestionnairePayload(null).questions[0]?.options.map((o) => o.choiceId),

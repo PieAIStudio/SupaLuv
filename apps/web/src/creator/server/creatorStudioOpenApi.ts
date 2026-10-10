@@ -98,8 +98,7 @@ function fieldToJsonSchema(field: CreatorStudioFieldShape): JsonSchema {
           description: "Must be in scene-meta.videoKeys when set",
         },
         aiBranch: {
-          description:
-            "AI branch config object, or null to remove aiBranch from the scene card",
+          description: "AI branch config object, or null to remove aiBranch from the scene card",
           oneOf: [
             {
               type: "object",
@@ -228,7 +227,9 @@ function successResponse(spec: CreatorStudioEndpointSpec): JsonSchema {
 }
 
 function operationIdFor(spec: CreatorStudioEndpointSpec): string {
-  const leaf = spec.path.replace(CREATOR_STUDIO_BASE_PATH, "").replace(/^\//, "").replace(/\//g, "_") || "root";
+  const leaf =
+    spec.path.replace(CREATOR_STUDIO_BASE_PATH, "").replace(/^\//, "").replace(/\//g, "_") ||
+    "root";
   const safe = leaf.replace(/[^a-zA-Z0-9_]/g, "_");
   return `${spec.method.toLowerCase()}_${safe}`;
 }
@@ -311,7 +312,7 @@ export function buildCreatorStudioOpenApi(): CreatorStudioOpenApiDocument {
         "Dev-only HTTP surface (Vite serve, non-production). Bound to 127.0.0.1.",
         "Cold-agent entry: fetch this document, then follow x-supaluv-workflows.",
         "Five cold-start task classes: read, modify, conflict (HASH_CONFLICT), illegal input (4xx), rollback.",
-        "Error body (non-streaming): { \"error\": { \"code\": string, \"message\": string } }.",
+        'Error body (non-streaming): { "error": { "code": string, "message": string } }.',
       ].join("\n"),
     },
     servers: [

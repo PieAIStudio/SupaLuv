@@ -1,7 +1,7 @@
 import {
   ADULT_COMEDY_MODERATION_POLICY,
   createContentModerationProvider,
-} from "@pieai/swimmer-ai-kit/content-safety";
+} from "@pieai/swimmer-ai-provider-kit/content-safety";
 import type { AiBranchRequestBody, AiBranchResponseBody } from "./branch/branchTypes.js";
 
 const moderation = createContentModerationProvider({

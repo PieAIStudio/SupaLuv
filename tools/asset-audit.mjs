@@ -18,11 +18,7 @@ const PORTRAIT_GATE_OVERRIDES = new Map(
 
 const DEFAULT_MANIFEST_PATH = "packages/content/assets/VISUAL-ASSET-INTAKE.json";
 const DEFAULT_RUNTIME_LEDGER_PATH = "packages/content/assets/RUNTIME-ASSET-LEDGER.csv";
-
-const SCENE_MANIFEST_SOURCES = Object.freeze([
-  "packages/content/manifests/draft-ch01-scenes.ts",
-  "packages/content/manifests/draft-ch02-scenes.ts",
-]);
+const STORY_CATALOG_SOURCE = "packages/content/catalog/story-catalog.json";
 const ARCHIVE_RECORD_SOURCE = "apps/web/src/persistence/algorithmShameArchive.ts";
 const CHARACTER_REGISTRY_SOURCE = "packages/content/characters/registry.ts";
 const BOOT_SPLASH_SOURCE = "apps/web/src/views/BootSplash.tsx";
@@ -858,7 +854,31 @@ async function collectTruthRequirements(workspaceRoot, errors) {
     addRequirement(requiredPaths, assetPath.replaceAll("\\", "/"), sourceLabel);
   }
 
-  for (const sceneSource of SCENE_MANIFEST_SOURCES) {
+  let sceneManifestSources = [];
+  try {
+    const absoluteCatalog = await resolveWorkspacePath(workspaceRoot, STORY_CATALOG_SOURCE, {
+      mustExist: true,
+    });
+    const catalog = JSON.parse(await fs.readFile(absoluteCatalog, "utf8"));
+    if (!Array.isArray(catalog.productionChapters)) {
+      throw new TypeError("productionChapters must be an array");
+    }
+    sceneManifestSources = catalog.productionChapters.map((chapter, index) => {
+      if (typeof chapter?.manifestFile !== "string" || chapter.manifestFile.length === 0) {
+        throw new TypeError(`productionChapters[${index}].manifestFile must be a non-empty string`);
+      }
+      return `packages/content/manifests/${chapter.manifestFile}`;
+    });
+  } catch (error) {
+    addIssue(
+      errors,
+      "reverse-coverage",
+      STORY_CATALOG_SOURCE,
+      `cannot read production scene manifest catalog: ${error.message}`,
+    );
+  }
+
+  for (const sceneSource of sceneManifestSources) {
     let text;
     try {
       const absolute = await resolveWorkspacePath(workspaceRoot, sceneSource, {

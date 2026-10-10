@@ -23,9 +23,10 @@ export {
 } from "./engine.mjs";
 
 export {
-  DIGNITY_KEYWORDS,
-  IMPULSE_KEYWORDS,
+  AI_SCORE_KEYWORDS,
+  MIANZI_KEYWORDS,
   SKIP_KEYWORDS,
+  pickAiScorePersona,
   pickHighestScoreFirst,
   pickHighestScoreLast,
   pickSkipper,

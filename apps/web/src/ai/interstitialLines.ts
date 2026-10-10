@@ -95,9 +95,6 @@ export function resolveInterstitialLang(appLocale: string): InterstitialLang {
   return appLocale.toLowerCase().startsWith("zh") ? "zh" : "en";
 }
 
-export function getInterstitialText(
-  line: InterstitialLine,
-  lang: InterstitialLang,
-): string {
+export function getInterstitialText(line: InterstitialLine, lang: InterstitialLang): string {
   return lang === "zh" ? line.zh : line.en;
 }

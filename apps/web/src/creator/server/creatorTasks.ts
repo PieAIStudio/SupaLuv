@@ -39,10 +39,6 @@ export function isCreatorTaskId(value: unknown): value is CreatorTaskId {
   return value === "asset-audit" || value === "auto-player" || value === "voice-reconcile";
 }
 
-function pnpmBin(): string {
-  return process.platform === "win32" ? "pnpm.cmd" : "pnpm";
-}
-
 function resolveTsxBin(repoRoot: string): string {
   return join(repoRoot, "services/ai-branch/node_modules/.bin/tsx");
 }
@@ -72,13 +68,7 @@ export async function resolveTaskCommand(
       step: "auto-player",
       command: `node tools/auto-player/cli.mjs --persona mianzi --out ${outDir}`,
       bin: process.execPath,
-      args: [
-        join(repoRoot, "tools/auto-player/cli.mjs"),
-        "--persona",
-        "mianzi",
-        "--out",
-        outDir,
-      ],
+      args: [join(repoRoot, "tools/auto-player/cli.mjs"), "--persona", "mianzi", "--out", outDir],
     };
   }
   // voice-reconcile

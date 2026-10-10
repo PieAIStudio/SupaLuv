@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { productionStoryCatalog } from "@supaluv/content";
 
 /**
  * Prose integrity for authored Ink chapters.
@@ -12,11 +13,11 @@ import { describe, expect, it } from "vitest";
  * punctuation, closing quote/bracket, dash, colon, or markdown emphasis).
  */
 
-const CHAPTER_FILES = ["draft-ch01.ink", "draft-ch02.ink", "draft-ch03.ink"];
+const CHAPTER_FILES = productionStoryCatalog.map((chapter) => chapter.inkFile);
 const INK_DIR = join(__dirname, "../../packages/content/ink");
 
 const NON_PROSE_PREFIXES = ["#", "+", "->", "VAR", "~", "*", "//", "{", "-", "=", "==="];
-const TERMINAL = /[。！？…”"）)】\]:：—*]$/u;
+const TERMINAL = /[.!?。！？…”"’）)】\]:：—*]$/u;
 const MIN_PROSE_LENGTH = 40;
 
 function truncatedLines(source: string): string[] {

@@ -143,7 +143,8 @@ const SAVE_SCENE_ERRORS: readonly CreatorStudioErrorSemantics[] = [
 const TASK_BUSY_ERROR: CreatorStudioErrorSemantics = {
   code: "TASK_BUSY",
   httpStatus: 409,
-  meaning: "已有 pipeline 或 task 在运行（排他锁）；等结束后再试。响应体 error.message 含 busy 任务 id。",
+  meaning:
+    "已有 pipeline 或 task 在运行（排他锁）；等结束后再试。响应体 error.message 含 busy 任务 id。",
 };
 
 /**
@@ -173,7 +174,7 @@ export const CREATOR_STUDIO_ENDPOINT_SPECS: readonly CreatorStudioEndpointSpec[]
     response: {
       contentType: "application/json",
       shape:
-        "OpenAPI 3.1 document: { openapi: \"3.1.0\", info, servers, paths, components.schemas, x-supaluv-workflows, x-supaluv-invariants, x-supaluv-error-codes, x-supaluv-task-defs }",
+        'OpenAPI 3.1 document: { openapi: "3.1.0", info, servers, paths, components.schemas, x-supaluv-workflows, x-supaluv-invariants, x-supaluv-error-codes, x-supaluv-task-defs }',
       notes:
         "由 CREATOR_STUDIO_ENDPOINT_SPECS 同一注册表生成；新路由未注册必被单测抓到。五类冷启动任务：读取 / 修改 / 冲突 / 非法输入 / 回滚，见 x-supaluv-workflows。",
     },
@@ -182,7 +183,8 @@ export const CREATOR_STUDIO_ENDPOINT_SPECS: readonly CreatorStudioEndpointSpec[]
   {
     method: "GET",
     path: `${CREATOR_STUDIO_BASE_PATH}/graph`,
-    purpose: "读取创作用地图（Ink 拓扑派生的 NarrativeGraphCreator）及白名单 Ink 文件的 source hash。",
+    purpose:
+      "读取创作用地图（Ink 拓扑派生的 NarrativeGraphCreator）及白名单 Ink 文件的 source hash。",
     requestBody: null,
     response: {
       contentType: "application/json",
@@ -219,7 +221,8 @@ export const CREATOR_STUDIO_ENDPOINT_SPECS: readonly CreatorStudioEndpointSpec[]
   }>,
   manifests: Record<manifestPath, { hash: sha256Hex }>
 }`,
-      notes: "改 speaker 前：用 scenes[sceneId].sourceHash 与 chapterId；合法 speaker 用 speakers[]。",
+      notes:
+        "改 speaker 前：用 scenes[sceneId].sourceHash 与 chapterId；合法 speaker 用 speakers[]。",
     },
     errors: [
       {
@@ -291,7 +294,8 @@ export const CREATOR_STUDIO_ENDPOINT_SPECS: readonly CreatorStudioEndpointSpec[]
           type: "string",
           required: true,
           description: "仓库相对 Ink 路径，如 packages/content/ink/draft-ch01.ink",
-          legalValuesFrom: "GET /graph → sources 的 key；须在 story-catalog productionChapters 白名单内",
+          legalValuesFrom:
+            "GET /graph → sources 的 key；须在 story-catalog productionChapters 白名单内",
         },
         {
           name: "revision",
@@ -414,7 +418,8 @@ export const CREATOR_STUDIO_ENDPOINT_SPECS: readonly CreatorStudioEndpointSpec[]
           type: "string",
           required: true,
           description: "该场景所在 manifest 文件当前 sha256",
-          legalValuesFrom: "GET /scene-meta → scenes[sceneId].sourceHash（或 manifests[file].hash）",
+          legalValuesFrom:
+            "GET /scene-meta → scenes[sceneId].sourceHash（或 manifests[file].hash）",
         },
         {
           name: "fields",
@@ -501,7 +506,7 @@ export const CREATOR_STUDIO_WORKFLOWS: readonly CreatorStudioWorkflow[] = [
         method: "GET",
         path: `${CREATOR_STUDIO_BASE_PATH}/scene-meta`,
         detail:
-          "curl -sS http://127.0.0.1:<port>/__creator-studio/scene-meta。从 JSON 取 scenes[\"dch01_s005\"]（或任意 sceneIds[] 项）的 chapterId、sourceHash、speaker、artKey 等；合法 speaker 在 speakers[]。",
+          'curl -sS http://127.0.0.1:<port>/__creator-studio/scene-meta。从 JSON 取 scenes["dch01_s005"]（或任意 sceneIds[] 项）的 chapterId、sourceHash、speaker、artKey 等；合法 speaker 在 speakers[]。',
       },
       {
         step: 2,
@@ -519,7 +524,7 @@ export const CREATOR_STUDIO_WORKFLOWS: readonly CreatorStudioWorkflow[] = [
         method: "POST",
         path: `${CREATOR_STUDIO_BASE_PATH}/save-scene`,
         detail:
-          "用 step1 的旧 sourceHash 再 POST（任意合法 fields）。期望 HTTP 409，error.code === \"HASH_CONFLICT\"，磁盘未改。恢复：重新 GET /scene-meta 取新 sourceHash 后再写。",
+          '用 step1 的旧 sourceHash 再 POST（任意合法 fields）。期望 HTTP 409，error.code === "HASH_CONFLICT"，磁盘未改。恢复：重新 GET /scene-meta 取新 sourceHash 后再写。',
       },
       {
         step: 4,
@@ -605,7 +610,7 @@ export const CREATOR_STUDIO_INVARIANTS: readonly string[] = [
   "排他锁：pipeline 与 task 共用一把锁；并发第二请求 409 TASK_BUSY。",
   "Ink 第一版编辑边界：不可增删行、不可引入 divert/choice/tag/结构语句；只能改既有对白文字。",
   "路径沙箱：只能改 story-catalog production 白名单内的 Ink 与 production manifest。",
-  "错误体形状（非流式）：{ error: { code, message } }；流式已开始后的错误为 NDJSON { type:\"error\", code?, message }。",
+  '错误体形状（非流式）：{ error: { code, message } }；流式已开始后的错误为 NDJSON { type:"error", code?, message }。',
 ];
 
 export const CREATOR_STUDIO_PRODUCT = [
@@ -651,9 +656,7 @@ export interface CreatorStudioDescribeDocument {
   readonly errorResponseShape: string;
 }
 
-function assertEndpointsCoverRegistry(
-  endpoints: readonly CreatorStudioEndpointSpec[],
-): void {
+function assertEndpointsCoverRegistry(endpoints: readonly CreatorStudioEndpointSpec[]): void {
   const registry = new Set(listCreatorStudioRouteKeys());
   const documented = new Set(
     endpoints.map((endpoint) => creatorStudioRouteKey(endpoint.method, endpoint.path)),

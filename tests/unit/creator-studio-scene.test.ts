@@ -66,7 +66,10 @@ async function createSceneFixture() {
     mkdir(join(repoRoot, "packages/content/generated"), { recursive: true }),
   ]);
 
-  await writeFile(join(repoRoot, "packages/content/manifests/draft-ch01-scenes.ts"), SAMPLE_MANIFEST);
+  await writeFile(
+    join(repoRoot, "packages/content/manifests/draft-ch01-scenes.ts"),
+    SAMPLE_MANIFEST,
+  );
   await writeFile(
     join(repoRoot, "packages/content/catalog/story-catalog.json"),
     `${JSON.stringify(

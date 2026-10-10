@@ -58,9 +58,7 @@ describe("interstitial rotation pure functions", () => {
   });
 
   it("different seeds can start at different indices", () => {
-    const starts = new Set(
-      [0, 1, 7, 14, 100, 999].map((seed) => startIndexFromSeed(seed, n)),
-    );
+    const starts = new Set([0, 1, 7, 14, 100, 999].map((seed) => startIndexFromSeed(seed, n)));
     expect(starts.size).toBeGreaterThan(1);
   });
 

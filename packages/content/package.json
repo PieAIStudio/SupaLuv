@@ -16,10 +16,13 @@
   },
   "scripts": {
     "compile-ink": "node ./scripts/compile-ink.mjs",
+    "generate-story-catalog-types": "node ./scripts/generate-story-catalog-types.mjs",
+    "check-story-catalog-types": "node ./scripts/generate-story-catalog-types.mjs --check",
     "generate-coverage": "node ./scripts/generate-coverage.mjs",
     "generate-narrative-graph": "node ./scripts/generate-narrative-graph.mjs",
-    "build": "pnpm compile-ink && pnpm generate-coverage && pnpm generate-narrative-graph && tsc -p tsconfig.json --noEmit",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "fidelity": "node ./scripts/verify-fidelity.mjs",
+    "build": "pnpm check-story-catalog-types && pnpm compile-ink && pnpm generate-coverage && pnpm generate-narrative-graph && tsc -p tsconfig.json --noEmit",
+    "typecheck": "pnpm check-story-catalog-types && tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@supaluv/shared": "workspace:*"

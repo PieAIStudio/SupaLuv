@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { ContentModerationProvider } from "@pieai/swimmer-ai-kit/content-safety";
+import type { ContentModerationProvider } from "@pieai/swimmer-ai-provider-kit/content-safety";
 import {
   CharacterSafetyError,
   createCharacterSafety,

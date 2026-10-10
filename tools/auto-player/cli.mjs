@@ -2,7 +2,7 @@
 /**
  * CLI: pnpm auto-player --persona <name|all> --out <dir>
  *
- * Walks draft-ch01/02/03 with deterministic persona strategies and writes
+ * Walks every production chapter from story-catalog.json with deterministic persona strategies and writes
  * transcripts + summary.json under --out.
  */
 import process from "node:process";
@@ -16,7 +16,7 @@ function printHelp() {
 Options:
   --persona <id|all>   Built-in persona: ${PERSONA_IDS.join(", ")} (or all)
   --out <dir>          Output directory for transcripts + summary.json
-  --chapter <id>       Limit to one chapter (default: all draft-ch01..03)
+  --chapter <id>       Limit to one production chapter (default: ${DEFAULT_CHAPTERS.join(", ")})
   --no-chain           Do not inherit variables across chapters
   --help               Show this help
 
@@ -94,8 +94,14 @@ function main() {
           return [personaArg];
         })();
 
-  const chapterIds =
-    typeof args.chapter === "string" ? [args.chapter] : [...DEFAULT_CHAPTERS];
+  const chapterIds = typeof args.chapter === "string" ? [args.chapter] : [...DEFAULT_CHAPTERS];
+  for (const chapterId of chapterIds) {
+    if (!DEFAULT_CHAPTERS.includes(chapterId)) {
+      throw new Error(
+        `Unknown production chapter ${chapterId}; expected one of ${DEFAULT_CHAPTERS.join(", ")}`,
+      );
+    }
+  }
   const chainChapters = !args.noChain;
 
   if (personaIds.length === 1 && chapterIds.length === 1) {
@@ -130,6 +136,6 @@ function main() {
 try {
   main();
 } catch (err) {
-  console.error(err instanceof Error ? err.stack ?? err.message : err);
+  console.error(err instanceof Error ? (err.stack ?? err.message) : err);
   process.exit(1);
 }
