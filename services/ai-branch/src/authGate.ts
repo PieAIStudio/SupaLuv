@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { firstDefinedEnv } from "@pieai/swimmer-ai-kit/env";
+import { firstDefinedEnv } from "@pieai/swimmer-ai-provider-kit/env";
 import { verifyAccessToken, type SwimmerAccessTokenProvider } from "@pieai/swimmer-backend-client";
 
 export interface AuthGateResult {
