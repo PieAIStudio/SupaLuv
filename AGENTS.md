@@ -99,6 +99,9 @@ Runtime source/config wins for executable behavior after code exists; docs expla
 
 ## Verification
 
+Use [Three-Stage Delivery](docs/governance/agents-routing/engineering-runtime-v1.1.md#three-stage-delivery) for automatic related-check selection and
+pre-release full gates. Commands below are a reference, not an every-push checklist.
+
 Use the smallest sufficient set, but know the current release ladder:
 
 ```bash
@@ -137,21 +140,42 @@ turn routine development into a whole-repository cleanup.
 
 1. **Edit locally.** Run relevant local checks with isolated data and mocks; do
    not start paid external validation during ordinary development.
-2. **Verify, then push.** Pass the checks appropriate to the changed surface
-   before pushing. Ordinary push/PR saves code; it must not start hosted Actions
-   or Vercel preview/production deployments.
-3. **Release explicitly.** A release request may continue through cloud acceptance
-   and publication within the agreed budget. Check credentials, environment and
-   candidate readiness first; failed or missing required evidence blocks release.
-   Publish only the tested source/artifact. Reuse results only while source,
-   dependencies, relevant environment and retained artifacts remain valid.
+2. **Verify, then push — related checks only.** For the complete outgoing change
+   range against the target base, tooling selects checks automatically from
+   changed paths and dependency relationships, not a hand-picked test list:
+   formatting, lint, type checks and unit tests for affected packages, plus the
+   browser tests affected by the change. Documentation-only changes run their
+   relevant document/governance checks, not unrelated engineering suites.
+   Do not run repository-wide full verification, the entire browser suite or
+   the entire timing suite before an ordinary push or merely to finish a task.
+   Any failing related check blocks the push. Ordinary push/PR saves code; it
+   must not start hosted Actions or Vercel preview/production deployments.
+3. **Release explicitly — full suite for the release candidate.** Only before
+   an authorized release, run all applicable unit tests, browser tests, timing
+   tests and full verification once for that exact candidate. Any failure or
+   missing required evidence blocks release. Keep existing release/security
+   gates and production runtime monitoring. Check credentials, environment and
+   budget before cloud acceptance/publication; publish only the tested source
+   or artifact. Reuse results only while source, dependencies, relevant
+   environment and retained artifacts remain valid.
 
+Dependency-based browser selection (for example Playwright
+`--only-changed=<ref>` where supported) sees changed tests and their imports;
+it does not infer application-source-to-browser-test coverage when tests do not
+import the application. Each project must therefore supply a maintained source
+path-to-test mapping or a fixed smoke set, used by the selector, and document
+its blind spots. Missing selection evidence is a gap to report, not proof that
+zero tests cover the change and not a reason to silently run the full suite.
+
+Never use `--no-verify`, bypass hooks, or rerun failures merely to obtain green.
+Investigate failures with a smaller reproducer and retain the original result;
+rerun only after a relevant fix or new evidence. Do not add nightly full runs:
+full suites belong only to pre-release validation. Delivery reports name the
+selected related checks, their selection basis, results and coverage limits.
 An explicitly requested preview/staging acceptance belongs to stage 3. An edit
-or push request stops at stage 2. Do not relabel routine saves as release requests.
-Repeated failures require a smaller reproducer, logs and a relevant fix or new
-evidence before rerunning; do not loop whole suites or silently raise budgets.
-Keep existing release/security gates and production runtime monitoring. These
-rules govern engineering validation, not separately authorized creative production.
+or push request stops at stage 2; do not relabel routine saves as releases.
+These rules govern engineering validation, not separately authorized creative
+production, and do not introduce engineering tests for unrelated prose.
 
 
 ## Upstream Rule

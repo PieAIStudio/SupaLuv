@@ -1,7 +1,7 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-27T16:03:04.081Z
-generator_version: doc-gov@0.14.2
+generated_at: 2026-10-17T04:45:48.757Z
+generator_version: doc-gov@0.15.0
 docs_count: 55
 docs:
   - id: ADR-0001
@@ -254,7 +254,7 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-09-10
+    last_reviewed: 2026-10-16
     pinned: false
   - id: POLICY-SHARED-PIE-PRODUCT-TECHNOLOGY
     path: docs/policy/shared-rules/pie-product-technology-stack.md
