@@ -38,3 +38,6 @@ tmp/
 artifacts/quality-loop/tmp/
 
 .agents/manual-skills/
+
+# PGS workspace folders: generated scratch and dated records
+/.reports/

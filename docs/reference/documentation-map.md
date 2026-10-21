@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-05-13
-last_reviewed: 2026-07-12
+last_reviewed: 2026-10-18
 domain: meta
 tags:
   - navigation
@@ -18,6 +18,8 @@ related:
 ---
 
 # SupaLuv Documentation Map
+
+> 2026-10-18 本机工作记录搬迁：旧根路径 `.devspace-reports/<原相对路径>` 对应现址 `.reports/2026-10-18-legacy-work-records/old-devspace-reports/<原相对路径>`。日期仅为迁移日，不是旧任务落地日；未核实落地日期的原记录继续保留。以后新收据、日志和截图按 PGS Workspace folders 放进 `.reports/YYYY-MM-DD-task/`；原有历史收据的文字和证据没有伪装成新日期。
 
 本页帮助人和 AI 用最短路径找到项目真相。AI 的强制启动规则仍以 `AGENTS.md` 为准。
 
