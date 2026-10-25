@@ -31,7 +31,7 @@ related:
   automation; do not disable protection merely to make plain `curl` pass.
 - Use Vercel CLI `55.0.0` or newer. Older CLI `54.14.5` generates the obsolete
   `experimentalServices` key and cannot validate GA service destinations.
-- Production domain: `https://supaluv.pieaistudio.com`.
+- Production domain: `https://supaluv.swiminai.com`.
 - Namecheap remains the authoritative DNS provider. The `supaluv` CNAME points
   to `cname.vercel-dns.com`; changing the whole domain to Vercel nameservers is
   not required.

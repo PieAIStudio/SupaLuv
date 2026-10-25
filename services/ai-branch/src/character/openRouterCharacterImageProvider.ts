@@ -190,7 +190,7 @@ export function createConfiguredOpenRouterCharacterImageProvider(
         headers: {
           Authorization: `Bearer ${key}`,
           "Content-Type": "application/json",
-          "HTTP-Referer": "https://supaluv.pieaistudio.com",
+          "HTTP-Referer": "https://supaluv.swiminai.com",
           "X-Title": "SupaLuv",
         },
         body: JSON.stringify(request),

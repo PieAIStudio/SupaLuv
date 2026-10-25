@@ -76,7 +76,7 @@ describe("OpenRouter character image provider", () => {
     expect(url).toBe("https://openrouter.ai/api/v1/images");
     expect(init?.headers).toMatchObject({
       Authorization: "Bearer private-openrouter-key",
-      "HTTP-Referer": "https://supaluv.pieaistudio.com",
+      "HTTP-Referer": "https://supaluv.swiminai.com",
       "X-Title": "SupaLuv",
     });
     expect(String(init?.body)).not.toContain("GEMINI_API_KEY");

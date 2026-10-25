@@ -3,7 +3,7 @@
 SupaLuv（《超级爱人》）是一款独立的 AI 互动电影 / 视觉小说游戏，不属于
 Supa 卡牌游戏，也不包含 Boss Race 或多人对战规则。
 
-生产版可直接游玩：<https://supaluv.pieaistudio.com>
+生产版可直接游玩：<https://supaluv.swiminai.com>
 
 ## 当前状态
 
