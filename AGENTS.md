@@ -178,6 +178,40 @@ These rules govern engineering validation, not separately authorized creative
 production, and do not introduce engineering tests for unrelated prose.
 
 
+### Fast Release Gate
+
+<!-- PGS-DELIVERY:FAST-RELEASE -->
+
+A full run is paid once per candidate: make it fail early and never pay twice
+for the same mistake. Each project implements these with its own commands.
+
+- **Preflight before queuing.** Before waiting for a heavy-work lock, run a
+  light preflight (about a minute) that checks the candidate and worktree,
+  required environment flags, budget files and credentials by name, and the
+  cheap deterministic global checks. A failed preflight never enters the queue.
+- **Cheapest first, stop at the first red.** Run fast deterministic checks and
+  a small fixed smoke set (navigation, sign-in, the main phone screen) before
+  long unit and browser stages.
+- **After a red: narrow, fix, then one full run.** Keep the original result,
+  reproduce the single failure, fix it, and verify the failing test plus what
+  the fix affects. Narrow runs are diagnosis, never release evidence. Then run
+  the full suite once on the fixed candidate, reusing passed results only where
+  the project can prove their inputs are unchanged.
+- **Close the gap that let it through.** When a release-only red could have
+  been caught before push, the same fix adds the missing source-to-test mapping
+  or moves the cheap check into the push gate.
+- **Separate waiting from working.** Release receipts record queue/lock wait
+  and each stage's execution time separately; speed claims name what they
+  measured.
+- **Reuse proven results; balance long suites.** A project whose full run takes
+  more than about 30 minutes must keep a result-reuse record: each passed check
+  is stored with the identity of its inputs (source, test code, dependencies,
+  fixtures, content, tool versions, relevant config and built artifacts), and a
+  later full run re-executes only checks whose identity changed. Timing tests,
+  live paid-AI tests and production read-backs are always re-executed. It must
+  also split long test files so parallel workers finish close together.
+
+
 ## Upstream Rule
 
 Do not locally invent doc-gov core changes such as new document statuses,
