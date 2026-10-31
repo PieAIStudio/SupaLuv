@@ -41,3 +41,6 @@ artifacts/quality-loop/tmp/
 
 # PGS workspace folders: generated scratch and dated records
 /.reports/
+
+# Generated work output: untrack only the approved inventory paths; keep local bytes.
+/artifacts/playtest/screenshots/
