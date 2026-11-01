@@ -13,24 +13,37 @@
 
 ## Startup Reading
 
-`README.md` is the human-facing project introduction. Do not use it as the default AI startup path unless the task is about project positioning, public explanation, or the README itself.
+Read the human-facing `README.md` for relevant setup, verification, positioning
+or README work; do not duplicate it as an AI-only README. Read
+`docs/reference/execution/current-work.md` only when the task depends on current
+priorities or in-flight work, then only the relevant briefs/specs it names.
 
-Before main work, read:
+## Boundary And Policy Discovery
 
-1. All Markdown files under `docs/policy/**/*.md`, including files in
-   subdirectories and symlinked shared-rule files.
-2. `docs/governance/boundary.md`.
-3. The selected agents routing file: `docs/governance/agents-routing/engineering-runtime-v1.1.md`.
-4. `docs/reference/execution/current-work.md`.
-5. Relevant discussion briefs, active specs, or decisions named by current work.
-6. Before non-trivial implementation, debugging, release, architecture, or
-   migration work, run `pro-gov learn recall --query "<task summary>"` and read
-   any relevant prior-learning hits before changing files.
+- `AGENTS.md` is canonical; `CLAUDE.md` must be the exact relative symlink
+  `AGENTS.md`. The canonical skill root is `.agents/skills/`; `.claude/skills`
+  must be the exact relative symlink `../.agents/skills`.
+- All Markdown under `docs/policy/**/*.md`, including shared-rule symlinks, is a
+  discoverable policy index, not a compulsory startup glob. Read the project-local
+  baseline and only the shared rules matching the task.
 
-When the task creates, edits, moves, deletes, or governs documentation, also
-read `docs/governance/ssot-v1.1.md`,
-`docs/governance/doc-agent-rules.md`, and `docs/governance/doc-types.md` before
-changing governed files.
+## Skill Availability
+
+Manifests and locks record desired state, not installed or invoked skills. Use a
+skill only when its SKILL.md exists and can be read. Missing optional links must
+not hide or replace portable policy rules.
+
+## Documentation Tasks
+
+For ordinary content edits, read `docs/governance/doc-agent-rules.md` and guidance
+for the changed subject. Expand `docs/governance/boundary.md` and
+`docs/governance/ssot-v1.1.md` for scope, ownership or host aliases;
+`docs/governance/doc-types.md` for metadata/lifecycle; and the selected routing
+file for workflow changes. Small tasks do not require a new Spec, Plan, ADR or
+proof document. Use relevant checks and required delivery gates, not every
+expensive test or a reinstall for an ordinary edit. Expand or repeat checks only
+for related changes, failures or unresolved questions; stop when the gates and
+acceptance are met.
 
 ## Governance
 
@@ -123,7 +136,8 @@ Preview/Production proof; mocks do not prove service integration.
 For credentials, login or local environment files, first read
 `<portfolio-root>/.secrets/README.md`, then
 `docs/policy/shared-rules/cloud-platform-access.md`. Use the project's existing
-adapter and recorded central location; do not assume secrets belong in this repository.
+adapter and recorded central location; do not infer local secret storage from a
+missing `.env`. Read only task-required configuration.
 
 ## Document Convergence
 
