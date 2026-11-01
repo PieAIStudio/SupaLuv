@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "paths": [
+        ".pro-gov/push-gate*",
+        ".githooks/pre-push",
+        "lefthook.yml"
+      ],
+      "commands": [
+        "git diff --check \"$PUSH_GATE_BASE\" \"$PUSH_GATE_HEAD\"",
+        "node --check .pro-gov/push-gate.mjs && sh -n .githooks/pre-push",
+        "pnpm docs:check"
+      ]
+    },
+    {
+      "paths": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "README.md",
+        "docs/**"
+      ],
+      "commands": [
+        "git diff --check \"$PUSH_GATE_BASE\" \"$PUSH_GATE_HEAD\"",
+        "pnpm docs:check"
+      ]
+    },
+    {
+      "paths": [
+        "apps/**",
+        "packages/**",
+        "services/**",
+        "tests/**",
+        "tools/**"
+      ],
+      "commands": [
+        "node --input-type=module -e 'import{execFileSync,spawnSync}from\"node:child_process\";const f=execFileSync(\"git\",[\"diff\",\"--name-only\",\"--no-renames\",\"--diff-filter=ACMR\",\"-z\",process.env.PUSH_GATE_BASE,process.env.PUSH_GATE_HEAD,\"--\",...[\"apps\", \"packages\", \"services\", \"tests\"]],{encoding:\"utf8\"}).split(\"\\0\").filter(p=>p&&new RegExp(\"\\\\.(?:[cm]?[jt]sx?|json|css|html)$\").test(p));if(f.length){const r=spawnSync(\"pnpm\",[\"exec\", \"oxfmt\", \"--check\"].concat(f,[\"--ignore-path\", \"./.oxfmtignore\"]),{stdio:\"inherit\"});process.exit(r.status??1)}'",
+        "node --input-type=module -e 'import{execFileSync,spawnSync}from\"node:child_process\";const f=execFileSync(\"git\",[\"diff\",\"--name-only\",\"--no-renames\",\"--diff-filter=ACMR\",\"-z\",process.env.PUSH_GATE_BASE,process.env.PUSH_GATE_HEAD,\"--\",...[\"apps\", \"packages\", \"services\", \"tests\", \"tools\"]],{encoding:\"utf8\"}).split(\"\\0\").filter(p=>p&&new RegExp(\"\\\\.[cm]?[jt]sx?$\").test(p));if(f.length){const r=spawnSync(\"pnpm\",[\"exec\", \"oxlint\"].concat(f,[\"-c\", \"./.oxlintrc.json\", \"--react-plugin\"]),{stdio:\"inherit\"});process.exit(r.status??1)}'"
+      ]
+    },
+    {
+      "paths": [
+        "apps/**/*.{ts,tsx,js,jsx,mjs,mts}",
+        "packages/**/*.{ts,tsx,js,jsx,mjs,mts}",
+        "services/**/*.{ts,tsx,js,jsx,mjs,mts}",
+        "tests/**/*.{ts,tsx,js,jsx,mjs,mts}",
+        "tools/**/*.{ts,tsx,js,jsx,mjs,mts}"
+      ],
+      "commands": [
+        "node --input-type=module -e 'import{execFileSync,spawnSync}from\"node:child_process\";const f=execFileSync(\"git\",[\"diff\",\"--name-only\",\"--no-renames\",\"--diff-filter=ACMR\",\"-z\",process.env.PUSH_GATE_BASE,process.env.PUSH_GATE_HEAD,\"--\",...[\"apps\", \"packages\", \"services\", \"tests\", \"tools\"]],{encoding:\"utf8\"}).split(\"\\0\").filter(p=>p&&new RegExp(\"\\\\.[cm]?[jt]sx?$\").test(p));if(!f.length)throw Error(\"No related unit input: maintain deletion/config mapping\");if(f.length){const r=spawnSync(\"pnpm\",[\"exec\", \"vitest\", \"related\"].concat(f,[\"--run\", \"--maxWorkers=1\"]),{stdio:\"inherit\"});process.exit(r.status??1)}'"
+      ]
+    },
+    {
+      "paths": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "tsconfig*.json",
+        "vitest.config.*"
+      ],
+      "commands": [
+        "pnpm typecheck"
+      ]
+    },
+    {
+      "paths": [
+        ".oxlintrc.json"
+      ],
+      "commands": [
+        "pnpm lint"
+      ]
+    },
+    {
+      "paths": [
+        ".oxfmtrc.json",
+        ".oxfmtignore"
+      ],
+      "commands": [
+        "git diff --check \"$PUSH_GATE_BASE\" \"$PUSH_GATE_HEAD\""
+      ]
+    },
+    {
+      "paths": [
+        "apps/web/**"
+      ],
+      "commands": [
+        "pnpm --filter @supaluv/web typecheck"
+      ]
+    },
+    {
+      "paths": [
+        "packages/content/**"
+      ],
+      "commands": [
+        "pnpm --filter @supaluv/web typecheck",
+        "pnpm --filter @supaluv/content typecheck",
+        "pnpm --filter @supaluv/ai-branch typecheck"
+      ]
+    },
+    {
+      "paths": [
+        "packages/shared/**"
+      ],
+      "commands": [
+        "pnpm --filter @supaluv/web typecheck",
+        "pnpm --filter @supaluv/content typecheck",
+        "pnpm --filter @supaluv/shared typecheck",
+        "pnpm --filter @supaluv/ai-branch typecheck"
+      ]
+    },
+    {
+      "paths": [
+        "services/ai-branch/**"
+      ],
+      "commands": [
+        "pnpm --filter @supaluv/ai-branch typecheck"
+      ]
+    },
+    {
+      "paths": [
+        ".pro-gov/assets*",
+        ".agents/skills/**",
+        ".claude/skills"
+      ],
+      "commands": [
+        "pnpm pro-gov assets check",
+        "pnpm docs:check"
+      ]
+    },
+    {
+      "paths": [
+        ".gitignore",
+        ".gitattributes",
+        "LICENSE",
+        "CHANGELOG.md",
+        "vercel.json"
+      ],
+      "commands": [
+        "git diff --check \"$PUSH_GATE_BASE\" \"$PUSH_GATE_HEAD\""
+      ]
+    }
+  ],
+  "blindSpots": [
+    "Exact shared PGS Node 24 selector; repo-owned mapping only. Unknown paths stop; there is no full-suite fallback.",
+    "Vitest related follows static imports from changed source/test paths, not global package/config force-rerun triggers. A selected unit command with zero tests fails for investigation. Deletions and dynamic seams need maintained mappings.",
+    "As in the passing pilots, no new automatic browser/build/timing suite is added. HTTP UI journeys, dynamic assets, layout, real auth/network and paid-provider behavior are not proved by this hook; existing acceptance/release checks stay unchanged.",
+    "Only existing local check CLIs are invoked. Config/lockfile changes get affected types/lint or a named bounded smoke, not all tests. Release, deployment, account and publication paths require separate scope.",
+    "Workspace type checks include the changed package and its transitive consumers declared in current package manifests. Maintain this map when workspace dependencies change; root config/lock changes select types, never all unit tests.",
+    "No recursive build/test wrapper, Node test corpus, worker harness, online game, account or cloud benchmark is invoked. Existing built-package/dynamic cross-workspace and source-to-browser acceptance remain separate evidence."
+  ]
+}

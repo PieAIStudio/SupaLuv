@@ -2,6 +2,11 @@
 # Copy to target project root as lefthook.yml, then run:
 #   pnpm exec lefthook install
 
+pre-push:
+  commands:
+    related-only:
+      run: node .pro-gov/push-gate.mjs --base origin/main
+
 pre-commit:
   parallel: false
   commands:
