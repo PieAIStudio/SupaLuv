@@ -48,3 +48,8 @@ result.txt
 
 # Generated work output: untrack only the approved inventory paths; keep local bytes.
 /artifacts/playtest/screenshots/
+
+# Share only the project MCP config; keep other Codex state local.
+!/.codex/
+/.codex/*
+!/.codex/config.toml
