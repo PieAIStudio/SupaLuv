@@ -5,7 +5,7 @@
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:06ff51ec7f7ed71d6c59a470011f678730c983eeb36b75c2d1e08f2fc05ee366",
+    "hash": "sha256:55d40021bc2e6b7dc3fc75af15b57ad4e58934c37043a699a9750bbf80f14df2",
     "assetCount": 12
   },
   "assets": [
@@ -21,7 +21,7 @@
       "id": "npx-skills/impeccable",
       "sourcePath": "skills/npx-skills/.agents/skills/impeccable",
       "delivery": "symlink",
-      "contentHash": "sha256:2c68070631f0c376794820c90f0a9e71b069f67905c76c2e72d472d51b4c146a",
+      "contentHash": "sha256:674c515566c3c233a91cfb13e4d6ecfc4c44d6af3538634331c3968715b53bf4",
       "placement": "auto",
       "targetPath": ".agents/skills/impeccable"
     },
@@ -45,7 +45,7 @@
       "id": "npx-skills/ui-ux-pro-max",
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
       "delivery": "symlink",
-      "contentHash": "sha256:9ea895a165b0c8c80f33d1de5ff3cfdaf9cecdcb80ac60f6ace23f4acdd91ad4",
+      "contentHash": "sha256:c50cdf3c1e2941640e66853496a24dd82d34c873cedae49648ea623366f776d2",
       "placement": "auto",
       "targetPath": ".agents/skills/ui-ux-pro-max"
     },
