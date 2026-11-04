@@ -138,6 +138,19 @@
       "commands": [
         "git diff --check \"$PUSH_GATE_BASE\" \"$PUSH_GATE_HEAD\""
       ]
+    },
+    {
+      "paths": [
+        ".mcp.json",
+        ".pi/mcp.json",
+        ".codex/config.toml",
+        ".agents/mcp_config.json",
+        ".grok/config.toml"
+      ],
+      "commands": [
+        "git diff --check \"$PUSH_GATE_BASE\" \"$PUSH_GATE_HEAD\"",
+        "python3 -c \"import json, tomllib; from pathlib import Path; [json.loads(p.read_text(encoding='utf-8')) for p in map(Path, ('.mcp.json', '.pi/mcp.json', '.agents/mcp_config.json')) if p.is_file()]; [tomllib.loads(p.read_text(encoding='utf-8')) for p in map(Path, ('.codex/config.toml', '.grok/config.toml')) if p.is_file()]\""
+      ]
     }
   ],
   "blindSpots": [
