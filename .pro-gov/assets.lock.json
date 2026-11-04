@@ -5,8 +5,8 @@
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:564d9e78b86b24def707f49b204b547107a8952494da1d74b7ad745188740936",
-    "assetCount": 8
+    "hash": "sha256:06ff51ec7f7ed71d6c59a470011f678730c983eeb36b75c2d1e08f2fc05ee366",
+    "assetCount": 12
   },
   "assets": [
     {
@@ -24,6 +24,22 @@
       "contentHash": "sha256:2c68070631f0c376794820c90f0a9e71b069f67905c76c2e72d472d51b4c146a",
       "placement": "auto",
       "targetPath": ".agents/skills/impeccable"
+    },
+    {
+      "id": "npx-skills/mobilewright",
+      "sourcePath": "skills/npx-skills/.agents/skills/mobilewright",
+      "delivery": "symlink",
+      "contentHash": "sha256:fd972a18db8b88ed7029d222476534e9bdacd10b6035de90c5c5c1932478a53f",
+      "placement": "auto",
+      "targetPath": ".agents/skills/mobilewright"
+    },
+    {
+      "id": "npx-skills/playwright-cli",
+      "sourcePath": "skills/npx-skills/.agents/skills/playwright-cli",
+      "delivery": "symlink",
+      "contentHash": "sha256:6be12bb66dbfa6d2459e1747058a386b499d4e1db57e802e86aa7395686d58dd",
+      "placement": "auto",
+      "targetPath": ".agents/skills/playwright-cli"
     },
     {
       "id": "npx-skills/ui-ux-pro-max",
@@ -67,6 +83,22 @@
       "delivery": "symlink",
       "contentHash": "sha256:b4e439ffe24d3031bd61de1b759fe7ec07e66e5ebdbca4d58b2331bfc2b7981b",
       "targetPath": "docs/policy/shared-rules/document-convergence.md"
+    },
+    {
+      "id": "pie-skills/novel-to-ink-script",
+      "sourcePath": "skills/pie-skills/novel-to-ink-script",
+      "delivery": "symlink",
+      "contentHash": "sha256:f74139e8ffe9cd4cdcc16edd8b42a1938a3138713f6d2b015794ec9b2dd42662",
+      "placement": "auto",
+      "targetPath": ".agents/skills/novel-to-ink-script"
+    },
+    {
+      "id": "pie-skills/script-to-assets",
+      "sourcePath": "skills/pie-skills/script-to-assets",
+      "delivery": "symlink",
+      "contentHash": "sha256:738fbc0bcd3bbf122a769709307c5fb49bd7259473cab93db84ca191e98ec9f5",
+      "placement": "auto",
+      "targetPath": ".agents/skills/script-to-assets"
     }
   ]
 }

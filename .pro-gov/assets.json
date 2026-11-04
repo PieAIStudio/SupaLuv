@@ -12,6 +12,14 @@
       "placement": "auto"
     },
     {
+      "id": "npx-skills/mobilewright",
+      "placement": "auto"
+    },
+    {
+      "id": "npx-skills/playwright-cli",
+      "placement": "auto"
+    },
+    {
       "id": "npx-skills/ui-ux-pro-max",
       "placement": "auto"
     },
@@ -29,6 +37,14 @@
     },
     {
       "id": "pie-rules/document-convergence"
+    },
+    {
+      "id": "pie-skills/novel-to-ink-script",
+      "placement": "auto"
+    },
+    {
+      "id": "pie-skills/script-to-assets",
+      "placement": "auto"
     }
   ]
 }

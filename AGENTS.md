@@ -146,6 +146,11 @@ read `docs/policy/shared-rules/document-convergence.md` and reconcile the affect
 facts and references. Preserve decision rationale and original evidence; do not
 turn routine development into a whole-repository cleanup.
 
+## Test Tools
+Web: use Playwright tests; explore with `playwright-cli`.
+Phone: explore with the `mobile-mcp` server; keep Mobilewright tests in tests/mobile/; run `npx mobilewright test`.
+Log each phone-tool use in <HQ-control-plane-on-Mac>/conductor/projects/HQ/mobile-mcp-install-20261104/USAGE.md.
+
 <!-- PGS-ROUTER:END -->
 
 ## Three-Stage Delivery
