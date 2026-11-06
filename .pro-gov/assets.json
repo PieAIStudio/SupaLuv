@@ -4,6 +4,10 @@
   "scope": "project",
   "assets": [
     {
+      "id": "npx-skills/finding-replay-for-issue",
+      "placement": "auto"
+    },
+    {
       "id": "npx-skills/frontend-design",
       "placement": "auto"
     },
@@ -12,11 +16,23 @@
       "placement": "auto"
     },
     {
+      "id": "npx-skills/instrument-error-tracking",
+      "placement": "auto"
+    },
+    {
+      "id": "npx-skills/investigating-error-issue",
+      "placement": "auto"
+    },
+    {
       "id": "npx-skills/mobilewright",
       "placement": "auto"
     },
     {
       "id": "npx-skills/playwright-cli",
+      "placement": "auto"
+    },
+    {
+      "id": "npx-skills/triaging-error-issues",
       "placement": "auto"
     },
     {
@@ -37,6 +53,14 @@
     },
     {
       "id": "pie-rules/document-convergence"
+    },
+    {
+      "id": "pie-skills/design-before-build",
+      "placement": "auto"
+    },
+    {
+      "id": "pie-skills/goalcascade",
+      "placement": "auto"
     },
     {
       "id": "pie-skills/novel-to-ink-script",

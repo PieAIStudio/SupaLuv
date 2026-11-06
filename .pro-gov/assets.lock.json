@@ -5,10 +5,18 @@
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:55d40021bc2e6b7dc3fc75af15b57ad4e58934c37043a699a9750bbf80f14df2",
-    "assetCount": 12
+    "hash": "sha256:20609e8e08901eeaf2308ec172ab74e5199b50fa2a1cbb98ca0eeacdd3d4db1b",
+    "assetCount": 18
   },
   "assets": [
+    {
+      "id": "npx-skills/finding-replay-for-issue",
+      "sourcePath": "skills/npx-skills/.agents/skills/finding-replay-for-issue",
+      "delivery": "symlink",
+      "contentHash": "sha256:8939254bb18a1a73233829ad98805f55d809ad0181cfa2965ffe00a323b71aa5",
+      "placement": "auto",
+      "targetPath": ".agents/skills/finding-replay-for-issue"
+    },
     {
       "id": "npx-skills/frontend-design",
       "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
@@ -24,6 +32,22 @@
       "contentHash": "sha256:674c515566c3c233a91cfb13e4d6ecfc4c44d6af3538634331c3968715b53bf4",
       "placement": "auto",
       "targetPath": ".agents/skills/impeccable"
+    },
+    {
+      "id": "npx-skills/instrument-error-tracking",
+      "sourcePath": "skills/npx-skills/.agents/skills/instrument-error-tracking",
+      "delivery": "symlink",
+      "contentHash": "sha256:1360c95a87a23e8f2974050ca54388f11c7c4c97cc5d5dd35c4c8029384f72dc",
+      "placement": "auto",
+      "targetPath": ".agents/skills/instrument-error-tracking"
+    },
+    {
+      "id": "npx-skills/investigating-error-issue",
+      "sourcePath": "skills/npx-skills/.agents/skills/investigating-error-issue",
+      "delivery": "symlink",
+      "contentHash": "sha256:0aa882e6bb3b84fc747c3ad5a17db0eb8d24e58061e631fedaf2e6af3bf29d4b",
+      "placement": "auto",
+      "targetPath": ".agents/skills/investigating-error-issue"
     },
     {
       "id": "npx-skills/mobilewright",
@@ -42,6 +66,14 @@
       "targetPath": ".agents/skills/playwright-cli"
     },
     {
+      "id": "npx-skills/triaging-error-issues",
+      "sourcePath": "skills/npx-skills/.agents/skills/triaging-error-issues",
+      "delivery": "symlink",
+      "contentHash": "sha256:ad37381cde1203e67c0b4cb114ef026276e0e362b43bea062d58bf7f132c9332",
+      "placement": "auto",
+      "targetPath": ".agents/skills/triaging-error-issues"
+    },
+    {
       "id": "npx-skills/ui-ux-pro-max",
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
       "delivery": "symlink",
@@ -53,14 +85,14 @@
       "id": "pie-rules/ai-in-the-loop",
       "sourcePath": "rules/pie-rules/ai-in-the-loop.md",
       "delivery": "symlink",
-      "contentHash": "sha256:727495c221692756143191b66bace38d8da0bf720ac4e2b668a8f04a2ea68910",
+      "contentHash": "sha256:5718a0e0e40b70a1d33c2920a37fd8281e8a67fd0d35ffdd0e02c5a7403991df",
       "targetPath": "docs/policy/shared-rules/ai-in-the-loop.md"
     },
     {
       "id": "pie-rules/brand-kit-first",
       "sourcePath": "rules/pie-rules/brand-kit-first.md",
       "delivery": "symlink",
-      "contentHash": "sha256:fd3cb970084a98b2773f83b6917196da40f91718400f82cae004e0f2b779dadc",
+      "contentHash": "sha256:0ebbf19dda593873ba5413eed0581225de5c867785216f8925fd68d1e93308a3",
       "targetPath": "docs/policy/shared-rules/brand-kit-first.md"
     },
     {
@@ -81,8 +113,24 @@
       "id": "pie-rules/document-convergence",
       "sourcePath": "rules/pie-rules/document-convergence.md",
       "delivery": "symlink",
-      "contentHash": "sha256:b4e439ffe24d3031bd61de1b759fe7ec07e66e5ebdbca4d58b2331bfc2b7981b",
+      "contentHash": "sha256:796418e7ac598a8892b4fd53611b3b78d459e49ea991b98fa243ac48642a156a",
       "targetPath": "docs/policy/shared-rules/document-convergence.md"
+    },
+    {
+      "id": "pie-skills/design-before-build",
+      "sourcePath": "skills/pie-skills/design-before-build",
+      "delivery": "symlink",
+      "contentHash": "sha256:1e9f30072c416f6a1d14bb562e0d8aa56da2b96955e3413496288a4d195b83db",
+      "placement": "auto",
+      "targetPath": ".agents/skills/design-before-build"
+    },
+    {
+      "id": "pie-skills/goalcascade",
+      "sourcePath": "skills/pie-skills/goalcascade",
+      "delivery": "symlink",
+      "contentHash": "sha256:0b126b3055964f7e1218c7ba7f5d07ab119cf8a5dbf5070fb5b5207920315ee6",
+      "placement": "auto",
+      "targetPath": ".agents/skills/goalcascade"
     },
     {
       "id": "pie-skills/novel-to-ink-script",
