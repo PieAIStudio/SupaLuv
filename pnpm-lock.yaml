@@ -12,11 +12,11 @@ importers:
   .:
     devDependencies:
       '@pieai/doc-gov':
-        specifier: 0.17.2
-        version: 0.17.2(supports-color@7.2.0)
+        specifier: 0.17.3
+        version: 0.17.3(supports-color@7.2.0)
       '@pieai/pro-gov':
-        specifier: 0.17.2
-        version: 0.17.2(jiti@2.7.0)(playwright-core@1.64.1)(supports-color@7.2.0)(typescript@6.0.3)
+        specifier: 0.17.3
+        version: 0.17.3(jiti@2.7.0)(playwright-core@1.64.1)(supports-color@7.2.0)(typescript@6.0.3)
       '@pieai/swimmer-ai-provider-kit':
         specifier: 0.13.0
         version: 0.13.0(ws@8.21.0)
@@ -1941,13 +1941,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@pieai/doc-gov@0.17.2':
-    resolution: {integrity: sha512-o/RJ3FNOI3hjE/CvyjzQ+syyA6TN2fCAwdRz/SfUcEhcPoWoF6BPSduz8gEEZvldXM3ToDe+smLIPntw2uL8Zw==}
+  '@pieai/doc-gov@0.17.3':
+    resolution: {integrity: sha512-Vo5JmB7UFs+o0Lrizo/I/8pZdvP27yoaVSwb/DwQCeb/4AYf4wcrNI64Sxq+KYNdNyhMFxVC9qXqXkunmVe8jg==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
-  '@pieai/pro-gov@0.17.2':
-    resolution: {integrity: sha512-3ewNWp0gYz/1GMqvr/+8aLa8Kvyg7Up+tcazEoFIuKjJNMUWm7Ewfvbg9PzkI4d2nfNrMX9jFJjqFDXPn4iYAA==}
+  '@pieai/pro-gov@0.17.3':
+    resolution: {integrity: sha512-jktdCf6RTKk1y5uq6gFCaD4bcgUy5TGnGl8t+ZRn9V3ARqllT84AcIYY5n6W7CmHZpXVOyJJ2qizCZcQb72kag==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
@@ -5963,11 +5963,6 @@ packages:
   whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
 
-  which@2.0.1:
-    resolution: {integrity: sha512-N7GBZOTswtB9lkQBZA4+zAXrjEIWAUOB93AvzUiudRzRxhUdLURQ7D/gAIMY1gatT/LTbmbcv8SiYazy3eYB7w==}
-    engines: {node: '>= 8'}
-    hasBin: true
-
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
@@ -7494,17 +7489,17 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.73.0':
     optional: true
 
-  '@pieai/doc-gov@0.17.2(supports-color@7.2.0)':
+  '@pieai/doc-gov@0.17.3(supports-color@7.2.0)':
     dependencies:
       mdast-util-from-markdown: 2.0.3(supports-color@7.2.0)
       yaml: 2.9.1
     transitivePeerDependencies:
       - supports-color
 
-  '@pieai/pro-gov@0.17.2(jiti@2.7.0)(playwright-core@1.64.1)(supports-color@7.2.0)(typescript@6.0.3)':
+  '@pieai/pro-gov@0.17.3(jiti@2.7.0)(playwright-core@1.64.1)(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
       '@axe-core/playwright': 4.13.0(playwright-core@1.64.1)
-      '@pieai/doc-gov': 0.17.2(supports-color@7.2.0)
+      '@pieai/doc-gov': 0.17.3(supports-color@7.2.0)
       '@typescript-eslint/parser': 8.72.1(eslint@9.39.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)
       ajv: 8.17.1
       dependency-cruiser: 17.3.2
@@ -8913,7 +8908,7 @@ snapshots:
     dependencies:
       path-key: 3.1.1
       shebang-command: 2.0.0
-      which: 2.0.1
+      which: 2.0.2
 
   csstype@3.2.3: {}
 
@@ -12068,10 +12063,6 @@ snapshots:
     dependencies:
       tr46: 0.0.3
       webidl-conversions: 3.0.0
-
-  which@2.0.1:
-    dependencies:
-      isexe: 2.0.0
 
   which@2.0.2:
     dependencies:
