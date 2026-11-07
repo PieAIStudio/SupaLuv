@@ -5,8 +5,8 @@
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:20609e8e08901eeaf2308ec172ab74e5199b50fa2a1cbb98ca0eeacdd3d4db1b",
-    "assetCount": 18
+    "hash": "sha256:5f66c6953b1c0076257d54574500404d1700961a7c84413bc0486809db33bb58",
+    "assetCount": 16
   },
   "assets": [
     {
@@ -131,22 +131,6 @@
       "contentHash": "sha256:0b126b3055964f7e1218c7ba7f5d07ab119cf8a5dbf5070fb5b5207920315ee6",
       "placement": "auto",
       "targetPath": ".agents/skills/goalcascade"
-    },
-    {
-      "id": "pie-skills/novel-to-ink-script",
-      "sourcePath": "skills/pie-skills/novel-to-ink-script",
-      "delivery": "symlink",
-      "contentHash": "sha256:f74139e8ffe9cd4cdcc16edd8b42a1938a3138713f6d2b015794ec9b2dd42662",
-      "placement": "auto",
-      "targetPath": ".agents/skills/novel-to-ink-script"
-    },
-    {
-      "id": "pie-skills/script-to-assets",
-      "sourcePath": "skills/pie-skills/script-to-assets",
-      "delivery": "symlink",
-      "contentHash": "sha256:738fbc0bcd3bbf122a769709307c5fb49bd7259473cab93db84ca191e98ec9f5",
-      "placement": "auto",
-      "targetPath": ".agents/skills/script-to-assets"
     }
   ]
 }
