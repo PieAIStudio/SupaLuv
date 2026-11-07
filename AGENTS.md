@@ -20,8 +20,8 @@ priorities or in-flight work, then only the relevant briefs/specs it names.
 
 ## Boundary And Policy Discovery
 
-- `AGENTS.md` is canonical; `CLAUDE.md` must be the exact relative symlink
-  `AGENTS.md`. The canonical skill root is `.agents/skills/`; `.claude/skills`
+- `AGENTS.md` is canonical; do not create a root `CLAUDE.md` alias.
+  The canonical skill root is `.agents/skills/`; `.claude/skills`
   must be the exact relative symlink `../.agents/skills`.
 - All Markdown under `docs/policy/**/*.md`, including shared-rule symlinks, is a
   discoverable policy index, not a compulsory startup glob. Read the project-local
@@ -157,78 +157,15 @@ Log each phone-tool use in <HQ-control-plane-on-Mac>/conductor/projects/HQ/mobil
 
 <!-- PGS-DELIVERY:THREE-STAGE -->
 
-1. **Edit locally.** Run relevant local checks with isolated data and mocks; do
-   not start paid external validation during ordinary development.
-2. **Verify, then push — related checks only.** For the complete outgoing change
-   range against the target base, tooling selects checks automatically from
-   changed paths and dependency relationships, not a hand-picked test list:
-   formatting, lint, type checks and unit tests for affected packages, plus the
-   browser tests affected by the change. Documentation-only changes run their
-   relevant document/governance checks, not unrelated engineering suites.
-   Do not run repository-wide full verification, the entire browser suite or
-   the entire timing suite before an ordinary push or merely to finish a task.
-   Any failing related check blocks the push. Ordinary push/PR saves code; it
-   must not start hosted Actions or Vercel preview/production deployments.
-3. **Release explicitly — full suite for the release candidate.** Only before
-   an authorized release, run all applicable unit tests, browser tests, timing
-   tests and full verification once for that exact candidate. Any failure or
-   missing required evidence blocks release. Keep existing release/security
-   gates and production runtime monitoring. Check credentials, environment and
-   budget before cloud acceptance/publication; publish only the tested source
-   or artifact. Reuse results only while source, dependencies, relevant
-   environment and retained artifacts remain valid.
-
-Dependency-based browser selection (for example Playwright
-`--only-changed=<ref>` where supported) sees changed tests and their imports;
-it does not infer application-source-to-browser-test coverage when tests do not
-import the application. Each project must therefore supply a maintained source
-path-to-test mapping or a fixed smoke set, used by the selector, and document
-its blind spots. Missing selection evidence is a gap to report, not proof that
-zero tests cover the change and not a reason to silently run the full suite.
-
-Never use `--no-verify`, bypass hooks, or rerun failures merely to obtain green.
-Investigate failures with a smaller reproducer and retain the original result;
-rerun only after a relevant fix or new evidence. Do not add nightly full runs:
-full suites belong only to pre-release validation. Delivery reports name the
-selected related checks, their selection basis, results and coverage limits.
-An explicitly requested preview/staging acceptance belongs to stage 3. An edit
-or push request stops at stage 2; do not relabel routine saves as releases.
-These rules govern engineering validation, not separately authorized creative
-production, and do not introduce engineering tests for unrelated prose.
-
+Follow the [PGS Three-Stage Delivery policy](https://github.com/PieAIStudio/ProjectGovernanceSystem/blob/main/docs/policy/design-principles.md#7-three-delivery-stages) for local edits, automatically selected related checks, release authority and evidence.
+Keep normal hooks; never use `--no-verify`. An ordinary push must not start hosted Actions or deployments.
+Fixes on `main` have standing release authorization after the normal gates; new features still require approval.
 
 ### Fast Release Gate
 
 <!-- PGS-DELIVERY:FAST-RELEASE -->
 
-A full run is paid once per candidate: make it fail early and never pay twice
-for the same mistake. Each project implements these with its own commands.
-
-- **Preflight before queuing.** Before waiting for a heavy-work lock, run a
-  light preflight (about a minute) that checks the candidate and worktree,
-  required environment flags, budget files and credentials by name, and the
-  cheap deterministic global checks. A failed preflight never enters the queue.
-- **Cheapest first, stop at the first red.** Run fast deterministic checks and
-  a small fixed smoke set (navigation, sign-in, the main phone screen) before
-  long unit and browser stages.
-- **After a red: narrow, fix, then one full run.** Keep the original result,
-  reproduce the single failure, fix it, and verify the failing test plus what
-  the fix affects. Narrow runs are diagnosis, never release evidence. Then run
-  the full suite once on the fixed candidate, reusing passed results only where
-  the project can prove their inputs are unchanged.
-- **Close the gap that let it through.** When a release-only red could have
-  been caught before push, the same fix adds the missing source-to-test mapping
-  or moves the cheap check into the push gate.
-- **Separate waiting from working.** Release receipts record queue/lock wait
-  and each stage's execution time separately; speed claims name what they
-  measured.
-- **Reuse proven results; balance long suites.** A project whose full run takes
-  more than about 30 minutes must keep a result-reuse record: each passed check
-  is stored with the identity of its inputs (source, test code, dependencies,
-  fixtures, content, tool versions, relevant config and built artifacts), and a
-  later full run re-executes only checks whose identity changed. Timing tests,
-  live paid-AI tests and production read-backs are always re-executed. It must
-  also split long test files so parallel workers finish close together.
+Follow the single [PGS Fast Release Gate](https://github.com/PieAIStudio/ProjectGovernanceSystem/blob/main/AGENTS.md#fast-release-gate); do not copy it here.
 
 
 ## Upstream Rule

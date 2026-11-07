@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-21T21:53:53.158Z
+generated_at: 2026-11-07T06:26:51.266Z
 generator_version: doc-gov@0.16.0
 docs_count: 55
 docs:
@@ -226,14 +226,14 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-09-08
+    last_reviewed: 2026-11-05
     pinned: false
   - id: POLICY-SHARED-BRAND-KIT-FIRST
     path: docs/policy/shared-rules/brand-kit-first.md
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-09-08
+    last_reviewed: 2026-11-04
     pinned: true
   - id: POLICY-SHARED-CLEAN-IMAGE-GENERATION
     path: docs/policy/shared-rules/clean-image-generation-rules.md
@@ -254,7 +254,7 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-10-16
+    last_reviewed: 2026-11-04
     pinned: false
   - id: POLICY-SHARED-PIE-PRODUCT-TECHNOLOGY
     path: docs/policy/shared-rules/pie-product-technology-stack.md
