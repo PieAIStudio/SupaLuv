@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "paths": [
+        "src/**",
+        "tests/**",
+        "package.json",
+        "pnpm-lock.yaml"
+      ],
+      "commands": [
+        "pnpm lint",
+        "pnpm typecheck",
+        "pnpm test:related"
+      ]
+    },
+    {
+      "paths": [
+        "docs/**",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "README.md"
+      ],
+      "commands": [
+        "pnpm docs:check"
+      ]
+    },
+    {
+      "paths": [
+        ".pro-gov/push-gate.json",
+        "lefthook.yml"
+      ],
+      "commands": [
+        "pnpm docs:check"
+      ]
+    },
+    {
+      "paths": [
+        ".gitignore",
+        "LICENSE"
+      ],
+      "commands": [],
+      "reason": "Repository metadata only; no runtime validation applies."
+    },
+    {
+      "paths": [
+        ".pro-gov/assets*",
+        ".agents/skills/**",
+        ".agents/manual-skills/**",
+        ".claude/skills"
+      ],
+      "commands": [
+        "pnpm pro-gov assets check",
+        "pnpm docs:check"
+      ]
+    }
+  ],
+  "blindSpots": [
+    "EXAMPLE ONLY: replace these commands and patterns before use; absent commands fail.",
+    "Add explicit source-to-browser smoke mappings; changed test imports alone do not cover app source.",
+    "Native devices, live services and full release verification are not ordinary push checks."
+  ]
+}

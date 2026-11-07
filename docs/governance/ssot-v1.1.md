@@ -72,14 +72,24 @@ Every governed project uses these project-level truth surfaces:
 
 | Concern | Canonical path | Compatibility contract |
 | --- | --- | --- |
-| Project AI router | `AGENTS.md` | `CLAUDE.md` is the exact relative symlink `AGENTS.md` |
+| Project AI router | `AGENTS.md` | Claude Code 2.1.277+ can read it natively; no root entry alias is required or created |
 | Project skills | `.agents/skills/` | `.claude/skills` is the exact relative symlink `../.agents/skills` |
+
+Claude Code native `AGENTS.md` reading starts at **2.1.277** (18 September 2026).
+In the default mode, a `CLAUDE.md`, `.claude/CLAUDE.md` or `CLAUDE.local.md` in
+the working directory or an ancestor takes precedence. Check these files before
+removing only the legacy root alias; preserve independent instruction files.
+The built-in AGENTS plugin must be enabled; some sessions before 2.1.281 did
+not support the fallback. Verify loaded instructions with `/context all`.
+Claude Code does not discover the `.agents/` tree as a skill root, so keep the
+exact `.claude/skills` adapter. See the [official memory contract](https://code.claude.com/docs/en/memory#agentsmd)
+and [2.1.277 release](https://github.com/anthropics/claude-code/releases/tag/v2.1.277).
 
 The compatibility paths are structural contracts, not alternate content
 locations:
 
-- `CLAUDE.md` must be a symbolic link whose raw link target is exactly
-  `AGENTS.md`.
+- `AGENTS.md` is the project entry. Preserve and list independent `CLAUDE.md`
+  files; migrate only the legacy root symlink to `AGENTS.md`.
 - `.claude/skills` must be a symbolic link whose raw link target is exactly
   `../.agents/skills`.
 - `.agents/skills/` must still exist in a clean checkout. Track managed skill
@@ -93,19 +103,18 @@ locations:
 - Host-specific runtime settings may remain in native host configuration files,
   but they must not introduce a second project router or project skill tree.
 
-On Windows, local materialization may use a hard link for `CLAUDE.md`
-(same device and inode as `AGENTS.md`) and a directory link or junction for
+On Windows, local materialization may use a directory link or junction for
 `.claude/skills` that resolves to canonical `.agents/skills`. The host-aware
 validators accept these proven aliases; copied files, copied directories,
 wrong targets, and dangling links remain invalid. This is an existing local
 adapter allowance. The portable Git representation remains the exact relative
-symlinks above, and Git's plain-text symlink checkout must be materialized before
+skill-folder symlink above, and Git's plain-text symlink checkout must be materialized before
 host use. It does not create another source of truth.
 
-This exact-relative rule applies only to the two compatibility links above.
-Individual entries under `.agents/skills/<skill>` may be directories or valid
-absolute or relative symlinks. Skill managers may choose absolute per-skill
-links when that is the correct installation model.
+This exact-relative rule applies only to the skill-folder compatibility link.
+Individual project entries under `.agents/skills/<skill>` link to their
+registered skill sources. Those per-skill links may be absolute or relative;
+the exact-relative rule applies only to the Claude skill-folder adapter.
 
 User-level skill roots are a separate configuration scope. A user may maintain
 one canonical `~/.agents/skills/` tree and link a compatible host root to it,

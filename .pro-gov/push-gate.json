@@ -151,6 +151,19 @@
         "git diff --check \"$PUSH_GATE_BASE\" \"$PUSH_GATE_HEAD\"",
         "python3 -c \"import json, tomllib; from pathlib import Path; [json.loads(p.read_text(encoding='utf-8')) for p in map(Path, ('.mcp.json', '.pi/mcp.json', '.agents/mcp_config.json')) if p.is_file()]; [tomllib.loads(p.read_text(encoding='utf-8')) for p in map(Path, ('.codex/config.toml', '.grok/config.toml')) if p.is_file()]\""
       ]
+    },
+    {
+      "paths": [
+        "push-gate.template.json",
+        "scoring/README.md",
+        "scoring/review.schema.json",
+        "scoring/settings.example.json",
+        "scoring/settings.schema.json"
+      ],
+      "commands": [
+        "git diff --check \"$PUSH_GATE_BASE\" \"$PUSH_GATE_HEAD\"",
+        "corepack pnpm pro-gov sync --check"
+      ]
     }
   ],
   "blindSpots": [

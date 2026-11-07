@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "id": "home",
+      "path": "/",
+      "ready": "[data-page-ready=\"true\"]",
+      "references": ["design/approved/home.png"]
+    }
+  ],
+  "passMarks": { "look": 8.5, "lookItem": 7, "code": 8.5, "codeItem": 7, "refactorBelow": 7 },
+  "code": {
+    "include": [
+      "src/**/*.{ts,tsx,js,jsx,mjs,cjs,mts,cts}",
+      "packages/*/src/**/*.{ts,tsx,js,jsx,mjs,cjs,mts,cts}"
+    ],
+    "exclude": ["**/*.test.*", "**/*.spec.*", "**/generated/**"],
+    "maxFileLines": 500,
+    "maxComplexity": 15,
+    "commands": {
+      "typecheck": ["pnpm", "typecheck"],
+      "lint": ["pnpm", "exec", "oxlint", "{files}"]
+    },
+    "dependencyRules": [],
+    "coverage": "coverage/lcov.info"
+  }
+}

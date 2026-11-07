@@ -70,8 +70,9 @@ System rules go here. Project-specific rules go to `docs/policy/`.
 ## Governed Scope
 
 By default, doc-gov governs Markdown under `docs/**` and the project AI entry
-contract. `AGENTS.md` is the canonical project router; compatibility entry and
-skill roots must follow `docs/governance/ssot-v1.1.md`.
+contract. `AGENTS.md` is the canonical project router; a root `CLAUDE.md` alias
+is not required or created. The `.claude/skills` adapter remains required;
+follow the native-host version and skill-root contract in `docs/governance/ssot-v1.1.md`.
 
 It does not govern every Markdown file in the repository. Markdown under
 product packages, workbenches, prompt libraries, source folders, or asset
